@@ -1,0 +1,40 @@
+entity_id	entity_desc	active
+0	Global	Y
+1	Project	Y
+2	Work Order	Y
+3	Ticket	Y
+4	Product	Y
+5	Organization	Y
+6	Department	Y
+7	Personnel	Y
+8	Action	Y
+9	Status	Y
+10	Priority	Y
+11	Severity	Y
+12	Time Card	Y
+13	Ticket Resolution	Y
+14	Contact	Y
+15	FAQ	Y
+16	FAQ Topic	Y
+17	FAQ Question	Y
+18	FAQ Answer	Y
+19	Form	Y
+20	Administration	Y
+21	Attribute Set	Y
+22	Form Template	Y
+23	Address Type	Y
+24	E-Mail Type	Y
+25	Note Type	Y
+26	Phone Type	Y
+27	URL Type	Y
+28	Source	Y
+29	Lookup	Y
+30	Preferences	Y
+31	Product Module	Y
+32	Saved Search	Y
+33	Work Order Type	Y
+34	ChangeLog	Y
+35	Session	Y
+36	Role	Y
+37	Organization Type	Y
+38	Contact Type	Y

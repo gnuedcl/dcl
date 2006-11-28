@@ -1,0 +1,38 @@
+<?php
+	define('STR_BO_ACCOUNTSUCCESS', "Kontot %s lades till!");
+	define('STR_BO_PASSWORDERR', "Felaktig angivet eller tomt lösenord!");
+	define('STR_BO_DELETED', "Borttaget.");
+	define('STR_BO_DEACTIVATED', "Deaktiverad.");
+	define('STR_BO_UPLOADERR', "Kunde inte kopiera uppladdad fil till sin destination!");
+	define('STR_BO_TIMECARDDELETED', "Aktivitetsrapportsid %d för order %d-%d borttagen!");
+	define('STR_BO_WORKORDERDELETED', "Ordrarna %d-%d borttagna!");
+	define('STR_BO_CSVUPLOADNONE', "Ingen fil uppladdad för import!");
+	define('STR_BO_CSVUPLOADERR', "Kan inte öppna den uppladdade filen!");
+	define('STR_BO_FILECONTENTS', "Filens innehåll");
+	define('STR_BO_CSVMAPERR', "Kunde inte referera fält \\\"%s\\\" till ID på rad %d!");
+	define('STR_BO_CSVNEWWOADDED', "%d nya ordrar adderade!");
+	define('STR_BO_WTCHALLSEQ', "Alla delordrar till ordernr# %d");
+	define('STR_BO_WTCHSUMMARYERR', "Ehh? Okänd namn/sammanfattning för bevakning.");
+	define('STR_BO_MAILMSG', "Du har fått detta ebrev eftersom du är (1) direkt involverad, eller (2) bevakar denna arbetsorder, eller (3) bevakar en produkt eller ett projekt som är associerad med denna begäran.  Detta är en snabbtitt på aktuell begäran.");
+	define('STR_BO_MAILSUBJ', "Orderuppdatering");
+	define('STR_BO_MAILSENT', "ebrev skickades till %s för notifiering");
+	define('STR_BO_NOJCNFORSEQWARNING', "Kunde inte hitta ordernr# %d.  Skapar ny arbetsorder istället.");
+	define('STR_BO_NOTLOGGEDIN', "Du är inte inloggad.");
+	define('STR_BO_SEEDETAILAT', "Se detalj: %s");
+	define('STR_BO_CANNOTLOADFAQ', "Kunde inte hitta FAQ med hjälp av id %d");
+	define('STR_BO_CANNOTLOADQUESTION', "Kunde inte hitta FAQ-frågan med hjälp av id %d");
+	define('STR_BO_CANNOTLOADTOPIC', "Kunde inte hitta FAQ-rubrik med hjälp av id %d");
+	define('STR_BO_PARENTISCHILD', "Det projekt du valt är egentligen ett underprojekt. Välj ett annat projekt.");
+	define('STR_BO_ESCALATEDTO', "Vidarebefodrat till produktansvarig");
+	define('STR_BO_TICKETDELETED', "Begäran #%d borttagen");
+	define('STR_BO_GRAPHNEEDSGD', "Du måste ha gd-modulen (php3/4-gd) kompilerad till PHP för att grafiken ska fungera.");
+	define('STR_BO_GRAPHTITLE', "Antal öppna(röd)/stängda(blå) begäran vs. datum.");
+	define('STR_BO_WOGRAPHTITLE', "Number of Opened(red)/Closed(blue) Work Orders vs. Date");
+	define('STR_BO_GRAPHCAPTIONX', "Datum");
+	define('STR_BO_GRAPHCAPTIONY', "Antal öppnade/stända begäran");
+	define('STR_BO_WOGRAPHCAPTIONY', "Number of Opened/Closed Work Orders");
+	define('STR_BO_TICKETMAILMSG', "Du får detta ebrev eftersom du är (1) direkt involverad, eller (2) bevakar denna begäran, eller (3) bevakar en produkt associerad med denna begäran.");
+	define('STR_BO_PROJECTMAILMSG', "Du har tilldelats projektledningen.");
+	define('STR_BO_LOOKUPNOTFOUND', "Lookup ID %d not found!");
+	define('STR_BO_UPLOADSUCCESS', "%s => %s (%d byte)");
+?>

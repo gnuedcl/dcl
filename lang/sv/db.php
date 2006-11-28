@@ -1,0 +1,34 @@
+<?php
+	define('STR_DB_ACCOUNTINSERTERR', "Kunde inte lägga till nytt konto! Fråga: %s");
+	define('STR_DB_ACTIONINSERTERR', "Kunde inte lägga till ny aktivitet! Fråga: %s");
+	define('STR_DB_DEPTINSERTERR', "Kunde inte lägga till ny avdelning! Fråga: %s");
+	define('STR_DB_USERINSERTERR', "Kunde inte lägga till ny användare! Fråga: %s");
+	define('STR_DB_PWDCHGERR', "Kunde inte ändra lösenordet! Fråga: %s");
+	define('STR_DB_PWDCHGSUCCESS', "Lösenordet är ändrat!");
+	define('STR_DB_PRIORITYINSERTERR', "Kunde inte lägga till ny prioritet! Fråga: %s");
+	define('STR_DB_SEVERITYINSERTERR', "Kunde inte lägga till ny kategori! Fråga: %s");
+	define('STR_DB_STATUSINSERTERR', "Kunde inte lägga till ny status! Fråga: %s");
+	define('STR_DB_PRODUCTINSERTERR', "Kunde inte lägga till ny produkt! Fråga: %s");
+	define('STR_DB_PROJECTMAPINSERTERR', "Kunde inte lägga till ny \'projekt mappning\'! Fråga: %s");
+	define('STR_DB_PROJECTINSERTERR', "Kunde inte skapa nytt projekt! Fråga: %s");
+	define('STR_DB_PROJECTBYOIDERR', "Kunde inte hämta projekt med hjälp av ID eller OID %d!");
+	define('STR_DB_PROJECTINSERTSUCCESS', "Projekt %s skapat.");
+	define('STR_DB_WORKORDERLOADERR', "Kunde inte ladda arbetsorder %d-%d!");
+	define('STR_DB_WORKORDERINSERTERR', "Kunde inte skapa ny arbetsorder!  Fråga: %s");
+	define('STR_DB_WORKORDERBYOIDERR', "Kunde inte hämta arbetsorder med hjälp av ID eller OID %d!");
+	define('STR_DB_FAQINSERTERR', "Kunde inte skapa FAQ!  Fråga: %s");
+	define('STR_DB_FAQANSWERINSERTERR', "Kunde inte skapa FAQ-svar!  Fråga: %s");
+	define('STR_DB_FAQQUESTIONINSERTERR', "Kunde inte skapa FAQ-fråga!  Fråga: %s");
+	define('STR_DB_FAQTOPICINSERTERR', "Kunde inte skapa FAQ-rubrik!  Fråga: %s");
+	define('STR_DB_CONNECTIONFAILED', "Kontakt med databasen misslyckades!");
+	define('STR_DB_WRONGPWD', "Felaktigt lösenord!");
+	define('STR_DB_RESOLUTIONINSERTERR', "Kunde inte skapa ny begäran-åtgärd! Fråga: %s");
+	define('STR_DB_RESOLUTIONBYOIDERR', "Kunde inte hämta begäran-åtgärd med hjälp av ID eller OID %d!");
+	define('STR_DB_TICKETINSERTERR', "Kunde inte skapa ny begäran! Fråga: %s");
+	define('STR_DB_TICKETBYOIDERR', "Kunde inte hämta begäran med hjälp av ID eller OID %d!");
+	define('STR_DB_VIEWINSERTERR', "Kunde inte skapa ny vy! Fråga: %s");
+	define('STR_DB_WATCHINSERTERR', "Kunde inte skapa ny bevakning! Fråga: %s");
+	define('STR_DB_CHKLSTOIDERR', "Error retrieving checklist by ID# %d");
+	define('STR_DB_CHKLSTTPLOIDERR', "Error retrieving checklist template by ID# %d");
+	define('STR_DB_CFGINSERTERR', "Could not add config item.  Query: %s");
+?>

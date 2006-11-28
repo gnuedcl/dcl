@@ -1,0 +1,36 @@
+<?php
+	define('STR_WOST_SSTITLE', "Arbetsorderstatus - tabellvy");
+	define('STR_WOST_PERSONNEL', "Inkludera personal");
+	define('STR_WOST_PRODUCTS', "Inkludera produkter");
+	define('STR_WOST_CLOSEDWO', "Stänga arbetsorder: Om du söker efter arbetsorder, fyll i någon eller båda datumen");
+	define('STR_WOST_BEGIN', "Börjar");
+	define('STR_WOST_ENDING', "Slutar");
+	define('STR_WOST_ALL', "Alla");
+	define('STR_WOST_HOURSABBREV', "h");
+	define('STR_WOST_SEARCHRESULTS', "Sökresultat för orderstatistik");
+	define('STR_WOST_TICKETACTIVITY', "Rapport över beställningar");
+	define('STR_WOST_PERSONNELACTIVITY', "Rapport över personalaktivitet");
+	define('STR_WOST_GENERATEREPORTFOR', "Generera rapport över");
+	define('STR_WOST_DATERANGE', "Datumområde");
+	define('STR_WOST_DATEERR', "Kan inte skriva rapport utan både ett startdatum och ett slutdatum.");
+	define('STR_WOST_SUMMARY', "Sammanfattning");
+	define('STR_WOST_STATUSABB', "STAT");
+	define('STR_WOST_PRIORITYABB', "PRIO");
+	define('STR_WOST_SEVERITYABB', "ALLV");
+	define('STR_WOST_BUDGET', "Budget");
+	define('STR_WOST_ETC', "ETK");
+	define('STR_WOST_TODATE', "Till datum");
+	define('STR_WOST_ESTSTART', "Ber.start");
+	define('STR_WOST_ESTEND', "Ber.slut");
+	define('STR_WOST_START', "Start");
+	define('STR_WOST_END', "Slut");
+	define('STR_WOST_TIME', "Tid");
+	define('STR_WOST_ACTIVITYTITLE', "Aktivitetsrapport över %s från %s till %s");
+	define('STR_WOST_NOACTIVITY', "Ingen aktivitet funnen!");
+	define('STR_WOST_QUERYERR', "Kunde inte utföra fråga!");
+	define('STR_WOST_NOTASKS', "Inget att schemalägga.");
+	define('STR_WOST_SCHEDULEDTASK', "Schemalagd %d-%d för %s till %s");
+	define('STR_WOST_SCHEDULETITLE', "Schemalägg öppna åtaganden för personal");
+	define('STR_WOST_SCHEDULEFOR', "Schemalägg för");
+	define('STR_WOST_FORMATASTIMESHEET', "Format as Timesheet");
+?>

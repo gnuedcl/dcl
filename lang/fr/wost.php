@@ -1,0 +1,36 @@
+<?php
+	define('STR_WOST_SSTITLE', "Statut des Ordres de Travail - Vue Tableau");
+	define('STR_WOST_PERSONNEL', "Personnel Inclus");
+	define('STR_WOST_PRODUCTS', "Produits Inclus");
+	define('STR_WOST_CLOSEDWO', "Travaux fermés: Si recherche de travaux fermés, remplissez une ou deux de ces dates");
+	define('STR_WOST_BEGIN', "Début");
+	define('STR_WOST_ENDING', "Fin");
+	define('STR_WOST_ALL', "Tout");
+	define('STR_WOST_HOURSABBREV', "h");
+	define('STR_WOST_SEARCHRESULTS', "Résultat de recherche de statistiques pour les Ordres de Travail");
+	define('STR_WOST_TICKETACTIVITY', "Rapport d\'activité des tickets");
+	define('STR_WOST_PERSONNELACTIVITY', "Rapport d\'Activité du Personnel");
+	define('STR_WOST_GENERATEREPORTFOR', "Générer Rapport Pour");
+	define('STR_WOST_DATERANGE', "Période");
+	define('STR_WOST_DATEERR', "Impossible d\'imprimer le rapport sans date de début ou date de fin.");
+	define('STR_WOST_SUMMARY', "Résumé");
+	define('STR_WOST_STATUSABB', "ST");
+	define('STR_WOST_PRIORITYABB', "PR");
+	define('STR_WOST_SEVERITYABB', "SV");
+	define('STR_WOST_BUDGET', "Budget");
+	define('STR_WOST_ETC', "RAF");
+	define('STR_WOST_TODATE', "ToDate");
+	define('STR_WOST_ESTSTART', "Début estimé");
+	define('STR_WOST_ESTEND', "Fin estimée");
+	define('STR_WOST_START', "Début");
+	define('STR_WOST_END', "Fin");
+	define('STR_WOST_TIME', "Temps");
+	define('STR_WOST_ACTIVITYTITLE', "Rapport d\'Activité Pour %s du %s au %s");
+	define('STR_WOST_NOACTIVITY', "Pas d\'activité trouvée!");
+	define('STR_WOST_QUERYERR', "Impossible d\'exécuter la requête!");
+	define('STR_WOST_NOTASKS', "Pas de tâches à planifier");
+	define('STR_WOST_SCHEDULEDTASK', "Planification %d-%d pour %s à %s");
+	define('STR_WOST_SCHEDULETITLE', "Planification des Tâches Ouvertes pour le Personnel");
+	define('STR_WOST_SCHEDULEFOR', "Planifié Pour");
+	define('STR_WOST_FORMATASTIMESHEET', "Format as Timesheet");
+?>

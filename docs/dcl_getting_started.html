@@ -1,0 +1,1740 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Getting Started with Double Choco Latte</TITLE>
+<META NAME="description" CONTENT="Getting Started with Double Choco Latte">
+<META NAME="keywords" CONTENT="dcl_getting_started">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="dcl_getting_started.css">
+
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="file:/usr/lib/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev_g.png">   
+<BR>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+<H1 ALIGN="CENTER">Getting Started with Double Choco Latte</H1>
+<P ALIGN="CENTER"><STRONG>Michael L. Dean</STRONG></P>
+<P ALIGN="CENTER"><STRONG>$Id: dcl_getting_started.lyx,v 1.1 2001/07/30 00:11:51 mdean Exp
+$</STRONG></P>
+
+<P>
+<BR>
+
+<H2><A NAME="SECTION00010000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html56"
+  HREF="dcl_getting_started.html">Contents</A>
+<LI><A NAME="tex2html57"
+  HREF="dcl_getting_started.html#SECTION00020000000000000000">1 Introduction</A>
+<UL>
+<LI><A NAME="tex2html58"
+  HREF="dcl_getting_started.html#SECTION00021000000000000000">1.1 Features</A>
+<LI><A NAME="tex2html59"
+  HREF="dcl_getting_started.html#SECTION00022000000000000000">1.2 Coming Features</A>
+</UL>
+<LI><A NAME="tex2html60"
+  HREF="dcl_getting_started.html#SECTION00030000000000000000">2 Picking Up Where INSTALL Leaves Off</A>
+<LI><A NAME="tex2html61"
+  HREF="dcl_getting_started.html#SECTION00040000000000000000">3 Logging In</A>
+<LI><A NAME="tex2html62"
+  HREF="dcl_getting_started.html#SECTION00050000000000000000">4 Menu Description</A>
+<UL>
+<LI><A NAME="tex2html63"
+  HREF="dcl_getting_started.html#SECTION00051000000000000000">4.1 Home</A>
+<LI><A NAME="tex2html64"
+  HREF="dcl_getting_started.html#SECTION00052000000000000000">4.2 Work Orders</A>
+<LI><A NAME="tex2html65"
+  HREF="dcl_getting_started.html#SECTION00053000000000000000">4.3 Projects</A>
+<LI><A NAME="tex2html66"
+  HREF="dcl_getting_started.html#SECTION00054000000000000000">4.4 Tickets</A>
+<LI><A NAME="tex2html67"
+  HREF="dcl_getting_started.html#SECTION00055000000000000000">4.5 Admin</A>
+<LI><A NAME="tex2html68"
+  HREF="dcl_getting_started.html#SECTION00056000000000000000">4.6 Help</A>
+</UL>
+<LI><A NAME="tex2html69"
+  HREF="dcl_getting_started.html#SECTION00060000000000000000">5 Using Work Orders</A>
+<UL>
+<LI><A NAME="tex2html70"
+  HREF="dcl_getting_started.html#SECTION00061000000000000000">5.1 Time Cards</A>
+</UL>
+<LI><A NAME="tex2html71"
+  HREF="dcl_getting_started.html#SECTION00070000000000000000">6 Using Projects</A>
+<LI><A NAME="tex2html72"
+  HREF="dcl_getting_started.html#SECTION00080000000000000000">7 Using Tickets</A>
+<LI><A NAME="tex2html73"
+  HREF="dcl_getting_started.html#SECTION00090000000000000000">8 Using Checklists</A>
+<UL>
+<LI><A NAME="tex2html74"
+  HREF="dcl_getting_started.html#SECTION00091000000000000000">8.1 Building Your Templates</A>
+<LI><A NAME="tex2html75"
+  HREF="dcl_getting_started.html#SECTION00092000000000000000">8.2 Minimal Template</A>
+<LI><A NAME="tex2html76"
+  HREF="dcl_getting_started.html#SECTION00093000000000000000">8.3 Example Template</A>
+<LI><A NAME="tex2html77"
+  HREF="dcl_getting_started.html#SECTION00094000000000000000">8.4 Future Enhancements for Checklists</A>
+</UL>
+<LI><A NAME="tex2html78"
+  HREF="dcl_getting_started.html#SECTION000100000000000000000">About this document ...</A>
+</UL>
+<!--End of Table of Contents-->
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+1 Introduction</A>
+</H1>
+
+<P>
+This document will hopefully give users an overview of Double Choco
+Latte (DCL) and its features. It is meant to complement the (inwork)
+online help that accompanies DCL.
+
+<P>
+
+<H2><A NAME="SECTION00021000000000000000">
+1.1 Features</A>
+</H2>
+
+<P>
+DCL supports a number of features, but it is still in development.
+Among these features are:
+
+<P>
+
+<UL>
+<LI>Very fine granularity of tracking work and time spent on a task. Hours
+are documented and the user can get as detailed as necessary when
+documenting the steps performed to complete a task.
+</LI>
+<LI>Configurable application settings to tailor the verbage to your needs.
+Statuses, priorities, severities, etc. are all configurable and data
+driven.
+</LI>
+<LI>EMail notification of new work orders and updates. Users can place
+&#34;watches&#34; on products, projects, and work orders
+to receive update notifications when activity occurs. Activity can
+be limited to open work order (useful only for products and projects),
+close work order, or status change for work order. Of course, if &#34;Anything&#34;
+is selected, the watching user will receive notifications on all updates.
+</LI>
+<LI>File attachments for work orders and projects.
+</LI>
+<LI>A &#34;My DCL&#34; page to show a user's current status
+in the system and their outstanding work orders.
+</LI>
+<LI>Basic security levels to limit some user's abilities in the system.
+</LI>
+<LI>Saved Searches
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00022000000000000000">
+1.2 Coming Features</A>
+</H2>
+
+<P>
+Although DCL is currently usable, it has greater aspirations. Among
+these are:
+
+<P>
+
+<UL>
+<LI>Enhanced security utilizing groups (roles) and permissions.
+</LI>
+<LI>Configurable fields to allow customization of fields used, required,
+and additional fields defined by an administrator. Going beyond the
+norm here as well, it will more than likely be possible to create
+different categories of fields and associate them with products.
+</LI>
+<LI>Call center oriented module providing queues and allowing users to
+monitor those queues. The structure would be something along the lines
+of: Product(s) &gt; Queue &gt; User(s)
+</LI>
+<LI>EMail gateway allowing work orders to be created and monitored via
+email. This is currently in development.
+</LI>
+<LI>Online interactive FAQs. This feature has been started, but is not
+yet complete.
+</LI>
+<LI>Resource repository. This will go beyond the simple &#34;file&#34;
+repository or &#34;link farm&#34; and provide the ability
+to categorize links, files, FAQs, or whatever else we deem appropriate
+into one, huge, browsable collection of information. Searching will
+be of extra value here, but the requirements to implement such a feature
+have not been examined.
+</LI>
+<LI>Pull RDF resources for display. I know this is gravy, but it'll be
+cool.
+</LI>
+<LI>Integration with CVS to some degree.
+</LI>
+<LI>Customizable views.
+</LI>
+<LI>Integration with phpGroupWare http://www.phpgroupware.org/
+</LI>
+</UL>
+So, as you can see, DCL may become an excellent way to manage products
+provided by companies or individuals. The problem is there just aren't
+enough hours in a day...
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+2 Picking Up Where INSTALL Leaves Off</A>
+</H1>
+
+<P>
+The INSTALL file is a little vague for some when it comes to configuring
+DCL for their particular environment. I'll try to go through the process
+here in the hopes that it will provide some answers and guidance for
+those in need.
+
+<P>
+
+<OL>
+<LI>After all is setup, you should be able to login as 'sa' with the password
+'sa'.
+</LI>
+<LI>You will then be presented with the main menu. First things first:
+<B>CHANGE THE sa PASSWORD!!!</B> Select Change Password from the
+Admin menu.
+</LI>
+<LI>Recent versions of DCL utilize a setup page to help guide the administrator
+through the setup and configuration of DCL in a logical order. <B>Pay
+special attention to the red colored sentences on this screen.</B> It
+will save you a few headaches ;-)
+</LI>
+<LI>At this point, you're done with configuration! Open the gates and
+let the users in!
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+3 Logging In</A>
+</H1>
+
+<P>
+Users login with their DCL user name and password. Also available
+on the login screen is a drop down box to select the preferred user
+interface. Currently, three UIs exist: Drop Down, Tree, and Static.
+Drop down uses DHTML/JavaScript to provide a UI similar to an application
+pull down menu. Tree also uses DHTML/JavaScript along with frames
+(to avoid constantly reloading the menu and having to remember state)
+and utilizes the familiar collapsible tree structure. The third (and
+my favorite) is static. The static menu is just a flattened menu in
+its own frame. No DHTML, no JavaScript, perfect for Mozilla (the reason
+I made it).
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+4 Menu Description</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00051000000000000000">
+4.1 Home</A>
+</H2>
+
+<P>
+<A NAME="sec:menu_description_home"></A>After logging in, the user is presented
+with the ``My DCL'' or ``home'' page. My DCL provides
+some basic information to the user about their status in the system
+and the status of affiliated work orders. A quick walk through the
+sections is in order:
+
+<P>
+
+<UL>
+<LI><B>My Projects</B> If you are the lead of any nonclosed projects,
+they will be listed here. Clicking on the individual links will take
+you to that project's detail page.
+</LI>
+<LI><B>My Work Orders</B> If you are responsible for any unresolved
+work orders, they will be shown here. Clicking on the links will show
+you the work order detail.
+</LI>
+<LI><B>My Work Order Submissions</B> If you have submitted any work
+orders that you are not responsible for and have not been resolved,
+they land here. The links operate the same as the work order links.
+</LI>
+<LI><B>My Products</B> If you are the lead of any products, they are
+listed here. If you click on a link, you will be taken to the product
+detail.
+</LI>
+<LI><B>My Watches</B> If you have created watches in DCL, they are listed
+here. Clicking on links in this section behave according to the type
+of watch. See the above items for behavior.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00052000000000000000">
+4.2 Work Orders</A>
+</H2>
+
+<P>
+The work orders menu contains functions to input, search, and report
+on work orders in your system. It should be noted here that while
+DCL is currently about 90% ready for NLS, some menu items do not
+match with the terminology used here and within DCL itself (nice,
+huh?). Mainly, JCN (Job Control Number) is equivalent to work order
+number.
+
+<P>
+
+<H3><A NAME="SECTION00052100000000000000">
+4.2.1 My WOs</A>
+</H3>
+
+<P>
+See Section <A HREF="dcl_getting_started.html#sec:menu_description_home">4.1</A> for a description of
+this item.
+
+<P>
+
+<H3><A NAME="SECTION00052200000000000000">
+4.2.2 New Work Order </A>
+</H3>
+
+<P>
+This option allows you to create a brand new work order. All of the
+fields in the work order entry screen should be selfexplanatory. Some
+differences will exist based on your security level:
+
+<P>
+
+<UL>
+<LI>If your security level is the lowest possible allowing work order
+input, you will not be able to input the following fields: responsible,
+hours, priority, severity, deadline, estimated start date, estimated
+end date, and deadline. These fields are configured this way because
+it was felt that ultimately, this is the responsibility of the team
+lead/manager.
+</LI>
+<LI>The next level up will allow you to take responsibility for the work
+order if you are able to have work orders assigned to you. You will
+not be able to input the fields noted above.
+</LI>
+<LI>The highest level of work order input allows you to fill in the fields
+noted above. In fact, they are required which means you have to do
+a little more typing, but can suggest the dates, the priority, and
+the severity.
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00052300000000000000">
+4.2.3 New Sequence</A>
+</H3>
+
+<P>
+To add a sequence to an existing work order, choose the New Seq menu
+item. Remember that a sequence is a way to relate work orders together
+logically in DCL. They can be related according to any relationship
+logic you can think of, but the intended use is almost like a small
+project. Sequences are only limited by the database and PHP.
+
+<P>
+
+<H3><A NAME="SECTION00052400000000000000">
+4.2.4 Import</A>
+</H3>
+
+<P>
+The import was created by Urmet Janes to facilitate work order creation
+from a CSV (comma separated values) file. This (if I remember correctly)
+was designed so Excel could be used to input work orders through a
+spread sheet, exported to CSV, and imported to DCL. It supports validation
+of data, input of fields by ID or by name, and other features. See
+the online help for more information.
+
+<P>
+
+<H3><A NAME="SECTION00052500000000000000">
+4.2.5 Activity</A>
+</H3>
+
+<P>
+The Personnel Activity report was written to satisfy my company's
+need for a summary timesheet report. The information provided by this
+report covers activity between two dates. We report timesheets on
+a weekly basis, so every week, everyone runs their reports to show
+their activity for the week. This allows management to see where timelines
+may slip due to unscheduled incidents (i.e., a customer's site goes
+down, etc.). It does basic budget analysis to see if estimates are
+accurately being made for work orders (based on the estimated hours
+field).
+
+<P>
+
+<H3><A NAME="SECTION00052600000000000000">
+4.2.6 Graph</A>
+</H3>
+
+<P>
+The graph function currently shows a simple line graph of the amount
+of work orders opened and closed over a 7 or 14 day period ending
+on a date provided by the user. In the future, it will be possible
+to restrict the work orders based on different criteria (like account,
+product, etc).
+
+<P>
+
+<H3><A NAME="SECTION00052700000000000000">
+4.2.7 Statistics</A>
+</H3>
+
+<P>
+The Statistics page is a HUUUUUGE spreadsheet view of either all nonclosed
+or all closed work orders in the system. It shows only personnel who
+have work orders assigned to them, thereby weeding out users who cannot
+have work orders or are laying dormant in the system. Columns are
+broken down by product, then status. Rows are listed for each individual.
+In the cells the total number of tasks for that person/product/status
+are shown along with the total estimated hours remaining for the work
+orders. For example, 6(10.75) means there are 6 tasks with a total
+of 10.75 hours of work remaining. These numbers are also clickable,
+taking you to a search result showing just those work orders.
+
+<P>
+
+<H3><A NAME="SECTION00052800000000000000">
+4.2.8 Schedule</A>
+</H3>
+
+<P>
+The Schedule option was another work related addition. It is a very
+simple schedule that orders a person's tasks by priority, severity,
+jcn, and seq. Essentially, it is a FIFO by priority and severity.
+It will take a persons open tasks (status 1) only and schedule them
+assuming a Monday through Friday work week with 8 hours/day of work
+allocated. Very simple, indeed. It will adjust the estimated start
+and end dates of the work orders accordingly.
+
+<P>
+
+<H3><A NAME="SECTION00052900000000000000">
+4.2.9 Search</A>
+</H3>
+
+<P>
+The Search option is what it is. It is two forms (at this time) offering
+two ways to find work orders. The first is by WO#/Seq. The WO# must
+be input, but the sequence is optional. If the sequence is not specified
+and the WO# contains multiple sequences, all sequences will be shown
+in the result set as if by search. If only one work order is found
+for a given WO#, the work order detail will be displayed.
+
+<P>
+The second part of the search screen is more advanced. It has several
+list boxes allowing users to choose which items to include in the
+result set. The search is performed with all fields using AND logic,
+while values within fields use OR logic. For example, it is possible
+to construct a query like 'where account='company abc' and product='our
+premium product' and status in 'open','unassigned'. This is pseudoSQL,
+of course. It should be noted that the free text search on the bottom
+(summary, notes, description) may require case sensitivity if your
+SQL server platform demands it. It is also a phrase match (used as
+like '%match this%') query.
+
+<P>
+
+<H2><A NAME="SECTION00053000000000000000">
+4.3 Projects</A>
+</H2>
+
+<P>
+
+<H3><A NAME="SECTION00053100000000000000">
+4.3.1 My Projects</A>
+</H3>
+
+<P>
+See Section <A HREF="dcl_getting_started.html#sec:menu_description_home">4.1</A> for a description of
+this item.
+
+<P>
+
+<H3><A NAME="SECTION00053200000000000000">
+4.3.2 New Project</A>
+</H3>
+
+<P>
+New Project allows the creation of projects to group work orders under.
+Currently, the only advantage is the ability to provide a summary
+on a set of work orders as a whole. Work orders can be attached to
+projects one of two ways. First, by clicking P (Prj) in a search result
+set. Second, by selecting the project to add the work order to when
+the work order is created. Note that you must have the highest level
+of work order input (add/assign) in order to create and manipulate
+projects.
+
+<P>
+
+<H3><A NAME="SECTION00053300000000000000">
+4.3.3 View Projects</A>
+</H3>
+
+<P>
+The View Projects option allows you to select a project to view a
+detail for. You can browse through the projects and optionally filter
+by status and project lead. For each project listed, you can jump
+to a detail view (project view with stats) or a tree view. The tree
+view will show the work orders of the selected project and child projects
+(if any) in a nested tree view.
+
+<P>
+
+<H2><A NAME="SECTION00054000000000000000">
+4.4 Tickets</A>
+</H2>
+
+<P>
+
+<H3><A NAME="SECTION00054100000000000000">
+4.4.1 My Tickets</A>
+</H3>
+
+<P>
+See Section <A HREF="dcl_getting_started.html#sec:menu_description_home">4.1</A> for a description of
+this item.
+
+<P>
+
+<H3><A NAME="SECTION00054200000000000000">
+4.4.2 New Ticket</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H3><A NAME="SECTION00054300000000000000">
+4.4.3 Activity</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H3><A NAME="SECTION00054400000000000000">
+4.4.4 Graph</A>
+</H3>
+
+<P>
+The graph function currently shows a simple line graph of the amount
+of work orders opened and closed over a 7 or 14 day period ending
+on a date provided by the user. In the future, it will be possible
+to restrict the work orders based on different criteria (like account,
+product, etc).TODO
+
+<P>
+
+<H3><A NAME="SECTION00054500000000000000">
+4.4.5 Statistics</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H3><A NAME="SECTION00054600000000000000">
+4.4.6 Search</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H2><A NAME="SECTION00055000000000000000">
+4.5 Admin</A>
+</H2>
+
+<P>
+This is exactly what it says it is. You can perform your administrative
+tasks here.
+
+<P>
+
+<H3><A NAME="SECTION00055100000000000000">
+4.5.1 Change Password</A>
+</H3>
+
+<P>
+Change Password allows users to change their passwords, assuming they
+have the proper security level. The sa user can change the password
+for anyone in the system. All other users (regardless of security)
+have to confirm the current password and enter the new password with
+confirmation to ensure it was typed correctly.
+
+<P>
+
+<H3><A NAME="SECTION00055200000000000000">
+4.5.2 System Setup</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H3><A NAME="SECTION00055300000000000000">
+4.5.3 New Account</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H3><A NAME="SECTION00055400000000000000">
+4.5.4 View Accounts</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H3><A NAME="SECTION00055500000000000000">
+4.5.5 Checklists</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H3><A NAME="SECTION00055600000000000000">
+4.5.6 Products</A>
+</H3>
+
+<P>
+Which leads me to my next revelation: the Show Products option also
+includes the infamous D (Det) link to view the project details. A
+project's details are currently simple: show some quick status on
+work orders for the product, along with a list of work orders sectioned
+by status and ordered by age. Age is reported in days (including fractional
+to the hundredth decimal place). From here, you can quickly assess
+a product's status and get a rough idea of the amount of activity
+being generated for it.
+
+<P>
+
+<H3><A NAME="SECTION00055700000000000000">
+4.5.7 Watches</A>
+</H3>
+
+<P>
+Watches allows you to administer the watches you currently have. You
+can create watches by selecting the W (or Wtch) link when viewing
+a work order detail, work order result set, project detail, or product
+list (Admin...Show Products). Watches can be modified or deleted in
+this area.
+
+<P>
+
+<H2><A NAME="SECTION00056000000000000000">
+4.6 Help</A>
+</H2>
+
+<P>
+The help menu is pretty basic at this point. It is really more of
+a miscellaneous option menu. Clear Screen refreshes the screen with
+blank content. This is most useful for getting at the drop down menu
+if a form with a bunch of controls (such as the search screen) is
+shown immediately beneath the menu. Currently, IE 5.x has the implementation
+of zorder in layers most correct. It appears that layers will still
+be shown beneath list boxes, but do appear above edit boxes and buttons.
+
+<P>
+
+<H3><A NAME="SECTION00056100000000000000">
+4.6.1 FAQs</A>
+</H3>
+
+<P>
+TODO
+
+<P>
+
+<H3><A NAME="SECTION00056200000000000000">
+4.6.2 Clear Screen</A>
+</H3>
+
+<P>
+Blanks the content area. Most useful with the drop down menu to remove
+form elements that may be hiding menu items.
+
+<P>
+
+<H3><A NAME="SECTION00056300000000000000">
+4.6.3 DCL Home Page</A>
+</H3>
+
+<P>
+DCL Home Page will take you to the website for DCL (currently http://dcl.sourceforge.net/index.php).
+
+<P>
+
+<H3><A NAME="SECTION00056400000000000000">
+4.6.4 License Info</A>
+</H3>
+
+<P>
+License Info will display the GNU Public License, which is the license
+governing the release of DCL.
+
+<P>
+
+<H3><A NAME="SECTION00056500000000000000">
+4.6.5 Version Info</A>
+</H3>
+
+<P>
+Version Info displays a little information that could prove useful
+in diagnosing problems at some point. More information can be added
+to this screen, but that is a low priority at this time.
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+5 Using Work Orders</A>
+</H1>
+
+<P>
+Work order options are displayed within search result lists and in
+work order details. They are normally configured to show the short
+description since the abbreviated (3 letter) description proves to
+be quite long in limited screen space. I'll list the currently available
+options and give a brief description of each:
+
+<P>
+
+<UL>
+<LI>D (Det) Link to the detail of the work order.
+</LI>
+<LI>T (Act) Time card entries can be issued by selecting this option.
+</LI>
+<LI>A (Asn) Assign a work order to another team member. This option also
+allows reassigning deadline, estimated start/end dates, and the hours
+remaining.
+</LI>
+<LI>M (Mod) Modify a work order. This is the same as the new work order
+screen, but is only available to users with modify work order privilege.
+</LI>
+<LI>S (Seq) Allows the user to create a new sequence using the current
+work order number.
+</LI>
+<LI>F (File) Allows a user to upload a file attachment to the work order.
+File attachment maximum upload sizes are controlled by php.ini and
+config.php3. Php.ini is (of course) the system wide maximum, so it
+must be equal to or greater than the size specified in config.php3.
+If this setting is 0, no file attachment uploads are allowed.
+</LI>
+<LI>P (Prj) Adds a work order to a project. If the work order already
+belongs to a project, the project detail will be shown instead.
+</LI>
+<LI>X (Del) Allows the user to delete a work order. Currently, this requires
+a security level one less than the admin.
+</LI>
+<LI>W (Wtch) Adds a watch on the work order.
+</LI>
+</UL>
+These options may also exist in a drop down box if you are viewing
+a work order detail.
+
+<P>
+
+<H2><A NAME="SECTION00061000000000000000">
+5.1 Time Cards</A>
+</H2>
+
+<P>
+Time cards are meant to track work on a task to any level of detail
+needed. Time cards can also be used to denote phone calls, research,
+programming fixes, documentation, hardware upgrades, or whatever you
+need. As long as you have meaningful actions setup for the users to
+pick from, you can enjoy excellent history and (in the future) reporting
+capabilities for how these tasks are resolved.
+
+<P>
+My employer also utilizes DCL for administrative documentation by
+including an Adminstration product along with actions such as sick
+time, vacation, meeting, and documentation.
+
+<P>
+
+<H1><A NAME="SECTION00070000000000000000">
+6 Using Projects</A>
+</H1>
+
+<P>
+TODO
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000">
+7 Using Tickets</A>
+</H1>
+
+<P>
+TODO
+
+<P>
+
+<H1><A NAME="SECTION00090000000000000000">
+8 Using Checklists</A>
+</H1>
+
+<P>
+Section <A HREF="dcl_getting_started.html#sec:using_checklists_minimal_template">8.2</A> shows a minimal
+template. Section <A HREF="dcl_getting_started.html#sec:using_checklists_example_template">8.3</A> shows
+an example template.
+
+<P>
+
+<H2><A NAME="SECTION00091000000000000000">
+8.1 Building Your Templates</A>
+</H2>
+
+<P>
+The minimal template in section <A HREF="dcl_getting_started.html#sec:using_checklists_minimal_template">8.2</A>
+demonstrates a few different items that you can use in checklists.
+This will probably be expanded later to allow more data types as necessary.
+A quick list of pointers for building your templates:
+
+<P>
+
+<UL>
+<LI>The major sections listed are required (Meta, History, and States
+with one or more State elements)
+</LI>
+<LI>The CurrentState node in History should be set to the state you want
+the checklist to be in when it is first instantiated. Normally, this
+will be the first State in the checklist.
+</LI>
+<LI>InitiatedBy and InitiatedOn are auto-filled
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00091100000000000000">
+8.1.1 Field Types</A>
+</H3>
+
+<P>
+Each State has a set of one or more Field elements in the Fields collection.
+Several types are supported and control how the user interacts with
+the checklist:
+
+<P>
+
+<UL>
+<LI><B>createdate</B> - Auto-filled when created
+</LI>
+<LI><B>autoincrement</B> - Actually is the ID of the instantiated checklist
+</LI>
+<LI><B>createby</B> - Auto-filled with the user who instantiated the
+checklist
+</LI>
+<LI><B>phone</B> - Creates a text field for phone number input
+</LI>
+<LI><B>email</B> - Creates a text field for e-mail address input
+</LI>
+<LI><B>personnel-(one | multi)</B> - Creates a drop down or a multi-select
+list box of personnel
+</LI>
+<LI><B>products-(one | multi)</B> - Creates a drop down or a multi-select
+list box of products
+</LI>
+<LI><B>select-(one | multi)</B> - Creates a drop down or a multi-select
+list box of customized options. The options are defined within the
+Field element in the Options collection.
+</LI>
+<LI><B>text</B> - Creates a single line text field. Also uses the size
+attribute to determine maximum length and size of the text.
+</LI>
+<LI><B>textarea</B> - Creates a multi-line text field. Uses rows and
+cols attributes to determine the size of the textarea control.
+</LI>
+<LI><B>date</B> - Creates a date input field with a calendar link.
+</LI>
+<LI><B>time</B> - Creates a text field for time input
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00091200000000000000">
+8.1.2 Field Names</A>
+</H3>
+
+<P>
+Field names should be unique across the entire document. This ensures
+that HTTP POST operations do not accidentally overwrite values from
+duplicate variables.
+
+<P>
+
+<H2><A NAME="SECTION00092000000000000000">
+8.2 Minimal Template</A>
+</H2>
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?xml version=&#34;1.0&#34;
+?&gt;<A NAME="sec:using_checklists_minimal_template"></A></FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&lt;Checklist&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;Meta&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Version&gt;*Version Of Document*&lt;/Version&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Author&gt;*Author Of Document*&lt;/Author&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CreateDate&gt;*Document Creation
+Date*&lt;/CreateDate&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Name&gt;*Name Of Document*&lt;/Name&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Meta&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;History&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CurrentState&gt;*Should Match
+A Valid State From The States Element Below*&lt;/CurrentState&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;InitiatedBy&gt;*Will Be Autofilled*&lt;/InitiatedBy&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;InitiatedOn&gt;*Will Be Autofilled*&lt;/InitiatedOn&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Changes&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Changes&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/History&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;States&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;State name=&#34;*Name
+of State*&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_date&#34;
+display=&#34;Date&#34; type=&#34;createdate&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_id&#34;
+display=&#34;Request ID&#34; type=&#34;autoincrement&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_originator&#34;
+display=&#34;Request Originator&#34; type=&#34;createby&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_phone&#34;
+display=&#34;Phone No.&#34; type=&#34;phone&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_email&#34;
+display=&#34;E-mail&#34; type=&#34;email&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_alternate_contact&#34;
+display=&#34;Alternate Contact&#34; type=&#34;personnel-one&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_products&#34;
+display=&#34;Product(s) Affected&#34; type=&#34;products-multi&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_servers&#34;
+display=&#34;Server(s) Affected&#34; type=&#34;text&#34;
+size=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_customers&#34;
+display=&#34;Customer(s) Affected&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_requested&#34;
+display=&#34;Requested Change Date&#34; type=&#34;date&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dep_start_time&#34;
+display=&#34;Start Time&#34; type=&#34;time&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_reason&#34;
+display=&#34;Reason For Change&#34; type=&#34;select-one&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Options&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;*One
+Or More Options*&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Options&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Values&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Value&gt;&lt;/Value&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Values&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/State&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/States&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&lt;/Checklist&gt;</FONT></TT>
+<P>
+
+
+<P>
+
+<H2><A NAME="SECTION00093000000000000000">
+8.3 Example Template</A>
+</H2>
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?xml version=&#34;1.0&#34;
+?&gt;<A NAME="sec:using_checklists_example_template"></A></FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&lt;Checklist&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;Meta&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Version&gt;1.0.0&lt;/Version&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Author&gt;mdean&lt;/Author&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CreateDate&gt;2001-04-30&lt;/CreateDate&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Name&gt;Change Request Form&lt;/Name&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Meta&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;History&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;CurrentState&gt;Request Information&lt;/CurrentState&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;InitiatedBy&gt;&lt;/InitiatedBy&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;InitiatedOn&gt;&lt;/InitiatedOn&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Changes&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Changes&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/History&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;States&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;State name=&#34;Request
+Information&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_date&#34;
+display=&#34;Date&#34; type=&#34;createdate&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_id&#34;
+display=&#34;Request ID&#34; type=&#34;autoincrement&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_originator&#34;
+display=&#34;Request Originator&#34; type=&#34;createby&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_phone&#34;
+display=&#34;Phone No.&#34; type=&#34;phone&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_email&#34;
+display=&#34;E-mail&#34; type=&#34;email&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_alternate_contact&#34;
+display=&#34;Alternate Contact&#34; type=&#34;personnel-one&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_alternate_phone&#34;
+display=&#34;Alternate Phone No.&#34; type=&#34;phone&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_alternate_email&#34;
+display=&#34;Alternate E-mail&#34; type=&#34;email&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_products&#34;
+display=&#34;Product(s) Affected&#34; type=&#34;products-multi&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_servers&#34;
+display=&#34;Server(s) Affected&#34; type=&#34;text&#34;
+size=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;ri_customers&#34;
+display=&#34;Customer(s) Affected&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/State&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;State name=&#34;Development/Product&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_reason&#34;
+display=&#34;Reason For Change&#34; type=&#34;select-one&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Options&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Enhancement&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Service
+Release&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Product
+Release&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Fix&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Maintenance&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Options&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Values&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Value&gt;&lt;/Value&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Values&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_requested&#34;
+display=&#34;Requested Change Date&#34; type=&#34;date&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_impact&#34;
+display=&#34;Impact Of Failure&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_rollback&#34;
+display=&#34;Rollback Timeline&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_db_change&#34;
+display=&#34;Database Change&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_app_change&#34;
+display=&#34;Application Change&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_conf_change&#34;
+display=&#34;Configuration Change&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dp_files_origin&#34;
+display=&#34;Origin Of Files&#34; type=&#34;select-one&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Options&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Source
+Safe&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Deployment
+CD&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Other
+Media&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Options&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Values&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Value&gt;&lt;/Value&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Values&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/State&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;State name=&#34;Quality
+Assurance&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;qa_procedures&#34;
+display=&#34;Testing Procedures&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/State&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;State name=&#34;Approval&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;app_status&#34;
+display=&#34;Approval Status&#34; type=&#34;select-one&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Options&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Pending&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Approved&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Option&gt;Denied&lt;/Option&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Options&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Values&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Value&gt;&lt;/Value&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Values&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;app_notes&#34;
+display=&#34;Notes&#34; type=&#34;textarea&#34;
+rows=&#34;6&#34; cols=&#34;50&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/State&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;State name=&#34;Deployment&#34;&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dep_team&#34;
+display=&#34;Deployment Team&#34; type=&#34;personnel-multi&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dep_change_schedule&#34;
+display=&#34;Change Schedule&#34; type=&#34;date&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dep_start_time&#34;
+display=&#34;Start Time&#34; type=&#34;time&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dep_end_time&#34;
+display=&#34;End Time&#34; type=&#34;time&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Field name=&#34;dep_fallback_time&#34;
+display=&#34;Fallback Time&#34; type=&#34;time&#34;&gt;&lt;/Field&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Fields&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/State&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&nbsp;&nbsp;&nbsp;&nbsp;&lt;/States&gt;</FONT></TT>
+<P>
+
+
+<P>
+<TT><FONT SIZE="-2">&lt;/Checklist&gt;</FONT></TT>
+<P>
+
+
+<P>
+
+<H2><A NAME="SECTION00094000000000000000">
+8.4 Future Enhancements for Checklists</A>
+</H2>
+
+<P>
+This feature has a long way to go before it can be used for automating
+work flow. Among the needed features are:
+
+<P>
+
+<UL>
+<LI>State transition notifications via email
+</LI>
+<LI>Roles/Permissions based access
+</LI>
+<LI>States can be owned by a user or a role
+</LI>
+<LI>Generation of JavaScript form validation code
+</LI>
+<LI>Flagging fields as required/optional
+</LI>
+<LI>Ensuring that required fields are populated before transitioning to
+the next state
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION000100000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>Getting Started with Double Choco Latte</STRONG><P>
+This document was generated using the
+<A HREF="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 99.2beta8 (1.42)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>
+Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-no_subdir -split 0 -show_section_numbers /tmp/lyx_tmpdir3049SoOJCZ/lyx_tmpbuf3049HrFzwr/dcl_getting_started.tex</TT>
+<P>
+The translation was initiated by Mikey on 2001-07-29<HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="file:/usr/lib/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev_g.png">   
+<BR>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Mikey
+2001-07-29
+</ADDRESS>
+</BODY>
+</HTML>

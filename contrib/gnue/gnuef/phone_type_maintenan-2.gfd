@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<!--  GNUe Designer (pre0.0.2)
+      Form saved on: 2001-10-01 20:53:18  -->
+
+<form width="38" title="Phone Type Maintenance" height="13">
+  <datasource table="phone_type" name="dtsrcPhoneType" database="dcl"/>
+  <page name="pgPhoneType">
+    <block name="blkPhoneType" rows="10" datasource="dtsrcPhoneType">
+      <entry name="ntryId" x="1" y="2" readonly="" width="5" field="id"
+             typecast="number"/>
+      <entry x="6" y="2" field="description" name="ntryDescription"
+             max_length="34" width="31"/>
+    </block>
+    <label x="1" y="1" width="3" name="lblId" text="Id"/>
+    <label x="6" y="1" width="18" name="lblDescription" text="Description"/>
+  </page>
+</form>
+

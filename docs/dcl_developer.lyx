@@ -1,0 +1,931 @@
+#LyX 1.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 220
+\textclass article
+\language english
+\inputencoding latin1
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 1
+\use_amsmath 0
+\use_natbib 0
+\use_numerical_citations 0
+\paperorientation portrait
+\leftmargin 0.5in
+\topmargin 0.5in
+\rightmargin 0.5in
+\bottommargin 0.5in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+Double Choco Latte Developer Documentation
+\layout Author
+
+Michael L.
+ Dean
+\layout Date
+
+$Id: dcl_developer.lyx,v 1.6 2006/11/27 06:04:04 mdean Exp $
+\layout Standard
+
+
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+pagenumbering{roman}
+\layout Standard
+
+\backslash 
+tableofcontents 
+\backslash 
+newpage
+\layout Standard
+
+\backslash 
+pagenumbering{arabic}
+\end_inset 
+
+
+\layout Section
+
+Application Architecture
+\layout Standard
+
+Double Choco Latte is an object oriented implementation of a problem/project
+ management system.
+ All actions are performed with objects that are split into 3 distinct layers:
+ data, logic, presentation.
+\layout Subsection
+
+Login
+\layout Standard
+
+When logging in to DCL, the login form is submitted to the web server with
+ the user's credentials.
+ DCL then attempts to locate that user in the database using the short field
+ in the personnel table.
+ If a match is found, it then performs an md5 hash of the password and compares
+ it to the hash stored in the database.
+ If that matches, a cookie is sent to the client with the user id, menu
+ id, domain name, selected language, and password key.
+\layout Standard
+
+For each successive page request, the user's credentials are re-evaluated.
+ The cookie stored on the client system is used to load the appropriate
+ person (if the person still exists) and compare the hashed password.
+ In the future, this will change when real session support is introduced.
+\layout Standard
+
+Also, during login and for each page request, the configuration is read
+ from the dcl_config table.
+ This table contains parameters to change the behavior and look-n-feel of
+ DCL.
+ When sessions come to town, this information will be persisted in the session
+ information to reduce load on the SQL server.
+\layout Subsection
+
+Logout
+\layout Standard
+
+Logging out simply resets the cookie to nothing, in essense deleting it.
+\layout Subsection
+
+Class Factory
+\layout Standard
+
+Before going further, it is worth noting that DCL makes use of a class factory
+ for object loading and instantiation.
+ The function is named 
+\family typewriter 
+\size footnotesize 
+CreateObject
+\family default 
+\size default 
+ and is used as such:
+\layout Quote
+
+
+\family typewriter 
+$obj = CreateObject('boSMTP');
+\layout Standard
+
+
+\family typewriter 
+CreateObject
+\family default 
+ then looks to see if a global variable 
+\family typewriter 
+CLASSNAME_PHP3_INCLUDED
+\family default 
+ has been defined.
+ If not, it includes the appropriate file (in this case 
+\family typewriter 
+boSMTP.php3
+\family default 
+).
+\layout Standard
+
+After the file has been included (or verified as being previously included),
+ the object is instantiated and returned to the calling function.
+ In the above example, 
+\family typewriter 
+$obj
+\family default 
+ will contain a new instance of the 
+\family typewriter 
+boSMTP
+\family default 
+ class.
+\layout Subsubsection
+
+Why Is It Called a Class Factory?
+\layout Standard
+
+This question will invariably come up.
+ The answer is pretty simple: a class factory is a method for the developer
+ to request the class by a unique name and let the factory take care of
+ the details for loading it and instantiating it.
+ Of course, the factory in this case is represented by the simple function
+ 
+\family typewriter 
+CreateObject
+\family default 
+.
+\layout Subsection
+
+Page Requests
+\layout Standard
+
+Page requests all pass through 
+\family typewriter 
+main.php3
+\family default 
+.
+ 
+\family typewriter 
+main.php3
+\family default 
+ evaluates the value of the 
+\family typewriter 
+menuAction
+\family default 
+ variable.
+ 
+\family typewriter 
+menuAction
+\family default 
+ is defined as 
+\family typewriter 
+classname.methodname
+\family default 
+.
+ Since all DCL actions are object oriented, this makes it a snap to develop
+ new functionality and not worry about directory structures and such.
+ All that's required is that the objects are locatable by the class factory.
+\layout Standard
+
+What main.php3 does is segment the menuAction var into two distinct entities:
+ the class name and method name.
+ Pseudocode for representing this is:
+\layout Quote
+
+
+\family typewriter 
+list(classname, methodname) = explode('.', menuAction);
+\layout Quote
+
+
+\family typewriter 
+$obj = CreateObject(classname);
+\layout Quote
+
+
+\family typewriter 
+$obj->methodname();
+\layout Subsection
+
+File Naming Conventions
+\layout Standard
+
+The file names are representitive of the class' name and the layer it is
+ a part of.
+ A file name is composed like so: 
+\family typewriter 
+<layer><classname>.php3
+\family default 
+.
+\layout Standard
+
+The layers are:
+\layout Description
+
+bo Business Object.
+ This is the layer that handles the guts of the operations.
+\layout Description
+
+db DataBase.
+ This layer handles the interface between the other layers and the database.
+ Normally, every table within DCL will have a corresponding db class.
+ However, for some cross reference tables and such, there may not necessarily
+ be a class.
+\layout Description
+
+html Presentation.
+ This layer does the majority of page rendering functions.
+ This includes instantiating templates, populating their variables, and
+ displaying them.
+\layout Section
+
+Database Abstraction
+\layout Standard
+
+The database functionality is abstracted to ease porting of DCL to other
+ SQL servers.
+ Currently supported servers are: PostgreSQL, MySQL, Microsoft SQL Server,
+ and Sybase Adaptive Server Enterprise.
+ The current abstraction layer is custom written for DCL, but it might shift
+ to modified PHPLib versions in the future.
+\layout Standard
+
+Each server has it's own class in a file named after it.
+ PostgreSQL is in pgsql.php3, MySQL is in mysql.php3, Microsoft SQL Server
+ is in mssql.php3, and Sybase ASE is in sybase.php3.
+\layout Subsection
+
+Database Date Handling
+\layout Standard
+
+To compensate for the differences in how the SQL servers store dates, two
+ classes were written: Timestamp and Date.
+ These classes are defined in datetime.php3.
+\layout Standard
+
+The purpose of the each class is to handle the transition of date and timestamp
+ entities between the presentation layer and the SQL server.
+ This ensures that the data going into the SQL server is correct and that
+ the data displayed to the user can be localized to their preference.
+\layout Subsection
+
+Other Database Characteristics
+\layout Standard
+
+Anytime a difference between SQL servers is found, a function is written
+ to abstract the difference.
+ This ensures a common interface for all consumers of the database layer
+ classes.
+ Some examples are: LIMIT clause, case (in)sensitive queries, and data type
+ casting.
+\layout Section
+
+Templates
+\layout Standard
+
+The templates class comes from phpGroupWare, which in turn used the PHPLib
+ templates class.
+ To use templates in DCL, a template factory was created.
+ This is implemented in the function 
+\family typewriter 
+CreateTemplate
+\family default 
+.
+ 
+\family typewriter 
+CreateTemplate
+\family default 
+ takes one parameter: an array of handles and template files you would normally
+ pass to set_file.
+ Example:
+\layout Quote
+
+
+\family typewriter 
+$Template = CreateTemplate(array('hForm' => 'htmlWorkorderForm.tpl'));
+\layout Standard
+
+
+\family typewriter 
+\size footnotesize 
+CreateTemplate
+\family default 
+\size default 
+ will handle finding exactly which 
+\family typewriter 
+\size footnotesize 
+htmlWorkorderForm.tpl
+\family default 
+\size default 
+ the caller needs by using the configured template set.
+\layout Subsection
+
+Location
+\layout Standard
+
+The templates are located in the 
+\family typewriter 
+<dcl_root>/templates/<template_set>
+\family default 
+ directory.
+ To create another template set, simply copy the default template set to
+ a sibling directory and begin modifying the templates to match the look
+ and feel desired.
+\layout Standard
+
+The custom directory contains template files used for non-html rendering.
+ A current example is the Customer Quality Questionnaire email template.
+\layout Subsection
+
+Variable Naming Conventions
+\layout Standard
+
+Templates use several different naming conventions.
+ Currently, all variables are prefixed with a special abbreviation to describe
+ what the variable will be replaced with.
+\layout Description
+
+TXT_ Static text
+\layout Description
+
+VAL_ Data Value
+\layout Description
+
+CMB_ Combo Box
+\layout Description
+
+BTN_ Button Text
+\layout Description
+
+COLOR_ Color (currently light and dark are supported from the DCL configuration)
+\layout Subsection
+
+Using Templates in html Classes
+\layout Standard
+
+Templates are instantiated by the template factory.
+ If a particular template is very large and/or has a large amount of supporting
+ code, an html class is created to specifically handle only that template.
+ If the template and supporting code is small, several template handlers
+ can be combined into one class in different methods.
+\layout Section
+
+XML DOMish Document Objects
+\layout Standard
+
+The latter part of April 2001 saw the introduction of a couple of classes
+ to generically support parsing XML documents into a DOMish structure using
+ PHP arrays.
+ The objects make use of the bundled XML Expat parser and the PHP xml_parser_set
+_object function, which by nature requires PHP 4 due to objects being passed
+ by reference.
+\layout Subsection
+
+xmlNode
+\layout Standard
+
+This class represents a node in the XML document.
+ It consists of a name (the tag name), an array of attributes (key => value),
+ an array of child nodes, and a pointer to the parent node, if any.
+ Only the root node has a NULL parent node.
+\layout Standard
+
+It is important to remember that an 
+\family typewriter 
+xmlNode
+\family default 
+ object does not have any methods itself.
+ It is merely the representation of the properties of a node in an XML document.
+\layout Subsubsection
+
+xmlNode Member Variables
+\layout Itemize
+
+
+\series bold 
+string name
+\series default 
+ - the node element name from the tag (e.g., <Checklist>)
+\layout Itemize
+
+
+\series bold 
+array(string, string) attributes
+\series default 
+ - an array of keys to values representing the attributes of the node
+\layout Itemize
+
+
+\series bold 
+array(&xmlNode) childNodes
+\series default 
+ - an array of xmlNode objects that are the immediate children of a node
+\layout Itemize
+
+
+\series bold 
+&xmlNode parentNode
+\series default 
+ - the immediate parent xmlNode object.
+ The root of a document will be NULL.
+\layout Itemize
+
+
+\series bold 
+string data
+\series default 
+ - The data contained in the node (e.g., <Value>This is the data for this
+ Value node.</Value>)
+\layout Subsection
+
+xmlDoc
+\layout Standard
+
+xmlDoc is the document class.
+ It is a container for a root node, which contains all of the child elements
+ of the XML document.
+ This class is capable of building the DOMish structure from a file or a
+ string.
+ It can also reproduce an XML document from the DOMish structure, which
+ makes the xmlDoc class ideal for performing updates to the nodes.
+\layout Subsection
+
+xmlDoc Object Interface
+\layout Standard
+
+The interface for the XML objects is relatively minimal at this point.
+ It will probably be extended and enhanced in the future as is necessary.
+\layout Subsubsection
+
+Parsing
+\layout Itemize
+
+
+\series bold 
+void ParseFile(string sFileName)
+\series default 
+ - Parse the file identified by 
+\family typewriter 
+sFileName
+\family default 
+ into a DOMish structure
+\layout Itemize
+
+
+\series bold 
+void ParseString(string sXML)
+\series default 
+ - Parse the string 
+\family typewriter 
+sXML
+\family default 
+ into a DOMish structure
+\layout Subsubsection
+
+Rendering
+\layout Itemize
+
+
+\series bold 
+string ToXML()
+\series default 
+ - Returns an XML string representation of the current DOMish structure
+\layout Subsubsection
+
+Modifying
+\layout Itemize
+
+
+\series bold 
+void AddChildNode(xmlNode &oParent, string sName, array aAttributes)
+\series default 
+ - Adds a child node to the node pointed to by 
+\family typewriter 
+oParent
+\family default 
+.
+\layout Subsubsection
+
+Navigating
+\layout Itemize
+
+
+\series bold 
+void FindChildNode(xmlNode &oStart, string element)
+\series default 
+ - Recursively searches for the first node with an element name of 
+\family typewriter 
+element
+\family default 
+ starting from the 
+\family typewriter 
+oStart
+\family default 
+ node.
+ The 
+\family typewriter 
+xmlDoc->currentNode
+\family default 
+ member will point to the found node, or NULL if a matching node was not
+ found.
+\layout Itemize
+
+
+\series bold 
+void ListNodes(xmlNode &oStart, string element, string attribute, string
+ value)
+\series default 
+ - Recursively retrieves a list of all nodes with an element name of 
+\family typewriter 
+element
+\family default 
+ and the attribute 
+\family typewriter 
+attribute
+\family default 
+ is equal to 
+\family typewriter 
+value 
+\family default 
+starting from the 
+\family typewriter 
+oStart
+\family default 
+ node
+\layout Subsubsection
+
+Member Variables
+\layout Itemize
+
+
+\series bold 
+&xmlNode root
+\series default 
+ - the root node of the document, if any
+\layout Itemize
+
+
+\series bold 
+&xmlNode currentNode
+\series default 
+ - the current node pointer.
+ Also used as the result for 
+\family typewriter 
+FindChildNode
+\layout Itemize
+
+
+\series bold 
+array(&xmlNode) nodes
+\series default 
+ - the list of matching nodes found as the result of a call to 
+\family typewriter 
+ListNodes
+\layout Section
+
+Logic Layer
+\layout Standard
+
+The logic layer (represented mostly by the bo*.php3 classes) controls what
+ operations are performed for each function.
+ For example, the boTimeCards.dbadd method will accept posted form data,
+ add it to the database, load the associated work order, check the time
+ card status against the work order status (and change the work order if
+ necessary), and accumulate the time card hours with the existing applied
+ work order hours.
+ This is all performed within a database transaction as well (so MySQL users
+ are out of luck until the transaction support becomes commonplace).
+\layout Standard
+
+Just remember that the bo classes consume the db and html layers.
+ The logic layer coordinates the necessary calls between the layers, although
+ some html classes may require access to db classes.
+\layout Section
+
+National Language Support
+\layout Standard
+
+Multiple languages are supported with the use of string resource files.
+ These files merely define strings used within DCL as constants.
+\layout Subsection
+
+Location
+\layout Standard
+
+The string resources are located in 
+\family typewriter 
+<dcl_root>/str/<language>
+\family default 
+ directories.
+ 
+\family typewriter 
+<language>
+\family default 
+ is the short abbreviation of the language (e.g., en for English, it for Italian,
+ sv for Swedish, etc).
+\layout Standard
+
+Creating a new translation involves copying an existing set for a language
+ you are comfortable with to the new language directory.
+ Then translate each string in the file to the new language.
+\layout Standard
+
+In the future, it would be very beneficial to create a small web application
+ to maintain and generate these resources from a database.
+ This could be made available as part of DCL, or as a development tool for
+ it.
+\layout Subsection
+
+Naming Conventions
+\layout Standard
+
+All string resource files are given an abbreviated name equivalent to the
+ area of DCL they apply to.
+ For example, cfg.str is for the configuration strings, wo.str is for work
+ order strings, etc.
+\layout Standard
+
+The strings defined in the resource files are prefixed with 
+\family typewriter 
+STR_<resource_abbreviation>
+\family default 
+.
+ So, the cfg.str strings all begin with 
+\family typewriter 
+STR_CFG_
+\family default 
+, wo.str has 
+\family typewriter 
+STR_WO_
+\family default 
+, etc.
+ This makes it very easy to identify the resources in the code and which
+ file they belong to.
+\layout Section
+
+Database Schema
+\layout Standard
+\added_space_top 0.3cm \added_space_bottom 0.3cm \align center 
+
+\begin_inset Graphics FormatVersion 1
+	filename DoubleChocoLatte.eps
+	display color
+	subcaptionText "DCL Schema"
+	size_type 1
+	height 95theight%
+	rotateOrigin leftBaseline
+	lyxsize_type 1
+	lyxwidth 522pt
+	lyxheight 799pt
+\end_inset 
+
+
+\layout Section
+
+Coding Conventions
+\layout Subsection
+
+Blocking
+\layout Standard
+
+Braces should always be on a line with no other code or comments.
+\layout Subsubsection
+
+Bad
+\layout Section
+
+TODO Feature List
+\layout Subsection
+\noindent 
+Authentication
+\layout Itemize
+\noindent 
+PAM Auth
+\layout Itemize
+\noindent 
+Auto-Login via cookies
+\layout Itemize
+\noindent 
+HTTP Auth
+\layout Itemize
+\noindent 
+PHP4 Sessions (?)
+\layout Itemize
+\noindent 
+Database sessions
+\layout Itemize
+\noindent 
+LDAP Auth
+\layout Itemize
+\noindent 
+Guest/public access
+\layout Itemize
+\noindent 
+Authenticate via email address
+\layout Subsection
+\noindent 
+Work Orders
+\layout Itemize
+\noindent 
+Search by department
+\layout Itemize
+\noindent 
+Dependencies
+\layout Itemize
+\noindent 
+Configurable fields (names, required, etc)
+\layout Itemize
+\noindent 
+Scheduled E-mail of activity
+\layout Subsection
+\noindent 
+Project Management
+\layout Itemize
+\noindent 
+Gantt Chart
+\layout Itemize
+\noindent 
+Best fit scheduler
+\layout Itemize
+\noindent 
+Tree view for projects
+\layout Itemize
+\noindent 
+Change project status
+\layout Subsection
+\noindent 
+Tickets
+\layout Itemize
+\noindent 
+Search by department
+\layout Itemize
+\noindent 
+Configurable fields (names, required, etc)
+\layout Itemize
+\noindent 
+Quality of service contract
+\layout Itemize
+\noindent 
+Auto ticket priority upgrade
+\layout Itemize
+\noindent 
+Allow multiple responsible
+\layout Itemize
+\noindent 
+Aging ticket reminder
+\layout Itemize
+\noindent 
+Queue support
+\layout Itemize
+\noindent 
+Scheduled E-mail of activity
+\layout Subsection
+\noindent 
+Security
+\layout Itemize
+\noindent 
+Roles and permissions
+\layout Itemize
+\noindent 
+Customer access to system with account restriction
+\layout Itemize
+\noindent 
+Verify authenticity of form submissions
+\layout Itemize
+\noindent 
+Validate data submitted from forms on server side
+\layout Itemize
+\noindent 
+Move attachment files outside of web dir and force client download
+\layout Subsection
+\noindent 
+E-mail Gateway
+\layout Itemize
+\noindent 
+Work order submission/query
+\layout Itemize
+\noindent 
+Ticket submission/query
+\layout Subsection
+\noindent 
+Reporting
+\layout Itemize
+\noindent 
+More analysis and stats
+\layout Subsection
+\noindent 
+UI
+\layout Itemize
+\noindent 
+Templatize menus so templates can be selected @ login
+\layout Subsection
+\noindent 
+NLS
+\layout Itemize
+\noindent 
+Create db utility to maintain language files in str dir
+\layout Subsection
+\noindent 
+Accounts
+\layout Itemize
+\noindent 
+Create client list w/many-to-many relationship
+\layout Itemize
+\noindent 
+Associate products with account
+\layout Section
+
+Contributors
+\layout Standard
+
+The following is a quick list of people who have contributed to DCL in one
+ way or another.
+ If I forgot you, it's because I'm very disorganized ;-), but I'm trying
+ to get this complete.
+ Just shoot me an email and what section you belong in and I'll add you
+ to the list.
+\layout Subsection
+
+Core Developers
+\layout Itemize
+
+Michael Dean <mdean@users.sourceforge.net>
+\layout Subsection
+
+Packagers
+\layout Itemize
+
+Debian - Ola Lundqvist
+\layout Subsection
+
+Documentation
+\layout Itemize
+
+Michael Brader
+\layout Itemize
+
+Michael Dean
+\layout Itemize
+
+Darryl VanDorp
+\layout Itemize
+
+Dan Bethe
+\layout Subsection
+
+Translations
+\layout Itemize
+
+English - Michael Dean :-)
+\layout Itemize
+
+French - Laurent Portefaix
+\layout Itemize
+
+German - Herbert Mollien
+\layout Itemize
+
+Italian - Luca Pescatore, Angelo Addante
+\layout Itemize
+
+Slovenian - Matjaz Godec
+\layout Itemize
+
+Spanish - Maria Jesus Sabugo
+\layout Itemize
+
+Swedish - Ola Lundqvist
+\layout Subsection
+
+Patches
+\layout Itemize
+
+Michael Brader
+\layout Itemize
+
+Brian Cooke
+\layout Itemize
+
+Urmet Janes
+\layout Itemize
+
+Jim Lieb
+\layout Itemize
+
+Ola Lundqvist
+\layout Itemize
+
+Evelyn Mitchell
+\the_end

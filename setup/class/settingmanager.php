@@ -1,0 +1,332 @@
+<?php
+/*
+ * $Id: settingmanager.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $
+ *
+ * Derived from XOOPS Setup
+ *
+ * Double Choco Latte - Source Configuration Management System
+ * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
+ *
+ * This file is contributed by Urmet Ja"nes <urmet.janes@proekspert.ee>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * Select License Info from the Help menu to view the terms and conditions of this license.
+ */
+
+include_once 'class/textsanitizer.php';
+
+/**
+* setting manager for XOOPS installer
+*
+* @author Haruki Setoyama  <haruki@planewave.org>
+* @version $Id: settingmanager.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $
+* @access public
+**/
+class setting_manager {
+
+    var $dbType;
+    var $dbHost;
+	var $dbPort;
+    var $dbUser;
+    var $dbPassword;
+    var $dbName;
+    var $dcl_root;
+    var $dcl_www_root;
+	var $redirMethod;
+	var $cookieMethod;
+
+    var $sanitizer;
+
+    function setting_manager($post=false){
+        global $HTTP_SERVER_VARS;
+
+        $this->sanitizer =& TextSanitizer::getInstance();
+        if($post){
+            $this->readPost();
+        }else{
+            $this->dbType = 'pgsql';
+            $this->dbHost = 'localhost';
+			$this->dbPort = '5432';
+
+            $this->dcl_root = str_replace("\\","/",getcwd()); // "
+            $this->dcl_root = str_replace("/setup", "/", $this->dcl_root);
+
+            $filepath = (! empty($HTTP_SERVER_VARS['REQUEST_URI']))
+                            ? dirname($HTTP_SERVER_VARS['REQUEST_URI'])
+                            : dirname($HTTP_SERVER_VARS['SCRIPT_NAME']);
+
+            $filepath = str_replace("\\", "/", $filepath); // "
+            $filepath = str_replace("/setup", "", $filepath);
+            if ( substr($filepath, 0, 1) == "/" ) {
+                $filepath = substr($filepath,1);
+            }
+            if ( substr($filepath, -1) == "/" ) {
+                $filepath = substr($filepath, 0, -1);
+            }
+
+			$this->dcl_www_root = "/" . $filepath . "/";
+			$this->redirMethod = 'php';
+			$this->cookieMethod = 'php';
+        }
+    }
+
+    function readPost(){
+        global $HTTP_POST_VARS;
+        if(isset($HTTP_POST_VARS['dbType']))
+            $this->dbType = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbType']);
+        if(isset($HTTP_POST_VARS['dbHost']))
+            $this->dbHost = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbHost']);
+        if(isset($HTTP_POST_VARS['dbPort']))
+            $this->dbPort = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbPort']);
+        if(isset($HTTP_POST_VARS['dbUser']))
+            $this->dbUser = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbUser']);
+        if(isset($HTTP_POST_VARS['dbPassword']))
+            $this->dbPassword = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbPassword']);
+        if(isset($HTTP_POST_VARS['dbName']))
+            $this->dbName = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbName']);
+        if(isset($HTTP_POST_VARS['dcl_root']))
+            $this->dcl_root = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dcl_root']);
+        if(isset($HTTP_POST_VARS['dcl_www_root']))
+            $this->dcl_www_root = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dcl_www_root']);
+        if(isset($HTTP_POST_VARS['redirMethod']))
+            $this->redirMethod = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['redirMethod']);
+        if(isset($HTTP_POST_VARS['cookieMethod']))
+            $this->cookieMethod = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['cookieMethod']);
+    }
+
+    function readConstant(){
+		global $dcl_domain_info;
+
+		if(isset($dcl_domain_info['default']['dbType']))
+			$this->dbType = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dbType']);
+		if(isset($dcl_domain_info['default']['dbHost']))
+			$this->dbHost = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dbHost']);
+		if(isset($dcl_domain_info['default']['dbPort']))
+			$this->dbPort = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dbPort']);
+		if(isset($dcl_domain_info['default']['dbUser']))
+			$this->dbUser = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dbUser']);
+		if(isset($dcl_domain_info['default']['dbPassword']))
+			$this->dbPassword = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dbPassword']);
+		if(isset($dcl_domain_info['default']['dbName']))
+			$this->dbName = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dbName']);
+		if(isset($dcl_domain_info['default']['dcl_root']))
+			$this->dcl_root = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dcl_root']);
+		if(isset($dcl_domain_info['default']['dcl_www_root']))
+			$this->dcl_www_root = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dcl_www_root']);
+        if(isset($GLOBALS['redirMethod']))
+            $this->redirMethod = $this->sanitizer->stripSlashesGPC($GLOBALS['redirMethod']);
+        if(isset($GLOBALS['cookieMethod']))
+            $this->cookieMethod = $this->sanitizer->stripSlashesGPC($GLOBALS['cookieMethod']);
+    }
+
+    function checkData(){
+        $ret = '';
+        $error = array();
+
+        if ( empty($this->dbHost) ) {
+            $error[] = sprintf(_INSTALL_L57, _INSTALL_L27);
+        }
+        if ( empty($this->dbPort) ) {
+            $error[] = sprintf(_INSTALL_L57, 'Database Port');
+        }
+        if ( empty($this->dbName) ) {
+            $error[] = sprintf(_INSTALL_L57, _INSTALL_L29);
+        }
+        if ( empty($this->dcl_root) ) {
+            $error[] = sprintf(_INSTALL_L57, _INSTALL_L55);
+        }
+        if ( empty($this->dcl_www_root) ) {
+            $error[] = sprintf(_INSTALL_L57, _INSTALL_L56);
+        }
+
+        if (!empty($error)) {
+            foreach ( $error as $err ) {
+                $ret .=  "<p><span style='color:#ff0000;'><b>".$err."</b></span></p>\n";
+            }
+        }
+
+        return $ret;
+    }
+
+    function editform(){
+        $ret =
+            "<table width='100%' class='outer' cellspacing='5'>
+                <tr>
+                    <th colspan='2'></th>
+                </tr>
+                <tr valign='top' align='left'>
+                    <td class='head'>
+                        <b>"._INSTALL_L51."</b><br />
+                        <span style='font-size:85%;'>"._INSTALL_L66."</span>
+                    </td>
+                    <td class='even'>
+                        <select  size='1' name='dbType' id='dbType'>";
+        $dblist = $this->getDBList();
+        foreach($dblist as $val){
+            $ret .= "<option value='$val'";
+            if($val == $this->dbType) $ret .= " selected='selected'";
+            $ret .= "'>$val</option>";
+        }
+        $ret .=         "</select>
+                    </td>
+                </tr>
+                ";
+        $ret .= $this->editform_sub(_INSTALL_L27, _INSTALL_L67, 'dbHost', $this->sanitizer->htmlSpecialChars($this->dbHost));
+        $ret .= $this->editform_sub('Database Port', 'What port is this server running on the host?', 'dbPort', $this->sanitizer->htmlSpecialChars($this->dbPort));
+        $ret .= $this->editform_sub(_INSTALL_L28, _INSTALL_L65, 'dbUser', $this->sanitizer->htmlSpecialChars($this->dbUser));
+        $ret .= $this->editform_sub(_INSTALL_L52, _INSTALL_L68, 'dbPassword', $this->sanitizer->htmlSpecialChars($this->dbPassword));
+        $ret .= $this->editform_sub(_INSTALL_L29, _INSTALL_L64, 'dbName', $this->sanitizer->htmlSpecialChars($this->dbName));
+        $ret .= $this->editform_sub(_INSTALL_L55, _INSTALL_L59, 'dcl_root', $this->sanitizer->htmlSpecialChars($this->dcl_root));
+        $ret .= $this->editform_sub(_INSTALL_L56, _INSTALL_L58, 'dcl_www_root', $this->sanitizer->htmlSpecialChars($this->dcl_www_root));
+
+		$ret .= $this->GetMethodCombo('Cookie Method', 'How should DCL set the session cookie?  PHP with IIS in CGI mode should use meta.', 'cookieMethod', $this->cookieMethod);
+		$ret .= $this->GetMethodCombo('Redirect Method', 'How should DCL redirect to other pages?  PHP with IIS in CGI mode should use meta.', 'redirMethod', $this->redirMethod);
+
+        $ret .= "</table>";
+        return $ret;
+    }
+
+	function GetMethodCombo($title, $desc, $name, $value)
+	{
+		$ret = "                <tr valign='top' align='left'>
+                    <td class='head'>
+                        <b>".$title."</b><br />
+                        <span style='font-size:85%;'>".$desc."</span>
+                    </td>
+                    <td class='even'>
+                        <select  size='1' name='$name' id='$name'>";
+
+        $aMethods = $this->GetMethods();
+        foreach ($aMethods as $val)
+		{
+            $ret .= "<option value='$val'";
+            if($val == $value)
+				$ret .= " selected='selected'";
+
+            $ret .= "'>$val</option>";
+        }
+        $ret .=         "</select>
+                    </td>
+                </tr>
+				";
+
+		return $ret;
+	}
+
+    function editform_sub($title, $desc, $name, $value){
+        return  "<tr valign='top' align='left'>
+                    <td class='head'>
+                        <b>".$title."</b><br />
+                        <span style='font-size:85%;'>".$desc."</span>
+                    </td>
+                    <td class='even'>
+                        <input type='text' name='".$name."' id='".$name."' size='30' maxlength='100' value='".htmlspecialchars($value)."' />
+                    </td>
+                </tr>
+                ";
+    }
+
+    function confirmForm(){
+        $yesno = empty($this->db_pconnect) ? _INSTALL_L24 : _INSTALL_L23;
+        $ret =
+            "<table border='0' cellpadding='0' cellspacing='0' valign='top' width='90%'><tr><td class='bg2'>
+                <table width='100%' border='0' cellpadding='4' cellspacing='1'>
+                    <tr>
+                        <td class='bg3'><b>"._INSTALL_L51."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbType)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>"._INSTALL_L27."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbHost)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>".'Database Port'."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbPort)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>"._INSTALL_L28."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbUser)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>"._INSTALL_L52."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbPassword)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>"._INSTALL_L29."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbName)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>"._INSTALL_L55."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dcl_root)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>"._INSTALL_L56."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dcl_www_root)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>".'Cookie Method'."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->cookieMethod)."</td>
+                    </tr>
+                    <tr>
+                        <td class='bg3'><b>".'Redirect Method'."</b></td>
+                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->redirMethod)."</td>
+                    </tr>
+                </table></td></tr>
+            </table>
+            <input type='hidden' name='dbType' value='".$this->sanitizer->htmlSpecialChars($this->dbType)."' />
+            <input type='hidden' name='dbHost' value='".$this->sanitizer->htmlSpecialChars($this->dbHost)."' />
+            <input type='hidden' name='dbPort' value='".$this->sanitizer->htmlSpecialChars($this->dbPort)."' />
+            <input type='hidden' name='dbUser' value='".$this->sanitizer->htmlSpecialChars($this->dbUser)."' />
+            <input type='hidden' name='dbPassword' value='".$this->sanitizer->htmlSpecialChars($this->dbPassword)."' />
+            <input type='hidden' name='dbName' value='".$this->sanitizer->htmlSpecialChars($this->dbName)."' />
+            <input type='hidden' name='dcl_root' value='".$this->sanitizer->htmlSpecialChars($this->dcl_root)."' />
+            <input type='hidden' name='dcl_www_root' value='".$this->sanitizer->htmlSpecialChars($this->dcl_www_root)."' />
+            <input type='hidden' name='cookieMethod' value='".$this->sanitizer->htmlSpecialChars($this->cookieMethod)."' />
+            <input type='hidden' name='redirMethod' value='".$this->sanitizer->htmlSpecialChars($this->redirMethod)."' />
+            ";
+        return $ret;
+    }
+
+
+    function getDBList()
+    {
+		$retVal = array();
+		if (function_exists('pg_connect'))
+			$retVal[] = 'pgsql';
+
+		if (function_exists('mysql_connect'))
+			$retVal[] = 'mysql';
+
+		if (function_exists('mssql_connect'))
+			$retVal[] = 'mssql';
+
+		if (function_exists('sybase_connect'))
+			$retVal[] = 'sybase';
+
+		if (function_exists('oci8_connect'))
+			$retVal[] = 'oracle';
+
+		return $retVal;
+    }
+
+	function GetMethods()
+	{
+		return array('php', 'header', 'meta');
+	}
+}
+
+
+?>

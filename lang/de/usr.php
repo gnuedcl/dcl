@@ -1,0 +1,36 @@
+<?php
+	define('STR_USR_SELECTONE', "Auswahl");
+	define('STR_USR_PASSWORD', "Passwort");
+	define('STR_USR_SECLVL', "Sicherheitsstufe");
+	define('STR_USR_MINLVL', "Min");
+	define('STR_USR_TODOTHIS', "Berechtigung...");
+	define('STR_USR_ADMIN', "Administrator");
+	define('STR_USR_ADDASSGN', "Anlegen und Zuweisen von Arbeitsaufträgen");
+	define('STR_USR_RESPONSIBLE', "Verantwortlich sein für Arbeitsaufträge");
+	define('STR_USR_CANCHGPWD', "berechtigt das eigene Passwort zu ändern");
+	define('STR_USR_ADDWO', "Anlegen neuer Arbeitsaufträge");
+	define('STR_USR_DELWO', "Löschen von Arbeitsaufträgen");
+	define('STR_USR_MODWO', "Ändern von Arbeitsaufträgen");
+	define('STR_USR_EMAIL', "E-Mail");
+	define('STR_USR_CHGPWD', "Passwort ändern");
+	define('STR_USR_CHANGE', "Ändern");
+	define('STR_USR_CLEAR', "Löschen");
+	define('STR_USR_NEWPWD', "Neues Password");
+	define('STR_USR_CURRPWD', "Aktuelles Passwort");
+	define('STR_USR_CONFIRMPWD', "Passwort bestätigen");
+	define('STR_USR_TABLETITLE', "Benutzer - sortiert nach %s");
+	define('STR_USR_NOUSERS', "Keine Benutzer gefunden!");
+	define('STR_USR_ID', "ID");
+	define('STR_USR_USER', "Benutzer");
+	define('STR_USR_ACTIVEABB', "A");
+	define('STR_USR_ACTIVE', "Aktiv");
+	define('STR_USR_LASTNAME', "Nachname");
+	define('STR_USR_FIRSTNAME', "Vorname");
+	define('STR_USR_OPTIONS', "Optionen");
+	define('STR_USR_REPORTTO', "Berichtet an");
+	define('STR_USR_DEPARTMENT', "Abteilung");
+	define('STR_USR_LOGIN', "Login");
+	define('STR_USR_EDIT', "Bearbeite Benutzer");
+	define('STR_USR_ADD', "Neuer User");
+	define('STR_USR_HIGHLIGHTEDNOTE', "** Unterlegte Felder sind müssen gefüllt werden!");
+?>

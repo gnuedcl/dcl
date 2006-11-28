@@ -1,0 +1,8 @@
+short	name	active
+DBG	Debug	Y
+RES	Research	Y
+DOC	Document	Y
+TST	Testing	Y
+DES	Design	Y
+IMP	Implementation	Y
+CORR	Correction	Y

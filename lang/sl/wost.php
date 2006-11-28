@@ -1,0 +1,36 @@
+<?php
+	define('STR_WOST_SSTITLE', "Status delovnega naloga - tabelarièni pogled");
+	define('STR_WOST_PERSONNEL', "Vkljuèi osebje");
+	define('STR_WOST_PRODUCTS', "Vkljuèi produkte");
+	define('STR_WOST_CLOSEDWO', "Zaprta opravila: Èe i¹èe¹ zaprta opravila vpi¹i enega ali oba datuma");
+	define('STR_WOST_BEGIN', "Zaèeto");
+	define('STR_WOST_ENDING', "Konèano");
+	define('STR_WOST_ALL', "Vse");
+	define('STR_WOST_HOURSABBREV', "h");
+	define('STR_WOST_SEARCHRESULTS', "Rezultati iskanja statistike delovnih nalogov");
+	define('STR_WOST_TICKETACTIVITY', "Poroèilo aktivnosti Ticket");
+	define('STR_WOST_PERSONNELACTIVITY', "poroèilo aktivnosti osebja");
+	define('STR_WOST_GENERATEREPORTFOR', "Generiraj poroèilo za");
+	define('STR_WOST_DATERANGE', "Date Range");
+	define('STR_WOST_DATEERR', "Ne morem natisniti poroèila brez zaèetnega in konènega datuma.");
+	define('STR_WOST_SUMMARY', "Povzetek");
+	define('STR_WOST_STATUSABB', "ST");
+	define('STR_WOST_PRIORITYABB', "PR");
+	define('STR_WOST_SEVERITYABB', "SV");
+	define('STR_WOST_BUDGET', "Proraèun");
+	define('STR_WOST_ETC', "©e_ur");
+	define('STR_WOST_TODATE', "Do_datuma");
+	define('STR_WOST_ESTSTART', "Pred.zaèetek");
+	define('STR_WOST_ESTEND', "Pred.konec");
+	define('STR_WOST_START', "Zaèetek");
+	define('STR_WOST_END', "Konec");
+	define('STR_WOST_TIME', "Èas");
+	define('STR_WOST_ACTIVITYTITLE', "Poroèilo o aktivnosti za %s od %s do %s");
+	define('STR_WOST_NOACTIVITY', "Ni aktivnosti!");
+	define('STR_WOST_QUERYERR', "Could not execute query!");
+	define('STR_WOST_NOTASKS', "Ni opravil za Schedule");
+	define('STR_WOST_SCHEDULEDTASK', "Scheduled %d-%d za %s to %s");
+	define('STR_WOST_SCHEDULETITLE', "Schedule Open Tasks For Personnel");
+	define('STR_WOST_SCHEDULEFOR', "Schedule For");
+	define('STR_WOST_FORMATASTIMESHEET', "Format as Timesheet");
+?>

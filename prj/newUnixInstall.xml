@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<project name="New Unix Installation">
+  <promptitems>
+    <promptitem text="Sales Person" varname="salesperson" source="personnel" />
+    <promptitem text="Account" varname="account" source="accounts" />
+  </promptitems>
+  <wo responsible="@salesperson" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-90d">
+    <summary>Ask For Items: 1) Current Profile Sheets  (2) Current Book  (3) Conversion Contact  (4) Tax Data Contact</summary>
+    <description>Ask For Items: 1) Current Profile Sheets  (2) Current Book  (3) Conversion Contact  (4) Tax Data Contact</description>
+  </wo>
+  <wo responsible="@salesperson" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-90d">
+    <summary>Signed Contract</summary>
+    <description>Signed Contract</description>
+  </wo>
+  <wo responsible="@salesperson" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-83d">
+    <summary>Send Initial Packet</summary>
+    <description>Send Initial Packet</description>
+  </wo>
+  <wo responsible="@salesperson" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-83d">
+    <summary>Profile Trip Scheduled</summary>
+    <description>Profile Trip Scheduled</description>
+  </wo>
+  <wo responsible="@salesperson" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-83d">
+    <summary>Receive Asked For Items</summary>
+    <description>Receive Asked For Items</description>
+  </wo>
+  <wo responsible="@salesperson" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-75d">
+    <summary>Profile Sheet Trip</summary>
+    <description>Profile Sheet Trip</description>
+  </wo>
+  <wo responsible="12" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-60d">
+    <summary>Receive Conversion Tape</summary>
+    <description>Receive Conversion Tape</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-60d">
+    <summary>Installation Letter Sent and Manual Order Placed</summary>
+    <description>Installation Letter Sent and Manual Order Placed</description>
+  </wo>
+  <wo responsible="72" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-60d">
+    <summary>All Typesetting Complete</summary>
+    <description>All Typesetting Complete</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-45d">
+    <summary>All Areas Received Forms A and B</summary>
+    <description>All Areas Received Forms A and B</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-45d">
+    <summary>All Subdivisions Received Form C</summary>
+    <description>All Subdivisions Received Form C</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-45d">
+    <summary>All Look-Ups Received Form D</summary>
+    <description>All Look-Ups Received Form D</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-45d">
+    <summary>All Conversion Translations Received</summary>
+    <description>All Conversion Translations Received</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-45d">
+    <summary>All Agent Forms Complete Form G</summary>
+    <description>All Agent Forms Complete Form G</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-45d">
+    <summary>All Office Forms Complete Form H</summary>
+    <description>All Office Forms Complete Form H</description>
+  </wo>
+  <wo responsible="72" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-45d">
+    <summary>All Profile Sheets Finalized</summary>
+    <description>All Profile Sheets Finalized</description>
+  </wo>
+  <wo responsible="71" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-45d">
+    <summary>System Configuration Complete</summary>
+    <description>System Configuration Complete</description>
+  </wo>
+  <wo responsible="80" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-30d">
+    <summary>Hardware Setup</summary>
+    <description>Hardware Setup</description>
+  </wo>
+  <wo responsible="12" account="@account" product="22" priority="1" severity="1" esthours="40.0" deadlineon="-30d">
+    <summary>Conversion Program</summary>
+    <description>Conversion Program</description>
+  </wo>
+  <wo responsible="2" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-30d">
+    <summary>Nightly Processing Setup</summary>
+    <description>Nightly Processing Setup</description>
+  </wo>
+  <wo responsible="74" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-30d">
+    <summary>Voyager Download</summary>
+    <description>Voyager Download</description>
+  </wo>
+  <wo responsible="37" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-30d">
+    <summary>Publishing</summary>
+    <description>Publishing</description>
+  </wo>
+  <wo responsible="39" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-30d">
+    <summary>QA System Conversion</summary>
+    <description>QA System Conversion</description>
+  </wo>
+  <wo responsible="12" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-29d">
+    <summary>Exception Report Generated and Passed On</summary>
+    <description>Exception Report Generated and Passed On</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-23d">
+    <summary>Exception Report Feedback Received From Board</summary>
+    <description>Exception Report Feedback Received From Board</description>
+  </wo>
+  <wo responsible="37" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-21d">
+    <summary>Publishing Letter Sent</summary>
+    <description>Publishing Letter Sent</description>
+  </wo>
+  <wo responsible="37" account="@account" product="22" priority="1" severity="1" esthours="40.0" deadlineon="-14d">
+    <summary>Book Programming Complete</summary>
+    <description>Book Programming Complete</description>
+  </wo>
+  <wo responsible="39" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-10d">
+    <summary>QA On System Conversion</summary>
+    <description>QA On System Conversion</description>
+  </wo>
+  <wo responsible="37" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-10d">
+    <summary>Sample Book Shipped</summary>
+    <description>Sample Book Shipped</description>
+  </wo>
+  <wo responsible="73" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-10d">
+    <summary>Manuals Shipped</summary>
+    <description>Manuals Shipped</description>
+  </wo>
+  <wo responsible="72" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-10d">
+    <summary>Final Profile Sheets Sent</summary>
+    <description>Final Profile Sheets Sent</description>
+  </wo>
+  <wo responsible="80" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-10d">
+    <summary>System Shipped</summary>
+    <description>System Shipped</description>
+  </wo>
+  <wo responsible="80" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-5d">
+    <summary>Verification Hardware</summary>
+    <description>Verification Hardware</description>
+  </wo>
+  <wo responsible="30" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="-0d">
+    <summary>Installation</summary>
+    <description>Installation</description>
+  </wo>
+  <wo responsible="30" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="+1d">
+    <summary>Board Training</summary>
+    <description>Board Training</description>
+  </wo>
+  <wo responsible="12" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="+8d">
+    <summary>Final Cutoffs</summary>
+    <description>Final Cutoffs</description>
+  </wo>
+  <wo responsible="74" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="+10d">
+    <summary>Voyager CDs</summary>
+    <description>Voyager CDs</description>
+  </wo>
+  <wo responsible="30" account="@account" product="22" priority="1" severity="1" esthours="8.0" deadlineon="+14d">
+    <summary>Agent Training</summary>
+    <description>Agent Training</description>
+  </wo>
+</project>

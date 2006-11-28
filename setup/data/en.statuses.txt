@@ -1,0 +1,5 @@
+short	name	active	dcl_status_type
+OP	Open	Y	1
+CL	Closed	Y	2
+DF	Deferred	Y	3
+UA	Unassigned	Y	1

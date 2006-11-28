@@ -1,0 +1,36 @@
+<?php
+	define('STR_USR_SELECTONE', "Välj en");
+	define('STR_USR_PASSWORD', "Lösenord");
+	define('STR_USR_SECLVL', "Säkerhetsnivå");
+	define('STR_USR_MINLVL', "Min");
+	define('STR_USR_TODOTHIS', "Att göra detta...");
+	define('STR_USR_ADMIN', "Administratör");
+	define('STR_USR_ADDASSGN', "Lägga till och tilldela arbetsorder");
+	define('STR_USR_RESPONSIBLE', "Vara ansvarig för arbetsorder");
+	define('STR_USR_CANCHGPWD', "Kan ändra sitt eget lösenord");
+	define('STR_USR_ADDWO', "Kan skicka arbetsorder");
+	define('STR_USR_DELWO', "Kan ta bort arbetsorder");
+	define('STR_USR_MODWO', "Kan ändra befintlig arbetsorder");
+	define('STR_USR_EMAIL', "epost");
+	define('STR_USR_CHGPWD', "Byta lösenord");
+	define('STR_USR_CHANGE', "Ändra");
+	define('STR_USR_CLEAR', "Rensa");
+	define('STR_USR_NEWPWD', "Nytt lösenord");
+	define('STR_USR_CURRPWD', "Nuvarande lösenord");
+	define('STR_USR_CONFIRMPWD', "Verifiera lösenord");
+	define('STR_USR_TABLETITLE', "Användare - ordnade efter %s");
+	define('STR_USR_NOUSERS', "Inga användare kunde hittas! Möjligen har ännu inga användare konfigurerats - kontakta systemadministratören.");
+	define('STR_USR_ID', "ID");
+	define('STR_USR_USER', "Användare");
+	define('STR_USR_ACTIVEABB', "A");
+	define('STR_USR_ACTIVE', "Aktiv");
+	define('STR_USR_LASTNAME', "Efternamn");
+	define('STR_USR_FIRSTNAME', "Förnamn");
+	define('STR_USR_OPTIONS', "Inställningar");
+	define('STR_USR_REPORTTO', "Rapportera till");
+	define('STR_USR_DEPARTMENT', "Avdelning");
+	define('STR_USR_LOGIN', "Logga in");
+	define('STR_USR_EDIT', "Ändra användare");
+	define('STR_USR_ADD', "Lägg till användare");
+	define('STR_USR_HIGHLIGHTEDNOTE', "** Obligatoriskt fält.");
+?>

@@ -1,0 +1,631 @@
+#LyX 1.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 221
+\textclass article
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\use_natbib 0
+\use_numerical_citations 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+
+\layout Title
+
+Rudimentary Installation Instructions for Double Choco Latte
+\layout Author
+
+Author: Michael L.
+ Dean
+\layout Date
+
+$Id: INSTALL.lyx,v 1.3 2006/11/27 06:04:04 mdean Exp $
+\layout Section
+
+Requirements
+\layout Standard
+
+These items _must_ be setup, configured, and operating properly for Double
+ Choco Latte to function properly.
+ We cannot provide guidance for configuring this software.
+ The accompanying documentation for each package does a good job anyway.
+\layout Subsection
+
+Server Requirements 
+\layout Enumerate
+
+Operating System which supports PHP/PostgreSQL/Apache
+\begin_deeper 
+\layout Itemize
+
+Linux
+\layout Itemize
+
+Windows NT, 2000 - should also work in 9x, Me as long as PHP works
+\layout Itemize
+
+I have gotten some e-mails in the past suggesting it works in *BSD and Solaris
+ as well
+\end_deeper 
+\layout Enumerate
+
+Apache Web Server (http://www.apache.org/), IIS, or any web server supporting
+ PHP
+\layout Enumerate
+
+PHP (http://www.php.net/)
+\layout Enumerate
+
+One of the following RDBMS
+\begin_deeper 
+\layout Enumerate
+
+PostgreSQL (http://www.postgresql.org/)
+\layout Enumerate
+
+MySQL (http://www.mysql.com/)
+\layout Enumerate
+
+Micro$oft SQL Server
+\layout Enumerate
+
+Sybase Adaptive Server Enterprise
+\end_deeper 
+\layout Subsection
+
+Client Requirements 
+\layout Standard
+
+JavaScript enabled browser.
+ Sorry that this is a requirement, but if you do not want something that
+ is (fancy, evil) such as JavaScript, you should probably look at some of
+ the other packages available for free such as: 
+\layout Enumerate
+
+
+\begin_inset LatexCommand \htmlurl[Mantis]{http://mantisbt.sourceforge.net/}
+
+\end_inset 
+
+
+\layout Enumerate
+
+
+\begin_inset LatexCommand \htmlurl[Request Tracker]{http://fsck.com/rt/}
+
+\end_inset 
+
+
+\layout Enumerate
+
+
+\begin_inset LatexCommand \htmlurl[Bugzilla]{http://bugzilla.mozilla.org/}
+
+\end_inset 
+
+
+\layout Enumerate
+
+
+\begin_inset LatexCommand \htmlurl[Jitterbug]{http://samba.anu.edu.au/jitterbug/}
+
+\end_inset 
+
+
+\layout Section
+
+Setup
+\layout Standard
+
+Starting with version 0.9.4, DCL has a web-based install/upgrade interface.
+ It was derived from the code used for XOOPS setup.
+ 
+\emph on 
+Be sure to backup your database prior to running the upgrade!
+\emph default 
+ It is much better to be safe than sorry in this respect.
+\layout Standard
+
+Point your browser to http://where.did.I.install/dcl/setup to begin the wizard.
+ It will ask you for your database connection information.
+ If you use a database user that is capable of creating databases and this
+ is a new installation with no database, the setup wizard will attempt to
+ create the database for you.
+ If the user you will be connecting as through DCL does not have this privilege,
+ you will need to manually create your database.
+ See your documentation for your SQL server to learn how to do this if necessary.
+\layout Standard
+
+After you are finished with the setup wizard and have verified this install
+ is working properly, 
+\emph on 
+delete the setup directory!!!
+\emph default 
+ It is an obvious security risk to leave this directory intact.
+ Another option is to protect the setup directory with web server security
+ (such as .htaccess and .htpasswd files for Apache).
+ Removing the setup directory is highly recommended, however.
+\layout Subsection
+
+Source Files
+\layout Enumerate
+
+Put the DCL source files under the web server DocumentRoot.
+ We used a subdirectory called 'dcl' for testing.
+ You may also create a virtual directory for DCL.
+ See the documentation for your web server for instructions on how to accomplish
+ this.
+\begin_deeper 
+\layout Enumerate
+
+You don't have to move the entire tree over to the web server, and may not
+ want to.
+ Files and directories you should exclude are: INSTALL, README, TODO, ./inc/confi
+g.php.default, ./debian, ./docs, ./contrib, and ./scripts.
+\end_deeper 
+\layout Enumerate
+
+Install the system (http://localhost/dcl/setup/) as documented above.
+ If upgrading, 
+\emph on 
+backup your database before running setup!
+\layout Enumerate
+
+Access the system by using the URL you just created (i.e., http://localhost/dcl/).
+\layout Enumerate
+
+Login as sa with password sa.
+ 
+\layout Enumerate
+
+Change sa password through the Admin...Change Password menu option.
+\layout Enumerate
+
+Go to Admin...System Setup and follow the steps to set up the system.
+\layout Section
+
+E-Mail Gateway Installation
+\layout Standard
+
+Starting with version 20011208, DCL includes an e-mail gateway in the contrib/ga
+teway directory of the distribution.
+ The gateway is a PERL script that expects to receive e-mail piped to it
+ from a MTA such as sendmail or postfix.
+ This section will attempt to provide some direction for installation and
+ configuration of the gateway, along with a basic overview of how it works.
+\layout Subsection
+
+Operational Behavior
+\layout Standard
+
+The steps involved in bringing tickets in through the e-mail gateway can
+ be summarized as follows.
+ For the sake of providing examples, we will assume Double Choco Latte (DCL)
+ is the product.
+\layout Enumerate
+
+Issue reporter sends e-mail to dcl-support@mydomain.com
+\layout Enumerate
+
+MTA for mydomain.com recognizes dcl-support as an alias and forwards it to
+ the PERL script
+\layout Enumerate
+
+PERL script sections the e-mail into headers, body, and attachments.
+\begin_deeper 
+\layout Enumerate
+
+Defaults set from DCL config are: priority, severity, and status
+\layout Enumerate
+
+From: is sectioned into name and e-mail address and inserted into contact
+ and contact e-mail respectively
+\layout Enumerate
+
+To: is sectioned to retrieve product name.
+ The address is formatted as <product_abbreviation>-support@mydomain.com.
+ The script retrieves the product abbreviation, looks it up in DCL, and
+ sets the product ID for the ticket.
+ If the product is not found, the script will exit with an error message.
+\layout Enumerate
+
+The e-mail subject is inserted into the summary
+\layout Enumerate
+
+The e-mail body is inserted into the issue field, minus any attachments
+\end_deeper 
+\layout Enumerate
+
+Using information in the headers, body, and DCL configuration, a ticket
+ is constructed
+\layout Enumerate
+
+The ticket is created and the files are 
+\begin_inset Quotes eld
+\end_inset 
+
+attached
+\begin_inset Quotes erd
+\end_inset 
+
+ to it
+\layout Enumerate
+
+Optional e-mail response is sent to originator of e-mail
+\layout Enumerate
+
+Responsible and watchers are notified of the new ticket
+\layout Enumerate
+
+Optionally, responses to the ticket autoresponse e-mail are appended as
+ ticket resolutions (TODO: this feature is not yet implemented)
+\layout Subsection
+
+Prerequisites
+\layout Standard
+
+This has been used on a PERL installation as old as 5.005_03.
+ PERL modules required for this to operate include:
+\layout Enumerate
+
+MIME::Base64
+\layout Enumerate
+
+MIME::Parser
+\layout Enumerate
+
+MIME::QuotedPrint
+\layout Enumerate
+
+File::Basename
+\layout Enumerate
+
+DBI
+\layout Enumerate
+
+DBD driver for your SQL server (DBD::mysql or DBD::Pg)
+\layout Enumerate
+
+Net::SMTP
+\layout Standard
+
+You can install these packages from the CPAN shell (perl -MCPAN -e shell)
+ by doing install <packagename> (e.g., install DBI)
+\layout Subsection
+
+Gateway Installation
+\layout Enumerate
+
+Place the dcl-gateway.pl script in a suitable location (mine is in /etc/postfix).
+ The postfix daemon must have read access to the directory and the file
+ should have executable permissions.
+\layout Enumerate
+
+Create a directory for the gateway script to use for temporary storage (I
+ used /usr/local/dcl/tmp).
+ The MTA daemon should have read, write, and execute for the directory.
+ It also needs to be able to read, write, and exectute directories where
+ the DCL attachments are stored (e.g., /usr/local/dcl).
+ 
+\shape italic 
+If this is not done correctly, any file attachments in the e-mail will not
+ be attached to the ticket!
+\layout Subsection
+
+Configuration for Postfix MTA
+\layout Enumerate
+
+Edit the /etc/aliases (or /etc/postfix/aliases) file.
+\begin_deeper 
+\layout Enumerate
+
+Add aliases for each product you would like to route to the gateway.
+\layout Enumerate
+
+Aliases should pipe to the gateway script
+\begin_deeper 
+\layout Enumerate
+
+dcl-support: 
+\begin_inset Quotes eld
+\end_inset 
+
+|/path/to/dcl-gateway.pl
+\begin_inset Quotes erd
+\end_inset 
+
+
+\end_deeper 
+\end_deeper 
+\layout Enumerate
+
+Run the newaliases command
+\layout Enumerate
+
+Restart the postfix daemon (postfix reload)
+\layout Subsection
+
+Configuration for Sendmail MTA
+\layout Enumerate
+
+Sendmail requires executable files be placed or linked in /etc/smrsh for
+ security.
+ Either ensure the dcl-gateway.pl file is in this directory or create a symbolic
+ like from the file to the /etc/smrsh directory.
+\layout Enumerate
+
+Edit the /etc/aliases file.
+\begin_deeper 
+\layout Enumerate
+
+Add aliases for each product you would like to route to the gateway.
+\layout Enumerate
+
+Aliases should pipe to the gateway script
+\begin_deeper 
+\layout Enumerate
+
+dcl-support: 
+\begin_inset Quotes eld
+\end_inset 
+
+|/path/to/dcl-gateway.pl
+\begin_inset Quotes erd
+\end_inset 
+
+
+\end_deeper 
+\end_deeper 
+\layout Enumerate
+
+Run the newaliases command
+\layout Enumerate
+
+Restart the sendmail daemon (/etc/rc.d/init.d/sendmail restart)
+\layout Subsection
+
+Configure the Gateway Script
+\layout Standard
+
+The only configuration that has to be done in the script is setting up your
+ database settings.
+ This should match how you have DCL set up.
+ If you are using multiple domains and want to receive e-mails for each
+ domain, you will need to create a copy of the gateway script for each domain.
+ Your aliases will point to the appropriate script depending on the product
+ in the To: address.
+\layout Subsection
+
+Configuring DCL for the Gateway
+\layout Standard
+
+The Admin...System Setup...Configuration page now has a section for configuring
+ the e-mail gateway.
+\layout Enumerate
+
+
+\series bold 
+e-Mail Gateway for Tickets Enabled
+\series default 
+ - must be checked in order for tickets to be created.
+ Otherwise, an error will occur and the MTA will reject the e-mail.
+\layout Enumerate
+
+
+\series bold 
+Send Auto-Response to Sender Upon Receipt
+\series default 
+ - If checked, a quick e-mail is sent to the originator of the e-mail informing
+ them that the ticket was entered successfully into DCL.
+\layout Enumerate
+
+
+\series bold 
+Auto-Response e-Mail Address
+\series default 
+ - The address to use in the From: field of the auto-response e-mail.
+ Must be set to the same as your support address if the 
+\shape italic 
+Allow Replies to Append Ticket Resolutions
+\shape default 
+ feature is to be used.
+\layout Enumerate
+
+
+\series bold 
+Allow Replies to Append Ticket Resolutions
+\series default 
+ - if the ticket issuer responds to the auto-response e-mail, the resulting
+ e-mail will be appended to the ticket as a ticket resolution.
+\layout Enumerate
+
+
+\series bold 
+Gateway Ticket Status
+\series default 
+ - the status to assign tickets created by the gateway
+\layout Enumerate
+
+
+\series bold 
+Gateway Ticket Priority
+\series default 
+ - the priority to assign tickets created by the gateway
+\layout Enumerate
+
+
+\series bold 
+Gateway Ticket Severity
+\series default 
+ - the severity to assign tickets created by the gateway
+\layout Enumerate
+
+
+\series bold 
+Decode File Path for Ticket Attachments
+\series default 
+ - the path to the temporary file area for decoding attachments.
+\layout Standard
+
+Also, the 
+\shape italic 
+e-Mail SMTP Server
+\shape default 
+ section is used to configure the SMTP server used for outgoing e-mails.
+ If the 
+\shape italic 
+SMTP Enabled
+\shape default 
+ option is deselected, the responsible person for the ticket and the watchers
+ will not receive e-mail notifications of the ticket's entry.
+ Regardless of the 
+\shape italic 
+Enabled
+\shape default 
+ option, the 
+\shape italic 
+Server
+\shape default 
+, 
+\shape italic 
+Port
+\shape default 
+, and 
+\shape italic 
+Connection Timeout
+\shape default 
+ settings are still used for auto-response e-mails.
+\layout Section
+
+FAQ
+\layout Description
+
+
+\color blue
+Q.
+ I installed DCL on a Windows NT Server running IIS and PHP.
+ When I try to login, I get a message saying 
+\begin_inset Quotes eld
+\end_inset 
+
+Could not verify session.
+\begin_inset Quotes erd
+\end_inset 
+
+ What could be wrong?
+\layout Description
+
+A.
+ More than likely, you are running PHP as a CGI handler.
+ A known bug in IIS prevents cookies from being set properly if they are
+ sent in the header along with a Location: header for redirection.
+ The best fix at the moment is to change the redirMethod to meta.
+\layout Description
+
+
+\color blue
+Q.
+ I went through the setup screen and configured DCL for our projects.
+ Now when I try to enter a work order or ticket, the priorities and severities
+ are empty after I select a product.
+\layout Description
+
+A.
+ You need to add your new priorities and severities to the appropriate attribute
+ sets.
+ Go to Admin...System Setup...Attributes.
+ Click on the View link for the set you want to modify.
+ For each attribute, click on the Map link and use the forms to modify the
+ available items and, in the case of priorities and severities, their weight
+ (display order) in the drop downs.
+\layout Description
+
+
+\color blue
+Q.
+ When trying to login to DCL, I get the login screen with a message that
+ says 
+\begin_inset Quotes eld
+\end_inset 
+
+Could not verify session
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ I'm using IE.
+\layout Description
+
+A.
+ Due to a strange bug in IE, you need to ensure you specify the trailing
+ slash of the URL (i.e., http://host.com/dcl/ and not http://host.com/dcl ).
+ I assume this is a bug in IE since other browsers can cope with it just
+ fine.
+\layout Description
+
+A.
+ This may be due to the way the server handles the response.
+ A server does not need to handle them in the same way; being able to use
+ a final '/' seems to be supported by most web servers, but doesn't need
+ to be.
+ Check the server configuration to make sure it's not interfering somehow.
+\layout Description
+
+
+\color blue
+Q.
+ After installing the files and setting up the database, I get this error
+ when I go to index.php: Fatal error: Call to undefined function: setdbformat()
+ in /path/to/datetime.php on line n.
+\layout Description
+
+A.
+ The problem is caused by the Alternative PHP Cache (APC) being loaded.
+ 
+\shape italic 
+This error should no longer happen (since 20010923 release).
+ If you have the issue with a newer release, please report it.
+\layout Description
+
+
+\color blue
+Q.
+ The installation went fine, but when logging in for the first time as sa/sa,
+ I receive 
+\begin_inset Quotes eld
+\end_inset 
+
+Invalid Login
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Description
+
+A.
+ You may need to change your cookie settings.
+ Try opening the inc/config.php file and change the DCL_REDIR_METHOD to meta.
+ It is php by default.
+ This setting alters how DCL sets the cookie after authentication.
+\layout Standard
+
+If all else fails beyond repair, feel free to contact us.
+ 
+\layout Standard
+
+dcl-support@gnuenterprise.org
+\the_end

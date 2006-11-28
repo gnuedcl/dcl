@@ -1,0 +1,4 @@
+dcl_status_type_id	dcl_status_type_name
+1	Open
+2	Completed
+3	Deferred

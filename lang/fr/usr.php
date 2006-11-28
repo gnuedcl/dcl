@@ -1,0 +1,36 @@
+<?php
+	define('STR_USR_SELECTONE', "A Sélectionner");
+	define('STR_USR_PASSWORD', "Mot de passe");
+	define('STR_USR_SECLVL', "Niveau de sécurité");
+	define('STR_USR_MINLVL', "Min");
+	define('STR_USR_TODOTHIS', "Pour faire ceci...");
+	define('STR_USR_ADMIN', "Administrateur");
+	define('STR_USR_ADDASSGN', "Ajouter et assigner des appels");
+	define('STR_USR_RESPONSIBLE', "Etre responsable du traitement d\'un appel");
+	define('STR_USR_CANCHGPWD', "Capable de changer son mot de passe");
+	define('STR_USR_ADDWO', "Peut ajouter des appels");
+	define('STR_USR_DELWO', "Peut détruire un Ordre de Travail depuis le système");
+	define('STR_USR_MODWO', "Peut modifier un Ordre de Travail dans le système");
+	define('STR_USR_EMAIL', "e-Mail");
+	define('STR_USR_CHGPWD', "Changement Mot de passe");
+	define('STR_USR_CHANGE', "Changer");
+	define('STR_USR_CLEAR', "Rafraîchir");
+	define('STR_USR_NEWPWD', "Nouveau Mot de passe");
+	define('STR_USR_CURRPWD', "Mot de passe actuel");
+	define('STR_USR_CONFIRMPWD', "Confirmer Mot de passe");
+	define('STR_USR_TABLETITLE', "Utilisateurs - Triés Par %s");
+	define('STR_USR_NOUSERS', "Pas d\'utilisateur trouvés à affichéer. Peut-être n\'avez vous pas encore d\'utilisateurs définis dans le système!");
+	define('STR_USR_ID', "ID");
+	define('STR_USR_USER', "Utilisateur");
+	define('STR_USR_ACTIVEABB', "A");
+	define('STR_USR_ACTIVE', "Actif");
+	define('STR_USR_LASTNAME', "Nom");
+	define('STR_USR_FIRSTNAME', "Prénom");
+	define('STR_USR_OPTIONS', "Options");
+	define('STR_USR_REPORTTO', "A pour responsable");
+	define('STR_USR_DEPARTMENT', "Département");
+	define('STR_USR_LOGIN', "Login");
+	define('STR_USR_EDIT', "Editer Utilisateur");
+	define('STR_USR_ADD', "Ajouter Utilisateur");
+	define('STR_USR_HIGHLIGHTEDNOTE', "** Les champs en surbrillance sont obligatoires!");
+?>

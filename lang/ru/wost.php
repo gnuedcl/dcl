@@ -1,0 +1,36 @@
+<?php
+	define('STR_WOST_SSTITLE', "Зтатус Задания - в виде таблицы");
+	define('STR_WOST_PERSONNEL', "Включить персонал");
+	define('STR_WOST_PRODUCTS', "Включить Проект");
+	define('STR_WOST_CLOSEDWO', "Закрытые задания: если ищете закрытые задания, заполните одну или обе эти даты.");
+	define('STR_WOST_BEGIN', "Начало");
+	define('STR_WOST_ENDING', "Завершение");
+	define('STR_WOST_ALL', "Все");
+	define('STR_WOST_HOURSABBREV', "ч");
+	define('STR_WOST_SEARCHRESULTS', "Результат поиска статистика Заданий");
+	define('STR_WOST_TICKETACTIVITY', "Отчет активности по Талонам");
+	define('STR_WOST_PERSONNELACTIVITY', "Отчет активности Персонала");
+	define('STR_WOST_GENERATEREPORTFOR', "Генерировать отчет для");
+	define('STR_WOST_DATERANGE', "Диапазон дат");
+	define('STR_WOST_DATEERR', "Не могу печатать отчет без начально и конечной даты.");
+	define('STR_WOST_SUMMARY', "Общее");
+	define('STR_WOST_STATUSABB', "СТ");
+	define('STR_WOST_PRIORITYABB', "ПР");
+	define('STR_WOST_SEVERITYABB', "СР");
+	define('STR_WOST_BUDGET', "Бюджет");
+	define('STR_WOST_ETC', "Осталось");
+	define('STR_WOST_TODATE', "ДоДаты");
+	define('STR_WOST_ESTSTART', "ПрмНач");
+	define('STR_WOST_ESTEND', "ПрмКон");
+	define('STR_WOST_START', "Начало");
+	define('STR_WOST_END', "Конец");
+	define('STR_WOST_TIME', "Время");
+	define('STR_WOST_ACTIVITYTITLE', "Отчет активности для %s от %s до %s");
+	define('STR_WOST_NOACTIVITY', "Активности Нет!");
+	define('STR_WOST_QUERYERR', "Не могу выполнить запрос!");
+	define('STR_WOST_NOTASKS', "Нет Задач для управления");
+	define('STR_WOST_SCHEDULEDTASK', "Управление %d-%d от %s до %s");
+	define('STR_WOST_SCHEDULETITLE', "Управление задачами для персонала");
+	define('STR_WOST_SCHEDULEFOR', "Управление для");
+	define('STR_WOST_FORMATASTIMESHEET', "Format as Timesheet");
+?>

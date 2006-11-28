@@ -1,0 +1,36 @@
+<?php
+	define('STR_WOST_SSTITLE', "Status der Arbeitsaufträge - Tabellen Ansicht");
+	define('STR_WOST_PERSONNEL', "Einschliesslich Personal");
+	define('STR_WOST_PRODUCTS', "Einschliesslich Produkte");
+	define('STR_WOST_CLOSEDWO', "Geschlossene Jobs: Wenn Sie nach geschlossenen Jobs suchen, bitte eines oder beide Datumsfelder ausfüllen");
+	define('STR_WOST_BEGIN', "Beginnt");
+	define('STR_WOST_ENDING', "Endet");
+	define('STR_WOST_ALL', "Alle");
+	define('STR_WOST_HOURSABBREV', "h");
+	define('STR_WOST_SEARCHRESULTS', "Arbeitsaufträge Statistiken Suchergebnisse");
+	define('STR_WOST_TICKETACTIVITY', "Bericht über Ticket Aktivitäten");
+	define('STR_WOST_PERSONNELACTIVITY', "Mitarbeiter Aktivität");
+	define('STR_WOST_GENERATEREPORTFOR', "Erzeuge Bericht über");
+	define('STR_WOST_DATERANGE', "Datenbereich");
+	define('STR_WOST_DATEERR', "Kann Bericht nicht ohne ein Start- und Endedatum drucken.");
+	define('STR_WOST_SUMMARY', "Zusammenfassung");
+	define('STR_WOST_STATUSABB', "St");
+	define('STR_WOST_PRIORITYABB', "Pr");
+	define('STR_WOST_SEVERITYABB', "Dr");
+	define('STR_WOST_BUDGET', "Budget");
+	define('STR_WOST_ETC', "ETC");
+	define('STR_WOST_TODATE', "bis Datum");
+	define('STR_WOST_ESTSTART', "vorr. Start");
+	define('STR_WOST_ESTEND', "vorr. Ende");
+	define('STR_WOST_START', "Start");
+	define('STR_WOST_END', "Ende");
+	define('STR_WOST_TIME', "Zeit");
+	define('STR_WOST_ACTIVITYTITLE', "Bericht über Aktivität von %s bis %s über %s");
+	define('STR_WOST_NOACTIVITY', "Keine Aktivitäten gefunden!");
+	define('STR_WOST_QUERYERR', "Abfrage konnte nicht ausgeführt werden!");
+	define('STR_WOST_NOTASKS', "Keine Aufgaben zu planen");
+	define('STR_WOST_SCHEDULEDTASK', "Geplant %d-%d von %s bis %s");
+	define('STR_WOST_SCHEDULETITLE', "Plane offene Aufgaben für Mitarbeiter");
+	define('STR_WOST_SCHEDULEFOR', "Geplant für");
+	define('STR_WOST_FORMATASTIMESHEET', "Format as Timesheet");
+?>

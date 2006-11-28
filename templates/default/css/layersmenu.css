@@ -1,0 +1,90 @@
+/* $Id: layersmenu.css,v 1.1.1.1 2006/11/27 05:30:39 mdean Exp $ */
+.horbar	{
+	color: black;
+	background-color: #dcdad5;
+	border: 2px outset #cecac1;
+}
+
+.horbaritem	{
+	float: left;
+	white-space: nowrap;
+	font-family: Tahoma, Verdana, Arial, Helvetica;
+	font-size: 11px;
+}
+
+.horbaritem a	{
+	display: block;
+	text-decoration: none;
+	border: 1px solid #dcdad5;
+}
+
+.horbaritem a:link	{
+	color: #000000;
+}
+
+.horbaritem a:visited	{
+	color: #000000;
+}
+
+.horbaritem a:hover	{
+	background-color: #eeeef9;
+	color: #000000;
+	border: solid #3a81c1 1px;
+}
+
+.horbaritem a:active	{
+	color: #ff0000;
+}
+
+.verbar	{
+	color: black;
+	background-color: #dcdad5;
+	border: 2px outset #cecac1;
+}
+
+.submenu	{
+	position: absolute;
+	left: 0;
+	top: 0;
+	visibility: hidden;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color="#777777", Direction=135, Strength=4)
+			alpha(Opacity=90);
+}
+
+.subframe	{
+	position: relative;
+	display: block;
+	background-color: #ffffff;
+	border: 1px solid black;
+	-moz-opacity:		0.9;
+}
+
+.item	{
+	position: relative;
+	text-align: left;
+	white-space: nowrap;
+	font-family: Tahoma, Verdana, Arial, Helvetica;
+	font-size: 11px;
+	padding: 2px;
+}
+
+.item a	{
+	position: relative;
+	display: block;
+	text-decoration: none;
+	color: #000000;
+	border: solid #ffffff 1px;
+}
+
+.item a:hover	{
+	background-color: #eeeef9;
+	color: #000000;
+	border: solid #3a81c1 1px;
+}
+
+.item .fwdarr	{
+	position: absolute;
+	top: 5px;
+/*	right: 4px; */
+	right: 7px;
+}

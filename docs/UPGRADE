@@ -1,0 +1,10 @@
+UPGRADE Instructions for existing users of Double Choco Latte
+
+ 1.	IMPORTANT: BACKUP YOUR EXISTING DCL INSTALLATION AND DATABASE BEFORE PERFORMING THESE STEPS!!!!!  
+	See the appropriate documentation for your SQL server for instructions to perform backups.
+
+ 2.	Backup inc/config.php.
+
+ 3.	Run the setup wizard (http://myserver.com/dcl/setup/) and follow the instructions.
+
+ 4.	SECURITY: REMOVE THE SETUP DIRECTORY ONCE YOU HAVE VERIFIED THE UPGRADE WAS SUCCESSFUL!!!

@@ -1,0 +1,21 @@
+<?php
+	define('STR_VW_SAVESEARCH', "Spara sökning");
+	define('STR_VW_EXPORTRESULTS', "Exportera resultat");
+	define('STR_VW_BATCHTIMECARD', "Automatisera tidrapport");
+	define('STR_VW_VIEWOBJECTNOTPASSED', "Ett vyobjekt skickades inte!");
+	define('STR_VW_UNKNOWNTABLE', "Okänd tabell %s");
+	define('STR_VW_QUERYERR', "Fel när frågan utfördes: %s");
+	define('STR_VW_NOMATCHES', "Inget matchar kriteriet");
+	define('STR_VW_OPEN', "Öppen: %d");
+	define('STR_VW_CLOSED', "Stängd: %d");
+	define('STR_VW_TOTAL', "Totalt: %d");
+	define('STR_VW_ID', "ID");
+	define('STR_VW_OWNER', "Ägare");
+	define('STR_VW_PUBLIC', "Publikt");
+	define('STR_VW_NAME', "Namn");
+	define('STR_VW_TABLE', "Tabell");
+	define('STR_VW_ADDVIEW', "Lägg till vy");
+	define('STR_VW_NOVIEWS', "Inga privata eller publika vyer hittades!");
+	define('STR_VW_TITLE', "Vyer ordnade efter %s");
+	define('STR_VW_SETUP', "Setup");
+?>

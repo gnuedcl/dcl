@@ -1,0 +1,36 @@
+<?php
+	define('STR_USR_SELECTONE', "Выбрать одно!");
+	define('STR_USR_PASSWORD', "Пароль");
+	define('STR_USR_SECLVL', "Уровень доступа");
+	define('STR_USR_MINLVL', "Мин");
+	define('STR_USR_TODOTHIS', "Сделай это...");
+	define('STR_USR_ADMIN', "Администратор");
+	define('STR_USR_ADDASSGN', "Добавлять и назначать Задачи");
+	define('STR_USR_RESPONSIBLE', "Быть ответственным за Задачи");
+	define('STR_USR_CANCHGPWD', "Право менять свой пароль");
+	define('STR_USR_ADDWO', "Право добавлять Задачи в систему");
+	define('STR_USR_DELWO', "Право удалять Задачи из системы");
+	define('STR_USR_MODWO', "Право модифицировать существующие задачи в системе");
+	define('STR_USR_EMAIL', "e-Mail");
+	define('STR_USR_CHGPWD', "Сменить пароль");
+	define('STR_USR_CHANGE', "Изменить");
+	define('STR_USR_CLEAR', "Очистить");
+	define('STR_USR_NEWPWD', "Новый пароль");
+	define('STR_USR_CURRPWD', "Текущий пароль");
+	define('STR_USR_CONFIRMPWD', "Подтвердить пароль");
+	define('STR_USR_TABLETITLE', "Пользователи - сортированные по %s");
+	define('STR_USR_NOUSERS', "Нет пользователей для отображения! Возможно в системе нет пользователей!");
+	define('STR_USR_ID', "ID");
+	define('STR_USR_USER', "Пользователь");
+	define('STR_USR_ACTIVEABB', "A");
+	define('STR_USR_ACTIVE', "Активно");
+	define('STR_USR_LASTNAME', "Фамилия");
+	define('STR_USR_FIRSTNAME', "Имя");
+	define('STR_USR_OPTIONS', "Опции");
+	define('STR_USR_REPORTTO', "Отчет на");
+	define('STR_USR_DEPARTMENT', "Подразделение");
+	define('STR_USR_LOGIN', "Логин");
+	define('STR_USR_EDIT', "Изменить пользователя");
+	define('STR_USR_ADD', "Добавить пользователя");
+	define('STR_USR_HIGHLIGHTEDNOTE', "** Выделенные поля обязательны!");
+?>

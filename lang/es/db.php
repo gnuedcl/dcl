@@ -1,0 +1,34 @@
+<?php
+	define('STR_DB_ACCOUNTINSERTERR', "No se pudo insertar la nueva cuenta! Pregunta: %s");
+	define('STR_DB_ACTIONINSERTERR', "No se pudo insertar la nueva accion! Pregunta: %s");
+	define('STR_DB_DEPTINSERTERR', "No se pudo insertar un nuevo departamento! Pregunta: %s");
+	define('STR_DB_USERINSERTERR', "No se pudo insertar un nuevo usuario! Pregunta: %s");
+	define('STR_DB_PWDCHGERR', "No se pudo cambiar la contraseña! Pregunta: %s");
+	define('STR_DB_PWDCHGSUCCESS', "Contraseña cambiada!");
+	define('STR_DB_PRIORITYINSERTERR', "No se pudo insertar una nueva prioridad! Pregunta: %s");
+	define('STR_DB_SEVERITYINSERTERR', "No se pudo insertar una nueva severidad! Pregunte: %s");
+	define('STR_DB_STATUSINSERTERR', "No se pudo insertar un nuevo estado! Pregunta: %s");
+	define('STR_DB_PRODUCTINSERTERR', "No se pudo insertar un nuevo producto! Pregunta: %s");
+	define('STR_DB_PROJECTMAPINSERTERR', "Could not insert new project mapping! Query: %s");
+	define('STR_DB_PROJECTINSERTERR', "No se pudo crear un nuevo proyecto! Pregunta: %s");
+	define('STR_DB_PROJECTBYOIDERR', "No se pudo recuperar el proyecto para ID o OID %d!");
+	define('STR_DB_PROJECTINSERTSUCCESS', "Projecto %s creado.");
+	define('STR_DB_WORKORDERLOADERR', "No se pudo cargar la work order %d-%d!");
+	define('STR_DB_WORKORDERINSERTERR', "No se pudo crear una nueva work order!  Query: %s");
+	define('STR_DB_WORKORDERBYOIDERR', "No se pudo conseguir la work order para ID o OID %d!");
+	define('STR_DB_FAQINSERTERR', "No se pudo crear una FAQ!  Preguntar: %s");
+	define('STR_DB_FAQANSWERINSERTERR', "No se pudo crear una respuesta FAQ!  Pregunta: %s");
+	define('STR_DB_FAQQUESTIONINSERTERR', "No se pudo crear un pregunta FAQ!  Pregunta: %s");
+	define('STR_DB_FAQTOPICINSERTERR', "No se pudo crear untema FAQ!  Pregunta: %s");
+	define('STR_DB_CONNECTIONFAILED', "Conexion con la  base de datos fallida!");
+	define('STR_DB_WRONGPWD', "Contraseña erronea, chief!");
+	define('STR_DB_RESOLUTIONINSERTERR', "No se pudo crear una nueva resolucion de Ticket! Pregunta: %s");
+	define('STR_DB_RESOLUTIONBYOIDERR', "No se pudo recuperar la resolucion de del Ticket mediante ID or OID %d!");
+	define('STR_DB_TICKETINSERTERR', "No se pudo crear un nuevo Ticket! Pregunta: %s");
+	define('STR_DB_TICKETBYOIDERR', "No se pudo cargar el Ticket para ID o OID %d!");
+	define('STR_DB_VIEWINSERTERR', "No se pudo crear una nueva vista! Pregunta: %s");
+	define('STR_DB_WATCHINSERTERR', "No se pudo crear un nuevo watch! Pregunta: %s");
+	define('STR_DB_CHKLSTOIDERR', "Error retrieving checklist by ID# %d");
+	define('STR_DB_CHKLSTTPLOIDERR', "Error retrieving checklist template by ID# %d");
+	define('STR_DB_CFGINSERTERR', "Could not add config item.  Query: %s");
+?>

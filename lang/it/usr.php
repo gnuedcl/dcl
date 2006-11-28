@@ -1,0 +1,36 @@
+<?php
+	define('STR_USR_SELECTONE', "Seleziona un elemento");
+	define('STR_USR_PASSWORD', "Password");
+	define('STR_USR_SECLVL', "Livello di Sicurezza");
+	define('STR_USR_MINLVL', "Min");
+	define('STR_USR_TODOTHIS', "Per...");
+	define('STR_USR_ADMIN', "Amministratore");
+	define('STR_USR_ADDASSGN', "Inserisce e lavora sugli ordini");
+	define('STR_USR_RESPONSIBLE', "E\' responsabile dei lavori");
+	define('STR_USR_CANCHGPWD', "Puo\' modificare la propria password");
+	define('STR_USR_ADDWO', "Puo\' inserire un lavoro al sistema");
+	define('STR_USR_DELWO', "Puo\' eliminare un lavoro dal sistema");
+	define('STR_USR_MODWO', "Puo\' modificare un lavoro esistente presente nel sistema");
+	define('STR_USR_EMAIL', "e-Mail");
+	define('STR_USR_CHGPWD', "Modifica Password");
+	define('STR_USR_CHANGE', "Modifica");
+	define('STR_USR_CLEAR', "Pulisci");
+	define('STR_USR_NEWPWD', "Nuova Password");
+	define('STR_USR_CURRPWD', "Password Attuale");
+	define('STR_USR_CONFIRMPWD', "Conferma Password");
+	define('STR_USR_TABLETITLE', "Utenti - Ordinati per %s");
+	define('STR_USR_NOUSERS', "L\'utente non puo\' essere visualizzato! Potresti non avere utenti nel sistema!");
+	define('STR_USR_ID', "ID");
+	define('STR_USR_USER', "Utente");
+	define('STR_USR_ACTIVEABB', "A");
+	define('STR_USR_ACTIVE', "Attivo");
+	define('STR_USR_LASTNAME', "Cognome");
+	define('STR_USR_FIRSTNAME', "Nome");
+	define('STR_USR_OPTIONS', "Opzioni");
+	define('STR_USR_REPORTTO', "Avvisa ");
+	define('STR_USR_DEPARTMENT', "Divisione");
+	define('STR_USR_LOGIN', "Login");
+	define('STR_USR_EDIT', "Modifica Utente");
+	define('STR_USR_ADD', "Nuovo Utente");
+	define('STR_USR_HIGHLIGHTEDNOTE', "** I campi Evidenziati sono obbligatori!");
+?>

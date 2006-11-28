@@ -1,0 +1,38 @@
+<?php
+	define('STR_BO_ACCOUNTSUCCESS', "Счет %s удачно добавлен!");
+	define('STR_BO_PASSWORDERR', "Пароли не совпадают или поле не заполнено!!!");
+	define('STR_BO_DELETED', "Удалено.");
+	define('STR_BO_DEACTIVATED', "Неактивно.");
+	define('STR_BO_UPLOADERR', "Не могу копировать загруженный файл в каталог назначения!");
+	define('STR_BO_TIMECARDDELETED', "ID временной метки %d для задания %d-%d удален!");
+	define('STR_BO_WORKORDERDELETED', "Задание %d-%d удалено!");
+	define('STR_BO_CSVUPLOADNONE', "Файл для импорта не выгружен!");
+	define('STR_BO_CSVUPLOADERR', "Не могу открыть выгруженный файл!");
+	define('STR_BO_FILECONTENTS', "Содержимое файла");
+	define('STR_BO_CSVMAPERR', "Не могу назначить полу \\\"%s\\\" на ID в линии %d!");
+	define('STR_BO_CSVNEWWOADDED', "%d новое задание добавлено!");
+	define('STR_BO_WTCHALLSEQ', "Все последовательности для Задачи# %d");
+	define('STR_BO_WTCHSUMMARYERR', "У? Незнакомое Имя/Описание для Наблюдения");
+	define('STR_BO_MAILMSG', "Вы получили данное письмо так как: (1) напрямую указаны, или (2) наблюдаете за указанным Заданием, или (3) наблюдаете за Счетом, Продуктом или Проектом связанным с данным Заданием. Письмо содержит состояние Задания.");
+	define('STR_BO_MAILSUBJ', "DCL Задание обновлено");
+	define('STR_BO_MAILSENT', "E-Mail Уведомление отправлено для %s");
+	define('STR_BO_NOJCNFORSEQWARNING', "Не могу найти Задание# %d. Взамен создаю новое Задание#.");
+	define('STR_BO_NOTLOGGEDIN', "Вы не вошли в систему.");
+	define('STR_BO_SEEDETAILAT', "Детально рассмотрено в : %s");
+	define('STR_BO_CANNOTLOADFAQ', "Не могу загрузить FAQ по id %d");
+	define('STR_BO_CANNOTLOADQUESTION', "Не могу загрузить вопрос FAQ по id %d");
+	define('STR_BO_CANNOTLOADTOPIC', "Не могу загрузить раздел FAQ для id %d");
+	define('STR_BO_PARENTISCHILD', "Родительский проект, который Вы выбрали в действительности является дочерним проектом. Укажите другой проект.");
+	define('STR_BO_ESCALATEDTO', "Увеличить до");
+	define('STR_BO_TICKETDELETED', "Талон #%d удален");
+	define('STR_BO_GRAPHNEEDSGD', "Вы должны иметь GD модуль встроенный в PHP для отображения графиков.");
+	define('STR_BO_GRAPHTITLE', "Число Открытых(красн.)/Закрытых(blue) Талонов по Дате");
+	define('STR_BO_WOGRAPHTITLE', "Число Открытых(красн.)/Закрытых(blue) Заданий по Дате");
+	define('STR_BO_GRAPHCAPTIONX', "Дата");
+	define('STR_BO_GRAPHCAPTIONY', "Число Открытых/Закрытых Талонов");
+	define('STR_BO_WOGRAPHCAPTIONY', "Число Открытых/Закрытых Заданий");
+	define('STR_BO_TICKETMAILMSG', "Вы получили данное письмо потому что Вы (1) напрямую включены в список, или (2) наблюдаете за Талоном, или (3) наблюдаете за Счетом или Продуктом связанным с данным Талоном. Письмо включает текущее состояние Талона.");
+	define('STR_BO_PROJECTMAILMSG', "Вы были назначены как руководитель проекта.");
+	define('STR_BO_LOOKUPNOTFOUND', "Не найден ID %d!");
+	define('STR_BO_UPLOADSUCCESS', "");
+?>
