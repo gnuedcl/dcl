@@ -2,14 +2,23 @@
 {dcl_validator_init}
 <script language="JavaScript">
 {literal}
-	function validateAndSubmitForm(form){
+function validateAndSubmitForm(form){
 {/literal}
-		if (checkString(form.elements["type_name"], "{$smarty.const.STR_CMMN_NAME}"))
+	var aValidators = new Array(new ValidatorString(form.elements["type_name"], "{$smarty.const.STR_CMMN_NAME}"));
 {literal}
+	for (var i in aValidators)
+	{
+		if (!aValidators[i].isValid())
 		{
-			form.submit();
+			alert(aValidators[i].getError());
+			if (typeof(aValidators[i]._Element.focus) == "function")
+				aValidators[i]._Element.focus();
+			return;
 		}
 	}
+
+	form.submit();
+}
 {/literal}
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
