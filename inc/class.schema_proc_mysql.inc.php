@@ -453,7 +453,7 @@
 			if ($oProc->_GetTableSQL($sTableName, $aTableDef, $sTableSQL, $sSequenceSQL))
 			{
 				$query = "CREATE TABLE $sTableName ($sTableSQL)";
-				$retVal = ($oProc->m_odb->query($query) != -1);
+				$retVal = ($oProc->m_odb->query($query) !== -1);
 				if ($retVal)
 					$retVal = $this->CreateIndexes($oProc, $sTableName, $aTableDef['ix']);
 					
@@ -473,7 +473,7 @@
 					$sColumns = join($aIndexColumns, ',');
 					$sSQL = "CREATE INDEX $sIndexName ON $sTableName ($sColumns)";
 					
-					$retVal = ($oProc->m_odb->Query($sSQL) != -1);
+					$retVal = ($oProc->m_odb->Query($sSQL) !== -1);
 				}
 			}
 			
