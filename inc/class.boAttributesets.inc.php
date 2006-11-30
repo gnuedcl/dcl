@@ -92,7 +92,7 @@ class boAttributesets
 		if (($aKeyID = @DCL_Sanitize::ToIntArray($_REQUEST['keyidset'])) !== null)
 		{
 			$i = 1;
-			foreach ($aKeyID as $keys)
+			foreach ($aKeyID as $id)
 			{
 				$obj->weight = $i;
 				$obj->keyid = $id;
