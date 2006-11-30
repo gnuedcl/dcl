@@ -638,22 +638,18 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 		LoadStringResource('menu');
 		buildMenuArray();
 	}
+	
+	$t =& CreateSmarty();
+
+	$t->assign('VAL_TITLE', $title);
+	$t->assign('CHARSET', GetCharSet());
 
 	if (DCL_EMBEDDED_STATE == DCL_PHPGW)
-		$t = CreateTemplate(array('hForm' => 'contained.tpl'));
+		SmartyDisplay($oSmarty, 'contained.tpl');
 	else if (DCL_EMBEDDED_STATE == DCL_XOOPS)
-		$t = CreateTemplate(array('hForm' => 'xoops.tpl'));
+		SmartyDisplay($oSmarty, 'xoops.tpl');
 	else
-		$t = CreateTemplate(array('hForm' => 'index.tpl'));
-
-	$sTemplateSet = GetDefaultTemplateSet();
-
-	$t->set_var('VAL_TITLE', $title);
-	$t->set_var('DIR_IMAGES', 'templates/' . $sTemplateSet . '/img');
-	$t->set_var('DIR_CSS', 'templates/' . $sTemplateSet . '/css');
-	$t->set_var('DIR_JS', 'templates/' . $sTemplateSet . '/js');
-	$t->set_var('CHARSET', GetCharSet());
-	$t->pparse('out', 'hForm');
+		SmartyDisplay($oSmarty, 'index.tpl');
 
 	if (!$bHideMenu && file_exists(DCL_ROOT . 'templates/' . $sTemplateSet . '/menu.php'))
 	{
