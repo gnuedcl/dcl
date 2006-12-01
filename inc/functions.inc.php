@@ -645,12 +645,13 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 	$t->assign('CHARSET', GetCharSet());
 
 	if (DCL_EMBEDDED_STATE == DCL_PHPGW)
-		SmartyDisplay($oSmarty, 'contained.tpl');
+		SmartyDisplay($t, 'contained.tpl');
 	else if (DCL_EMBEDDED_STATE == DCL_XOOPS)
-		SmartyDisplay($oSmarty, 'xoops.tpl');
+		SmartyDisplay($t, 'xoops.tpl');
 	else
-		SmartyDisplay($oSmarty, 'index.tpl');
+		SmartyDisplay($t, 'index.tpl');
 
+	$sTemplateSet = GetDefaultTemplateSet();
 	if (!$bHideMenu && file_exists(DCL_ROOT . 'templates/' . $sTemplateSet . '/menu.php'))
 	{
 		include(DCL_ROOT . 'templates/' . $sTemplateSet . '/menu.php');
