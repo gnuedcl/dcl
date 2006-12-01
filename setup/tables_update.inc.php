@@ -704,7 +704,11 @@ function dcl_upgrade0_9_3()
 
 		// seq_projects will get renamed to seq_dcl_projects
 		// and we have one other that needs changed
-		$phpgw_setup->oProc->query('ALTER TABLE seq_severity RENAME TO seq_severities');
+		$phpgw_setup->oProc->query('ALTER TABLE severities ALTER id DROP DEFAULT');
+		$phpgw_setup->oProc->query('DROP SEQUENCE seq_severity');
+		$phpgw_setup->oProc->query('CREATE SEQUENCE seq_severities');
+		$phpgw_setup->oProc->UpdateSequence('severities', 'id');
+		$phpgw_setup->oProc->query("ALTER TABLE severities ALTER id SET DEFAULT nextval('seq_severities')");
 	}
 	else
 	{
