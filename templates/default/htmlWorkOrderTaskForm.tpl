@@ -29,7 +29,7 @@
 		if (!canAddNewTask()) return;
 		var oDiv = document.getElementById("div_task_summary");
 		var oNewLabel = document.createElement("LABEL");
-		oNewLabel.for = "task_summary_" + String(++_iCurrentID);
+		oNewLabel.setAttribute("for", "task_summary_" + String(++_iCurrentID));
 		oNewLabel.innerHTML = document.getElementById("label_summary_1").innerHTML;
 		oNewLabel.id = "label_summary_" + String(_iCurrentID);
 		oDiv.appendChild(oNewLabel);
@@ -39,7 +39,7 @@
 		oNewTask.size = 50;
 		oNewTask.maxLength = 255;
 		oNewTask.name = "task_summary[]";
-		oNewTask.id = oNewLabel.for;
+		oNewTask.id = oNewLabel.getAttribute("for");
 		oDiv.appendChild(oNewTask);
 		
 		var oNewRemove = document.createElement("A");
