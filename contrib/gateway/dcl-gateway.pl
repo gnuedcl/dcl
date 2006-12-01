@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: dcl-gateway.pl,v 1.1.1.1 2006/11/27 05:30:41 mdean Exp $
+# $Id$
 
 ##################################################################################
 # Derived From GNATS MIME page: parsemime.pl -- Yngve Svendsen, May 2001         #

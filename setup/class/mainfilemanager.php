@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: mainfilemanager.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $
+ * $Id$
  *
  * Derived from XOOPS Setup
  *
@@ -28,7 +28,7 @@
 * mainfile manager for XOOPS installer
 *
 * @author Haruki Setoyama  <haruki@planewave.org>
-* @version $Id: mainfilemanager.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $
+* @version $Id$
 * @access public
 **/
 class mainfile_manager
