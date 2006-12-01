@@ -1,4 +1,4 @@
-<!-- $Id: htmlProductsDetail.tpl,v 1.3 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 <div class="dcl_detail" style="width:100%;">
 	<table class="styled">
 		<caption>[{$VAL_ID}] {$VAL_NAME}</caption>

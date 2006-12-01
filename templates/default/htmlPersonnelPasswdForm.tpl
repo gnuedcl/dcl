@@ -1,4 +1,4 @@
-<!-- $Id: htmlPersonnelPasswdForm.tpl,v 1.3 2006/11/27 06:00:51 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_selector_init}
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="boPersonnel.dbpasswd">

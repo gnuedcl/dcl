@@ -1,4 +1,4 @@
-<!-- $Id: htmlContactMerge.tpl,v 1.1.1.1 2006/11/27 05:30:39 mdean Exp $ -->
+<!-- $Id$ -->
 {if $VAL_MERGECONTACTID}
 <form class="styled" method="post" name="contactMergeForm" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="htmlContact.doMerge">

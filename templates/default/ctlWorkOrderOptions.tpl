@@ -1,4 +1,4 @@
-<!-- $Id: ctlWorkOrderOptions.tpl,v 1.1.1.1 2006/11/27 05:30:39 mdean Exp $ -->
+<!-- $Id$ -->
 {assign var="HAS_PERM" value="$PERM_ACTION || $PERM_ASSIGN || $PERM_ADD || $PERM_ADDTASK || $PERM_VIEWCHANGELOG || $PERM_REMOVETASK || $PERM_ATTACHFILE || $PERM_VIEW || $PERM_VIEWWIKI || $PERM_MODIFY || $PERM_DELETE || $PERM_AUDIT"}
 {if $HAS_PERM}
 <tr class="toolbar"><th colspan="4">

@@ -1,4 +1,4 @@
-<!-- $Id: htmlAttributesetmapping.tpl,v 1.4 2006/11/27 06:00:51 mdean Exp $ -->
+<!-- $Id$ -->
 <script language="JavaScript">{literal}
 function submitForm(f) {
 	f.elements["keyidset"].value = "";

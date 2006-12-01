@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-<!-- $Id: login.tpl,v 1.7 2006/11/27 06:00:53 mdean Exp $ -->
+<!-- $Id$ -->
 <meta http-equiv="Set-Cookie" content="DCLINFO=;expires=Friday, 31-Dec-00 23:59:59 GMT">
 <meta http-equiv="Expires" content="-1">
 <title>{$TXT_TITLE}</title>

@@ -1,4 +1,4 @@
-<!-- $Id: htmlWorkordersDetail.tpl,v 1.5 2006/11/27 06:00:53 mdean Exp $ -->
+<!-- $Id$ -->
 {if $PERM_MODIFY_TC && $VAL_EDITTCID}
 {dcl_calendar_init}
 {dcl_validator_init}

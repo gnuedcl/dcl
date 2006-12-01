@@ -1,5 +1,5 @@
 <html><head>
-	<!-- $Id: notify_tck_en_html.tpl,v 1.1.1.1 2006/11/27 05:30:35 mdean Exp $ -->
+	<!-- $Id$ -->
 	<title>DCL Notification</title>
 	<style type="text/css">
 		form {margin-bottom: 0px}

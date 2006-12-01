@@ -1,4 +1,4 @@
-<!-- $Id: htmlMy.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 <fieldset>
 <legend><a class="adark" href="{LNK_MY}">{TXT_TITLE}</a>&nbsp;&nbsp;<span style="font-weight: bold;">({TXT_TOP})</span></legend>
 <table border="0" width="100%">

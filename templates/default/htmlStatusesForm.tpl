@@ -1,4 +1,4 @@
-<!-- $Id: htmlStatusesForm.tpl,v 1.5 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_validator_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)

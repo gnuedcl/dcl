@@ -1,4 +1,4 @@
-<!-- $Id: htmlTicketActivity.tpl,v 1.3 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_calendar_init}
 <form class="styled" name="searchForm" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="reportTicketActivity.execute">

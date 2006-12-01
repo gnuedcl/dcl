@@ -1,4 +1,4 @@
-<!-- $Id: htmlTimeCardDetail.tpl,v 1.3 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 <tr>
 	<th class="detailTitle">{$VAL_ACTIONBY|escape} ({$VAL_ACTIONON}): {$VAL_SUMMARY|escape}</th>
 	<th class="detailLinks" style="width: 5%; white-space: nowrap;">

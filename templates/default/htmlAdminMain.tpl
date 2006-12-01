@@ -1,4 +1,4 @@
-<!-- $Id: htmlAdminMain.tpl,v 1.5 2006/11/27 06:00:51 mdean Exp $ -->
+<!-- $Id$ -->
 <table width="100%" class="dcl_results">
 	<caption>{$TXT_SETUPTITLE}</caption>
 	<thead><tr><th>Option</th><th>Description</th></tr></thead>

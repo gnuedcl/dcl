@@ -1,5 +1,5 @@
 <html><head>
-	<!-- $Id: notify_wo_en_html.tpl,v 1.1.1.1 2006/11/27 05:30:35 mdean Exp $ -->
+	<!-- $Id$ -->
 	<title>DCL Notification</title>
 </head><body>
 <table border="0">

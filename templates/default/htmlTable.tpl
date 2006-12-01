@@ -1,4 +1,4 @@
-<!-- $Id: htmlTable.tpl,v 1.1.1.1 2006/11/27 05:30:36 mdean Exp $ -->
+<!-- $Id$ -->
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}
 {if $rownum}{assign var=colcount value=$colcount+1}{/if}

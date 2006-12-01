@@ -1,4 +1,4 @@
-<!-- $Id: htmlWatchForm.tpl,v 1.4 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 <form class="styled" name="AddWatch" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="typeid" value="{$VAL_TYPEID}">
 	<input type="hidden" name="whatid1" value="{$VAL_WHATID1}">

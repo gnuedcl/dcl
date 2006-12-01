@@ -1,4 +1,4 @@
-<!-- $Id: htmlNewContactForm.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_selector_init}
 {dcl_validator_init}
 <script language="JavaScript">

@@ -1,4 +1,4 @@
-<!-- $Id: htmlProjectsDeleteAttachment.tpl,v 1.3 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="boProjects.dodeleteattachment">
 	<input type="hidden" name="projectid" value="{$VAL_PROJECTID}">

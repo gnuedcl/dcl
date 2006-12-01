@@ -1,4 +1,4 @@
-<!-- $Id: htmlOrgBrowse.tpl,v 1.1.1.1 2006/11/27 05:30:37 mdean Exp $ -->
+<!-- $Id$ -->
 <link rel="stylesheet" type="text/css" href="{$DIR_CSS}default.css" />
 <script language="JavaScript">
 	var iPage = {$VAL_PAGE};

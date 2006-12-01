@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <!-- $Id: install_tpl.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $ -->
+  <!-- $Id$ -->
   <title>Double Choco Latte Installation</title>
   <meta http-equiv="Content-Type" content="text/html; charset=<?php echo _INSTALL_CHARSET ?>" />
   <link rel="stylesheet" type="text/css" media="all" href="style.css" />

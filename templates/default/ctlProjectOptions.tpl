@@ -1,4 +1,4 @@
-<!-- $Id: ctlProjectOptions.tpl,v 1.1.1.1 2006/11/27 05:30:37 mdean Exp $ -->
+<!-- $Id$ -->
 <tr class="toolbar"><th colspan="4">
 <ul>
 {strip}

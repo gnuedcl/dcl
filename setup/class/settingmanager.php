@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: settingmanager.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $
+ * $Id$
  *
  * Derived from XOOPS Setup
  *
@@ -32,7 +32,7 @@ include_once 'class/textsanitizer.php';
 * setting manager for XOOPS installer
 *
 * @author Haruki Setoyama  <haruki@planewave.org>
-* @version $Id: settingmanager.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $
+* @version $Id$
 * @access public
 **/
 class setting_manager {

@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: welcome.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $
+ * $Id$
  *
  * Derived from XOOPS Setup
  *

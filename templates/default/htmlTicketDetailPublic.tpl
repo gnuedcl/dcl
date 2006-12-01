@@ -1,4 +1,4 @@
-<!-- $Id: htmlTicketDetailPublic.tpl,v 1.1.1.1 2006/11/27 05:30:37 mdean Exp $ -->
+<!-- $Id$ -->
 {if $PERM_MODIFY_TR && $VAL_EDITRESID}
 {dcl_calendar_init}
 {dcl_validator_init}

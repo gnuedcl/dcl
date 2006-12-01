@@ -1,4 +1,4 @@
-<!-- $Id: ctlTimeCards.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 <div class="dcl_detail">
 <table width="100%" class="styled">
 	<caption class="spacer">Time Cards</caption>

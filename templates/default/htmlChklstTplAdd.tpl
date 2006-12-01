@@ -1,4 +1,4 @@
-<!-- $Id: htmlChklstTplAdd.tpl,v 1.5 2006/11/27 06:00:51 mdean Exp $ -->
+<!-- $Id$ -->
 <form class="styled" name="fileupload" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
 	<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">

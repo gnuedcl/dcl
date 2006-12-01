@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: dcl-wo-gateway.pl,v 1.1.1.1 2006/11/27 05:30:41 mdean Exp $
+# $Id$
 
 ##################################################################################
 # Derived From dcl-gateway.pl - see comments about origin there :)               #

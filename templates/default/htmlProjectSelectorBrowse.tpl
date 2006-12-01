@@ -1,5 +1,5 @@
 <html>
-	<!-- $Id: htmlProjectSelectorBrowse.tpl,v 1.1.1.1 2006/11/27 05:30:39 mdean Exp $ -->
+	<!-- $Id$ -->
 	<head>
 		<link rel="stylesheet" type="text/css" href="{$DIR_CSS}/default.css" />
 		<script language="JavaScript">

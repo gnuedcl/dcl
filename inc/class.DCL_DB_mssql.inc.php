@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: class.DCL_DB_mssql.inc.php,v 1.1.1.1 2006/11/27 05:30:50 mdean Exp $
+ * $Id$
  *
  * Original implementation by Urmet Janes.  Many thanks!
  *
@@ -31,7 +31,7 @@ include_once(DCL_ROOT . 'inc/class.DCL_DB_Core.inc.php');
  * @package api
  * @subpackage database
  * @copyright Copyright &copy; 1999-2004 Free Software Foundation
- * @version $Id: class.DCL_DB_mssql.inc.php,v 1.1.1.1 2006/11/27 05:30:50 mdean Exp $
+ * @version $Id$
  */
    
 /**
@@ -39,7 +39,7 @@ include_once(DCL_ROOT . 'inc/class.DCL_DB_Core.inc.php');
  * @package api
  * @subpackage database
  * @copyright Copyright (C) 1999-2004 Free Software Foundation
- * @version $Id: class.DCL_DB_mssql.inc.php,v 1.1.1.1 2006/11/27 05:30:50 mdean Exp $
+ * @version $Id$
  */
 class dclDB extends DCL_DB_Core 
 {

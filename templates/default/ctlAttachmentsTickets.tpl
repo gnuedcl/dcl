@@ -1,4 +1,4 @@
-<!-- $Id: ctlAttachmentsTickets.tpl,v 1.1.1.1 2006/11/27 05:30:36 mdean Exp $ -->
+<!-- $Id$ -->
 {strip}
 	<table width="100%" class="dcl_results">
 		<caption class="spacer">Attachments</caption>

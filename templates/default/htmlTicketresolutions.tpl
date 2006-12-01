@@ -1,4 +1,4 @@
-<!-- $Id: htmlTicketresolutions.tpl,v 1.4 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 <tr>
 	<th class="formTitle">{$VAL_LOGGEDBY|escape} ({$VAL_LOGGEDON}): {$VAL_STATUS|escape}</th>
 	<th class="formLinks" style="width: 5%; white-space: nowrap;">

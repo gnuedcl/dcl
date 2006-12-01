@@ -1,4 +1,4 @@
-<!-- $Id: htmlWorkOrderGraph.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_calendar_init}
 <form class="styled" name="theForm" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="boWorkorders.showgraph">

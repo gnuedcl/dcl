@@ -1,5 +1,5 @@
 <html>
-<!-- $Id: htmlOrganizationSelector.tpl,v 1.1.1.1 2006/11/27 05:30:36 mdean Exp $ -->
+<!-- $Id$ -->
 	<head>
 		<title>Select Organization</title>
 		<frameset rows="85,*" border="0" frameborder="0">

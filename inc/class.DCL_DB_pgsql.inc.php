@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: class.DCL_DB_pgsql.inc.php,v 1.1.1.1 2006/11/27 05:30:47 mdean Exp $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
@@ -29,7 +29,7 @@ include_once(DCL_ROOT . 'inc/class.DCL_DB_Core.inc.php');
  * @package api
  * @subpackage database
  * @copyright Copyright &copy; 1999-2004 Free Software Foundation
- * @version $Id: class.DCL_DB_pgsql.inc.php,v 1.1.1.1 2006/11/27 05:30:47 mdean Exp $
+ * @version $Id$
  */
    
 /**
@@ -37,7 +37,7 @@ include_once(DCL_ROOT . 'inc/class.DCL_DB_Core.inc.php');
  * @package api
  * @subpackage database
  * @copyright Copyright &copy; 1999-2004 Free Software Foundation
- * @version $Id: class.DCL_DB_pgsql.inc.php,v 1.1.1.1 2006/11/27 05:30:47 mdean Exp $
+ * @version $Id$
  */
 class dclDB extends DCL_DB_Core
 {

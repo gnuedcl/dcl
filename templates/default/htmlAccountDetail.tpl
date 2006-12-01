@@ -1,4 +1,4 @@
-<!-- $Id: htmlAccountDetail.tpl,v 1.1.1.1 2006/11/27 05:30:36 mdean Exp $ -->
+<!-- $Id$ -->
 <table border="0">
 <tr>
 	<th class="formTitle" style="white-space: nowrap;">{VAL_NAME}</th>

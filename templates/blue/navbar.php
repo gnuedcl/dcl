@@ -1,6 +1,6 @@
 <?php
 	/*
-	 * $Id: navbar.php,v 1.1.1.1 2006/11/27 05:30:35 mdean Exp $
+	 * $Id$
 	 *
 	 * Double Choco Latte - Source Configuration Management System
 	 * Copyright (C) 1999  Michael L. Dean & Tim R. Norman

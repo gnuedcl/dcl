@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: class.TreeMenu.inc.php,v 1.1.1.1 2006/11/27 05:30:47 mdean Exp $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  *

@@ -1,4 +1,4 @@
-<!-- $Id: htmlAuditTrail.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 <table class="dcl_results">
 	<caption>Audit: [{$VAL_ID}] {$VAL_SUMMARY|escape:"htmlall"}</caption>
 	<thead>

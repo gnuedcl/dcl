@@ -1,4 +1,4 @@
-<!-- $Id: htmlTicketStatisticsForm.tpl,v 1.3 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_calendar_init}
 {dcl_validator_init}
 <script language="JavaScript">

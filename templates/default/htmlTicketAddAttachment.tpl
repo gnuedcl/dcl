@@ -1,4 +1,4 @@
-<!-- $Id: htmlTicketAddAttachment.tpl,v 1.3 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 <form class="styled" name="fileupload" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
 	<input type="hidden" name="menuAction" value="boTickets.doupload">
 	<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">

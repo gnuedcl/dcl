@@ -1,4 +1,4 @@
-<!-- $Id: htmlProjectsSearch.tpl,v 1.4 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 <script language="JavaScript">
 function validateAndSubmitForm(form)
 {

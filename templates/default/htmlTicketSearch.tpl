@@ -1,4 +1,4 @@
-<!-- $Id: htmlTicketSearch.tpl,v 1.3 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_calendar_init}
 <script language="JavaScript" src="js/ticketsearch.js"></script>
 <script language="JavaScript">

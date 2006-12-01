@@ -1,4 +1,4 @@
-<!-- $Id: htmlAddrForm.tpl,v 1.1.1.1 2006/11/27 05:30:37 mdean Exp $ -->
+<!-- $Id$ -->
 <script language="JavaScript">
 {literal}
 	function validateAndSubmitForm(form)

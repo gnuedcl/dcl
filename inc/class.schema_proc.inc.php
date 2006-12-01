@@ -12,7 +12,7 @@
   *  option) any later version.                                              *
   \**************************************************************************/
 
-  /* $Id: class.schema_proc.inc.php,v 1.1.1.1 2006/11/27 05:30:50 mdean Exp $ */
+  /* $Id$ */
 
 	class schema_proc
 	{

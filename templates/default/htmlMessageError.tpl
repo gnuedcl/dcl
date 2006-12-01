@@ -1,4 +1,4 @@
-<!-- $Id: htmlMessageError.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 {if $MESSAGE->bIsFirst && count($MESSAGE->aBacktrace) > 0}
 <script language="JavaScript">
 {literal}

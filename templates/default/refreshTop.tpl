@@ -2,7 +2,7 @@
         "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 	<head>
-		<!-- $Id: refreshTop.tpl,v 1.1.1.1 2006/11/27 05:30:37 mdean Exp $ -->
+		<!-- $Id$ -->
 		<meta http-equiv="Expires" content="0">
 		<script language="JavaScript">
 			function init()

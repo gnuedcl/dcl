@@ -1,4 +1,4 @@
-<!-- $Id: ctlAttachmentsProjects.tpl,v 1.1.1.1 2006/11/27 05:30:37 mdean Exp $ -->
+<!-- $Id$ -->
 {strip}
 <table class="dcl_results" style="width:100%;">
 	<caption class="spacer">Attachments</caption>

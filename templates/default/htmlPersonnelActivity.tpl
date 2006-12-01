@@ -1,4 +1,4 @@
-<!-- $Id: htmlPersonnelActivity.tpl,v 1.3 2006/11/27 06:00:51 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_calendar_init}
 <script language="JavaScript">
 {literal}

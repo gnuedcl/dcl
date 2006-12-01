@@ -1,6 +1,6 @@
 <?php
     /*
-     * $Id: class.DCL_DateTime.inc.php,v 1.1.1.1 2006/11/27 05:30:49 mdean Exp $
+     * $Id$
 	 *
 	 * Contributed by Urmet Janes
      *

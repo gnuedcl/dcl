@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: class.htmlProjectsdetail.inc.php,v 1.1.1.1 2006/11/27 05:30:43 mdean Exp $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation

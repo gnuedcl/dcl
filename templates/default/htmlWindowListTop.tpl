@@ -1,5 +1,5 @@
 <html>
-<!-- $Id: htmlWindowListTop.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 <head><title>{TXT_TITLE}</title>
 <style type="text/css">
 	body { margin: 0px; background-color: #ffffff; font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }

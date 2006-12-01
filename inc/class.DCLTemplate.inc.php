@@ -7,7 +7,7 @@
  * (C) Copyright 1999-2000 NetUSE GmbH
  *                    Kristian Koehntopp
  *
- * $Id: class.DCLTemplate.inc.php,v 1.1.1.1 2006/11/27 05:30:46 mdean Exp $
+ * $Id$
  *
  */
 class DCLTemplate {

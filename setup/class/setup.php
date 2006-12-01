@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: setup.php,v 1.1.1.1 2006/11/27 05:31:01 mdean Exp $
+ * $Id$
  *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman

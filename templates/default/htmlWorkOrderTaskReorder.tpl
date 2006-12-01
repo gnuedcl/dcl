@@ -1,4 +1,4 @@
-<!-- $Id: htmlWorkOrderTaskReorder.tpl,v 1.1.1.1 2006/11/27 05:30:39 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_scriptaculous_init}
 <table width="100%" class="dcl_results">
 	<caption class="spacer">Reorder Tasks [{$VAL_JCN}-{$VAL_SEQ}]</caption>

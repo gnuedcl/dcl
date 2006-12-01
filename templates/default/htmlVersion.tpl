@@ -1,4 +1,4 @@
-<!-- $Id: htmlVersion.tpl,v 1.3 2006/11/27 06:00:52 mdean Exp $ -->
+<!-- $Id$ -->
 <center>
 <table border="0" cellspacing="0" cellpadding="2">
 <tr><th class="formTitle">{TXT_TITLE}</th></tr>

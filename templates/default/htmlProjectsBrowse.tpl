@@ -1,4 +1,4 @@
-<!-- $Id: htmlProjectsBrowse.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 <center>
 <table style="border: 0px none;" cellspacing="0">
 	<tr><th class="detailTitle">{TXT_TITLE}</th>

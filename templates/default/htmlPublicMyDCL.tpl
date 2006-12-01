@@ -1,4 +1,4 @@
-<!-- $Id: htmlPublicMyDCL.tpl,v 1.1.1.1 2006/11/27 05:30:38 mdean Exp $ -->
+<!-- $Id$ -->
 <table>
 	<tr><th class="detailTitle" colspan="2" style="width:80%;">DCL Public Interface</th></tr>
 	{if $PERM_TICKETS}

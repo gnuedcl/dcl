@@ -1,4 +1,4 @@
-<!-- $Id: htmlConfig.tpl,v 1.5 2006/11/27 06:00:51 mdean Exp $ -->
+<!-- $Id$ -->
 <script language="JavaScript">
 function validateAndSubmit(f)
 {literal}

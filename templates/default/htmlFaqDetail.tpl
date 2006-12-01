@@ -1,4 +1,4 @@
-<!-- $Id: htmlFaqDetail.tpl,v 1.4 2006/11/27 06:00:51 mdean Exp $ -->
+<!-- $Id$ -->
 <center>
 <table border="0" cellspacing="0" style="width: 80%;">
 	<tr><th class="detailTitle">{$VAL_NAME|escape}</th>

@@ -1,4 +1,4 @@
-<!-- $Id: htmlFaqquestionsDetail.tpl,v 1.3 2006/11/27 06:00:51 mdean Exp $ -->
+<!-- $Id$ -->
 <center>
 <table border="0" cellspacing="0" style="width: 80%;">
 	<tr><th class="detailTitle"><a href="{$URL_MAIN_PHP}?menuAction=boFaq.view&faqid={$VAL_FAQID}">{$VAL_FAQNAME|escape}</a> : <a href="{$URL_MAIN_PHP}?menuAction=boFaqtopics.view&topicid={$VAL_TOPICID}">{$VAL_TOPICNAME|escape}</a></th>

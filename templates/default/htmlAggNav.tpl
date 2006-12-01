@@ -1,4 +1,4 @@
-<!-- $Id: htmlAggNav.tpl,v 1.1.1.1 2006/11/27 05:30:37 mdean Exp $ -->
+<!-- $Id$ -->
 {dcl_calendar_init}
 <form class="styled" method="post" name="frmAggNav" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="htmlAgg.ShowReport">
