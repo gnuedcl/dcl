@@ -116,6 +116,10 @@ function validate(form, status)
 			<label for="issue">{$smarty.const.STR_TCK_ISSUE}:</label>
 			<textarea name="issue" rows="6" cols="70" wrap valign="top">{$VAL_ISSUE|escape}</textarea>
 		</div>
+		<div class="required">
+			<label for="copy_me_on_notification">Copy Me on Notification:</label>
+			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y">
+		</div>
 {if $PERM_ATTACHFILE && !$VAL_ISEDIT && $VAL_MAXUPLOADFILESIZE > 0}
 		<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">
 		<div>

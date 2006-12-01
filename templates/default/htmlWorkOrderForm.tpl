@@ -144,6 +144,10 @@ function validateAndSubmitForm(form)
 			<label for="description">{$smarty.const.STR_WO_DESCRIPTION}:</label>
 			<textarea name="description" rows="4" cols="70" wrap valign="top">{$VAL_DESCRIPTION|escape}</textarea>
 		</div>
+		<div class="required">
+			<label for="copy_me_on_notification">Copy Me on Notification:</label>
+			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y">
+		</div>
 {if $PERM_ADDTASK}
 {if $TXT_WILLBEPARTOFPROJECT}
 		<div class="noinput">{$TXT_WILLBEPARTOFPROJECT}<input type="hidden" name="projectid" value="{$VAL_PROJECTS}"></div>
