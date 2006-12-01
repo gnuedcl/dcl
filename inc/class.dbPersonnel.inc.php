@@ -85,14 +85,14 @@ class dbPersonnel extends dclDB
 	function ChangePassword($userID, $oldPassword, $newPassword, $confirmPassword)
 	{
 		global $g_oSec;
-		
+
 		if (($userID = DCL_Sanitize::ToInt($userID)) === null)
 		{
 			trigger_error('Data sanitize failed.');
 			return -1;
 		}
 		
-		if ($GLOBALS['DCLID'] > 1 && !$g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
+		if ($GLOBALS['DCLID'] > 1 && !$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD))
 		{
 			if ($this->IsPasswordOK($userID, $oldPassword) == false)
 			{

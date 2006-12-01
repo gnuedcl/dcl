@@ -202,10 +202,14 @@ class boPersonnel
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['userid'])) === null)
+		$iID = $GLOBALS['DCLID'];
+		if (isset($_REQUEST['userid']))
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			if (($iID = @DCL_Sanitize::ToInt($_REQUEST['userid'])) === null)
+			{
+				trigger_error('Data sanitize failed.');
+				return;
+			}
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD) || (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD) && $GLOBALS['DCLID'] != $iID))
@@ -220,7 +224,11 @@ class boPersonnel
 		else
 		{
 			$objDBPersonnel =& CreateObject('dcl.dbPersonnel');
-			$objDBPersonnel->ChangePassword($iID, $_REQUEST['original'], $_REQUEST['new'], $_REQUEST['confirm']);
+			$sOriginal = '';
+			if (isset($_REQUEST['original']))
+				$sOriginal = $_REQUEST['original'];
+
+			$objDBPersonnel->ChangePassword($iID, $sOriginal, $_REQUEST['new'], $_REQUEST['confirm']);
 		}
 	}
 
