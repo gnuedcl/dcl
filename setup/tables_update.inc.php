@@ -936,7 +936,6 @@ function dcl_upgrade0_9_4_4()
 	$phpgw_setup->oProc->Query('update personnel set short = rtrim(short)');
 
 	// Adding support for public interfaces and ticket/work order sources
-/*
 	$phpgw_setup->oProc->CreateTable('dcl_entity_source',
 					array(
 						'fd' => array(
@@ -955,7 +954,7 @@ function dcl_upgrade0_9_4_4()
 	$phpgw_setup->oProc->AddColumn('workorders', 'is_public', array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'));
 	$phpgw_setup->oProc->AddColumn('tickets', 'entity_source_id', array('type' => 'int', 'precision' => 4));
 	$phpgw_setup->oProc->AddColumn('tickets', 'is_public', array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'));
-*/
+
 	$phpgw_setup->oProc->AddColumn('timecards', 'is_public', array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'));
 	$phpgw_setup->oProc->AddColumn('ticketresolutions', 'is_public', array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'));
 	$phpgw_setup->oProc->AddColumn('products', 'is_public', array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'));
@@ -1345,7 +1344,7 @@ function dcl_upgrade0_9_4_4()
 						'uc' => array()
 					)
 	);
-/*
+
 	$phpgw_setup->oProc->CreateTable('dcl_projects_audit', array(
 						'fd' => array(
 							'projectid' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
@@ -1480,7 +1479,7 @@ function dcl_upgrade0_9_4_4()
 						'uc' => array()
 					)
 	);
-*/
+
 	$phpgw_setup->oProc->CreateTable('dcl_entity', array(
 			'fd' => array(
 				'entity_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
