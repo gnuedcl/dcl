@@ -29,6 +29,10 @@ function validateAndSubmit(f)
 			{$CMB_DEFAULTLANGUAGE}
 			<span>Select your default language to use when you are logged in.</span>
 		</div>
+		<div class="required">
+			<label for="DCL_PREF_NOTIFY_DEFAULT">Copy Me on Notification:</label>
+			<input type="checkbox" id="DCL_PREF_NOTIFY_DEFAULT" name="DCL_PREF_NOTIFY_DEFAULT" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
+		</div>
 	</fieldset>
 	<fieldset>
 		<div class="submit">

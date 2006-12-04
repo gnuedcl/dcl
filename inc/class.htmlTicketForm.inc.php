@@ -28,7 +28,7 @@ class htmlTicketForm
 {
 	function Show($obj = '')
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info, $g_oSec, $dcl_preferences;
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD, $isEdit ? $obj->ticketid : 0))
@@ -55,6 +55,7 @@ class htmlTicketForm
 		$oSmarty->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$oSmarty->assign('VAL_ISEDIT', $isEdit);
 		$oSmarty->assign('VAL_DCLID', $GLOBALS['DCLID']);
+		$oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
 		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
 		if ($isEdit)

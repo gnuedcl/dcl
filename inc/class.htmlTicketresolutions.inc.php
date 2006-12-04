@@ -147,7 +147,7 @@ class htmlTicketresolutions
 
 	function DisplayForm($ticketid, $obj = '')
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info, $g_oSec, $dcl_preferences;
 
 		$isEdit = is_object($obj);
 		if ($isEdit)
@@ -174,6 +174,7 @@ class htmlTicketresolutions
 
 		$t = CreateSmarty();
 		$t->assign('IS_EDIT', $isEdit);
+		$t->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
 		if ($isEdit)
 		{

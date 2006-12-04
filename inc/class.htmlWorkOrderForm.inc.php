@@ -37,7 +37,7 @@ class htmlWorkOrderForm
 
 	function Show($jcn = 0, $objWO = '', $objTck = '')
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info, $g_oSec, $dcl_preferences;
 
 		$isEdit = is_object($objWO);
 		$isTicket = is_object($objTck);
@@ -111,6 +111,7 @@ class htmlWorkOrderForm
 		$this->oSmarty->assign('PERM_ATTACHFILE', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE) && $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE'] > 0 && !$isEdit);
 		$this->oSmarty->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$this->oSmarty->assign('PERM_ISPUBLICUSER', $g_oSec->IsPublicUser());
+		$this->oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
 		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
 		if ($isEdit || $isTicket)

@@ -52,6 +52,8 @@ class htmlPreferences
 		{
 			if ($oPrefs->Value('DCL_PREF_LANGUAGE') != '')
 				$lang = $oPrefs->Value('DCL_PREF_LANGUAGE');
+
+			$t->assign('VAL_NOTIFYDEFAULT', $oPrefs->Value('DCL_PREF_NOTIFY_DEFAULT'));
 		}
 
 		$t->assign('CMB_DEFAULTLANGUAGE', $o->GetLangCombo('DCL_PREF_LANGUAGE', $lang));
@@ -66,22 +68,6 @@ class htmlPreferences
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 			
-		$o = CreateObject('dcl.dbPersonnel');
-		if ($o->Load($GLOBALS['DCLID']) != -1)
-		{
-			if ($GLOBALS['USEREMAIL'] != $_REQUEST['email'])
-			{
-				$o->email = $_REQUEST['email'];
-				$o->edit();
-
-				$GLOBALS['USEREMAIL'] = $o->email;
-				$g_oSession->Register('USEREMAIL', $o->email);
-				$g_oSession->Edit();
-			}
-		}
-
-		unset($o);
-
 		$bHasChanges = false;
 		$o = CreateObject('dcl.dbPreferences');
 		$o->personnel_id = $GLOBALS['DCLID'];
@@ -90,7 +76,8 @@ class htmlPreferences
 		{
 			$o->preferences_data = array(
 					'DCL_PREF_TEMPLATE_SET' => $dcl_info['DCL_DEF_TEMPLATE_SET'],
-					'DCL_PREF_LANGUAGE' => $dcl_info['DCL_DEFAULT_LANGUAGE']
+					'DCL_PREF_LANGUAGE' => $dcl_info['DCL_DEFAULT_LANGUAGE'],
+					'DCL_PREF_NOTIFY_DEFAULT' => 'N'
 				);
 
 			$o->Add();
@@ -104,12 +91,21 @@ class htmlPreferences
 		{
 			if (substr($pref, 0, 9) != 'DCL_PREF_')
 				continue;
+				
+			if ($pref == 'DCL_PREF_NOTIFY_DEFAULT')
+				$setting = DCL_Sanitize::ToYN($_REQUEST['DCL_PREF_NOTIFY_DEFAULT']);
 
 			if ($o->Value($pref) != $setting)
 			{
 				$bHasChanges = true;
 				$o->Register($pref, $setting);
 			}
+		}
+		
+		if (!isset($_REQUEST['DCL_PREF_NOTIFY_DEFAULT']))
+		{
+				$bHasChanges = true;
+				$o->Register('DCL_PREF_NOTIFY_DEFAULT', 'N');
 		}
 
 		if ($bHasChanges)

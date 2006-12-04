@@ -33,7 +33,7 @@ class htmlTimeCardForm
 
 	function GetForm($jcn, $seq, $obj = '', $selected = '')
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info, $g_oSec, $dcl_preferences;
 
 		$isBatch = is_array($selected) && count($selected) > 0;
 		$isEdit = is_object($obj) && !$isBatch; // Don't allow batch updates for now...
@@ -104,6 +104,7 @@ class htmlTimeCardForm
 
 		$oSmarty->assign('VAL_JCN', $jcn);
 		$oSmarty->assign('VAL_SEQ', $seq);
+		$oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
 		if (isset($_REQUEST['return_to']))
 			$oSmarty->assign('VAL_RETURNTO', $_REQUEST['return_to']);

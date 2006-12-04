@@ -146,7 +146,7 @@ function validateAndSubmitForm(form)
 		</div>
 		<div class="required">
 			<label for="copy_me_on_notification">Copy Me on Notification:</label>
-			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y">
+			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
 		</div>
 {if $PERM_ADDTASK}
 {if $TXT_WILLBEPARTOFPROJECT}
