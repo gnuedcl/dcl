@@ -62,8 +62,6 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 		global $DCLINFO, $DCLUI;
 		if (!empty($_SERVER))
 			extract($_SERVER);
-		else if (!empty($HTTP_SERVER_VARS))
-			extract($HTTP_SERVER_VARS);
 
 		$bIsLogin = (substr($toHere, 0, 10) == 'logout.php');
 
@@ -132,10 +130,10 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 		}
 	}
 
-	if (IsSet($HTTP_COOKIE_VARS['DCLINFO']) && !IsSet($HTTP_POST_VARS['UID']))
+	if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
 	{
 		$g_oSession = CreateObject('dcl.dbSession');
-		list($dcl_session_id, $DOMAIN) = explode('/', $HTTP_COOKIE_VARS['DCLINFO']);
+		list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
 		if (strlen($dcl_session_id) != 32)
 			Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
 
@@ -203,17 +201,17 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			if ($g_oSec->IsPublicUser())
 				$menuAction = 'menuAction=htmlPublicMyDCL.show';
 
-			if (IsSet($HTTP_POST_VARS['refer_to']) && $HTTP_POST_VARS['refer_to'] != '')
-				$menuAction = urldecode($HTTP_POST_VARS['refer_to']);
+			if (IsSet($_POST['refer_to']) && $_POST['refer_to'] != '')
+				$menuAction = urldecode($_POST['refer_to']);
 
 			$tpl = $oPreferences->Value('DCL_PREF_TEMPLATE_SET');
 			if ($tpl == '')
 				$tpl = $dcl_info['DCL_DEF_TEMPLATE_SET'];
 
 			if (file_exists('templates/' . $tpl . '/frameset.php'))
-				Refresh('templates/' . $tpl . '/frameset.php?' . $menuAction, $g_oSession->dcl_session_id, $HTTP_POST_VARS['DOMAIN']);
+				Refresh('templates/' . $tpl . '/frameset.php?' . $menuAction, $g_oSession->dcl_session_id, $_POST['DOMAIN']);
 			else
-				Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id, $HTTP_POST_VARS['DOMAIN']);
+				Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id, $_POST['DOMAIN']);
 		}
 		else
 			Refresh('logout.php?cd=1');
