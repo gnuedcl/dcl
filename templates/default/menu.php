@@ -28,8 +28,6 @@ function renderDCLMenu()
 
 	if (!empty($_SERVER))
 		extract($_SERVER);
-	else if (!empty($GLOBALS['HTTP_SERVER_VARS']))
-		extract($GLOBALS['HTTP_SERVER_VARS']);
 
 	$t = CreateTemplate(array('hForm' => 'menu.tpl'));
 

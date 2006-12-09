@@ -144,38 +144,12 @@ function menuLink($target = '', $params = '')
 	return $sRet;
 }
 
-function GetSourceArray()
-{
-	if ($GLOBALS['HTTP_SERVER_VARS']['REQUEST_METHOD'] == 'GET')
-		return 'HTTP_GET_VARS';
-
-	return 'HTTP_POST_VARS';
-}
-
 function GPCStripSlashes($thisString)
 {
 	if (get_magic_quotes_gpc() == 0)
 		return $thisString;
 
 	return stripslashes($thisString);
-}
-
-function CleanVars($which)
-{
-	if (get_magic_quotes_gpc() == 0)
-		return;
-
-	foreach ($GLOBALS[$which] as $k => $v)
-	{
-		if (!is_array($GLOBALS[$which][$k]))
-		{
-			$GLOBALS[$which][$k] = GPCStripSlashes($GLOBALS[$which][$k]);
-		}
-		else
-		{
-		    $GLOBALS[$which][$k] = CleanArray($GLOBALS[$which][$k]);
-		}
-	}
 }
 
 function CleanArray(&$aArray)

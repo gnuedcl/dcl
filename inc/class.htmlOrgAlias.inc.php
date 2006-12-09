@@ -130,8 +130,6 @@ class htmlOrgAlias
 			return;
 		}
 
-		CleanVars('HTTP_POST_VARS');
-
 		$aKey = array('org_alias_id' => $id);
 
 		$obj =& CreateObject('dcl.boOrgAlias');

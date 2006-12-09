@@ -28,7 +28,7 @@ if (!defined('__DCL_CONFIG_INCLUDED__'))
 include_once(DCL_ROOT . 'inc/functions.inc.php');
 
 $g_oSession = CreateObject('dcl.dbSession');
-list($dcl_session_id, $DOMAIN) = explode('/', $HTTP_COOKIE_VARS['DCLINFO']);
+list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
 if (strlen($dcl_session_id) == 32)
 {
 	$g_oSession->Connect();

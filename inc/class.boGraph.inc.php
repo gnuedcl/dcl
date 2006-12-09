@@ -65,7 +65,7 @@ class boGraph
 	{
 		print('<script language="JavaScript">');
 		print('window.open(\'main.php?menuAction=boGraph.Show&');
-		if (ereg('MSIE', $GLOBALS['HTTP_USER_AGENT']))
+		if (ereg('MSIE', $_SERVER['HTTP_USER_AGENT']))
 			print('DCLINFO=' . $GLOBALS['DCLINFO'] . '&');
 		print($this->ToURL() . '\', \'graph\', \'width=' . ($this->graph_width + 20) . ',height=' . ($this->graph_height + 20) . ',resizable=yes,scrollbars=yes\');');
 		print('</script>');

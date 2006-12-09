@@ -40,7 +40,7 @@ class boConfig
 
 	function dbmodify()
 	{
-		global $dcl_info, $HTTP_POST_VARS, $g_oSec;
+		global $dcl_info, $g_oSec;
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
@@ -72,7 +72,7 @@ class boConfig
 			// checkboxes need special handling
 			if (in_array($oConfig->dcl_config_name, $aCheckboxes))
 			{
-				$newVal = IsSet($_REQUEST[$oConfig->dcl_config_name]) && $_REQUEST[$oConfig->dcl_config_name] == 'Y' ? 'Y' : 'N';
+				$newVal = (IsSet($_REQUEST[$oConfig->dcl_config_name]) && $_REQUEST[$oConfig->dcl_config_name] == 'Y') ? 'Y' : 'N';
 				if ($newVal != $dcl_info[$oConfig->dcl_config_name])
 				{
 					$oConfig->{$oConfig->dcl_config_field} = $newVal;
@@ -87,7 +87,7 @@ class boConfig
 				$oConfig->{$oConfig->dcl_config_field} = $_REQUEST[$oConfig->dcl_config_name];
 				$oConfigTemp = $oConfig;
 				$oConfigTemp->Edit();
-				$dcl_info[$oConfig->dcl_config_name] = $HTTP_POST_VARS[$oConfig->dcl_config_name];
+				$dcl_info[$oConfig->dcl_config_name] = $_REQUEST[$oConfig->dcl_config_name];
 				$bHasUpdates = true;
 			}
 		}

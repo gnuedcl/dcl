@@ -29,7 +29,7 @@
 include_once './passwd.php';
 if(INSTALL_USER != '' || INSTALL_PASSWD != '')
 {
-    if (!isset($HTTP_SERVER_VARS['PHP_AUTH_USER']))
+    if (!isset($_SERVER['PHP_AUTH_USER']))
 	{
         header('WWW-Authenticate: Basic realm="DCL Installer"');
         header('HTTP/1.0 401 Unauthorized');
@@ -38,13 +38,13 @@ if(INSTALL_USER != '' || INSTALL_PASSWD != '')
     }
 	else
 	{
-        if(INSTALL_USER != '' && $HTTP_SERVER_VARS['PHP_AUTH_USER'] != INSTALL_USER)
+        if(INSTALL_USER != '' && $_SERVER['PHP_AUTH_USER'] != INSTALL_USER)
 		{
             header('HTTP/1.0 401 Unauthorized');
             echo 'Access denied.';
             exit;
         }
-        if(INSTALL_PASSWD != $HTTP_SERVER_VARS['PHP_AUTH_PW'])
+        if(INSTALL_PASSWD != $_SERVER['PHP_AUTH_PW'])
 		{
             header('HTTP/1.0 401 Unauthorized');
             echo 'Access denied.';
@@ -56,16 +56,16 @@ if(INSTALL_USER != '' || INSTALL_PASSWD != '')
 include_once './class/textsanitizer.php';
 $myts =& TextSanitizer::getInstance();
 
-if ( isset($HTTP_POST_VARS) ) {
-    foreach ($HTTP_POST_VARS as $k=>$v) {
+if ( isset($_POST) ) {
+    foreach ($_POST as $k=>$v) {
         $$k = $myts->stripSlashesGPC($v);
     }
 }
 
-if ( !empty($HTTP_POST_VARS['lang']) ) {
-    $language = $HTTP_POST_VARS['lang'];
+if ( !empty($_POST['lang']) ) {
+    $language = $_POST['lang'];
 } else {
-    $language = isset($HTTP_COOKIE_VARS['install_lang']) ? $HTTP_COOKIE_VARS['install_lang'] : "english";
+    $language = isset($_COOKIE['install_lang']) ? $_COOKIE['install_lang'] : "english";
 }
 
 if ( file_exists("./language/".$language."/install.php") ) {
@@ -105,10 +105,10 @@ function CreateObject($className, $sParam = 'undefined')
 	return $obj;
 }
 
-if(!empty($HTTP_POST_VARS['op']))
-    $op = $HTTP_POST_VARS['op'];
-elseif(!empty($HTTP_GET_VARS['op']))
-    $op = $HTTP_GET_VARS['op'];
+if(!empty($_POST['op']))
+    $op = $_POST['op'];
+elseif(!empty($_GET['op']))
+    $op = $_GET['op'];
 else
     $op = '';
 
@@ -228,16 +228,16 @@ case "dbsave":
         exit();
     }
 
-    $mm->setRewrite('dbType', $myts->stripSlashesGPC($HTTP_POST_VARS['dbType']));
-    $mm->setRewrite('dbHost', $myts->stripSlashesGPC($HTTP_POST_VARS['dbHost']));
-    $mm->setRewrite('dbPort', $myts->stripSlashesGPC($HTTP_POST_VARS['dbPort']));
-    $mm->setRewrite('dbUser', $myts->stripSlashesGPC($HTTP_POST_VARS['dbUser']));
-    $mm->setRewrite('dbPassword', $myts->stripSlashesGPC($HTTP_POST_VARS['dbPassword']));
-    $mm->setRewrite('dbName', $myts->stripSlashesGPC($HTTP_POST_VARS['dbName']));
-    $mm->setRewrite('dcl_root', $myts->stripSlashesGPC($HTTP_POST_VARS['dcl_root']));
-    $mm->setRewrite('dcl_www_root', $myts->stripSlashesGPC($HTTP_POST_VARS['dcl_www_root']));
-    $mm->setRewrite('cookieMethod', $myts->stripSlashesGPC($HTTP_POST_VARS['cookieMethod']));
-    $mm->setRewrite('redirMethod', $myts->stripSlashesGPC($HTTP_POST_VARS['redirMethod']));
+    $mm->setRewrite('dbType', $myts->stripSlashesGPC($_POST['dbType']));
+    $mm->setRewrite('dbHost', $myts->stripSlashesGPC($_POST['dbHost']));
+    $mm->setRewrite('dbPort', $myts->stripSlashesGPC($_POST['dbPort']));
+    $mm->setRewrite('dbUser', $myts->stripSlashesGPC($_POST['dbUser']));
+    $mm->setRewrite('dbPassword', $myts->stripSlashesGPC($_POST['dbPassword']));
+    $mm->setRewrite('dbName', $myts->stripSlashesGPC($_POST['dbName']));
+    $mm->setRewrite('dcl_root', $myts->stripSlashesGPC($_POST['dcl_root']));
+    $mm->setRewrite('dcl_www_root', $myts->stripSlashesGPC($_POST['dcl_www_root']));
+    $mm->setRewrite('cookieMethod', $myts->stripSlashesGPC($_POST['cookieMethod']));
+    $mm->setRewrite('redirMethod', $myts->stripSlashesGPC($_POST['redirMethod']));
 
     $ret = $mm->doRewrite();
     if(! $ret){

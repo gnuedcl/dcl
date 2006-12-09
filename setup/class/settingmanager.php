@@ -51,8 +51,6 @@ class setting_manager {
     var $sanitizer;
 
     function setting_manager($post=false){
-        global $HTTP_SERVER_VARS;
-
         $this->sanitizer =& TextSanitizer::getInstance();
         if($post){
             $this->readPost();
@@ -64,9 +62,9 @@ class setting_manager {
             $this->dcl_root = str_replace("\\","/",getcwd()); // "
             $this->dcl_root = str_replace("/setup", "/", $this->dcl_root);
 
-            $filepath = (! empty($HTTP_SERVER_VARS['REQUEST_URI']))
-                            ? dirname($HTTP_SERVER_VARS['REQUEST_URI'])
-                            : dirname($HTTP_SERVER_VARS['SCRIPT_NAME']);
+            $filepath = (! empty($_SERVER['REQUEST_URI']))
+                            ? dirname($_SERVER['REQUEST_URI'])
+                            : dirname($_SERVER['SCRIPT_NAME']);
 
             $filepath = str_replace("\\", "/", $filepath); // "
             $filepath = str_replace("/setup", "", $filepath);
@@ -84,27 +82,26 @@ class setting_manager {
     }
 
     function readPost(){
-        global $HTTP_POST_VARS;
-        if(isset($HTTP_POST_VARS['dbType']))
-            $this->dbType = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbType']);
-        if(isset($HTTP_POST_VARS['dbHost']))
-            $this->dbHost = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbHost']);
-        if(isset($HTTP_POST_VARS['dbPort']))
-            $this->dbPort = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbPort']);
-        if(isset($HTTP_POST_VARS['dbUser']))
-            $this->dbUser = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbUser']);
-        if(isset($HTTP_POST_VARS['dbPassword']))
-            $this->dbPassword = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbPassword']);
-        if(isset($HTTP_POST_VARS['dbName']))
-            $this->dbName = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dbName']);
-        if(isset($HTTP_POST_VARS['dcl_root']))
-            $this->dcl_root = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dcl_root']);
-        if(isset($HTTP_POST_VARS['dcl_www_root']))
-            $this->dcl_www_root = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['dcl_www_root']);
-        if(isset($HTTP_POST_VARS['redirMethod']))
-            $this->redirMethod = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['redirMethod']);
-        if(isset($HTTP_POST_VARS['cookieMethod']))
-            $this->cookieMethod = $this->sanitizer->stripSlashesGPC($HTTP_POST_VARS['cookieMethod']);
+        if(isset($_POST['dbType']))
+            $this->dbType = $this->sanitizer->stripSlashesGPC($_POST['dbType']);
+        if(isset($_POST['dbHost']))
+            $this->dbHost = $this->sanitizer->stripSlashesGPC($_POST['dbHost']);
+        if(isset($_POST['dbPort']))
+            $this->dbPort = $this->sanitizer->stripSlashesGPC($_POST['dbPort']);
+        if(isset($_POST['dbUser']))
+            $this->dbUser = $this->sanitizer->stripSlashesGPC($_POST['dbUser']);
+        if(isset($_POST['dbPassword']))
+            $this->dbPassword = $this->sanitizer->stripSlashesGPC($_POST['dbPassword']);
+        if(isset($_POST['dbName']))
+            $this->dbName = $this->sanitizer->stripSlashesGPC($_POST['dbName']);
+        if(isset($_POST['dcl_root']))
+            $this->dcl_root = $this->sanitizer->stripSlashesGPC($_POST['dcl_root']);
+        if(isset($_POST['dcl_www_root']))
+            $this->dcl_www_root = $this->sanitizer->stripSlashesGPC($_POST['dcl_www_root']);
+        if(isset($_POST['redirMethod']))
+            $this->redirMethod = $this->sanitizer->stripSlashesGPC($_POST['redirMethod']);
+        if(isset($_POST['cookieMethod']))
+            $this->cookieMethod = $this->sanitizer->stripSlashesGPC($_POST['cookieMethod']);
     }
 
     function readConstant(){

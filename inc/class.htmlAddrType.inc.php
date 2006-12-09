@@ -206,7 +206,6 @@ class htmlAddrType
 		}
 
 		$obj = CreateObject('dcl.boAddrType');
-		CleanVars('HTTP_POST_VARS');
 
 		$aKey = array('addr_type_id' => $id);
 		$obj->delete($aKey);

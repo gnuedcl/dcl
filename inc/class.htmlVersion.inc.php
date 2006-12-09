@@ -32,8 +32,6 @@ class htmlVersion
 
 		if (!empty($_SERVER))
 			extract($_SERVER);
-		else if (!empty($HTTP_SERVER_VARS))
-			extract($HTTP_SERVER_VARS);
 
 		commonHeader();
 

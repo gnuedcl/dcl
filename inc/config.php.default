@@ -31,23 +31,15 @@ if (ini_get('register_globals') == 0)
 	// These are set *BEFORE* any work is done to avoid overwriting what we build
 	if (!empty($_GET))
 		extract($_GET);
-	else if (!empty($HTTP_GET_VARS))
-		extract($HTTP_GET_VARS);
 
 	if (!empty($_POST))
 		extract($_POST);
-	else if (!empty($HTTP_POST_VARS))
-		extract($HTTP_POST_VARS);
 
 	if (!empty($_FILES))
 		extract($_FILES);
-	else if (!empty($HTTP_POST_FILES))
-		extract($HTTP_POST_FILES);
 
 	if (!empty($_COOKIE))
 		extract($_COOKIE);
-	else if (!empty($HTTP_COOKIE_VARS))
-		extract($HTTP_COOKIE_VARS);
 }
 
 /***********************************************************************************************
