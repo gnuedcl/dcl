@@ -54,10 +54,9 @@ function Refresh($toHere = 'index.php', $session_id = '', $domain = 'default')
 {
 	$oSmarty =& CreateSmarty();
 
-	if (!(isset($_REQUEST['cd']) && ($_REQUEST['cd'] == '1' || $_REQUEST['cd'] == '2' || $_REQUEST['cd'] == '3' || $_REQUEST['cd'] == '4')))
+	if (isset($_REQUEST['refer_to']) && $_REQUEST['refer_to'] != '')
 	{
-		if (IsSet($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '')
-			$toHere .= sprintf('%srefer_to=%s', strpos($toHere, '?') > 0 ? '&' : '?', urlencode($_SERVER['QUERY_STRING']));
+		$toHere .= sprintf('%srefer_to=%s', strpos($toHere, '?') > 0 ? '&' : '?', urlencode(urldecode($_REQUEST['refer_to'])));
 	}
 	
 	$oSmarty->assign('URL', $toHere);
