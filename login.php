@@ -30,31 +30,11 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 	if (!defined('__DCL_CONFIG_INCLUDED__'))
 		include_once('inc/config.php');
 
-	$bInPHPGroupWare = false;
-	$bInXOOPS = false;
 	$bNoHeader = (IsSet($menuAction) && ($menuAction == 'htmlTicketDetail.Download' || $menuAction == 'htmlWorkOrderDetail.Download' || $menuAction == 'boGraph.Show'));
-	if (@is_dir('../phpgwapi') && @file_exists('../header.inc.php'))
-	{
-		$phpgw_info['flags'] = array(
-				'currentapp' => 'dcl',
-				'noheader'   => True,
-				'nonavbar'   => True
-			);
-		include_once('../header.inc.php');
-		$bInPHPGroupWare = true;
-	}
-	else if (@is_dir('../../modules') && @file_exists('../../xoops.css'))
-	{
-		include_once('xoops_header.php');
-		$xoopsOption['template_main'] = 'xoops_dcl.html';
-		include XOOPS_ROOT_PATH . '/header.php';
-		$bInXOOPS = true;
-	}
 
 	if (!defined('DCL_ENTITY_GLOBAL'))
 		include_once(DCL_ROOT . 'inc/functions.inc.php');
 
-	define('DCL_EMBEDDED_STATE', ($bInPHPGroupWare ? DCL_PHPGW : ($bInXOOPS ? DCL_XOOPS : DCL_STANDALONE)));
 	$g_oSec = CreateObject('dcl.boSecurity');
 
 	function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
