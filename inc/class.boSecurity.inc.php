@@ -65,20 +65,20 @@ class boSecurity
 		if (!($perm == DCL_PERM_PUBLICONLY || $perm == DCL_PERM_VIEWSUBMITTED || $perm == DCL_PERM_VIEWACCOUNT))
 		{
 			// If we have global admin, then all perms are good to go
-			$aPermissions = &$this->GetPerms(DCL_ENTITY_GLOBAL, 0, 0);
+			$aPermissions = $this->GetPerms(DCL_ENTITY_GLOBAL, 0, 0);
 			if (in_array(DCL_PERM_ADMIN, $aPermissions))
 				return true;
 		}
 
 		// Now check the permissions for the entity type
-		$aPermissions = &$this->GetPerms($entity, 0, 0);
+		$aPermissions = $this->GetPerms($entity, 0, 0);
 		if (in_array($perm, $aPermissions))
 			return true;
 		else if ($id1 == 0) // if we're checking for global, bail out now
 			return false;
 
 		// otherwise, Get role permissions for this entity and ID
-		$aPermissions = &$this->GetPerms($entity, $id1, $id2);
+		$aPermissions = $this->GetPerms($entity, $id1, $id2);
 		return in_array($perm, $aPermissions);
 	}
 
@@ -137,7 +137,7 @@ class boSecurity
 
 		$sKey = $entity . '_' . $id1 . '_' . $id2;
 		$sGlobalKey = $entity . '_0_0';
-		$aPermissions = &$g_oSession->Value('Permissions');
+		$aPermissions = $g_oSession->ValueRef('Permissions');
 		$oDB = CreateObject('dcl.dbUserRole');
 
 		if (!is_array($aPermissions) || !isset($aPermissions[$sGlobalKey]))

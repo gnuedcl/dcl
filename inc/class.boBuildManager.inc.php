@@ -152,7 +152,7 @@ class boBuildManager
 		commonHeader();
 		global $g_oSession;
 		
-		$selected = &$g_oSession->Value('BMselected');
+		$selected = $g_oSession->ValueRef('BMselected');
 		$env = $GLOBALS['env'];
 		//Writing Buildid into session
 		$buildid = $GLOBALS['product_build_id'];

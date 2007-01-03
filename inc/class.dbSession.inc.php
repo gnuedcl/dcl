@@ -163,6 +163,14 @@ class dbSession extends dclDB
 
 		return null;
 	}
+	
+	function &ValueRef($sName)
+	{
+		if (isset($this->session_data[$sName]))
+			return $this->session_data[$sName];
+
+		return null;
+	}
 
 	function GlobalValue($sName)
 	{
