@@ -52,7 +52,6 @@ class reportAccountActivity
 		$oSource =& CreateObject('dcl.htmlEntitySource');
 		$oSmarty->assign('CMB_SOURCE', $oSource->GetCombo(0, 'entity_source_id', 8));
 
-		IncludeCalendar();
 		SmartyDisplay($oSmarty, 'htmlAccountActivity.tpl');
 	}
 
