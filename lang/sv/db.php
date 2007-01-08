@@ -1,4 +1,5 @@
 <?php
+	define('STR_DB_TAGLENGTHERR', "Tag %s is too long.  Maximum %d characters per tag.");
 	define('STR_DB_ACCOUNTINSERTERR', "Kunde inte lägga till nytt konto! Fråga: %s");
 	define('STR_DB_ACTIONINSERTERR', "Kunde inte lägga till ny aktivitet! Fråga: %s");
 	define('STR_DB_DEPTINSERTERR', "Kunde inte lägga till ny avdelning! Fråga: %s");

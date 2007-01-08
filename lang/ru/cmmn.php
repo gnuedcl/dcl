@@ -84,4 +84,6 @@
 	define('STR_CMMN_DATE', "Date");
 	define('STR_CMMN_AUDIT', "Audit");
 	define('STR_CMMN_MORE', "More");
+	define('STR_CMMN_TAGS', "Tags");
+	define('STR_CMMN_TAGSHELP', "Separate multiple tags with commas (example: \"php,write file,xml\").  Maximum 20 characters per tag.");
 ?>

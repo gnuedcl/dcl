@@ -1,4 +1,5 @@
 <?php
+	define('STR_DB_TAGLENGTHERR', "Tag %s is too long.  Maximum %d characters per tag.");
 	define('STR_DB_ACCOUNTINSERTERR', "Ne peut pas insérer nouveau client! Requête: %s");
 	define('STR_DB_ACTIONINSERTERR', "Ne peut pas insérer nouvelle Fiche de Temps! Requête: %s");
 	define('STR_DB_DEPTINSERTERR', "Ne peut pas insérer nouveau département! Requête: %s");

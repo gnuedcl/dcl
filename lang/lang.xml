@@ -1681,6 +1681,12 @@
 		<phrase name="STR_CMMN_MORE">
 			<xlt lang="en">More</xlt>
 		</phrase>
+		<phrase name="STR_CMMN_TAGS">
+			<xlt lang="en">Tags</xlt>
+		</phrase>
+		<phrase name="STR_CMMN_TAGSHELP">
+			<xlt lang="en">Separate multiple tags with commas (example: "php,write file,xml").  Maximum 20 characters per tag.</xlt>
+		</phrase>
 	</module>
 	<module name="sev">
 		<phrase name="STR_SEV_SELECTONE">
@@ -4137,6 +4143,9 @@
 		</phrase>
 	</module>
 	<module name="db">
+		<phrase name="STR_DB_TAGLENGTHERR">
+			<xlt lang="en">Tag %s exceeds the maximum of %d characters per tag.  Skipping.</xlt>
+		</phrase>
 		<phrase name="STR_DB_ACCOUNTINSERTERR">
 			<xlt lang="de">Gescheiterte Aufnahme neuer Kunde! Abfrage: %s</xlt>
 			<xlt lang="en">Could not insert new account! Query: %s</xlt>

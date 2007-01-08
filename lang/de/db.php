@@ -1,4 +1,5 @@
 <?php
+	define('STR_DB_TAGLENGTHERR', "Tag %s is too long.  Maximum %d characters per tag.");
 	define('STR_DB_ACCOUNTINSERTERR', "Gescheiterte Aufnahme neuer Kunde! Abfrage: %s");
 	define('STR_DB_ACTIONINSERTERR', "Gescheiterte Aufnahme neue Aktion! Abfrage: %s");
 	define('STR_DB_DEPTINSERTERR', "Gescheiterte Aufnahme neue Abteilung! Abfrage: %s");
