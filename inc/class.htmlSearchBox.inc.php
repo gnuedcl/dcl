@@ -114,11 +114,11 @@ class htmlSearchBox
 
 		$oView->AddDef('columns', '',
 			array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'dcl_wo_type.type_name', 'eststarton', 'deadlineon',
-				'etchours', 'totalhours', 'summary'));
+				'etchours', 'totalhours', 'dcl_tag.tag_desc', 'summary'));
 
 		$oView->AddDef('columnhdrs', '',
 			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
-				STR_WO_STATUS, STR_WO_TYPE, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_WO_SUMMARY));
+				STR_WO_STATUS, STR_WO_TYPE, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_CMMN_TAGS, STR_WO_SUMMARY));
 
 		$objHV = CreateViewObject($this->oView->table);
 		$objHV->Render($oView);
@@ -156,13 +156,13 @@ class htmlSearchBox
 
 		$this->oView->AddDef('columns', '',
 			array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'eststarton', 'deadlineon',
-				'etchours', 'totalhours', 'summary'));
+				'etchours', 'totalhours', 'dcl_tag.tag_desc', 'summary'));
 
 		$this->oView->AddDef('order', '', array('jcn', 'seq'));
 
 		$this->oView->AddDef('columnhdrs', '',
 			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
-				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_WO_SUMMARY));
+				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_CMMN_TAGS, STR_WO_SUMMARY));
 
 		$objHV = CreateViewObject($this->oView->table);
 		$objHV->Render($this->oView);
@@ -193,13 +193,13 @@ class htmlSearchBox
 
 		$this->oView->AddDef('columns', '',
 			array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'eststarton', 'deadlineon',
-				'etchours', 'totalhours', 'summary'));
+				'etchours', 'totalhours', 'dcl_tag.tag_desc', 'summary'));
 
 		$this->oView->AddDef('order', '', array('jcn', 'seq'));
 
 		$this->oView->AddDef('columnhdrs', '',
 			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
-				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_WO_SUMMARY));
+				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_CMMN_TAGS, STR_WO_SUMMARY));
 
 		$objHV = CreateViewObject($this->oView->table);
 		$objHV->Render($this->oView);
@@ -241,13 +241,13 @@ class htmlSearchBox
 		}
 
 		$this->oView->AddDef('columns', '',
-			array('ticketid', 'responsible.short', 'product', 'account', 'status', 'dcl_contact.last_name', 'dcl_contact.first_name', 'dcl_contact_phone.phone_number', 'summary'));
+			array('ticketid', 'responsible.short', 'products.name', 'dcl_org.name', 'statuses.name', 'dcl_contact.last_name', 'dcl_contact.first_name', 'dcl_contact_phone.phone_number', 'dcl_tag.tag_desc', 'summary'));
 
 		$this->oView->AddDef('order', '', array('ticketid'));
 
 		$this->oView->AddDef('columnhdrs', '',
 			array(STR_TCK_TICKET, STR_TCK_RESPONSIBLE, STR_TCK_PRODUCT,
-				STR_TCK_ACCOUNT, STR_TCK_STATUS, 'Last Name', 'First Name', STR_TCK_CONTACTPHONE, STR_TCK_SUMMARY));
+				STR_TCK_ACCOUNT, STR_TCK_STATUS, 'Last Name', 'First Name', STR_TCK_CONTACTPHONE, STR_CMMN_TAGS, STR_TCK_SUMMARY));
 
 		$objHV = CreateViewObject($this->oView->table);
 		$objHV->Render($this->oView);
@@ -264,6 +264,10 @@ class htmlSearchBox
 	function searchProjects($searchText)
 	{
 		commonHeader();
+		
+		$obj = CreateObject('dcl.htmlProjects');
+		$_REQUEST['filterName'] = $searchText;
+		$obj->show();
 	}
 }
 ?>

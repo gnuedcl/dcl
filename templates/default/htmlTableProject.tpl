@@ -51,8 +51,9 @@ function jumpToPage(iPage)
 		<input type="hidden" name="startrow" value="{$VAL_FILTERSTARTROW}" />
 		<input type="hidden" name="numrows" value="{$VAL_FILTERNUMROWS}" />
 		<input type="hidden" name="jumptopage" value="{$VAL_PAGE}" />
-		<span><label for="filterStatus">{$smarty.const.STR_PRJ_STATUS}:</label> {dcl_select_status default=$VAL_FILTERSTATUS name=filterStatus allowHideOrOnlyClosed=Y}</span>
-		<span><label for="filterReportto">{$smarty.const.STR_PRJ_LEAD}:</label> {dcl_select_personnel default=$VAL_FILTERREPORTTO name=filterReportto}</span>
+		<span><label for="filterStatus">{$smarty.const.STR_PRJ_STATUS}:</label> {dcl_select_status default=$VAL_FILTERSTATUS name=filterStatus allowHideOrOnlyClosed=Y}</span>&nbsp;|&nbsp;
+		<span><label for="filterReportto">{$smarty.const.STR_PRJ_LEAD}:</label> {dcl_select_personnel default=$VAL_FILTERREPORTTO name=filterReportto}</span>&nbsp;|&nbsp;
+		<span><label for="filterReportto">{$smarty.const.STR_PRJ_NAME}:</label> <input type="text" size="15" maxlength="100" name="filterName" id="filterName" value="{$VAL_FILTERNAME|escape}"></span>
 		<input type="submit" name="filter" value="Filter">
 		{if $VAL_PAGES > 1}
 			{strip}<div><ul>

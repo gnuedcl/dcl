@@ -117,6 +117,7 @@ class htmlProjectsBrowse
 		$oTable->assign('VAL_FILTERNUMROWS', $this->oView->numrows);
 		$oTable->assign('VAL_FILTERSTATUS', isset($_REQUEST['filterStatus']) ? $_REQUEST['filterStatus'] : -1);
 		$oTable->assign('VAL_FILTERREPORTTO', isset($_REQUEST['filterReportto']) ? $_REQUEST['filterReportto'] : -1);
+		$oTable->assign('VAL_FILTERNAME', isset($_REQUEST['filterName']) ? $_REQUEST['filterName'] : '');
 		$oTable->assign('VAL_VIEWSETTINGS', $this->oView->GetForm());
 		$oTable->assign('VAL_WIKIUSED', $dcl_info['DCL_WIKI_ENABLED'] == 'Y' && $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEWWIKI));
 
@@ -165,6 +166,7 @@ class htmlProjectsBrowse
 		$oView->RemoveDef('filternot', 'statuses.dcl_status_type');
 		$oView->RemoveDef('filter', 'statuses.dcl_status_type');
 		$oView->RemoveDef('filter', 'status');
+		$oView->RemoveDef('filterlike', 'name');
 		if ($filterStatus !== null && $filterStatus != 0)
 		{
 			if ($filterStatus == -1)
@@ -181,6 +183,9 @@ class htmlProjectsBrowse
 			$oView->ReplaceDef('filter', 'reportto', $filterReportto);
 		else
 			$oView->RemoveDef('filter', 'reportto');
+			
+		if (isset($_REQUEST['filterName']) && trim($_REQUEST['filterName']) != '')
+			$oView->AddDef('filterlike', 'name', GPCStripSlashes($_REQUEST['filterName']));
 
 		$this->sColumnTitle = STR_CMMN_OPTIONS;
 		$this->bShowPager = true;

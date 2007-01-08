@@ -111,6 +111,9 @@ class htmlProjects
 		if ($filterReportto !== null)
 			$oView->AddDef('filter', 'dcl_projects.reportto', $filterReportto);
 
+		if (isset($_REQUEST['filterName']) && trim($_REQUEST['filterName']) != '')
+			$oView->AddDef('filterlike', 'name', GPCStripSlashes($_REQUEST['filterName']));
+
 		$oHtml = CreateObject('dcl.htmlProjectsBrowse');
 		$oHtml->Render($oView);
 	}
