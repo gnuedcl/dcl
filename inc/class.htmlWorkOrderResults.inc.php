@@ -114,8 +114,17 @@ class htmlWorkOrderResults
 				$oTable->assign('seq_ordinal', $iColumn);
 			else if ($sFieldName == '_num_accounts_')
 			{
-				$iOffset = -1;
+				$iOffset--;
 				$oTable->assign('num_accounts_ordinal', $iColumn);
+			}
+			else if ($sFieldName == '_num_tags_')
+			{
+				$iOffset--;
+				$oTable->assign('num_tags_ordinal', $iColumn);
+			}
+			else if ($sFieldName == 'tag_desc')
+			{
+				$oTable->assign('tag_ordinal', $iColumn);
 			}
 			else if ($oView->columns[$iColumn - count($oView->groups)] == 'dcl_org.name')
 			{

@@ -68,6 +68,7 @@ function validateAndSubmitForm(form)
 			<tr><th>{$smarty.const.STR_TCK_APPROXTIME}:</th><td>{$VAL_HOURSTEXT|escape}</td>
 				<th>{$smarty.const.STR_CMMN_PUBLIC}:</th><td>{$VAL_PUBLIC|escape}</td>
 			</tr>
+			<tr><th>{$smarty.const.STR_CMMN_TAGS}:</th><td colspan="3">{dcl_tag_link value=$VAL_TAGS}</td></tr>
 			<tr><th>{$smarty.const.STR_TCK_ISSUE}:</th><td colspan="3">{$VAL_ISSUE|escape:"link"}</td></tr>
 		</tbody>
 	</table>

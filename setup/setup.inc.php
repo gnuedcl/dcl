@@ -25,7 +25,7 @@
 $setup_info['dcl'] = array();
 $setup_info['dcl']['name']      = 'dcl';
 $setup_info['dcl']['title']     = 'Double Choco Latte';
-$setup_info['dcl']['version']   = '0.9.5RC2';
+$setup_info['dcl']['version']   = '0.9.5RC3';
 $setup_info['dcl']['enable']    = 1;
 $setup_info['dcl']['app_order'] = 1;
 
@@ -66,6 +66,7 @@ $setup_info['dcl']['tables'][] = 'dcl_email_type';
 $setup_info['dcl']['tables'][] = 'dcl_entity';
 $setup_info['dcl']['tables'][] = 'dcl_entity_perm';
 $setup_info['dcl']['tables'][] = 'dcl_entity_source';
+$setup_info['dcl']['tables'][] = 'dcl_entity_tag';
 $setup_info['dcl']['tables'][] = 'dcl_note_type';
 $setup_info['dcl']['tables'][] = 'dcl_org_addr';
 $setup_info['dcl']['tables'][] = 'dcl_org_alias';
@@ -89,6 +90,7 @@ $setup_info['dcl']['tables'][] = 'dcl_sccs';
 $setup_info['dcl']['tables'][] = 'dcl_sccs_xref';
 $setup_info['dcl']['tables'][] = 'dcl_session';
 $setup_info['dcl']['tables'][] = 'dcl_status_type';
+$setup_info['dcl']['tables'][] = 'dcl_tag';
 $setup_info['dcl']['tables'][] = 'dcl_url_type';
 $setup_info['dcl']['tables'][] = 'dcl_user_role';
 $setup_info['dcl']['tables'][] = 'dcl_wiki';

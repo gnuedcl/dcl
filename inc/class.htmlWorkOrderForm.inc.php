@@ -147,6 +147,12 @@ class htmlWorkOrderForm
 				$this->oSmarty->assign('VAL_PRIORITY', 0);
 				$this->oSmarty->assign('VAL_CONTACTS', $objTck->contact_id);
 			}
+			
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			if ($isTicket)
+				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $objTck->ticketid));
+			else
+				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $objWO->jcn, $objWO->seq));
 		}
 
 		if (!$isEdit)
@@ -261,10 +267,11 @@ class htmlWorkOrderForm
 			}
 		}
 
-		if ($this->oSmarty->get_template_vars('VAL_CONTACTID') != '')
+		$sAssignedContactID = @$this->oSmarty->get_template_vars('VAL_CONTACTID');
+		if ($sAssignedContactID != '')
 		{
 			$oContact =& CreateObject('dcl.dbContact');
-			if ($oContact->Load(array('contact_id' => $this->oSmarty->get_template_vars('VAL_CONTACTID'))) != -1)
+			if ($oContact->Load(array('contact_id' => $sAssignedContactID)) != -1)
 				$this->oSmarty->assign('VAL_CONTACT', sprintf('%s, %s', $oContact->last_name, $oContact->first_name));
 		}
 

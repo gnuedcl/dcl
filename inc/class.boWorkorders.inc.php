@@ -156,6 +156,12 @@ class boWorkorders
 				$oWOA->Add();
 			}
 		}
+		
+		if (isset($_REQUEST['tags']))
+		{
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
+		}
 
 		// add to a project?
 		if (IsSet($_REQUEST['projectid']))
@@ -295,6 +301,9 @@ class boWorkorders
 		if (IsSet($_REQUEST['secaccounts']))
 		{
 			$aAccounts = @DCL_Sanitize::ToIntArray($_REQUEST['secaccounts']);
+			if ($aAccounts === null)
+				$aAccounts = array();
+				
 			$oWOA->DeleteByWorkOrder($objWorkorder->jcn, $objWorkorder->seq, join(',', $aAccounts));
 			
 			// Add the new ones
@@ -316,6 +325,12 @@ class boWorkorders
 		else
 			$oWOA->DeleteByWorkOrder($objWorkorder->jcn, $objWorkorder->seq);
 
+		if (isset($_REQUEST['tags']))
+		{
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
+		}
+		
 		$objWtch =& CreateObject('dcl.boWatches');
 		$objWtch->sendNotification($objWorkorder, '4');
 
@@ -411,6 +426,10 @@ class boWorkorders
 		// Remove tasks
 		$oTasks =& CreateObject('dcl.dbWorkOrderTask');
 		$oTasks->DeleteByWorkOrder($iID, $iSeq);
+		
+		// Remove tags
+		$oTag =& CreateObject('dcl.dbEntityTag');
+		$oTag->deleteByEntity(DCL_ENTITY_WORKORDER, $iID, $iSeq);
 
 		trigger_error(sprintf(STR_BO_WORKORDERDELETED, $iID, $iSeq), E_USER_NOTICE);
 
@@ -482,6 +501,7 @@ class boWorkorders
 		$starton = @$_REQUEST['starton'];
 		$module_id = isset($_REQUEST['module_id']) && is_array($_REQUEST['module_id']) ? $_REQUEST['module_id'] : array();
 		$searchText = $_REQUEST['searchText'];
+		$tags = $_REQUEST['tags'];
 		$columns = $_REQUEST['columns'];
 		$groups = $_REQUEST['groups'];
 		$order = $_REQUEST['order'];
@@ -579,6 +599,9 @@ class boWorkorders
 			if (count($$field) > 0)
 				$objView->AddDef('filter', $field, $$field);
 		}
+		
+		if (trim($tags) != '')
+			$objView->AddDef('filter', 'dcl_tag.tag_desc', $tags);
 
 		if (count($is_public) > 0)
 		{

@@ -98,11 +98,6 @@ define('DCL_PERM_PUBLICONLY', 21);
 define('DCL_PERM_VIEWFILE', 22);
 define('DCL_PERM_AUDIT', 23);
 
-// Embedded state
-define('DCL_STANDALONE', 0);
-define('DCL_PHPGW', 1);
-define('DCL_XOOPS', 2);
-
 // Audit events
 define('DCL_EVENT_ADD', 1);
 define('DCL_EVENT_DELETE', 2);
@@ -120,15 +115,6 @@ define('SMARTY_DIR', DCL_ROOT . 'inc/');
 function menuLink($target = '', $params = '')
 {
 	global $phpgw;
-
-	if (defined('DCL_EMBEDDED_STATE') && DCL_EMBEDDED_STATE == DCL_PHPGW)
-	{
-		// In phpGW, this must be installed under /dcl
-		if ($target == '')
-			$target = '/dcl/main.php';
-
-		return $phpgw->link($target, $params);
-	}
 
 	if ($target == '')
 		$target = DCL_WWW_ROOT . 'main.php';
@@ -312,12 +298,7 @@ function &GetAuthenticator()
 {
 	$oRetVal = null;
 	
-	if (DCL_EMBEDDED_STATE == DCL_PHPGW)
-		$oRetVal = CreateObject('dcl.boAuthenticatePHPGW');
-	else if (DCL_EMBEDDED_STATE == DCL_XOOPS)
-		$oRetVal = CreateObject('dcl.boAuthenticateXOOPS');
-	else
-		$oRetVal = CreateObject('dcl.boAuthenticate');
+	$oRetVal = CreateObject('dcl.boAuthenticate');
 		
 	return $oRetVal;
 }
@@ -326,12 +307,7 @@ function &GetPageObject()
 {
 	$oRetVal = null;
 	
-	if (DCL_EMBEDDED_STATE == DCL_PHPGW)
-		$oRetVal = CreateObject('dcl.PagePHPGW');
-	else if (DCL_EMBEDDED_STATE == DCL_XOOPS)
-		$oRetVal = CreateObject('dcl.PageXOOPS');
-	else
-		$oRetVal = CreateObject('dcl.Page');
+	$oRetVal = CreateObject('dcl.Page');
 		
 	return $oRetVal;
 }
@@ -447,21 +423,6 @@ function array_remove_keys(&$aArray, $vKeys)
 	}
 }
 
-function GetHelpLink($dark = false)
-{
-	global $dcl_info;
-
-	$linkText = '?';
-
-	$linkClass = $dark == true ? 'adark' : 'alight';
-
-	return sprintf('[&nbsp;<a class="%s" href="#" onClick="javascript:window.open(\'./str/%s/help/%s.php\', \'dclhelp\', \'width=400,height=400,resizable=yes,scrollbars=yes\');">%s</a>&nbsp;]',
-		$linkClass,
-		$dcl_info['DCL_DEFAULT_LANGUAGE'],
-		$_REQUEST['menuAction'],
-		$linkText);
-}
-
 function GetJSDateFormat()
 {
 	global $dcl_info;
@@ -492,17 +453,13 @@ function buildMenuArray()
 {
 	global $dcl_info, $DCL_MENU, $g_oSec;
 
-	// Is DCL contained in another app?
-	$bContained = (DCL_EMBEDDED_STATE != DCL_STANDALONE);
-
 	// TODO: remove after implementing module enable/disable
 	$dcl_info['DCL_MODULE_WO_ENABLED'] = true;
 	$dcl_info['DCL_MODULE_PROJECTS_ENABLED'] = true;
 	$dcl_info['DCL_MODULE_TICKETS_ENABLED'] = true;
 
 	$DCL_MENU = array();
-	if (!$bContained)
-		$DCL_MENU[DCL_MENU_HOME] = array('htmlMyDCL.show', true);
+	$DCL_MENU[DCL_MENU_HOME] = array('htmlMyDCL.show', true);
 
 	if ($dcl_info['DCL_MODULE_WO_ENABLED'])
 	{
@@ -545,6 +502,7 @@ function buildMenuArray()
 	$DCL_MENU[DCL_MENU_MANAGE] = array(
 			'Organizations' => array('htmlOrgBrowse.show&filterActive=Y', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW)),
 			'Contacts' => array('htmlContactBrowse.show&filterActive=Y', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW)),
+			STR_CMMN_TAGS => array('htmlTags.browse', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH)),
 			DCL_MENU_CHECKLISTS => array('boChecklists.show', $g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW)),
 			DCL_MENU_PRODUCTS => array('htmlProducts.PrintAll', $g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW)),
 			DCL_MENU_VIEWS => array('htmlViews.PrintAll', $g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_VIEW)),
@@ -577,8 +535,7 @@ function buildMenuArray()
 			DCL_MENU_VERSIONINFO => array('htmlVersion.DisplayVersionInfo', true)
 		);
 
-	if (!$bContained)
-		$DCL_MENU[DCL_MENU_LOGOFF] = array('logout.php', true);
+	$DCL_MENU[DCL_MENU_LOGOFF] = array('logout.php', true);
 }
 
 function GetCharSet()
@@ -618,12 +575,7 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 	$t->assign('VAL_TITLE', $title);
 	$t->assign('CHARSET', GetCharSet());
 
-	if (DCL_EMBEDDED_STATE == DCL_PHPGW)
-		SmartyDisplay($t, 'contained.tpl');
-	else if (DCL_EMBEDDED_STATE == DCL_XOOPS)
-		SmartyDisplay($t, 'xoops.tpl');
-	else
-		SmartyDisplay($t, 'index.tpl');
+	SmartyDisplay($t, 'index.tpl');
 
 	$sTemplateSet = GetDefaultTemplateSet();
 	if (!$bHideMenu && file_exists(DCL_ROOT . 'templates/' . $sTemplateSet . '/menu.php'))

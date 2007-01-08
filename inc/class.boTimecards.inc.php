@@ -95,6 +95,77 @@ class boTimecards
 			elseif ($oStatus->GetStatusType($objTimecard->status) == 1)
 				$notify .= ',1';
 		}
+		
+		// See if we modified some work order items
+		// * Tags
+		if (isset($_REQUEST['tags']) && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY))
+		{
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
+		}
+
+		// * Organizations - only if multiple are allowed to improve workflow
+		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY))
+		{
+			$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
+			if (IsSet($_REQUEST['secaccounts']))
+			{
+				$aAccounts = @DCL_Sanitize::ToIntArray($_REQUEST['secaccounts']);
+				if ($aAccounts === null)
+					$aAccounts = array();
+					
+				$oWOA->DeleteByWorkOrder($objWorkorder->jcn, $objWorkorder->seq, join(',', $aAccounts));
+				
+				// Add the new ones
+				if (count($aAccounts) > 0)
+				{
+					$oWOA->wo_id = $objWorkorder->jcn;
+					$oWOA->seq = $objWorkorder->seq;
+	
+					for ($i = 0; $i < count($aAccounts); $i++)
+					{
+						if ($aAccounts[$i] > 0)
+						{
+							$oWOA->account_id = $aAccounts[$i];
+							$oWOA->Add();
+						}
+					}
+				}
+			}
+			else
+				$oWOA->DeleteByWorkOrder($objWorkorder->jcn, $objWorkorder->seq);
+		}
+
+		// * Project
+		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
+		{
+			if (($iProjID = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
+			{
+				$oProjectMap =& CreateObject('dcl.dbProjectmap');
+				if ($oProjectMap->LoadByWO($objWorkorder->jcn, $objWorkorder->seq) == -1 || $oProjectMap->projectid != $iProjID)
+				{
+					$oProject = CreateObject('dcl.boProjects');
+					$aSource = array();
+					$aSource['selected'] = array($objWorkorder->jcn . '.' . $objWorkorder->seq);
+					$aSource['projectid'] = $iProjID;
+					
+					$oProject->batchMove($aSource);
+				}
+			}
+		}
+		
+		// * File attachment
+		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE))
+		{
+			$o =& CreateObject('dcl.boFile');
+			$o->iType = DCL_ENTITY_WORKORDER;
+			$o->iKey1 = $objWorkorder->jcn;
+			$o->iKey2 = $objWorkorder->seq;
+			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+			$o->sTempFileName = $sFileName;
+			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
+			$o->Upload();
+		}
 
 		$objWtch =& CreateObject('dcl.boWatches');
 		// Reload before sending since time card modifies the work order

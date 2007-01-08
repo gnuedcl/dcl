@@ -273,6 +273,9 @@ class htmlTicketSearches
 			$t->assign('VAL_SEARCHTEXT', $searchText);
 		}
 
+		if (isset($oView->filter['dcl_tag.tag_desc']) && is_array($oView->filter['dcl_tag.tag_desc']) && count($oView->filter['dcl_tag.tag_desc']) > 0)
+			$t->assign('VAL_TAGS', join(',', $oView->filter['dcl_tag.tag_desc']));
+
 		$aDateChecks = array('createdon', 'closedon', 'statuson', 'lastactionon');
 
 		for ($i = 0; $i < count($aDateChecks); $i++)
@@ -313,6 +316,7 @@ class htmlTicketSearches
 				'statuses.name' => STR_TCK_STATUS,
 				'summary' => STR_TCK_SUMMARY,
 				'dcl_product_module.module_name' => STR_CMMN_MODULE,
+				'dcl_tag.tag_desc' => STR_CMMN_TAGS,
 				'version' => STR_TCK_VERSION,
 				'createdby.short' => STR_TCK_OPENEDBY,
 				'createdon' => STR_TCK_OPENEDON,

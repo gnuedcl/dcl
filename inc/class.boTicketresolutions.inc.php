@@ -113,6 +113,20 @@ class boTicketresolutions
 				$this->oDB->resolution = '*** ' . STR_BO_ESCALATEDTO . ': ' . $objDP->short . ' ***' . phpCrLf . phpCrLf . $this->oDB->resolution;
 			}
 		}
+		else if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
+		{
+			$iReassignTo = @DCL_Sanitize::ToInt($_REQUEST['reassign_to_id']);
+			if ($iReassignTo > 0 && $obj->responsible != $iReassignTo)
+			{
+				$obj->responsible = $iReassignTo;
+			}
+		}
+		
+		if (isset($_REQUEST['tags']) && $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
+		{
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag->serialize(DCL_ENTITY_TICKET, $iID, 0, $_REQUEST['tags']);
+		}
 
 		$this->oDB->BeginTransaction();
 		$this->oDB->Add();

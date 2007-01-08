@@ -76,6 +76,7 @@ class htmlTicketDetail
 		$oSmarty->assign('VAL_SUMMARY', $obj->summary);
 		$oSmarty->assign('VAL_ISSUE', $obj->issue);
 		$oSmarty->assign('VAL_PUBLIC', $obj->is_public == 'Y' ? STR_CMMN_YES : STR_CMMN_NO);
+		$oSmarty->assign('VAL_TAGS', str_replace(',', ', ', $oMeta->GetTags(DCL_ENTITY_TICKET, $obj->ticketid)));
 
 		if ($obj->entity_source_id != '' && $obj->entity_source_id > 0)
 		{

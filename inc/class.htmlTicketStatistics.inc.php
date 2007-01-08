@@ -172,6 +172,7 @@ class htmlTicketStatistics
 			for ($j = 0; $j <= (count($products) * count($statii) + count($statii)); $j++)
 				$myArrayUnits[$j][$i] = 0;
 		}
+trigger_error($query);
 
 		$objTickets->Query($query);
 		while ($objTickets->next_record())

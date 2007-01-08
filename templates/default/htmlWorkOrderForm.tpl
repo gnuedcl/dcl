@@ -134,7 +134,12 @@ function validateAndSubmitForm(form)
 {/if}
 		<div class="required">
 			<label for="summary">{$smarty.const.STR_WO_SUMMARY}:</label>
-			<input type="text" name="summary" size="70" maxlength="100" value="{$VAL_SUMMARY|escape}">
+			<input type="text" name="summary" size="60" maxlength="100" value="{$VAL_SUMMARY|escape}">
+		</div>
+		<div>
+			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
+			<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
+			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 		</div>
 		<div>
 			<label for="notes">{$smarty.const.STR_WO_NOTES}:</label>

@@ -528,6 +528,12 @@ class boView
 				case 'dcl_wo_account':
 					$join = 'workorders.jcn = dcl_wo_account.wo_id AND workorders.seq = dcl_wo_account.seq';
 					break;
+				case 'dcl_tag':
+					$join = 'dcl_entity_tag.tag_id = dcl_tag.tag_id';
+					break;
+				case 'dcl_entity_tag':
+					$join = 'dcl_entity_tag.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND workorders.jcn = dcl_entity_tag.entity_key_id AND workorders.seq = dcl_entity_tag.entity_key_id2';
+					break;
 				case 'dcl_entity_source':
 					$join = 'workorders.entity_source_id = dcl_entity_source.entity_source_id';
 					break;
@@ -585,6 +591,12 @@ class boView
 					break;
 				case 'dcl_entity_source':
 					$join = 'tickets.entity_source_id = dcl_entity_source.entity_source_id';
+					break;
+				case 'dcl_tag':
+					$join = 'dcl_entity_tag.tag_id = dcl_tag.tag_id';
+					break;
+				case 'dcl_entity_tag':
+					$join = 'dcl_entity_tag.entity_id = ' . DCL_ENTITY_TICKET . ' AND tickets.ticketid = dcl_entity_tag.entity_key_id';
 					break;
 				case 'dcl_contact':
 					$join = 'tickets.contact_id = dcl_contact.contact_id';
@@ -827,6 +839,8 @@ class boView
 						case 'projectmap':
 						case 'dcl_product_module':
 						case 'dcl_wo_account':
+						case 'dcl_entity_tag':
+						case 'dcl_tag':
 						case 'dcl_entity_source':
 						case 'dcl_org':
 						case 'dcl_org_addr':
@@ -845,35 +859,44 @@ class boView
 
 					if (!IsSet($this->joins[$table]))
 					{
-						// work orders are associated to projects in the projectmap table
-						// so append it here - we don't want it in the selected columns
-
-						// Ensure we join dcl_wo_account before accounts
-						// Join dcl_org_contact before dcl_org for dcl_contact table
-						if ($table == 'dcl_projects')
-							$this->joins['projectmap'] = 2;
-						else if ($this->table == 'workorders' && ($table == 'accounts' || $table == 'dcl_org') && !isset($this->joins['dcl_wo_account']))
-							$this->joins['dcl_wo_account'] = 2;
-						else if ($this->table == 'dcl_contact' && $table == 'dcl_org' && !isset($this->joins['dcl_org_contact']))
-							$this->joins['dcl_org_contact'] = 2;
-						else if ($this->table == 'personnel' && $table == 'dcl_contact_email' && !isset($this->joins['dcl_contact']))
-							$this->joins['dcl_contact'] = 2;
-						else if ($this->table == 'dcl_product_build' && $table == 'workorders')
-						{
-							$this->joins['dcl_product_version'] = 1;
-							$this->joins['dcl_product_version_item'] = 1;
-						}
-
 						if (!($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' &&
-							$this->table == 'workorders' &&
-							($table == 'dcl_wo_account' || $table == 'accounts' || $table == 'dcl_org') &&
-							!in_array('accounts.name', $this->order) &&
-							!in_array('accounts.name', $this->groups) &&
-							!in_array('accounts.name', $this->columns) &&
-							!in_array('dcl_org.name', $this->order) &&
-							!in_array('dcl_org.name', $this->groups) &&
-							!in_array('dcl_org.name', $this->columns)))
+								$this->table == 'workorders' &&
+								($table == 'dcl_wo_account' || $table == 'accounts' || $table == 'dcl_org') &&
+								!in_array('accounts.name', $this->order) &&
+								!in_array('accounts.name', $this->groups) &&
+								!in_array('accounts.name', $this->columns) &&
+								!in_array('dcl_org.name', $this->order) &&
+								!in_array('dcl_org.name', $this->groups) &&
+								!in_array('dcl_org.name', $this->columns)) &&
+							!(($this->table == 'workorders' || $this->table == 'tickets') &&
+								($table == 'dcl_entity_tag' || $table == 'dcl_tag') &&
+								!in_array('dcl_tag.tag_desc', $this->order) &&
+								!in_array('dcl_tag.tag_desc', $this->groups) &&
+								!in_array('dcl_tag.tag_desc', $this->columns)))
+						{
+							// work orders are associated to projects in the projectmap table
+							// so append it here - we don't want it in the selected columns
+	
+							// Ensure we join dcl_wo_account before accounts
+							// Join dcl_org_contact before dcl_org for dcl_contact table
+							if ($table == 'dcl_projects')
+								$this->joins['projectmap'] = 2;
+							else if ($this->table == 'workorders' && ($table == 'accounts' || $table == 'dcl_org') && !isset($this->joins['dcl_wo_account']))
+								$this->joins['dcl_wo_account'] = 2;
+							else if (($this->table == 'workorders' || $this->table == 'tickets') && $table == 'dcl_tag' && !isset($this->joins['dcl_entity_tag']))
+								$this->joins['dcl_entity_tag'] = 2;
+							else if ($this->table == 'dcl_contact' && $table == 'dcl_org' && !isset($this->joins['dcl_org_contact']))
+								$this->joins['dcl_org_contact'] = 2;
+							else if ($this->table == 'personnel' && $table == 'dcl_contact_email' && !isset($this->joins['dcl_contact']))
+								$this->joins['dcl_contact'] = 2;
+							else if ($this->table == 'dcl_product_build' && $table == 'workorders')
+							{
+								$this->joins['dcl_product_version'] = 1;
+								$this->joins['dcl_product_version_item'] = 1;
+							}
+
 							$this->joins[$table] = $iJoinType;
+						}
 					}
 				}
 
@@ -935,14 +958,28 @@ class boView
 			else
 				$sql .= '*';
 
-			if ($this->table == 'workorders' && $dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y')
+			if ($this->table == 'workorders')
 			{
 				// If we show account, but don't group by it, then we will want to display an icon to show
 				// the extra accounts.  This count will determine if we need to display the marker for more info
 				// and will be left out of the final rendering by htmlView
-				if (in_array('dcl_org.name', $this->columns) || in_array('accounts.name', $this->columns))
+				if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' && in_array('dcl_org.name', $this->columns) || in_array('accounts.name', $this->columns))
 				{
 					$sql .= ', (select count(*) from dcl_wo_account where wo_id = workorders.jcn And seq = workorders.seq) As _num_accounts_';
+				}
+				
+				// Same for tags, but to determine if we really need to query for more tags
+				if (in_array('dcl_tag.tag_desc', $this->columns))
+				{
+					$sql .= ', (select count(*) from dcl_entity_tag where entity_id = ' . DCL_ENTITY_WORKORDER . ' AND entity_key_id = workorders.jcn And entity_key_id2 = workorders.seq) As _num_tags_';
+				}
+			}
+			else if ($this->table == 'tickets')
+			{
+				// Tags will work the same in tickets as work orders
+				if (in_array('dcl_tag.tag_desc', $this->columns))
+				{
+					$sql .= ', (select count(*) from dcl_entity_tag where entity_id = ' . DCL_ENTITY_TICKET . ' AND entity_key_id = tickets.ticketid) As _num_tags_';
 				}
 			}
 
@@ -997,6 +1034,7 @@ class boView
 		$responsibleSQL = '';
 		$createbySQL = '';
 		$closedbySQL = '';
+		$sTagFilter = '';
 		$bOrgFilter = false;
 		$bFirst = true;
 		if (count($this->filter) > 0)
@@ -1056,6 +1094,47 @@ class boView
 						$closedbySQL = "($field=" . $this->GetCSLFromArray($values) . ')';
 					else
 						$closedbySQL = "($field in (" . $this->GetCSLFromArray($values) . '))';
+				}
+				else if (eregi('^.*\.tag_desc', $field))
+				{
+					$iEntity = null;
+					if ($this->table == 'workorders')
+						$iEntity = DCL_ENTITY_WORKORDER;
+					else if ($this->table == 'tickets')
+						$iEntity = DCL_ENTITY_TICKET;
+					else if ($this->table == 'dcl_projects')
+						$iEntity = DCL_ENTITY_PROJECT;
+						
+					if ($iEntity !== null)
+					{
+						if ($bFirst == false)
+							$sql .= ' AND ';
+	
+						$bFirst = false;
+
+						$oTag = CreateObject('dcl.dbTag');
+						$sTagFilter = $oTag->getExistingIdsByName($this->GetCSLFromArray($values));
+						if (!in_array('dcl_tag.tag_desc', $this->order) &&
+							!in_array('dcl_tag.tag_desc', $this->groups) &&
+							!in_array('dcl_tag.tag_desc', $this->columns)
+							)
+						{
+							if ($this->table == 'workorders')
+							{
+								$sql .= "((workorders.jcn in (select entity_key_id from dcl_entity_tag where entity_id = $iEntity AND dcl_entity_tag.tag_id in ($sTagFilter)))";
+								$sql .= " AND (workorders.seq in (select entity_key_id2 from dcl_entity_tag where entity_id = $iEntity AND workorders.jcn = entity_key_id And dcl_entity_tag.tag_id in ($sTagFilter))";
+								$sql .= '))';
+							}
+							else if ($this->table == 'tickets')
+							{
+								$sql .= "(tickets.ticketid in (select entity_key_id from dcl_entity_tag where entity_id = $iEntity AND dcl_entity_tag.tag_id in ($sTagFilter)))";
+							}
+						}
+						else
+						{
+							$sql .= "(dcl_tag.tag_id in ($sTagFilter))";
+						}
+					}
 				}
 				else if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' &&
 						$this->table == 'workorders' &&
@@ -1312,13 +1391,13 @@ class boView
 			$sql .= ')';
 		}
 
-		if ($this->table == 'workorders' && $dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y')
+		if ($this->table == 'workorders')
 		{
 			// If we group by account, we'll join the whole lot together.  This will cause a work order
 			// with n accounts to appear in the report n times.  Otherwise, if we only sort or show the account
 			// column, we'll get the first account (in order) and display a link to show the other accounts
 			// as needed
-			if (in_array('accounts.name', $this->columns) || in_array('dcl_org.name', $this->columns))
+			if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' && in_array('accounts.name', $this->columns) || in_array('dcl_org.name', $this->columns))
 			{
 				$aOrgFilter = array();
 				if ($g_oSec->IsOrgUser())
@@ -1336,6 +1415,30 @@ class boView
 				$sql .= '(Select min(account_id) From dcl_wo_account where wo_id = workorders.jcn And seq = workorders.seq';
 				if (count($aOrgFilter) > 0)
 					$sql .= ' AND account_id IN (' . join(',', $aOrgFilter) . ')';
+
+				$sql .= '))';
+			}
+			
+			// Same for Tags
+			if (in_array('dcl_tag.tag_desc', $this->columns))
+			{
+				$sql .= ' And (dcl_entity_tag.tag_id is null Or dcl_entity_tag.tag_id = ';
+				$sql .= '(Select min(tag_id) From dcl_entity_tag where entity_id = ' . DCL_ENTITY_WORKORDER . ' AND entity_key_id = workorders.jcn And entity_key_id2 = workorders.seq';
+				if ($sTagFilter != '')
+					$sql .= ' AND tag_id IN (' . $sTagFilter . ')';
+
+				$sql .= '))';
+			}
+		}
+		else if ($this->table == 'tickets')
+		{
+			// Same for ticket tags as work order tags
+			if (in_array('dcl_tag.tag_desc', $this->columns))
+			{
+				$sql .= ' And (dcl_entity_tag.tag_id is null Or dcl_entity_tag.tag_id = ';
+				$sql .= '(Select min(tag_id) From dcl_entity_tag where entity_id = ' . DCL_ENTITY_TICKET . ' AND entity_key_id = tickets.ticketid';
+				if ($sTagFilter != '')
+					$sql .= ' AND tag_id IN (' . $sTagFilter . ')';
 
 				$sql .= '))';
 			}

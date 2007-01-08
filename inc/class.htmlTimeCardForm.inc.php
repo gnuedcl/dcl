@@ -105,7 +105,46 @@ class htmlTimeCardForm
 		$oSmarty->assign('VAL_JCN', $jcn);
 		$oSmarty->assign('VAL_SEQ', $seq);
 		$oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
+		
+		$oSmarty->assign('PERM_REASSIGN', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN));
+		$oSmarty->assign('PERM_ADDTASK', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK, IsSet($_REQUEST['projectid']) ? (int)$_REQUEST['projectid'] : 0));
+		$oSmarty->assign('PERM_ATTACHFILE', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE) && $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE'] > 0);
+		$oSmarty->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
+		$oSmarty->assign('VAL_MULTIORG', $dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y');
+		$oSmarty->assign('PERM_MODIFYWORKORDER', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY));
+		$oSmarty->assign('PERM_ISPUBLIC', $g_oSec->IsPublicUser());
+		
+		if (!$isEdit && !$isBatch)
+		{
+			$aOrgID = array();
+			$aOrgName = array();
+			$objPM = CreateObject('dcl.dbProjectmap');
+			if ($objPM->LoadByWO($jcn, $seq) != -1)
+			{
+				$objDBPrj = CreateObject('dcl.dbProjects');
+	
+				if ($objPM->projectid > 0)
+					$objDBPrj->Load($objPM->projectid);
+	
+				$oSmarty->assign('VAL_PROJECT', $objDBPrj->name);
+				$oSmarty->assign('VAL_PROJECTS', $objPM->projectid);
+			}
 
+			$oOrgs =& CreateObject('dcl.boOrg');
+			$oOrgs->ListSelectedByWorkOrder($jcn, $seq);
+			while ($oOrgs->oDB->next_record())
+			{
+				$aOrgID[] = $oOrgs->oDB->f(0);
+				$aOrgName[] = $oOrgs->oDB->f(1);
+			}
+			
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $jcn, $seq));
+
+			$oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
+			$oSmarty->assign_by_ref('VAL_ORGNAME', $aOrgName);
+		}
+		
 		if (isset($_REQUEST['return_to']))
 			$oSmarty->assign('VAL_RETURNTO', $_REQUEST['return_to']);
 

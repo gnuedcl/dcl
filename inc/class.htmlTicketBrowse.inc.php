@@ -61,6 +61,23 @@ class htmlTicketBrowse
 			return;
 
 		$oTable = CreateObject('dcl.htmlTable');
+		$iEndOffset = 0;
+		for ($iColumn = count($oView->groups); $iColumn < $this->oDB->NumFields(); $iColumn++)
+		{
+			$sFieldName = $this->oDB->GetFieldName($iColumn);
+			if ($sFieldName == 'ticketid')
+				$oTable->assign('ticket_id_ordinal', $iColumn);
+			else if ($sFieldName == '_num_tags_')
+			{
+				$iEndOffset--;
+				$oTable->assign('num_tags_ordinal', $iColumn);
+			}
+			else if ($sFieldName == 'tag_desc')
+			{
+				$oTable->assign('tag_ordinal', $iColumn);
+			}
+		}
+
 		$oTable->setData($this->oDB->FetchAllRows());
 		
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
@@ -109,6 +126,7 @@ class htmlTicketBrowse
 			$oTable->assign('VAL_PAGE', '0');
 		}
 
+		$oTable->assign('VAL_ENDOFFSET', $iEndOffset);
 		$oTable->assign('VAL_FILTERMENUACTION', $this->sPagingMenuAction);
 		$oTable->assign('VAL_FILTERSTARTROW', $this->oView->startrow);
 		$oTable->assign('VAL_FILTERNUMROWS', $this->oView->numrows);

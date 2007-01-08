@@ -85,6 +85,13 @@ class boTickets
 		
 		$obj->Add();
 
+		// Tags
+		if (isset($_REQUEST['tags']))
+		{
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag->serialize(DCL_ENTITY_TICKET, $obj->ticketid, 0, $_REQUEST['tags']);
+		}
+
 		// upload a file attachment?
 		if (($sFileName = @DCL_Sanitize::ToFileName('userfile')) !== null)
 		{
@@ -274,6 +281,12 @@ class boTickets
 			}
 		}
 
+		if (isset($_REQUEST['tags']))
+		{
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag->serialize(DCL_ENTITY_TICKET, $obj->ticketid, 0, $_REQUEST['tags']);
+		}
+		
 		if ($bHasChanges)
 		{
 			$obj->Edit();
@@ -339,6 +352,10 @@ class boTickets
 		}
 
 		$obj->Delete();
+
+		// Remove tags
+		$oTag =& CreateObject('dcl.dbEntityTag');
+		$oTag->deleteByEntity(DCL_ENTITY_TICKET, $iID, 0);
 
 		// Remove all attachments
 		$attachPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/tck/' . substr($iID, -1) . '/' . $iID . '/';
@@ -714,6 +731,7 @@ class boTickets
 		$statuson = @$_REQUEST['statuson'];
 		$lastactionon = @$_REQUEST['lastactionon'];
 		$module_id = isset($_REQUEST['module_id']) && is_array($_REQUEST['module_id']) ? $_REQUEST['module_id'] : array();
+		$tags = $_REQUEST['tags'];
 		$searchText = $_REQUEST['searchText'];
 		$columns = $_REQUEST['columns'];
 		$groups = $_REQUEST['groups'];
@@ -805,6 +823,9 @@ class boTickets
 			if (count($$field) > 0)
 				$objView->AddDef('filter', $field, $$field);
 		}
+
+		if (trim($tags) != '')
+			$objView->AddDef('filter', 'dcl_tag.tag_desc', $tags);
 
 		if (count($is_public) > 0)
 		{

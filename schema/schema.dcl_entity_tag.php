@@ -22,18 +22,16 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$GLOBALS['phpgw_baseline']['watches'] = array(
+$GLOBALS['phpgw_baseline']['dcl_entity_tag'] = array(
 	'fd' => array(
-		'watchid' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
-		'typeid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'whatid1' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'whatid2' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'whoid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'actions' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
+		'entity_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'entity_key_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'entity_key_id2' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'tag_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
 	),
-	'pk' => array('watchid'),
+	'pk' => array('entity_id', 'entity_key_id', 'entity_key_id2', 'tag_id'),
 	'fk' => array(),
-	'ix' => array(),
+	'ix' => array('ix_dcl_entity_tag_id' => array('tag_id')),
 	'uc' => array()
 );
 ?>

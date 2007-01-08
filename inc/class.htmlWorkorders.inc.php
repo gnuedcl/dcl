@@ -319,7 +319,7 @@ class htmlWorkorders
 
 	function showmy($obj, $forField, $title, $noneMsg, $rowlimit)
 	{
-		global $dcl_info;
+		global $dcl_info, $g_oSec;
 
 		if (!is_object($obj))
 		{
@@ -330,22 +330,46 @@ class htmlWorkorders
 		$objView = CreateObject('dcl.boView');
 		$objView->title = $title;
 		$objView->style = 'report';
-		$objView->AddDef('columns', '', array('jcn', 'seq', 'priorities.name', 'severities.name', 'responsible.short', 'deadlineon', 'summary'));
-		$objView->AddDef('columnhdrs', '', array(
-				STR_WO_JCN,
-				STR_WO_SEQ,
-				STR_WO_PRIORITY,
-				STR_WO_SEVERITY,
-				STR_WO_RESPONSIBLE,
-				STR_WO_DEADLINE,
-				STR_WO_SUMMARY));
+		if ($g_oSec->IsPublicUser())
+		{
+			$objView->AddDef('columns', '', array('jcn', 'seq', 'dcl_wo_type.type_name', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'dcl_tag.tag_desc', 'summary'));
+			$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'jcn', 'seq'));
+
+			$objView->AddDef('columnhdrs', '', array(
+					STR_WO_JCN,
+					STR_WO_SEQ,
+					STR_WO_TYPE,
+					STR_WO_PRODUCT,
+					STR_WO_STATUS,
+					STR_WO_PRIORITY,
+					STR_WO_SEVERITY,
+					STR_CMMN_TAGS,
+					STR_WO_SUMMARY));
+		}
+		else
+		{
+			$objView->AddDef('columns', '', array('jcn', 'seq', 'dcl_wo_type.type_name', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'responsible.short', 'deadlineon', 'dcl_tag.tag_desc', 'summary'));
+			$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'deadlineon', 'eststarton', 'jcn', 'seq'));
+
+			$objView->AddDef('columnhdrs', '', array(
+					STR_WO_JCN,
+					STR_WO_SEQ,
+					STR_WO_TYPE,
+					STR_WO_PRODUCT,
+					STR_WO_STATUS,
+					STR_WO_PRIORITY,
+					STR_WO_SEVERITY,
+					STR_WO_RESPONSIBLE,
+					STR_WO_DEADLINE,
+					STR_CMMN_TAGS,
+					STR_WO_SUMMARY));
+		}
 
 		$objView->AddDef('filter', $forField, $GLOBALS['DCLID']);
 		$objView->AddDef('filternot', 'statuses.dcl_status_type', '2');
 		if ($forField == 'createby')
 			$objView->AddDef('filternot', 'responsible', $GLOBALS['DCLID']);
-		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'deadlineon', 'eststarton', 'jcn', 'seq'));
-
+			
 		$objHV = CreateViewObject($objView->table);
 		$objHV->Render($objView);
 	}
@@ -394,7 +418,7 @@ class htmlWorkorders
 
 		if ($g_oSec->IsPublicUser())
 		{
-			$oView->AddDef('columns', '', array('jcn', 'seq', 'dcl_wo_type.type_name', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'summary'));
+			$oView->AddDef('columns', '', array('jcn', 'seq', 'dcl_wo_type.type_name', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'dcl_tag.tag_desc', 'summary'));
 			$oView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'jcn', 'seq'));
 
 			$oView->AddDef('columnhdrs', '', array(
@@ -405,11 +429,12 @@ class htmlWorkorders
 					STR_WO_STATUS,
 					STR_WO_PRIORITY,
 					STR_WO_SEVERITY,
+					STR_CMMN_TAGS,
 					STR_WO_SUMMARY));
 		}
 		else
 		{
-			$oView->AddDef('columns', '', array('jcn', 'seq', 'dcl_wo_type.type_name', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'responsible.short', 'deadlineon', 'summary'));
+			$oView->AddDef('columns', '', array('jcn', 'seq', 'dcl_wo_type.type_name', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'responsible.short', 'deadlineon', 'dcl_tag.tag_desc', 'summary'));
 			$oView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'deadlineon', 'eststarton', 'jcn', 'seq'));
 
 			$oView->AddDef('columnhdrs', '', array(
@@ -422,8 +447,10 @@ class htmlWorkorders
 					STR_WO_SEVERITY,
 					STR_WO_RESPONSIBLE,
 					STR_WO_DEADLINE,
+					STR_CMMN_TAGS,
 					STR_WO_SUMMARY));
 		}
+		
 		$filterStatus = '-1';
 		$filterReportto = '0';
 		$filterProduct = '0';

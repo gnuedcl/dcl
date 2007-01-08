@@ -199,6 +199,20 @@ class htmlTicketresolutions
 
 			// Allow agents to escalate to ticket leads
 			$t->assign('PERM_ASSIGN',$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN));
+			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
+			{
+				$objPersonnel =& CreateObject('dcl.htmlPersonnel');
+				$t->assign('CMB_REASSIGN', $objPersonnel->GetCombo(0, 'reassign_to_id', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
+			}
+
+			// Can modify tags right here if user can modify ticket
+			$t->assign('PERM_MODIFYTICKET',$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY));
+			
+			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
+			{
+				$oTag =& CreateObject('dcl.dbEntityTag');
+				$t->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $ticketid));
+			}
 		}
 
 		$t->assign('ticketid', $ticketid);

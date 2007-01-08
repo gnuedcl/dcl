@@ -57,6 +57,25 @@ function validateAndSubmitForm(form)
 			<textarea id="resolution" name="resolution" rows="6" cols="70" wrap>{$VAL_RESOLUTION|escape}</textarea>
 		</div>
 	</fieldset>
+{if !$IS_EDIT}
+	<fieldset>
+		<legend>{$smarty.const.STR_CMMN_OPTIONS}</legend>
+	{if $PERM_ASSIGN}
+		<div>
+			<label for="reassign">{$smarty.const.STR_CMMN_REASSIGN}:</label>
+			{$CMB_REASSIGN}
+			<span>You can reassign this work order to another person by selecting their user name here.</span>
+		</div>
+	{/if}
+	{if $PERM_MODIFYTICKET}
+		<div>
+			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
+			<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
+			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
+		</div>
+	{/if}
+	</fieldset>
+{/if}
 	<fieldset>
 		<div class="submit">
 			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">

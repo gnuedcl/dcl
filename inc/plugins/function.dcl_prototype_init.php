@@ -22,18 +22,10 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$GLOBALS['phpgw_baseline']['watches'] = array(
-	'fd' => array(
-		'watchid' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
-		'typeid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'whatid1' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'whatid2' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'whoid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'actions' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
-	),
-	'pk' => array('watchid'),
-	'fk' => array(),
-	'ix' => array(),
-	'uc' => array()
-);
+function smarty_function_dcl_prototype_init($params, &$smarty)
+{
+?>
+<script language="JavaScript" src="js/prototype.js"></script>
+<?php
+}
 ?>

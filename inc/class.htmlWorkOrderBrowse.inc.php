@@ -68,15 +68,45 @@ class htmlWorkOrderBrowse
 			$oTable->addColumn('', 'string');
 		}
 		
+		$iEndOffset = 0;
 		$iColumn = 0;
+		$iGroupCount = count($this->oView->groups);
+		$iColumnCount = count($this->oView->columns);
 		foreach ($this->oView->columnhdrs as $sColumn)
 		{
-			if ($iColumn++ < count($this->oView->groups))
+			if ($iColumn++ < $iGroupCount)
 				continue;
 				
 			$oTable->addColumn($sColumn, 'string');
 		}
 		
+		for ($iColumn = count($oView->groups); $iColumn < $this->oDB->NumFields(); $iColumn++)
+		{
+			$sFieldName = $this->oDB->GetFieldName($iColumn);
+			if ($sFieldName == 'jcn')
+				$oTable->assign('wo_id_ordinal', $iColumn);
+			else if ($sFieldName == 'seq')
+				$oTable->assign('seq_ordinal', $iColumn);
+			else if ($sFieldName == '_num_accounts_')
+			{
+				$iEndOffset--;
+				$oTable->assign('num_accounts_ordinal', $iColumn);
+			}
+			else if ($sFieldName == '_num_tags_')
+			{
+				$iEndOffset--;
+				$oTable->assign('num_tags_ordinal', $iColumn);
+			}
+			else if ($sFieldName == 'tag_desc')
+			{
+				$oTable->assign('tag_ordinal', $iColumn);
+			}
+			else if ($oView->columns[$iColumn - count($this->oView->groups)] == 'dcl_org.name')
+			{
+				$oTable->assign('org_ordinal', $iColumn);
+			}
+		}
+
 		$aOptions = array(
 			'Export' => array('menuAction' => 'boViews.export', 'hasPermission' => true),
 			'Detail' => array('menuAction' => 'boWorkorders.batchdetail', 'hasPermission' => $g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => 
@@ -119,6 +149,7 @@ class htmlWorkOrderBrowse
 			$oTable->assign('VAL_PAGE', '0');
 		}
 
+		$oTable->assign('VAL_ENDOFFSET', $iEndOffset);
 		$oTable->assign('VAL_FILTERMENUACTION', $this->sPagingMenuAction);
 		$oTable->assign('VAL_FILTERSTARTROW', $this->oView->startrow);
 		$oTable->assign('VAL_FILTERNUMROWS', $this->oView->numrows);

@@ -45,6 +45,7 @@ class DCL_MetadataDisplay
 	var $oAction;
 	var $oTicket;
 	var $oWorkOrder;
+	var $oTag;
 
 	function DCL_MetadataDisplay()
 	{
@@ -68,11 +69,12 @@ class DCL_MetadataDisplay
 		$this->oAction = null;
 		$this->oTicket = null;
 		$this->oWorkOrder = null;
+		$this->oTag = null;
 	}
 
 	function IsValidID($id)
 	{
-		return (isset($id) && $id != null && $id != '' && is_numeric($id) && $id > 0);
+		return (isset($id) && $id !== null && $id != '' && is_numeric($id) && $id > 0);
 	}
 
 	function GetStatus($id)
@@ -342,6 +344,20 @@ class DCL_MetadataDisplay
 			return trigger_error("Could not find department ID $id");
 
 		return $this->oDepartment->name;
+	}
+	
+	function GetTags($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	{
+		if (!$this->IsValidID($entity_id) || !$this->IsValidID($entity_key_id))
+			return '';
+			
+		if ($entity_id == DCL_ENTITY_WORKORDER && !$this->IsValidID($entity_key_id2))
+			return '';
+			
+		if ($this->oTag == null)
+			$this->oTag =& CreateObject('dcl.dbEntityTag');
+			
+		return $this->oTag->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
 }
 ?>

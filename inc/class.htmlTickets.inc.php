@@ -114,12 +114,13 @@ class htmlTickets
 		$objView->title = $title;
 		$objView->style = 'report';
 		$objView->table = 'tickets';
-		$objView->AddDef('columns', '', array('ticketid', 'priorities.name', 'severities.name', 'responsible.short', 'summary'));
+		$objView->AddDef('columns', '', array('ticketid', 'priorities.name', 'severities.name', 'responsible.short', 'dcl_tag.tag_desc', 'summary'));
 		$objView->AddDef('columnhdrs', '', array(
 				STR_TCK_TICKET,
 				STR_TCK_PRIORITY,
 				STR_TCK_TYPE,
 				STR_TCK_RESPONSIBLE,
+				STR_CMMN_TAGS,
 				STR_TCK_SUMMARY));
 
 		$objView->AddDef('filter', $forField, $GLOBALS['DCLID']);
@@ -174,13 +175,13 @@ class htmlTickets
 
 		if ($g_oSec->IsPublicUser())
 		{
-			$oView->AddDef('columns', '', array('ticketid', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'summary'));
-			$oView->AddDef('columnhdrs', '', array(STR_TCK_TICKET, STR_TCK_PRODUCT, STR_TCK_STATUS, STR_TCK_PRIORITY, STR_TCK_TYPE, STR_TCK_SUMMARY));
+			$oView->AddDef('columns', '', array('ticketid', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'dcl_tag.tag_desc', 'summary'));
+			$oView->AddDef('columnhdrs', '', array(STR_TCK_TICKET, STR_TCK_PRODUCT, STR_TCK_STATUS, STR_TCK_PRIORITY, STR_TCK_TYPE, STR_CMMN_TAGS, STR_TCK_SUMMARY));
 		}
 		else
 		{
-			$oView->AddDef('columns', '', array('ticketid', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'responsible.short', 'summary'));
-			$oView->AddDef('columnhdrs', '', array(STR_TCK_TICKET, STR_TCK_PRODUCT, STR_TCK_STATUS, STR_TCK_PRIORITY, STR_TCK_TYPE, STR_TCK_RESPONSIBLE, STR_TCK_SUMMARY));
+			$oView->AddDef('columns', '', array('ticketid', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'responsible.short', 'dcl_tag.tag_desc', 'summary'));
+			$oView->AddDef('columnhdrs', '', array(STR_TCK_TICKET, STR_TCK_PRODUCT, STR_TCK_STATUS, STR_TCK_PRIORITY, STR_TCK_TYPE, STR_TCK_RESPONSIBLE, STR_CMMN_TAGS, STR_TCK_SUMMARY));
 		}
 
 		$filterStatus = '-1';

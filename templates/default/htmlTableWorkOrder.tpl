@@ -135,7 +135,17 @@ function jumpToPage(iPage)
 	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
 	{if $checks}{assign var=woid value=$groupcount}{assign var=seq value=$groupcount+1}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$woid]}.{$records[row][$seq]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
-	{section loop=$records[row] name=item}{if !in_array($smarty.section.item.index, $groups)}<td class="{$columns[$smarty.section.item.index].type}">{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}{else}{if $smarty.section.item.index < 2}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$records[row][0]}&seq={$records[row][1]}">{$records[row][item]|escape}</a>{else}{$records[row][item]|escape}{/if}{/if}</td>{/if}{/section}
+	{section loop=$records[row] name=item}
+		{if !in_array($smarty.section.item.index, $groups) && $smarty.section.item.index < (count($records[row]) + $VAL_ENDOFFSET)}<td class="{$columns[$smarty.section.item.index].type}">
+			{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}
+			{else}
+				{if $smarty.section.item.index < 2}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$records[row][0]}&seq={$records[row][1]}">{$records[row][item]|escape}</a>
+				{elseif $smarty.section.item.index == $tag_ordinal && $records[row][$num_tags_ordinal] > 1}{dcl_get_entity_tags entity=$smarty.const.DCL_ENTITY_WORKORDER key_id=$records[row][0] key_id2=$records[row][1] link=Y}
+				{else}{$records[row][item]|escape}
+				{/if}
+			{/if}</td>
+		{/if}
+	{/section}
 	</tr>
 	{if $smarty.section.row.last}</tbody>{/if}
 {/section}

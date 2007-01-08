@@ -45,6 +45,22 @@
 		return sSummary;
 	}
 
+	function getTags()
+	{
+		var f = document.forms["mondosearchform"];
+		var sTags = "";
+		if (f.elements["tags"].value != "")
+		{
+{/literal}
+			sTags += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">{$smarty.const.STR_CMMN_TAGS}:</th><td>';
+			sTags += f.elements["tags"].value;
+			sTags += '</td></tr>';
+{literal}
+		}
+		
+		return sTags;
+	}
+
 	function getTextSearch()
 	{
 		var f = document.forms["mondosearchform"];
@@ -160,6 +176,7 @@
 			sSummary += getSelections(f.elements["is_public[]"], "{$smarty.const.STR_CMMN_PUBLIC}");
 			sSummary += getSelections(f.elements["entity_source_id[]"], "{$smarty.const.STR_CMMN_SOURCE}");
 			sSummary += getDates();
+			sSummary += getTags();
 			sSummary += getTextSearch();
 			{literal}
 		}
@@ -192,15 +209,16 @@
 					<li><a href="javascript:showHide('divAccount');">{$smarty.const.STR_TCK_ACCOUNT}</a></li>
 					<li><a href="javascript:showHide('divPriority');">{$smarty.const.STR_TCK_PRIORITY}</a></li>
 					<li><a href="javascript:showHide('divType');">{$smarty.const.STR_TCK_TYPE}</a></li>
+					<li><a href="javascript:showHide('divStatus');">{$smarty.const.STR_TCK_STATUS}</a></li>
 				</ul>
 			</div>
 			<div class="menu">
 				<ul>
-					<li class="first"><a href="javascript:showHide('divStatus');">{$smarty.const.STR_TCK_STATUS}</a></li>
-					<li><a href="javascript:showHide('divPublic');">{$smarty.const.STR_CMMN_PUBLIC}</a></li>
+					<li class="first"><a href="javascript:showHide('divPublic');">{$smarty.const.STR_CMMN_PUBLIC}</a></li>
 					<li><a href="javascript:showHide('divSource');">{$smarty.const.STR_CMMN_SOURCE}</a></li>
 					<li><a href="javascript:showHide('divDate');">Dates</a></li>
 					<li><a href="javascript:showHide('divText');">Text</a></li>
+					<li><a href="javascript:showHide('divTags');">{$smarty.const.STR_CMMN_TAGS}</a></li>
 					<li><a href="javascript:showHide('divReport');">{$smarty.const.STR_TCK_REPORTOPTIONS}</a></li>
 				{/strip}</ul>
 			</div>
@@ -293,6 +311,14 @@
 	<fieldset id="divText" style="display: none;">
 		<legend>Text</legend>
 		<div><label for="searchText">Issues/Summary:</label><input type="text" size="70" id="searchText" name="searchText" value="{$VAL_SEARCHTEXT}"></div>
+	</fieldset>
+	<fieldset id="divTags" style="display: none;">
+		<legend>{$smarty.const.STR_CMMN_TAGS}</legend>
+		<div>
+			<label for="tags">{$smarty.const.STR_CMMN_TAGS}:</label>
+			<input type="text" size="70" id="tags" name="tags" value="{$VAL_TAGS|escape}">
+			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
+		</div>
 	</fieldset>
 	<fieldset id="divReport" style="display: none;">
 		<legend>{$smarty.const.STR_TCK_REPORTOPTIONS}</legend>
@@ -429,6 +455,9 @@
 
 		// Text boxen
 		setOnChangeEventHandler(f.elements["searchText"]);
+
+		// Tags
+		setOnChangeEventHandler(f.elements["tags"]);
 
 		// Checkboxen
 		setOnClickEventHandler(f.elements["responsible"]);

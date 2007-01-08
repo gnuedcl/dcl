@@ -111,6 +111,9 @@ class htmlTicketForm
 			$oSmarty->assign('VAL_MENUACTION', 'boTickets.dbmodify');
 			$oSmarty->assign('VAL_TICKETID', $obj->ticketid);
 			$oSmarty->assign('VAL_STATUS', $obj->status);
+			
+			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $obj->ticketid));
 		}
 		else
 		{

@@ -75,6 +75,7 @@ class htmlWorkOrderDetail
 		$oSmarty->assign('VAL_RESPONSIBLE', $oMeta->GetPersonnel($objWorkOrder->responsible));
 		$oSmarty->assign('VAL_PRIORITY', $oMeta->GetPriority($objWorkOrder->priority));
 		$oSmarty->assign('VAL_SEVERITY', $oMeta->GetSeverity($objWorkOrder->severity));
+		$oSmarty->assign('VAL_TAGS', str_replace(',', ', ', $oMeta->GetTags(DCL_ENTITY_WORKORDER, $objWorkOrder->jcn, $objWorkOrder->seq)));
 
 		$iStatusType = $oMeta->oStatus->GetStatusType($objWorkOrder->status);
 		$oSmarty->assign('VAL_STATUS_TYPE', $iStatusType);

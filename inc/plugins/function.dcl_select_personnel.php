@@ -41,20 +41,36 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 	$sFilter = '';
 	if ($params['active'] == 'Y')
 		$sFilter = "active = 'Y'";
-
+		
+	if (!isset($params['showName']))
+		$params['showName'] == 'N';
+		
+	$sFieldList = 'p.id, p.short';
+	if ($params['showName'] == 'Y')
+		$sFieldList .= ', c.contact_last_name, c.contact_first_name';
+		
 	if (isset($params['project']))
 	{
 		// Show people in the project only
-		$sSQL = 'SELECT DISTINCT p.id, p.short FROM personnel p, workorders a, projectmap b WHERE ';
-		$sSQL .= "a.jcn = b.jcn AND (b.seq = 0 OR a.seq = b.seq) AND b.projectid = " . $params['project'];
+		$sSQL = "SELECT DISTINCT $sFieldList FROM personnel p, workorders a, projectmap b ";
+		if ($params['showName'] == 'Y')
+			$sSQL .= ', dcl_contact c ';
+			
+		$sSQL .= "WHERE a.jcn = b.jcn AND (b.seq = 0 OR a.seq = b.seq) AND b.projectid = " . $params['project'];
 		$sSQL .= ' AND p.id = a.responsible ';
+		if ($params['showName'] == 'Y')
+			$sSQL .= ' AND p.contact_id = c.contact_id ';
 	}
 	else
 	{
 		if (isset($params['entity']) && isset($params['perm']))
 		{
-			$sSQL = 'select distinct p.id, p.short from personnel p join dcl_user_role ur on p.id = ur.personnel_id ';
-			$sSQL .= 'join dcl_role_perm rp on ur.role_id = rp.role_id where ((entity_id = ';
+			$sSQL = "select distinct $sFieldList from personnel p join dcl_user_role ur on p.id = ur.personnel_id ";
+			$sSQL .= 'join dcl_role_perm rp on ur.role_id = rp.role_id';
+			if ($params['showName'] == 'Y')
+				$sSQL .= ' join dcl_contact c ON p.contact_id = c.contact_id';
+
+			$sSQL .= ' where ((entity_id = ';
 			$sSQL .= $params['entity'] . ' and perm_id = ' . $params['perm'] . ') or (entity_id = ';
 			$sSQL .= DCL_ENTITY_GLOBAL . ' and perm_id = ' . DCL_PERM_ADMIN . '))';
 
@@ -64,6 +80,8 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 		else
 		{
 			$sSQL = 'select p.id, p.short from personnel p ';
+			if ($params['showName'] == 'Y')
+				$sSQL .= ' join dcl_contact c ON p.contact_id = c.contact_id ';
 
 			if (isset($params['active']) && $params['active'] == 'Y')
 				$sSQL .= "WHERE p.active = 'Y' ";

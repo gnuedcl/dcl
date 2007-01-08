@@ -1,6 +1,7 @@
 <!-- $Id$ -->
 {dcl_calendar_init}
 {dcl_validator_init}
+{if !$IS_BATCH && (($PERM_MODIFYWORKORDER && $VAL_MULTIORG && !$PERM_ISPUBLIC) || ($PERM_ADDTASK))}{dcl_selector_init}{/if}
 <script language="JavaScript">
 {literal}
 function updateEtc(form)
@@ -44,7 +45,8 @@ function validateAndSubmitForm(form)
 }
 {/literal}
 </script>
-<form class="styled" name="NewAction" method="post" action="{$URL_MAIN_PHP}">
+<form class="styled" name="NewAction" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
+	<input type="hidden" name="menuActionExExExExEx" value="{$VAL_MENUACTION}">
 	{if $IS_BATCH}<input type="hidden" name="menuAction" value="boTimecards.dbbatchadd">
 	{elseif $IS_EDIT}<input type="hidden" name="menuAction" value="boTimecards.dbmodify">
 	{else}<input type="hidden" name="menuAction" value="boTimecards.dbadd">
@@ -99,12 +101,50 @@ function validateAndSubmitForm(form)
 			<label for="description">{$smarty.const.STR_TC_DESCRIPTION}:</label>
 			<textarea name="description" rows="4" cols="50" wrap valign="top">{$VAL_DESCRIPTION|escape}</textarea>
 		</div>
+	</fieldset>
+{if !$IS_EDIT}
+	<fieldset>
+		<legend>{$smarty.const.STR_CMMN_OPTIONS}</legend>
+	{if $PERM_REASSIGN}
 		<div>
 			<label for="reassign">{$smarty.const.STR_CMMN_REASSIGN}:</label>
 			{$CMB_REASSIGN}
 			<span>You can reassign this work order to another person by selecting their user name here.</span>
 		</div>
+	{/if}
+	{if !$IS_BATCH}
+		{if $PERM_MODIFYWORKORDER}
+		<div>
+			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
+			<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
+			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
+		</div>
+		{/if}
+		{if $PERM_ADDTASK}
+		<div>
+			<label for="projectid">{$smarty.const.STR_WO_PROJECT}:</label>
+			{dcl_selector_project name="projectid" value="$VAL_PROJECTS" decoded="$VAL_PROJECT"}
+		</div>
+		{/if}
+		{if $PERM_MODIFYWORKORDER && $VAL_MULTIORG && !$PERM_ISPUBLIC}
+		<div>
+			<label for="secaccounts">{$smarty.const.STR_CMMN_ORGANIZATION}:</label>
+			{dcl_selector_org name="secaccounts" value="$VAL_ORGID" decoded="$VAL_ORGNAME" multiple="$VAL_MULTIORG"}
+		</div>
+		<div class="noinput">
+			<div id="div_secaccounts" style="width: 100%;"><script language="JavaScript">render_a_secaccounts();</script></div>
+		</div>
+		{/if}
+		{if $PERM_ATTACHFILE && $VAL_MAXUPLOADFILESIZE > 0}
+		<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">
+		<div>
+			<label for="userfile">{$smarty.const.STR_WO_ATTACHFILE}:</label>
+			<input type="file" id="userfile" name="userfile">
+		</div>
+		{/if}
+	{/if}
 	</fieldset>
+{/if}
 	<fieldset>
 		<div class="submit">
 			<input type="button" class="inputSubmit" value="{$smarty.const.STR_CMMN_SAVE}" onclick="validateAndSubmitForm(this.form);">

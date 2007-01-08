@@ -95,6 +95,23 @@ class htmlTicketResults
 			}
 		}
 		
+		$iOffset = 0;
+		for ($iColumn = count($oView->groups); $iColumn < $oDB->NumFields(); $iColumn++)
+		{
+			$sFieldName = $oDB->GetFieldName($iColumn);
+			if ($sFieldName == '_num_tags_')
+			{
+				$iOffset--;
+				$oTable->assign('num_tags_ordinal', $iColumn);
+			}
+			else if ($sFieldName == 'tag_desc')
+			{
+				$oTable->assign('tag_ordinal', $iColumn);
+			}
+		}
+		
+		$oTable->assign('VAL_ENDOFFSET', $iOffset);
+		
 		$oTable->setData($oDB->FetchAllRows());
 		$oDB->FreeResult();
 

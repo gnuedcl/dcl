@@ -1,25 +1,17 @@
 <!-- $Id$ -->
-<script language="JavaScript">
-{literal}
-function submitBatch()
-{
-	document.forms.searchAction.submit();
-}
-{/literal}
-</script>
+<div class="dcl_filter">
+	<span><label for="filterStatus">{$smarty.const.STR_CMMN_TAGS}:</label> {dcl_tag_link value=$VAL_SELECTEDTAGS selected=$VAL_SELECTEDTAGS browse=Y}</span>
+</div>
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}
 {if $rownum}{assign var=colcount value=$colcount+1}{/if}
-{if $checks}{assign var=colcount value=$colcount+1}{/if}
-<form name="searchAction" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="" />
-	{$VAL_VIEWSETTINGS}
-<table class="dcl_results{if $inline} inline{/if}"{if $width > 0} style="width:{$width};"{/if}>
-{if $caption ne ""}<caption{if $spacer} class="spacer"{/if}>{$caption|escape}</caption>{/if}
+{if $checks}{assign var=colcount value=$colcount+1}
+	<form name="searchAction" method="post" action="{$URL_MAIN_PHP}"><input type="hidden" name="menuAction" value="" />{$VAL_VIEWSETTINGS}
+{/if}
+<table class="dcl_results{if $inline} inline{/if}">
+{if $caption ne ""}<caption>{$caption|escape}</caption>{/if}
 {strip}
 {section loop=$columns name=col}
-{if $columns[col].title == $smarty.const.STR_WO_ID}{assign var=wo_id value=$smarty.section.col.index}{/if}
-{if $columns[col].title == $smarty.const.STR_WO_SEQ}{assign var=seq value=$smarty.section.col.index}{/if}
 	{if $smarty.section.col.first}<thead>
 	{if $toolbar}
 	<tr class="toolbar"><th colspan="{$colcount}">
@@ -41,9 +33,8 @@ function submitBatch()
 		<tbody>
 		{section loop=$groups name=group}
 			{assign var=groupcol value=$groups[group]}
-			{if $smarty.section.group.first}<tr class="group"><td colspan="{$colcount}">
-				{if $checks}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}
-			{/if}
+			{if $smarty.section.group.first}<tr class="group"><td colspan="{$colcount}">{/if}
+			{if $checks}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}
 			{$columns[$groupcol].title|escape}&nbsp;[&nbsp;{$records[row][$groupcol]|escape}&nbsp;]&nbsp;
 			{if $smarty.section.group.last}</td></tr>{/if}
 		{/section}
@@ -58,32 +49,35 @@ function submitBatch()
 			</tbody><tbody>
 			{section loop=$groups name=group}
 				{assign var=groupcol value=$groups[group]}
-				{if $smarty.section.group.first}<tr class="group"><td colspan="{$colcount}">
-					{if $checks}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}
-				{/if}
+				{if $smarty.section.group.first}<tr class="group"><td colspan="{$colcount}">{/if}
+				{if $checks}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}
 				{$columns[$groupcol].title|escape}&nbsp;[&nbsp;{$records[row][$groupcol]|escape}&nbsp;]&nbsp;
 				{if $smarty.section.group.last}</td></tr>{/if}
 			{/section}
 		{/if}{/strip}
 	{/if}
 	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
-	{if $checks}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$groupcount]}"></td>{/if}
+	{if $checks}{assign var=woid value=$groupcount}{assign var=seq value=$groupcount+1}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$woid]}.{$records[row][$seq]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
-	{strip}
 	{section loop=$records[row] name=item}
-		{if !in_array($smarty.section.item.index, $groups) && $smarty.section.item.index < (count($records[row]) + $VAL_ENDOFFSET)}
-			<td class="{$columns[$smarty.section.item.index].type}">
-			{if $smarty.section.item.index == $ticket_id_ordinal}<a href="{$URL_MAIN_PHP}?menuAction=boTickets.view&ticketid={$records[row][$ticket_id_ordinal]}">{$records[row][item]}</a>
-			{elseif $smarty.section.item.index == $tag_ordinal && $records[row][$num_tags_ordinal] > 1}{dcl_get_entity_tags entity=$smarty.const.DCL_ENTITY_TICKET key_id=$records[row][$ticket_id_ordinal] link=Y}
-			{elseif $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}
+		{if $smarty.section.item.index != 1 && $smarty.section.item.index != 2 && !in_array($smarty.section.item.index, $groups) && $smarty.section.item.index < (count($records[row]) + $VAL_ENDOFFSET)}<td class="{$columns[$smarty.section.item.index].type}">
+		{if $smarty.section.item.index == 0}
+			{if $records[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$records[row][1]}&seq={$records[row][2]}">{$records[row][1]|escape}-{$records[row][2]|escape}</a>
+			{elseif $records[row][0] == $smarty.const.DCL_ENTITY_TICKET}<a href="{$URL_MAIN_PHP}?menuAction=boTickets.view&ticketid={$records[row][1]}">{$records[row][1]|escape}</a>
 			{else}{$records[row][item]|escape}
 			{/if}
-			</td>
+		{else}
+			{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}
+			{else}
+				{if $smarty.section.item.index == 4}{dcl_tag_link value=$records[row][item] selected=$VAL_SELECTEDTAGS browse=Y}
+				{else}{$records[row][item]|escape}
+				{/if}
+			{/if}</td>
+		{/if}
 		{/if}
 	{/section}
-	{/strip}
 	</tr>
 	{if $smarty.section.row.last}</tbody>{/if}
 {/section}
 </table>
-</form>
+{if $checks}</form>{/if}

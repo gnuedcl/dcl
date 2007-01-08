@@ -295,6 +295,9 @@ class htmlWOSearches
 
 			$t->assign('VAL_SEARCHTEXT', $searchText);
 		}
+		
+		if (isset($oView->filter['dcl_tag.tag_desc']) && is_array($oView->filter['dcl_tag.tag_desc']) && count($oView->filter['dcl_tag.tag_desc']) > 0)
+			$t->assign('VAL_TAGS', join(',', $oView->filter['dcl_tag.tag_desc']));
 
 		$aDateChecks = array('createdon', 'closedon', 'statuson', 'lastactionon',
 							'deadlineon', 'eststarton', 'estendon', 'starton');
@@ -340,6 +343,7 @@ class htmlWOSearches
 				'dcl_product_module.module_name' => STR_CMMN_MODULE,
 				'dcl_projects.name' => STR_WO_PROJECT,
 				'dcl_org.name' => STR_WO_ACCOUNT,
+				'dcl_tag.tag_desc' => STR_CMMN_TAGS,
 				'createby.short' => STR_WO_OPENBY,
 				'createdon' => STR_WO_OPENEDON,
 				'closedby.short' => STR_WO_CLOSEBY,
