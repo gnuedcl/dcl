@@ -371,15 +371,19 @@ class boWatches
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]))
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->responsible))
 				$arrEmail[$aContact['email']] = 1;
 		}
 		
 		if ($obj->createby != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->createby) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]))
-				$arrEmail[$aContact['email']] = 1;
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->createby))
+			{
+				$oPrefs = CreateObject('dcl.dbPreferences');
+				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
+					$arrEmail[$aContact['email']] = 1;
+			}
 		}
 		
 		if ($objWtch->Query($query) != -1)
@@ -483,7 +487,7 @@ class boWatches
 		return $bCanReceive;
 	}
 
-	function sendTicketNotification($obj, $actions)
+	function sendTicketNotification($obj, $actions, $bShowNotifyMsg = true)
 	{
 		global $dcl_info, $g_oSession;
 
@@ -614,15 +618,19 @@ class boWatches
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]))
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveTicketNotification($obj, $obj->responsible))
 				$arrEmail[$aContact['email']] = 1;
 		}
 		
 		if ($obj->createdby != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->createdby) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]))
-				$arrEmail[$aContact['email']] = 1;
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveTicketNotification($obj, $obj->createdby))
+			{
+				$oPrefs = CreateObject('dcl.dbPreferences');
+				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
+					$arrEmail[$aContact['email']] = 1;
+			}
 		}
 
 		if ($objWtch->Query($query) != -1)

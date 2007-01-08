@@ -33,6 +33,10 @@ function validateAndSubmit(f)
 			<label for="DCL_PREF_NOTIFY_DEFAULT">Copy Me on Notification:</label>
 			<input type="checkbox" id="DCL_PREF_NOTIFY_DEFAULT" name="DCL_PREF_NOTIFY_DEFAULT" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
 		</div>
+		<div class="required">
+			<label for="DCL_PREF_CREATED_WATCH_OPTION">Watch Activity for Items I Create:</label>
+			{dcl_select_watch_action name=DCL_PREF_CREATED_WATCH_OPTION default=$VAL_CREATEDWATCHOPTION}
+		</div>
 	</fieldset>
 	<fieldset>
 		<div class="submit">
