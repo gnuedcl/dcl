@@ -145,13 +145,13 @@ class htmlOrgDetail
 			$aRow = array('contact_id' => $oOrgContacts->f('contact_id'), 'name' => $aContact['name'], 'phone' => $aContact['phone'], 'email' => $aContact['email'], 'url' => $aContact['url']);
 			
 			$oContactType->ListByContact($oOrgContacts->f('contact_id'));
-			$aTypes = array();
+			$aContactTypes = array();
 			while ($oContactType->next_record())
 			{
-				$aTypes[] = $oContactType->f('contact_type_name');
+				$aContactTypes[] = $oContactType->f('contact_type_name');
 			}
 
-			$aRow['type'] = join(', ', $aTypes);
+			$aRow['type'] = join(', ', $aContactTypes);
 			$oContactType->FreeResult();
 			
 			$aContacts[] = $aRow;
