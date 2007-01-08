@@ -54,6 +54,12 @@ class htmlPreferences
 				$lang = $oPrefs->Value('DCL_PREF_LANGUAGE');
 
 			$t->assign('VAL_NOTIFYDEFAULT', $oPrefs->Value('DCL_PREF_NOTIFY_DEFAULT'));
+			
+			$iOption = $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION');
+			if ($iOption == '')
+				$iOption = 4;
+				
+			$t->assign('VAL_CREATEDWATCHOPTION', $iOption);
 		}
 
 		$t->assign('CMB_DEFAULTLANGUAGE', $o->GetLangCombo('DCL_PREF_LANGUAGE', $lang));
@@ -77,7 +83,8 @@ class htmlPreferences
 			$o->preferences_data = array(
 					'DCL_PREF_TEMPLATE_SET' => $dcl_info['DCL_DEF_TEMPLATE_SET'],
 					'DCL_PREF_LANGUAGE' => $dcl_info['DCL_DEFAULT_LANGUAGE'],
-					'DCL_PREF_NOTIFY_DEFAULT' => 'N'
+					'DCL_PREF_NOTIFY_DEFAULT' => 'N',
+					'DCL_PREF_CREATED_WATCH_OPTION' => 4
 				);
 
 			$o->Add();
