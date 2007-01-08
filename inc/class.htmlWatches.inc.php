@@ -37,11 +37,11 @@ class htmlWatches
 		$this->objT = CreateObject('dcl.dbTickets');
 	}
 
-	function GetCombo($default = 1)
+	function GetCombo($default = 1, $id = 'actions')
 	{
 		$obj = CreateObject('dcl.dbWatches');
 
-		$retVal = '<select id="actions" name="actions">';
+		$retVal = "<select id=\"$id\" name=\"$id\">";
 		while (list($key, $val) = each($obj->arrActions))
 		{
 			$retVal .= "<option value=\"$key\"";
