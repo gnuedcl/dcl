@@ -137,7 +137,7 @@ class boSecurity
 
 		$sKey = $entity . '_' . $id1 . '_' . $id2;
 		$sGlobalKey = $entity . '_0_0';
-		$aPermissions = $g_oSession->ValueRef('Permissions');
+		$g_oSession->ValueRef('Permissions', $aPermissions);
 		$oDB = CreateObject('dcl.dbUserRole');
 
 		if (!is_array($aPermissions) || !isset($aPermissions[$sGlobalKey]))

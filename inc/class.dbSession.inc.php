@@ -164,10 +164,13 @@ class dbSession extends dclDB
 		return null;
 	}
 	
-	function &ValueRef($sName)
+	function ValueRef($sName, &$oRetVal)
 	{
 		if (isset($this->session_data[$sName]))
-			return $this->session_data[$sName];
+		{
+			$oRetVal = $this->session_data[$sName];
+			return;
+		}
 
 		return null;
 	}
