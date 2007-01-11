@@ -36,6 +36,23 @@ class boOrgContact extends boAdminObject
 		$this->sKeyField = '';
 	}
 	
+	function add($aSource)
+	{
+		global $g_oSec;
+
+		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD) && !$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_ADD) && !$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY) && !$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
+			return PrintPermissionDenied();
+			
+		$this->oDB->InitFromArray($aSource);
+		if ($this->oDB->Add() == -1)
+			return -1;
+			
+		if (isset($this->sKeyField) && $this->sKeyField != '')
+			return $this->oDB->{$this->sKeyField};
+		
+		return 1;
+	}
+	
 	function modify(&$aSource)
 	{
 		trigger_error('boOrgContact::modify unsupported');
