@@ -60,7 +60,7 @@ function validateAndSubmitForm(form)
 		</div>
 		<div class="required">
 			<label for="module_id">{$smarty.const.STR_CMMN_MODULE}:</label>
-			{dcl_select_module default="$VAL_MODULE" active="$ACTIVE_ONLY"}
+			{if $IS_EDIT}{dcl_select_module default="$VAL_MODULE" active="$ACTIVE_ONLY" product="$VAL_PRODUCT"}{else}{dcl_select_module default="$VAL_MODULE" active="$ACTIVE_ONLY"}{/if}
 		</div>
 {if !$PERM_ISPUBLICUSER}
 		<div class="required">

@@ -82,6 +82,7 @@ class htmlWorkOrderForm
 		}
 
 		$this->oSmarty->assign('TXT_TITLE', $title);
+		$this->oSmarty->assign('IS_EDIT', $isEdit);
 
 		if ($isEdit)
 		{
