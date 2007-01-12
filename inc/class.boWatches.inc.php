@@ -381,7 +381,7 @@ class boWatches
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->createby))
 			{
 				$oPrefs = CreateObject('dcl.dbPreferences');
-				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
+				if ($oPrefs->Load($obj->createby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
 					$arrEmail[$aContact['email']] = 1;
 			}
 		}
