@@ -73,7 +73,7 @@
 			<th>{$smarty.const.STR_TCK_STATUS}:</th>
 			<td>{$VAL_RESOLUTIONS[tr].status|escape}</td>
 			<th>{$smarty.const.STR_TCK_APPROXTIME}:</th>
-			<td>{$VAL_RESOLUTIONS[tr].seconds|escape}</td>
+			<td>{$VAL_RESOLUTIONS[tr].time|escape}</td>
 		</tr>
 		<tr>
 			<th>{$smarty.const.STR_TCK_RESOLUTION}:</th>

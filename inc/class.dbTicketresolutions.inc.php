@@ -40,13 +40,19 @@ class dbTicketresolutions extends dclDB
 		return parent::Delete(array('resid' => $this->resid));
 	}
 
-	function GetHoursText()
+	function GetHoursText($oStartedOn = null, $oLoggedOn = null)
 	{
 		$start = new DCLTimestamp;
-		$start->SetFromDB($this->f('startedon'));
+		if ($oStartedOn === null)
+			$start->SetFromDB($this->f('startedon'));
+		else
+			$start->SetFromDB($oStartedOn);
 
 		$end = new DCLTimestamp;
-		$end->SetFromDB($this->f('loggedon'));
+		if ($oLoggedOn === null)
+			$end->SetFromDB($this->f('loggedon'));
+		else
+			$end->SetFromDB($oLoggedOn);
 
 		$tempHours = ($end->time - $start->time);
 		$hh = intval($tempHours / 3600);
@@ -96,6 +102,7 @@ class dbTicketresolutions extends dclDB
 			$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
 			for ($i = 0; $i < count($aRetVal); $i++)
 			{
+				$aRetVal[$i]['time'] = $this->GetHoursText($aRetVal[$i]['startedon'], $aRetVal[$i]['loggedon']);
 				$aRetVal[$i]['loggedon'] = $this->FormatDateForDisplay($aRetVal[$i]['loggedon']);
 				$aRetVal[$i]['loggedby_id'] = $aRetVal[$i]['loggedby'];
 				$aRetVal[$i]['loggedby'] = $oMeta->GetPersonnel($aRetVal[$i]['loggedby']);

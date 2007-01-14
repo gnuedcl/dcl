@@ -219,44 +219,5 @@ class htmlTicketresolutions
 
 		SmartyDisplay($t, 'htmlTicketresolutionsForm.tpl');
 	}
-
-	function GetResolutions($ticketid, $editResID = 0, $forDelete = false)
-	{
-		global $dcl_info, $g_oSec;
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_VIEW, (int)$ticketid))
-			return '';
-
-		$retVal = '';
-
-		$obj = CreateObject('dcl.dbTicketresolutions');
-		if ($obj->GetResolutions((int)$ticketid) != -1)
-		{
-			if ($obj->next_record())
-			{
-				$oSmarty =& CreateSmarty();
-				$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
-
-				do
-				{
-					$obj->GetRow();
-
-					$oSmarty->assign('IS_DELETE', $forDelete);
-					$oSmarty->assign('VAL_RESOLUTIONID', $obj->resid);
-					$oSmarty->assign('VAL_STATUS', $oMeta->GetStatus($obj->status));
-					$oSmarty->assign('VAL_LOGGEDBY', $oMeta->GetPersonnel($obj->loggedby));
-					$oSmarty->assign('VAL_LOGGEDON', $obj->loggedon);
-					$oSmarty->assign('VAL_HOURSTEXT', $obj->GetHoursText());
-					$oSmarty->assign('VAL_RESOLUTION', $obj->resolution);
-					$oSmarty->assign('VAL_PUBLIC', $obj->is_public == 'Y' ? STR_CMMN_YES : STR_CMMN_NO);
-
-					$retVal .= SmartyFetch($oSmarty, 'htmlTicketresolutions.tpl');
-				}
-				while ($obj->next_record());
-			}
-		}
-
-		return $retVal;
-	}
 }
 ?>

@@ -254,30 +254,32 @@ class boWatches
 		return sprintf('(%s %s) %s', $obj->arrTypeid[$obj->typeid], $obj->arrActions[$obj->actions], $summary);
 	}
 	
-	function GetWorkOrderNotificationBody(&$obj, $bIsHTML = true, &$sResponsible, &$sStatusName)
+	function GetWorkOrderNotificationBody(&$obj, $bIsPublic)
 	{
-		global $dcl_info, $g_oSession;
+		global $dcl_info;
 		
 		$t =& CreateSmarty();
 		$t->assign_by_ref('obj', $obj);
 
 		$oTC =& CreateObject('dcl.dbTimeCards');
-		$t->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($obj->jcn, $obj->seq));
+		$t->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($obj->jcn, $obj->seq, $bIsPublic));
 		
 		return SmartyFetch($t, $dcl_info['DCL_WO_EMAIL_TEMPLATE'], 'custom');
 	}
 	
-	function CanReceiveNotification(&$obj, $iPersonnelID)
+	function CanReceiveNotification(&$obj, $iPersonnelID, &$bIsPublic)
 	{
 		global $dcl_info, $g_oSession, $g_oSec;
 		
 		$bCanReceive = true;
+		$bIsPublic = false;
 		$oUR =& CreateObject('dcl.dbUserRole');
 		$oUR->ListPermissions(DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
 		while ($oUR->next_record() && $bCanReceive)
 		{
 			if ($oUR->f(0) == DCL_PERM_PUBLICONLY)
 			{
+				$bIsPublic = true;
 				if ($bCanReceive)
 					$bCanReceive = ($obj->is_public == 'Y');
 			}
@@ -361,6 +363,7 @@ class boWatches
 		$query .= " AND active = 'Y'";
 
 		$arrEmail = array();
+		$arrPublicEmail = array();
 		$mailFrom = '';
 		if ($g_oSession->Value('USEREMAIL') != '')
 			$mailFrom = '<' . $g_oSession->Value('USEREMAIL') . '>';
@@ -368,21 +371,32 @@ class boWatches
 		if ($this->oMeta == null)
 			$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
 			
+		$bIsPublic = false;
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->responsible))
-				$arrEmail[$aContact['email']] = 1;
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->responsible, $bIsPublic))
+			{
+				if ($bIsPublic)
+					$arrPublicEmail[$aContact['email']] = 1;
+				else
+					$arrEmail[$aContact['email']] = 1;
+			}
 		}
 		
 		if ($obj->createby != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->createby) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->createby))
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->createby, $bIsPublic))
 			{
 				$oPrefs = CreateObject('dcl.dbPreferences');
 				if ($oPrefs->Load($obj->createby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
-					$arrEmail[$aContact['email']] = 1;
+				{
+					if ($bIsPublic)
+						$arrPublicEmail[$aContact['email']] = 1;
+					else
+						$arrEmail[$aContact['email']] = 1;
+				}
 			}
 		}
 		
@@ -392,23 +406,42 @@ class boWatches
 			{
 				if (!isset($arrEmail[$objWtch->f(0)]))
 				{
-					if ($this->CanReceiveNotification($obj, $objWtch->f(1)))
-						$arrEmail[$objWtch->f(0)] = 1;
+					if ($this->CanReceiveNotification($obj, $objWtch->f(1), $bIsPublic))
+					{
+						if ($bIsPublic)
+							$arrPublicEmail[$objWtch->f(0)] = 1;
+						else
+							$arrEmail[$objWtch->f(0)] = 1;
+					}
 				}
 			}
 		}
 
 		if ('Y' == @DCL_Sanitize::ToYN($_REQUEST['copy_me_on_notification']) && $g_oSession->Value('USEREMAIL') != '')
 		{
-			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]))
+			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]) && !isset($arrPublicEmail[$g_oSession->Value('USEREMAIL')]))
 			{
-				if ($this->CanReceiveNotification($obj, $GLOBALS['DCLID']))
-					$arrEmail[$g_oSession->Value('USEREMAIL')] = 1;
+				if ($this->CanReceiveNotification($obj, $GLOBALS['DCLID'], $bIsPublic))
+				{
+					if ($bIsPublic)
+						$arrPublicEmail[$g_oSession->Value('USEREMAIL')] = 1;
+					else
+						$arrEmail[$g_oSession->Value('USEREMAIL')] = 1;
+				}
 			}
 		}
 		
-		if (count($arrEmail) == 0)
+		if (count($arrEmail) == 0 && count($arrPublicEmail) == 0)
 			return;
+			
+		if (count($arrEmail) > 0 && count($arrPublicEmail) > 0)
+		{
+			foreach ($arrPublicEmail as $sEmail => $junk)
+			{
+				if (isset($arrEmail[$sEmail]))
+					unset($arrEmail[$sEmail]);
+			}
+		}
 
 		// Here we go!
 		$toAddr = '';
@@ -419,11 +452,11 @@ class boWatches
 
 		$sResponsible = '';
 		$sStatusName = '';
-		$oMail->body = $this->GetWorkOrderNotificationBody($obj, $oMail->isHtml, $sResponsible, $sStatusName);
 		$oMail->subject = sprintf('[%s %d-%d] [%s] [%s] %s', STR_WO_JCN, $obj->jcn, $obj->seq, $this->oMeta->GetPersonnel($obj->responsible), $this->oMeta->GetStatus($obj->status), $obj->summary);
+		$oMail->body = $this->GetWorkOrderNotificationBody($obj, false);
 
 		$oMail->to = array();
-		while (list($email, $junk) = each($arrEmail))
+		foreach ($arrEmail as $email => $junk)
 		{
 			$oMail->to[] = '<' . $email . '>';
 			if ($toAddr != '')
@@ -431,31 +464,73 @@ class boWatches
 			$toAddr .= $email;
 		}
 		
-		if (count($oMail->to) < 1)
-			return;
-
-		$bSuccess = $oMail->Send();
-
-		if ($bShowNotifyMsg && $toAddr != '')
+		if (count($oMail->to) > 0)
 		{
-			if ($bSuccess)
-				trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
-			else
-				trigger_error('Could not send email notification.', E_USER_ERROR);
+			$bSuccess = $oMail->Send();
+	
+			if ($bShowNotifyMsg && $toAddr != '')
+			{
+				if ($bSuccess)
+					trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
+				else
+					trigger_error('Could not send email notification.', E_USER_ERROR);
+			}
+		}
+		
+		if ($obj->is_public == 'Y' && count($arrPublicEmail) > 0)
+		{
+			$oMail->body = $this->GetWorkOrderNotificationBody($obj, true);
+	
+			$oMail->to = array();
+			foreach ($arrPublicEmail as $email => $junk)
+			{
+				$oMail->to[] = '<' . $email . '>';
+				if ($toAddr != '')
+					$toAddr .= ', ';
+				$toAddr .= $email;
+			}
+			
+			if (count($oMail->to) < 1)
+				return;
+	
+			$bSuccess = $oMail->Send();
+	
+			if ($bShowNotifyMsg && $toAddr != '')
+			{
+				if ($bSuccess)
+					trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
+				else
+					trigger_error('Could not send email notification.', E_USER_ERROR);
+			}
 		}
 	}
 
-	function CanReceiveTicketNotification(&$obj, $iPersonnelID)
+	function GetTicketNotificationBody(&$obj, $bIsPublic)
+	{
+		global $dcl_info;
+		
+		$t =& CreateSmarty();
+		$t->assign_by_ref('obj', $obj);
+		
+		$objTR =& CreateObject('dcl.dbTicketresolutions');
+		$t->assign('VAL_RESOLUTIONS', $objTR->GetResolutionsArray($obj->ticketid, $bIsPublic));
+		
+		return SmartyFetch($t, $dcl_info['DCL_TCK_EMAIL_TEMPLATE'], 'custom');
+	}
+	
+	function CanReceiveTicketNotification(&$obj, $iPersonnelID, &$bIsPublic)
 	{
 		global $dcl_info, $g_oSession, $g_oSec;
 		
 		$bCanReceive = true;
+		$bIsPublic = false;
 		$oUR =& CreateObject('dcl.dbUserRole');
 		$oUR->ListPermissions(DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
 		while ($oUR->next_record() && $bCanReceive)
 		{
 			if ($oUR->f(0) == DCL_PERM_PUBLICONLY)
 			{
+				$bIsPublic = true;
 				if ($bCanReceive)
 					$bCanReceive = ($obj->is_public == 'Y');
 			}
@@ -497,102 +572,6 @@ class boWatches
 		$oMail =& CreateObject('dcl.boSMTP');
 		$oMail->isHtml = ($dcl_info['DCL_TCK_NOTIFICATION_HTML'] == 'Y');
 
-		$t =& CreateObject('dcl.DCLTemplate');
-		$t->set_file(array('hForm' => DCL_ROOT . 'templates/custom/' . $dcl_info['DCL_TCK_EMAIL_TEMPLATE']));
-		$t->set_block('hForm', 'resolutions', 'hResolutions');
-		$t->set_var('hResolutions');
-
-		$t->set_var('URL_DETAIL', $dcl_info['DCL_ROOT'] . 'main.php?menuAction=boTickets.view&ticketid=' . $obj->ticketid);
-
-		$t->set_var('TXT_TICKET', STR_TCK_TICKET);
-		$t->set_var('TXT_OPENEDBY', STR_TCK_OPENEDBY);
-		$t->set_var('TXT_CLOSEDBY', STR_TCK_CLOSEDBY);
-		$t->set_var('TXT_CLOSEDON', STR_TCK_CLOSEDON);
-		$t->set_var('TXT_LASTACTION', STR_TCK_LASTACTIONON);
-		$t->set_var('TXT_RESPONSIBLE', STR_TCK_RESPONSIBLE);
-		$t->set_var('TXT_STATUS', STR_TCK_STATUS);
-		$t->set_var('TXT_PRIORITY', STR_TCK_PRIORITY);
-		$t->set_var('TXT_TYPE', STR_TCK_TYPE);
-		$t->set_var('TXT_PRODUCT', STR_TCK_PRODUCT);
-		$t->set_var('TXT_MODULE', STR_CMMN_MODULE);
-		$t->set_var('TXT_VERSION', STR_TCK_VERSION);
-		$t->set_var('TXT_ACCOUNT', STR_TCK_ACCOUNT);
-		$t->set_var('TXT_CONTACT', STR_TCK_CONTACT);
-		$t->set_var('TXT_CONTACTPHONE', STR_TCK_CONTACTPHONE);
-		$t->set_var('TXT_ISSUE', STR_TCK_ISSUE);
-		$t->set_var('TXT_RESOLUTION', STR_TCK_RESOLUTION);
-		$t->set_var('TXT_TIME', STR_TCK_APPROXTIME);
-		
-		if ($this->oMeta == null)
-			$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
-			
-		$aContact = $this->oMeta->GetContact($obj->contact_id);
-
-		if ($oMail->isHtml)
-		{
-			$t->set_var('VAL_VERSION', htmlspecialchars($obj->version));
-			$t->set_var('VAL_CONTACT', htmlspecialchars($aContact['name']));
-			$t->set_var('VAL_CONTACTPHONE', htmlspecialchars($aContact['phone']));
-			$t->set_var('VAL_ISSUE', nl2br(htmlspecialchars($obj->issue)));
-			$t->set_var('VAL_SUMMARY', htmlspecialchars($obj->summary));
-		}
-		else
-		{
-			$t->set_var('VAL_VERSION', $obj->version);
-			$t->set_var('VAL_CONTACT', $obj->contact);
-			$t->set_var('VAL_CONTACTPHONE', $obj->contactphone);
-			$t->set_var('VAL_ISSUE', $obj->issue);
-			$t->set_var('VAL_SUMMARY', $obj->summary);
-		}
-
-		$t->set_var('VAL_TICKETID', $obj->ticketid);
-		$t->set_var('VAL_STATUSON', $obj->statuson);
-		$t->set_var('VAL_OPENEDON', $obj->createdon);
-		$t->set_var('VAL_CLOSEDON', $obj->closedon);
-		$t->set_var('VAL_LASTACTION', $obj->lastactionon);
-		$t->set_var('VAL_TIME', $obj->GetHoursText());
-
-		if ($this->oMeta == null)
-			$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
-			
-		$t->set_var('VAL_OPENEDBY', $this->oMeta->GetPersonnel($obj->createdby));
-		$t->set_var('VAL_CLOSEDBY', $this->oMeta->GetPersonnel($obj->closedby));
-		$t->set_var('VAL_PRIORITY', $this->oMeta->GetPriority($obj->priority));
-		$t->set_var('VAL_TYPE', $this->oMeta->GetSeverity($obj->type));
-		$t->set_var('VAL_PRODUCT', $this->oMeta->GetProduct($obj->product));
-		$t->set_var('VAL_MODULE', $this->oMeta->GetModule($obj->module_id));
-
-		$sResponsible = $this->oMeta->GetPersonnel($obj->responsible);
-		$t->set_var('VAL_RESPONSIBLE', $sResponsible);
-
-		$sStatusName = $this->oMeta->GetStatus($obj->status);
-		$t->set_var('VAL_STATUS', $sStatusName);
-
-		$aOrg = $this->oMeta->GetOrganization($obj->account);
-		$t->set_var('VAL_ACCOUNT', $aOrg['name']);
-
-		// Add the resolutions
-		$objT =& CreateObject('dcl.dbTicketresolutions');
-		if ($objT->GetResolutions($obj->ticketid) != -1)
-		{
-			while ($objT->next_record())
-			{
-				$objT->GetRow();
-
-				$t->set_var('VAL_LOGGEDBY', $this->oMeta->GetPersonnel($objT->loggedby));
-				$t->set_var('VAL_LOGGEDON', $objT->loggedon);
-				$t->set_var('VAL_RESSTATUS', $this->oMeta->GetStatus($objT->status));
-				$t->set_var('VAL_RESTIME', $objT->GetHoursText());
-
-				if ($oMail->isHtml)
-					$t->set_var('VAL_RESOLUTION', nl2br(htmlspecialchars($objT->resolution)));
-				else
-					$t->set_var('VAL_RESOLUTION', $objT->resolution);
-
-				$t->parse('hResolutions', 'resolutions', true);
-			}
-		}
-
 		// Got the message constructed, so send it!
 		$objWtch =& CreateObject('dcl.dbWatches');
 		$query = "select distinct email_addr, whoid from personnel " . $objWtch->JoinKeyword . " dcl_contact_email ON personnel.contact_id=dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y' ";
@@ -608,52 +587,96 @@ class boWatches
 		$query .= " AND active = 'Y'";
 		
 		$arrEmail = array();
+		$arrPublicEmail = array();
 		$mailFrom = '';
 		if ($g_oSession->Value('USEREMAIL') != '')
 			$mailFrom = '<' . $g_oSession->Value('USEREMAIL') . '>';
 
 		if ($this->oMeta == null)
 			$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
-			
+		
+		$bIsPublic = false;
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveTicketNotification($obj, $obj->responsible))
-				$arrEmail[$aContact['email']] = 1;
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveTicketNotification($obj, $obj->responsible, $bIsPublic))
+			{
+				if ($bIsPublic)
+					$arrPublicEmail[$aContact['email']] = 1;
+				else
+					$arrEmail[$aContact['email']] = 1;
+			}
 		}
 		
 		if ($obj->createdby != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->createdby) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveTicketNotification($obj, $obj->createdby))
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveTicketNotification($obj, $obj->createdby, $bIsPublic))
 			{
 				$oPrefs = CreateObject('dcl.dbPreferences');
 				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
-					$arrEmail[$aContact['email']] = 1;
+				{
+					if ($bIsPublic)
+						$arrPublicEmail[$aContact['email']] = 1;
+					else
+						$arrEmail[$aContact['email']] = 1;
+				}
 			}
 		}
 
+		if ('Y' == @DCL_Sanitize::ToYN($_REQUEST['copy_me_on_notification']) && $g_oSession->Value('USEREMAIL') != '')
+		{
+			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]) && !isset($arrPublicEmail[$g_oSession->Value('USEREMAIL')]))
+			{
+				if ($this->CanReceiveTicketNotification($obj, $GLOBALS['DCLID'], $bIsPublic))
+				{
+					if ($bIsPublic)
+						$arrPublicEmail[$g_oSession->Value('USEREMAIL')] = 1;
+					else
+						$arrEmail[$g_oSession->Value('USEREMAIL')] = 1;
+				}
+			}
+		}
+		
 		if ($objWtch->Query($query) != -1)
 		{
 			while ($objWtch->next_record())
 			{
 				if (!isset($arrEmail[$objWtch->f(0)]))
 				{
-					if ($this->CanReceiveTicketNotification($obj, $objWtch->f(1)))
-						$arrEmail[$objWtch->f(0)] = 1;
+					if ($this->CanReceiveTicketNotification($obj, $objWtch->f(1), $bIsPublic))
+					{
+						if ($bIsPublic)
+							$arrPublicEmail[$objWtch->f(0)] = 1;
+						else
+							$arrEmail[$objWtch->f(0)] = 1;
+					}
 				}
 			}
 		}
+
+		if (count($arrEmail) == 0 && count($arrPublicEmail) == 0)
+			return;
+			
+		if (count($arrEmail) > 0 && count($arrPublicEmail) > 0)
+		{
+			foreach ($arrPublicEmail as $sEmail => $junk)
+			{
+				if (isset($arrEmail[$sEmail]))
+					unset($arrEmail[$sEmail]);
+			}
+		}
+
 		// Here we go!
 		$toAddr = '';
-		if ($this->oMeta->oPriority->weight == 1)
+		if ($this->oMeta->GetPriority($obj->priority) != '' && $this->oMeta->oPriority->weight == 1)
 			$oMail->AddHeader('X-Priority: 1');
 
 		$oMail->from = $mailFrom;
-		$oMail->subject = sprintf('[%s %d] [%s] [%s] %s', STR_TCK_TICKET, $obj->ticketid, $sResponsible, $sStatusName, $obj->summary);
-		$oMail->body = $t->parse('out', 'hForm');
+		$oMail->subject = sprintf('[%s %d] [%s] [%s] %s', STR_TCK_TICKET, $obj->ticketid, $this->oMeta->GetPersonnel($obj->responsible), $this->oMeta->GetStatus($obj->status), $obj->summary);
+		$oMail->body = $this->GetTicketNotificationBody($obj, true);
 		$oMail->to = array();
-		while (list($email, $junk) = each($arrEmail))
+		foreach ($arrEmail as $email => $junk)
 		{
 			$oMail->to[] = '<' . $email . '>';
 			if ($toAddr != '')
@@ -661,31 +684,44 @@ class boWatches
 			$toAddr .= $email;
 		}
 
-		if ('Y' == @DCL_Sanitize::ToYN($_REQUEST['copy_me_on_notification']) && $g_oSession->Value('USEREMAIL') != '')
+		if (count($oMail->to) > 0)
 		{
-			if (!in_array($g_oSession->Value('USEREMAIL'), $oMail->to))
+			$bSuccess = $oMail->Send();
+	
+			if ($bShowNotifyMsg && $toAddr != '')
 			{
-				if ($this->CanReceiveTicketNotification($obj, $GLOBALS['DCLID']))
-				{
-					$oMail->to[] = '<' . $g_oSession->Value('USEREMAIL') . '>';
-					if ($toAddr != '')
-						$toAddr .= ', ';
-					$toAddr .= $g_oSession->Value('USEREMAIL');
-				}
+				if ($bSuccess)
+					trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
+				else
+					trigger_error('Could not send email notification.', E_USER_ERROR);
 			}
 		}
 		
-		if (count($oMail->to) < 1)
-			return;
-
-		$bSuccess = $oMail->Send();
-
-		if ($bShowNotifyMsg && $toAddr != '')
+		if ($obj->is_public == 'Y' && count($arrPublicEmail) > 0)
 		{
-			if ($bSuccess)
-				trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
-			else
-				trigger_error('Could not send email notification.', E_USER_ERROR);
+			$oMail->body = $this->GetTicketNotificationBody($obj, true);
+	
+			$oMail->to = array();
+			foreach ($arrPublicEmail as $email => $junk)
+			{
+				$oMail->to[] = '<' . $email . '>';
+				if ($toAddr != '')
+					$toAddr .= ', ';
+				$toAddr .= $email;
+			}
+			
+			if (count($oMail->to) < 1)
+				return;
+	
+			$bSuccess = $oMail->Send();
+	
+			if ($bShowNotifyMsg && $toAddr != '')
+			{
+				if ($bSuccess)
+					trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
+				else
+					trigger_error('Could not send email notification.', E_USER_ERROR);
+			}
 		}
 	}
 

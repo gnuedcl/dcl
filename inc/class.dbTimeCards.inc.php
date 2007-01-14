@@ -135,14 +135,14 @@ class dbTimeCards extends dclDB
 		return parent::Load(array('id' => $id));
 	}
 
-	function GetTimeCards($jcn, $seq)
+	function GetTimeCards($jcn, $seq, $bIsPublic = false)
 	{
 		global $dcl_info, $g_oSec;
 
 		$this->Clear();
 
 		$sPublicSQL = '';
-		if ($g_oSec->IsPublicUser())
+		if ($g_oSec->IsPublicUser() || $bIsPublic)
 			$sPublicSQL = "AND is_public = 'Y'";
 
 		$sql = 'SELECT id, jcn, seq, ';
@@ -156,9 +156,9 @@ class dbTimeCards extends dclDB
 		return 1;
 	}
 
-	function GetTimeCardsArray($jcn, $seq)
+	function GetTimeCardsArray($jcn, $seq, $bIsPublic = false)
 	{
-		if ($this->GetTimeCards($jcn, $seq) == -1)
+		if ($this->GetTimeCards($jcn, $seq, $bIsPublic) == -1)
 			return -1;
 
 		$aRetVal = $this->ResultToArray();
