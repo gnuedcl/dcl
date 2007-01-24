@@ -44,7 +44,7 @@
 				<input type="hidden" name="menuAction" value="boTimecards.dbdelete">
 				<input type="hidden" name="id" VALUE="{$VAL_TIMECARDS[tc].id}">
 				<input type="submit" value="{$smarty.const.STR_CMMN_DELETE}">
-				<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="history.back();">
+				<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_JCN}&seq={$VAL_SEQ}';">
 				</form>
 			{else}
 			{if $PERM_MODIFY_TC || $PERM_DELETE_TC}{strip}

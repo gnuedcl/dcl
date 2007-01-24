@@ -148,7 +148,7 @@ function validateAndSubmitForm(form)
 	<fieldset>
 		<div class="submit">
 			<input type="button" class="inputSubmit" value="{$smarty.const.STR_CMMN_SAVE}" onclick="validateAndSubmitForm(this.form);">
-			<input type="button" class="inputSubmit" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="history.back();">
+			<input type="button" class="inputSubmit" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_JCN}&seq={$VAL_SEQ}';">
 		</div>
 	</fieldset>
 </form>
