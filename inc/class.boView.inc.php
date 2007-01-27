@@ -1053,7 +1053,45 @@ class boView
 				if (strpos($field, '.') < 1)
 					$field = $this->table . '.' . $field;
 
-				if (eregi('^.*\.product', $field))
+				if ($this->table == 'workorders' && eregi('^.*\.jcn', $field))
+				{
+					if ($bFirst == false)
+						$sql .= ' AND ';
+
+					$bFirst = false;
+
+					$sJCNSQL = '';
+					$sJCNSEQSQL = '';
+					$iNumValues = count($values);
+					for ($i = 0; $i < $iNumValues; $i++)
+					{
+						$sValue = $values[$i];
+						if (strpos($sValue, '-') > 0)
+						{
+							if ($sJCNSEQSQL != '')
+								$sJCNSEQSQL .= ' OR ';
+
+							list($jcn, $seq) = explode('-', $sValue);
+							$sJCNSEQSQL .= "(workorders.jcn=$jcn AND workorders.seq=$seq)";
+						}
+						else
+						{
+							if ($sJCNSQL != '')
+								$sJCNSQL .= ',';
+
+							$sJCNSQL .= $sValue;
+						}
+					}
+
+					$sql .= '(';
+					if ($sJCNSQL != '')
+						$sql .= "jcn IN ($sJCNSQL)";
+					if ($sJCNSQL != '' && $sJCNSEQSQL != '')
+						$sql .= ' OR ';
+					$sql .= $sJCNSEQSQL;
+					$sql .= ')';
+				}
+				else if (eregi('^.*\.product', $field))
 				{
 					if (count($values) == 1)
 						$productSQL = "($field=" . $this->GetCSLFromArray($values) . ')';

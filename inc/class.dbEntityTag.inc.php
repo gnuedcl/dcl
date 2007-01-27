@@ -130,7 +130,7 @@ class dbEntityTag extends dclDB
 	
 	function listByTag($sTags)
 	{
-		global $g_oSec;
+		global $g_oSec, $g_oSession;
 		
 		$oDB = CreateObject('dcl.dbTag');
 		$sID = $oDB->getExistingIdsByName(trim($sTags));

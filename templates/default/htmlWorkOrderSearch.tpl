@@ -187,13 +187,13 @@
 			sSummary += getSelections(f.elements["wo_type_id[]"], "{$smarty.const.STR_WO_TYPE}");
 			sSummary += getSelections(f.elements["product[]"], "{$smarty.const.STR_WO_PRODUCT}");
 			sSummary += getSelections(f.elements["module_id[]"], "{$smarty.const.STR_CMMN_MODULE}");
-			sSummary += getSelections(f.elements["project[]"], "{$smarty.const.STR_WO_PROJECT}");
+			{if !$IS_PUBLIC}sSummary += getSelections(f.elements["project[]"], "{$smarty.const.STR_WO_PROJECT}");{/if}
 			sSummary += getSelections(f.elements["account[]"], "{$smarty.const.STR_WO_ACCOUNT}");
 			sSummary += getSelections(f.elements["priority[]"], "{$smarty.const.STR_WO_PRIORITY}");
 			sSummary += getSelections(f.elements["severity[]"], "{$smarty.const.STR_WO_SEVERITY}");
 			sSummary += getSelections(f.elements["status[]"], "{$smarty.const.STR_WO_STATUS}");
 			sSummary += getSelections(f.elements["dcl_status_type[]"], "{$smarty.const.STR_CMMN_STATUSTYPE}");
-			sSummary += getSelections(f.elements["is_public[]"], "{$smarty.const.STR_CMMN_PUBLIC}");
+			{if !$IS_PUBLIC}sSummary += getSelections(f.elements["is_public[]"], "{$smarty.const.STR_CMMN_PUBLIC}");{/if}
 			sSummary += getSelections(f.elements["entity_source_id[]"], "{$smarty.const.STR_CMMN_SOURCE}");
 			sSummary += getDates();
 			sSummary += getTags();
@@ -227,7 +227,7 @@
 					<li class="first"><a href="javascript:showHide('divPersonnel');">Personnel</a></li>
 					<li><a href="javascript:showHide('divType');">{$smarty.const.STR_WO_TYPE}</a></li>
 					<li><a href="javascript:showHide('divProduct');">{$smarty.const.STR_WO_PRODUCT}</a></li>
-					<li><a href="javascript:showHide('divProject');">{$smarty.const.STR_WO_PROJECT}</a></li>
+					{if !$IS_PUBLIC}<li><a href="javascript:showHide('divProject');">{$smarty.const.STR_WO_PROJECT}</a></li>{/if}
 					<li><a href="javascript:showHide('divAccount');">{$smarty.const.STR_WO_ACCOUNT}</a></li>
 					<li><a href="javascript:showHide('divPriority');">{$smarty.const.STR_WO_PRIORITY}</a></li>
 					<li><a href="javascript:showHide('divSeverity');">{$smarty.const.STR_WO_SEVERITY}</a></li>
@@ -236,7 +236,7 @@
 			<div class="menu">
 				<ul>
 					<li class="first"><a href="javascript:showHide('divStatus');">{$smarty.const.STR_WO_STATUS}</a></li>
-					<li><a href="javascript:showHide('divPublic');">{$smarty.const.STR_CMMN_PUBLIC}</a></li>
+					{if !$IS_PUBLIC}<li><a href="javascript:showHide('divPublic');">{$smarty.const.STR_CMMN_PUBLIC}</a></li>{/if}
 					<li><a href="javascript:showHide('divSource');">{$smarty.const.STR_CMMN_SOURCE}</a></li>
 					<li><a href="javascript:showHide('divDate');">Dates</a></li>
 					<li><a href="javascript:showHide('divText');">Text</a></li>
@@ -282,10 +282,10 @@
 			{dcl_select_module default=$VAL_MODULE size=8 active=N}
 		</div>
 	</fieldset>
-	<fieldset id="divProject" style="display: none;">
+	{if !$IS_PUBLIC}<fieldset id="divProject" style="display: none;">
 		<legend>{$smarty.const.STR_WO_PROJECT}</legend>
 		<div>{$CMB_PROJECTS}</div>
-	</fieldset>
+	</fieldset>{/if}
 	<fieldset id="divAccount" style="display: none;">
 		<legend>{$smarty.const.STR_WO_ACCOUNT}</legend>
 		<div>{$CMB_ACCOUNTS}</div>
@@ -309,10 +309,10 @@
 			{$CMB_STATUSESEMPTY}
 		</div>
 	</fieldset>
-	<fieldset id="divPublic" style="display: none;">
+	{if !$IS_PUBLIC}<fieldset id="divPublic" style="display: none;">
 		<legend>{$smarty.const.STR_CMMN_PUBLIC}</legend>
 		<div>{$CMB_PUBLIC}</div>
-	</fieldset>
+	</fieldset>{/if}
 	<fieldset id="divSource" style="display: none;">
 		<legend>{$smarty.const.STR_CMMN_SOURCE}</legend>
 		<div>{dcl_select_source default=$VAL_SOURCE size=8}</div>
@@ -482,11 +482,11 @@
 		setOnChangeEventHandler(f.elements["account[]"]);
 		setOnChangeEventHandler(f.elements["status[]"]);
 		setOnChangeEventHandler(f.elements["dcl_status_type[]"]);
-		setOnChangeEventHandler(f.elements["project[]"]);
+		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["project[]"]);{/if}{literal}
 		setOnChangeEventHandler(f.elements["module_id[]"]);
 		setOnChangeEventHandler(f.elements["wo_type_id[]"]);
 		setOnChangeEventHandler(f.elements["department[]"]);
-		setOnChangeEventHandler(f.elements["is_public[]"]);
+		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["is_public[]"]);{/if}{literal}
 		setOnChangeEventHandler(f.elements["entity_source_id[]"]);
 
 		// Modules are dependent on selected products, so we handle it a little differently

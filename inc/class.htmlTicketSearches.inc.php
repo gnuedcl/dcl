@@ -224,7 +224,11 @@ class htmlTicketSearches
 		$t->assign('VAL_SELECTSTATUSKEY', $sStatusKey);
 		$t->assign('VAL_SELECTMODULEKEY', $sModuleKey);
 		$t->assign('CMB_STATUS', $objStatuses->GetCombo($aDefault['status'], 'status', 'name', 8));
-		$t->assign('CMB_PUBLIC', GetYesNoCombo($aDefault['is_public'], 'is_public', 3));
+		$t->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
+		if (!$g_oSec->IsPublicUser())
+		{
+			$t->assign('CMB_PUBLIC', GetYesNoCombo($aDefault['is_public'], 'is_public', 3));
+		}
 
 		$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', '', 'name');
 		$oSelect->iSize = 8;

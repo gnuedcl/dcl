@@ -247,8 +247,13 @@ class htmlWOSearches
 		$t->assign('VAL_SELECTMODULEKEY', $sModuleKey);
 
 		$t->assign('CMB_STATUSES', $objStatuses->GetCombo($aDefault['status'], 'status', 'name', 8));
-		$t->assign('CMB_PROJECTS', $objProjects->GetCombo($aDefault['project'], 'project', 'name', 8));
-		$t->assign('CMB_PUBLIC', GetYesNoCombo($aDefault['is_public'], 'is_public', 2, false));
+
+		$t->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
+		if (!$g_oSec->IsPublicUser())
+		{
+			$t->assign('CMB_PROJECTS', $objProjects->GetCombo($aDefault['project'], 'project', 'name', 8));
+			$t->assign('CMB_PUBLIC', GetYesNoCombo($aDefault['is_public'], 'is_public', 2, false));
+		}
 
 		$oSelect =& CreateObject('dcl.htmlSelect');
 		

@@ -45,11 +45,11 @@ class htmlSearchBox
 		{
 			case 'workorders':
 				if (ereg('^([0-9]+[-]?[0-9]*)+([,][0-9]+[-]?[0-9]*)+$', $search_text))
-					$this->listWorkOrders($search_text);
+					$this->findWorkOrders($search_text);
 				else if (ereg('^([0-9]+)[-]?([0-9]*)$', $search_text, $reg))
-					$this->findWorkOrders($reg[1], $reg[2]);
+					$this->findWorkOrders($search_text);
 				else if (ereg('^([0-9]+)$', $search_text, $reg))
-					$this->findWorkOrders($reg[1], 0);
+					$this->findWorkOrders($search_text);
 				else
 					$this->searchWorkOrders($search_text);
 				break;
@@ -124,29 +124,35 @@ class htmlSearchBox
 		$objHV->Render($oView);
 	}
 
-	function findWorkOrders($woid, $seq)
+	function findWorkOrders($sWorkOrders)
 	{
 		global $g_oSec;
 
 		commonHeader();
-		if ($woid == '' || $woid < 1)
+		if ($sWorkOrders == '' || $sWorkOrders < 1)
 		{
 			trigger_error(STR_WO_NEEDJCNERR);
 			return;
 		}
 
-		if ($seq > 0)
+		if (strpos($sWorkOrders, '-') > 0 && strpos($sWorkOrders, ',') == -1)
 		{
-			$obj = CreateObject('dcl.htmlWorkOrderDetail');
-			$obj->Show($woid, $seq);
-			return;
+			list($woid, $seq) = explode('-', $sWorkOrders);
+			if ($seq > 0)
+			{
+				$obj = CreateObject('dcl.htmlWorkOrderDetail');
+				$obj->Show($woid, $seq);
+				return;
+			}
 		}
 
 		$this->oView->title = STR_WO_RESULTSTITLE;
 
-		$this->oView->AddDef('filter', 'jcn', $woid);
-		if ($seq > 0)
-			$this->oView->AddDef('filter', 'seq', $seq);
+		$aList = explode(',', $sWorkOrders);
+		foreach ($aList as $sWorkOrder)
+		{
+			$this->oView->AddDef('filter', 'jcn', $sWorkOrder);
+		}
 
 		if ($g_oSec->IsPublicUser())
 		{
