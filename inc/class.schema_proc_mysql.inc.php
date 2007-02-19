@@ -350,16 +350,42 @@
 			$oDB = $oProc->m_odb;
 			$oProc->m_odb->query("SHOW INDEX FROM $sTable");
 
+			$aPK = array();
 			while ($oProc->m_odb->next_record())
 			{
+				if (strtoupper($oProc->m_odb->f(2)) == 'PRIMARY')
+				{
+					array_push($aPK, $oProc->m_odb->f(4));
+					continue;
+				}
+				
 				// returns one row per field in an index, so skip everything but the first field
 				if ($oProc->m_odb->f(3) != 1)
 					continue;
 
-				if ($oProc->m_odb->f(2) == 'PRIMARY')
-					$oProc->m_odb->query("ALTER TABLE $sTable DROP PRIMARY KEY");
+				$oDB->query("ALTER TABLE $sTable DROP INDEX " . $oProc->m_odb->f(2));
+			}
+			
+			if (count($aPK) > 0)
+			{
+				if (count($aPK) > 1)
+				{
+					// If we have more than 1 field in the key, it's not an auto incrementing field
+					// MySQL will not drop the primary key for auto incrementing fields
+					$oDB->query("ALTER TABLE $sTable DROP PRIMARY KEY");
+				}
 				else
-					$oDB->query("ALTER TABLE $sTable DROP INDEX " . $oProc->m_odb->f(0));
+				{
+					$oProc->m_odb->query("DESCRIBE $sTable");
+					while ($oProc->m_odb->next_record())
+					{
+						if (in_array($oProc->m_odb->f(0), $aPK) && $oProc->m_odb->f(5) != 'auto_increment')
+						{
+							$oDB->query("ALTER TABLE $sTable DROP PRIMARY KEY");
+							break;
+						}
+					}
+				}
 			}
 
 			return true;

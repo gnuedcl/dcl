@@ -136,7 +136,7 @@ define("_INSTALL_L105","atempt to create database");
 define("_INSTALL_L106","Could not connect to the database server.");
 define("_INSTALL_L107","Please check the database server and its configuration.");
 define("_INSTALL_L108","Connection to database server is OK.");
-define("_INSTALL_L109","Database %s does not exists.");
+define("_INSTALL_L109","Database %s does not exist.");
 define("_INSTALL_L110","Database %s exists and connectable.");
 define("_INSTALL_L111","Database connection is OK.<br />Press the button below to create database tables.");
 define("_INSTALL_L112","admin user setting");

@@ -36,9 +36,9 @@ class dclDB extends DCL_DB_Core
 	function mysql_die($error = '')
 	{
 		if (empty($error))
-			trigger_error($strMySQLSaid.mysql_error());
+			trigger_error(mysql_error());
 		else
-			trigger_error($strMySQLSaid.$error);
+			trigger_error($error);
 	}
 
 	function Connect($conn = '')
@@ -77,10 +77,14 @@ class dclDB extends DCL_DB_Core
 			$connString .= ':' . $dcl_domain_info[$dcl_domain]['dbPort'];
 
 		$conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
-				$dcl_domain_info[$dcl_domain]['dbPassword']);
+				$dcl_domain_info[$dcl_domain]['dbPassword'], true);
 
-		$bConnect = ($conn > 0);
-		mysql_close($conn);
+		$bConnect = false;
+		if ($conn !== false)
+		{
+			$bConnect = ($conn > 0);
+			mysql_close($conn);
+		}
 
 		return $bConnect;
 	}
@@ -94,9 +98,9 @@ class dclDB extends DCL_DB_Core
 			$connString .= ':' . $dcl_domain_info[$dcl_domain]['dbPort'];
 
 		$conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
-				$dcl_domain_info[$dcl_domain]['dbPassword']);
+				$dcl_domain_info[$dcl_domain]['dbPassword'], true);
 
-		if ($conn > 0)
+		if ($conn !== false && $conn > 0)
 		{
 			$bRetVal = mysql_select_db($dcl_domain_info[$dcl_domain]['dbName'], $conn);
 			mysql_close($conn);
