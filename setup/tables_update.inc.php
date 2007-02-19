@@ -74,9 +74,9 @@ function dcl_upgrade0_5_3()
 							'dcl_chklst_tpl_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'dcl_chklst_summary' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false),
 							'dcl_chklst_createby' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-							'dcl_chklst_createon' => array('type' => 'timestamp', 'default' => 'now()', 'nullable' => false),
+							'dcl_chklst_createon' => array('type' => 'timestamp', 'nullable' => false),
 							'dcl_chklst_modifyby' => array('type' => 'int', 'precision' => 4),
-							'dcl_chklst_modifyon' => array('type' => 'timestamp', 'default' => 'now()'),
+							'dcl_chklst_modifyon' => array('type' => 'timestamp'),
 							'dcl_chklst_status' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false)
 						),
 						'pk' => array('dcl_chklst_id'),
@@ -536,7 +536,7 @@ function dcl_upgrade0_9_3()
 							'sccs_file_name' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false),
 							'sccs_version' => array('type' => 'varchar', 'precision' => 50, 'nullable' => false),
 							'sccs_comments' => array('type' => 'text'),
-							'sccs_checkin_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()')
+							'sccs_checkin_on' => array('type' => 'timestamp', 'nullable' => false)
 						),
 						'pk' => array('dcl_sccs_xref_id'),
 						'fk' => array(),
@@ -655,8 +655,10 @@ function dcl_upgrade0_9_3()
 		{
 			global $phpgw_setup;
 			$sNull = $nullable ? "NULL" : "NOT NULL";
-			$sDefault = $bDefaultNow ? "DEFAULT 'now()'" : '';
-			$phpgw_setup->oProc->Query("ALTER TABLE $table CHANGE $field $field datetime $sDefault $sNull");
+			if (!$nullable)
+				$phpgw_setup->oProc->Query("UPDATE $table SET $field = now() WHERE $field IS NULL");
+				
+			$phpgw_setup->oProc->Query("ALTER TABLE $table CHANGE $field $field datetime $sNull");
 		}
 
 		__mysql_fixTimestampField('timecards', 'inputon', true, false);
@@ -1049,7 +1051,7 @@ function dcl_upgrade0_9_4_4()
 							'last_name' => array('type' => 'varchar', 'precision' => 50, 'nullable' => false),
 							'middle_name' => array('type' => 'varchar', 'precision' => 50, 'nullable' => true),
 							'active' => array('type' => 'varchar', 'precision' => 30, 'nullable' => false, 'default' => 'Y'),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1074,7 +1076,7 @@ function dcl_upgrade0_9_4_4()
 							'zip' => array('type' => 'varchar', 'precision' => 20, 'nullable' => true),
 							'country' => array('type' => 'varchar', 'precision' => 40, 'nullable' => true),
 							'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1094,7 +1096,7 @@ function dcl_upgrade0_9_4_4()
 							'email_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'email_addr' => array('type' => 'varchar', 'precision' => 100, 'nullable' => true),
 							'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1113,7 +1115,7 @@ function dcl_upgrade0_9_4_4()
 							'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'note_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'note_text' => array('type' => 'text', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1133,7 +1135,7 @@ function dcl_upgrade0_9_4_4()
 							'phone_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'phone_number' => array('type' => 'varchar', 'precision' => 30, 'nullable' => false),
 							'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1164,7 +1166,7 @@ function dcl_upgrade0_9_4_4()
 							'url_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'url_addr' => array('type' => 'varchar', 'precision' => 150, 'nullable' => false),
 							'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1183,7 +1185,7 @@ function dcl_upgrade0_9_4_4()
 							'name' => array('type' => 'varchar', 'precision' => 50, 'nullable' => false),
 							'active' => array('type' => 'varchar', 'precision' => 1, 'default' => 'Y', 'nullable' => false),
 							'parent' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1208,7 +1210,7 @@ function dcl_upgrade0_9_4_4()
 							'zip' => array('type' => 'varchar', 'precision' => 20, 'nullable' => true),
 							'country' => array('type' => 'varchar', 'precision' => 40, 'nullable' => true),
 							'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1226,7 +1228,7 @@ function dcl_upgrade0_9_4_4()
 							'org_alias_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
 							'org_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'alias' => array('type' => 'varchar', 'precision' => 50, 'nullable' => true),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1243,7 +1245,7 @@ function dcl_upgrade0_9_4_4()
 						'fd' => array(
 							'org_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
 						),
 						'pk' => array('org_id', 'contact_id'),
@@ -1261,7 +1263,7 @@ function dcl_upgrade0_9_4_4()
 							'email_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'email_addr' => array('type' => 'varchar', 'precision' => 100, 'nullable' => true),
 							'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1280,7 +1282,7 @@ function dcl_upgrade0_9_4_4()
 							'org_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'note_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'note_text' => array('type' => 'text', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1300,7 +1302,7 @@ function dcl_upgrade0_9_4_4()
 							'phone_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'phone_number' => array('type' => 'varchar', 'precision' => 30, 'nullable' => false),
 							'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -1331,7 +1333,7 @@ function dcl_upgrade0_9_4_4()
 							'url_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'url_addr' => array('type' => 'varchar', 'precision' => 150, 'nullable' => false),
 							'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-							'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'created_on' => array('type' => 'timestamp', 'nullable' => false),
 							'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 							'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
@@ -2084,7 +2086,7 @@ function dcl_upgrade0_9_4_4()
 		$phpgw_setup->oProc->Query('SET IDENTITY_INSERT dcl_org ON');
 	
 	dcl_upgrade0_9_4_4_write_message('<br>Converting orgs...');
-	$phpgw_setup->oProc->Query("insert into dcl_org (org_id, name, active, created_on, created_by) select id, name, active, now(), 1 from accounts");
+	$phpgw_setup->oProc->Query("insert into dcl_org (org_id, name, active, created_on, created_by) select id, name, active, " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts");
 	$phpgw_setup->oProc->UpdateSequence('dcl_org', 'org_id');
 	
 	if ($sType == 'mssql' || $sType == 'sybase')
@@ -2092,19 +2094,19 @@ function dcl_upgrade0_9_4_4()
 
 	if (!$phpgw_setup->oProc->m_bDeltaOnly)
 	{
-		$phpgw_setup->oProc->Query("insert into dcl_org_alias (org_id, alias, created_on, created_by) select id, short, now(), 1 from accounts WHERE short IS NOT NULL AND short != ''");
+		$phpgw_setup->oProc->Query("insert into dcl_org_alias (org_id, alias, created_on, created_by) select id, short, " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts WHERE short IS NOT NULL AND short != ''");
 		$phpgw_setup->oProc->Query("insert into dcl_phone_type (phone_type_name) values ('Voice')");
-		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 1, voice, 'Y', now(), 1 from accounts where voice is not null and voice != ''");
+		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 1, voice, 'Y', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where voice is not null and voice != ''");
 		$phpgw_setup->oProc->Query("insert into dcl_phone_type (phone_type_name) values ('Fax')");
-		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 2, fax, 'N', now(), 1 from accounts where fax is not null and fax != ''");
+		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 2, fax, 'N', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where fax is not null and fax != ''");
 		$phpgw_setup->oProc->Query("insert into dcl_phone_type (phone_type_name) values ('Data1')");
-		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 3, data1, 'N', now(), 1 from accounts where data1 is not null and data1 != ''");
+		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 3, data1, 'N', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where data1 is not null and data1 != ''");
 		$phpgw_setup->oProc->Query("insert into dcl_phone_type (phone_type_name) values ('Data2')");
-		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 4, data2, 'N', now(), 1 from accounts where data2 is not null and data2 != ''");
+		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 4, data2, 'N', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where data2 is not null and data2 != ''");
 		$phpgw_setup->oProc->Query("insert into dcl_addr_type (addr_type_name) values ('Default')");
 		$phpgw_setup->oProc->Query("insert into dcl_org_addr (org_id, addr_type_id, add1, add2, city, state, zip, preferred, created_by) select id, 1, add1, add2, city, state, zip, 'Y', 1 from accounts where (add1 is not null and add1 != '') or (add2 is not null and add2 != '') or (city is not null and city != '') or (state is not null and state != '') or (zip is not null and zip != '')");
 		$phpgw_setup->oProc->Query("insert into dcl_note_type (note_type_name) values ('Converted')");
-		$phpgw_setup->oProc->Query("insert into dcl_org_note (org_id, note_type_id, note_text, created_on, created_by) select id, 1, notes, now(), 1 from accounts where notes is not null and notes != ''");
+		$phpgw_setup->oProc->Query("insert into dcl_org_note (org_id, note_type_id, note_text, created_on, created_by) select id, 1, notes, " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where notes is not null and notes != ''");
 		$phpgw_setup->oProc->Query("INSERT INTO dcl_org_type_xref SELECT org_id, $iOrgTypeID FROM dcl_org");
 	}
 	
@@ -2405,7 +2407,7 @@ function dcl_upgrade0_9_4_4()
 	// Now we blindly start adding all distinct combinations of orgs/contacts
 	// The end result could be messy in some cases, but it's better than manually setting these up later
 	dcl_upgrade0_9_4_4_write_message('<br>Setting default org/contact relationships');
-	$phpgw_setup->oProc->Query('insert into dcl_org_contact select distinct account, contact_id, now(), 1 from tickets where account is not null and contact_id is not null union select distinct a.account_id, w.contact_id, now(), 1 from workorders w, dcl_wo_account a where w.jcn = a.wo_id and w.seq = a.seq and a.account_id is not null and w.contact_id is not null');
+	$phpgw_setup->oProc->Query('insert into dcl_org_contact select distinct account, contact_id, ' . $phpgw_setup->oProc->m_odb->GetDateSQL() . ', 1 from tickets where account is not null and contact_id is not null union select distinct a.account_id, w.contact_id, ' . $phpgw_setup->oProc->m_odb->GetDateSQL() . ', 1 from workorders w, dcl_wo_account a where w.jcn = a.wo_id and w.seq = a.seq and a.account_id is not null and w.contact_id is not null');
 
 	if (!$phpgw_setup->oProc->m_bDeltaOnly)
 		$phpgw_setup->oProc->DropTable('dcl_contact_cnv');
@@ -2457,7 +2459,7 @@ function dcl_upgrade0_9_4_4()
 				'product' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 				'account' => array('type' => 'int', 'precision' => 4),
 				'createdby' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-				'createdon' => array('type' => 'timestamp', 'default' => 'now()'),
+				'createdon' => array('type' => 'timestamp'),
 				'responsible' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 				'closedby' => array('type' => 'int', 'precision' => 4),
 				'closedon' => array('type' => 'timestamp'),
@@ -2527,7 +2529,7 @@ function dcl_upgrade0_9_5RC1()
 							'task_complete' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'),
 							'task_summary' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false),
 							'task_create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-							'task_create_dt' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+							'task_create_dt' => array('type' => 'timestamp', 'nullable' => false),
 							'task_complete_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
 							'task_complete_dt' => array('type' => 'timestamp', 'nullable' => true)
 						),
@@ -2584,6 +2586,19 @@ function dcl_upgrade0_9_5RC2()
 	$phpgw_setup->oProc->Query("UPDATE dcl_config SET dcl_config_varchar='0.9.5RC3' WHERE dcl_config_name='DCL_VERSION'");
 
 	$setup_info['dcl']['currentver'] = '0.9.5RC3';
+	return $setup_info['dcl']['currentver'];
+}
+
+$test[] = '0.9.5RC3';
+function dcl_upgrade0_9_5RC3()
+{
+	global $phpgw_setup, $setup_info;
+	
+	$phpgw_setup->oProc->RefreshTable('timecards');
+	
+	$phpgw_setup->oProc->Query("UPDATE dcl_config SET dcl_config_varchar='0.9.5RC4' WHERE dcl_config_name='DCL_VERSION'");
+
+	$setup_info['dcl']['currentver'] = '0.9.5RC4';
 	return $setup_info['dcl']['currentver'];
 }
 ?>

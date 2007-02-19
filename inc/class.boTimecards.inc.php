@@ -76,6 +76,7 @@ class boTimecards
 
 		$objTimecard->InitFromGlobals();
 		$objTimecard->actionby = $GLOBALS['DCLID'];
+		$objTimecard->inputon = DCL_NOW;
 		if ($objWorkorder->Load($objTimecard->jcn, $objTimecard->seq) == -1)
 		    return;
 		    

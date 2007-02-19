@@ -34,7 +34,7 @@ $GLOBALS['phpgw_baseline']['dcl_sccs_xref'] = array(
 		'sccs_file_name' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false),
 		'sccs_version' => array('type' => 'varchar', 'precision' => 50, 'nullable' => false),
 		'sccs_comments' => array('type' => 'text'),
-		'sccs_checkin_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()')
+		'sccs_checkin_on' => array('type' => 'timestamp', 'nullable' => false)
 	),
 	'pk' => array('dcl_sccs_xref_id'),
 	'fk' => array(),

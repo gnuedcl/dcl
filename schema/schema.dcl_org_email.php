@@ -29,7 +29,7 @@ $GLOBALS['phpgw_baseline']['dcl_org_email'] = array(
 		'email_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'email_addr' => array('type' => 'varchar', 'precision' => 100, 'nullable' => true),
 		'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-		'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+		'created_on' => array('type' => 'timestamp', 'nullable' => false),
 		'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 		'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)

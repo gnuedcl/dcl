@@ -40,14 +40,14 @@ class dbFaq extends dclDB
 	{
 		$this->active = 'Y';
 		$this->createby = $GLOBALS['DCLID'];
-		$this->createon = 'now()';
+		$this->createon = DCL_NOW;
 		return parent::Add();
 	}
 
 	function Edit()
 	{
 		$this->modifyby = $GLOBALS['DCLID'];
-		$this->modifyon = 'now()';
+		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}
 

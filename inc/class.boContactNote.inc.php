@@ -34,6 +34,11 @@ class boContactNote extends boAdminObject
 		$this->oDB =& CreateObject('dcl.dbContactNote');
 		$this->sKeyField = 'contact_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
+		
+		$this->sCreatedDateField = 'created_on';
+		$this->sCreatedByField = 'created_by';
+		$this->sModifiedDateField = 'modified_on';
+		$this->sModifiedByField = 'modified_by';		
 	}
 }
 ?>

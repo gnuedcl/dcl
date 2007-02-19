@@ -306,8 +306,16 @@ class htmlWorkOrderForm
 			}
 		}
 
-		$this->oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
-		$this->oSmarty->assign_by_ref('VAL_ORGNAME', $aOrgName);
+		if (count($aOrgID) > 0)
+		{
+			$this->oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
+			$this->oSmarty->assign_by_ref('VAL_ORGNAME', $aOrgName);
+		}
+		else
+		{
+			$this->oSmarty->assign('VAL_ORGID', '');
+			$this->oSmarty->assign('VAL_ORGNAME', '');
+		}
 
 		SmartyDisplay($this->oSmarty, 'htmlWorkOrderForm.tpl');
 	}

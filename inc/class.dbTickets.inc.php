@@ -43,7 +43,7 @@ class dbTickets extends dclDB
 		$oStatus = CreateObject('dcl.dbStatuses');
 		if ($oStatus->GetStatusType($this->status) == 2)
 		{
-			$this->closedon = 'now()';
+			$this->closedon = DCL_NOW;
 		}
 		else
 		{
@@ -51,7 +51,7 @@ class dbTickets extends dclDB
 			$this->closedon = null;
 		}
 
-		$this->createdon = 'now()';
+		$this->createdon = DCL_NOW;
 
 		if ($this->module_id < 1)
 			$this->module_id = null;
@@ -70,7 +70,7 @@ class dbTickets extends dclDB
 		$oStatus = CreateObject('dcl.dbStatuses');
 		if ($oStatus->GetStatusType($this->status) == 2)
 		{
-			$this->closedon = 'now()';
+			$this->closedon = DCL_NOW;
 		}
 		else
 		{

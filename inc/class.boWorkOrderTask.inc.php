@@ -37,15 +37,15 @@ class boWorkOrderTask extends boAdminObject
 		$this->PermAdd = DCL_PERM_ACTION;
 		$this->PermDelete = DCL_PERM_ACTION;
 
+		$this->sCreatedDateField = 'task_create_dt';
+		$this->sCreatedByField = 'task_create_by';
+		
 		$this->aIgnoreFieldsOnUpdate = array('wo_id', 'seq', 'task_create_by', 'task_create_dt');
 	}
 	
 	function add($aSource)
 	{
 		$aSource['task_complete'] = 'N';
-		$aSource['task_create_by'] = $GLOBALS['DCLID'];
-		$aSource['task_create_dt'] = 'now()';
-		
 		parent::add($aSource);
 	}
 
@@ -66,7 +66,7 @@ class boWorkOrderTask extends boAdminObject
 		if ($aSource['task_complete'] == 'Y' && $this->oDB->task_complete != 'Y')
 		{
 			$aSource['task_complete_by'] = $GLOBALS['DCLID'];
-			$aSource['task_complete_dt'] = 'now()';
+			$aSource['task_complete_dt'] = DCL_NOW;
 		}
 		else if ($aSource['task_complete'] == 'N')
 		{

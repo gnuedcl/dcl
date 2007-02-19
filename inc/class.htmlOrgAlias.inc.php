@@ -92,7 +92,7 @@ class htmlOrgAlias
 		$oOrgAlias->add(array(
 						'org_id' => $id,
 						'alias' => $_REQUEST['alias'],
-						'created_on' => 'now()',
+						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
 					);

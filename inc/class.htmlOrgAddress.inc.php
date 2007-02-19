@@ -101,7 +101,7 @@ class htmlOrgAddress
 						'zip' => $_REQUEST['zip'],
 						'country' => $_REQUEST['country'],
 						'preferred' => isset($_REQUEST['preferred']) ? 'Y' : 'N',
-						'created_on' => 'now()',
+						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
 					);

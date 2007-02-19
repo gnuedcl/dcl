@@ -97,7 +97,7 @@ class htmlContactEmail
 						'email_type_id' => $email_type_id,
 						'email_addr' => $_REQUEST['email_addr'],
 						'preferred' => isset($_REQUEST['preferred']) ? 'Y' : 'N',
-						'created_on' => 'now()',
+						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
 					);

@@ -228,6 +228,8 @@ class boChecklists
 		$o->dcl_chklst_tpl_id = $iID;
 		$o->dcl_chklst_summary = $o->GPCStripSlashes($_REQUEST['dcl_chklst_summary']);
 		$o->dcl_chklst_createby = $GLOBALS['DCLID'];
+		$o->dcl_chklst_createon = DCL_NOW;
+		$o->dcl_chklst_modifyon = DCL_NOW;
 		if ($oXML->currentNode != NULL)
 			$o->dcl_chklst_status = $oXML->currentNode->data;
 
@@ -307,7 +309,7 @@ class boChecklists
 		if ($o->Load($iID) != -1)
 		{
 			$o->dcl_chklst_modifyby = $GLOBALS['DCLID'];
-			$o->dcl_chklst_modifyon = date($dcl_info['DCL_TIMESTAMP_FORMAT_DB']);
+			$o->dcl_chklst_modifyon = DCL_NOW;
 			$o->dcl_chklst_status = $_REQUEST['dcl_chklst_status'];
 			$o->Edit();
 		}

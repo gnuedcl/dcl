@@ -34,6 +34,11 @@ class boOrgNote extends boAdminObject
 		$this->oDB =& CreateObject('dcl.dbOrgNote');
 		$this->sKeyField = 'org_note_id';
 		$this->Entity = DCL_ENTITY_ORG;
+
+		$this->sCreatedDateField = 'created_on';
+		$this->sCreatedByField = 'created_by';
+		$this->sModifiedDateField = 'modified_on';
+		$this->sModifiedByField = 'modified_by';
 	}
 }
 ?>

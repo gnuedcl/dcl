@@ -112,6 +112,9 @@ define('DCL_FORM_COPYFROMTICKET', 5);
 // Smarty settings
 define('SMARTY_DIR', DCL_ROOT . 'inc/');
 
+// Others
+define('DCL_NOW', 'now()');
+
 function menuLink($target = '', $params = '')
 {
 	global $phpgw;

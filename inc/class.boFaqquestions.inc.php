@@ -79,6 +79,7 @@ class boFaqquestions
 		$obj = CreateObject('dcl.dbFaqquestions');
 		$obj->InitFromGlobals();
 		$obj->createby = $GLOBALS['DCLID'];
+		$obj->createon = DCL_NOW;
 		$obj->active = 'Y';
 		$obj->Add();
 
@@ -131,6 +132,8 @@ class boFaqquestions
 		$obj =& CreateObject('dcl.dbFaqquestions');
 		$obj->InitFromGlobals();
 		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
+		$obj->modifyby = $GLOBALS['DCLID'];
+		$obj->modifyon = DCL_NOW;
 		$obj->Edit();
 		
 		$objH =& CreateObject('dcl.htmlFaqtopics');

@@ -97,7 +97,7 @@ class htmlOrgForm
 		$oOrgID = $obj->add(array(
 								'name' => $_REQUEST['name'],
 								'active' => 'Y',
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -129,7 +129,7 @@ class htmlOrgForm
 			$oOrgAlias->add(array(
 							'org_id' => $oOrgID,
 							'alias' => $_POST['alias'],
-							'created_on' => 'now()',
+							'created_on' => DCL_NOW,
 							'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -150,7 +150,7 @@ class htmlOrgForm
 							'zip' => $_REQUEST['zip'],
 							'country' => $_REQUEST['country'],
 							'preferred' => 'Y',
-							'created_on' => 'now()',
+							'created_on' => DCL_NOW,
 							'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -166,7 +166,7 @@ class htmlOrgForm
 								'phone_type_id' => $phone_type_id,
 								'phone_number' => $_REQUEST['phone_number'],
 								'preferred' => 'Y',
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -182,7 +182,7 @@ class htmlOrgForm
 								'email_type_id' => $email_type_id,
 								'email_addr' => $_REQUEST['email_addr'],
 								'preferred' => 'Y',
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -198,7 +198,7 @@ class htmlOrgForm
 								'url_type_id' => $url_type_id,
 								'url_addr' => $_REQUEST['url_addr'],
 								'preferred' => 'Y',
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);

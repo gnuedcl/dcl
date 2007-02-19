@@ -96,7 +96,7 @@ class htmlOrgPhone
 						'phone_type_id' => $phone_type_id,
 						'phone_number' => $_REQUEST['phone_number'],
 						'preferred' => isset($_REQUEST['preferred']) ? 'Y' : 'N',
-						'created_on' => 'now()',
+						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
 					);

@@ -29,7 +29,7 @@ $GLOBALS['phpgw_baseline']['dcl_contact'] = array(
 		'last_name' => array('type' => 'varchar', 'precision' => 50, 'nullable' => false),
 		'middle_name' => array('type' => 'varchar', 'precision' => 50, 'nullable' => true),
 		'active' => array('type' => 'varchar', 'precision' => 30, 'nullable' => false, 'default' => 'Y'),
-		'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+		'created_on' => array('type' => 'timestamp', 'nullable' => false),
 		'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 		'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)

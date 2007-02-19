@@ -28,7 +28,7 @@ $GLOBALS['phpgw_baseline']['tickets'] = array(
 		'product' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'account' => array('type' => 'int', 'precision' => 4),
 		'createdby' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'createdon' => array('type' => 'timestamp', 'default' => 'now()'),
+		'createdon' => array('type' => 'timestamp'),
 		'responsible' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'closedby' => array('type' => 'int', 'precision' => 4),
 		'closedon' => array('type' => 'timestamp'),

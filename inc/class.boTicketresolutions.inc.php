@@ -169,7 +169,7 @@ class boTicketresolutions
 
 		$oTicket =& CreateObject('dcl.dbTickets');
 		$oTicket->Load($this->oDB->ticketid);
-		$oTicket->lastactionon = 'now()';
+		$oTicket->lastactionon = DCL_NOW;
 
 		$notify = '4';
 		if ($oTicket->IsLastResolution($this->oDB->ticketid, $this->oDB->resid))
@@ -178,12 +178,12 @@ class boTicketresolutions
 			{
 				$oStatus =& CreateObject('dcl.dbStatuses');
 				$notify .= ',3';
-				$oTicket->statuson = 'now()';
+				$oTicket->statuson = DCL_NOW;
 				if ($oStatus->GetStatusType($this->oDB->status) == 2)
 				{
 					$notify .= ',2';
 					$oTicket->closedby = $GLOBALS['DCLID'];
-					$oTicket->closedon = 'now()';
+					$oTicket->closedon = DCL_NOW;
 				}
 				else if ($oStatus->GetStatusType($this->oDB->status) == 1)
 					$notify .= ',1';
@@ -220,7 +220,7 @@ class boTicketresolutions
 		
 		$oTicket =& CreateObject('dcl.dbTickets');
 		$oTicket->Load($this->oDB->ticketid);
-		$oTicket->lastactionon = 'now()';
+		$oTicket->lastactionon = DCL_NOW;
 
 		// Get the next resolution issued after this one.  If not, assume
 		// that this resolution was the last one entered and affected the ticket
@@ -239,7 +239,7 @@ class boTicketresolutions
 				$oQueryTR->Load($iPrevID);
 				if ($oQueryTR->status != $oTicket->status)
 				{
-					$oTicket->statuson = 'now()';
+					$oTicket->statuson = DCL_NOW;
 					$oStatus =& CreateObject('dcl.dbStatuses');
 					if ($oStatus->GetStatusType($oQueryTR->status) == 2 && $oStatus->GetStatusType($oTicket->status) != 2)
 					{

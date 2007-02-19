@@ -37,6 +37,11 @@ class boOrgUrl extends boAdminObject
 		$this->PermAdd = DCL_PERM_MODIFY;
 		$this->PermDelete = DCL_PERM_MODIFY;
 
+		$this->sCreatedDateField = 'created_on';
+		$this->sCreatedByField = 'created_by';
+		$this->sModifiedDateField = 'modified_on';
+		$this->sModifiedByField = 'modified_by';
+		
 		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by');
 	}
 
@@ -49,9 +54,6 @@ class boOrgUrl extends boAdminObject
 	function modify($aSource)
 	{
 		$aSource['preferred'] = @DCL_Sanitize::ToYN($aSource['preferred']);
-		$aSource['modified_by'] = $GLOBALS['DCLID'];
-		$aSource['modified_on'] = 'now()';
-
 		parent::modify($aSource);
 	}
 }

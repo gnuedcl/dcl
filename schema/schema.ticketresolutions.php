@@ -27,7 +27,7 @@ $GLOBALS['phpgw_baseline']['ticketresolutions'] = array(
 		'resid' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
 		'ticketid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'loggedby' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'loggedon' => array('type' => 'timestamp', 'default' => 'now()'),
+		'loggedon' => array('type' => 'timestamp'),
 		'status' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'resolution' => array('type' => 'text', 'nullable' => false),
 		'startedon' => array('type' => 'timestamp'),

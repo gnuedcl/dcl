@@ -261,7 +261,7 @@ class htmlContact
 				{
 					$oDB2->contact_id = $iContactID;
 					$oDB2->org_id = $oDB->f(0);
-					$oDB2->created_on = 'now()';
+					$oDB2->created_on = DCL_NOW;
 					$oDB2->created_by = $GLOBALS['DCLID'];
 					$oDB2->Add();
 				}

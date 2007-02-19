@@ -492,9 +492,10 @@ class DCL_DB_Core
 			$sPK .= $sFieldName . '=' . $this->FieldValueToSQL($sFieldName, $aID[$sFieldName]);
 		}
 
-		$sColumns = join(', ', array_keys($GLOBALS['phpgw_baseline'][$this->TableName]['fd']));
+		$sColumns = $this->SelectAllColumns();
+		$sColumns .= ', ' . $this->SelectField('audit_on');
 
-		$sSQL = "SELECT $sColumns, audit_on, audit_by, audit_version FROM " . $this->TableName . '_audit WHERE ' . $sPK . ' ORDER BY audit_version';
+		$sSQL = "SELECT $sColumns, audit_by, audit_version FROM " . $this->TableName . '_audit WHERE ' . $sPK . ' ORDER BY audit_version';
 
 		$aRetVal = array();
 		if ($this->Query($sSQL) != -1)
@@ -708,7 +709,7 @@ class DCL_DB_Core
 			case 'date':
 			case 'datetime':
 			case 'timestamp':
-				if ($sValue == 'now()')
+				if ($sValue == DCL_NOW)
 					return $this->GetDateSQL();
 
 				return $this->DisplayToSQL($sValue);

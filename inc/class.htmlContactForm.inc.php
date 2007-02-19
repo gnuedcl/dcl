@@ -105,7 +105,7 @@ class htmlContactForm
 								'middle_name' => $_REQUEST['middle_name'],
 								'last_name' => $_REQUEST['last_name'],
 								'active' => 'Y',
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -135,7 +135,7 @@ class htmlContactForm
 			$oOrgContact->add(array(
 								'org_id' => $org_id,
 								'contact_id' => $iContactID,
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -155,7 +155,7 @@ class htmlContactForm
 							'zip' => $_REQUEST['zip'],
 							'country' => $_REQUEST['country'],
 							'preferred' => 'Y',
-							'created_on' => 'now()',
+							'created_on' => DCL_NOW,
 							'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -170,7 +170,7 @@ class htmlContactForm
 								'phone_type_id' => $phone_type_id,
 								'phone_number' => $_REQUEST['phone_number'],
 								'preferred' => 'Y',
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -185,7 +185,7 @@ class htmlContactForm
 								'email_type_id' => $email_type_id,
 								'email_addr' => $_REQUEST['email_addr'],
 								'preferred' => 'Y',
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);
@@ -200,7 +200,7 @@ class htmlContactForm
 								'url_type_id' => $url_type_id,
 								'url_addr' => $_REQUEST['url_addr'],
 								'preferred' => 'Y',
-								'created_on' => 'now()',
+								'created_on' => DCL_NOW,
 								'created_by' => $GLOBALS['DCLID']
 							)
 						);

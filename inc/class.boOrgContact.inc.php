@@ -34,6 +34,9 @@ class boOrgContact extends boAdminObject
 		$this->oDB =& CreateObject('dcl.dbOrgContact');
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->sKeyField = '';
+		
+		$this->sCreatedDateField = 'created_on';
+		$this->sCreatedByField = 'created_by';
 	}
 	
 	function add($aSource)

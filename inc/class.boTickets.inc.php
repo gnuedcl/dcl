@@ -50,6 +50,7 @@ class boTickets
 		$obj =& CreateObject('dcl.dbTickets');
 		$obj->InitFromGlobals();
 		$obj->createdby = $GLOBALS['DCLID'];
+		$obj->createdon = DCL_NOW;
 
 		// If responsible is set, InitFromGlobals would have fetched it above
 		// If not set, get the ticket lead for the product

@@ -51,6 +51,7 @@ class boFaq
 		$obj =& CreateObject('dcl.dbFaq');
 		$obj->InitFromGlobals();
 		$obj->createby = $GLOBALS['DCLID'];
+		$obj->createon = DCL_NOW;
 		$obj->Add();
 
 		$objH =& CreateObject('dcl.htmlFaq');
@@ -89,7 +90,9 @@ class boFaq
 
 		$obj =& CreateObject('dcl.dbFaq');
 		$obj->InitFromGlobals();
-		$obj->active = DCL_Sanitize::ToYN($_REQUEST['active']);
+		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
+		$obj->modifyby = $GLOBALS['DCLID'];
+		$obj->modifyon = DCL_NOW;
 		$obj->Edit();
 		
 		$objH =& CreateObject('dcl.htmlFaq');

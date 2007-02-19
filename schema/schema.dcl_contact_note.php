@@ -28,7 +28,7 @@ $GLOBALS['phpgw_baseline']['dcl_contact_note'] = array(
 		'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'note_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'note_text' => array('type' => 'text', 'nullable' => false),
-		'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+		'created_on' => array('type' => 'timestamp', 'nullable' => false),
 		'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 		'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)

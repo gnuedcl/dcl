@@ -45,8 +45,8 @@ class dbSession extends dclDB
 
 		srand((double)microtime() * 1000000);
 		$this->dcl_session_id = md5(uniqid(rand()));
-		$this->create_date = 'now()';
-		$this->update_date = 'now()';
+		$this->create_date = DCL_NOW;
+		$this->update_date = DCL_NOW;
 		$this->session_data = serialize($this->session_data);
 
 		if (parent::Add() == -1)
@@ -61,7 +61,7 @@ class dbSession extends dclDB
 
 	function Edit()
 	{
-		$this->update_date = 'now()';
+		$this->update_date = DCL_NOW;
 		$aSessionDataCopy = $this->session_data;
 		$this->session_data = serialize($this->session_data);
 		parent::Edit(array('create_date'));

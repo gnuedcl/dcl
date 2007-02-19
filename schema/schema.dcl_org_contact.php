@@ -26,7 +26,7 @@ $GLOBALS['phpgw_baseline']['dcl_org_contact'] = array(
 	'fd' => array(
 		'org_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+		'created_on' => array('type' => 'timestamp', 'nullable' => false),
 		'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
 	),
 	'pk' => array('org_id', 'contact_id'),

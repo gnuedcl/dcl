@@ -39,7 +39,7 @@ class dbFaqtopics extends dclDB
 	function Add()
 	{
 		$this->AdjustSeq($this->seq);
-		$this->createon = 'now()';
+		$this->createon = DCL_NOW;
 		return parent::Add();
 	}
 
@@ -75,7 +75,7 @@ class dbFaqtopics extends dclDB
 		}
 		
 		$this->modifyby = $GLOBALS['DCLID'];
-		$this->modifyon = 'now()';
+		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}
 

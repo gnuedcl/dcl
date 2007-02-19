@@ -47,7 +47,7 @@ class dbWiki extends dclDB
 			$this->dcl_entity_id2 = 0;
 		}
 		
-		$this->page_date = 'now()';
+		$this->page_date = DCL_NOW;
 		
 		return parent::Add();
 	}
@@ -64,7 +64,7 @@ class dbWiki extends dclDB
 			$this->dcl_entity_id2 = 0;
 		}
 		
-		$this->page_date = 'now()';
+		$this->page_date = DCL_NOW;
 
 		return parent::Edit();
 	}

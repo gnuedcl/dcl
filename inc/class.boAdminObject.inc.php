@@ -35,6 +35,10 @@ class boAdminObject
 	var $sDescField;
 	var $sActiveField;
 	var $sPublicField;
+	var $sCreatedDateField;
+	var $sModifiedDateField;
+	var $sCreatedByField;
+	var $sModifiedByField;
 	var $aIgnoreFieldsOnUpdate;
 
 	function boAdminObject()
@@ -48,6 +52,10 @@ class boAdminObject
 		$this->sDescField = 'name';
 		$this->sActiveField = 'active';
 		$this->sPublicField = '';
+		$this->sCreatedDateField = '';
+		$this->sModifiedDateField = '';
+		$this->sCreatedByField = '';
+		$this->sModifiedByField = '';
 		$this->aIgnoreFIeldsOnUpdate = array();
 	}
 
@@ -58,6 +66,19 @@ class boAdminObject
 			return PrintPermissionDenied();
 
 		$this->oDB->InitFromArray($aSource);
+		
+		if ($this->sCreatedDateField != '')
+			$this->oDB->{$this->sCreatedDateField} = DCL_NOW;
+			
+		if ($this->sCreatedByField != '')
+			$this->oDB->{$this->sCreatedByField} = $GLOBALS['DCLID'];
+			
+		if ($this->sModifiedDateField != '')
+			$this->oDB->{$this->sModifiedDateField} = DCL_NOW;
+
+		if ($this->sModifiedByField != '')
+			$this->oDB->{$this->sModifiedByField} = $GLOBALS['DCLID'];
+			
 		if ($this->oDB->Add() == -1)
 			return -1;
 
@@ -74,6 +95,12 @@ class boAdminObject
 			return PrintPermissionDenied();
 
 		$this->oDB->InitFromArray($aSource);
+		if ($this->sModifiedDateField != '')
+			$this->oDB->{$this->sModifiedDateField} = DCL_NOW;
+
+		if ($this->sModifiedByField != '')
+			$this->oDB->{$this->sModifiedByField} = $GLOBALS['DCLID'];
+			
 		if ($this->oDB->Edit($this->aIgnoreFieldsOnUpdate) == -1)
 			return -1;
 

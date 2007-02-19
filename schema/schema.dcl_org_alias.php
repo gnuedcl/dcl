@@ -27,7 +27,7 @@ $GLOBALS['phpgw_baseline']['dcl_org_alias'] = array(
 		'org_alias_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
 		'org_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'alias' => array('type' => 'varchar', 'precision' => 50, 'nullable' => true),
-		'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+		'created_on' => array('type' => 'timestamp', 'nullable' => false),
 		'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 		'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)

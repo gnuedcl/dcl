@@ -31,7 +31,7 @@ $GLOBALS['phpgw_baseline']['dcl_wo_task'] = array(
 		'task_complete' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'),
 		'task_summary' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false),
 		'task_create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'task_create_dt' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+		'task_create_dt' => array('type' => 'timestamp', 'nullable' => false),
 		'task_complete_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
 		'task_complete_dt' => array('type' => 'timestamp', 'nullable' => true)
 	),

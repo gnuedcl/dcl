@@ -96,7 +96,7 @@ class htmlContactUrl
 						'url_type_id' => $url_type_id,
 						'url_addr' => $_REQUEST['url_addr'],
 						'preferred' => isset($_REQUEST['preferred']) ? 'Y' : 'N',
-						'created_on' => 'now()',
+						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
 					);

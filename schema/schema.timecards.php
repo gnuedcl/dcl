@@ -28,7 +28,7 @@ $GLOBALS['phpgw_baseline']['timecards'] = array(
 		'jcn' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'seq' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'actionon' => array('type' => 'date', 'nullable' => false),
-		'inputon' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+		'inputon' => array('type' => 'timestamp', 'nullable' => false),
 		'actionby' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'status' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'action' => array('type' => 'int', 'precision' => 4, 'nullable' => false),

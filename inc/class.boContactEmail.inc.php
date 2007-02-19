@@ -37,17 +37,23 @@ class boContactEmail extends boAdminObject
 		$this->PermAdd = DCL_PERM_MODIFY;
 		$this->PermDelete = DCL_PERM_MODIFY;
 
+		$this->sCreatedDateField = 'created_on';
+		$this->sCreatedByField = 'created_by';
+		$this->sModifiedDateField = 'modified_on';
+		$this->sModifiedByField = 'modified_by';
+		
 		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by');
+	}
+
+	function add($aSource)
+	{
+		$aSource['preferred'] = @DCL_Sanitize::ToYN($aSource['preferred']);
+		parent::add($aSource);
 	}
 
 	function modify($aSource)
 	{
-		if (!isset($aSource['preferred']) || $aSource['preferred'] != 'Y')
-			$aSource['preferred'] = 'N';
-
-		$aSource['modified_by'] = $GLOBALS['DCLID'];
-		$aSource['modified_on'] = 'now()';
-
+		$aSource['preferred'] = @DCL_Sanitize::ToYN($aSource['preferred']);
 		parent::modify($aSource);
 	}
 }

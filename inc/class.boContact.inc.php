@@ -35,6 +35,11 @@ class boContact extends boAdminObject
 		$this->sKeyField = 'contact_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
 		
+		$this->sCreatedDateField = 'created_on';
+		$this->sCreatedByField = 'created_by';
+		$this->sModifiedDateField = 'modified_on';
+		$this->sModifiedByField = 'modified_by';
+		
 		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by');
 	}
 
@@ -44,12 +49,7 @@ class boContact extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		if (!isset($aSource['active']) || $aSource['active'] != 'Y')
-			$aSource['active'] = 'N';
-
-		$aSource['modified_on'] = 'now()';
-		$aSource['modified_by'] = $GLOBALS['DCLID'];
-
+		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
 		parent::modify($aSource);
 		
 		$sTypes = join(',', $aSource['contact_type_id']);

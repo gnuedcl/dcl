@@ -126,7 +126,7 @@ class boBuildManager
 			$oVersionItem->product_version_id = $product_version_id;
 			$oVersionItem->entity_type_id = DCL_ENTITY_WORKORDER;
 			$oVersionItem->version_status_id = 1;
-			$oVersionItem->version_item_submit_on = 'now()';
+			$oVersionItem->version_item_submit_on = DCL_NOW;
 			
 			$aSelected = $g_oSession->Value('BMselected');
 			foreach ($aSelected as $woidseq)

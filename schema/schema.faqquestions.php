@@ -31,7 +31,7 @@ $GLOBALS['phpgw_baseline']['faqquestions'] = array(
 		'topicid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'questiontext' => array('type' => 'text', 'nullable' => false),
 		'createby' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'createon' => array('type' => 'timestamp', 'default' => 'now()', 'nullable' => false),
+		'createon' => array('type' => 'timestamp', 'nullable' => false),
 		'modifyby' => array('type' => 'int', 'precision' => 4),
 		'modifyon' => array('type' => 'timestamp'),
 		'active' => array('type' => 'char', 'precision' => 1, 'default' => 'Y', 'nullable' => false)

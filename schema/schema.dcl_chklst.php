@@ -28,9 +28,9 @@ $GLOBALS['phpgw_baseline']['dcl_chklst'] = array(
 		'dcl_chklst_tpl_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'dcl_chklst_summary' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false),
 		'dcl_chklst_createby' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'dcl_chklst_createon' => array('type' => 'timestamp', 'default' => 'now()', 'nullable' => false),
+		'dcl_chklst_createon' => array('type' => 'timestamp', 'nullable' => false),
 		'dcl_chklst_modifyby' => array('type' => 'int', 'precision' => 4),
-		'dcl_chklst_modifyon' => array('type' => 'timestamp', 'default' => 'now()'),
+		'dcl_chklst_modifyon' => array('type' => 'timestamp'),
 		'dcl_chklst_status' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false)
 	),
 	'pk' => array('dcl_chklst_id'),

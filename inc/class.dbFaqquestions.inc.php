@@ -43,7 +43,7 @@ class dbFaqquestions extends dclDB
 			return;
 		}
 		
-		$this->createon = 'now()';
+		$this->createon = DCL_NOW;
 		return parent::Add();
 	}
 
@@ -81,7 +81,7 @@ class dbFaqquestions extends dclDB
 		}
 		
 		$this->modifyby = $GLOBALS['DCLID'];
-		$this->modifyon = 'now()';
+		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}
 

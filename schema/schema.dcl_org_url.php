@@ -29,7 +29,7 @@ $GLOBALS['phpgw_baseline']['dcl_org_url'] = array(
 		'url_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'url_addr' => array('type' => 'varchar', 'precision' => 150, 'nullable' => false),
 		'preferred' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
-		'created_on' => array('type' => 'timestamp', 'nullable' => false, 'default' => 'now()'),
+		'created_on' => array('type' => 'timestamp', 'nullable' => false),
 		'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'modified_on' => array('type' => 'timestamp', 'nullable' => true),
 		'modified_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)

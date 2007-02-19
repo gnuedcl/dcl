@@ -84,8 +84,8 @@ class dbWorkorders extends dclDB
 		if ($this->entity_source_id < 1)
 			$this->entity_source_id = null;
 
-		$this->createdon = 'now()';
-		$this->statuson = 'now()';
+		$this->createdon = DCL_NOW;
+		$this->statuson = DCL_NOW;
 
 		parent::Add();
 	}
