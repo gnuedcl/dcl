@@ -1349,7 +1349,7 @@ function dcl_upgrade0_9_4_4()
 
 	$phpgw_setup->oProc->CreateTable('dcl_projects_audit', array(
 						'fd' => array(
-							'projectid' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
+							'projectid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'name' => array('type' => 'varchar', 'precision' => 100),
 							'reportto' => array('type' => 'int', 'precision' => 4),
 							'createdby' => array('type' => 'int', 'precision' => 4),
@@ -1408,7 +1408,7 @@ function dcl_upgrade0_9_4_4()
 	
 	$phpgw_setup->oProc->CreateTable('tickets_audit', array(
 						'fd' => array(
-							'ticketid' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
+							'ticketid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 							'product' => array('type' => 'int', 'precision' => 4),
 							'account' => array('type' => 'int', 'precision' => 4),
 							'createdby' => array('type' => 'int', 'precision' => 4),

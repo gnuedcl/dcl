@@ -493,9 +493,7 @@ class DCL_DB_Core
 		}
 
 		$sColumns = $this->SelectAllColumns();
-		$sColumns .= ', ' . $this->SelectField('audit_on');
-
-		$sSQL = "SELECT $sColumns, audit_by, audit_version FROM " . $this->TableName . '_audit WHERE ' . $sPK . ' ORDER BY audit_version';
+		$sSQL = "SELECT $sColumns, " . $this->ConvertTimestamp('audit_on', 'audit_on') . ', audit_by, audit_version FROM ' . $this->TableName . '_audit WHERE ' . $sPK . ' ORDER BY audit_version';
 
 		$aRetVal = array();
 		if ($this->Query($sSQL) != -1)

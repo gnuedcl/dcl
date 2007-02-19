@@ -24,7 +24,7 @@
 
 $GLOBALS['phpgw_baseline']['tickets_audit'] = array(
 	'fd' => array(
-		'ticketid' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
+		'ticketid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'product' => array('type' => 'int', 'precision' => 4),
 		'account' => array('type' => 'int', 'precision' => 4),
 		'createdby' => array('type' => 'int', 'precision' => 4),

@@ -70,7 +70,7 @@ class dbWorkOrderAccount extends dclDB
 	{
 		$aRetVal = array();
 
-		if ($this->Query("SELECT wo_id, seq, dcl_org.name, audit_on, personnel.short, audit_type, account_id FROM dcl_wo_account_audit, dcl_org, personnel WHERE account_id = dcl_org.org_id AND audit_by = personnel.id AND wo_id=$jcn AND seq=$seq ORDER BY audit_on") != -1)
+		if ($this->Query('SELECT wo_id, seq, dcl_org.name, ' . $this->ConvertTimestamp('audit_on', 'audit_on') . ", personnel.short, audit_type, account_id FROM dcl_wo_account_audit, dcl_org, personnel WHERE account_id = dcl_org.org_id AND audit_by = personnel.id AND wo_id=$jcn AND seq=$seq ORDER BY audit_on") != -1)
 		{
 			while ($this->next_record())
 			{

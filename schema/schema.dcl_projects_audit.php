@@ -24,7 +24,7 @@
 
 $GLOBALS['phpgw_baseline']['dcl_projects_audit'] = array(
 	'fd' => array(
-		'projectid' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
+		'projectid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'name' => array('type' => 'varchar', 'precision' => 100),
 		'reportto' => array('type' => 'int', 'precision' => 4),
 		'createdby' => array('type' => 'int', 'precision' => 4),
