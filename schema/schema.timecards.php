@@ -34,7 +34,7 @@ $GLOBALS['phpgw_baseline']['timecards'] = array(
 		'action' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'hours' => array('type' => 'float', 'precision' => 8, 'nullable' => false),
 		'summary' => array('type' => 'varchar', 'precision' => 100, 'nullable' => false),
-		'description' => array('type' => 'text', 'nullable' => false),
+		'description' => array('type' => 'text', 'nullable' => true),
 		'revision' => array('type' => 'varchar', 'precision' => 20),
 		'reassign_from_id' => array('type' => 'int', 'precision' => 4),
 		'reassign_to_id' => array('type' => 'int', 'precision' => 4),
