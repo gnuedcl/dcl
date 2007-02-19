@@ -145,9 +145,9 @@ class boWorkorders
 				}
 			}
 		}
-		else if (IsSet($_REQUEST['account']))
+		else if (IsSet($_REQUEST['secaccounts']))
 		{
-			if (($iOrgID = @DCL_Sanitize::ToInt($_REQUEST['account'])) !== null && $iOrgID > 0)
+			if (($iOrgID = @DCL_Sanitize::ToInt($_REQUEST['secaccounts'])) !== null && $iOrgID > 0)
 			{
 				$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
 				$oWOA->wo_id = $objWorkorder->jcn;
@@ -318,6 +318,8 @@ class boWorkorders
 					{
 						$oWOA->account_id = $aAccounts[$i];
 						$oWOA->Add();
+						if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] != 'Y')
+							break;
 					}
 				}
 			}
