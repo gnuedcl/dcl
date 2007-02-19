@@ -324,8 +324,7 @@ class boTickets
 			return;
 		}
 
-		$objH =& CreateObject('dcl.htmlTicketDetail');
-		$objH->Show($obj, 0, true);
+		ShowDeleteYesNo('Delete Ticket [' . $iID . ']', 'boTickets.dbdelete', $iID, $obj->summary, false, 'ticketid');
 	}
 
 	function dbdelete()
