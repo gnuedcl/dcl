@@ -4,16 +4,16 @@
 		<link rel="stylesheet" type="text/css" href="{$DIR_CSS}default.css" />
 		<title>Select Organization</title>
 		<script language="JavaScript">
-{literal}
 			var oLastButton = null;
 			var sStartsWith = '';
-			var sActiveFilter = '';
+			var sActiveFilter = '{$VAL_FILTERACTIVE}';
 			var iPage = 1;
 			var iMaxPages = 1;
 			var aSelectedID = new Array();
 			var aSelectedName = new Array();
 			var bInitComplete = false;
 
+{literal}
 			function doSave()
 			{
 				var oOpener = parent.window.opener;

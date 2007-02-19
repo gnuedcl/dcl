@@ -52,6 +52,9 @@ class htmlOrganizationSelector
 		if (isset($_REQUEST['filterID']) && $_REQUEST['filterID'] != '')
 			$this->oSmarty->assign('VAL_FILTERID', $_REQUEST['filterID']);
 
+		if (isset($_REQUEST['filterActive']) && $_REQUEST['filterActive'] != '')
+			$this->oSmarty->assign('VAL_FILTERACTIVE', $_REQUEST['filterActive']);
+
 		SmartyDisplay($this->oSmarty, 'htmlOrganizationSelector.tpl');
 	}
 
@@ -62,6 +65,10 @@ class htmlOrganizationSelector
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
+		$filterActive = '';
+		if (IsSet($_REQUEST['filterActive']))
+			$filterActive = $_REQUEST['filterActive'];
+
 		if (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true')
 			$this->oSmarty->assign('VAL_MULTIPLE', 'true');
 		else
@@ -69,6 +76,7 @@ class htmlOrganizationSelector
 
 		$this->oSmarty->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD));
 		$this->oSmarty->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
+		$this->oSmarty->assign('VAL_FILTERACTIVE', $filterActive);
 		SmartyDisplay($this->oSmarty, 'htmlOrganizationSelectorControl.tpl');
 		exit();
 	}
