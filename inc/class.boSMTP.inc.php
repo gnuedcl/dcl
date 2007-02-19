@@ -221,7 +221,7 @@ class boSMTP
 
 		$this->oSocket->Write(phpCrLf);
 		$data = str_replace("\n", "\r\n", str_replace("\r", "", $this->body));
-		$this->oSocket->Write(ereg_replace('^\.', '..', $data) . phpCrLf . '.' . phpCrLf, true);
+		$this->oSocket->Write(str_replace("\r\n.\r\n", "\r\n..\r\n", $data) . phpCrLf . '.' . phpCrLf, true);
 		if ($this->GetResponseCode() == 250)
 			return true;
 
