@@ -14,7 +14,7 @@
 </head><body>
 <table border="0">
 <tr><th colspan="2"><font size="+2">DCL Work Order Notification</font></td></tr>
-<tr><td colspan="2"><i>You are receiving this e-mail because you are (1) directly involved, or (2) have a watch on this work order, or (3) have a watch on an account, product or project associated with this work order.  This is a snapshot of the work order.  <a href="{dcl_config name=DCL_ROOT}?menuAction=boWorkorders.viewjcn&jcn={$obj->jcn}&seq={$obj->seq}">Click here to view online.</a></i></td></tr>
+<tr><td colspan="2"><i>You are receiving this e-mail because you are (1) directly involved, or (2) have a watch on this work order, or (3) have a watch on an account, product or project associated with this work order.  This is a snapshot of the work order.  <a href="{dcl_config name=DCL_ROOT}main.php?menuAction=boWorkorders.viewjcn&jcn={$obj->jcn}&seq={$obj->seq}">Click here to view online.</a></i></td></tr>
 <tr><td class="header" colspan="2" bgcolor="black"><font color="white"><b>[{$obj->jcn}-{$obj->seq}] {$obj->summary|escape}</b></font></td></tr>
 <tr><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
