@@ -709,14 +709,11 @@ function dcl_upgrade0_9_3()
 		if ($phpgw_setup->oProc->m_odb->next_record())
 		{
 			$sSequenceName = $phpgw_setup->oProc->m_odb->f(0);
-			if ($sSequenceName != 'seq_dcl_projects')
-			{
-				$phpgw_setup->oProc->query('ALTER TABLE dcl_projects ALTER projectid DROP DEFAULT');
-				$phpgw_setup->oProc->query("DROP SEQUENCE $sSequenceName");
-				$phpgw_setup->oProc->query('CREATE SEQUENCE seq_dcl_projects');
-				$phpgw_setup->oProc->UpdateSequence('dcl_projects', 'projectid');
-				$phpgw_setup->oProc->query("ALTER TABLE dcl_projects ALTER projectid SET DEFAULT nextval('seq_dcl_projects')");
-			}
+			$phpgw_setup->oProc->query('ALTER TABLE dcl_projects ALTER projectid DROP DEFAULT');
+			$phpgw_setup->oProc->query("DROP SEQUENCE $sSequenceName");
+			$phpgw_setup->oProc->query('CREATE SEQUENCE seq_dcl_projects');
+			$phpgw_setup->oProc->UpdateSequence('dcl_projects', 'projectid');
+			$phpgw_setup->oProc->query("ALTER TABLE dcl_projects ALTER projectid SET DEFAULT nextval('seq_dcl_projects')");
 		}
 
 		// and we have one other that needs changed
