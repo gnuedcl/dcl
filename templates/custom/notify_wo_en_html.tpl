@@ -2,12 +2,14 @@
 	<!-- $Id$ -->
 	<title>DCL Notification</title>
 	<style type="text/css">
+{literal}
 		a {text-decoration: none; font-weight: bold;}
 		a:hover {text-decoration: underline; color: #FF6666;}
 		.header { border-bottom: solid black 2px; }
 		body { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
 		th { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
 		td { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
+{/literal}
 	</style>
 </head><body>
 <table border="0">
