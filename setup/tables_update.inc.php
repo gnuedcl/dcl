@@ -473,7 +473,7 @@ function dcl_upgrade0_9_2()
 							'page_date' => array('type' => 'timestamp'),
 							'page_ip' => array('type' => 'varchar', 'precision' => 255)
 						),
-						'pk' => array('dcl_entity_type_id'),
+						'pk' => array('dcl_entity_type_id', 'dcl_entity_id', 'dcl_entity_id2', 'page_name'),
 						'fk' => array(),
 						'ix' => array(),
 						'uc' => array()
