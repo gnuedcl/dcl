@@ -27,6 +27,13 @@ LoadStringResource('wo');
 
 class boWorkorders
 {
+	var $oMetaData;
+	
+	function boWorkorders()
+	{
+		$this->oMetaData = null;
+	}
+	
 	function newjcn()
 	{
 		global $g_oSec;
@@ -1059,7 +1066,7 @@ class boWorkorders
 				}
 			}
 		}
-echo $_REQUEST['return_to'];
+
 		if (EvaluateReturnTo())
 			return;
 
@@ -1187,6 +1194,50 @@ echo $_REQUEST['return_to'];
 		$objHTMLWO->ShowCSVUploadDialog();
 	}
 
+	function verifyID($field, $id)
+	{
+		if ($this->oMetaData === null)
+			$this->oMetaData =& CreateObject('dcl.DCL_MetadataDisplay');
+
+		$oVal = null;
+		switch ($field)
+		{
+			case 'account':
+				$aRetVal = $this->oMetaData->GetOrganization($id);
+				$oVal = $aRetVal['name'];
+				break;
+			case 'contact_id':
+				$aRetVal = $this->oMetaData->GetContact($id);
+				$oVal = $aRetVal['name'];
+				break;
+			case 'product':
+				$oVal = $this->oMetaData->GetProduct($id);
+				break;
+			case 'wo_type_id':
+				$oVal = $this->oMetaData->GetWorkOrderType($id);
+				break;
+			case 'priority':
+				$oVal = $this->oMetaData->GetPriority($id);
+				break;
+			case 'severity':
+				$oVal = $this->oMetaData->GetSeverity($id);
+				break;
+			case 'responsible':
+				$oVal = $this->oMetaData->GetPersonnel($id);
+				break;
+			case 'project':
+				$oVal = $this->oMetaData->GetProject($id);
+				break;
+			case 'entity_source_id':
+				$oVal = $this->oMetaData->GetSource($id);
+				break;
+			default:
+				$oVal = 1;
+		}
+
+		return ($oVal !== null && $oVal != '');
+	}
+
 	// THANKS: Urmet Janes
 	function docsvupload()
 	{
@@ -1209,6 +1260,7 @@ echo $_REQUEST['return_to'];
 		}
 
 		// Get the line containing field names
+		$newjcns = array();
 		$line = 1;
 		$fields = fgetcsv($hFile, 1000);
 
@@ -1227,7 +1279,7 @@ echo $_REQUEST['return_to'];
 			else
 				return -1;
 		}
-
+		
 		$objWorkorder =& CreateObject('dcl.dbWorkorders');
 		$objTemp =& CreateObject('dcl.dbWorkorders');
 		$objProjectmap =& CreateObject('dcl.dbProjectmap');
@@ -1260,6 +1312,9 @@ echo $_REQUEST['return_to'];
 						case 'wo_type_id':
 							$new_val = findID($objTemp, 'dcl_wo_type', $val, 'wo_type_id', 'type_name');
 							break;
+						case 'entity_source_id':
+							$new_val = findID($objTemp, 'dcl_entity_source', $val, 'entity_source_id', 'entity_source_name');
+							break;
 						case 'priority':
 							$new_val = findID($objTemp, 'priorities', $val);
 							break;
@@ -1280,14 +1335,25 @@ echo $_REQUEST['return_to'];
 					if ($new_val == -1)
 					{
 						// An error on mapping
-						trigger_error(sprintf(STR_BO_CSVMAPERR, $fields[$i], $line));
+						trigger_error(sprintf(STR_BO_CSVMAPERR, $fields[$i], $line), E_USER_ERROR);
 						continue 2;       // On to next line in the file
 					}
 
 					$val = $new_val;
 				}
 				else if ($fields[$i] == 'module_id')
+				{
 					$module_id = $val;
+				}
+				else
+				{
+					if (!$this->verifyID($fields[$i], $val))
+					{
+						// An error on mapping
+						trigger_error(sprintf(STR_BO_CSVMAPERR, $fields[$i], $line), E_USER_ERROR);
+						continue 2;       // On to next line in the file
+					}
+				}
 
 				if ($fields[$i] != 'project' && $fields[$i] != 'module_id')
 				{
@@ -1333,23 +1399,26 @@ echo $_REQUEST['return_to'];
 			}
 		}
 
-		// Display imported work orders
-		$objView =& CreateObject('dcl.boView');
-		$objView->style = 'report';
-		$objView->title = 'Work Order CSV Upload Results';
-		$objView->AddDef('filter', 'jcn', $newjcns);
-		$objView->AddDef('order', 'jcn');
-
-		$objView->AddDef('columns', '',
-			array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'eststarton', 'deadlineon',
-				'etchours', 'totalhours', 'summary'));
-
-		$objView->AddDef('columnhdrs', '',
-			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
-				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_WO_SUMMARY));
-
-		$objHV =& CreateObject('dcl.htmlWorkOrderResults');
-		$objHV->Render($objView);
+		if (count($newjcns) > 0)
+		{
+			// Display imported work orders
+			$objView =& CreateObject('dcl.boView');
+			$objView->style = 'report';
+			$objView->title = 'Work Order CSV Upload Results';
+			$objView->AddDef('filter', 'jcn', $newjcns);
+			$objView->AddDef('order', 'jcn');
+	
+			$objView->AddDef('columns', '',
+				array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'eststarton', 'deadlineon',
+					'etchours', 'totalhours', 'summary'));
+	
+			$objView->AddDef('columnhdrs', '',
+				array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
+					STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_WO_SUMMARY));
+	
+			$objHV =& CreateObject('dcl.htmlWorkOrderResults');
+			$objHV->Render($objView);
+		}
 	}
 
 	function showmy()
@@ -1391,7 +1460,7 @@ echo $_REQUEST['return_to'];
 				}
 
 				if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))
-				{	
+				{
 					if ($objWorkorder->Load($jcn, $seq) == -1)
 						continue;
 					

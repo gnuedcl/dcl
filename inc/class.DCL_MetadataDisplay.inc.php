@@ -76,6 +76,12 @@ class DCL_MetadataDisplay
 	{
 		return (isset($id) && $id !== null && $id != '' && is_numeric($id) && $id > 0);
 	}
+	
+	function TriggerError($sMessage)
+	{
+		trigger_error($sMessage, E_USER_ERROR);
+		return null;
+	}
 
 	function GetStatus($id)
 	{
@@ -85,8 +91,8 @@ class DCL_MetadataDisplay
 		if ($this->oStatus == null)
 			$this->oStatus =& CreateObject('dcl.dbStatuses');
 
-		if ($this->oStatus->Load($id) == -1)
-			return trigger_error("Could not find status ID $id");
+		if ($this->oStatus->Load($id, false) == -1)
+			return $this->TriggerError("Could not find status ID $id");
 
 		return $this->oStatus->name;
 	}
@@ -99,8 +105,8 @@ class DCL_MetadataDisplay
 		if ($this->oPersonnel == null)
 			$this->oPersonnel =& CreateObject('dcl.dbPersonnel');
 
-		if ($this->oPersonnel->Load($id) == -1)
-			return trigger_error("Could not find personnel ID $id");
+		if ($this->oPersonnel->Load($id, false) == -1)
+			return $this->TriggerError("Could not find personnel ID $id");
 
 		return $this->oPersonnel->short;
 	}
@@ -113,8 +119,8 @@ class DCL_MetadataDisplay
 		if ($this->oSeverity == null)
 			$this->oSeverity =& CreateObject('dcl.dbSeverities');
 
-		if ($this->oSeverity->Load($id) == -1)
-			return trigger_error("Could not find severity ID $id");
+		if ($this->oSeverity->Load($id, false) == -1)
+			return $this->TriggerError("Could not find severity ID $id");
 
 		return $this->oSeverity->name;
 	}
@@ -127,8 +133,8 @@ class DCL_MetadataDisplay
 		if ($this->oPriority == null)
 			$this->oPriority =& CreateObject('dcl.dbPriorities');
 
-		if ($this->oPriority->Load($id) == -1)
-			return trigger_error("Could not find priority ID $id");
+		if ($this->oPriority->Load($id, false) == -1)
+			return $this->TriggerError("Could not find priority ID $id");
 
 		return $this->oPriority->name;
 	}
@@ -141,8 +147,8 @@ class DCL_MetadataDisplay
 		if ($this->oProduct == null)
 			$this->oProduct =& CreateObject('dcl.dbProducts');
 
-		if ($this->oProduct->Load($id) == -1)
-			return trigger_error("Could not find product ID $id");
+		if ($this->oProduct->Load($id, false) == -1)
+			return $this->TriggerError("Could not find product ID $id");
 
 		return $this->oProduct->name;
 	}
@@ -155,8 +161,8 @@ class DCL_MetadataDisplay
 		if ($this->oProject == null)
 			$this->oProject =& CreateObject('dcl.dbProjects');
 
-		if ($this->oProject->Load($id) == -1)
-			return trigger_error("Could not find project ID $id");
+		if ($this->oProject->Load($id, false) == -1)
+			return $this->TriggerError("Could not find project ID $id");
 
 		return $this->oProject->name;
 	}
@@ -170,7 +176,7 @@ class DCL_MetadataDisplay
 			$this->oWorkOrderType =& CreateObject('dcl.dbWorkOrderType');
 
 		if ($this->oWorkOrderType->Load(array('wo_type_id' => $id)) == -1)
-			return trigger_error("Could not find work order type ID $id");
+			return $this->TriggerError("Could not find work order type ID $id");
 
 		return $this->oWorkOrderType->type_name;
 	}
@@ -183,8 +189,8 @@ class DCL_MetadataDisplay
 		if ($this->oModule == null)
 			$this->oModule =& CreateObject('dcl.dbProductModules');
 
-		if ($this->oModule->Load($id) == -1)
-			return trigger_error("Could not find module ID $id");
+		if ($this->oModule->Load($id, false) == -1)
+			return $this->TriggerError("Could not find module ID $id");
 
 		return $this->oModule->module_name;
 	}
@@ -198,7 +204,7 @@ class DCL_MetadataDisplay
 			$this->oSource =& CreateObject('dcl.dbEntitySource');
 
 		if ($this->oSource->Load(array('entity_source_id' => $id)) == -1)
-			return trigger_error("Could not find source ID $id");
+			return $this->TriggerError("Could not find source ID $id");
 
 		return $this->oSource->entity_source_name;
 	}
@@ -299,7 +305,7 @@ class DCL_MetadataDisplay
 			$this->oAction =& CreateObject('dcl.dbActions');
 
 		if ($this->oAction->Load($id) == -1)
-			return trigger_error("Could not find action ID $id");
+			return $this->TriggerError("Could not find action ID $id");
 
 		return $this->oAction->name;
 	}
@@ -313,7 +319,7 @@ class DCL_MetadataDisplay
 			$this->oWorkOrder =& CreateObject('dcl.dbWorkorders');
 
 		if ($this->oWorkOrder->Load($jcn, $seq) == -1)
-			return trigger_error("Could not find workorder ID $jcn-$seq");
+			return $this->TriggerError("Could not find workorder ID $jcn-$seq");
 
 		return $this->oWorkOrder->summary;
 	}
@@ -327,7 +333,7 @@ class DCL_MetadataDisplay
 			$this->oTicket =& CreateObject('dcl.dbTickets');
 
 		if ($this->oTicket->Load($id) == -1)
-			return trigger_error("Could not find ticket ID $id");
+			return $this->TriggerError("Could not find ticket ID $id");
 
 		return $this->oTicket->summary;
 	}
@@ -341,7 +347,7 @@ class DCL_MetadataDisplay
 			$this->oDepartment =& CreateObject('dcl.dbDepartments');
 
 		if ($this->oDepartment->Load($id) == -1)
-			return trigger_error("Could not find department ID $id");
+			return $this->TriggerError("Could not find department ID $id");
 
 		return $this->oDepartment->name;
 	}
