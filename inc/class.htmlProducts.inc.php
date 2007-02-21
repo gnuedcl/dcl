@@ -203,8 +203,9 @@ class htmlProducts
 		$oProduct = CreateObject('dcl.boProducts');
 		CleanArray($_REQUEST);
 		$oProduct->modify($_REQUEST);
-
-		$this->PrintAll();
+		
+		$obj =& CreateObject('dcl.htmlProductDetail');
+		$obj->Show($id);
 	}
 
 	function delete()

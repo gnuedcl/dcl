@@ -45,9 +45,6 @@ class boProducts extends boAdminObject
 		$obj =& CreateObject('dcl.dbProducts');
 		$obj->InitFromArray($aSource);
 		$obj->Add();
-
-		$objHTML =& CreateObject('dcl.htmlProducts');
-		$objHTML->PrintAll();
 	}
 
 	function modify($aSource)
@@ -60,9 +57,6 @@ class boProducts extends boAdminObject
 		$obj =& CreateObject('dcl.dbProducts');
 		$obj->InitFromArray($aSource);
 		$obj->Edit();
-		
-		$objHTML =& CreateObject('dcl.htmlProducts');
-		$objHTML->PrintAll();
 	}
 
 	function delete($id)
