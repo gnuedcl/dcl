@@ -118,12 +118,12 @@ class reportPersonnelActivity
 		else if ($_REQUEST['groupby'] == '2')
 			$sCols .= ', actions.name';
 		else if ($_REQUEST['groupby'] == '3')
-			$sCols .= ', timecards.actionon';
+			$sCols .= ', ' . $objDB->ConvertDate('timecards.actionon', 'actionon');
 		else if ($_REQUEST['groupby'] == '4')
 			$sCols .= ', products.name';
 			
 		if ($bTimesheet)
-			$sCols .= ', timecards.actionon';
+			$sCols .= ', ' . $objDB->ConvertDate('timecards.actionon', 'actionon');
 
 		$iGroupColumn = -1;
 		$query = "select $sCols from timecards ";

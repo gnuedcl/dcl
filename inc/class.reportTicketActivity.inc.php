@@ -71,7 +71,8 @@ class reportTicketActivity
 		$obj = CreateObject('dcl.dbTickets');
 		$objT = CreateObject('dcl.dbTicketresolutions');
 
-		$query = 'select a.* from tickets a, ticketresolutions b where a.ticketid=b.ticketid and b.loggedby=' . $responsible;
+		$sColumns = $obj->SelectAllColumns('a.');
+		$query = 'select ' . $sColumns . ' from tickets a, ticketresolutions b where a.ticketid=b.ticketid and b.loggedby=' . $responsible;
 		$query .= ' and b.loggedon between ' . $obj->DisplayToSQL($begindate . ' 00:00:00') . ' and ' . $obj->DisplayToSQL($enddate . ' 23:59:59');
 		$query .= ' order by a.ticketid';
 

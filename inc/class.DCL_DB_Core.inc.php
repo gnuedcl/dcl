@@ -863,9 +863,10 @@ class DCL_DB_Core
 
 	/**
 	 * Constructs a list of columns for a select clause
-	 @return string SQL column list
+	 * @param string The prefix to prepend to the field name, including the dot separator (i.e., "timecards.")
+	 * @return string SQL column list
 	 */
-	function SelectAllColumns()
+	function SelectAllColumns($sTablePrefix = '')
 	{
 		$bFirstFd = true;
 		$sFd = '';
@@ -874,7 +875,7 @@ class DCL_DB_Core
 			if (!$bFirstFd)
 				$sFd .= ', ';
 
-			$sFd .= $this->SelectField($sFieldName);
+			$sFd .= $sTablePrefix . $this->SelectField($sFieldName);
 			$bFirstFd = false;
 		}
 

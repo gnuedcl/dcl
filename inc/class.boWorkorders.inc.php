@@ -818,7 +818,7 @@ class boWorkorders
 		$endDate->SetFromDisplay($dateFrom . ' 23:59:59');
 		$beginDate->SetFromDisplay($dateFrom . ' 00:00:00');
 		$beginDate->time -= (($iDays - 1) * 86400);
-		$query = 'SELECT createdon,closedon FROM workorders WHERE ';
+		$query = 'SELECT ' . $obj->ConvertTimestamp('createdon', 'createdon') . ', ' . $obj->ConvertTimestamp('closedon', 'closedon') . ' FROM workorders WHERE ';
 		
 		if ($iProduct > 0)
 			$query .= 'product = ' . $iProduct . ' AND ';
