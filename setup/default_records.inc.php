@@ -87,19 +87,23 @@ class DCLDataImport
 					}
 					else
 					{
+						if ($sValues != '')
+							$sValues .= ', ';
+						
 						$sType = $GLOBALS['phpgw_baseline'][$sTableName]['fd'][$aFields[$i]]['type'];
 						if ($sType == 'int' || $sType == 'float')
 						{
-							if ($sValues != '')
-								$sValues .= ', ';
-
 							$sValues .= $aRow[$i];
+						}
+						else if ($sType == 'date' || $sType == 'timestamp')
+						{
+							if ($aRow[$i] == 'now()')
+								$sValues .= $this->oDB->GetDateSQL();
+							else
+								$sValues .= "'" . $aRow[$i] . "'";
 						}
 						else
 						{
-							if ($sValues != '')
-								$sValues .= ', ';
-
 							$sValues .= "'" . $aRow[$i] . "'";
 						}
 					}
