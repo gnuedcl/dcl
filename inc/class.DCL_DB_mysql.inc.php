@@ -193,18 +193,13 @@ class dclDB extends DCL_DB_Core
 
 	function Execute($query)
 	{
-		$this->res = 0;
-		$this->oid = 0;
-		$this->cur = -1;
-		$this->Record = array();
-
 		if ($this->conn)
 		{
 			mysql_query($query, $this->conn) or $this->mysql_die();
 			return 1;
 		}
-		else
-			return -1;
+
+		return -1;
 	}
 
 	// Execute row returning query and return first row, first field

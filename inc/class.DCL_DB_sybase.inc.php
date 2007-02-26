@@ -167,19 +167,13 @@ class dclDB extends DCL_DB_Core
 
 	function Execute($query)
 	{
-		$this->res = 0;
-		$this->oid = 0;
-		$this->cur = -1;
-		$this->vcur = -1;
-		$this->Record = array();
-
 		if ($this->conn)
 		{
 			sybase_query($query, $this->conn) or trigger_error("Could not execute query: $query");
 			return 1;
 		}
-		else
-			return -1;
+
+		return -1;
 	}
 
 	// Execute row returning query and return first row, first field

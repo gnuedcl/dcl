@@ -140,7 +140,26 @@ class dclDB extends DCL_DB_Core
 
 	function Execute($query)
 	{
-		return $this->Query($query);
+		if ($this->conn)
+		{
+			if (!($res = OCIParse($this->conn, $query)))
+			{
+				trigger_error("Error parsing query: $query");
+				return $this->ReportError($this->conn);
+			}
+
+			if (OCIExecute($res))
+			{
+				return 1;
+			}
+			else
+			{
+				trigger_error("Error executing query: $query");
+				return $this->ReportError($res);
+			}
+		}
+		
+		return -1;
 	}
 
 	function ExecuteScalar($sql)
