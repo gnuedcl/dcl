@@ -115,44 +115,44 @@ function validateAndSubmit(f)
 	</fieldset>
 	<fieldset>
 		<legend>{$smarty.const.STR_CFG_WORKORDERTITLE}</legend>
-		<div class="required"><label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_DEFAULTSTATUSASSIGN}:</label>{$CMB_DEFAULTSTATUSASSIGN}<span>{$smarty.const.STR_CFG_DEFAULTSTATUSASSIGNHELP}</span></div>
+		<div class="required"><label for="DCL_DEF_STATUS_ASSIGN_WO">{$smarty.const.STR_CFG_DEFAULTSTATUSASSIGN}:</label>{$CMB_DEFAULTSTATUSASSIGN}<span>{$smarty.const.STR_CFG_DEFAULTSTATUSASSIGNHELP}</span></div>
 		<div class="required">
-			<label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_DEFAULTSTATUSUNASSIGN}:</label>
+			<label for="DCL_DEF_STATUS_UNASSIGN_WO">{$smarty.const.STR_CFG_DEFAULTSTATUSUNASSIGN}:</label>
 			{$CMB_DEFAULTSTATUSUNASSIGN}
 			<span>{$smarty.const.STR_CFG_DEFAULTSTATUSUNASSIGNHELP}</span>
 		</div>
 		<div class="required">
-			<label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_DEFAULTPRIORITY}:</label>
+			<label for="DCL_DEF_PRIORITY">{$smarty.const.STR_CFG_DEFAULTPRIORITY}:</label>
 			{$CMB_DEFAULTPRIORITY}
 			<span>{$smarty.const.STR_CFG_DEFAULTPRIORITYHELP}</span>
 		</div>
 		<div class="required">
-			<label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_DEFAULTSEVERITY}:</label>
+			<label for="DCL_DEF_SEVERITY">{$smarty.const.STR_CFG_DEFAULTSEVERITY}:</label>
 			{$CMB_DEFAULTSEVERITY}
 			<span>{$smarty.const.STR_CFG_DEFAULTSEVERITYHELP}</span>
 		</div>
 		<div class="required">
-			<label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_AUTODATE}:</label>
+			<label for="DCL_AUTO_DATE">{$smarty.const.STR_CFG_AUTODATE}:</label>
 			<input type="checkbox" name="DCL_AUTO_DATE" id="DCL_AUTO_DATE" value="Y"{if $VAL_AUTODATE == "Y"} checked{/if}>
 			<span>{$smarty.const.STR_CFG_AUTODATEHELP}</span>
 		</div>
 		<div class="required">
-			<label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_TIMECARDORDER}:</label>
+			<label for="DCL_TIME_CARD_ORDER">{$smarty.const.STR_CFG_TIMECARDORDER}:</label>
 			{$CMB_TIMECARDORDER}
 			<span>{$smarty.const.STR_CFG_TIMECARDORDERHELP}</span>
 		</div>
 		<div class="required">
-			<label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_WONOTIFICATIONHTML}:</label>
+			<label for="DCL_WO_NOTIFICATION_HTML">{$smarty.const.STR_CFG_WONOTIFICATIONHTML}:</label>
 			<input type="checkbox" name="DCL_WO_NOTIFICATION_HTML" id="DCL_WO_NOTIFICATION_HTML" value="Y"{if $VAL_WONOTIFICATIONHTML == "Y"} checked{/if}>
 			<span>{$smarty.const.STR_CFG_WONOTIFICATIONHTMLHELP}</span>
 		</div>
 		<div class="required">
-			<label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_WOEMAILTEMPLATE}:</label>
-			<input type="text" name="DCL_WO_EMAIL_TEMPLATE" size="20" maxlength="255" value="{$VAL_WOEMAILTEMPLATE|escape}">
+			<label for="DCL_WO_EMAIL_TEMPLATE">{$smarty.const.STR_CFG_WOEMAILTEMPLATE}:</label>
+			<input type="text" name="DCL_WO_EMAIL_TEMPLATE" id="DCL_WO_EMAIL_TEMPLATE" size="20" maxlength="255" value="{$VAL_WOEMAILTEMPLATE|escape}">
 			<span>{$smarty.const.STR_CFG_WOEMAILTEMPLATEHELP}</span>
 		</div>
 		<div class="required">
-			<label for="DCL_SMTP_TIMEOUT">{$smarty.const.STR_CFG_WOSECONDARYACCOUNTSENABLED}:</label>
+			<label for="DCL_WO_SECONDARY_ACCOUNTS_ENABLED">{$smarty.const.STR_CFG_WOSECONDARYACCOUNTSENABLED}:</label>
 			<input type="checkbox" name="DCL_WO_SECONDARY_ACCOUNTS_ENABLED" id="DCL_WO_SECONDARY_ACCOUNTS_ENABLED" value="Y"{if $VAL_WOSECONDARYACCOUNTSENABLED == "Y"} checked{/if}></td>
 			<span>{$smarty.const.STR_CFG_WOSECONDARYACCOUNTSENABLEDHELP}</span>
 		</div>
