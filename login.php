@@ -172,6 +172,14 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 					$oContact =& CreateObject('dcl.dbContact');
 					$aOrgs = $oContact->GetOrgArray($aAuthInfo['contact_id']);
 					$g_oSession->Register('member_of_orgs', join(',', $aOrgs));
+					
+					// Also grab the filtered product list for the orgs
+					$oOrg =& CreateObject('dcl.dbOrg');
+					$aProducts = $oOrg->GetProductArray($aOrgs);
+					if (count($aProducts) == 0)
+						$aProducts = array('-1');
+					
+					$g_oSession->Register('org_products', join(',', $aProducts));
 				}
 			}
 
