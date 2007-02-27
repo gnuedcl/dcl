@@ -85,6 +85,18 @@ class htmlOrgDetail
 		$t->assign_by_ref('OrgType', $aTypes);
 		$oOrgType->FreeResult();
 
+		// Get products for this org
+		$oOrgProduct =& CreateObject('dcl.dbOrgProduct');
+		$oOrgProduct->ListByOrg($oOrg->org_id);
+		$aProducts = array();
+		while ($oOrgProduct->next_record())
+		{
+			$aProducts[] = $oOrgProduct->Record;
+		}
+
+		$t->assign_by_ref('OrgProduct', $aProducts);
+		$oOrgProduct->FreeResult();
+
 		// Get addresses
 		$oOrgAddress = CreateObject('dcl.dbOrgAddr');
 		$oOrgAddress->ListByOrg($oOrg->org_id);
