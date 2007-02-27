@@ -56,7 +56,7 @@ class htmlTicketSearches
 
 	function Show($oView = '')
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info, $g_oSec, $g_oSession;
 
 		commonHeader();
 
@@ -230,7 +230,11 @@ class htmlTicketSearches
 			$t->assign('CMB_PUBLIC', GetYesNoCombo($aDefault['is_public'], 'is_public', 3));
 		}
 
-		$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', '', 'name');
+		if ($g_oSec->IsOrgUser())
+			$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', 'org_id IN (' . $g_oSession->Value('member_of_orgs') . ')', 'name');
+		else
+			$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', '', 'name');
+		
 		$oSelect->iSize = 8;
 		$oSelect->vDefault = $aDefault['account'];
 		$oSelect->sName = 'account';

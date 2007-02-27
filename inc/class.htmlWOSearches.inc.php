@@ -256,7 +256,7 @@ class htmlWOSearches
 		}
 
 		$oSelect =& CreateObject('dcl.htmlSelect');
-		
+
 		if ($g_oSec->IsOrgUser())
 			$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', 'org_id IN (' . $g_oSession->Value('member_of_orgs') . ')', 'name');
 		else
