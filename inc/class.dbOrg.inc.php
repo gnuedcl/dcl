@@ -34,6 +34,29 @@ class dbOrg extends dclDB
 		parent::Clear();
 	}
 	
+	function GetProductArray($aOrgID)
+	{
+		if (($aOrgID = DCL_Sanitize::ToIntArray($aOrgID)) === null)
+		{
+			trigger_error('Data sanitize failed.');
+			return -1;
+		}
+		
+		$aRetVal = array();
+		$sOrgID = '-1';
+		if (count($aOrgID) > 0)
+			$sOrgID = join(',', $aOrgID);
+
+		$sSQL = "SELECT DISTINCT product_id FROM dcl_org_product_xref WHERE org_id IN ($sOrgID)";
+		if ($this->Query($sSQL) != -1)
+		{
+			while ($this->next_record())
+				$aRetVal[] = $this->f(0);
+		}
+
+		return $aRetVal;
+	}
+	
 	function ListMainContacts($org_id)
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)

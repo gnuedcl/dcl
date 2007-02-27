@@ -615,6 +615,15 @@ class boView
 					break;
 			}
 		}
+		elseif ($this->table == 'products')
+		{
+			switch ($table)
+			{
+				case 'dcl_org_product_xref':
+					$join = 'products.id = dcl_org_product_xref.product_id';
+					break;
+			}
+		}
 		elseif ($this->table == 'dcl_projects')
 		{
 			switch ($table)
@@ -1036,6 +1045,7 @@ class boView
 		$closedbySQL = '';
 		$sTagFilter = '';
 		$bOrgFilter = false;
+		$bProductFilter = false;
 		$bFirst = true;
 		if (count($this->filter) > 0)
 		{
@@ -1093,6 +1103,10 @@ class boView
 				}
 				else if (eregi('^.*\.product', $field))
 				{
+					if ($g_oSec->IsOrgUser())
+						$values = array_intersect($values, split(',', $g_oSession->Value('org_products')));
+					
+					$bProductFilter = true;
 					if (count($values) == 1)
 						$productSQL = "($field=" . $this->GetCSLFromArray($values) . ')';
 					else
@@ -1502,17 +1516,33 @@ class boView
 		$sAccountSQL = '';		
 		if ($this->table == 'workorders')
 		{
-			if ($g_oSec->IsOrgUser() && !$bOrgFilter)
+			if ($g_oSec->IsOrgUser())
 			{
-				$sOrgs = $g_oSession->Value('member_of_orgs');
-				if ($sOrgs != '')
-					$values = split(',', $sOrgs);
-				else
-					$values = array('-1');
-
-				$sAccountSQL = "((workorders.jcn in (select wo_id from dcl_wo_account where account_id in (" . $this->GetCSLFromArray($values) . ")))";
-				$sAccountSQL .= " AND (workorders.seq in (select seq from dcl_wo_account where workorders.jcn = wo_id And account_id in (" . $this->GetCSLFromArray($values) . "))";
-				$sAccountSQL .= '))';
+				if (!$bOrgFilter)
+				{
+					$sOrgs = $g_oSession->Value('member_of_orgs');
+					if ($sOrgs != '')
+						$values = split(',', $sOrgs);
+					else
+						$values = array('-1');
+	
+					$sAccountSQL = "((workorders.jcn in (select wo_id from dcl_wo_account where account_id in (" . $this->GetCSLFromArray($values) . ")))";
+					$sAccountSQL .= " AND (workorders.seq in (select seq from dcl_wo_account where workorders.jcn = wo_id And account_id in (" . $this->GetCSLFromArray($values) . "))";
+					$sAccountSQL .= '))';
+				}
+				
+				if (!$bProductFilter)
+				{
+					if ($bDoneDidWhere == false)
+					{
+						$bDoneDidWhere = true;
+						$sql .= ' WHERE ';
+					}
+					else
+						$sql .= ' AND ';
+	
+					$sql .= 'product IN (' . $g_oSession->Value('org_products') . ')';
+				}
 			}
 			
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWSUBMITTED))
@@ -1547,9 +1577,23 @@ class boView
 		}
 		else if ($this->table == 'tickets')
 		{
-			if ($g_oSec->IsOrgUser() && !$bOrgFilter)
+			if ($g_oSec->IsOrgUser())
 			{
-				$sAccountSQL = 'account IN (' . $g_oSession->Value('member_of_orgs') . ')';
+				if (!$bOrgFilter)
+					$sAccountSQL = 'account IN (' . $g_oSession->Value('member_of_orgs') . ')';
+
+				if (!$bProductFilter)
+				{
+					if ($bDoneDidWhere == false)
+					{
+						$bDoneDidWhere = true;
+						$sql .= ' WHERE ';
+					}
+					else
+						$sql .= ' AND ';
+	
+					$sql .= 'product IN (' . $g_oSession->Value('org_products') . ')';
+				}
 			}
 			
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEWSUBMITTED))
