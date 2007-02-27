@@ -50,6 +50,7 @@ LoadSchema('dcl_org_contact');
 LoadSchema('dcl_org_email');
 LoadSchema('dcl_org_note');
 LoadSchema('dcl_org_phone');
+LoadSchema('dcl_org_product_xref');
 LoadSchema('dcl_org');
 LoadSchema('dcl_org_type');
 LoadSchema('dcl_org_type_xref');
