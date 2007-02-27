@@ -35,11 +35,7 @@ class htmlProducts
 		$objDBProducts = CreateObject('dcl.dbProducts');
 		$objDBProducts->cacheEnabled = false;
 		$whereClause = '';
-		$joinClause = '';
 		
-		if ($g_oSec->IsOrgUser())
-			$joinClause = $objDBProducts->JoinKeyword . ' dcl_org_product_xref ON products.id = dcl_org_product_xref.product_id';
-
 		if ($reportTo > 0 || $activeOnly == true)
 		{
 			$whereClause = ' WHERE ';
@@ -74,7 +70,7 @@ class htmlProducts
 			$whereClause .= ' id IN (' . $g_oSession->Value('org_products') . ')';
 		}
 
-		$objDBProducts->Query("SELECT id,$longShort FROM products " . $joinClause . $whereClause . " ORDER BY $longShort");
+		$objDBProducts->Query("SELECT id,$longShort FROM products " . $whereClause . " ORDER BY $longShort");
 
 		$o = CreateObject('dcl.htmlSelect');
 		$o->vDefault = $default;
