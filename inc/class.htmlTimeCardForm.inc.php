@@ -64,6 +64,7 @@ class htmlTimeCardForm
 			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo(1, 'status', 'name', 0, true, $setid));
 			$oSmarty->assign('VAL_WOETCHOURS', '0');
 			$oSmarty->assign('VAL_UPDATEWOETCHOURS', 'false');
+			$oSmarty->assign('VAL_ENABLEPUBLIC', 'N');
 		}
 		else
 		{
@@ -78,6 +79,8 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_WOETCHOURS', $oWO->etchours);
 			$oSmarty->assign('VAL_UPDATEWOETCHOURS', 'true');
 			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo($oWO->status, 'status', 'name', 0, true, $setid));
+			$oSmarty->assign('VAL_ISPUBLIC', $oWO->is_public);
+			$oSmarty->assign('VAL_ENABLEPUBLIC', $oWO->is_public);
 		}
 
 		if ($isEdit)
@@ -88,6 +91,7 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_REVISION', $obj->revision);
 			$oSmarty->assign('VAL_SUMMARY', $obj->summary);
 			$oSmarty->assign('VAL_DESCRIPTION', $obj->description);
+			$oSmarty->assign('VAL_ISPUBLIC', $obj->is_public);
 			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo($obj->status, 'status', 'name', 0, false, $setid));
 			$oSmarty->assign('CMB_ACTION', $objActions->GetCombo($obj->action, 'action', 'name', 0, false, $setid));
 		}

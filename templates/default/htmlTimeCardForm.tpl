@@ -64,6 +64,12 @@ function validateAndSubmitForm(form)
 			<label for="actionon">{$smarty.const.STR_TC_DATE}:</label>
 			{dcl_calendar name="actionon" value="$VAL_ACTIONON"}
 		</div>
+		{if !$PERM_ISPUBLIC && $VAL_ENABLEPUBLIC == 'Y'}
+		<div class="required">
+			<label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label>
+			<input type="checkbox" id="is_public" name="is_public" value="Y"{if $VAL_ISPUBLIC == 'Y'} checked{/if}>
+		</div>
+		{/if}
 		<div class="required">
 			<label for="copy_me_on_notification">Copy Me on Notification:</label>
 			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>

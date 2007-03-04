@@ -76,6 +76,11 @@ class boTimecards
 
 		$objTimecard->InitFromGlobals();
 		$objTimecard->actionby = $GLOBALS['DCLID'];
+		if ($g_oSec->IsPublicUser())
+			$objTimecard->is_public = 'Y';
+		else
+			$objTimecard->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+
 		$objTimecard->inputon = DCL_NOW;
 		if ($objWorkorder->Load($objTimecard->jcn, $objTimecard->seq) == -1)
 		    return;
@@ -245,6 +250,10 @@ class boTimecards
 		$objTimecard =& CreateObject('dcl.dbTimeCards');
 		$objTimecard->InitFromGlobals();
 		$objTimecard->actionby = $GLOBALS['DCLID'];
+		if ($g_oSec->IsPublicUser())
+			$objTimecard->is_public = 'Y';
+		else
+			$objTimecard->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
 		
 		$objWorkorder =& CreateObject('dcl.dbWorkorders');
 		$objWtch =& CreateObject('dcl.boWatches');
@@ -330,8 +339,17 @@ class boTimecards
 		$objTC =& CreateObject('dcl.dbTimeCards');
 		$objOldTC =& CreateObject('dcl.dbTimeCards');
 		$objTC->InitFromGlobals();
+		$objTC->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+		if ($g_oSec->IsPublicUser())
+			$objTC->is_public = 'Y';
+		else
+			$objTC->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+
 		if ($objOldTC->Load($objTC->id) == -1)
 			return;
+
+		if ($g_oSec->IsPublicUser() && $objOldTC->is_public == 'N')
+			return PrintPermissionDenied();
 
 		// If the hours change, we'll need to adjust the workorder
 		$hoursDiff = $objTC->hours - $objOldTC->hours;
