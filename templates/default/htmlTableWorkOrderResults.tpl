@@ -114,6 +114,7 @@ function submitBatch()
 			<td class="{$columns[$smarty.section.item.index].type}">
 			{if $smarty.section.item.index == $wo_id_ordinal || $smarty.section.item.index == $seq_ordinal}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$records[row][$wo_id_ordinal]}&seq={$records[row][$seq_ordinal]}">{$records[row][item]}</a>
 			{elseif $smarty.section.item.index == $tag_ordinal && $records[row][$num_tags_ordinal] > 1}{dcl_get_entity_tags entity=$smarty.const.DCL_ENTITY_WORKORDER key_id=$records[row][$wo_id_ordinal] key_id2=$records[row][$seq_ordinal] link=Y}
+			{elseif $smarty.section.item.index == $tag_ordinal && $records[row][$num_tags_ordinal] == 1}{dcl_tag_link value=$records[row][item]}
 			{elseif $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}
 			{else}{$records[row][item]|escape}{if $records[row][$num_accounts_ordinal] > 1 && $smarty.section.item.index == $org_ordinal}<img src="{$DIR_IMG}/jump-to-16.png" style="cursor: hand; cursor: pointer;" onclick="showAccounts({$records[row][$wo_id_ordinal]}, {$records[row][$seq_ordinal]});">{/if}
 			{/if}
