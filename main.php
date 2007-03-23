@@ -31,6 +31,12 @@ if (IsSet($menuAction) && $menuAction != 'clearScreen')
 {
 	if ($g_oSec->ValidateMenuAction() == true)
 	{
+		if (($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y') && ($GLOBALS['dcl_info']['DCL_SEC_AUDIT_LOGIN_ONLY'] == 'N'))
+		{
+			$oSecAuditDB = CreateObject('dcl.dbSecAudit');
+			$oSecAuditDB->Add($menuAction, ExplodeParams());
+		}
+	
 		Invoke($menuAction);
 	}
 	else

@@ -63,6 +63,7 @@ LoadSchema('dcl_projects');
 LoadSchema('dcl_projects_audit');
 LoadSchema('dcl_role_perm');
 LoadSchema('dcl_role');
+LoadSchema('dcl_sec_audit');
 LoadSchema('dcl_sccs');
 LoadSchema('dcl_sccs_xref');
 LoadSchema('dcl_session');

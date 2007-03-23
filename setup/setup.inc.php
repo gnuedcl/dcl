@@ -25,7 +25,7 @@
 $setup_info['dcl'] = array();
 $setup_info['dcl']['name']      = 'dcl';
 $setup_info['dcl']['title']     = 'Double Choco Latte';
-$setup_info['dcl']['version']   = '0.9.5RC5';
+$setup_info['dcl']['version']   = '0.9.5RC6';
 $setup_info['dcl']['enable']    = 1;
 $setup_info['dcl']['app_order'] = 1;
 
@@ -89,6 +89,7 @@ $setup_info['dcl']['tables'][] = 'dcl_role_perm';
 $setup_info['dcl']['tables'][] = 'dcl_role';
 $setup_info['dcl']['tables'][] = 'dcl_sccs';
 $setup_info['dcl']['tables'][] = 'dcl_sccs_xref';
+$setup_info['dcl']['tables'][] = 'dcl_sec_audit';
 $setup_info['dcl']['tables'][] = 'dcl_session';
 $setup_info['dcl']['tables'][] = 'dcl_status_type';
 $setup_info['dcl']['tables'][] = 'dcl_tag';

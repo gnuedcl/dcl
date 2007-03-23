@@ -144,4 +144,8 @@
 	define('STR_CFG_SCCSENABLEDHELP', "Enables integration with source code control systems.  This makes ChangeLog an available option for work orders and projects.");
 	define('STR_CFG_BUILDMANAGERENABLED', "Build Manager Enabled (Requires SCCS)");
 	define('STR_CFG_BUILDMANAGERENABLEDHELP', "Enables the build manager.  This enables a user to create builds and associate ChangeLog entries with the build for tracking purposes.");
+	define('STR_CFG_SECAUDITENABLED', "Security Auditing Enabled");
+	define('STR_CFG_SECAUDITENABLEDHELP', "Enables security auditing. By default, security auditing tracks logins, logouts, and any time the user hits main.php.  Reports are available in the admin section to view a users history.");
+	define('STR_CFG_SECAUDITLOGINONLY', "Only audit login events");
+	define('STR_CFG_SECAUDITLOGINONLYHELP', "Restricts security auditing to login and logout events only. By default, security auditing tracks logins, logouts, and any time the user hits main.php.");
 ?>

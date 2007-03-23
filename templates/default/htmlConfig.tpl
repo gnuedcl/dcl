@@ -61,6 +61,16 @@ function validateAndSubmit(f)
 			<input type="text" id="DCL_SESSION_TIMEOUT" name="DCL_SESSION_TIMEOUT" size="5" maxlength="5" value="{$VAL_SESSIONTIMEOUT|escape}">
 			<span>{$smarty.const.STR_CFG_SESSIONTIMEOUTHELP}</span>
 		</div>
+		<div class="required">
+			<label for="DCL_SEC_AUDIT_ENABLED">{$smarty.const.STR_CFG_SECAUDITENABLED}:</label>
+			<input type="checkbox" name="DCL_SEC_AUDIT_ENABLED" id="DCL_SEC_AUDIT_ENABLED" value="Y"{if $VAL_SECAUDITENABLED == "Y"} checked{/if}>
+			<span>{$smarty.const.STR_CFG_SECAUDITENABLEDHELP}</span>
+		</div>
+		<div class="required">
+			<label for="DCL_SEC_AUDIT_LOGIN_ONLY">{$smarty.const.STR_CFG_SECAUDITLOGINONLY}:</label>
+			<input type="checkbox" name="DCL_SEC_AUDIT_LOGIN_ONLY" id="DCL_SEC_AUDIT_LOGIN_ONLY" value="Y"{if $VAL_SECAUDITLOGINONLY == "Y"} checked{/if}>
+			<span>{$smarty.const.STR_CFG_SECAUDITLOGINONLYHELP}</span>
+		</div>
 	</fieldset>
 	<fieldset>
 		<legend>{$smarty.const.STR_CFG_EMAILSERVERTITLE}</legend>

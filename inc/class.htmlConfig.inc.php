@@ -50,6 +50,8 @@ class htmlConfig
 		$t->assign('VAL_ROOT', $dcl_info['DCL_ROOT']);
 		$t->assign('CMB_GDTYPE', $this->GetGraphicsCombo('DCL_GD_TYPE', $dcl_info['DCL_GD_TYPE']));
 		$t->assign('VAL_SESSIONTIMEOUT', $dcl_info['DCL_SESSION_TIMEOUT']);
+		$t->assign('VAL_SECAUDITENABLED', $dcl_info['DCL_SEC_AUDIT_ENABLED']);
+		$t->assign('VAL_SECAUDITLOGINONLY', $dcl_info['DCL_SEC_AUDIT_LOGIN_ONLY']);
 		
 		// SMTP Server
 		$t->assign('VAL_SMTPENABLED', $dcl_info['DCL_SMTP_ENABLED']);

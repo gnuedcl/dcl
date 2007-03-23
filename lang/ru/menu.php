@@ -43,4 +43,5 @@
 	define('DCL_MENU_PREFERENCES', "Настройки");
 	define('DCL_MENU_MAINWIKI', "Main Wiki");
 	define('DCL_MENU_SESSIONS', "Сессии");
+	define('DCL_MENU_SEC_AUDITING', "Security Logs");
 ?>

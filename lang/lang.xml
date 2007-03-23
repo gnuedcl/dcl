@@ -434,6 +434,9 @@
 			<xlt lang="sl">Sessions</xlt>
 			<xlt lang="sv">Sessions</xlt>
 		</phrase>
+		<phrase name="DCL_MENU_SEC_AUDITING">
+			<xlt lang="en">Security Logs</xlt>
+		</phrase>
 	</module>
 	<module name="wtch">
 		<phrase name="STR_WTCH_TABLETITLE">
@@ -8157,6 +8160,18 @@
 		<phrase name="STR_CFG_BUILDMANAGERENABLEDHELP">
 			<xlt lang="en">Enables the build manager.  This enables a user to create builds and associate ChangeLog entries with the build for tracking purposes.</xlt>
 		</phrase>
+		<phrase name="STR_CFG_SECAUDITENABLED">
+			<xlt lang="en">Security Auditing Enabled</xlt>
+		</phrase>
+		<phrase name="STR_CFG_SECAUDITENABLEDHELP">
+			<xlt lang="en">Enables security auditing. By default, security auditing tracks logins, logouts, and any time the user hits main.php.  Reports are available in the admin section to view a users history.</xlt>
+		</phrase>
+		<phrase name="STR_CFG_SECAUDITLOGINONLY">
+			<xlt lang="en">Only audit login events</xlt>
+		</phrase>
+		<phrase name="STR_CFG_SECAUDITLOGINONLYHELP">
+			<xlt lang="en">Restricts security auditing to login and logout events only. By default, security auditing tracks logins, logouts, and any time the user hits main.php.</xlt>
+		</phrase>
 	</module>
 	<module name="chk">
 		<phrase name="STR_CHK_INITIATE">
@@ -9028,4 +9043,57 @@
 			<xlt lang="sv">Lookup ID %d does not exist!</xlt>
 		</phrase>
 	</module>
-</lang>
+	<module name="sec">
+		<phrase name="STR_SEC_SECLOG">
+			<xlt lang="en">Security Logs</xlt>
+		</phrase>
+		<phrase name="STR_SEC_SECLOGTITLE">
+			<xlt lang="en">Security Logs Between %s and %s for %s</xlt>
+		</phrase>
+		<phrase name="STR_SEC_GENERATEREPORTFOR">
+			<xlt lang="de">Erzeuge Bericht über</xlt>
+			<xlt lang="en">Generate Report For</xlt>
+			<xlt lang="es">Generar Informe Para</xlt>
+			<xlt lang="fr">Générer Rapport Pour</xlt>
+			<xlt lang="it">Generate Report For</xlt>
+			<xlt lang="ru">ç&}&0ÏÁ Ï~& R</xlt>
+			<xlt lang="sl">Generiraj poroèilo za</xlt>
+			<xlt lang="sv">Generera rapport över</xlt>
+		</phrase>
+		<phrase name="STR_SEC_DATERANGE">
+			<xlt lang="de">Datenbereich</xlt>
+			<xlt lang="en">Date Range</xlt>
+			<xlt lang="es">Rango Fecha</xlt>
+			<xlt lang="fr">Période</xlt>
+			<xlt lang="it">Date Range</xlt>
+			<xlt lang="ru">ä0ÁÐÁaÏ} Á</xlt>
+			<xlt lang="sl">Date Range</xlt>
+			<xlt lang="sv">Datumområde</xlt>
+		</phrase>
+		<phrase name="STR_SEC_BEGIN">
+			<xlt lang="de">Beginnt</xlt>
+			<xlt lang="en">Beginning</xlt>
+			<xlt lang="es">Comenzando</xlt>
+			<xlt lang="fr">Début</xlt>
+			<xlt lang="it">All'Inizio</xlt>
+			<xlt lang="ru">îÁ~ÁRÏ</xlt>
+			<xlt lang="sl">Zaèeto</xlt>
+			<xlt lang="sv">Börjar</xlt>
+		</phrase>
+		<phrase name="STR_SEC_ENDING">
+			<xlt lang="de">Endet</xlt>
+			<xlt lang="en">Ending</xlt>
+			<xlt lang="es">Finalizando</xlt>
+			<xlt lang="fr">Fin</xlt>
+			<xlt lang="it">Alla Fine</xlt>
+			<xlt lang="ru">úÁ&:&}0&</xlt>
+			<xlt lang="sl">Konèano</xlt>
+			<xlt lang="sv">Slutar</xlt>
+		</phrase>
+		<phrase name="STR_SEC_DATEERR">
+			<xlt lang="de">Kann Bericht nicht ohne ein Start- und Endedatum drucken.</xlt>
+			<xlt lang="en">Cannot print report without both beginning date and ending date.</xlt>
+			<xlt lang="es">No se puede mostrar un informe sin ambas fechas de comienzo y fin.</xlt>
+			<xlt lang="fr">Impossible d'imprimer le rapport sans date de début ou date de fin.</xlt>
+			<xlt lang="it">Cannot print report without both beginning date and ending date.</xlt>
+			<xlt lang="ru">î& ÍÏ!" Ð&~ÁÁ Ï~& 

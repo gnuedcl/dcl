@@ -137,7 +137,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 		$obj = GetAuthenticator();
 		$aAuthInfo = array();
 		if ($obj->IsValidLogin($aAuthInfo))
-		{
+		{		
 			$oConfig = CreateObject('dcl.dbConfig');
 			$dcl_info = array();
 			$oConfig->Load();
@@ -184,6 +184,12 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			}
 
 			$g_oSession->Edit();
+			
+			if ($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
+			{
+				$oSecAuditDB = CreateObject('dcl.dbSecAudit');
+				$oSecAuditDB->Add('login');
+			}
 
 			$menuAction = 'menuAction=htmlMyDCL.show';
 			if ($g_oSec->IsPublicUser())

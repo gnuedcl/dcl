@@ -1,5 +1,5 @@
 <?php
-	define('STR_DB_TAGLENGTHERR', "Tag %s is too long.  Maximum %d characters per tag.");
+	define('STR_DB_TAGLENGTHERR', "Tag %s exceeds the maximum of %d characters per tag.  Skipping.");
 	define('STR_DB_ACCOUNTINSERTERR', "Non posso inserire un nuovo Cliente! Query: %s");
 	define('STR_DB_ACTIONINSERTERR', "Non posso inserire una nuova Azione! Query: %s");
 	define('STR_DB_DEPTINSERTERR', "Non posso inserire una nuova Divisione! Query: %s");

@@ -79,3 +79,5 @@ DCL_SCCS_ENABLED	dcl_config_varchar						N
 DCL_BUILD_MANAGER_ENABLED	dcl_config_varchar					N
 DCL_APP_NAME	dcl_config_varchar					GNUe DCL
 DCL_LOGIN_MESSAGE	dcl_config_varchar					Welcome to GNUe DCL
+DCL_SEC_AUDIT_ENABLED	dcl_config_varchar					N
+DCL_SEC_AUDIT_LOGIN_ONLY	dcl_config_varchar					N

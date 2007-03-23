@@ -520,7 +520,8 @@ function buildMenuArray()
 			DCL_MENU_CHANGEPASSWORD => array('boPersonnel.passwd', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD)),
 			DCL_MENU_PREFERENCES => array('htmlPreferences.modify', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY)),
 			DCL_MENU_SYSTEMSETUP => array('boAdmin.ShowSystemConfig', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW)),
-			DCL_MENU_SESSIONS => array('htmlSession.Show', $g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_VIEW))
+			DCL_MENU_SESSIONS => array('htmlSession.Show', $g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_VIEW)),
+			DCL_MENU_SEC_AUDITING => array('boSecAudit.Show', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 		);
 
 	if ($dcl_info['DCL_WIKI_ENABLED'] != 'Y' && isset($DCL_MENU[DCL_MENU_ADMIN][DCL_MENU_MAINWIKI]))
@@ -698,6 +699,30 @@ function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOptio
 	$str .= '</select>';
 
 	return $str;
+}
+
+function ExplodeParams()
+{
+	$paramArray = array('ticketid', 'jcn', 'seq', 'begindate', 'enddate', 'project', 'org_id',
+				'contact_id', 'id');
+	
+	$sOut = '';
+	$bfirst=true;
+	foreach ($paramArray as $lookfor)
+	{
+	
+		if (IsSet($_REQUEST[$lookfor]))
+		{
+			if (!$bfirst)
+				$sOut .= ', ';
+			else
+				$bfirst=false;
+			$sOut.=	$lookfor . '=>' . $_REQUEST[$lookfor];
+		}
+		
+	
+	}
+	return $sOut;
 }
 
 function PrintPermissionDenied()
