@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: schema.personnel.php 12 2006-12-01 01:46:51Z mdean $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
@@ -37,7 +37,7 @@ $GLOBALS['phpgw_baseline']['dcl_sec_audit'] = array(
 ?>
 <?php
 /*
- * $Id: schema.personnel.php 12 2006-12-01 01:46:51Z mdean $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
