@@ -308,8 +308,14 @@
 				$bRetVal = ($oProc->Execute("CREATE TABLE $sTableName ($sTableSQL)") !== -1);
 
 			if ($bRetVal)
-				$bRetVal = ($oProc->Execute("INSERT INTO $sTableName SELECT " . join(',', array_keys($aTableDef['fd'])) . " FROM tmp_$sTableName") !== -1);
+				$bRetVal = $oProc->Execute("SET IDENTITY_INSERT $sTableName ON");
 
+			if ($bRetVal)
+				$bRetVal = ($oProc->Execute("INSERT INTO $sTableName (" . join(',', array_keys($aTableDef['fd'])) . ") SELECT " . join(',', array_keys($aTableDef['fd'])) . " FROM tmp_$sTableName") !== -1);
+				
+			if ($bRetVal)
+				$bRetVal = $oProc->Execute("SET IDENTITY_INSERT $sTableName OFF");
+			
 			if ($bRetVal)
 				$bRetVal = $this->CreateIndexes($oProc, $sTableName, $aTableDef['ix']);
 
