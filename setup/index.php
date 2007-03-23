@@ -455,6 +455,22 @@ case 'updateTables':
 					$dclVersion = '0.9.4';
 					
 				break;
+			case '0.9.5':
+				if ($oDB->TableExists('dcl_sec_audit'))
+					$dclVersion = '0.9.5RC6';
+				elseif ($oDB->TableExists('dcl_org_product_xref'))
+					$dclVersion = '0.9.5RC5';
+				elseif ($oDB->TableExists('dcl_tag'))
+				{
+					// RC4 doesn't really matter - because it just refreshes a table
+					// Re-doing that, while it might take some time, shouldn't hurt anything...
+					$dclVersion = '0.9.5RC3';
+				}
+				elseif ($oDB->TableExists('dcl_wo_task'))
+					$dclVersion = '0.9.5RC2';
+				else
+					$dclVersion = '0.9.5RC1';
+				break;
 		}
 
 		$phpgw_setup = new DCLSetup;

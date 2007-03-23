@@ -1,5 +1,5 @@
 dcl_config_name	dcl_config_field	dcl_config_int	dcl_config_double	dcl_config_date	dcl_config_datetime	dcl_config_varchar
-DCL_VERSION	dcl_config_varchar					0.9.5
+DCL_VERSION	dcl_config_varchar					0.9.5RC6
 DCL_DATE_FORMAT	dcl_config_varchar					m/d/Y
 DCL_DATE_FORMAT_DB	dcl_config_varchar					Y-m-d
 DCL_TIMESTAMP_FORMAT_DB	dcl_config_varchar					Y-m-d H:i:s
