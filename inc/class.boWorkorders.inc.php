@@ -217,6 +217,7 @@ class boWorkorders
 				$oTR->loggedby = $GLOBALS['DCLID'];
 				$oTR->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 				$oTR->startedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
+				$oTR->is_public = $objWorkorder->is_public;
 				$oTR->resolution = sprintf('Copied to dcl://workorders/%d-%d', $objWorkorder->jcn, $objWorkorder->seq);
 	
 				$oTck =& CreateObject('dcl.dbTickets');
