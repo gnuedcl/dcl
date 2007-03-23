@@ -9056,7 +9056,7 @@
 			<xlt lang="es">Generar Informe Para</xlt>
 			<xlt lang="fr">Générer Rapport Pour</xlt>
 			<xlt lang="it">Generate Report For</xlt>
-			<xlt lang="ru">ç&}&0ÏÁ Ï~& R</xlt>
+			<xlt lang="ru">çÅÎÅÒÉÒÏ×ÁÔØ ÏÔÞÅÔ ÄÌÑ</xlt>
 			<xlt lang="sl">Generiraj poroèilo za</xlt>
 			<xlt lang="sv">Generera rapport över</xlt>
 		</phrase>
@@ -9066,7 +9066,7 @@
 			<xlt lang="es">Rango Fecha</xlt>
 			<xlt lang="fr">Période</xlt>
 			<xlt lang="it">Date Range</xlt>
-			<xlt lang="ru">ä0ÁÐÁaÏ} Á</xlt>
+			<xlt lang="ru">äÉÁÐÁÚÏÎ ÄÁÔ</xlt>
 			<xlt lang="sl">Date Range</xlt>
 			<xlt lang="sv">Datumområde</xlt>
 		</phrase>
@@ -9076,7 +9076,7 @@
 			<xlt lang="es">Comenzando</xlt>
 			<xlt lang="fr">Début</xlt>
 			<xlt lang="it">All'Inizio</xlt>
-			<xlt lang="ru">îÁ~ÁRÏ</xlt>
+			<xlt lang="ru">îÁÞÁÌÏ</xlt>
 			<xlt lang="sl">Zaèeto</xlt>
 			<xlt lang="sv">Börjar</xlt>
 		</phrase>
@@ -9086,7 +9086,7 @@
 			<xlt lang="es">Finalizando</xlt>
 			<xlt lang="fr">Fin</xlt>
 			<xlt lang="it">Alla Fine</xlt>
-			<xlt lang="ru">úÁ&:&}0&</xlt>
+			<xlt lang="ru">úÁ×ÅÒÛÅÎÉÅ</xlt>
 			<xlt lang="sl">Konèano</xlt>
 			<xlt lang="sv">Slutar</xlt>
 		</phrase>
@@ -9096,4 +9096,27 @@
 			<xlt lang="es">No se puede mostrar un informe sin ambas fechas de comienzo y fin.</xlt>
 			<xlt lang="fr">Impossible d'imprimer le rapport sans date de début ou date de fin.</xlt>
 			<xlt lang="it">Cannot print report without both beginning date and ending date.</xlt>
-			<xlt lang="ru">î& ÍÏ!" Ð&~ÁÁ Ï~& 
+			<xlt lang="ru">îÅ ÍÏÇÕ ÐÅÞÁÔÁÔØ ÏÔÞÅÔ ÂÅÚ ÎÁÞÁÌØÎÏ É ËÏÎÅÞÎÏÊ ÄÁÔÙ.</xlt>
+			<xlt lang="sl">Ne morem natisniti poroèila brez zaèetnega in konènega datuma.</xlt>
+			<xlt lang="sv">Kan inte skriva rapport utan både ett startdatum och ett slutdatum.</xlt>
+		</phrase>
+		<phrase name="STR_SEC_ACTIONON">
+			<xlt lang="en">Action On</xlt>
+		</phrase>
+		<phrase name="STR_SEC_ACTIONTXT">
+			<xlt lang="en">Action</xlt>
+		</phrase>
+		<phrase name="STR_SEC_ACTIONPARAM">
+			<xlt lang="en">Details</xlt>
+		</phrase>
+		<phrase name="STR_SEC_ALLUSERS">
+			<xlt lang="en">All Users</xlt>
+		</phrase>
+		<phrase name="STR_SEC_RPTERROR">
+			<xlt lang="en">An error occured while rendering the report.</xlt>
+		</phrase>
+		<phrase name="STR_SEC_RPTNODATA">
+			<xlt lang="en">No data returned.  Please try a broader query.</xlt>
+		</phrase>
+	</module>
+</lang>
