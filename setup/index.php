@@ -543,6 +543,10 @@ case "insertData":
     include_once "../inc/config.php";
 	include_once "../inc/functions.inc.php";
     include_once './default_records.inc.php';
+    
+    $oDB = new dclDB;
+	include_once 'setup.inc.php'; // gets current version
+    $oDB->Execute("INSERT INTO dcl_config (dcl_config_name, dcl_config_field, dcl_config_varchar) VALUES ('DCL_VERSION', 'dcl_config_varchar', " . $oDB->Quote($setup_info['dcl']['version']) . ")");
 
 	$content = '<div style="width: 50%; text-align: left; padding-left: 200px;">';
     $content .= $GLOBALS['__import_content__'];
