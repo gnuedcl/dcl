@@ -74,7 +74,7 @@ class boSecAudit
 		
 		$objDB = new DCLDb;
 		
-		$sCols = 'SA.id, '. $objDBSA->ConvertTimestamp('SA.actionon', 'SAActionOn') . ', SA.actiontxt, SA.actionparam';
+		$sCols = 'SA.id, '. $objDBSA->ConvertTimestamp('SA.actionon', 'actionon') . ', SA.actiontxt, SA.actionparam';
 		$sCols .= ', ' . $objDBPer->SelectAllColumns('Pers.');
 		
 		
@@ -106,7 +106,7 @@ class boSecAudit
 					$idx++;
 					
 					$reportAr[$idx][] = $objDB->f('short');
-					$reportAr[$idx][] = $objDB->f('SAActionOn');
+					$reportAr[$idx][] = $objDB->FormatTimeStampForDisplay($objDB->f('actionon'));
 					$reportAr[$idx][] = $objDB->f('actiontxt');
 					$reportAr[$idx][] = $objDB->f('actionparam');
 					
