@@ -54,7 +54,7 @@ class dbConfig extends dclDB
 	function Edit()
 	{
 		$query  = 'UPDATE dcl_config SET ' . $this->dcl_config_field . ' = ' . $this->FieldValueToSQL($this->dcl_config_field, $this->{$this->dcl_config_field});
-		$query .= 'WHERE dcl_config_name=' . $this->Quote($this->dcl_config_name);
+		$query .= ' WHERE dcl_config_name=' . $this->Quote($this->dcl_config_name);
 
 		$this->Execute($query);
 	}
