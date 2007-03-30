@@ -726,18 +726,21 @@ class DCL_DB_Core
 	 * @param string the field to format
 	 * @return string the formatted SQL for the select clause
 	 */
-	function SelectField($sField)
+	function SelectField($sField, $sTablePrefix = '')
 	{
 		if ($sField == '' or $sField === null)
 			return '';
+			
+		if ($sTablePrefix != '')
+			$sTablePrefix .= '.';
 
 		switch ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'][$sField]['type'])
 		{
 			case 'date':
-				return $this->ConvertDate($sField, $sField);
+				return $this->ConvertDate($sTablePrefix . $sField, $sField);
 			case 'datetime':
 			case 'timestamp':
-				return $this->ConvertTimestamp($sField, $sField);
+				return $this->ConvertTimestamp($sTablePrefix . $sField, $sField);
 			case 'int':
 			case 'auto':
 			case 'float':
@@ -745,7 +748,7 @@ class DCL_DB_Core
 			case 'char':
 			case 'text':
 			default:
-				return $sField;
+				return $sTablePrefix . $sField;
 		}
 	}
 
@@ -875,7 +878,7 @@ class DCL_DB_Core
 			if (!$bFirstFd)
 				$sFd .= ', ';
 
-			$sFd .= $sTablePrefix . $this->SelectField($sFieldName);
+			$sFd .= $this->SelectField($sFieldName, $sTablePrefix);
 			$bFirstFd = false;
 		}
 
