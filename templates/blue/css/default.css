@@ -277,7 +277,8 @@ table.dcl_results tbody tr.even {
 table.dcl_results tbody td, 
 table.dcl_results thead th, 
 table.dcl_results tfoot td {
-	border: solid #aeaeae 1px;
+	border-top: solid #aeaeae 1px;
+	border-bottom: solid #aeaeae 1px;
 	padding-left: 4px;
 	padding-right: 4px;
 }
