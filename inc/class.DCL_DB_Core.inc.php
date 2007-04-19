@@ -731,7 +731,7 @@ class DCL_DB_Core
 		if ($sField == '' or $sField === null)
 			return '';
 			
-		if ($sTablePrefix != '')
+		if ($sTablePrefix != '' && substr($sTablePrefix, -1, 1) != '.')
 			$sTablePrefix .= '.';
 
 		switch ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'][$sField]['type'])
