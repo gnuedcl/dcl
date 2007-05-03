@@ -281,6 +281,7 @@ table.dcl_results tfoot td {
 	border-bottom: solid #aeaeae 1px;
 	padding-left: 4px;
 	padding-right: 4px;
+	text-align: left;
 }
 
 table.dcl_results thead tr.toolbar th, 
