@@ -3,7 +3,7 @@
  * $Id$
  *
  * Double Choco Latte - Source Configuration Management System
- * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
+ * Copyright (C) 1999-2004 Free Software Foundation
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -92,7 +92,7 @@ function getMenuString()
 
 	foreach ($GLOBALS['DCL_MENU'] as $menuname => $themenu)
 	{
-		if (count($themenu) < 3)
+		if ($menuname == DCL_MENU_HOME || $menuname == DCL_MENU_LOGOFF)
 			continue;
 
 		$sSubMenu = '';
