@@ -76,7 +76,7 @@ function jumpToPage(iPage)
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}
 {if $rownum}{assign var=colcount value=$colcount+1}{/if}
-{if $checks}{assign var=colcount value=$colcount+1}
+{if $checks || true}{assign var=colcount value=$colcount+1}
 	<form name="searchAction" method="post" action="{$URL_MAIN_PHP}"><input type="hidden" name="menuAction" value="" />{$VAL_VIEWSETTINGS}
 {/if}
 <table class="dcl_results{if $inline} inline{/if}">
@@ -135,4 +135,4 @@ function jumpToPage(iPage)
 	{if $smarty.section.row.last}</tbody>{/if}
 {/section}
 </table>
-{if $checks}</form>{/if}
+{if $checks || true}</form>{/if}
