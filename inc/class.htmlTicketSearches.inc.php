@@ -65,7 +65,7 @@ class htmlTicketSearches
 		$objJS =& CreateObject('dcl.jsAttributesets');
 		$objJS->bModules = true;
 		$objJS->bStatusTypes = true;
-		$objJS->bDepartments = true;
+		$objJS->bDepartments = !$g_oSec->IsPublicUser();
 		$objJS->DisplayAttributeScript();
 
 		$oSelect =& CreateObject('dcl.htmlSelect');

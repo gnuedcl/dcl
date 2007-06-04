@@ -4,7 +4,7 @@
 <script language="JavaScript">
 {literal}
 	var iSection = 0;
-	var sLastLayer = 'divPersonnel';
+	var sLastLayer = '{/literal}{if !$IS_PUBLIC}divPersonnel{else}divProduct{/if}{literal}';
 	function showHide(sLayer)
 	{
 		if (sLastLayer == sLayer)
@@ -74,7 +74,7 @@
 
 		return sSummary;
 	}
-
+{/literal}{if !$IS_PUBLIC}{literal}
 	function getPersonnel()
 	{
 		var f = document.forms["mondosearchform"];
@@ -132,7 +132,7 @@
 
 		return sSummary;
 	}
-
+{/literal}{/if}{literal}
 	function getSelections(c, sTitle)
 	{
 		if (!c)
@@ -165,7 +165,7 @@
 		if (f)
 		{
 			{/literal}
-			sSummary += getPersonnel();
+			{if !$IS_PUBLIC}sSummary += getPersonnel();{/if}
 			sSummary += getSelections(f.elements["product[]"], "{$smarty.const.STR_TCK_PRODUCT}");
 			sSummary += getSelections(f.elements["module_id[]"], "{$smarty.const.STR_CMMN_MODULE}");
 			sSummary += getSelections(f.elements["account[]"], "{$smarty.const.STR_TCK_ACCOUNT}");
@@ -204,8 +204,8 @@
 		<fieldset>
 			<div class="menu">
 				<ul>{strip}
-					<li class="first"><a href="javascript:showHide('divPersonnel');">Personnel</a></li>
-					<li><a href="javascript:showHide('divProduct');">{$smarty.const.STR_TCK_PRODUCT}</a></li>
+					{if !$IS_PUBLIC}<li class="first"><a href="javascript:showHide('divPersonnel');">Personnel</a></li>{/if}
+					<li{if $IS_PUBLIC} class="first"{/if}><a href="javascript:showHide('divProduct');">{$smarty.const.STR_TCK_PRODUCT}</a></li>
 					<li><a href="javascript:showHide('divAccount');">{$smarty.const.STR_TCK_ACCOUNT}</a></li>
 					<li><a href="javascript:showHide('divPriority');">{$smarty.const.STR_TCK_PRIORITY}</a></li>
 					<li><a href="javascript:showHide('divType');">{$smarty.const.STR_TCK_TYPE}</a></li>
@@ -225,7 +225,7 @@
 		</fieldset>
 		</div>
 	</fieldset>
-	<fieldset id="divPersonnel">
+	{if !$IS_PUBLIC}<fieldset id="divPersonnel">
 		<legend>Personnel</legend>
 		<div>
 			<fieldset>
@@ -244,8 +244,8 @@
 			<label for="personnel">Personnel:</label>
 			{dcl_select_personnel name=personnel default=$VAL_PERSONNEL size=8}
 		</div>
-	</fieldset>
-	<fieldset id="divProduct" style="display: none;">
+	</fieldset>{/if}
+	<fieldset id="divProduct"{if !$IS_PUBLIC} style="display: none;"{/if}>
 		<legend>{$smarty.const.STR_TCK_PRODUCT}</legend>
 		<div class="input">
 			<label for="product">{$smarty.const.STR_TCK_PRODUCT}:</label>
@@ -433,14 +433,14 @@
 	if (f)
 	{
 		// Select boxen
-		setOnChangeEventHandler(f.elements["personnel[]"]);
+		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["personnel[]"]);{/if}{literal}
 		setOnChangeEventHandler(f.elements["priority[]"]);
 		setOnChangeEventHandler(f.elements["type[]"]);
 		setOnChangeEventHandler(f.elements["account[]"]);
 		setOnChangeEventHandler(f.elements["status[]"]);
 		setOnChangeEventHandler(f.elements["dcl_status_type[]"]);
 		setOnChangeEventHandler(f.elements["module_id[]"]);
-		setOnChangeEventHandler(f.elements["department[]"]);
+		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["department[]"]);{/if}{literal}
 		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["is_public[]"]);{/if}{literal}
 		setOnChangeEventHandler(f.elements["entity_source_id[]"]);
 
@@ -451,7 +451,7 @@
 		f.elements['dcl_status_type[]'].onchange = function() { if (typeof(chgStatusType) == "function") chgStatusType(f); updateSummary(); }
 
 		// Personnel now filter by department to reduce available selections
-		f.elements['department[]'].onchange = function() { if (typeof(chgDepartment) == "function") chgDepartment(f); updateSummary(); }
+		{/literal}{if !$IS_PUBLIC}f.elements['department[]'].onchange = function() {literal}{ if (typeof(chgDepartment) == "function") chgDepartment(f); updateSummary(); }{/literal}{/if}{literal}
 
 		// Text boxen
 		setOnChangeEventHandler(f.elements["searchText"]);
@@ -460,9 +460,9 @@
 		setOnChangeEventHandler(f.elements["tags"]);
 
 		// Checkboxen
-		setOnClickEventHandler(f.elements["responsible"]);
-		setOnClickEventHandler(f.elements["createdby"]);
-		setOnClickEventHandler(f.elements["closedby"]);
+		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["responsible"]);{/if}{literal}
+		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["createdby"]);{/if}{literal}
+		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["closedby"]);{/if}{literal}
 		setOnClickEventHandler(f.elements["createdon"]);
 		setOnClickEventHandler(f.elements["closedon"]);
 		setOnClickEventHandler(f.elements["statuson"]);
@@ -473,13 +473,13 @@
 			chgStatusType(f);
 			{/literal}selectDefault("{$VAL_SELECTSTATUSKEY}", "status[]", "dcl_status_type[]", chgStatusType);{literal}
 		}
-
+{/literal}{if !$IS_PUBLIC}{literal}
 		if (typeof(chgDepartment) == "function")
 		{
 			chgDepartment(f);
 			{/literal}selectDefault("{$VAL_SELECTPERSONNELKEY}", "personnel[]", "department[]", chgDepartment);{literal}
 		}
-
+{/literal}{/if}{literal}
 		if (typeof(chgModule) == "function")
 		{
 			chgModule(f);

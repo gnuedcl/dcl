@@ -4,7 +4,7 @@
 <script language="JavaScript">
 {literal}
 	var iSection = 0;
-	var sLastLayer = 'divPersonnel';
+	var sLastLayer = '{/literal}{if !$IS_PUBLIC}divPersonnel{else}divType{/if}{literal}';
 	function showHide(sLayer)
 	{
 		if (sLastLayer == sLayer)
@@ -74,7 +74,7 @@
 		var f = document.forms["mondosearchform"];
 		var sSummary = "";
 		if ((f.elements["summary"].checked ||
-			f.elements["notes"].checked ||
+			{/literal}{if !$IS_PUBLIC}f.elements["notes"].checked ||{/if}{literal}
 			f.elements["description"].checked) &&
 			f.elements["searchText"].value != "")
 		{
@@ -183,7 +183,7 @@
 		if (f)
 		{
 {/literal}
-			sSummary += getPersonnel();
+			{if !$IS_PUBLIC}sSummary += getPersonnel();{/if}
 			sSummary += getSelections(f.elements["wo_type_id[]"], "{$smarty.const.STR_WO_TYPE}");
 			sSummary += getSelections(f.elements["product[]"], "{$smarty.const.STR_WO_PRODUCT}");
 			sSummary += getSelections(f.elements["module_id[]"], "{$smarty.const.STR_CMMN_MODULE}");
@@ -224,8 +224,8 @@
 		<fieldset>
 			<div class="menu">
 				<ul>{strip}
-					<li class="first"><a href="javascript:showHide('divPersonnel');">Personnel</a></li>
-					<li><a href="javascript:showHide('divType');">{$smarty.const.STR_WO_TYPE}</a></li>
+					{if !$IS_PUBLIC}<li class="first"><a href="javascript:showHide('divPersonnel');">Personnel</a></li>{/if}
+					<li{if $IS_PUBLIC} class="first"{/if}><a href="javascript:showHide('divType');">{$smarty.const.STR_WO_TYPE}</a></li>
 					<li><a href="javascript:showHide('divProduct');">{$smarty.const.STR_WO_PRODUCT}</a></li>
 					{if !$IS_PUBLIC}<li><a href="javascript:showHide('divProject');">{$smarty.const.STR_WO_PROJECT}</a></li>{/if}
 					<li><a href="javascript:showHide('divAccount');">{$smarty.const.STR_WO_ACCOUNT}</a></li>
@@ -247,7 +247,7 @@
 		</fieldset>
 		</div>
 	</fieldset>
-	<fieldset id="divPersonnel">
+	{if !$IS_PUBLIC}<fieldset id="divPersonnel">
 		<legend>Personnel</legend>
 		<div>
 			<fieldset>
@@ -266,8 +266,8 @@
 			<label for="personnel">Personnel:</label>
 			{dcl_select_personnel name=personnel default=$VAL_PERSONNEL size=8}
 		</div>
-	</fieldset>
-	<fieldset id="divType" style="display: none;">
+	</fieldset>{/if}
+	<fieldset id="divType"{if !$IS_PUBLIC} style="display: none;"{/if}>
 		<legend>{$smarty.const.STR_WO_TYPE}</legend>
 		<div>{dcl_select_wo_type default=$VAL_WO_TYPE size=8}</div>
 	</fieldset>
@@ -348,7 +348,7 @@
 			<fieldset>
 				<div>
 					<label><input type="checkbox" id="summary" name="summary" value="1"{$CHK_SUMMARY}>{$smarty.const.STR_WO_SUMMARY}</label>
-					<label><input type="checkbox" id="notes" name="notes" value="1"{$CHK_NOTES}>{$smarty.const.STR_WO_NOTES}</label>
+					{if !$IS_PUBLIC}<label><input type="checkbox" id="notes" name="notes" value="1"{$CHK_NOTES}>{$smarty.const.STR_WO_NOTES}</label>{/if}
 					<label><input type="checkbox" id="description" name="description" value="1"{$CHK_DESCRIPTION}>{$smarty.const.STR_WO_DESCRIPTION}</label>
 				</div>
 			</fieldset>
@@ -476,7 +476,7 @@
 	if (f)
 	{
 		// Select boxen
-		setOnChangeEventHandler(f.elements["personnel[]"]);
+		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["personnel[]"]);{/if}{literal}
 		setOnChangeEventHandler(f.elements["priority[]"]);
 		setOnChangeEventHandler(f.elements["severity[]"]);
 		setOnChangeEventHandler(f.elements["account[]"]);
@@ -485,7 +485,7 @@
 		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["project[]"]);{/if}{literal}
 		setOnChangeEventHandler(f.elements["module_id[]"]);
 		setOnChangeEventHandler(f.elements["wo_type_id[]"]);
-		setOnChangeEventHandler(f.elements["department[]"]);
+		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["department[]"]);{/if}{literal}
 		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["is_public[]"]);{/if}{literal}
 		setOnChangeEventHandler(f.elements["entity_source_id[]"]);
 
@@ -496,7 +496,7 @@
 		f.elements['dcl_status_type[]'].onchange = function() { if (typeof(chgStatusType) == "function") chgStatusType(f); updateSummary(); }
 
 		// Personnel now filter by department to reduce available selections
-		f.elements['department[]'].onchange = function() { if (typeof(chgDepartment) == "function") chgDepartment(f); updateSummary(); }
+		{/literal}{if !$IS_PUBLIC}f.elements['department[]'].onchange = function() {literal}{ if (typeof(chgDepartment) == "function") chgDepartment(f); updateSummary(); }{/literal}{/if}{literal}
 
 		// Text boxen
 		setOnChangeEventHandler(f.elements["searchText"]);
@@ -505,9 +505,9 @@
 		setOnChangeEventHandler(f.elements["tags"]);
 
 		// Checkboxen
-		setOnClickEventHandler(f.elements["responsible"]);
-		setOnClickEventHandler(f.elements["createby"]);
-		setOnClickEventHandler(f.elements["closedby"]);
+		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["responsible"]);{/if}{literal}
+		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["createby"]);{/if}{literal}
+		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["closedby"]);{/if}{literal}
 		setOnClickEventHandler(f.elements["createdon"]);
 		setOnClickEventHandler(f.elements["closedon"]);
 		setOnClickEventHandler(f.elements["statuson"]);
@@ -517,7 +517,7 @@
 		setOnClickEventHandler(f.elements["estendon"]);
 		setOnClickEventHandler(f.elements["starton"]);
 		setOnClickEventHandler(f.elements["summary"]);
-		setOnClickEventHandler(f.elements["notes"]);
+		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["notes"]);{/if}{literal}
 		setOnClickEventHandler(f.elements["description"]);
 
 		if (typeof(chgStatusType) == "function")
@@ -525,13 +525,13 @@
 			chgStatusType(f);
 			{/literal}selectDefault("{$VAL_SELECTSTATUSKEY}", "status[]", "dcl_status_type[]", chgStatusType);{literal}
 		}
-
+{/literal}{if !$IS_PUBLIC}{literal}
 		if (typeof(chgDepartment) == "function")
 		{
 			chgDepartment(f);
 			{/literal}selectDefault("{$VAL_SELECTPERSONNELKEY}", "personnel[]", "department[]", chgDepartment);{literal}
 		}
-
+{/literal}{/if}{literal}
 		if (typeof(chgModule) == "function")
 		{
 			chgModule(f);

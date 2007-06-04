@@ -32,6 +32,7 @@ class jsAttributesets
 	var $bStatuses;
 	var $bModules;
 	var $bStatusTypes;
+	var $bDepartments;
 	var $forWhat;
 	var $db;
 	var $arrSets;
@@ -442,7 +443,7 @@ class jsAttributesets
 			$calls .= " chgStatusType(f);\n";
 		}
 
-		if ($this->bStatusTypes)
+		if ($this->bDepartments)
 		{
 			$this->_buildDepartmentArray();
 			$this->_buildChgDepartmentFunction();

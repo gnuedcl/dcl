@@ -75,7 +75,7 @@ class htmlWOSearches
 		$objJS = CreateObject('dcl.jsAttributesets');
 		$objJS->bModules = true;
 		$objJS->bStatusTypes = true;
-		$objJS->bDepartments = true;
+		$objJS->bDepartments = !$g_oSec->IsPublicUser();
 		$objJS->DisplayAttributeScript();
 
 		$objPersonnel = CreateObject('dcl.htmlPersonnel');
@@ -374,6 +374,9 @@ class htmlWOSearches
 				'dcl_entity_source.entity_source_name' => STR_CMMN_SOURCE,
 				'is_public' => STR_CMMN_PUBLIC
 			);
+			
+		if ($g_oSec->IsPublicUser())
+			unset($aCols['notes']);
 
 		if ($bView)
 		{
@@ -402,6 +405,15 @@ class htmlWOSearches
 					$colName = 'createby.short';
 
 				$aGroup[$colName] = $aCols[$colName];
+			}
+			
+			if ($g_oSec->IsPublicUser())
+			{
+				if (isset($aShow['notes']))
+					unset($aShow['notes']);
+					
+				if (isset($aGroup['notes']))
+					unset($aGroup['notes']);
 			}
 		}
 		else

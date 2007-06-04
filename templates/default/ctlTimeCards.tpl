@@ -19,7 +19,7 @@
 			<legend>Edit Time Card</legend>
 			<div><label for="actionon">{$smarty.const.STR_TC_DATE}:</label>{dcl_calendar name="actionon" value=$VAL_TIMECARDS[tc].actionon}</div>
 			<div><label for="actionbytext">{$smarty.const.STR_TC_BY}:</label><input type="text" size="20" id="actionbytext" name="actionbytext" value="{$VAL_TIMECARDS[tc].actionby|escape}" disabled="true"></div>
-			<div><label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label><input type="checkbox" name="is_public" id="is_public"{if $VAL_TIMECARDS[tc].public == "Y"} checked{/if}></div>
+			<div><label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label><input type="checkbox" name="is_public" id="is_public" value="Y"{if $VAL_TIMECARDS[tc].public == "Y"} checked{/if}></div>
 			<div><label for="action">{$smarty.const.STR_TC_ACTION}:</label>{dcl_select_action active="N" setid=$VAL_SETID default=$VAL_TIMECARDS[tc].action_id}</div>
 			<div><label for="status">{$smarty.const.STR_TC_STATUS}:</label>{dcl_select_status active="N" setid=$VAL_SETID default=$VAL_TIMECARDS[tc].status_id}</div>
 			<div><label for="hours">{$smarty.const.STR_TC_HOURS}:</label><input type="text" size="6" maxlength="6" id="hours" name="hours" value="{$VAL_TIMECARDS[tc].hours|escape}"></div>
@@ -37,7 +37,7 @@
 	</td></tr>
 {else}
 		<tr class="group">
-			<th colspan="3">({if $VAL_TIMECARDS[tc].is_public == "Y"}{$smarty.const.STR_CMMN_PUBLIC}{else}Private{/if}) {$VAL_TIMECARDS[tc].summary|escape}</th>
+			<th colspan="3">{$VAL_TIMECARDS[tc].actionon} ({$VAL_TIMECARDS[tc].actionby|escape}) {$VAL_TIMECARDS[tc].summary|escape}</th>
 			<td class="options">
 			{if $VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
 				<form method="post" action="{$URL_MAIN_PHP}">
@@ -57,24 +57,18 @@
 			</td>
 		</tr>
 		<tr>
-			<th>{$smarty.const.STR_TC_BY}:</th>
-			<td>{$VAL_TIMECARDS[tc].actionby|escape}</td>
-			<th>{$smarty.const.STR_TC_ACTION}:</th>
-			<td>{$VAL_TIMECARDS[tc].action|escape}</td>
-		</tr>
-		<tr>
-			<th>{$smarty.const.STR_TC_DATE}:</th>
-			<td>{$VAL_TIMECARDS[tc].actionon}</td>
+			<th>{$smarty.const.STR_TC_STATUS}:</th>
+			<td class="highlight">{$VAL_TIMECARDS[tc].status|escape}</td>
 			<th>{$smarty.const.STR_TC_HOURS}:</th>
 			<td>{$VAL_TIMECARDS[tc].hours|escape}</td>
 		</tr>
 		<tr>
-			<th>{$smarty.const.STR_TC_STATUS}:</th>
-			<td>{$VAL_TIMECARDS[tc].status|escape}</td>
+			<th>{$smarty.const.STR_TC_ACTION}:</th>
+			<td>{$VAL_TIMECARDS[tc].action|escape}{if $VAL_TIMECARDS[tc].is_public != "Y"} (Private){/if}</td>
 			<th>{$smarty.const.STR_TC_VERSION}:</th>
-			<td>{$VAL_TIMECARDS[tc].version|escape}</td>
+			<td>{$VAL_TIMECARDS[tc].revision|escape}</td>
 		</tr>
-		{if $VAL_TIMECARDS[tc].reassign_from_id || $VAL_TIMECARDS[tc].reassign_to_id}
+		{if !$IS_PUBLIC && ($VAL_TIMECARDS[tc].reassign_from_id || $VAL_TIMECARDS[tc].reassign_to_id)}
 		<tr>
 			<th>{$smarty.const.STR_CMMN_REASSIGN}:</th>
 			<td>{$VAL_TIMECARDS[tc].reassign_from_id|escape}</td>
