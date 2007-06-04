@@ -28,6 +28,7 @@ class dbTickets extends dclDB
 {
 	// Pseudo-field to display hh:mm:ss
 	var $hoursText;
+	var $aContactOrgs;
 
 	function dbTickets()
 	{
@@ -35,6 +36,7 @@ class dbTickets extends dclDB
 		$this->TableName = 'tickets';
 		LoadSchema($this->TableName);
 		$this->AuditEnabled = true;
+		$this->aContactOrgs = array();
 		parent::Clear();
 	}
 
@@ -123,7 +125,21 @@ class dbTickets extends dclDB
 
 	function Load($ticketid)
 	{
-		return parent::Load(array('ticketid' => $ticketid));
+		global $g_oSec;
+		
+		$oRetVal = parent::Load(array('ticketid' => $ticketid));
+		if ($oRetVal !== -1)
+		{
+			$bIsPublic = false;
+			if (($g_oSec->IsPublicUser() || $g_oSec->IsOrgUser()) && !$this->CanView($this, $GLOBALS['DCLID'], $bIsPublic))
+			{
+				$oRetVal = -1;
+				$this->Clear();
+				PrintPermissionDenied();
+			}
+		}
+		
+		return $oRetVal;
 	}
 
 	function LoadDatesByRange($beginDate, $endDate, $product_id = 0)
@@ -147,6 +163,63 @@ class dbTickets extends dclDB
 	function IsLastResolution($iTicketID, $iResolutionID)
 	{
 		return ($this->ExecuteScalar("SELECT COUNT(*) FROM ticketresolutions WHERE ticketid = $iTicketID AND resid > $iResolutionID") == 0);
+	}
+
+	function CanView(&$obj, $iPersonnelID, &$bIsPublic)
+	{
+		global $dcl_info, $g_oSession, $g_oSec;
+		
+		$bCanReceive = true;
+		$bIsPublic = false;
+		$oUR =& CreateObject('dcl.dbUserRole');
+		$oUR->ListPermissions(DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
+		while ($oUR->next_record() && $bCanReceive)
+		{
+			if ($oUR->f(0) == DCL_PERM_PUBLICONLY)
+			{
+				$bIsPublic = true;
+				if ($bCanReceive)
+					$bCanReceive = ($obj->is_public == 'Y');
+					
+				if ($bCanReceive)
+				{
+					$oDBProduct =& CreateObject('dcl.dbProducts');
+					if ($oDBProduct->Load($obj->product) !== -1)
+					{
+						$bCanReceive = ($oDBProduct->is_public == 'Y');
+					}
+					else
+					{
+						$bCanReceive = false;
+					}
+				}
+			}
+			else if ($oUR->f(0) == DCL_PERM_VIEWACCOUNT)
+			{
+				if (!isset($obj->account) || $obj->account === null || $obj->account < 1)
+					return false;
+					
+				$oDB = new dclDB;
+				$sSQL = "SELECT OC.org_id FROM dcl_org_contact OC JOIN personnel P ON OC.contact_id = P.contact_id WHERE P.id = $iPersonnelID";
+				if ($oDB->Query($sSQL) != -1)
+				{
+					$this->aContactOrgs[$iPersonnelID] = array();
+					while ($oDB->next_record())
+					{
+						array_push($this->aContactOrgs[$iPersonnelID], $oDB->f(0));
+					}
+					
+					if (count($this->aContactOrgs[$iPersonnelID]) > 0)
+						$bCanReceive = in_array($obj->account, $this->aContactOrgs[$iPersonnelID]);
+					else
+						$bCanReceive = false;
+				}
+				else
+					$bCanReceive = false;
+			}
+		}
+		
+		return $bCanReceive;
 	}
 }
 ?>

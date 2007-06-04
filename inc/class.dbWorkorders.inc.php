@@ -25,12 +25,22 @@
 LoadStringResource('db');
 class dbWorkorders extends dclDB
 {
+	var $aContactOrgs;
+	var $aOrgs;
+	var $iWoid;
+	var $iSeq;
+	
 	function dbWorkorders()
 	{
 		parent::dclDB();
 		$this->TableName = 'workorders';
 		LoadSchema($this->TableName);
 		$this->AuditEnabled = true;
+		
+		$this->aContactOrgs = array();
+		$this->aOrgs = array();
+		$this->iWoid = -1;
+		$this->iSeq = -1;
 
 		parent::Clear();
 	}
@@ -126,53 +136,25 @@ class dbWorkorders extends dclDB
 
 	function Load($jcn, $seq)
 	{
-		global $g_oSec, $g_oSession;
+		global $g_oSec;
 
 		if (!isset($jcn) || !is_numeric($jcn) || $jcn < 1 || !isset($seq) || !is_numeric($seq) || $seq < 1)
 			return trigger_error("Invalid work order ID passed to Load: $jcn-$seq");
 
 		$this->Clear();
-
-		$bFirstFd = true;
-		$bFirstPK = true;
-		$sPK = '';
-		$sFd = '';
-		foreach ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'] as $sFieldName => $aFieldInfo)
+		$oRetVal = parent::Load(array('jcn' => $jcn, 'seq' => $seq));
+		if ($oRetVal !== -1)
 		{
-			if (in_array($sFieldName, $GLOBALS['phpgw_baseline'][$this->TableName]['pk']))
+			$bIsPublic = false;
+			if (($g_oSec->IsPublicUser() || $g_oSec->IsOrgUser()) && !$this->CanView($this, $GLOBALS['DCLID'], $bIsPublic))
 			{
-				if (!$bFirstPK)
-					$sPK .= ' AND ';
-
-				$sPK .= $sFieldName . '=' . $this->FieldValueToSQL($sFieldName, $$sFieldName);
-
-				$bFirstPK = false;
+				$oRetVal = -1;
+				$this->Clear();
+				PrintPermissionDenied();
 			}
-
-			if (!$bFirstFd)
-				$sFd .= ', ';
-
-			$sFd .= $this->SelectField($sFieldName);
-			$bFirstFd = false;
 		}
-
-		$sql = sprintf('SELECT %s FROM %s WHERE %s', $sFd, $this->TableName, $sPK);
-		if ($g_oSec->IsPublicUser())
-			$sql .= " AND is_public = 'Y'";
-
-		if ($g_oSec->IsOrgUser())
-		{
-			if ($this->ExecuteScalar("SELECT COUNT(*) FROM dcl_wo_account WHERE wo_id = $jcn AND seq = $seq AND account_id IN (" . $g_oSession->Value('member_of_orgs') . ')') < 1)
-				return PrintPermissionDenied();
-		}
-
-		if (!$this->Query($sql))
-			return -1;
-
-		if (!$this->next_record())
-			return -1;
-
-		return $this->GetRow();
+		
+		return $oRetVal;
 	}
 
 	function LoadSequencesExcept($jcn, $seq)
@@ -209,6 +191,87 @@ class dbWorkorders extends dclDB
 		$this->EndTransaction();
 
 		return $seq;
+	}
+	
+	function CanView(&$obj, $iPersonnelID, &$bIsPublic)
+	{
+		global $dcl_info, $g_oSession, $g_oSec;
+		
+		$bCanView = true;
+		$bIsPublic = false;
+		$oUR =& CreateObject('dcl.dbUserRole');
+		$oUR->ListPermissions(DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
+		while ($oUR->next_record() && $bCanView)
+		{
+			if ($oUR->f(0) == DCL_PERM_PUBLICONLY)
+			{
+				$bIsPublic = true;
+				if ($bCanView)
+					$bCanView = ($obj->is_public == 'Y');
+					
+				if ($bCanView)
+				{
+					$oDBProduct =& CreateObject('dcl.dbProducts');
+					if ($oDBProduct->Load($obj->product) !== -1)
+					{
+						$bCanView = ($oDBProduct->is_public == 'Y');
+						if ($bCanView)
+						{
+							$aProducts = split(',', $g_oSession->Value('org_products'));
+							$bCanView = (count($aProducts) > 0 && in_array($obj->product, $aProducts));
+						}
+					}
+					else
+					{
+						$bCanView = false;
+					}
+				}
+			}
+			else if ($oUR->f(0) == DCL_PERM_VIEWACCOUNT)
+			{
+				if ($obj->jcn != $this->iWoid || $obj->seq != $this->iSeq)
+				{
+					$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
+					if ($oWOA->Load($obj->jcn, $obj->seq) != -1)
+					{
+						$this->iWoid = $obj->jcn;
+						$this->iSeq = $obj->seq;
+						$this->aOrgs = array();
+						do
+						{
+							array_push($this->aOrgs, $oWOA->f(2));
+						} while ($oWOA->next_record());
+						
+						$bCanView = (count($this->aOrgs) > 0);
+					}
+					else
+						$bCanView = false;
+				}
+				
+				if (!$bCanView)
+					return false;
+					
+				$oDB = new dclDB;
+				$sSQL = "SELECT OC.org_id FROM dcl_org_contact OC JOIN personnel P ON OC.contact_id = P.contact_id WHERE P.id = $iPersonnelID";
+				if ($oDB->Query($sSQL) != -1)
+				{
+					$this->aContactOrgs[$iPersonnelID] = array();
+					while ($oDB->next_record())
+					{
+						array_push($this->aContactOrgs[$iPersonnelID], $oDB->f(0));
+					}
+					
+					if (count($this->aContactOrgs[$iPersonnelID]) > 0)
+						$bCanView = (count(array_intersect($this->aOrgs, $this->aContactOrgs[$iPersonnelID])) > 0);
+					else
+						$bCanView = false;
+				}
+				else
+					$bCanView = false;
+			}
+		}
+		
+		return $bCanView;
 	}
 }
 ?>
