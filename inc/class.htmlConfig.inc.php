@@ -75,6 +75,7 @@ class htmlConfig
 		$t->assign('CMB_TIMECARDORDER', $this->GetDisplayOrderCombo('DCL_TIME_CARD_ORDER', $dcl_info['DCL_TIME_CARD_ORDER']));
 		$t->assign('VAL_WONOTIFICATIONHTML', $dcl_info['DCL_WO_NOTIFICATION_HTML']);
 		$t->assign('VAL_WOEMAILTEMPLATE', $dcl_info['DCL_WO_EMAIL_TEMPLATE']);
+		$t->assign('VAL_WOEMAILTEMPLATEPUBLIC', $dcl_info['DCL_WO_EMAIL_TEMPLATE_PUBLIC']);
 		$t->assign('VAL_WOSECONDARYACCOUNTSENABLED', $dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED']);
 		
 		// Projects
@@ -92,6 +93,7 @@ class htmlConfig
 		$t->assign('CMB_DEFAULTTICKETSTATUS', $this->GetStatusCombo('DCL_DEFAULT_TICKET_STATUS', $dcl_info['DCL_DEFAULT_TICKET_STATUS']));
 		$t->assign('VAL_TCKNOTIFICATIONHTML', $dcl_info['DCL_TCK_NOTIFICATION_HTML']);
 		$t->assign('VAL_TCKEMAILTEMPLATE', $dcl_info['DCL_TCK_EMAIL_TEMPLATE']);
+		$t->assign('VAL_TCKEMAILTEMPLATEPUBLIC', $dcl_info['DCL_TCK_EMAIL_TEMPLATE_PUBLIC']);
 		
 		// Wiki
 		$t->assign('VAL_WIKIENABLED', $dcl_info['DCL_WIKI_ENABLED']);

@@ -162,6 +162,11 @@ function validateAndSubmit(f)
 			<span>{$smarty.const.STR_CFG_WOEMAILTEMPLATEHELP}</span>
 		</div>
 		<div class="required">
+			<label for="DCL_WO_EMAIL_TEMPLATE_PUBLIC">{$smarty.const.STR_CFG_WOEMAILTEMPLATEPUBLIC}:</label>
+			<input type="text" name="DCL_WO_EMAIL_TEMPLATE_PUBLIC" id="DCL_WO_EMAIL_TEMPLATE_PUBLIC" size="20" maxlength="255" value="{$VAL_WOEMAILTEMPLATEPUBLIC|escape}">
+			<span>{$smarty.const.STR_CFG_WOEMAILTEMPLATEPUBLICHELP}</span>
+		</div>
+		<div class="required">
 			<label for="DCL_WO_SECONDARY_ACCOUNTS_ENABLED">{$smarty.const.STR_CFG_WOSECONDARYACCOUNTSENABLED}:</label>
 			<input type="checkbox" name="DCL_WO_SECONDARY_ACCOUNTS_ENABLED" id="DCL_WO_SECONDARY_ACCOUNTS_ENABLED" value="Y"{if $VAL_WOSECONDARYACCOUNTSENABLED == "Y"} checked{/if}></td>
 			<span>{$smarty.const.STR_CFG_WOSECONDARYACCOUNTSENABLEDHELP}</span>
@@ -211,6 +216,11 @@ function validateAndSubmit(f)
 			<label for="DCL_TCK_EMAIL_TEMPLATE">{$smarty.const.STR_CFG_TCKEMAILTEMPLATE}:</label>
 			<input type="text" id="DCL_TCK_EMAIL_TEMPLATE" name="DCL_TCK_EMAIL_TEMPLATE" size="50" maxlength="255" value="{$VAL_TCKEMAILTEMPLATE|escape}">
 			<span>{$smarty.const.STR_CFG_TCKEMAILTEMPLATEHELP}</span>
+		</div>
+		<div class="required">
+			<label for="DCL_TCK_EMAIL_TEMPLATE_PUBLIC">{$smarty.const.STR_CFG_TCKEMAILTEMPLATEPUBLIC}:</label>
+			<input type="text" id="DCL_TCK_EMAIL_TEMPLATE_PUBLIC" name="DCL_TCK_EMAIL_TEMPLATE_PUBLIC" size="50" maxlength="255" value="{$VAL_TCKEMAILTEMPLATEPUBLIC|escape}">
+			<span>{$smarty.const.STR_CFG_TCKEMAILTEMPLATEPUBLICHELP}</span>
 		</div>
 		<div class="required">
 			<label for="DCL_CQQ_PERCENT">{$smarty.const.STR_CFG_CQQPERCENT}:</label>

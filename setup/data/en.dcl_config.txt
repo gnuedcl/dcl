@@ -56,8 +56,10 @@ DCL_GATEWAY_TICKET_REPLY_LOGGED_BY	dcl_config_int	0
 DCL_SMTP_DEFAULT_EMAIL	dcl_config_varchar					nobody@localhost
 DCL_WO_NOTIFICATION_HTML	dcl_config_varchar					N
 DCL_WO_EMAIL_TEMPLATE	dcl_config_varchar					notify_wo_en.tpl
+DCL_WO_EMAIL_TEMPLATE_PUBLIC	dcl_config_varchar					notify_wo_en_public.tpl
 DCL_TCK_NOTIFICATION_HTML	dcl_config_varchar					N
 DCL_TCK_EMAIL_TEMPLATE	dcl_config_varchar					notify_tck_en.tpl
+DCL_TCK_EMAIL_TEMPLATE_PUBLIC	dcl_config_varchar					notify_tck_en_public.tpl
 DCL_GATEWAY_WO_AUTORESPOND	dcl_config_varchar					N
 DCL_GATEWAY_WO_AUTORESPONSE_EMAIL	dcl_config_varchar					nobody@localhost
 DCL_GATEWAY_WO_ENABLED	dcl_config_varchar					N

@@ -264,72 +264,12 @@ class boWatches
 		$oTC =& CreateObject('dcl.dbTimeCards');
 		$t->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($obj->jcn, $obj->seq, $bIsPublic));
 		
+		if ($bIsPublic)
+			return SmartyFetch($t, $dcl_info['DCL_WO_EMAIL_TEMPLATE_PUBLIC'], 'custom');
+		
 		return SmartyFetch($t, $dcl_info['DCL_WO_EMAIL_TEMPLATE'], 'custom');
 	}
 	
-	function CanReceiveNotification(&$obj, $iPersonnelID, &$bIsPublic)
-	{
-		global $dcl_info, $g_oSession, $g_oSec;
-		
-		$bCanReceive = true;
-		$bIsPublic = false;
-		$oUR =& CreateObject('dcl.dbUserRole');
-		$oUR->ListPermissions(DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
-		while ($oUR->next_record() && $bCanReceive)
-		{
-			if ($oUR->f(0) == DCL_PERM_PUBLICONLY)
-			{
-				$bIsPublic = true;
-				if ($bCanReceive)
-					$bCanReceive = ($obj->is_public == 'Y');
-			}
-			else if ($oUR->f(0) == DCL_PERM_VIEWACCOUNT)
-			{
-				if ($obj->jcn != $this->iWoid || $obj->seq != $this->iSeq)
-				{
-					$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
-					if ($oWOA->Load($obj->jcn, $obj->seq) != -1)
-					{
-						$this->iWoid = $obj->jcn;
-						$this->iSeq = $obj->seq;
-						$this->aOrgs = array();
-						do
-						{
-							array_push($this->aOrgs, $oWOA->f(2));
-						} while ($oWOA->next_record());
-						
-						$bCanReceive = (count($this->aOrgs) > 0);
-					}
-					else
-						$bCanReceive = false;
-				}
-				
-				if (!$bCanReceive)
-					return false;
-					
-				$oDB = new dclDB;
-				$sSQL = "SELECT OC.org_id FROM dcl_org_contact OC JOIN personnel P ON OC.contact_id = P.contact_id WHERE P.id = $iPersonnelID";
-				if ($oDB->Query($sSQL) != -1)
-				{
-					$this->aContactOrgs[$iPersonnelID] = array();
-					while ($oDB->next_record())
-					{
-						array_push($this->aContactOrgs[$iPersonnelID], $oDB->f(0));
-					}
-					
-					if (count($this->aContactOrgs[$iPersonnelID]) > 0)
-						$bCanReceive = (count(array_intersect($this->aOrgs, $this->aContactOrgs[$iPersonnelID])) > 0);
-					else
-						$bCanReceive = false;
-				}
-				else
-					$bCanReceive = false;
-			}
-		}
-		
-		return $bCanReceive;
-	}
-
 	// obj is a dbWorkorder object and actions is a comma delimited list of actions to send for
 	function sendNotification(&$obj, $actions, $bShowNotifyMsg = true)
 	{
@@ -375,7 +315,7 @@ class boWatches
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->responsible, $bIsPublic))
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->responsible, $bIsPublic))
 			{
 				if ($bIsPublic)
 					$arrPublicEmail[$aContact['email']] = 1;
@@ -387,7 +327,7 @@ class boWatches
 		if ($obj->createby != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->createby) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveNotification($obj, $obj->createby, $bIsPublic))
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createby, $bIsPublic))
 			{
 				$oPrefs = CreateObject('dcl.dbPreferences');
 				if ($oPrefs->Load($obj->createby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
@@ -406,7 +346,7 @@ class boWatches
 			{
 				if (!isset($arrEmail[$objWtch->f(0)]))
 				{
-					if ($this->CanReceiveNotification($obj, $objWtch->f(1), $bIsPublic))
+					if ($obj->CanView($obj, $objWtch->f(1), $bIsPublic))
 					{
 						if ($bIsPublic)
 							$arrPublicEmail[$objWtch->f(0)] = 1;
@@ -421,7 +361,7 @@ class boWatches
 		{
 			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]) && !isset($arrPublicEmail[$g_oSession->Value('USEREMAIL')]))
 			{
-				if ($this->CanReceiveNotification($obj, $GLOBALS['DCLID'], $bIsPublic))
+				if ($obj->CanView($obj, $GLOBALS['DCLID'], $bIsPublic))
 				{
 					if ($bIsPublic)
 						$arrPublicEmail[$g_oSession->Value('USEREMAIL')] = 1;
@@ -515,53 +455,12 @@ class boWatches
 		$objTR =& CreateObject('dcl.dbTicketresolutions');
 		$t->assign('VAL_RESOLUTIONS', $objTR->GetResolutionsArray($obj->ticketid, $bIsPublic));
 		
+		if ($bIsPublic)
+			return SmartyFetch($t, $dcl_info['DCL_TCK_EMAIL_TEMPLATE_PUBLIC'], 'custom');
+		
 		return SmartyFetch($t, $dcl_info['DCL_TCK_EMAIL_TEMPLATE'], 'custom');
 	}
 	
-	function CanReceiveTicketNotification(&$obj, $iPersonnelID, &$bIsPublic)
-	{
-		global $dcl_info, $g_oSession, $g_oSec;
-		
-		$bCanReceive = true;
-		$bIsPublic = false;
-		$oUR =& CreateObject('dcl.dbUserRole');
-		$oUR->ListPermissions(DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
-		while ($oUR->next_record() && $bCanReceive)
-		{
-			if ($oUR->f(0) == DCL_PERM_PUBLICONLY)
-			{
-				$bIsPublic = true;
-				if ($bCanReceive)
-					$bCanReceive = ($obj->is_public == 'Y');
-			}
-			else if ($oUR->f(0) == DCL_PERM_VIEWACCOUNT)
-			{
-				if (!isset($obj->account) || $obj->account === null || $obj->account < 1)
-					return false;
-					
-				$oDB = new dclDB;
-				$sSQL = "SELECT OC.org_id FROM dcl_org_contact OC JOIN personnel P ON OC.contact_id = P.contact_id WHERE P.id = $iPersonnelID";
-				if ($oDB->Query($sSQL) != -1)
-				{
-					$this->aContactOrgs[$iPersonnelID] = array();
-					while ($oDB->next_record())
-					{
-						array_push($this->aContactOrgs[$iPersonnelID], $oDB->f(0));
-					}
-					
-					if (count($this->aContactOrgs[$iPersonnelID]) > 0)
-						$bCanReceive = in_array($obj->account, $this->aContactOrgs[$iPersonnelID]);
-					else
-						$bCanReceive = false;
-				}
-				else
-					$bCanReceive = false;
-			}
-		}
-		
-		return $bCanReceive;
-	}
-
 	function sendTicketNotification($obj, $actions, $bShowNotifyMsg = true)
 	{
 		global $dcl_info, $g_oSession;
@@ -594,12 +493,12 @@ class boWatches
 
 		if ($this->oMeta == null)
 			$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
-		
+			
 		$bIsPublic = false;
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveTicketNotification($obj, $obj->responsible, $bIsPublic))
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->responsible, $bIsPublic))
 			{
 				if ($bIsPublic)
 					$arrPublicEmail[$aContact['email']] = 1;
@@ -611,7 +510,7 @@ class boWatches
 		if ($obj->createdby != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->createdby) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
-			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $this->CanReceiveTicketNotification($obj, $obj->createdby, $bIsPublic))
+			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createdby, $bIsPublic))
 			{
 				$oPrefs = CreateObject('dcl.dbPreferences');
 				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
@@ -628,7 +527,7 @@ class boWatches
 		{
 			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]) && !isset($arrPublicEmail[$g_oSession->Value('USEREMAIL')]))
 			{
-				if ($this->CanReceiveTicketNotification($obj, $GLOBALS['DCLID'], $bIsPublic))
+				if ($obj->CanView($obj, $GLOBALS['DCLID'], $bIsPublic))
 				{
 					if ($bIsPublic)
 						$arrPublicEmail[$g_oSession->Value('USEREMAIL')] = 1;
@@ -644,7 +543,7 @@ class boWatches
 			{
 				if (!isset($arrEmail[$objWtch->f(0)]))
 				{
-					if ($this->CanReceiveTicketNotification($obj, $objWtch->f(1), $bIsPublic))
+					if ($obj->CanView($obj, $objWtch->f(1), $bIsPublic))
 					{
 						if ($bIsPublic)
 							$arrPublicEmail[$objWtch->f(0)] = 1;
