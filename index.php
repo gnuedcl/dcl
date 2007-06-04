@@ -99,6 +99,7 @@ else
 
 	$t->assign('VAL_WELCOME', $dcl_info['DCL_LOGIN_MESSAGE']);
 	$t->assign('TXT_TITLE', $dcl_info['DCL_HTML_TITLE']);
+	$t->assign('TXT_VERSION', $dcl_info['DCL_VERSION']);
 	$t->assign('TXT_LOGIN', 'Please Login');
 	$t->assign('TXT_USER', 'User');
 	$t->assign('TXT_PASSWORD', 'Password');

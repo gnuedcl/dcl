@@ -43,5 +43,5 @@ function init()
 		</div>
 	</fieldset>
 </form>
-<div id="poweredby">Powered By <a target="_blank" href="http://www.gnuenterprise.org/">GNU Enterprise</a> <a target="_blank" href="http://dcl.sourceforge.net/">DCL</a> Copyright (C) 1999-2005 <a target="_blank" href="http://www.fsf.org/">Free Software Foundation</a></div>
+<div id="poweredby">Powered By <a target="_blank" href="http://www.gnuenterprise.org/">GNU Enterprise</a> <a target="_blank" href="http://dcl.sourceforge.net/">DCL</a> {$TXT_VERSION} Copyright (C) 1999-2005 <a target="_blank" href="http://www.fsf.org/">Free Software Foundation</a></div>
 </body></html>
