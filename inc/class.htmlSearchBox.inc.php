@@ -135,7 +135,7 @@ class htmlSearchBox
 			return;
 		}
 
-		if (strpos($sWorkOrders, '-') > 0 && strpos($sWorkOrders, ',') == -1)
+		if (strpos($sWorkOrders, '-') > 0 && strpos($sWorkOrders, ',') === false)
 		{
 			list($woid, $seq) = explode('-', $sWorkOrders);
 			if ($seq > 0)
