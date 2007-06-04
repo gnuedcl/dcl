@@ -181,8 +181,8 @@ div.listmenu ul
 
 #left ul li h3, 
 div.listmenu ul li h3 {
-	border-bottom: solid #aeaeae 1px;
-	color: #000000;
+	color: #008c00;
+	border-bottom: solid #008c00 1px;
 	font-size: 100%;
 	font-weight: bold;
 	padding-top: 0px;
@@ -205,6 +205,7 @@ div.listmenu ul li ul li {
 
 #left ul li ul li a, 
 div.listmenu ul li ul li a {
+	color: #36393d;
 	display: block;
 	width: 100%;
 	font-weight: normal;
@@ -214,6 +215,7 @@ div.listmenu ul li ul li a {
 #left ul li ul li a:hover, 
 div.listmenu ul li ul li a:hover {
 	text-decoration: underline;
+	color: #6bba70;
 }
 
 #poweredby {
@@ -244,10 +246,10 @@ table.inline {
 }
 
 table.dcl_results caption {
-	color: #000065;
-	font-size: 100%;
+	color: #ff7400;
+	font-size: 125%;
 	margin-bottom: 2px;
-	border-bottom: solid #3a81c1 2px;
+	/*border-bottom: solid #FF7400 2px;*/
 	text-align: left;
 	white-space: nowrap;
 }
@@ -271,7 +273,7 @@ table.dcl_results tfoot tr {
 }
 
 table.dcl_results tbody tr.even {
-	background-color: #eeeef9;
+	background-color: #efefef;
 }
 
 table.dcl_results tbody td, 
@@ -286,7 +288,7 @@ table.dcl_results tfoot td {
 
 table.dcl_results thead tr.toolbar th, 
 div.dcl_detail table.styled thead tr.toolbar th {
-	background-color: #fff7e6;
+	background-color: #f5f5dc;
 }
 
 table.dcl_results thead tr.toolbar th, 
@@ -317,7 +319,7 @@ table.dcl_results thead tr.toolbar ul li,
 div.dcl_detail table.styled thead tr.toolbar ul li, 
 div.dcl_detail table.styled tbody tr.group ul li {
 	display: inline;
-	border-left: solid black 1px;
+	border-left: solid #967117 1px;
 	list-style: none;
 	padding-left: 4px;
 	padding-right: 4px;
@@ -333,7 +335,7 @@ div.dcl_detail table.styled tbody tr.group ul li.first {
 table.dcl_results tbody tr.group {
 	font-weight: bold;
 	/*background-color: #ffffe6;*/
-	background-color: #cbcbff;
+	background-color: #cbcbcb;
 	color: #000000;
 }
 
@@ -454,26 +456,29 @@ div.dcl_detail, div.dcl_activity {
 
 div.dcl_detail table.styled {
 	right: auto;
-	border: solid 1px #3a81c1;
-	background-color: #eeeef9;
+	/*border: solid 1px #3a81c1;*/
+	/*background-color: #eeeef9;*/
+	background-color: #efefef;
+	border: solid 1px #aeaeae;
 }
 
 div.dcl_detail table.styled caption {
-	color: #000065;
-	font-size: 100%;
+	color: #ff7400;
+	font-size: 125%;
 	margin-bottom: 2px;
-	border-bottom: solid #3a81c1 2px;
+	/*border-bottom: solid #ff7400 2px;*/
 	text-align: left;
 }
 
 div.dcl_detail table.styled tbody tr.group {
-	background-color: #cbcbff;
+	background-color: #cbcbcb;
 	color: #000000;
 }
 
 div.dcl_detail table.styled tbody tr.group th {
 	text-align: left;
 	border-bottom: none;
+	color: #000065;
 }
 
 div.dcl_detail table.styled tbody tr.group td {
@@ -494,12 +499,18 @@ div.dcl_detail table.styled th {
 	white-space: nowrap;
 	width: 15%;
 	vertical-align: top;
-	border-bottom: dotted 1px #3a81c1;
+	color: #3a81c1;
+	/*border-bottom: dotted 1px #3a81c1;*/
 }
 
 div.dcl_detail table.styled td {
 	width: 35%;
 	background-color: #ffffff;
+}
+
+div.dcl_detail table.styled td.highlight {
+	color: #333333;
+	background-color: #fffebf;
 }
 
 div.dcl_detail blockquote {
@@ -581,12 +592,15 @@ span.task_audit {
 /* A new form style */
 form.styled {
 	width: 550px;
-	border: solid 1px #000065;
-	background-color: #eeeef9;
+	/*border: solid 1px #000065;
+	background-color: #eeeef9;*/
+	border: solid 1px #aeaeae;
+	background-color: #efefef;
 }
 
 form.styled fieldset {
-	border-top: solid 1px #3a81c1;
+	/*border-top: solid 1px #3a81c1;*/
+	border-top: solid 1px #333333;
 	border-left: none;
 	border-right: none;
 	border-bottom: none;
@@ -597,7 +611,8 @@ form.styled fieldset {
 
 form.styled fieldset legend {
 	font-size: 125%;
-	color: #000065;
+	/*color: #000065;*/
+	color: #ff7400;
 	padding: 0px 2px 0px 2px;
 }
 
@@ -631,6 +646,8 @@ form.styled fieldset div label {
 	width: 125px;
 	text-align: right;
 	margin: 2px 2px 0px 0px;
+	/**/
+	color: #3a81c1;
 }
 
 form.styled fieldset div.required label {
@@ -1093,27 +1110,6 @@ table.wikiPage
 	width: 90%;
 }
 
-a.wiki
-{
-	color: #000065;
-	font-weight: bold;
-	border-bottom: dashed #666666 1px;
-}
-
-a.wiki:hover
-{
-	color: #a00000;
-	border-top: solid #a00000 1px;
-	border-bottom: solid #a00000 1px;
-}
-
-.highlight
-{
-	font-weight: bold;
-	color: #eeeef9;
-	background-color: #000065;
-}
-
 .light
 {
 	color: #eeeef9;
@@ -1157,12 +1153,11 @@ tt, pre
 h1.wiki, h2.wiki, h3.wiki, h4.wiki, h5.wiki
 {
 	font-family: Verdana, Helvetica;
-	background-color: #eeeef9;
 	margin-top:2pt;
 	margin-bottom:8pt;
-	border-style:none;
-	border-width:thin;
 	width:99%;
+	border-bottom: solid #666666 1px;
+	color: #ff7400;
 }
 
 h1.wiki

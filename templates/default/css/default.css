@@ -423,20 +423,6 @@ table.wikiPage
 	width: 90%;
 }
 
-a.wiki
-{
-	color: #000065;
-	font-weight: bold;
-	border-bottom: dashed #666666 1px;
-}
-
-a.wiki:hover
-{
-	color: #a00000;
-	border-top: solid #a00000 1px;
-	border-bottom: solid #a00000 1px;
-}
-
 .highlight
 {
 	font-weight: bold;
