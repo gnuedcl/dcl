@@ -136,14 +136,14 @@ class boLookup
 		if ($obj->Load($iID) == -1)
 			return;
 
-		if ($obj->HasFKRef($iID))
+		if (!$obj->HasFKRef($iID))
 		{
 			$obj->Delete();
 			print(STR_BO_DELETED);
 		}
 		else
 		{
-			$obj->SetActive(false);
+			$obj->SetActive(array($obj->sKeyField => $iID), false);
 			print(STR_BO_DEACTIVATED);
 		}
 

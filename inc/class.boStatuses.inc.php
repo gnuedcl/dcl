@@ -149,7 +149,7 @@ class boStatuses
 		}
 		else
 		{
-			$obj->SetActive(false);
+			$obj->SetActive(array($obj->sKeyField => $iID), false);
 			print(STR_BO_DEACTIVATED);
 		}
 

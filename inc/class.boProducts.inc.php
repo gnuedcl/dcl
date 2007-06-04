@@ -81,7 +81,7 @@ class boProducts extends boAdminObject
 		}
 		else
 		{
-			$oDB->SetActive(false);
+			$oDB->SetActive(array($obj->sKeyField => $iID), false);
 			trigger_error(STR_BO_DEACTIVATED, E_USER_WARNING);
 		}
 	}
@@ -101,7 +101,7 @@ class boProducts extends boAdminObject
 			return PrintPermissionDenied();
 
 		$which = isset($_REQUEST['which']) ? $_REQUEST['which'] : '';
-		if ($which != 'workorders' && $which != 'tickets' && $which != 'modules' && $which != 'release')
+		if ($which != 'workorders' && $which != 'tickets' && $which != 'modules' && $which != 'release' && $which != 'build')
 			$which = null;
 		
 		$versionid = null;

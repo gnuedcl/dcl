@@ -172,13 +172,13 @@ class boPersonnel
 		if ($obj->Load($iID) == -1)
 			return;
 
-		if ($obj->HasFKRef($iID))
+		if (!$obj->HasFKRef($iID))
 		{
 			$obj->Delete();
 		}
 		else
 		{
-			$obj->SetActive(false);
+			$obj->SetActive(array($obj->sKeyField => $iID), false);
 		}
 
 		$oBrowse =& CreateObject('dcl.htmlPersonnelBrowse');
