@@ -28,7 +28,7 @@
 		dbHost => 'localhost',
 		dbPort => '5432',
 		dbName => 'dcl',
-		dbUser => 'nobody',
+		dbUser => 'dcl',
 		dbPassword => ''
 	);
 
@@ -105,8 +105,7 @@ sub setDefaults
 	$wo_id = 0;
 	$wo_seq = 0;
 	$status_id = 0;
-
-	# Older fields for compatibility
+	$contact_id = 0;
 	$contact = "";
 	$contactemail = "";
 
@@ -178,26 +177,26 @@ sub setProductInfo
 		$productAbb =~ s/.*\s?[\<](.*)[\>]\s?$/$1/;
 	}
 
-	if ($productAbb =~ /$reEmail/)
+	if ($productAbb =~ /$reEmail/i)
 	{
-		$productAbb =~ s/$reEmail/$1/;
+		$productAbb =~ s/$reEmail/$1/i;
 	}
 	else
 	{
 		$productAbb = $header{'Cc'};
-		if ($header{'Cc'} =~ /(.*)\s?[\<](.*)[\>]\s?$/)
+		if ($header{'Cc'} =~ /(.*)\s?[\<](.*)[\>]\s?$/i)
 		{
 			# Retrieve only the email address
-			$productAbb =~ s/.*\s?[\<](.*)[\>]\s?$/$1/;
+			$productAbb =~ s/.*\s?[\<](.*)[\>]\s?$/$1/i;
 		}
 
-		if ($productAbb =~ /$reEmail/)
+		if ($productAbb =~ /$reEmail/i)
 		{
-			$productAbb =~ s/$reEmail/$1/;
+			$productAbb =~ s/$reEmail/$1/i;
 		}
 		else
 		{
-			print "No suitable email addresses were found.";
+			print "No suitable email addresses for " . $productAbb . " were found.";
 			exit(255);
 		}
 	}
@@ -220,7 +219,7 @@ sub setProductInfo
 	$sth->finish();
 
 	# Set created by based off of email From: address if possible
-	$sql = "SELECT id FROM personnel WHERE " . getUpperSQL("email") . "=" . $dbh->quote(uc($contactemail));
+	$sql = "SELECT personnel.id FROM personnel, dcl_contact_email WHERE personnel.contact_id = dcl_contact_email.contact_id AND " . getUpperSQL("email_addr") . "=" . $dbh->quote(uc($contactemail)) . " ORDER BY preferred DESC";
 	$sth = $dbh->prepare($sql);
 	$sth->execute();
 
@@ -247,6 +246,57 @@ sub setContactInfo
 
 		$contact =~ s/\s*$//;
 		$contactemail =~ s/\s*$//;
+	}
+
+	$sql = "SELECT contact_id FROM dcl_contact_email WHERE " . getUpperSQL("email_addr") . "=" . $dbh->quote(uc($contactemail)) . " ORDER BY preferred DESC";
+	$sth = $dbh->prepare($sql);
+	$sth->execute();
+
+	$sth->bind_columns(undef, \$contact_id);
+	if (!$sth->fetch())
+	{
+		$sth->finish();
+
+		# Need a new contact record
+		use Lingua::EN::NameParse;
+		%npargs = (auto_clean => 1, force_case => 1, lc_prefix => 1, initials => 3, allow_reversed => 1, joint_names => 0, extended_titles => 0);
+		$nameparse = new Lingua::EN::NameParse(%npargs);
+
+		$nperror = $nameparse->parse($contact);
+		%contactname = $nameparse->components;
+
+		my $first_name = $contactname{given_name_1};
+		if ($first_name eq "")
+		{
+			return 0;
+		}
+
+		my $last_name = $contactname{surname_1};
+		if ($last_name eq "")
+		{
+			return 0;
+		}
+
+		$sql = "INSERT INTO dcl_contact (first_name, last_name, created_on, created_by) VALUES (" . $dbh->quote($first_name) . "," . $dbh->quote($last_name) . ",now()," . $created_by . ")";
+
+		$sth = $dbh->prepare($sql);
+		$sth->execute();
+
+		setContactID($sth);
+
+		$sth->finish();
+
+		if ($contact_id > 0)
+		{
+			$sql = "INSERT INTO dcl_contact_email (contact_id, email_type_id, email_addr, preferred, created_on, created_by) VALUES (" . $contact_id . ",1," . $dbh->quote($contactemail) . ",'Y',now()," . $created_by . ")";
+			$sth = $dbh->prepare($sql);
+			$sth->execute();
+			$sth->finish();
+		}
+	}
+	else
+	{
+		$sth->finish();
 	}
 }
 
@@ -356,7 +406,12 @@ sub getNewIDSQL
 {
 	if ($dcl_domain_info{'dbType'} eq "Pg")
 	{
-		return "nextval('seq_jcn')";
+		$idsth = $dbh->prepare("INSERT INTO dcl_wo_id (seq) VALUES (1)");
+		$idsth->execute();
+		setWorkOrderID($idsth);
+		$idsth->finish();
+
+		return $wo_id;
 	}
 
 	return "";
@@ -388,11 +443,9 @@ sub createWorkOrder
 {
 	if ($wo_id == 0 || $wo_seq == 0)
 	{
-		$idSQL = getNewIDSQL();
-
 		$sql  = "INSERT INTO workorders (";
 		$sql .= "jcn,seq,product,createby,createdon,status,statuson,deadlineon,eststarton,estendon,esthours,priority,";
-		$sql .= "severity,contact,summary,notes,description,responsible,etchours, totalhours";
+		$sql .= "severity,contact_id,summary,notes,description,responsible,etchours,totalhours,wo_type_id";
 		$sql .= ") VALUES (";
 
 		if ($wo_id > 0)
@@ -401,8 +454,10 @@ sub createWorkOrder
 		}
 		else
 		{
+			$idSQL = getNewIDSQL();
 			$sql .= $idSQL . ",1,";
 		}
+
 
 		$sql .= $product_id . ",";
 		$sql .= $created_by . ", ";
@@ -415,12 +470,21 @@ sub createWorkOrder
 		$sql .= "1, ";
 		$sql .= $priority_id . ", ";
 		$sql .= $severity_id . ", ";
-		$sql .= $dbh->quote($contact) . ", ";
+
+		if ($contact_id < 1)
+		{
+			$sql .= "NULL, ";
+		}
+		else
+		{
+			$sql .= $contact_id . ", ";
+		}
+
 		$sql .= $dbh->quote($header{'Subject'}) . ",";
 		$sql .= $dbh->quote("e-Mail Gateway: " . $contactemail) . ", ";
 		$sql .= $dbh->quote("Received via e-Mail Gateway: " . $transbody) . ", ";
 		$sql .= $responsible . ", ";
-		$sql .= "1, 0)";
+		$sql .= "1, 0, 1)";
 	}
 	else
 	{
@@ -477,16 +541,45 @@ sub setWorkOrderID
 	}
 	elsif ($dcl_domain_info{'dbType'} eq "Pg")
 	{
-		my $sth2 = $dbh->prepare("SELECT currval('seq_jcn')");
+		my $sth2 = $dbh->prepare("SELECT currval('seq_dcl_wo_id')");
 		$sth2->execute();
 		$sth2->bind_columns(undef, \$wo_id);
 		if (!$sth2->fetch())
 		{
 			print "Could not retrieve new work order number.";
+			$sth2->finish();
 			$sth->finish();
 			$dbh->disconnect();
 			exit(255);
 		}
+
+		$sth2->finish();
+	}
+}
+
+sub setContactID
+{
+	my($sth) = @_;
+
+	if ($dcl_domain_info{'dbType'} eq "mysql")
+	{
+		$contact_id = $dbh->{'mysql_insertid'};
+	}
+	elsif ($dcl_domain_info{'dbType'} eq "Pg")
+	{
+		my $sth2 = $dbh->prepare("SELECT currval('seq_dcl_contact')");
+		$sth2->execute();
+		$sth2->bind_columns(undef, \$contact_id);
+		if (!$sth2->fetch())
+		{
+			print "Could not retrieve new contact ID.";
+			$sth2->finish();
+			$sth->finish();
+			$dbh->disconnect();
+			exit(255);
+		}
+
+		$sth2->finish();
 	}
 }
 
@@ -526,10 +619,10 @@ sub sendMail
 
 	if ($dcl_config{'DCL_SMTP_ENABLED'} =~ /Y/i)
 	{
-		$sql = "SELECT distinct a.email FROM personnel a, workorders b, watches c WHERE ";
-		$sql .= "(b.jcn = $wo_id AND b.seq = $wo_seq AND a.id = b.responsible) OR (((b.product = c.whatid1 AND ";
-		$sql .= "c.typeid = 1) OR (c.typeid = 3 AND c.whatid1=$wo_id and c.whatid2=$wo_seq)) and c.actions in (1, 3, 4) ";
-		$sql .= "AND c.whoid = a.id)";
+		$sql = "SELECT DISTINCT email_addr FROM personnel JOIN dcl_contact_email ON personnel.contact_id=dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y' ";
+		$sql .= "LEFT JOIN watches ON id=whoid LEFT JOIN dcl_wo_account ON typeid = 6 AND wo_id = $wo_id AND dcl_wo_account.seq = $wo_seq AND whatid1 = account_id ";
+		$sql .= "WHERE (id = $responsible OR (actions IN (1, 3, 4) AND ((typeid = 1 AND whatid1 = $product_id) OR (typeid = 3 AND whatid1 = $wo_id AND whatid2 in (0, $wo_seq)) OR (typeid = 6 AND whatid1 = account_id)))) AND ";
+		$sql .= "active = 'Y'";
 
 		my $sth2 = $dbh->prepare($sql);
 		$sth2->execute();
