@@ -190,26 +190,26 @@ sub setProductInfo
 		$productAbb =~ s/.*\s?[\<](.*)[\>]\s?$/$1/;
 	}
 
-	if ($productAbb =~ /$reEmail/)
+	if ($productAbb =~ /$reEmail/i)
 	{
-		$productAbb =~ s/$reEmail/$1/;
+		$productAbb =~ s/$reEmail/$1/i;
 	}
 	else
 	{
 		$productAbb = $header{'Cc'};
-		if ($header{'Cc'} =~ /(.*)\s?[\<](.*)[\>]\s?$/)
+		if ($header{'Cc'} =~ /(.*)\s?[\<](.*)[\>]\s?$/i)
 		{
 			# Retrieve only the email address
-			$productAbb =~ s/.*\s?[\<](.*)[\>]\s?$/$1/;
+			$productAbb =~ s/.*\s?[\<](.*)[\>]\s?$/$1/i;
 		}
 
-		if ($productAbb =~ /$reEmail/)
+		if ($productAbb =~ /$reEmail/i)
 		{
-			$productAbb =~ s/$reEmail/$1/;
+			$productAbb =~ s/$reEmail/$1/i;
 		}
 		else
 		{
-			print "No suitable email addresses were found.";
+			print "No suitable email addresses for " . $productAbb . " were found.";
 			exit(255);
 		}
 	}
@@ -232,7 +232,7 @@ sub setProductInfo
 	$sth->finish();
 
 	# Set created by based off of email From: address if possible
-	$sql = "SELECT id FROM personnel WHERE " . getUpperSQL("email") . "=" . $dbh->quote(uc($contactemail));
+	$sql = "SELECT personnel.id FROM personnel, dcl_contact_email WHERE personnel.contact_id = dcl_contact_email.contact_id AND " . getUpperSQL("email_addr") . "=" . $dbh->quote(uc($contactemail)) . " ORDER BY preferred DESC";
 	$sth = $dbh->prepare($sql);
 	$sth->execute();
 
@@ -259,6 +259,57 @@ sub setContactInfo
 
 		$contact =~ s/\s*$//;
 		$contactemail =~ s/\s*$//;
+	}
+
+	$sql = "SELECT contact_id FROM dcl_contact_email WHERE " . getUpperSQL("email_addr") . "=" . $dbh->quote(uc($contactemail)) . " ORDER BY preferred DESC";
+	$sth = $dbh->prepare($sql);
+	$sth->execute();
+
+	$sth->bind_columns(undef, \$contact_id);
+	if (!$sth->fetch())
+	{
+		$sth->finish();
+
+		# Need a new contact record
+		use Lingua::EN::NameParse;
+		%npargs = (auto_clean => 1, force_case => 1, lc_prefix => 1, initials => 3, allow_reversed => 1, joint_names => 0, extended_titles => 0);
+		$nameparse = new Lingua::EN::NameParse(%npargs);
+
+		$nperror = $nameparse->parse($contact);
+		%contactname = $nameparse->components;
+
+		my $first_name = $contactname{given_name_1};
+		if ($first_name eq "")
+		{
+			return 0;
+		}
+
+		my $last_name = $contactname{surname_1};
+		if ($last_name eq "")
+		{
+			return 0;
+		}
+
+		$sql = "INSERT INTO dcl_contact (first_name, last_name, created_on, created_by) VALUES (" . $dbh->quote($first_name) . "," . $dbh->quote($last_name) . ",now()," . $created_by . ")";
+
+		$sth = $dbh->prepare($sql);
+		$sth->execute();
+
+		setContactID($sth);
+
+		$sth->finish();
+
+		if ($contact_id > 0)
+		{
+			$sql = "INSERT INTO dcl_contact_email (contact_id, email_type_id, email_addr, preferred, created_on, created_by) VALUES (" . $contact_id . ",1," . $dbh->quote($contactemail) . ",'Y',now()," . $created_by . ")";
+			$sth = $dbh->prepare($sql);
+			$sth->execute();
+			$sth->finish();
+		}
+	}
+	else
+	{
+		$sth->finish();
 	}
 }
 
@@ -363,43 +414,14 @@ sub getDateSQL
 	}
 }
 
-sub getTicketSQL
-{
-	if ($dcl_domain_info{'dbType'} eq "Pg")
-	{
-		return "nextval('seq_tickets')";
-	}
-
-	return "";
-}
-
-sub getResolutionSQL
-{
-	if ($dcl_domain_info{'dbType'} eq "Pg")
-	{
-		return "nextval('seq_ticketresolutions')";
-	}
-
-	return "";
-}
-
 sub createTicket
 {
 	if ($ticket_id == 0)
 	{
 		# Congratulations!  It's a new ticket!
-		#$sql = "INSERT INTO dcl_ticket (product_id, account_id, created_by, created_on, responsible, status_id";
-		#$sql .= ", status_on, priority_id, severity_id, contact_id, issue, version, summary) VALUES (";
-
-		$ticketSQL = getTicketSQL();
-
 		$sql = "INSERT INTO tickets (";
-		if ($ticketSQL)
-		{
-			$sql .= "ticketid, ";
-		}
 		$sql .= "product, account, createdby, createdon, responsible";
-		$sql .= ", status, statuson, priority, type, contact, contactphone, contactemail, issue, version, summary, seconds) VALUES (";
+		$sql .= ", status, statuson, priority, type, contact_id, issue, version, summary, seconds) VALUES (";
 		if ($ticketSQL)
 		{
 			$sql .= $ticketSQL . ", ";
@@ -413,10 +435,16 @@ sub createTicket
 		$sql .= getDateSQL() . ", ";
 		$sql .= $priority_id . ", ";
 		$sql .= $severity_id . ", ";
-		#$sql .= $contact_id . ", ";
-		$sql .= $dbh->quote($contact) . ", ";
-		$sql .= $dbh->quote("e-Mail Gateway") . ", ";
-		$sql .= $dbh->quote($contactemail) . ", ";
+		
+		if ($contact_id < 1)
+		{
+			$sql .= "NULL, ";
+		}
+		else
+		{
+			$sql .= $contact_id . ", ";
+		}
+		
 		$sql .= $dbh->quote("Received via e-Mail Gateway: " . $transbody) . ", ";
 		$sql .= $dbh->quote($version) . ", ";
 		$sql .= $dbh->quote($header{'Subject'}) . ", ";
@@ -432,8 +460,6 @@ sub createTicket
 		$resolution .= "To: " . $header{'To'} . "\n";
 		$resolution .= "Subject: " . $header{'Subject'} . "\n\n";
 		$resolution .= $transbody;
-
-		$resSQL = getResolutionSQL();
 
 		$sql = "INSERT INTO ticketresolutions (";
 		if ($resSQL)
@@ -488,6 +514,32 @@ sub setTicketID
 	}
 }
 
+sub setContactID
+{
+	my($sth) = @_;
+
+	if ($dcl_domain_info{'dbType'} eq "mysql")
+	{
+		$contact_id = $dbh->{'mysql_insertid'};
+	}
+	elsif ($dcl_domain_info{'dbType'} eq "Pg")
+	{
+		my $sth2 = $dbh->prepare("SELECT currval('seq_dcl_contact')");
+		$sth2->execute();
+		$sth2->bind_columns(undef, \$contact_id);
+		if (!$sth2->fetch())
+		{
+			print "Could not retrieve new contact ID.";
+			$sth2->finish();
+			$sth->finish();
+			$dbh->disconnect();
+			exit(255);
+		}
+
+		$sth2->finish();
+	}
+}
+
 sub sendMail
 {
 	my $smtp;
@@ -524,11 +576,11 @@ sub sendMail
 
 	if ($dcl_config{'DCL_SMTP_ENABLED'} =~ /Y/i)
 	{
-		$sql = "SELECT distinct a.email FROM personnel a, tickets b, watches c WHERE ";
-		$sql .= "(b.ticketid = $ticket_id AND a.id = b.responsible) OR (((b.product = c.whatid1 AND ";
-		$sql .= "c.typeid = 4) OR (c.typeid = 5 AND c.whatid1=$ticket_id)) and c.actions in (1, 3, 4) ";
-		$sql .= "AND c.whoid = a.id)";
-
+		$sql = "SELECT DISTINCT email_addr FROM personnel JOIN dcl_contact_email ON personnel.contact_id=dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y' ";
+		$sql .= "LEFT JOIN watches ON id=whoid ";
+		$sql .= "WHERE (id = $responsible OR (actions IN (1, 3, 4) AND ((typeid = 4 AND whatid1 = $product_id) OR (typeid = 5 AND whatid1 = $ticket_id) OR (typeid = 7 AND whatid1 = account)))) AND ";
+		$sql .= "active = 'Y'";
+		
 		my $sth2 = $dbh->prepare($sql);
 		$sth2->execute();
 
