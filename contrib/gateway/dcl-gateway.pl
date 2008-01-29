@@ -578,7 +578,7 @@ sub sendMail
 	{
 		$sql = "SELECT DISTINCT email_addr FROM personnel JOIN dcl_contact_email ON personnel.contact_id=dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y' ";
 		$sql .= "LEFT JOIN watches ON id=whoid ";
-		$sql .= "WHERE (id = $responsible OR (actions IN (1, 3, 4) AND ((typeid = 4 AND whatid1 = $product_id) OR (typeid = 5 AND whatid1 = $ticket_id) OR (typeid = 7 AND whatid1 = account)))) AND ";
+		$sql .= "WHERE (id = $responsible OR (actions IN (1, 3, 4) AND ((typeid = 4 AND whatid1 = $product_id) OR (typeid = 5 AND whatid1 = $ticket_id) OR (typeid = 7 AND whatid1 = $account_id)))) AND ";
 		$sql .= "active = 'Y'";
 		
 		my $sth2 = $dbh->prepare($sql);
