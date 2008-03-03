@@ -53,7 +53,7 @@ function jumpToPage(iPage)
 		<input type="hidden" name="jumptopage" value="{$VAL_PAGE}" />
 		<span><label for="filterStatus">{$smarty.const.STR_TCK_STATUS}:</label> {dcl_select_status default=$VAL_FILTERSTATUS name=filterStatus allowHideOrOnlyClosed=Y}</span>
 		<span><label for="filterType">{$smarty.const.STR_TCK_TYPE}:</label> {dcl_select_severity default=$VAL_FILTERTYPE name=filterType}</span>
-		<span><label for="filterReportto">{$smarty.const.STR_TCK_RESPONSIBLE}:</label> {dcl_select_personnel default=$VAL_FILTERREPORTTO name=filterReportto}</span>
+		{if !$VAL_ISPUBLIC}<span><label for="filterReportto">{$smarty.const.STR_TCK_RESPONSIBLE}:</label> {dcl_select_personnel default=$VAL_FILTERREPORTTO name=filterReportto}</span>{/if}
 		<span><label for="filterProduct">{$smarty.const.STR_TCK_PRODUCT}:</label> {dcl_select_product default=$VAL_FILTERPRODUCT name=filterProduct}</span>
 		<input type="submit" name="filter" value="Filter">
 		{if $VAL_PAGES > 1}

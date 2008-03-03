@@ -135,6 +135,7 @@ class htmlTicketBrowse
 		$oTable->assign('VAL_FILTERREPORTTO', isset($_REQUEST['filterReportto']) ? $_REQUEST['filterReportto'] : -1);
 		$oTable->assign('VAL_FILTERPRODUCT', isset($_REQUEST['filterProduct']) ? $_REQUEST['filterProduct'] : -1);
 		$oTable->assign('VAL_VIEWSETTINGS', $this->oView->GetForm());
+		$oTable->assign('VAL_ISPUBLIC', $g_oSec->IsPublicUser());
 
 		$oTable->setCaption($this->oView->title);
 		$oTable->setShowChecks(false);
