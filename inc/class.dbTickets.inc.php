@@ -172,7 +172,7 @@ class dbTickets extends dclDB
 		$bCanReceive = true;
 		$bIsPublic = false;
 		$oUR =& CreateObject('dcl.dbUserRole');
-		$oUR->ListPermissions(DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
+		$oUR->ListPermissions($iPersonnelID, DCL_ENTITY_TICKET, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
 		while ($oUR->next_record() && $bCanReceive)
 		{
 			if ($oUR->f(0) == DCL_PERM_PUBLICONLY)
