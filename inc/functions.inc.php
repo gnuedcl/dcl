@@ -71,6 +71,11 @@ define('DCL_ENTITY_SESSION', 35);
 define('DCL_ENTITY_ROLE', 36);
 define('DCL_ENTITY_ORGTYPE', 37);
 define('DCL_ENTITY_CONTACTTYPE', 38);
+define('DCL_ENTITY_BUILDMANAGER', 39);
+define('DCL_ENTITY_WORKORDER_TASK', 40);
+define('DCL_ENTITY_WORKSPACE', 41);
+define('DCL_ENTITY_TEST_CASE', 42);
+define('DCL_ENTITY_FUNCTIONAL_SPEC', 43);
 
 // Permissions
 define('DCL_PERM_ADMIN', 0);
@@ -97,6 +102,7 @@ define('DCL_PERM_VIEWWIKI', 20);
 define('DCL_PERM_PUBLICONLY', 21);
 define('DCL_PERM_VIEWFILE', 22);
 define('DCL_PERM_AUDIT', 23);
+define('DCL_PERM_VERSIONCHECK', 24);
 
 // Audit events
 define('DCL_EVENT_ADD', 1);
@@ -108,6 +114,11 @@ define('DCL_FORM_MODIFY', 2);
 define('DCL_FORM_DELETE', 3);
 define('DCL_FORM_COPY', 4);
 define('DCL_FORM_COPYFROMTICKET', 5);
+
+// BuildManager 
+define('DCL_BUILDMANAGER_SUBMIT', 1);
+define('DCL_BUILDMANAGER_APPLIED', 2);
+define('DCL_BUILDMANAGER_COMPLETE', 3);
 
 // Smarty settings
 define('SMARTY_DIR', DCL_ROOT . 'inc/');
@@ -217,6 +228,36 @@ function Invoke($sClassMethod)
 	$obj->$method();
 }
 
+function InvokePlugin($sPluginName, &$aParams = null, $method = 'Invoke')
+{	
+	list($type, $name) = explode(".", $sPluginName);
+	$class = 'DCL_Plugin_' . $type . '_' . $name;
+	
+	if (!class_exists($class))
+	{
+		if (!import_plugin($type, $name))
+		{
+			// If we can't import it, no plugin has been set up
+			return;
+		}
+	
+		if (!class_exists($class))
+		{
+			trigger_error('InvokePlugin could not find plugin class: ' . $class, E_USER_ERROR);
+			return;
+		}
+	}
+	
+	$obj = new $class;
+	if (!method_exists($obj, $method))
+	{
+		trigger_error('Plugin class ' . $class . ' does not contain a definition for method ' . $method, E_USER_ERROR);
+		return;
+	}
+	
+	$obj->$method($aParams);
+}
+
 function EvaluateReturnTo()
 {
 	global $g_oSec;
@@ -259,6 +300,31 @@ function import($className)
 	}
 	
 	include_once(DCL_ROOT . 'inc/class.' . $className . '.inc.php');
+}
+
+function import_plugin($sPluginType, $sPluginName)
+{
+	$sFullPath = GetPluginDir() . strtolower($sPluginType) . '/DCL_Plugin_' . $sPluginType . '_' . $sPluginName . '.php';
+	if (!file_exists($sFullPath))
+	{
+		return false;
+	}
+	
+	include_once($sFullPath);
+	
+	return true;
+}
+
+function import_vendor($sFile)
+{
+	$sFile = DCL_ROOT . 'vendor/' . $sFile;
+	if (!file_exists($sFile))
+	{
+		trigger_error('Vendor file not found: ' . $sFile);
+		return;
+	}
+	
+	include_once($sFile);
 }
 
 function &CreateViewObject($sType = '')
@@ -315,6 +381,13 @@ function &GetPageObject()
 	return $oRetVal;
 }
 
+function GetPluginDir()
+{
+	global $dcl_info;
+	
+	return $dcl_info['DCL_FILE_PATH'] . '/plugins/';
+}
+
 function GetDefaultTemplateSet()
 {
 	// Session must be initialized before calling this!
@@ -363,6 +436,16 @@ function &CreateSmarty()
 
 function SmartyInit(&$oSmarty, &$sTemplateName, $sTemplateSet = '')
 {
+	if (substr($sTemplateSet, 0, 8) == 'plugins.')
+	{
+		$sPluginPath = substr($sTemplateSet, 8);
+		$oSmarty->template_dir = GetPluginDir() . $sPluginPath . '/templates/';
+		$oSmarty->compile_dir = GetPluginDir() . $sPluginPath . '/templates_c/';
+
+		// Nothing more to do for plugins
+		return;
+	}
+	
 	if ($sTemplateSet == '')
 		$sDefaultTemplateSet = GetDefaultTemplateSet();
 	else
@@ -460,6 +543,8 @@ function buildMenuArray()
 	$dcl_info['DCL_MODULE_WO_ENABLED'] = true;
 	$dcl_info['DCL_MODULE_PROJECTS_ENABLED'] = true;
 	$dcl_info['DCL_MODULE_TICKETS_ENABLED'] = true;
+	$dcl_info['DCL_MODULE_TESTS_ENABLED'] = false;
+	$dcl_info['DCL_MODULE_SPECS_ENABLED'] = false;
 
 	$DCL_MENU = array();
 	$DCL_MENU[DCL_MENU_HOME] = array('htmlMyDCL.show', true);
@@ -502,11 +587,36 @@ function buildMenuArray()
 			);
 	}
 	
+	if ($dcl_info['DCL_MODULE_TESTS_ENABLED'])
+	{
+		$DCL_MENU['Testing'] = array(
+				'New Test Case' => array('', true),
+				'Search Test Cases' => array('', true),
+				'New Test Condition' => array('', true),
+				'Run Test Conditions' => array('', true),
+				'Browse Test Conditions' => array('', true),
+				'Search Test Conditions' => array('', true)
+			);
+	}
+	
+	if ($dcl_info['DCL_MODULE_SPECS_ENABLED'])
+	{
+		$DCL_MENU['Specs'] = array(
+				'New Functional Spec' => array('', true),
+				'Browse Functional Specs' => array('', true),
+				'Search Functional Specs' => array('', true),
+				'New Use Case' => array('', true),
+				'Browse Use Cases' => array('', true),
+				'Search Use Cases' => array('', true)
+		);
+	}
+	
 	$DCL_MENU[DCL_MENU_MANAGE] = array(
 			'Organizations' => array('htmlOrgBrowse.show&filterActive=Y', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW)),
 			'Contacts' => array('htmlContactBrowse.show&filterActive=Y', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW)),
 			STR_CMMN_TAGS => array('htmlTags.browse', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH)),
 			DCL_MENU_CHECKLISTS => array('boChecklists.show', $g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW)),
+			'Workspaces' => array('htmlWorkspaceBrowse.show', $g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW)),
 			DCL_MENU_PRODUCTS => array('htmlProducts.PrintAll', $g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW)),
 			DCL_MENU_VIEWS => array('htmlViews.PrintAll', $g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_VIEW)),
 			DCL_MENU_WATCHES => array('boWatches.showall', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)),
@@ -530,6 +640,8 @@ function buildMenuArray()
 	if ($dcl_info['DCL_SCCS_ENABLED'] != 'Y' && isset($DCL_MENU[DCL_MENU_ADMIN]['Metrics']))
 		unset($DCL_MENU[DCL_MENU_ADMIN]['Metrics']);
 
+	InvokePlugin('UI.Menu', $DCL_MENU);
+
 	$DCL_MENU[DCL_MENU_HELP] = array(
 			DCL_MENU_FAQS => array('boFaq.ShowAll', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW)),
 			DCL_MENU_CLEARSCREEN => array('clearScreen', true),
@@ -538,7 +650,7 @@ function buildMenuArray()
 			DCL_MENU_LICENSEINFO => array('gpl.php', true),
 			DCL_MENU_VERSIONINFO => array('htmlVersion.DisplayVersionInfo', true)
 		);
-
+	
 	$DCL_MENU[DCL_MENU_LOGOFF] = array('logout.php', true);
 }
 
