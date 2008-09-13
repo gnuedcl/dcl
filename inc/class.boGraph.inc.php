@@ -39,7 +39,6 @@ class boGraph
 	var $margin_left;
 	var $margin_bottom;
 	var $margin_right;
-	var $obj;
 	
 	function boGraph()
 	{
@@ -58,7 +57,6 @@ class boGraph
 		$this->margin_left = 40;
 		$this->margin_bottom = 40;
 		$this->margin_right = 20;
-		$this->obj = CreateObject('dcl.htmlGD');
 	}
 	
 	function Open()
@@ -109,9 +107,9 @@ class boGraph
 		$url .= 'num_lines_x=' . $this->num_lines_x . '&';
 		$url .= 'num_lines_y=' . $this->num_lines_y . '&';
 		$url .= 'line_captions_x=' . rawurlencode(implode(',', $this->line_captions_x)) . '&';
-		reset($this->data);
+
 		$dataURL = '';
-		while(list($junk, $line) = each($this->data))
+		foreach ($this->data as $line)
 		{
 			if ($dataURL != '')
 				$dataURL .= '~';
@@ -132,115 +130,33 @@ class boGraph
 	
 	function Render()
 	{
-		// Initialize image - map white since it's our background
-		$this->obj->width = $this->graph_width;
-		$this->obj->height = $this->graph_height;
-		$this->obj->Init();
-		$this->obj->SetColor(255, 255, 255);
+		$oChart = CreateObject('dcl.DCL_Chart');
+		$oChart->Init($this->graph_width, $this->graph_height);
 		
-		// Draw the captions
-		$this->obj->SetFont(2);
-		$this->obj->SetColor(0, 0, 0);
-		$this->obj->MoveTo($this->graph_width / 2, 2);
-		$this->obj->DrawText($this->title, '', 'center');
-		$this->obj->MoveTo(2, $this->graph_height / 2);
-		$this->obj->DrawText($this->caption_y, 'up', 'center');
-		$this->obj->MoveTo($this->graph_width / 2, $this->graph_height - $this->obj->GetFontHeight() - 2);
-		$this->obj->DrawText($this->caption_x, '', 'center');
+		$oChart->Data->AddPoint($this->data[0], 'Serie1');
+		$oChart->Data->AddPoint($this->data[1], 'Serie2');
+		$oChart->Data->AddPoint($this->line_captions_x, 'Serie3');
+		$oChart->Data->AddAllSeries();
+		$oChart->Data->SetAbsciseLabelSerie('Serie3');
+		$oChart->Data->SetSerieName('Opened', 'Serie1');
+		$oChart->Data->SetSerieName('Closed', 'Serie2');
+		$oChart->Data->SetYAxisName($this->caption_y);
+		$oChart->Data->SetXAxisName($this->caption_x);
 		
-		// Draw the two axis
-		$this->obj->Line($this->margin_left, $this->margin_top, $this->margin_left, $this->graph_height - $this->margin_bottom + 4);
-		$this->obj->Line($this->margin_left - 4, $this->graph_height - $this->margin_bottom, $this->graph_width - $this->margin_right, $this->graph_height - $this->margin_bottom);
+		$oChart->Chart->setGraphArea($this->margin_left, $this->margin_top, $this->graph_width - $this->margin_right, $this->graph_height - $this->margin_bottom);
+		$oChart->Chart->drawGraphArea(255, 255, 255, true);
+		$oChart->Chart->drawScale($oChart->Data->GetData(), $oChart->Data->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, true, 0, 2);
+		$oChart->Chart->drawGrid(4, true, 230, 230, 230, 50);
 		
-		// Draw dashed lines for x axis
-		$linespace = ($this->graph_width - $this->margin_left - $this->margin_right) / ($this->num_lines_x - 1);
-		for ($i = 1; $i < $this->num_lines_x; $i++)
-		{
-			$x = $i * $linespace + $this->margin_left;
-			$this->obj->SetColor(0, 0, 0);
-			$this->obj->Line($x, $this->graph_height - $this->margin_bottom - 4, $x, $this->graph_height - $this->margin_bottom + 4);
-			$this->obj->SetColor(200, 200, 200);
-			$this->obj->Line($x, $this->margin_top, $x, $this->graph_height - $this->margin_bottom - 4, 'dashed');
-		}
+		$oChart->Data->removeSerie('Serie3');
+
+		$oChart->Chart->drawLineGraph($oChart->Data->GetData(), $oChart->Data->GetDataDescription());
+		$oChart->Chart->drawPlotGraph($oChart->Data->GetData(), $oChart->Data->GetDataDescription(), 3, 2, 255, 255, 255);
 		
-		// Draw dashed lines for y axis
-		$linespace = ($this->graph_height - $this->margin_top - $this->margin_bottom) / ($this->num_lines_y - 1);
-		for ($i = 1; $i < $this->num_lines_y; $i++)
-		{
-			$y = $this->graph_height - $this->margin_bottom - ($i * $linespace);
-			$this->obj->SetColor(0, 0, 0);
-			$this->obj->Line($this->margin_left - 4, $y, $this->margin_left + 4, $y);
-			$this->obj->SetColor(200, 200, 200);
-			$this->obj->Line($this->margin_left + 4, $y, $this->graph_width - $this->margin_right, $y, 'dashed');
-		}
-		
-		// Find the largest numeric value in data (an array of arrays representing data)
-		$largest = 0;
-		reset($this->data);
-		while (list($junk, $line) = each($this->data))
-		{
-			reset($line);
-			while (list($junk2, $value) = each($line))
-			{
-				if ($value > $largest)
-					$largest = $value;
-			}
-		}
-		
-		while ($largest < ($this->num_lines_y - 1))
-			$largest = ($this->num_lines_y - 1);
-		
-		$spread = ceil($largest / ($this->num_lines_y - 1));
-		$largest = $spread * ($this->num_lines_y - 1);
-		
-		// Draw the x axis text
-		$this->obj->SetColor(0, 0, 0);
-		$this->obj->SetFont(1);
-		$linespace = ($this->graph_width - $this->margin_left - $this->margin_right) / ($this->num_lines_x - 1);
-		reset($this->line_captions_x);
-		$i = 0;
-		while (list($junk, $text) = each($this->line_captions_x))
-		{
-			$this->obj->MoveTo($i * $linespace + $this->margin_left, $this->graph_height - $this->margin_bottom + 8);
-			$this->obj->DrawText($text, '', 'right');
-			$i++;
-		}
-		
-		// Draw the y axis text
-		$linespace = ($this->graph_height - $this->margin_top - $this->margin_bottom) / ($this->num_lines_y - 1);
-		for ($i = 0; $i < $this->num_lines_y; $i++)
-		{
-			$y = $this->graph_height - $this->margin_bottom - ($i * $linespace);
-			$this->obj->MoveTo($this->margin_left - 6, $y);
-			$this->obj->DrawText($i * $spread, '', 'right');
-		}
-		
-		// Draw the lines for the data
-		$this->obj->SetColor(255, 0, 0);
-		$linespace = ($this->graph_width - $this->margin_left - $this->margin_right) / ($this->num_lines_x - 1);
-		reset($this->data);
-		$color_index = 0;
-		while (list($junk, $line) = each($this->data))
-		{
-			$this->obj->SetColorByName($this->colors[$color_index]);
-			reset($line);
-			$i = 0;
-			while (list($junk2, $value) = each($line))
-			{
-				$y = $this->graph_height - $this->margin_bottom - (($value / $largest) * ($this->graph_height - $this->margin_bottom - $this->margin_top));
-				if ($i == 0)
-					$this->obj->MoveTo($this->margin_left, $y);
-				else
-					$this->obj->LineTo($i * $linespace + $this->margin_left, $y);
-				
-				$i++;
-			}
-			
-			$color_index++;
-		}
-		
-		$this->obj->ToBrowser();
-		$this->obj->Done();
+		$oChart->Chart->drawLegend(5, 35, $oChart->Data->GetDataDescription(), 255, 255, 255);
+		$oChart->Chart->drawTitle($this->margin_left, $this->margin_top - 4, $this->title, 50, 50, 50, $this->graph_width - $this->margin_right);
+		$oChart->Chart->Stroke();
+		exit;
 	}
 }
 ?>
