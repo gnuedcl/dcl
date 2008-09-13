@@ -40,8 +40,16 @@ function smarty_modifier_escape($string, $esc_type = 'html')
 
         case 'url':
             return urlencode($string);
+            
+        case 'date':
+            $o = new dclDB;
+            return $o->FormatDateForDisplay($string);
 
-		case 'rawurl':
+        case 'timestamp':
+            $o = new dclDB;
+            return $o->FormatTimeStampForDisplay($string);
+
+        case 'rawurl':
 			return rawurlencode($string);
 
         case 'quotes':
