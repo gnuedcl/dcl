@@ -117,7 +117,6 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 		if (strlen($dcl_session_id) != 32)
 			Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
 
-		$g_oSession->Connect();
 		if (!$g_oSession->conn)
 			Refresh(DCL_WWW_ROOT . 'logout.php?cd=3');
 
@@ -143,7 +142,6 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			$oConfig->Load();
 
 			$g_oSession = CreateObject('dcl.dbSession');
-			$g_oSession->Connect();
 			if (!$g_oSession->conn)
 				Refresh('logout.php?cd=3');
 
@@ -151,7 +149,6 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			$g_oSession->Add();
 
 			$oPreferences = CreateObject('dcl.dbPreferences');
-			$oPreferences->Connect();
 			$oPreferences->Load($aAuthInfo['id']);
 
 			// Save the user ID and copy it to global space so Security object can use the info
