@@ -37,6 +37,7 @@ class DCL_Chart
 	{
 		$this->Data = new pData();
 		$this->Chart = new pChart($width, $height);
+		$this->Chart->setFontProperties(DCL_ROOT . 'vendor/pChart/fonts/vera.ttf', 8);
 	}
 }
 ?>
