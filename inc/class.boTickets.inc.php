@@ -82,6 +82,10 @@ class boTickets
 		if ($g_oSec->IsPublicUser())
 		{
 			$obj->contact_id = $g_oSession->Value('contact_id');
+			
+			$dbContact = CreateObject('dcl.dbContact');
+			$aOrg = $dbContact->GetFirstOrg($obj->contact_id);
+			$obj->account = $aOrg['org_id'];
 		}
 		
 		$obj->Add();
@@ -123,6 +127,10 @@ class boTickets
 
 			$obj->seconds += ($end->time - $start->time);
 			$obj->Edit();
+
+			$oTR =& CreateObject('dcl.boTicketresolutions');
+			$oTR->oDB =& $objR;
+			$oTR->sendCustomerResponseEmail($obj);
 		}
 
 		$notify = '4,1';
@@ -134,9 +142,6 @@ class boTickets
 
 		$objWatch =& CreateObject('dcl.boWatches');
 		$objWatch->sendTicketNotification($obj, $notify);
-
-		$objTR =& CreateObject('dcl.boTicketresolutions');
-		$objTR->sendCustomerResponseEmail($obj);
 
 		$objH =& CreateObject('dcl.htmlTicketDetail');
 		$objH->Show($obj);
@@ -157,12 +162,12 @@ class boTickets
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbTickets');
-		if ($obj->Load($iID) == -1)
+		$oTicket =& CreateObject('dcl.dbTickets');
+		if ($oTicket->Load($iID) == -1)
 			return;
 
 		$objHWO =& CreateObject('dcl.htmlWorkOrderForm');
-		$objHWO->Show(0, '', $obj);
+		$objHWO->Show(0, $oTicket);
 	}
 
 	function modify()
