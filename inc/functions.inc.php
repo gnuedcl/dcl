@@ -551,6 +551,19 @@ function buildMenuArray()
 
 	if ($dcl_info['DCL_MODULE_WO_ENABLED'])
 	{
+		$aViews = array();
+		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
+		{
+			$oDB = CreateObject('dcl.dbViews');
+			if ($oDB->ListByUser($GLOBALS['DCLID'], DCL_ENTITY_WORKORDER) !== -1)
+			{
+				while ($oDB->next_record())
+				{
+					$aViews[$oDB->f('name')] = array('boViews.exec&viewid=' . $oDB->f('viewid'), true);
+				}
+			}
+		}
+		
 		$DCL_MENU[DCL_MENU_WORKORDERS] = array(
 				DCL_MENU_MYWOS => array('htmlWorkorders.show&filterReportto=' . $GLOBALS['DCLID'], $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION)),
 				DCL_MENU_NEW => array('boWorkorders.newjcn', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD)),
@@ -561,6 +574,7 @@ function buildMenuArray()
 				'Metrics' => array('htmlMetricsWorkOrders.getparameters', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
 				DCL_MENU_SCHEDULE => array('scheduleByPerson.SelectPersonToSchedule', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SCHEDULE)),
 				DCL_MENU_SEARCH => array('htmlWOSearches.Show', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH)),
+				DCL_MENU_VIEWS => array($aViews, count($aViews) > 0),
 				DCL_MENU_BROWSE => array('htmlWorkorders.show', $g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			);
 	}
@@ -576,6 +590,19 @@ function buildMenuArray()
 
 	if ($dcl_info['DCL_MODULE_TICKETS_ENABLED'])
 	{
+		$aViews = array();
+		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
+		{
+			$oDB = CreateObject('dcl.dbViews');
+			if ($oDB->ListByUser($GLOBALS['DCLID'], DCL_ENTITY_TICKET) !== -1)
+			{
+				while ($oDB->next_record())
+				{
+					$aViews[$oDB->f('name')] = array('boViews.exec&viewid=' . $oDB->f('viewid'), true);
+				}
+			}
+		}
+		
 		$DCL_MENU[DCL_MENU_TICKETS] = array(
 				DCL_MENU_MYTICKETS => array('htmlTickets.show&filterReportto=' . $GLOBALS['DCLID'], $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION)),
 				DCL_MENU_NEW => array('boTickets.add', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD)),
@@ -583,6 +610,7 @@ function buildMenuArray()
 				DCL_MENU_GRAPH => array('boTickets.graph', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
 				DCL_MENU_STATISTICS => array('htmlTicketStatistics.ShowUserVsProductStatusForm', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
 				DCL_MENU_SEARCH => array('htmlTicketSearches.Show', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH)),
+				DCL_MENU_VIEWS => array($aViews, count($aViews) > 0),
 				DCL_MENU_BROWSE => array('htmlTickets.show', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			);
 	}

@@ -94,6 +94,15 @@ class dbWorkorders extends dclDB
 		if ($this->entity_source_id < 1)
 			$this->entity_source_id = null;
 
+		if ($this->reported_version_id < 1)
+			$this->reported_version_id = null;
+
+		if ($this->targeted_version_id < 1)
+			$this->targeted_version_id = null;
+
+		if ($this->fixed_version_id < 1)
+			$this->fixed_version_id = null;
+
 		$this->createdon = DCL_NOW;
 		$this->statuson = DCL_NOW;
 
@@ -113,6 +122,15 @@ class dbWorkorders extends dclDB
 
 		if ($this->entity_source_id < 1)
 			$this->entity_source_id = null;
+			
+		if ($this->reported_version_id < 1)
+			$this->reported_version_id = null;
+
+		if ($this->targeted_version_id < 1)
+			$this->targeted_version_id = null;
+
+		if ($this->fixed_version_id < 1)
+			$this->fixed_version_id = null;
 
 		parent::Edit();
 	}

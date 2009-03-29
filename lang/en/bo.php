@@ -26,8 +26,8 @@
 	define('STR_BO_ESCALATEDTO', "Escalated To");
 	define('STR_BO_TICKETDELETED', "Ticket #%d Deleted");
 	define('STR_BO_GRAPHNEEDSGD', "You must have the GD module compiled into PHP for graphing to work.");
-	define('STR_BO_GRAPHTITLE', "Number of Opened(red)/Closed(blue) Tickets vs. Date");
-	define('STR_BO_WOGRAPHTITLE', "Number of Opened(red)/Closed(blue) Work Orders vs. Date");
+	define('STR_BO_GRAPHTITLE', "Number of Opened/Closed Tickets vs. Date");
+	define('STR_BO_WOGRAPHTITLE', "Number of Opened/Closed Work Orders vs. Date");
 	define('STR_BO_GRAPHCAPTIONX', "Date");
 	define('STR_BO_GRAPHCAPTIONY', "Number of Opened/Closed Tickets");
 	define('STR_BO_WOGRAPHCAPTIONY', "Number of Opened/Closed Work Orders");

@@ -15,19 +15,20 @@
 	define('STR_CMMN_LOGGEDINAS', "Prijavljen v sistem kot: %s");
 	define('STR_CMMN_ATTRIBUTENOTE', "This item will need to be associated with an attribute set to be used.  See Admin..Attributes menu item.");
 	define('STR_CMMN_NOSELECTION', "Ni Izbire");
-	define('STR_CMMN_DELETEITEM', "Izbri¹i %s");
+	define('STR_CMMN_DELETEITEM', "IzbriÃ?Â¹i %s");
 	define('STR_CMMN_INITGDERR', "Could not initialize GD stream!");
 	define('STR_CMMN_ACCESSDENIED', "Dostop prepovedan");
 	define('STR_CMMN_NEW', "Nov");
 	define('STR_CMMN_EDIT', "Popravi");
-	define('STR_CMMN_DELETE', "Bri¹i");
-	define('STR_CMMN_UPLOAD', "Nalo¾i");
+	define('STR_CMMN_DELETE', "BriÃ?Â¹i");
+	define('STR_CMMN_UPLOAD', "NaloÃ?Â¾i");
 	define('STR_CMMN_VIEW', "Poglej");
 	define('STR_CMMN_VIEWALL', "View All");
+	define('STR_CMMN_REFRESH', "Refresh");
 	define('STR_CMMN_SAVE', "Shrani");
-	define('STR_CMMN_CANCEL', "Preklièi");
+	define('STR_CMMN_CANCEL', "PrekliÃ?Â¨i");
 	define('STR_CMMN_RESET', "Reset");
-	define('STR_CMMN_SEARCH', "I¹èi");
+	define('STR_CMMN_SEARCH', "IÃ?Â¹Ã?Â¨i");
 	define('STR_CMMN_ALL', "Vse");
 	define('STR_CMMN_SEL', "Izb");
 	define('STR_CMMN_RM', "Odstrani");
@@ -86,4 +87,6 @@
 	define('STR_CMMN_MORE', "More");
 	define('STR_CMMN_TAGS', "Tags");
 	define('STR_CMMN_TAGSHELP', "Separate multiple tags with commas (example: \"php,write file,xml\").  Maximum 20 characters per tag.");
+	define('STR_CMMN_SHOWVERSION', "Versions");
+	define('STR_CMMN_SHOWFILES', "Files");
 ?>

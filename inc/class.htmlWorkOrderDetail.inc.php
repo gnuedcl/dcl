@@ -44,6 +44,8 @@ class htmlWorkOrderDetail
 
 		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
 		$oSmarty =& CreateSmarty();
+		
+		$oSmarty->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
 
 		$oSmarty->assign('VAL_FORMACTION', menuLink());
 		$oSmarty->assign('VAL_SUMMARY', $objWorkOrder->summary);
@@ -52,7 +54,9 @@ class htmlWorkOrderDetail
 		$oSmarty->assign('VAL_PUBLIC', $objWorkOrder->is_public == 'Y' ? STR_CMMN_YES : STR_CMMN_NO);
 		$oSmarty->assign('VAL_DEADLINEON', $objWorkOrder->deadlineon);
 
-		$oSmarty->assign('VAL_REVISION', $objWorkOrder->revision);
+		$oSmarty->assign('VAL_REPORTED_VERSION', $oMeta->GetProductVersion($objWorkOrder->reported_version_id));
+		$oSmarty->assign('VAL_TARGETED_VERSION', $oMeta->GetProductVersion($objWorkOrder->targeted_version_id));
+		$oSmarty->assign('VAL_FIXED_VERSION', $oMeta->GetProductVersion($objWorkOrder->fixed_version_id));
 		$oSmarty->assign('VAL_ESTSTARTON', $objWorkOrder->eststarton);
 		$oSmarty->assign('VAL_STARTON', $objWorkOrder->starton);
 		$oSmarty->assign('VAL_ESTENDON', $objWorkOrder->estendon);

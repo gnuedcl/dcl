@@ -53,9 +53,15 @@ function smarty_function_dcl_select_product($params, &$smarty)
 	if ($g_oSec->IsPublicUser())
 		$sFilter .= ($sFilter == '' ? '' : ' AND ') . "is_public = 'Y'";
 
-	if ($g_oSec->IsOrgUser())
-		$sFilter .= ($sFilter == '' ? '' : ' AND ') . ' id IN (' . $g_oSession->Value('org_products') . ')';
-
+	if ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace())
+	{
+		$aProducts = $g_oSession->GetProductFilter();
+		if ($params['default'] != '' && !in_array($params['default'], $aProducts))
+			$aProducts[] = (int)$params['default'];
+		
+		$sFilter .= ($sFilter == '' ? '' : ' AND ') . ' id IN (' . join(',', $aProducts) . ')';
+	}
+	
 	$oSelect =& CreateObject('dcl.htmlSelect');
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];

@@ -39,12 +39,13 @@ class htmlSearchBox
 	{
 		commonHeader();
 
-		$this->oView->table = $_REQUEST['which'];
 		$search_text = trim($_REQUEST['search_text']);
 		switch ($_REQUEST['which'])
 		{
 			case 'workorders':
-				if (ereg('^([0-9]+[-]?[0-9]*)+([,][0-9]+[-]?[0-9]*)+$', $search_text))
+			case 'openworkorders':
+		        $this->oView->table = 'workorders';
+			    if (ereg('^([0-9]+[-]?[0-9]*)+([,][0-9]+[-]?[0-9]*)+$', $search_text))
 					$this->findWorkOrders($search_text);
 				else if (ereg('^([0-9]+)[-]?([0-9]*)$', $search_text, $reg))
 					$this->findWorkOrders($search_text);
@@ -54,17 +55,24 @@ class htmlSearchBox
 					$this->searchWorkOrders($search_text);
 				break;
 			case 'dcl_projects':
-				if (ereg('^([0-9]+)$', $search_text, $reg))
+			case 'opendcl_projects':
+		        $this->oView->table = 'dcl_projects';
+			    if (ereg('^([0-9]+)$', $search_text, $reg))
 					$this->findProject($reg[1], 0);
 				else
 					$this->searchProjects($search_text);
 				break;
 			case 'tickets':
-				if (ereg('^([0-9]+)$', $search_text, $reg))
+			case 'opentickets':
+		        $this->oView->table = 'tickets';
+			    if (ereg('^([0-9]+)$', $search_text, $reg))
 					$this->findTicket($reg[1], 0);
 				else
 					$this->searchTickets($search_text);
 				break;
+			case 'tags':
+			    $this->searchTags($search_text);
+			    break;
 			default:
 				trigger_error('Error');
 				break;
@@ -196,6 +204,9 @@ class htmlSearchBox
 			$this->oView->AddDef('filter', 'is_public', "'Y'");
 			$this->oView->AddDef('filter', 'products.is_public', "'Y'");
 		}
+		
+		if ($_REQUEST['which'] == 'openworkorders')
+		    $this->oView->AddDef('filternot', 'statuses.dcl_status_type', '2');
 
 		$this->oView->AddDef('columns', '',
 			array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'eststarton', 'deadlineon',
@@ -246,6 +257,9 @@ class htmlSearchBox
 			$this->oView->AddDef('filter', 'products.is_public', "'Y'");
 		}
 
+		if ($_REQUEST['which'] == 'opentickets')
+		    $this->oView->AddDef('filternot', 'statuses.dcl_status_type', '2');
+
 		$this->oView->AddDef('columns', '',
 			array('ticketid', 'responsible.short', 'products.name', 'dcl_org.name', 'statuses.name', 'dcl_contact.last_name', 'dcl_contact.first_name', 'dcl_contact_phone.phone_number', 'dcl_tag.tag_desc', 'summary'));
 
@@ -274,6 +288,15 @@ class htmlSearchBox
 		$obj = CreateObject('dcl.htmlProjects');
 		$_REQUEST['filterName'] = $searchText;
 		$obj->show();
+	}
+	
+	function searchTags($searchText)
+	{
+	    commonHeader();
+	    
+	    $obj = CreateObject('dcl.htmlTags');
+	    $_REQUEST['tag'] = $searchText;
+	    $obj->browse();
 	}
 }
 ?>

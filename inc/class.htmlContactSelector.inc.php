@@ -190,7 +190,7 @@ class htmlContactSelector
 				$aContact = $oMetadata->GetContact($this->oDB->f('contact_id'));
 				$aRow = array('contact_id' => $this->oDB->f('contact_id'), 'last_name' => $this->oDB->f('last_name'),
 								'first_name' => $this->oDB->f('first_name'), 'email_addr' => $aContact['email'], 'phone_number' => $aContact['phone'],
-								'org_name' => $aContact['org_name']);
+								'org_name' => $aContact['org_name'], 'org_id' => $aContact['org_id']);
 				
 				$aContacts[] = $aRow;
 			}

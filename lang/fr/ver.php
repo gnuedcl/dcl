@@ -1,5 +1,5 @@
 <?php
-	define('STR_VER_TITLE', "Information de version du système");
+	define('STR_VER_TITLE', "Information de version du systÃ?Â¨me");
 	define('STR_VER_DCL', "Version de DCL");
 	define('STR_VER_SERVEROS', "OS-Type du Serveur");
 	define('STR_VER_SERVERNAME', "Nom du Serveur");

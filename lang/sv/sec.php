@@ -1,11 +1,11 @@
 <?php
 	define('STR_SEC_SECLOG', "Security Logs");
 	define('STR_SEC_SECLOGTITLE', "Security Logs Between %s and %s for %s");
-	define('STR_SEC_GENERATEREPORTFOR', "Generera rapport över");
-	define('STR_SEC_DATERANGE', "Datumområde");
-	define('STR_SEC_BEGIN', "Börjar");
+	define('STR_SEC_GENERATEREPORTFOR', "Generera rapport Ã?Â¶ver");
+	define('STR_SEC_DATERANGE', "DatumomrÃ?Â¥de");
+	define('STR_SEC_BEGIN', "BÃ?Â¶rjar");
 	define('STR_SEC_ENDING', "Slutar");
-	define('STR_SEC_DATEERR', "Kan inte skriva rapport utan både ett startdatum och ett slutdatum.");
+	define('STR_SEC_DATEERR', "Kan inte skriva rapport utan bÃ?Â¥de ett startdatum och ett slutdatum.");
 	define('STR_SEC_ACTIONON', "Action On");
 	define('STR_SEC_ACTIONTXT', "Action");
 	define('STR_SEC_ACTIONPARAM', "Details");

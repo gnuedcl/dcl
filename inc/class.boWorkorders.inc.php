@@ -68,6 +68,45 @@ class boWorkorders
 		$obj->Show($iID);
 	}
 
+	function copy()
+	{
+		global $g_oSec;
+		
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
+		{
+			PrintPermissionDenied();
+			return;
+		}
+		
+		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		{
+			trigger_error('Data sanitize failed.');
+			return;
+		}
+		
+		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		{
+			trigger_error('Data sanitize failed.');
+			return;
+		}
+		
+		$bSequence = isset($_REQUEST['copyseq']) && $_REQUEST['copyseq'] == 'true';
+		
+		$oWO =& CreateObject('dcl.dbWorkorders');
+		$oWO->Load($iID, $iSeq);
+		
+		$oProject =& CreateObject('dcl.dbProjectmap');
+		if ($oProject->LoadByWO($iID, $iSeq) != -1)
+			$_REQUEST['projectid'] = $oProject->projectid;
+			
+		$oWO->jcn = 0;
+		$oWO->seq = 0;
+
+		$obj =& CreateObject('dcl.htmlWorkOrderForm');
+		$obj->Show($bSequence ? $iID : 0, $oWO);
+	}
+
 	function modifyjcn()
 	{
 		global $g_oSec;
@@ -88,11 +127,11 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
 			return PrintPermissionDenied();
 
-		$objWO =& CreateObject('dcl.dbWorkorders');
-		$objWO->Load($iID, $iSeq);
+		$oWO =& CreateObject('dcl.dbWorkorders');
+		$oWO->Load($iID, $iSeq);
 
 		$obj =& CreateObject('dcl.htmlWorkOrderForm');
-		$obj->Show($iID, $objWO);
+		$obj->Show($iID, $oWO);
 	}
 
 	function dbnewjcn()
@@ -270,7 +309,7 @@ class boWorkorders
 			return;
 
 		$aFields = array('product', 'module_id', 'wo_type_id', 'deadlineon', 'eststarton', 'estendon', 'esthours', 'priority', 'severity',
-						'contact_id', 'summary', 'notes', 'description', 'responsible', 'revision', 'is_public', 'entity_source_id');
+						'contact_id', 'summary', 'notes', 'description', 'responsible', 'reported_version_id', 'is_public', 'entity_source_id', 'targeted_version_id', 'fixed_version_id');
 
 		$bModified = false;
 		foreach ($aFields as $sField)
@@ -807,7 +846,7 @@ class boWorkorders
 		$iProduct = 0;
 		if (($iProduct = @DCL_Sanitize::ToInt($_REQUEST['product'])) === null)
 		    $iProduct = 0;
-		    
+		
 		$objG =& CreateObject('dcl.boGraph');
 		$obj =& CreateObject('dcl.dbWorkorders');
 		

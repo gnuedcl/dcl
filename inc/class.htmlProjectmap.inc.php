@@ -26,7 +26,7 @@ LoadStringResource('pm');
 
 class htmlProjectmap
 {
-	function _display($hidden_vars, $sFunction)
+	function _display($jcn, $seq, $menuAction, $sFunction)
 	{
 		global $dcl_info, $g_oSec;
 
@@ -34,19 +34,16 @@ class htmlProjectmap
 			return PrintPermissionDenied();
 
 		$objProject = CreateObject('dcl.htmlProjects');
-
-		$Template = CreateTemplate(array('hForm' => 'htmlProjectmapForm.tpl'));
-		$Template->set_var('VAL_FORMACTION', menuLink());
-		$Template->set_var('TXT_FUNCTION', $sFunction);
-
-		$Template->set_var('HIDDEN_VARS', $hidden_vars);
-		$Template->set_var('TXT_CHOOSEPRJ', STR_PM_CHOOSEPRJ);
-		$Template->set_var('CMB_PROJECT', $objProject->GetCombo(0, 'projectid', 0, 0, -1, true));
-		$Template->set_var('TXT_ADDALLSEQ', STR_PM_ADDALLSEQ);
-		$Template->set_var('BTN_OK', STR_CMMN_SAVE);
-		$Template->set_var('BTN_RESET', STR_CMMN_RESET);
-
-		$Template->pparse('out', 'hForm');
+		
+		$t =& CreateSmarty();
+		
+		$t->assign('TXT_FUNCTION', $sFunction);
+        $t->assign('menuAction', $menuAction);
+		$t->assign('CMB_PROJECT', $objProject->GetCombo(0, 'projectid', 0, 0, -1, true));
+		$t->assign('jcn', $jcn);
+		$t->assign('seq', $seq);
+		
+		SmartyDisplay($t, 'htmlProjectmapForm.tpl');
 	}
 
 	function ChooseProjectForJCN($jcn, $seq)
@@ -56,11 +53,7 @@ class htmlProjectmap
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 			return PrintPermissionDenied();
 
-		$hidden_vars = GetHiddenVar('menuAction', 'boProjects.dbaddtoproject');
-		$hidden_vars .= GetHiddenVar('jcn', $jcn);
-		$hidden_vars .= GetHiddenVar('seq', $seq);
-
-		$this->_display($hidden_vars, STR_PM_ADDTOPRJ);
+		$this->_display($jcn, $seq, 'boProjects.dbaddtoproject', STR_PM_ADDTOPRJ);
 	}
 
 	function move()
@@ -72,11 +65,7 @@ class htmlProjectmap
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 			return PrintPermissionDenied();
 
-		$hidden_vars = GetHiddenVar('menuAction', 'htmlProjectmap.submitMove');
-		$hidden_vars .= GetHiddenVar('jcn', $jcn);
-		$hidden_vars .= GetHiddenVar('seq', $seq);
-
-		$this->_display($hidden_vars, 'Move Work Order to Another Project');
+		$this->_display($jcn, $seq, 'htmlProjectmap.submitMove', 'Move Work Order to Another Project');
 	}
 
 	function batchMove()
@@ -87,15 +76,9 @@ class htmlProjectmap
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 			return PrintPermissionDenied();
 
-		$hidden_vars = GetHiddenVar('menuAction', 'htmlProjectmap.submitBatchMove');
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
-			foreach ($_REQUEST['selected'] as $val)
-			{
-				$hidden_vars .= GetHiddenVar('selected[]', $val);
-			}
-
-			$this->_display($hidden_vars, 'Batch Move Work Orders to Another Project');
+			$this->_display($_REQUEST['selected'], null, 'htmlProjectmap.submitBatchMove', 'Batch Move Work Orders to Another Project');
 
 			$obj = CreateObject('dcl.htmlTimeCards');
 			$obj->ShowBatchWO();

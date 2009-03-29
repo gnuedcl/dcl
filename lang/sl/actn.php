@@ -1,13 +1,13 @@
 <?php
 	define('STR_ACTN_SELECTONE', "Izberi");
-	define('STR_ACTN_TABLETITLE', "Akcije - razvr¹èene po %s");
-	define('STR_ACTN_NOACTIONS', "Ni najti akcij za prikaz!  Morda ¹e nima¹ definiranih akcije na sistemu!");
+	define('STR_ACTN_TABLETITLE', "Akcije - razvrÃ?Â¹Ã?Â¨ene po %s");
+	define('STR_ACTN_NOACTIONS', "Ni najti akcij za prikaz!  Morda Ã?Â¹e nimaÃ?Â¹ definiranih akcije na sistemu!");
 	define('STR_ACTN_ID', "ID");
 	define('STR_ACTN_ACTIVEABB', "A");
 	define('STR_ACTN_ACTIVE', "Aktiven");
 	define('STR_ACTN_SHORT', "Kratko");
 	define('STR_ACTN_NAME', "Ime");
-	define('STR_ACTN_OPTIONS', "Mo¾nosti");
+	define('STR_ACTN_OPTIONS', "MoÃ?Â¾nosti");
 	define('STR_ACTN_EDIT', "Popravi akcijo");
 	define('STR_ACTN_ADD', "Dodaj akcijo");
 	define('STR_ACTN_HIGHLIGHTEDNOTE', "** Osvetljena polja so obvezna!");

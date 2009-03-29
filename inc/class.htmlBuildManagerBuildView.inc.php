@@ -22,65 +22,67 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-import('htmlView');
-class htmlBuildManagerBuildView extends htmlView
+LoadStringResource('bm');
+class htmlBuildManagerBuildView
 {
 	var $productid;
+	var $product_version_id;
 	
 	function htmlBuildManagerBuildView()
 	{
-		parent::htmlView();
-		$this->sColumnTitle = STR_CMMN_OPTIONS;
 		$this->productid = 0;
 		$this->product_version_id = 0;
-		//$this->sSortAction = 'htmlSessionBrowse.execurl';
 	}
-
-	function _SetActionFormOptions()
-	{
-		$aLinks = array(
-				'New' => menuLink('', 'menuAction=boBuildManager.add&which=build&product_id=' . $this->productid . '&product_version_id=' . $this->product_version_id)
-			);
-
-		$this->_SetVar('hActionLinkSetLinks', '');
-		$bFirst = true;
-		foreach ($aLinks as $sText => $sLink)
-		{
-			if ($bFirst)
-				$bFirst = false;
-			else
-				$this->Template->parse('hActionLinkSetLinks', 'actionLinkSetSep', true);
-
-			$this->_SetVar('LNK_ACTIONVALUE', $sLink);
-			$this->_SetVar('VAL_ACTIONVALUE', $sText);
-
-			$this->Template->parse('hActionLinkSetLinks', 'actionLinkSetLink', true);
-		}
-		
-		$this->Template->parse('hActionLinkSet', 'actionLinkSet');
-		$this->Template->parse('hActions', 'actions');
-	}
-
 	
-	function _DisplayOptions()
+	function Render($oView)
 	{
 		global $dcl_info, $g_oSec, $g_oSession;
 
-		$buildid = $this->oDB->f('product_build_id');
-		$versionid = $this->oDB->f('product_version_id');
+		commonHeader();
+
+		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEW))
+			return PrintPermissionDenied();
+
+		$oDB = CreateObject('dcl.dbBuildManager');
+		if ($oDB->query($oView->GetSQL()) == -1)
+			return;
+			
+		$allRecs = $oDB->FetchAllRows();
+
+		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable->addColumn(STR_CMMN_ID, 'numeric');
+		$oTable->addColumn('Version ID', 'numeric');
+		$oTable->addColumn(STR_BM_RELEASEDATE_DESC, 'string');
 		
-		$this->_SetVar('hDetailColumnLinkSetLinks', '');
-		$this->_SetVar('LNK_COLUMNDISABLED', '');
-		 
-		$this->_AddDisplayOption(STR_CMMN_VIEW, menuLink('', 'menuAction=htmlBuildManager.ShowWOByBuild&product_build_id=' . $buildid . '&product_id=' . $this->productid), false);
-		$this->_AddDisplayOption(STR_CMMN_EDIT, menuLink('', 'menuAction=htmlBuildManager.ModifyBuildInfo&buildid=' . $buildid . '&product_id=' . $this->productid . '&product_version_id=' . $versionid . '&which=build' ), true);
+		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		
+		$oProductVersion = CreateObject('dcl.dbProductVersion');
+		$oProductVersion->Load(array('product_version_id' => $this->product_version_id));
 
-		$this->Template->parse('hDetailColumnLinkSet', 'detailColumnLinkSet');
-		$this->Template->parse('hDetailCells', 'detailCells', true);
+		$oTable->setCaption($oView->title . ': ' . $oProductVersion->product_version_text);
+		
+		$oTable->addToolbar(menuLink('', 'menuAction=boBuildManager.add&which=build&product_id=' . $this->productid . '&product_version_id=' . $this->product_version_id), STR_CMMN_NEW);
+		$oTable->addToolbar(menuLink('', 'menuAction=boProducts.viewRelease&id=' . $this->productid), $oMeta->GetProduct($this->productid));
+		$oTable->addToolbar(menuLink('', 'menuAction=boProducts.viewBuild&product_version_id=' . $this->product_version_id . '&product_id=' . $this->productid), STR_CMMN_REFRESH);
 
-		// this avoids repeating cells
-		$this->_ResetDetailCells();
-	}
-	
+		if (count($allRecs) > 0 && $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_ENTITY_ADMIN))
+		{
+			$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
+			for ($i = 0; $i < count($allRecs); $i++)
+			{
+				$buildid = $allRecs[$i][0];
+				$versionid = $allRecs[$i][1];
+				
+				$options = '<a href="' . menuLink('', 'menuAction=htmlBuildManager.ShowWOByBuild&product_build_id=' . $buildid . '&product_id=' . $this->productid) . '">' . STR_CMMN_VIEW . '</a>';
+				$options .= '&nbsp;|&nbsp;<a href="' . menuLink('', 'menuAction=htmlBuildManager.ModifyBuildInfo&buildid=' . $buildid . '&product_id=' . $this->productid . '&product_version_id=' . $versionid . '&which=build' ) . '">' . STR_CMMN_EDIT . '</a>';
+
+				$allRecs[$i][3] = $options;
+			}
+		}
+		
+		$oTable->setData($allRecs);
+		$oTable->setShowRownum(true);
+		$oTable->render();
+	}	
 }
 ?>

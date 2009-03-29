@@ -72,6 +72,17 @@ class dbPersonnel extends dclDB
 	{
 		return parent::Load(array('id' => $id));
 	}
+	
+	function LoadByLogin($sLogin)
+	{
+		if ($this->Query('SELECT ' . $this->SelectAllColumns() . ' FROM ' . $this->TableName . ' WHERE ' . $this->GetUpperSQL('short') . ' = ' . $this->Quote(strtoupper($sLogin))) != -1)
+		{
+			if ($this->next_record())
+				return $this->GetRow();
+		}
+		
+		return -1;
+	}
 
 	function IsPasswordOK($userID, $password)
 	{

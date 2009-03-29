@@ -94,10 +94,6 @@ function validateAndSubmitForm(form)
 			<input type="text" name="etchours" size="6" maxlength="6" value="{$VAL_ETCHOURS}">
 			<span>Enter an estimate of how many hours remain for this work order to be completed.</span>
 		</div>
-		<div>
-			<label for="revision">{$smarty.const.STR_TC_VERSION}:</label>
-			<input type="text" name="revision" size="20" maxlength="20" value="{$VAL_REVISION|escape}">
-		</div>
 		<div class="required">
 			<label for="summary">{$smarty.const.STR_TC_SUMMARY}:</label>
 			<input type="text" name="summary" size="50" maxlength="100" value="{$VAL_SUMMARY|escape}">
@@ -118,14 +114,24 @@ function validateAndSubmitForm(form)
 			<span>You can reassign this work order to another person by selecting their user name here.</span>
 		</div>
 	{/if}
+	{if $PERM_MODIFYWORKORDER}
+	<div>
+		<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
+		<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
+		<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
+	</div>
+	{/if}
+	{if $VAL_PRODUCT && $VAL_ISVERSIONED}
+	<div>
+		<label for="revision">Targeted Version:</label>
+		{dcl_select_product_version name=targeted_version_id active="Y" default="$VAL_TARGETED_VERSION" product="$VAL_PRODUCT"}
+	</div>
+	<div>
+		<label for="revision">Fixed Version:</label>
+		{dcl_select_product_version name=fixed_version_id active="Y" default="$VAL_FIXED_VERSION" product="$VAL_PRODUCT"}
+	</div>
+	{/if}
 	{if !$IS_BATCH}
-		{if $PERM_MODIFYWORKORDER}
-		<div>
-			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
-			<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
-			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
-		</div>
-		{/if}
 		{if $PERM_ADDTASK}
 		<div>
 			<label for="projectid">{$smarty.const.STR_WO_PROJECT}:</label>

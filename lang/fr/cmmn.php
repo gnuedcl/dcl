@@ -1,8 +1,8 @@
 <?php
-	define('STR_CMMN_ARRAYTABLEERR', "Difficile de trouver une bonne aide ces jours-ci : Pas de tableaux passés à PrintArrayAsChocoTable.");
-	define('STR_CMMN_ARRAYTABLEERRHELP', "Celà peut signifier que le rapport %s ne contient pas d\'entrées à visualiser.");
-	define('STR_CMMN_DELETECONFIRM', "Etes vous sûr de vouloir effacer %s: %s ???");
-	define('STR_CMMN_DEACTIVATENOTE', "NOTE: Si une autre table reference cet éléement, il sera désactivé pour maintenir l\'intégrité des données.");
+	define('STR_CMMN_ARRAYTABLEERR', "Difficile de trouver une bonne aide ces jours-ci : Pas de tableaux passÃ?Â©s Ã?Â  PrintArrayAsChocoTable.");
+	define('STR_CMMN_ARRAYTABLEERRHELP', "CelÃ?Â  peut signifier que le rapport %s ne contient pas d\'entrÃ?Â©es Ã?Â  visualiser.");
+	define('STR_CMMN_DELETECONFIRM', "Etes vous sÃ?Â»r de vouloir effacer %s: %s ???");
+	define('STR_CMMN_DEACTIVATENOTE', "NOTE: Si une autre table reference cet Ã?Â©lÃ?Â©ement, il sera dÃ?Â©sactivÃ?Â© pour maintenir l\'intÃ?Â©gritÃ?Â© des donnÃ?Â©es.");
 	define('STR_CMMN_ERROR', "Error");
 	define('STR_CMMN_INFORMATION', "Information");
 	define('STR_CMMN_WARNING', "Warning");
@@ -10,23 +10,24 @@
 	define('STR_CMMN_HIGHLIGHTEDNOTE', "** Les champs en surbrillance sont obligatoires!");
 	define('STR_CMMN_YES', "Oui");
 	define('STR_CMMN_NO', "Non");
-	define('STR_CMMN_SELECTONE', "A Sélectionner.");
+	define('STR_CMMN_SELECTONE', "A SÃ?Â©lectionner.");
 	define('STR_CMMN_NOTLOGGEDIN', "Not Logged In");
-	define('STR_CMMN_LOGGEDINAS', "Connecté en tant que : %s");
-	define('STR_CMMN_ATTRIBUTENOTE', "Cet élément devra ensuite être associé à un ensemble d\'attributs pour être utilisé. Voir l\'éléement de menu Admin..Attributs.");
+	define('STR_CMMN_LOGGEDINAS', "ConnectÃ?Â© en tant que : %s");
+	define('STR_CMMN_ATTRIBUTENOTE', "Cet Ã?Â©lÃ?Â©ment devra ensuite Ã?Âªtre associÃ?Â© Ã?Â  un ensemble d\'attributs pour Ã?Âªtre utilisÃ?Â©. Voir l\'Ã?Â©lÃ?Â©ement de menu Admin..Attributs.");
 	define('STR_CMMN_NOSELECTION', "Pas de Selection");
 	define('STR_CMMN_DELETEITEM', "Effacer %s");
 	define('STR_CMMN_INITGDERR', "Ne peut pas initialiser le flux GD !");
-	define('STR_CMMN_ACCESSDENIED', "Accès non autoris");
+	define('STR_CMMN_ACCESSDENIED', "AccÃ?Â¨s non autoris");
 	define('STR_CMMN_NEW', "Nouveau");
 	define('STR_CMMN_EDIT', "Editer");
 	define('STR_CMMN_DELETE', "Effacer");
 	define('STR_CMMN_UPLOAD', "Uploader");
 	define('STR_CMMN_VIEW', "Voir");
 	define('STR_CMMN_VIEWALL', "View All");
+	define('STR_CMMN_REFRESH', "Refresh");
 	define('STR_CMMN_SAVE', "Sauver");
 	define('STR_CMMN_CANCEL', "Annuler");
-	define('STR_CMMN_RESET', "Rafraîchir");
+	define('STR_CMMN_RESET', "RafraÃ?Â®chir");
 	define('STR_CMMN_SEARCH', "Rechercher");
 	define('STR_CMMN_ALL', "Tous");
 	define('STR_CMMN_SEL', "Sel");
@@ -86,4 +87,6 @@
 	define('STR_CMMN_MORE', "More");
 	define('STR_CMMN_TAGS', "Tags");
 	define('STR_CMMN_TAGSHELP', "Separate multiple tags with commas (example: \"php,write file,xml\").  Maximum 20 characters per tag.");
+	define('STR_CMMN_SHOWVERSION', "Versions");
+	define('STR_CMMN_SHOWFILES', "Files");
 ?>

@@ -1,9 +1,9 @@
 <?php
-	define('STR_ACCT_SELECTONE', "Välj en");
+	define('STR_ACCT_SELECTONE', "VÃ?Â¤lj en");
 	define('STR_ACCT_DIRBYNAME', "Konton efter namn");
-	define('STR_ACCT_TABLETITLE', "Konton - sorterade efter %s innehållande %s");
-	define('STR_ACCT_NOTFOUND', "Inga konton hittades för %s innehållande %s");
-	define('STR_ACCT_OPTIONS', "Inställningar");
+	define('STR_ACCT_TABLETITLE', "Konton - sorterade efter %s innehÃ?Â¥llande %s");
+	define('STR_ACCT_NOTFOUND', "Inga konton hittades fÃ?Â¶r %s innehÃ?Â¥llande %s");
+	define('STR_ACCT_OPTIONS', "InstÃ?Â¤llningar");
 	define('STR_ACCT_ID', "ID");
 	define('STR_ACCT_ACTIVEABB', "A");
 	define('STR_ACCT_ACTIVE', "Aktiv");
@@ -17,12 +17,12 @@
 	define('STR_ACCT_CONTACT', "Kontakt");
 	define('STR_ACCT_CONTACTPH', "Kontakttelefon");
 	define('STR_ACCT_FAX', "Fax");
-	define('STR_ACCT_EDITACCOUNT', "Ändra konto");
-	define('STR_ACCT_ADDNEWACCOUNT', "Lägg till konto");
-	define('STR_ACCT_HIGHLIGHTEDNOTE', "** Obligatoriskt fält.");
+	define('STR_ACCT_EDITACCOUNT', "Ã?â??ndra konto");
+	define('STR_ACCT_ADDNEWACCOUNT', "LÃ?Â¤gg till konto");
+	define('STR_ACCT_HIGHLIGHTEDNOTE', "** Obligatoriskt fÃ?Â¤lt.");
 	define('STR_ACCT_NOOBJECTERR', "Kontot kunde inte aktiveras!");
-	define('STR_ACCT_ACCOUNTSEARCH', "Sök konto");
-	define('STR_ACCT_SEARCHTEXT', "Textsökning");
+	define('STR_ACCT_ACCOUNTSEARCH', "SÃ?Â¶k konto");
+	define('STR_ACCT_SEARCHTEXT', "TextsÃ?Â¶kning");
 	define('STR_ACCT_WATCHWO', "Watch WO");
 	define('STR_ACCT_WATCHTCK', "Watch Ticket");
 ?>

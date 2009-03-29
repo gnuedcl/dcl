@@ -1,15 +1,15 @@
 <?php
 	define('STR_PROD_SELECTONE', "Izberi");
-	define('STR_PROD_TABLETITLE', "Produkti - razvr¹èeni po %s");
+	define('STR_PROD_TABLETITLE', "Produkti - razvrÃ?Â¹Ã?Â¨eni po %s");
 	define('STR_PROD_NOPRODS', "Ne najdem produktov za prikaz!");
 	define('STR_PROD_ID', "ID");
 	define('STR_PROD_ACTIVEABB', "A");
 	define('STR_PROD_ACTIVE', "Aktiven");
 	define('STR_PROD_SHORT', "Kratko");
 	define('STR_PROD_NAME', "Ime");
-	define('STR_PROD_REPORTTO', "Poroèila k");
+	define('STR_PROD_REPORTTO', "PoroÃ?Â¨ila k");
 	define('STR_PROD_TICKETSTO', "Tickets k");
-	define('STR_PROD_OPTIONS', "Mo¾nosti");
+	define('STR_PROD_OPTIONS', "MoÃ?Â¾nosti");
 	define('STR_PROD_EDIT', "Popravi produkt");
 	define('STR_PROD_ADD', "Dodaj produkt");
 	define('STR_PROD_HIGHLIGHTEDNOTE', "** Osvetljena polja so obvezna!");
@@ -23,7 +23,7 @@
 	define('STR_PROD_VIEWTICKETS', "Preglej Tickets");
 	define('STR_PROD_NOWORKORDERS', "Ni delovnih nalogov v DCL.");
 	define('STR_PROD_NOTICKETS', "Ni tickets v DCL.");
-	define('STR_PROD_PREEXISTING', "Predobstojeèi");
+	define('STR_PROD_PREEXISTING', "PredobstojeÃ?Â¨i");
 	define('STR_PROD_CREATED', "Narejen");
 	define('STR_PROD_CLOSED', "Zaprt");
 	define('STR_PROD_OUTSTANDING', "Outstanding");

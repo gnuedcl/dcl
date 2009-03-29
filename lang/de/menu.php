@@ -1,10 +1,10 @@
 <?php
 	define('DCL_MENU_HOME', "Startseite");
-	define('DCL_MENU_WORKORDERS', "Aufträge");
-	define('DCL_MENU_MYWOS', "Meine Arbeitsaufträge AP");
+	define('DCL_MENU_WORKORDERS', "AuftrÃ?Â¤ge");
+	define('DCL_MENU_MYWOS', "Meine ArbeitsauftrÃ?Â¤ge AP");
 	define('DCL_MENU_NEW', "Addieren Neues");
 	define('DCL_MENU_IMPORT', "Importieren");
-	define('DCL_MENU_ACTIVITY', "Aktivitäten");
+	define('DCL_MENU_ACTIVITY', "AktivitÃ?Â¤ten");
 	define('DCL_MENU_GRAPH', "Graphik");
 	define('DCL_MENU_STATISTICS', "Statistiken");
 	define('DCL_MENU_SCHEDULE', "Zeitplan");
@@ -17,7 +17,7 @@
 	define('DCL_MENU_MYTICKETS', "Meine Tickets");
 	define('DCL_MENU_ADMIN', "Admin");
 	define('DCL_MENU_MANAGE', "Manage");
-	define('DCL_MENU_CHANGEPASSWORD', "Passwort ändern");
+	define('DCL_MENU_CHANGEPASSWORD', "Passwort Ã?Â¤ndern");
 	define('DCL_MENU_SYSTEMSETUP', "System einrichten");
 	define('DCL_MENU_NEWACCOUNT', "Neuer Kunde");
 	define('DCL_MENU_VIEWACCOUNT', "Suche nach Kunde");
@@ -27,7 +27,7 @@
 	define('DCL_MENU_WATCHES', "Beobachtungsliste");
 	define('DCL_MENU_HELP', "Hilfe");
 	define('DCL_MENU_FAQS', "FAQs");
-	define('DCL_MENU_CLEARSCREEN', "Bildschirm löschen");
+	define('DCL_MENU_CLEARSCREEN', "Bildschirm lÃ?Â¶schen");
 	define('DCL_MENU_DCLHOMEPAGE', "DCL Webseite");
 	define('DCL_MENU_LICENSEINFO', "Lizenz Informationen");
 	define('DCL_MENU_VERSIONINFO', "Information zur Version");

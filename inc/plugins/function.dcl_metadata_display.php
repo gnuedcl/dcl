@@ -60,6 +60,9 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 		case 'wotype':
 			return $g_oMetaData->GetWorkOrderType($params['value']);
 			
+		case 'product_version':
+			return $g_oMetaData->GetProductVersion($params['value']);
+			
 		case 'wo_project':
 			if (!isset($params['value2']))
 			{

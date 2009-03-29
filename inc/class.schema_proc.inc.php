@@ -247,6 +247,24 @@
 
 			return $retVal && $this->m_oTranslator->CreateTable($this, $this->m_aTables, $sTableName, $aTableDef);
 		}
+		
+		function CreateIndex($sTableName, $sIndexName, $aColumns)
+		{
+			$retVal = $this->m_oDeltaProc->CreateIndex($this, $this->m_aTables, $sTableName, $sIndexName, $aColumns);
+			if ($this->m_bDeltaOnly)
+				return $retVal;
+				
+			return $retVal && $this->m_oTranslator->CreateIndex($this, $this->m_aTables, $sTableName, $sIndexName, $aColumns);
+		}
+
+		function DropIndex($sTableName, $sIndexName)
+		{
+			$retVal = $this->m_oDeltaProc->DropIndex($this, $this->m_aTables, $sTableName, $sIndexName);
+			if ($this->m_bDeltaOnly)
+				return $retVal;
+				
+			return $retVal && $this->m_oTranslator->DropIndex($this, $this->m_aTables, $sTableName, $sIndexName);
+		}
 
 		function f($value)
 		{

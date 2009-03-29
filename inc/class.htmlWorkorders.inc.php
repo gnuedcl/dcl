@@ -304,13 +304,22 @@ class htmlWorkorders
 			$oProd = CreateObject('dcl.dbProducts');
 			$oProd->Load($oWO->product);
 			$oTable->assign('VAL_PRODUCT', $oProd->name);
+			
+			$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			if ($oWO->fixed_version_id > 0)
+			{
+				$oTable->assign('VAL_VERSION', $oMeta->GetProductVersion($oWO->fixed_version_id));
+			}
+			else if ($oWO->targeted_version_id > 0)
+			{
+				$oTable->assign('VAL_VERSION', $oMeta->GetProductVersion($oWO->targeted_version_id));
+			}
 
 			$oTC = CreateObject('dcl.dbTimeCards');
-			$oTC->LimitQuery("SELECT actionon, revision FROM timecards WHERE status = 25 AND jcn = $jcn AND seq = $seq ORDER BY actionon DESC, id DESC", 0, 1);
+			$oTC->LimitQuery("SELECT actionon FROM timecards WHERE status = 25 AND jcn = $jcn AND seq = $seq ORDER BY actionon DESC, id DESC", 0, 1);
 			if ($oTC->next_record())
 			{
 				$oTable->assign('VAL_COMPILERDATE', $oTC->FormatDateForDisplay($oTC->f(0)));
-				$oTable->assign('VAL_VERSION', $oTC->f(1));
 			}
 
 			$oTable->render();

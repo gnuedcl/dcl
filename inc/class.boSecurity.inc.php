@@ -48,6 +48,19 @@ class boSecurity
 		// Restricted to certain orgs for some functions
 		return $this->HasAnyPerm(array(DCL_ENTITY_TICKET => array($this->PermArray(DCL_PERM_VIEWACCOUNT)), DCL_ENTITY_WORKORDER => array($this->PermArray(DCL_PERM_VIEWACCOUNT))));
 	}
+	
+	function HasSpecificRole($role_id)
+	{
+		// Checks the current user for specific role - should only be used by custom plugins
+		if (($role_id = DCL_Sanitize::ToInt($role_id)) === null)
+		{
+			trigger_error('Data sanitize failed.');
+			return false;
+		}
+		
+		$oDB =& CreateObject('dcl.dbUserRole');
+		return $oDB->HasSpecificRole($GLOBALS['DCLID'], $role_id);
+	}
 
 	function HasPerm($entity, $perm, $id1 = 0, $id2 = 0)
 	{

@@ -46,13 +46,15 @@ $GLOBALS['phpgw_baseline']['workorders'] = array(
 		'notes' => array('type' => 'text'),
 		'description' => array('type' => 'text', 'nullable' => false),
 		'responsible' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'revision' => array('type' => 'varchar', 'precision' => 20),
+		'reported_version_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
 		'etchours' => array('type' => 'float', 'precision' => 8),
 		'module_id' => array('type' => 'int', 'precision' => 4),
 		'wo_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'entity_source_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
 		'is_public' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'),
-		'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
+		'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
+		'targeted_version_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
+		'fixed_version_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
 	),
 	'pk' => array('jcn', 'seq'),
 	'fk' => array(),

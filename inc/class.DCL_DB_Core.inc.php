@@ -358,6 +358,22 @@ class DCL_DB_Core
 	}
 
 	/**
+	 * Convert the SQL date format into preferred display format
+	 * @param string The date to format
+	 * @return string Reformatted date string according to user preference or empty string if not valid
+	 */
+	function FormatDateForQuarterDisplay($thisDate)
+	{
+		if ($thisDate != '' || substr($thisDate, 0, 4) == '0000')
+		{
+			$this->objDate->SetFromDB($thisDate);
+			return 'Q' . ceil(date('n', $this->objDate->time) / 3) . ' ' . date('Y', $this->objDate->time);
+		}
+
+		return '';
+	}
+
+	/**
 	 * Convert the SQL timestamp format into preferred display format
 	 * @param string The timestamp to format
 	 * @return string Reformatted timestamp string according to user preference or empty string if not valid
@@ -839,7 +855,7 @@ class DCL_DB_Core
 		return $aRetVal;
 	}
 
-	function GetOptions($sFieldID, $sFieldDesc, $sFieldActive = '', $bActiveOnly = true, $sPublicField = '')
+	function GetOptions($sFieldID, $sFieldDesc, $sFieldActive = '', $bActiveOnly = true, $sPublicField = '', $sFilter = '')
 	{
 		global $g_oSec;
 
@@ -855,7 +871,15 @@ class DCL_DB_Core
 
 			$sWhere .= "$sFieldActive = 'Y'";
 		}
+		
+		if ($sFilter != '')
+		{
+			if ($sWhere != '')
+				$sWhere .= ' AND ';
 
+			$sWhere .= $sFilter;
+		}
+		
 		if ($sWhere != '')
 			$this->Query("SELECT $sFieldID, $sFieldDesc FROM $this->TableName WHERE $sWhere ORDER BY $sFieldDesc");
 		else

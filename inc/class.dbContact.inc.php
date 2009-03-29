@@ -73,5 +73,19 @@ class dbContact extends dclDB
 
 		return $aRetVal;
 	}
+	
+	function GetContactByName($sFirstName, $sLastName)
+	{
+	    $sSQL = "SELECT contact_id FROM dcl_contact WHERE " . $this->GetUpperSQL('first_name') . " = " . $this->Quote(strtoupper($sFirstName)) . " AND " . $this->GetUpperSQL('last_name') . " = " . $this->Quote(strtoupper($sLastName)); 
+        if ($this->Query($sSQL) != -1)
+        {
+        	if ($this->next_record())
+        	{
+        	    return $this->f(0);
+        	}
+        }
+    
+        return null;
+	}
 }
 ?>

@@ -120,6 +120,60 @@ class dbProjectmap extends dclDB
 
 		return $this->GetRow();
 	}
+	
+	function GetStatusCount($projectid)
+	{
+		$sql = 'SELECT s.name, count(*) FROM statuses s, workorders w, projectmap p WHERE ';
+		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.status AND p.projectid=$projectid ";
+		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	function GetSeverityCount($projectid)
+	{
+		$sql = 'SELECT s.name, count(*) FROM severities s, workorders w, projectmap p WHERE ';
+		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.severity AND p.projectid=$projectid ";
+		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	function GetPriorityCount($projectid)
+	{
+		$sql = 'SELECT s.name, count(*) FROM priorities s, workorders w, projectmap p WHERE ';
+		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.priority AND p.projectid=$projectid ";
+		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	function GetDepartmentCount($projectid)
+	{
+		$sql = 'SELECT d.name, count(*) FROM departments d, personnel u, workorders w, projectmap p WHERE ';
+		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND w.responsible = u.id AND d.id = u.department AND p.projectid=$projectid ";
+		$sql .= 'GROUP BY d.name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	function GetModuleCount($projectid)
+	{
+		$sql = 'SELECT m.module_name, count(*) FROM dcl_product_module m, workorders w, projectmap p WHERE ';
+		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND m.product_module_id = w.module_id AND p.projectid=$projectid ";
+		$sql .= 'GROUP BY m.module_name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	function GetTypeCount($projectid)
+	{
+		$sql = 'SELECT t.type_name, count(*) FROM dcl_wo_type t, workorders w, projectmap p WHERE ';
+		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND t.wo_type_id = w.wo_type_id AND p.projectid=$projectid ";
+		$sql .= 'GROUP BY t.type_name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
 
 	function LoadFilter($projectid, $status, $responsible)
 	{

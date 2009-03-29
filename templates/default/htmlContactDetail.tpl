@@ -15,6 +15,13 @@
 			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactEmail.submitDelete&contact_id={Contact->contact_id}&contact_email_id=" + id;
 {literal}
 	}
+	function deleteLicense(id)
+	{
+		if (confirm("Are you sure you want to delete this product license?"))
+{/literal}
+			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactLicenses.submitDelete&contact_id={Contact->contact_id}&contact_license_id=" + id;
+{literal}
+	}
 	function deletePhone(id)
 	{
 		if (confirm("Are you sure you want to delete this phone number?"))
@@ -186,6 +193,40 @@ No contact types!
 {/strip}
 {/foreach}
 	</tbody>	
+</table>
+<table width="100%" class="dcl_results">
+	<caption class="spacer">{$smarty.const.STR_CM_PRODUCTLICENSES}Product Licenses</caption>
+	<thead>
+		{if $PERM_MODIFY}<tr class="toolbar"><th colspan="{if $PERM_MODIFY}6{else}5{/if}"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlContactLicenses.add&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
+		<tr><th>Product</th><th>Version</th><th>License #</th><th>Registered On</th><th>Expires On</th>{if $PERM_MODIFY}<th>Options</th>{/if}</tr>
+	</thead>
+	<tbody>
+{section name=license loop=$ContactLicense}
+		{cycle values="odd,even" assign="rowClass"}
+	<tr class="{$rowClass}">
+		<td>{$ContactLicense[license].name|escape}</td>
+		<td>{$ContactLicense[license].product_version|escape}</td>
+		<td>{$ContactLicense[license].license_id|escape}</td>
+		<td>{$ContactLicense[license].registered_on|escape:"date"}</td>
+		<td class="{if $ContactLicense[license].val_expires_on >= $VAL_TODAY}no{/if}problem">{$ContactLicense[license].expires_on|escape:"date"}</td>
+{strip}
+		{if $PERM_MODIFY}
+		<td class="options">
+			<a href="{$URL_MAIN_PHP}?menuAction=htmlContactLicenses.modify&contact_id={Contact->contact_id}&contact_license_id={$ContactLicense[license].contact_license_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			&nbsp;|&nbsp;
+			<a href="javascript:;" onclick="deleteLicense({$ContactLicense[license].contact_license_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+		</td>
+		{/if}
+{/strip}
+	</tr>
+	{if $ContactLicense[license].license_notes != ''}
+	<tr>
+		<td>&nbsp;</td>
+		<td class="notes" colspan="{if $PERM_MODIFY}5{else}4{/if}"><b>Notes: </b>{$ContactLicense[license].license_notes|escape}</td>
+	</tr>
+	{/if}
+{/section}
+	</tbody>
 </table>
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_LAST10TICKETS}Last 10 Tickets</caption>

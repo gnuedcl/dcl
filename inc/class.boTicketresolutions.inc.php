@@ -145,7 +145,7 @@ class boTicketresolutions
 		$objWtch =& CreateObject('dcl.boWatches');
 		$objWtch->sendTicketNotification($obj, $notify);
 
-		$this->sendCustomerResponseEmail($obj);
+		@$this->sendCustomerResponseEmail($obj);
 
 		$objH =& CreateObject('dcl.htmlTicketDetail');
 		$objH->Show($obj);
@@ -204,7 +204,7 @@ class boTicketresolutions
 		$objWtch =& CreateObject('dcl.boWatches');
 		$objWtch->sendTicketNotification($oTicket, $notify);
 
-		$this->sendCustomerResponseEmail();
+		@$this->sendCustomerResponseEmail($oTicket);
 	}
 
 	function delete(&$aSource)
@@ -277,7 +277,7 @@ class boTicketresolutions
 		$this->oDB->EndTransaction();
 	}
 
-	function sendCustomerResponseEmail()
+	function sendCustomerResponseEmail($oTicket)
 	{
 		global $dcl_info;
 
@@ -285,23 +285,28 @@ class boTicketresolutions
 			return;
 
 		$oStatus =& CreateObject('dcl.dbStatuses');
-		if ($this->oDB->contactemail == '' || $oStatus->GetStatusType($this->oDB->status) != 2)
+		if ($oStatus->GetStatusType($this->oDB->status) != 2)
+			return;
+
+		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$aContact = $oMeta->GetContact($oTicket->contact_id);
+		if (!IsSet($aContact['email']) || trim($aContact['email']) == '')
 			return;
 
 		srand((double)microtime() * 1000000);
 		$pct = rand(1, 100);
 		if ($pct <= $dcl_info['DCL_CQQ_PERCENT'])
 		{
-			$Template =& CreateObject('dcl.DCLTemplate');
-			$Template->set_file(array('hForm' => 'templates/custom/' . $dcl_info['DCL_CQQ_TEMPLATE']));
-			$Template->set_var('VAL_TICKETID', $this->oDB->ticketid);
-			$Template->set_var('VAL_CLOSEDON', htmlspecialchars($this->oDB->closedon));
+			$t =& CreateSmarty();
+			$t->assign('VAL_TICKETID', $this->oDB->ticketid);
+			$t->assign('VAL_CLOSEDON', date('n/j/Y'));
 
 			$oMail =& CreateObject('dcl.boSMTP');
-			$oMail->to = $obj->contactemail;
+			$oMail->isHtml = true;
+			$oMail->to = $aContact['email'];
 			$oMail->from = $dcl_info['DCL_CQQ_FROM'];
 			$oMail->subject = $dcl_info['DCL_CQQ_SUBJECT'];
-			$oMail->body = $Template->parse('out', 'hForm');
+			$oMail->body = SmartyFetch($t, $dcl_info['DCL_CQQ_TEMPLATE'], 'custom');
 			$oMail->Send();
 		}
 	}

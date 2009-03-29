@@ -286,6 +286,23 @@ table.dcl_results tfoot td {
 	text-align: left;
 }
 
+table.dcl_results tbody td.problem
+{
+	background-color: #ffe6e6;
+	color: #990000;
+}
+
+table.dcl_results tbody td.noproblem
+{
+	background-color: #e6ffe6;
+	color: #006600;
+}
+
+table.dcl_results tbody td.notes
+{
+	background-color: #ffffee;
+}
+
 table.dcl_results thead tr.toolbar th, 
 div.dcl_detail table.styled thead tr.toolbar th {
 	background-color: #f5f5dc;

@@ -29,7 +29,7 @@ class reportPersonnelActivity
 {
 	function getparameters($needHdr = true)
 	{
-		global $dcl_info;
+		global $g_oSession;
 
 		if ($needHdr == true)
 			commonHeader();
@@ -43,41 +43,94 @@ class reportPersonnelActivity
 
 		$t =& CreateSmarty();
 		$oSelect = CreateObject('dcl.htmlSelect');
-
-		$t->assign('CMB_RESPONSIBLE', $objPersonnel->GetCombo($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, false));
-		$t->assign('CMB_DEPARTMENTS', $oDept->GetCombo($oDBPersonnel->department, 'department', 'name', 0, false, true));
+		
+		$iDept = $oDBPersonnel->department;
+		if (isset($_REQUEST['department']))
+			$iDept = (int)$_REQUEST['department'];
+		else if ($g_oSession->IsRegistered('personnel_activity_department'))
+			$iDept = (int)$g_oSession->Value('personnel_activity_department');
+			
+		$iUser = $GLOBALS['DCLID'];
+		if (isset($_REQUEST['responsible']))
+			$iUser = (int)$_REQUEST['responsible'];
+		else if ($g_oSession->IsRegistered('personnel_activity_responsible'))
+			$iUser = (int)$g_oSession->Value('personnel_activity_responsible');
+		
+		$t->assign('CMB_RESPONSIBLE', $objPersonnel->GetCombo($iUser, 'responsible', 'lastfirst', 0, false));
+		$t->assign('CMB_DEPARTMENTS', $oDept->GetCombo($iDept, 'department', 'name', 0, false, true));
 
 		// By department or responsible
 		$oSelect->sZeroOption = '';
 		$oSelect->sName = 'bytype';
 		$oSelect->sOnChange = 'onChangeByType();';
 		$oSelect->aOptions = array(array('1', 'By Responsible'), array('2', 'By Department'));
+		if (isset($_REQUEST['bytype']))
+			$oSelect->vDefault = $_REQUEST['bytype'];
+		else if ($g_oSession->IsRegistered('personnel_activity_bytype'))
+			$oSelect->vDefault = $g_oSession->Value('personnel_activity_bytype');
+		
 		$t->assign('CMB_BYTYPE', $oSelect->GetHTML());
+		
+		$oDate = new DCLDate();
+		$oDate->time = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+		
+		$dtOneWeekAgo = $oDate->time - 7 * 86400;
+		$dtYesterday = $oDate->time - 86400;
 
 		// Optional group by
 		$oSelect->sZeroOption = 'None';
 		$oSelect->sName = 'groupby';
 		$oSelect->sOnChange = '';
-		$oSelect->aOptions = array(array('1', 'Project'), array('2', 'Action'), array('3', 'Date'), array('4', 'Product'));
+		$oSelect->aOptions = array(array('1', 'Project'), array('2', 'Action'), array('3', 'Date'), array('4', 'Product'), array('5', 'Action By'));
+		if (isset($_REQUEST['groupby']))
+			$oSelect->vDefault = $_REQUEST['groupby'];
+		else if ($g_oSession->IsRegistered('personnel_activity_groupby'))
+			$oSelect->vDefault = $g_oSession->Value('personnel_activity_groupby');
+		
 		$t->assign('CMB_GROUPBY', $oSelect->GetHTML());
 
 		$begindate = @DCL_Sanitize::ToDate($_REQUEST['begindate']);
 		if ($begindate !== null)
+		{
 			$t->assign('VAL_BEGINDATE', $begindate);
+		}
+		else if ($g_oSession->IsRegistered('personnel_activity_begindate'))
+		{
+			$t->assign('VAL_BEGINDATE', $g_oSession->Value('personnel_activity_begindate'));
+		}
 		else
-			$t->assign('VAL_BEGINDATE', '');
+		{
+			$oDate->time = $dtOneWeekAgo;
+			$t->assign('VAL_BEGINDATE', $oDate->ToDisplay());
+		}
 
 		$enddate = @DCL_Sanitize::ToDate($_REQUEST['enddate']);
 		if ($enddate !== null)
+		{
 			$t->assign('VAL_ENDDATE', $enddate);
+		}
+		else if ($g_oSession->IsRegistered('personnel_activity_enddate'))
+		{
+			$t->assign('VAL_ENDDATE', $g_oSession->Value('personnel_activity_enddate'));
+		}
 		else
-			$t->assign('VAL_ENDDATE', '');
+		{
+			$oDate->time = $dtYesterday;
+			$t->assign('VAL_ENDDATE', $oDate->ToDisplay());
+		}
 
+		if (isset($_REQUEST['begindate']) && isset($_REQUEST['enddate']))
+			$t->assign('VAL_TIMESHEET', isset($_REQUEST['timesheet']) ? $_REQUEST['timesheet'] : 'N');
+		else if ($g_oSession->IsRegistered('personnel_activity_timesheet'))
+			$t->assign('VAL_TIMESHEET', $g_oSession->Value('personnel_activity_timesheet'));
+			
 		SmartyDisplay($t, 'htmlPersonnelActivity.tpl');
 	}
 
 	function execute()
 	{
+		global $g_oSession;
+		
 		$bExport = (IsSet($_REQUEST['export']) && $_REQUEST['export'] == '1');
 
 		if (!$bExport)
@@ -94,14 +147,30 @@ class reportPersonnelActivity
 			$this->GetParameters(false);
 			return;
 		}
-
+		
+		$g_oSession->Register('personnel_activity_begindate', $begindate);
+		$g_oSession->Register('personnel_activity_enddate', $enddate);
+		$g_oSession->Register('personnel_activity_bytype', $_REQUEST['bytype']);
+		$g_oSession->Register('personnel_activity_groupby', $_REQUEST['groupby']);
+		$g_oSession->Register('personnel_activity_responsible', $_REQUEST['responsible']);
+		$g_oSession->Register('personnel_activity_department', $_REQUEST['department']);
+		$g_oSession->Register('personnel_activity_timesheet', isset($_REQUEST['timesheet']) ? $_REQUEST['timesheet'] : 'N');
+		$g_oSession->Edit();
+		
 		$bTimesheet = isset($_REQUEST['timesheet']) && $_REQUEST['timesheet'] == 'Y';
-		if ($bTimesheet && $_REQUEST['groupby'] != '1' && $_REQUEST['groupby'] != '2' && $_REQUEST['groupby'] != '4')
+		if ($bTimesheet && $_REQUEST['groupby'] != '1' && $_REQUEST['groupby'] != '2' && $_REQUEST['groupby'] != '4' && $_REQUEST['groupby'] != '5')
 		{
 			if ($bExport)
 				commonHeader();
 
-			trigger_error('Timesheet report must by grouped by project, action, or product.', E_USER_ERROR);
+			trigger_error('Timesheet report must by grouped by project, action, action by, or product.', E_USER_ERROR);
+			$this->GetParameters(false);
+			return;
+		}
+		
+		if ($_REQUEST['groupby'] == '5' && $_REQUEST['bytype'] != '2')
+		{
+			trigger_error('Grouping by Action By must use report by department.', E_USER_ERROR);
 			$this->GetParameters(false);
 			return;
 		}
@@ -110,8 +179,13 @@ class reportPersonnelActivity
 		
 		$sReportFor = '';
 		$sCols = 'timecards.jcn, timecards.seq, timecards.hours';
-		if ($_REQUEST['bytype'] == '2')
+		if ($_REQUEST['bytype'] == '2' || $_REQUEST['groupby'] == '5')
+		{
 			$sCols .= ', personnel.short';
+			
+			if ($bTimesheet && $_REQUEST['groupby'] == '5')
+				$sCols .= ' AS name';
+		}
 
 		if ($_REQUEST['groupby'] == '1')
 			$sCols .= ', dcl_projects.name';
@@ -127,9 +201,9 @@ class reportPersonnelActivity
 
 		$iGroupColumn = -1;
 		$query = "select $sCols from timecards ";
-		if ($_REQUEST['groupby'] == '0' || $_REQUEST['groupby'] == '3')
+		if ($_REQUEST['groupby'] == '0' || $_REQUEST['groupby'] == '3' || $_REQUEST['groupby'] == '5')
 		{
-			// None (0) or date (3)
+			// None (0) or date (3) or action by (5)
 			if ($_REQUEST['bytype'] == '1')
 			{
 				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
@@ -155,12 +229,22 @@ class reportPersonnelActivity
 			}
 
 			if ($_REQUEST['groupby'] == '0')
+			{
 				$query .= ' order by jcn, seq';
+			}
+			else if ($_REQUEST['groupby'] == '5')
+			{
+				$query .= ' order by personnel.short, jcn, seq';
+				$iGroupColumn = 2;
+			}
 			else
 			{
 				$query .= ' order by actionon, jcn, seq';
 				$iGroupColumn = 13;
 				if ($_REQUEST['bytype'] != '1')
+					$iGroupColumn++;
+					
+				if ($_REQUEST['groupby'] != '1')
 					$iGroupColumn++;
 			}
 		}
@@ -213,7 +297,7 @@ class reportPersonnelActivity
 				$query .= $objDB->JoinKeyword . ' actions on timecards.action = actions.id ';
 				$query .= ' where timecards.actionby=' . $responsible;
 				$query .= ' and timecards.actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
-				$iGroupColumn = 13;
+				$iGroupColumn = 14;
 			}
 			else
 			{
@@ -227,7 +311,7 @@ class reportPersonnelActivity
 				$query .= $objDB->JoinKeyword . ' actions on timecards.action = actions.id ';
 				$query .= 'where personnel.department=' . $department;
 				$query .= ' and actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
-				$iGroupColumn = 14;
+				$iGroupColumn = 15;
 			}
 
 			$query .= ' order by actions.name, timecards.jcn, timecards.seq';
@@ -247,7 +331,7 @@ class reportPersonnelActivity
 				$query .= $objDB->JoinKeyword . ' products on workorders.product = products.id ';
 				$query .= ' where timecards.actionby=' . $responsible;
 				$query .= ' and timecards.actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
-				$iGroupColumn = 13;
+				$iGroupColumn = 14;
 			}
 			else
 			{
@@ -262,7 +346,7 @@ class reportPersonnelActivity
 				$query .= $objDB->JoinKeyword . ' products on workorders.product = products.id ';
 				$query .= 'where personnel.department=' . $department;
 				$query .= ' and actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
-				$iGroupColumn = 14;
+				$iGroupColumn = 15;
 			}
 
 			$query .= ' order by products.name, timecards.jcn, timecards.seq';
@@ -278,6 +362,7 @@ class reportPersonnelActivity
 	{
 		$bExport = (IsSet($_REQUEST['export']) && $_REQUEST['export'] == '1');
 
+		$responsible = '';
 		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
 		if ($_REQUEST['bytype'] == '1')
 		{
@@ -411,6 +496,7 @@ class reportPersonnelActivity
 					commonHeader();
 
 				trigger_error(STR_WOST_NOACTIVITY, E_USER_NOTICE);
+				$this->getparameters(false);
 			}
 		}
 	}
@@ -419,16 +505,14 @@ class reportPersonnelActivity
 	{
 		$bExport = (IsSet($_REQUEST['export']) && $_REQUEST['export'] == '1');
 
-		$objP = CreateObject('dcl.dbPersonnel');
 		$objS = CreateObject('dcl.dbStatuses');
 		$objPr = CreateObject('dcl.dbPriorities');
 		$objSe = CreateObject('dcl.dbSeverities');
 		$objW = CreateObject('dcl.dbWorkorders');
-		$objT = CreateObject('dcl.dbTimeCards');
-		$objD = CreateObject('dcl.dbDepartments');
+		$oPM = CreateObject('dcl.dbProjectmap');
 		$objDB = new dclDB;
 		
-		$aGroupOptions = array('1' => 'Project', '2' => 'Action', '3' => 'Date', '4' => 'Product');
+		$aGroupOptions = array('1' => 'Project', '2' => 'Action', '3' => 'Date', '4' => 'Product', '5' => 'by');
 		$groupBy = $_REQUEST['groupby'];
 		if (!array_key_exists($groupBy, $aGroupOptions))
 			$groupBy = '0';
@@ -474,6 +558,10 @@ class reportPersonnelActivity
 				$lastGroup = $thisGroup = '<< undefined >>';
 				$arrayIndex = -1;
 				$count = 0;
+				$subEstHours = 0.0;
+				$subAppliedHours = 0.0;
+				$subEtcHours = 0.0;
+				$subTimeHours = 0.0;
 				$totalEstHours = 0.0;
 				$totalAppliedHours = 0.0;
 				$totalEtcHours = 0.0;
@@ -489,6 +577,10 @@ class reportPersonnelActivity
 						$oDate->SetFromDB($objDB->f('actionon'));
 						$thisGroup = $oDate->ToDisplay();
 					}
+					else if ($groupBy == '5')
+					{
+						$thisGroup = $objDB->f('short');
+					}
 					else if ($groupBy != '0')
 					{
 						if ($objDB->IsFieldNull('name'))
@@ -500,6 +592,67 @@ class reportPersonnelActivity
 					// Skip multiple time cards
 					if ($thisJCN != $lastJCN || $thisSeq != $lastSeq || $thisGroup != $lastGroup)
 					{
+						if ($groupBy != '0' && $thisGroup != $lastGroup && $lastGroup != '<< undefined >>')
+						{
+							// Subtotals
+							$arrayIndex++;
+							if ($bExport)
+								$reportArray[$arrayIndex][0] = 'Subtotal for ' . $lastGroup;
+							else
+								$reportArray[$arrayIndex][0] = '<b>Subtotal for ' . $lastGroup . '</b>';
+							
+							if ($groupBy != '1')
+								$reportArray[$arrayIndex][] = '';
+														
+							if ($_REQUEST['bytype'] == '2')
+							{
+								if ($groupBy == '5')
+									$reportArray[$arrayIndex][] = $lastGroup;
+								else
+									$reportArray[$arrayIndex][] = '';
+							}
+			
+							$reportArray[$arrayIndex][] = '';
+							$reportArray[$arrayIndex][] = '';
+							$reportArray[$arrayIndex][] = '';
+							$reportArray[$arrayIndex][] = $subEstHours;
+							$reportArray[$arrayIndex][] = $subEtcHours;
+							$reportArray[$arrayIndex][] = $subAppliedHours;
+							$reportArray[$arrayIndex][] = '';
+							$reportArray[$arrayIndex][] = '';
+							$reportArray[$arrayIndex][] = '';
+							$reportArray[$arrayIndex][] = '';
+							$reportArray[$arrayIndex][] = $subTimeHours;
+							$ouHours = -($subEstHours - $subAppliedHours);
+							$diffHours = $ouHours;
+							if ($diffHours < 0)
+								$diffHours = -$diffHours;
+			
+							$ouPct = 0.0;
+							$sign = '';
+							if ($subEstHours > 0)
+							{
+								$ouPct = $diffHours / $subEstHours * 100;
+								if ($subEstHours > $subAppliedHours && $subEstHours > 0)
+									$sign = '-';
+								else if ($subAppliedHours > $subEstHours && $subAppliedHours > 0)
+									$sign = '+';
+							}
+			
+							if ($bExport)
+								$reportArray[$arrayIndex][] = sprintf('%s%0.2f (%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct));
+							else
+								$reportArray[$arrayIndex][] = sprintf('%s%0.2f&nbsp;(%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct));
+								
+							if ($groupBy != '0' && ($_REQUEST['bytype'] != '2' || $groupBy != '5'))
+								$reportArray[$arrayIndex][] = $lastGroup;
+
+							$subEstHours = 0.0;
+							$subAppliedHours = 0.0;
+							$subEtcHours = 0.0;
+							$subTimeHours = 0.0;
+						}
+						
 						$arrayIndex++;
 						$objW->Load($thisJCN, $thisSeq);
 						$objS->Load($objW->status);
@@ -511,6 +664,21 @@ class reportPersonnelActivity
 						else
 							$reportArray[$arrayIndex][0] = '[<a href="main.php?menuAction=boWorkorders.viewjcn&jcn=' . $thisJCN . '&seq=' . $thisSeq . '">' . $thisJCN . '-' . $thisSeq . '</a>] ' . htmlentities($objW->summary);
 
+						if ($groupBy != '1')
+						{
+							if ($oPM->LoadByWO($thisJCN, $thisSeq) != -1)
+							{
+								if ($bExport)
+									$reportArray[$arrayIndex][] = '[' . $oPM->projectid . '] ' . $oMeta->GetProject($oPM->projectid);
+								else
+									$reportArray[$arrayIndex][] = '[<a href="main.php?menuAction=boProjects.viewproject&project=' . $oPM->projectid . '">' . $oPM->projectid . '</a>] ' . htmlentities($oMeta->GetProject($oPM->projectid));
+							}
+							else 
+							{
+								$reportArray[$arrayIndex][] = '';
+							}
+						}
+						
 						if ($_REQUEST['bytype'] == '2')
 							$reportArray[$arrayIndex][] = $objDB->f('short');
 
@@ -543,16 +711,20 @@ class reportPersonnelActivity
 
 						$reportArray[$arrayIndex][] = sprintf('%s%0.2f (%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct));
 
-						if ($groupBy != '0')
+						if ($groupBy != '0' && ($_REQUEST['bytype'] != '2' || $groupBy != '5'))
 							$reportArray[$arrayIndex][] = $thisGroup;
 
 						$sKey = sprintf('%d-%d', $thisJCN, $thisSeq);
 						if ($groupBy != '3' || !isset($aByDate[$sKey]))
 						{
+							$subEstHours += (double)$objW->esthours;
+							$subAppliedHours += (double)$objW->totalhours;
+							$subEtcHours += (double)$objW->etchours;
+							
 							$totalEstHours += (double)$objW->esthours;
 							$totalAppliedHours += (double)$objW->totalhours;
 							$totalEtcHours += (double)$objW->etchours;
-
+							
 							$aByDate[$sKey] = true;
 						}
 
@@ -562,22 +734,88 @@ class reportPersonnelActivity
 					}
 					else
 					{
+						$iOrdinal = 11;
+						if ($groupBy != '1')
+							$iOrdinal++;
+							
 						if ($_REQUEST['bytype'] == '2')
-							$reportArray[$arrayIndex][12] += (double)$objDB->f('hours');
-						else
-							$reportArray[$arrayIndex][11] += (double)$objDB->f('hours');
+							$iOrdinal++;
+							
+						$reportArray[$arrayIndex][$iOrdinal] += (double)$objDB->f('hours');
 					}
 
+					$subTimeHours += $objDB->f('hours');
 					$totalTimeHours += $objDB->f('hours');
 					$count++;
 				}
 				while ($objDB->next_record());
 
+				// Subtotals
+				$arrayIndex++;
+				if ($bExport)
+					$reportArray[$arrayIndex][0] = 'Subtotal for ' . $lastGroup;
+				else
+					$reportArray[$arrayIndex][0] = '<b>Subtotal for ' . $lastGroup . '</b>';
+				
+				if ($groupBy != '1')
+					$reportArray[$arrayIndex][] = '';
+								
+				if ($_REQUEST['bytype'] == '2')
+				{
+					if ($groupBy == '5')
+						$reportArray[$arrayIndex][] = $lastGroup;
+					else
+						$reportArray[$arrayIndex][] = '';
+				}
+
+				$reportArray[$arrayIndex][] = '';
+				$reportArray[$arrayIndex][] = '';
+				$reportArray[$arrayIndex][] = '';
+				$reportArray[$arrayIndex][] = $subEstHours;
+				$reportArray[$arrayIndex][] = $subEtcHours;
+				$reportArray[$arrayIndex][] = $subAppliedHours;
+				$reportArray[$arrayIndex][] = '';
+				$reportArray[$arrayIndex][] = '';
+				$reportArray[$arrayIndex][] = '';
+				$reportArray[$arrayIndex][] = '';
+				$reportArray[$arrayIndex][] = $subTimeHours;
+				$ouHours = -($subEstHours - $subAppliedHours);
+				$diffHours = $ouHours;
+				if ($diffHours < 0)
+					$diffHours = -$diffHours;
+
+				$ouPct = 0.0;
+				$sign = '';
+				if ($subEstHours > 0)
+				{
+					$ouPct = $diffHours / $subEstHours * 100;
+					if ($subEstHours > $subAppliedHours && $subEstHours > 0)
+						$sign = '-';
+					else if ($subAppliedHours > $subEstHours && $subAppliedHours > 0)
+						$sign = '+';
+				}
+
+				if ($bExport)
+					$reportArray[$arrayIndex][] = sprintf('%s%0.2f (%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct));
+				else
+					$reportArray[$arrayIndex][] = sprintf('%s%0.2f&nbsp;(%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct));
+					
+				if ($groupBy != '0' && ($_REQUEST['bytype'] != '2' || $groupBy != '5'))
+					$reportArray[$arrayIndex][] = $lastGroup;
+
+				$subEstHours = 0.0;
+				$subAppliedHours = 0.0;
+				$subEtcHours = 0.0;
+				$subTimeHours = 0.0;
+
 				if ($bExport)
 				{
 					$arrayIndex++;
 					$reportArray[$arrayIndex][0] = 'Totals';
-	
+					
+					if ($groupBy != '1')
+						$reportArray[$arrayIndex][] = '';
+						
 					if ($_REQUEST['bytype'] == '2')
 						$reportArray[$arrayIndex][] = '';
 	
@@ -618,6 +856,10 @@ class reportPersonnelActivity
 
 					$nameArray = array();
 					$nameArray[] = STR_WOST_SUMMARY;
+					
+					if ($groupBy != '1')
+						$nameArray[] = STR_WO_PROJECT;
+						
 					if ($_REQUEST['bytype'] == '2')
 						$nameArray[] = STR_CMMN_BY;
 	
@@ -634,7 +876,7 @@ class reportPersonnelActivity
 					$nameArray[] = STR_WOST_TIME;
 					$nameArray[] = '+ / -';
 	
-					if ($groupBy != '0')
+					if ($groupBy != '0' && ($_REQUEST['bytype'] != '2' || $groupBy != '5'))
 						$nameArray[] = '';
 				
 					ExportArray($nameArray, $reportArray);
@@ -643,6 +885,9 @@ class reportPersonnelActivity
 				{
 					$oTable = CreateObject('dcl.htmlTable');
 					$oTable->addFooter('Totals');
+	
+					if ($groupBy != '1')
+						$oTable->addFooter('');
 	
 					if ($_REQUEST['bytype'] == '2')
 						$oTable->addFooter('');
@@ -676,12 +921,15 @@ class reportPersonnelActivity
 	
 					$oTable->addFooter(sprintf('%s%0.2f (%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct)));
 						
-					if ($groupBy != '0')
+					if ($groupBy != '0' && ($_REQUEST['bytype'] != '2' || $groupBy != '5'))
 					{
 						$oTable->addFooter('');
 					}
 
 					$oTable->addColumn(STR_WOST_SUMMARY, 'html');
+					if ($groupBy != '1')
+						$oTable->addColumn(STR_WO_PROJECT, 'html');
+					
 					if ($_REQUEST['bytype'] == '2')
 						$oTable->addColumn(STR_CMMN_BY, 'string');
 	
@@ -696,9 +944,9 @@ class reportPersonnelActivity
 					$oTable->addColumn(STR_WOST_START, 'string');
 					$oTable->addColumn(STR_WOST_END, 'string');
 					$oTable->addColumn(STR_WOST_TIME, 'numeric');
-					$oTable->addColumn('+ / -', 'numeric');
+					$oTable->addColumn('+ / -', 'html');
 	
-					if (array_key_exists($groupBy, $aGroupOptions))
+					if (array_key_exists($groupBy, $aGroupOptions) && ($_REQUEST['bytype'] != '2' || $groupBy != '5'))
 						$oTable->addColumn($aGroupOptions[$groupBy], 'string');
 						
 					$oTable->setData($reportArray);

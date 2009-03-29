@@ -24,7 +24,7 @@
 
 function renderDCLMenu()
 {
-	global $dcl_info, $g_oSec;
+	global $dcl_info, $g_oSec, $g_oSession;
 
 	$sTemplateSet = GetDefaultTemplateSet();
 	
@@ -54,6 +54,8 @@ function renderDCLMenu()
 	$t->assign('PERM_TICKETSEARCH', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW));
 	$t->assign('PERM_PROJECTSEARCH', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW));
 	$t->assign('PERM_PREFS', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY));
+	$t->assign('PERM_WORKSPACE', $g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW));
+	$t->assign('VAL_WORKSPACE', $g_oSession->Value('workspace'));
 
 	$aMenu = &getMenuJS();
 	$t->assign('JS_INIT_DCL_MENU', $aMenu[0]);
@@ -100,9 +102,25 @@ function getMenuString()
 		{
 			reset($item);
 			list($link, $bHasPerm) = $item;
-			if ($bHasPerm)
+			if (is_array($link))
 			{
-				$sSubMenu .= '..|' . $name . '|' . getMenuLink($link) . "\n";
+				if ($bHasPerm)
+				{
+					foreach ($link as $subName => $subItem)
+					{
+						reset($subItem);
+						list($subLink, $bHasPerm) = $subItem;
+						if ($bHasPerm)
+							$sSubMenu .= '...|' . $subName . '|' . getMenuLink($subLink) . "\n";
+					}
+				}
+			}
+			else 
+			{
+				if ($bHasPerm)
+				{
+					$sSubMenu .= '..|' . $name . '|' . getMenuLink($link) . "\n";
+				}
 			}
 		}
 

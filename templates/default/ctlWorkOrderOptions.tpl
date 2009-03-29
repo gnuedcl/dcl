@@ -7,7 +7,11 @@
 {assign var="ctlWorkOrderOptions_isfirst" value="true"}
 {if $PERM_ACTION}<li {if $ctlWorkOrderOptions_isfirst == "true"}{assign var="ctlWorkOrderOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">Time Card</a></li>{/if}
 {if $PERM_ASSIGN}<li {if $ctlWorkOrderOptions_isfirst == "true"}{assign var="ctlWorkOrderOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.reassign&jcn={$VAL_JCN}&seq={$VAL_SEQ}">Assign</a></li>{/if}
-{if $PERM_ADD}<li {if $ctlWorkOrderOptions_isfirst == "true"}{assign var="ctlWorkOrderOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.newseq&jcn={$VAL_JCN}">Sequence</a></li>{/if}
+{if $PERM_ADD}
+<li {if $ctlWorkOrderOptions_isfirst == "true"}{assign var="ctlWorkOrderOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.newseq&jcn={$VAL_JCN}">Sequence</a></li>
+<li><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.copy&jcn={$VAL_JCN}&seq={$VAL_SEQ}">Copy as New</a></li>
+<li><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.copy&jcn={$VAL_JCN}&seq={$VAL_SEQ}&copyseq=true">Copy as Sequence</a></li>
+{/if}
 {if $PERM_ADDTASK}<li {if $ctlWorkOrderOptions_isfirst == "true"}{assign var="ctlWorkOrderOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boProjects.addtoproject&jcn={$VAL_JCN}&seq={$VAL_SEQ}">Project</a></li>{/if}
 {if $PERM_VIEWCHANGELOG}<li {if $ctlWorkOrderOptions_isfirst == "true"}{assign var="ctlWorkOrderOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=htmlWorkorders.changeLog&jcn={$VAL_JCN}&seq={$VAL_SEQ}">ChangeLog</a></li>{/if}
 {if $PERM_REMOVETASK}<li {if $ctlWorkOrderOptions_isfirst == "true"}{assign var="ctlWorkOrderOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boProjects.unmap&jcn={$VAL_JCN}&seq={$VAL_SEQ}">Remove from Project</a></li>{/if}

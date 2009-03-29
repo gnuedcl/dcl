@@ -38,3 +38,8 @@ entity_id	entity_desc	active
 36	Role	Y
 37	Organization Type	Y
 38	Contact Type	Y
+39	Build Manager	Y
+40	Work Order Task	Y
+41	Workspace	Y
+42	Test Case	Y
+43	Functional Spec	Y

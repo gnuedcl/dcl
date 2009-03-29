@@ -46,11 +46,23 @@ class htmlMyDCL
 	{
 		global $g_oSession;
 		
+		//$this->myTimesheet();
 		$this->myTickets();
 		$this->myTickets('createdby');
 		$this->myWorkOrders();
 		$this->myWorkOrders('createby');
 		$this->myProjects();
+	}
+	
+	function myTimesheet()
+	{
+		global $g_oSec;
+		
+		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
+			return;
+			
+		$oTS =& CreateObject('dcl.htmlWorkOrderTimesheet');
+		$oTS->ShowEntryForm();
 	}
 	
 	function myTickets($forField = 'responsible', $rowlimit = 5)

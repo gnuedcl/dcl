@@ -83,7 +83,7 @@ class htmlOrganizationSelector
 
 	function showBrowseFrame()
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info, $g_oSec, $g_oSession;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
@@ -140,6 +140,9 @@ class htmlOrganizationSelector
 
 		if (is_array($filterID))
 			$this->oView->AddDef('filter', 'org_id', $filterID);
+			
+		if ($g_oSec->IsOrgUser())
+			$this->oView->AddDef('filter', 'org_id', split(',', $g_oSession->Value('member_of_orgs')));
 
 		if ($this->oDB->Query($this->oView->GetSQL(true)) == -1 || !$this->oDB->next_record())
 			exit();

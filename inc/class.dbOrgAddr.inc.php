@@ -47,5 +47,24 @@ class dbOrgAddr extends dclDB
 		$sql .= ' ORDER BY t.addr_type_name';
 		return $this->Query($sql);
 	}
+
+	function GetPrimaryAddress($iOrgID)
+	{
+		if (($iOrgID = DCL_Sanitize::ToInt($iOrgID)) === null)
+		{
+			trigger_error('Data sanitize failed.');
+			return -1;
+		}
+		
+		$sql = 'SELECT a.org_addr_id, a.org_id, a.addr_type_id, a.add1, a.add2, a.city, a.state, a.zip, a.country, a.preferred, t.addr_type_name';
+		$sql .= ' FROM ' . $this->TableName . ' a, dcl_addr_type t WHERE a.org_id = ' . $iOrgID . ' AND t.addr_type_id = a.addr_type_id';
+		$sql .= " AND a.preferred = 'Y'";
+		if ($this->Query($sql) != -1)
+		{
+			return $this->next_record();
+		}
+
+		return false;
+	}
 }
 ?>

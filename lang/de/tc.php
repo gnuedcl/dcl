@@ -14,11 +14,11 @@
 	define('STR_TC_BY', "von");
 	define('STR_TC_ETC', "Rest");
 	define('STR_TC_BTNADD', "Neu");
-	define('STR_TC_BTNMOD', "Ändern");
-	define('STR_TC_BTNCLR', "Löschen");
-	define('STR_TC_HIGHLIGHTEDNOTE', "** Unterlegte Felder müssengefüllt werden!");
-	define('STR_TC_MODIFYNOTE', "Anmerkung: Wenn unten Arbeitskarten angezeigt werden, wird der Status and die Restzeit nicht geändert.");
-	define('STR_TC_MODIFY', "Ändern");
-	define('STR_TC_DELETE', "Löschen");
+	define('STR_TC_BTNMOD', "Ã?â??ndern");
+	define('STR_TC_BTNCLR', "LÃ?Â¶schen");
+	define('STR_TC_HIGHLIGHTEDNOTE', "** Unterlegte Felder mÃ?Â¼ssengefÃ?Â¼llt werden!");
+	define('STR_TC_MODIFYNOTE', "Anmerkung: Wenn unten Arbeitskarten angezeigt werden, wird der Status and die Restzeit nicht geÃ?Â¤ndert.");
+	define('STR_TC_MODIFY', "Ã?â??ndern");
+	define('STR_TC_DELETE', "LÃ?Â¶schen");
 	define('STR_TC_BATCHUPDATE', "Batch Aktualisierung");
 ?>

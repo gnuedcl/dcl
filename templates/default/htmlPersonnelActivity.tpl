@@ -33,7 +33,7 @@ function onChangeByType()
 		</div>
 		<div>
 			<label for="timesheet">{$smarty.const.STR_WOST_FORMATASTIMESHEET}:</label>
-			<input type="checkbox" name="timesheet" id="timesheet" value="Y">
+			<input type="checkbox" name="timesheet" id="timesheet" value="Y"{if $VAL_TIMESHEET == 'Y'} checked="true"{/if}>
 		</div>
 	</fieldset>
 	<fieldset>

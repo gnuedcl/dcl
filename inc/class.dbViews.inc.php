@@ -44,5 +44,14 @@ class dbViews extends dclDB
 	{
 		return parent::Load(array('viewid' => $id));
 	}
+	
+	function ListByUser($user_id, $entity_id)
+	{
+		$sTable = 'workorders';
+		if ($entity_id == DCL_ENTITY_TICKET)
+			$sTable = 'tickets';
+			
+		return $this->Query('SELECT ' . $this->SelectAllColumns() . ' FROM ' . $this->TableName . ' WHERE whoid = ' . $user_id . " AND tablename = " . $this->Quote($sTable) . ' ORDER BY name'); 
+	}
 }
 ?>

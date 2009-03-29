@@ -195,6 +195,30 @@ class dbSession extends dclDB
 	{
 		return $this->m_IsValidSession;
 	}
+	
+	function IsInWorkspace()
+	{
+		return $this->IsRegistered('workspace_products');
+	}
+	
+	function GetProductFilter()
+	{
+		global $g_oSec;
+		
+		$aProducts = array();
+		if ($g_oSec->IsOrgUser())
+			$aProducts = split(',', $this->Value('org_products'));
+		
+		if ($this->IsInWorkspace())
+		{
+			if (count($aProducts) > 0)
+				$aProducts = array_intersect($aProducts, split(',', $this->Value('workspace_products')));
+			else
+				$aProducts = split(',', $this->Value('workspace_products'));
+		}
+		
+		return $aProducts;
+	}
 
 	function Clear()
 	{

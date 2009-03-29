@@ -5,6 +5,7 @@
 		<thead>
 			<tr class="toolbar"><th colspan="4"><ul>{strip}
 				<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boProducts.view&id={$VAL_ID}">Summary</a></li>
+				<li><a href="{$URL_MAIN_PHP}?menuAction=htmlProductDashboard.Show&id={$VAL_ID}">Dashboard</a> (<a href="{$URL_MAIN_PHP}?menuAction=htmlProductDashboard.ShowTicket&id={$VAL_ID}">Tickets</a>)</li>
 				{if $PERM_VIEWWO}<li><a href="{$URL_MAIN_PHP}?menuAction=boProducts.viewWO&id={$VAL_ID}">{$smarty.const.STR_PROD_VIEWWO}</a>
 					&nbsp;(<a href="{$URL_MAIN_PHP}?menuAction=boWatches.addWorkorder&typeid=1&whatid1={$VAL_ID}">Watch</a>)</li>
 				{/if}

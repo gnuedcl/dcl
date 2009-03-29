@@ -1,8 +1,8 @@
 <?php
-	define('STR_ACCT_SELECTONE', "A sélectionner.");
-	define('STR_ACCT_DIRBYNAME', "Répertoire Clients Par Nom");
-	define('STR_ACCT_TABLETITLE', "Clients - Tries Par %s Commençant par %s");
-	define('STR_ACCT_NOTFOUND', "Pas De Clients Trouvés Pour %s Commençant par %s");
+	define('STR_ACCT_SELECTONE', "A sÃ?Â©lectionner.");
+	define('STR_ACCT_DIRBYNAME', "RÃ?Â©pertoire Clients Par Nom");
+	define('STR_ACCT_TABLETITLE', "Clients - Tries Par %s CommenÃ?Â§ant par %s");
+	define('STR_ACCT_NOTFOUND', "Pas De Clients TrouvÃ?Â©s Pour %s CommenÃ?Â§ant par %s");
 	define('STR_ACCT_OPTIONS', "Options");
 	define('STR_ACCT_ID', "ID");
 	define('STR_ACCT_ACTIVEABB', "A");
@@ -20,7 +20,7 @@
 	define('STR_ACCT_EDITACCOUNT', "Editer Client");
 	define('STR_ACCT_ADDNEWACCOUNT', "Ajouter Client");
 	define('STR_ACCT_HIGHLIGHTEDNOTE', "** Les champs en surbrillance sont obligatoires!");
-	define('STR_ACCT_NOOBJECTERR', "L\'objet client pas passé par ShowDetail!");
+	define('STR_ACCT_NOOBJECTERR', "L\'objet client pas passÃ?Â© par ShowDetail!");
 	define('STR_ACCT_ACCOUNTSEARCH', "Recherche Client");
 	define('STR_ACCT_SEARCHTEXT', "Rechercher Texte");
 	define('STR_ACCT_WATCHWO', "Watch WO");

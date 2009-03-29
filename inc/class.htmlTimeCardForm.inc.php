@@ -72,15 +72,16 @@ class htmlTimeCardForm
 			$oWO->Load($jcn, $seq);
 
 			$oProduct = CreateObject('dcl.dbProducts');
-			$oProduct->Query('SELECT wosetid FROM products WHERE id = ' . $oWO->product);
-			if ($oProduct->next_record())
-				$setid = $oProduct->f(0);
+			$oProduct->Load($oWO->product);
+			$setid = $oProduct->wosetid;
 
+			$oSmarty->assign('VAL_PRODUCT', $oWO->product);
 			$oSmarty->assign('VAL_WOETCHOURS', $oWO->etchours);
 			$oSmarty->assign('VAL_UPDATEWOETCHOURS', 'true');
 			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo($oWO->status, 'status', 'name', 0, true, $setid));
 			$oSmarty->assign('VAL_ISPUBLIC', $oWO->is_public);
 			$oSmarty->assign('VAL_ENABLEPUBLIC', $oWO->is_public);
+			$oSmarty->assign('VAL_ISVERSIONED', $oProduct->is_versioned == 'Y');
 		}
 
 		if ($isEdit)
@@ -88,7 +89,6 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_ID', $obj->id);
 			$oSmarty->assign('VAL_ACTIONON', $obj->actionon);
 			$oSmarty->assign('VAL_HOURS', $obj->hours);
-			$oSmarty->assign('VAL_REVISION', $obj->revision);
 			$oSmarty->assign('VAL_SUMMARY', $obj->summary);
 			$oSmarty->assign('VAL_DESCRIPTION', $obj->description);
 			$oSmarty->assign('VAL_ISPUBLIC', $obj->is_public);

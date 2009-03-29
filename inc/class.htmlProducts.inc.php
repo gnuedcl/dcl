@@ -60,14 +60,14 @@ class htmlProducts
 			$whereClause .= " is_public = 'Y'";
 		}
 
-		if ($g_oSec->IsOrgUser())
+		if ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace())
 		{
 			if ($whereClause != '')
 				$whereClause .= ' AND';
 			else
 				$whereClause = ' WHERE';
 
-			$whereClause .= ' id IN (' . $g_oSession->Value('org_products') . ')';
+			$whereClause .= ' id IN (' . join(',', $g_oSession->GetProductFilter()) . ')';
 		}
 
 		$objDBProducts->Query("SELECT id,$longShort FROM products " . $whereClause . " ORDER BY $longShort");
@@ -87,7 +87,7 @@ class htmlProducts
 
 	function PrintAll($orderBy = 'name')
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec, $g_oSession;
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
@@ -106,13 +106,16 @@ class htmlProducts
 
 		if ($g_oSec->IsPublicUser())
 			$query .= " AND is_public = 'Y'";
+			
+		if ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace())
+			$query .= ' AND a.id IN (' . join(',', $g_oSession->GetProductFilter()) . ')';
 
 		$query .= " ORDER BY a.$orderBy";
 		$objDBProduct->Query($query);
 		$allRecs = $objDBProduct->FetchAllRows();
 
 		$oTable =& CreateObject('dcl.htmlTable');
-		$oTable->setCaption(sprintf(STR_PROD_TABLETITLE, $orderBy));
+		$oTable->setCaption('Products');
 		$oTable->addColumn(STR_PROD_ID, 'numeric');
 		$oTable->addColumn(STR_PROD_ACTIVEABB, 'string');
 		$oTable->addColumn(STR_PROD_SHORT, 'string');
@@ -127,7 +130,9 @@ class htmlProducts
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_ADD))
 			$oTable->addToolbar(menuLink('', 'menuAction=htmlProducts.add'), STR_CMMN_NEW);
-
+			
+		$oTable->addToolbar(menuLink('', 'menuAction=htmlProductDashboard.ShowAll'), 'Dashboard');
+			
 		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			$oTable->addToolbar(menuLink('', 'menuAction=boAdmin.ShowSystemConfig'), DCL_MENU_SYSTEMSETUP);
 

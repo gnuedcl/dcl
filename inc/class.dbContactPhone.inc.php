@@ -63,5 +63,18 @@ class dbContactPhone extends dclDB
 
 		return false;
 	}
+	
+	function GetContactByPhone($sPhone)
+	{
+		if ($this->Query('SELECT contact_id FROM dcl_contact_phone WHERE ' . $this->GetUpperSQL('phone_number') . ' = ' . $this->Quote($sPhone)) != -1)
+        {
+        	if ($this->next_record())
+        	{
+        	    return $this->f(0);
+        	}
+        }
+        
+        return null;
+	}
 }
 ?>

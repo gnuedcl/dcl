@@ -71,5 +71,10 @@ class dbUserRole extends dclDB
 
 		return $this->Execute("DELETE FROM dcl_user_role WHERE personnel_id = $personnel_id AND entity_type_id = " . DCL_ENTITY_GLOBAL . " AND role_id NOT IN ($sRoleList)");
 	}
+	
+	function HasSpecificRole($personnel_id, $role_id)
+	{
+		return $this->ExecuteScalar("SELECT COUNT(*) FROM dcl_user_role WHERE personnel_id = $personnel_id AND role_id = $role_id") > 0;
+	}
 }
 ?>

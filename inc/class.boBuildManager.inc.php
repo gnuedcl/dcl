@@ -28,18 +28,18 @@ class boBuildManager
 {
 	function modifyReleaseInfo()
 	{	
-		/* 
-		* Code is executed, when trying to modify existing release names or dates
-		*/		
 		commonHeader();
-		$id = $GLOBALS['product_version_id'];
+		if (($id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+		{
+		    trigger_error('Data sanitize failed.', E_USER_ERROR);
+		    return;
+		}
 		
 		$obj = CreateObject('dcl.dbBuildManager');
 		$obj->Connect();
 		
 		$query = "SELECT * FROM dcl_product_version where product_version_id = $id";
 		$obj->Query($query);
-		//echo $query;
 		$allRecs = $obj->FetchAllRows();
 		
 		$obj = CreateObject('dcl.htmlBuildManager');
@@ -52,7 +52,7 @@ class boBuildManager
 		// Determines if the user is trying to add a RELEASE or to add a BUILD
 		commonHeader();
 		$obj = CreateObject('dcl.htmlBuildManager');
-		SWITCH ($GLOBALS['which'])
+		SWITCH ($_REQUEST['which'])
 		{
 			case "release":
 				$obj->ShowAddReleasePage();
@@ -65,13 +65,33 @@ class boBuildManager
 	
 	function addRelease()
 	{
-		global $product_id;
-		
 		commonHeader();
+		
+		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+			return PrintPermissionDenied();
 		
 		$oDB = CreateObject('dcl.dbProductVersion');
 		$oDB->InitFrom_POST();
+		$oDB->active = (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y' ? 'Y' : 'N');
 		$oDB->Add();
+		
+		$obj = CreateObject('dcl.htmlProductDetail');
+		$obj->Show($product_id, 'release');
+	}
+	
+	function modifyRelease()
+	{
+		commonHeader();
+		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+			return PrintPermissionDenied();
+		
+		if (($product_version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+			return PrintPermissionDenied();
+		
+		$oDB = CreateObject('dcl.dbProductVersion');
+		$oDB->InitFrom_POST();
+		$oDB->active = (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y' ? 'Y' : 'N');
+		$oDB->Edit();
 		
 		$obj = CreateObject('dcl.htmlProductDetail');
 		$obj->Show($product_id, 'release');
@@ -105,10 +125,10 @@ class boBuildManager
 		commonHeader();
 			
 		$obj = CreateObject('dcl.htmlBuildManager');
-		if (IsSet($GLOBALS['selected']) && is_array($GLOBALS['selected']) && count($GLOBALS['selected']) > 0)
+		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
 			// Select a version to associate with
-			$g_oSession->Register('BMselected', $GLOBALS['selected']);
+			$g_oSession->Register('BMselected', $_REQUEST['selected']);
 			$g_oSession->Edit();
 			
 			$obj->AddWOForm($product);
@@ -142,7 +162,7 @@ class boBuildManager
 			}
 
 			// Pick a build
-			$obj->AddWOForm($product, $product_version_id, $GLOBALS['init']);
+			$obj->AddWOForm($product, $product_version_id, $_REQUEST['init']);
 			$obj->ShowBatchWO();
 		}
 	}
@@ -163,6 +183,134 @@ class boBuildManager
 		$obj = CreateObject('dcl.dbBuildManager');
 		$obj->Connect();
 		$obj->CheckBM($selected);		
+	}
+	
+	function ShowWorkOrders()
+	{
+		global $dcl_info;
+		commonHeader();
+		$obj = CreateObject('dcl.htmlBuildManager');
+		switch ($_REQUEST['from'])
+		{
+			case 'version':
+			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+			    {
+			        trigger_error('Data sanitize failed.', E_USER_ERROR);
+			        return;
+			    }
+			    
+				$objView = CreateObject('dcl.boView');
+
+				$objView->title = sprintf(STR_PROD_RELEASEINFO, 'Version');
+				$objView->style = 'report';
+				$objView->table = 'dcl_product_version_item';
+				$objView->AddDef('columns', '', array('product_version_id','entity_id','entity_id2','workorders.summary'));
+				$objView->AddDef('columnhdrs', '', array('ID', 'jcn', 'seq', 'Summary', 'Target Date', 'Actual Date'));
+
+				$objView->AddDef('filter', 'product_version_id', $version_id);
+				$objView->AddDef('order', '', array('entity_id,entity_id2'));
+				
+				$objHV = CreateObject('dcl.htmlBuildManagerVersionView');
+				$objHV->ModNav = 'WO';
+				$objHV->id = $GLOBALS['product_id'];
+				break;				
+			case 'build':
+			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+			    {
+			        trigger_error('Data sanitize failed.', E_USER_ERROR);
+			        return;
+			    }
+			    
+			    if (($product_build_id = @DCL_Sanitize::ToInt($_REQUEST['product_build_id'])) === null)
+			    {
+			        trigger_error('Data sanitize failed.', E_USER_ERROR);
+			        return;
+			    }
+			    
+			    $objView = CreateObject('dcl.boView');
+
+				$objView->title = sprintf(STR_PROD_RELEASEINFO, 'Version');
+				$objView->style = 'report';
+				$objView->table = 'dcl_product_build_item';
+				$objView->AddDef('columns', '', array('dcl_product_build.product_version_id','product_build_id','entity_id','entity_id2','workorders.summary'));
+				$objView->AddDef('columnhdrs', '', array('ID', 'Build ID', 'wo#', 'seq', 'Summary', 'Target Date', 'Actual Date'));
+
+				$objView->AddDef('filter', 'dcl_product_build.product_version_id', $versionid);
+				$objView->AddDef('filter', 'product_build_id', $product_build_id);
+				$objView->AddDef('order', '', array('entity_id,entity_id2'));
+
+				$objHV = CreateObject('dcl.htmlBuildManagerBuildView');
+				$objHV->ModNav = 'WO';
+				$objHV->product_version_id = $GLOBALS['versionid'];
+				$objHV->productid = $GLOBALS['product_id'];
+				
+				break;	
+			case 'default':
+			 	echo "<BR><center><b>This will show the total work orders applied by Version-Build, Coming Soon.</b></center>";		
+		}
+		$objHV->Render($objView);
+	}
+	
+	function ShowFiles()
+	{
+		global $dcl_info;
+		
+		commonHeader();
+		if (!$GLOBALS['g_oSec']->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEWFILE))
+			return PrintPermissionDenied();
+	
+		$obj = CreateObject('dcl.htmlBuildManager');
+		switch ($GLOBALS['from'])
+		{
+			case 'version':	
+			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+			    {
+			        trigger_error('Data sanitize failed.', E_USER_ERROR);
+			        return;
+			    }
+			    
+			    if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+			    {
+			        trigger_error('Data sanitize failed.', E_USER_ERROR);
+			        return;
+			    }
+			    
+			    $objView = CreateObject('dcl.boView');
+
+				$objView->title = sprintf(STR_PROD_RELEASEINFO, 'Version');
+				$objView->style = 'report';
+				$objView->table = 'dcl_product_version_item';
+				$objView->AddDef('columns', '', array('product_version_id','dcl_sccs_xref.dcl_sccs_xref_id','dcl_sccs_xref.sccs_project_path','dcl_sccs_xref.sccs_file_name'));
+				$objView->AddDef('columnhdrs', '', array('ID', 'Product Version ID', 'SCCS Project Path', 'File Name', 'Target Date', 'Actual Date'));
+
+				$objView->AddDef('filter', 'product_version_id', $version_id);
+				$objView->AddDef('order', '', array('dcl_sccs_xref.sccs_project_path,dcl_sccs_xref.sccs_file_name '));
+
+				$objHV = CreateObject('dcl.htmlBuildManagerVersionView');
+				$objHV->ModNav = 'showfiles';
+				$objHV->id = $product_id; 
+				break;			
+			case 'build':
+				$objView = CreateObject('dcl.boView');
+				$objView->title = sprintf(STR_PROD_RELEASEINFO, 'Build');
+				$objView->style = 'report';
+				$objView->table = 'dcl_product_version_item';
+				$objView->AddDef('columns', '', array('product_version_id','dcl_product_build_item.product_build_id','dcl_sccs_xref.dcl_sccs_xref_id','dcl_sccs_xref.sccs_project_path','dcl_sccs_xref.sccs_file_name'));
+				$objView->AddDef('columnhdrs', '', array('VersionID', 'Build ID', 'SCCS ID','SCCS Project Path','File Name'));
+
+				$objView->AddDef('filter', 'dcl_product_build_item.product_build_id', $GLOBALS['build_id']);
+				$objView->AddDef('order', '', array('dcl_sccs_xref.sccs_project_path,dcl_sccs_xref.sccs_file_name '));
+
+				$objHV = CreateObject('dcl.htmlBuildManagerBuildView');
+				$objHV->ModNav = 'showfiles';
+				$objHV->productid = $GLOBALS['product_id'];
+				$objHV->product_version_id = $GLOBALS['product_version_id'];
+				break;
+			case 'default':
+			 	echo "<BR><center><b>This will show the files applied for Version-Build in Source Safe, Coming Soon.</b></center>";	
+				break;
+		}
+		$objHV->Render($objView);
 	}
 }
 ?>

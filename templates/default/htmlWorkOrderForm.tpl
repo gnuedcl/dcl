@@ -2,6 +2,7 @@
 {dcl_calendar_init}
 {dcl_selector_init}
 {dcl_validator_init}
+{dcl_xmlhttp_init}
 <script language="JavaScript">
 {literal}
 function validateAndSubmitForm(form)
@@ -37,6 +38,51 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
+
+function UpdateVersionsCallback(aItems)
+{
+	if (typeof(aItems) != "object" || !aItems.data || !aItems.data.length)
+		return;
+	
+	var aNames = ["reported_version_id", "targeted_version_id", "fixed_version_id"];
+	for (var i in aNames)
+	{
+		var oSelect = document.getElementById(aNames[i]);
+		if (oSelect)
+		{
+			oSelect.disabled = false;
+			oSelect.options.length = 1;
+			for (var i = 0; i < aItems.data.length; i++)
+			{
+				var o = new Option();
+				o.value = aItems.data[i].id;
+				o.text = aItems.data[i].text;
+				oSelect.options[oSelect.options.length] = o;
+			}
+		}
+	}
+}
+
+function UpdateVersions()
+{
+	var aNames = ["reported_version_id", "targeted_version_id", "fixed_version_id"];
+	for (var i in aNames)
+	{
+		var oSelect = document.getElementById(aNames[i]);
+		if (oSelect)
+		{
+			oSelect.options.length = 1;
+			oSelect.disabled = true;
+		}
+	}
+
+	var oProduct = document.getElementById("product");
+	if (oProduct == null || oProduct.selectedIndex == 0)
+		return;
+{/literal}
+	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=jsonProductVersion.ListVersions{if !$IS_EDIT}&active=Y{/if}&product_id=" + oProduct.options[oProduct.selectedIndex].value, UpdateVersionsCallback);
+{literal}
+}
 {/literal}
 </script>
 <form class="styled" name="woform" method="post" action="{$smarty.const.DCL_WWW_ROOT}main.php" enctype="multipart/form-data">
@@ -56,12 +102,26 @@ function validateAndSubmitForm(form)
 		<legend>{$TXT_TITLE}</legend>
 		<div class="required">
 			<label for="product">{$smarty.const.STR_WO_PRODUCT}:</label>
-			{dcl_select_product default="$VAL_PRODUCT" active="$ACTIVE_ONLY" onchange="productSelChange(this.form);"}
+			{dcl_select_product default="$VAL_PRODUCT" active="$ACTIVE_ONLY" onchange="productSelChange(this.form);UpdateVersions();"}
 		</div>
 		<div class="required">
 			<label for="module_id">{$smarty.const.STR_CMMN_MODULE}:</label>
 			{if $IS_EDIT}{dcl_select_module default="$VAL_MODULE" active="$ACTIVE_ONLY" product="$VAL_PRODUCT"}{else}{dcl_select_module default="$VAL_MODULE" active="$ACTIVE_ONLY"}{/if}
 		</div>
+		<div>
+			<label for="revision">Reported Version:</label>
+			{dcl_select_product_version name=reported_version_id active="$ACTIVE_ONLY" default="$VAL_REPORTED_VERSION" product="$VAL_PRODUCT"}
+		</div>
+{if $IS_EDIT}
+		<div>
+			<label for="revision">Targeted Version:</label>
+			{dcl_select_product_version name=targeted_version_id active="$ACTIVE_ONLY" default="$VAL_TARGETED_VERSION" product="$VAL_PRODUCT"}
+		</div>
+		<div>
+			<label for="revision">Fixed Version:</label>
+			{dcl_select_product_version name=fixed_version_id active="$ACTIVE_ONLY" default="$VAL_FIXED_VERSION" product="$VAL_PRODUCT"}
+		</div>
+{/if}
 {if !$PERM_ISPUBLICUSER}
 		<div class="required">
 			<label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label>
@@ -103,10 +163,6 @@ function validateAndSubmitForm(form)
 			<input type="checkbox" name="responsible" id="responsible" value="{$VAL_DCLID}"{$CHK_DCLID}>
 		</div>
 {/if}
-		<div>
-			<label for="revision">{$smarty.const.STR_WO_REVISION}:</label>
-			<input type="text" name="revision" size="20" maxlength="20" value="{$VAL_REVISION|escape}">
-		</div>
 {if $PERM_ASSIGNWO}
 		<div class="required">
 			<label for="priority">{$smarty.const.STR_WO_PRIORITY}:</label>
@@ -120,15 +176,15 @@ function validateAndSubmitForm(form)
 {/if}
 {if !$PERM_ISPUBLICUSER}
 		<div>
+			<label for="contact_id">{$smarty.const.STR_WO_CONTACT}:</label>
+			{dcl_selector_contact name="contact_id" value="$VAL_CONTACTID" decoded="$VAL_CONTACTNAME" orgselector="secaccounts"}
+		</div>
+		<div>
 			<label for="secaccounts">{$smarty.const.STR_CMMN_ORGANIZATION}:</label>
 			{dcl_selector_org name="secaccounts" value="$VAL_ORGID" decoded="$VAL_ORGNAME" multiple="$VAL_MULTIORG"}
 		</div>
 		<div class="noinput">
 			<div id="div_secaccounts" style="width: 100%;"><script language="JavaScript">render_a_secaccounts();</script></div>
-		</div>
-		<div>
-			<label for="contact_id">{$smarty.const.STR_WO_CONTACT}:</label>
-			{dcl_selector_contact name="contact_id" value="$VAL_CONTACTID" decoded="$VAL_CONTACTNAME"}
 		</div>
 	</tr>
 {/if}
@@ -159,7 +215,7 @@ function validateAndSubmitForm(form)
 {elseif !$VAL_HIDEPROJECT}
 		<div>
 			<label for="projectid">{$smarty.const.STR_WO_PROJECT}:</label>
-			{dcl_selector_project name="projectid" value="$VAL_PROJECTS"}
+			{dcl_selector_project name="projectid" value="$VAL_PROJECTS" decoded="$VAL_PROJECT"}
 		</div>
 		<div>
 			<label for="addall">{$smarty.const.STR_WO_ADDALLSEQ}</label>

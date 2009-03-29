@@ -12,7 +12,7 @@
 	define('STR_ATTR_ACTIVE', "Activo");
 	define('STR_ATTR_SHORT', "Abrev.");
 	define('STR_ATTR_NAME', "Nombre");
-	define('STR_ATTR_ADDATTRIBUTESET', "Añadir conjunto de atributos");
+	define('STR_ATTR_ADDATTRIBUTESET', "AÃ?Â±adir conjunto de atributos");
 	define('STR_ATTR_EDITATTRIBUTESET', "Editar conjunto de atributos");
 	define('STR_ATTR_AVAILABLEVALUES', "Valores disponibles");
 	define('STR_ATTR_USEDVALUES', "Valores usados");

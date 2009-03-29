@@ -56,12 +56,26 @@ class dbContactEmail extends dclDB
 			return -1;
 		}
 		
-		if ($this->Query("SELECT et.email_type_name, e.email_addr FROM dcl_contact_email e, dcl_email_type et WHERE e.email_type_id = et.email_type_id AND e.contact_id = $iContactID AND e.preferred = 'Y'") != -1)
-		{
+	    if ($this->Query("SELECT et.email_type_name, e.email_addr FROM dcl_contact_email e, dcl_email_type et WHERE e.email_type_id = et.email_type_id AND e.contact_id = $iContactID AND e.preferred = 'Y'") != -1)
+				{
 			return $this->next_record();
 		}
 
 		return false;
+	}
+	
+	function GetContactByEmail($sEmail)
+	{
+	    $sSQL = 'SELECT contact_id FROM dcl_contact_email WHERE ' . $this->GetUpperSQL('email_addr') . ' = ' . strtoupper($this->Quote($sEmail));
+		if ($this->Query($sSQL) != -1)
+        {
+        	if ($this->next_record())
+        	{
+        	    return $this->f(0);
+        	}
+        }
+        
+        return null;
 	}
 }
 ?>

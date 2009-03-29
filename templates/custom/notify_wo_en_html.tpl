@@ -33,7 +33,9 @@
 	<tr><th colspan="2" bgcolor="#cecece">Product Info</th></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_WO_PRODUCT|escape}</b></td><td nowrap>{dcl_metadata_display type='product' value="`$obj->product`"|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_CMMN_MODULE|escape}</b></td><td nowrap>{dcl_metadata_display type='module' value="`$obj->module_id`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_REVISION|escape}</b></td><td nowrap>{$obj->revision|escape}</td></tr>
+	<tr><td nowrap><b>Reported Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value="`$obj->reported_version_id`"|escape}</td></tr>
+	<tr><td nowrap><b>Targeted Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value="`$obj->targeted_version_id`"|escape}</td></tr>
+	<tr><td nowrap><b>Fixed Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value="`$obj->fixed_version_id`"|escape}</td></tr>
 	</table><br>
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Contact Info</th></tr>
@@ -77,7 +79,7 @@
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th bgcolor="black" align="left" colspan="4"><font color="white">{$VAL_TIMECARDS[tc].actionby|escape} ({$VAL_TIMECARDS[tc].actionon|escape}) - {$VAL_TIMECARDS[tc].summary|escape}</font></th></tr>
 	<tr><td nowrap width="25%"><b>{$smarty.const.STR_TC_STATUS}</b></td><td nowrap width="25%">{$VAL_TIMECARDS[tc].status|escape}</td><td nowrap width="25%"><b>{$smarty.const.STR_TC_HOURS|escape}</b></td><td nowrap width="25%">{$VAL_TIMECARDS[tc].hours|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TC_ACTION|escape}</b></td><td nowrap>{$VAL_TIMECARDS[tc].action|escape}</td><td nowrap><b>{$smarty.const.STR_TC_VERSION|escape}</b></td><td nowrap>{$VAL_TIMECARDS[tc].version|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TC_ACTION|escape}</b></td><td nowrap>{$VAL_TIMECARDS[tc].action|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_CMMN_REASSIGN|escape}</b></td><td nowrap>{$VAL_TIMECARDS[tc].reassign_from_id|escape}</td><td nowrap><b>{$smarty.const.STR_CMMN_TO|escape}</b></td><td nowrap>{$VAL_TIMECARDS[tc].reassign_to_id|escape}</td></tr>
 	{if $VAL_TIMECARDS[tc].description != ""}<tr><td colspan="4"><b>{$smarty.const.STR_TC_DESCRIPTION|escape}:</b> {$VAL_TIMECARDS[tc].description|escape}</td></tr>{/if}
 	</table>

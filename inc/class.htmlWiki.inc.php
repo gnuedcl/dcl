@@ -396,6 +396,9 @@ class htmlWiki
 			// New syntax for wiki pages ((name|desc)) Where desc can be anything
 			$line = preg_replace("/\(\((([A-Z][a-z������������]+){2,})\|([^\~]+)\)\)/","<a class=\"wiki\" title='$3' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$3</a>",$line);
 
+			// And just plain ((name))
+			$line = preg_replace("/\(\(([^\)\(\|]+)\)\)/","<a class=\"wiki\" title='$1' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$1</a>",$line);
+
 			// Replace colors ~~color:text~~
 			$line = preg_replace("/\~\~([^\:]+):([^\~]+)\~\~/","<span style='color:$1;'>$2</span>",$line);
 
@@ -515,15 +518,14 @@ class htmlWiki
 
 	function RecentChanges()
 	{
-		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null ||
-			($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null
-			)
+		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
 		{
 			trigger_error('Data sanitize failed.');
 			return;
 		}
 		
-		$id2 = DCL_Sanitize::ToInt($_REQUEST['id2']);
+		$id = @DCL_Sanitize::ToInt($_REQUEST['id']);
+		$id2 = @DCL_Sanitize::ToInt($_REQUEST['id2']);
 		
 		$list = "||||||'''" . DCL_WIKI_RECENTCHANGES . "'''||\n";
 		$list .= "||'''" . DCL_WIKI_PAGE;

@@ -8,7 +8,7 @@
 	define('STR_CMMN_WARNING', "Warning");
 	define('STR_CMMN_BACKTRACE', "Backtrace");
 	define('STR_CMMN_HIGHLIGHTEDNOTE', "** Los campos sombreados deben estar rellenados!");
-	define('STR_CMMN_YES', "Sí");
+	define('STR_CMMN_YES', "SÃ?Â­");
 	define('STR_CMMN_NO', "No");
 	define('STR_CMMN_SELECTONE', "Seleccione uno.");
 	define('STR_CMMN_NOTLOGGEDIN', "No Entrada");
@@ -16,7 +16,7 @@
 	define('STR_CMMN_ATTRIBUTENOTE', "Este item necesitara estar asociado con un conjunto de atributos para ser usado.  Ver Admin..Attributes menu item.");
 	define('STR_CMMN_NOSELECTION', "No Seleccionado");
 	define('STR_CMMN_DELETEITEM', "Eliminar %s");
-	define('STR_CMMN_INITGDERR', "No podrá inicializar el grupo GD!");
+	define('STR_CMMN_INITGDERR', "No podrÃ?Â¡ inicializar el grupo GD!");
 	define('STR_CMMN_ACCESSDENIED', "Acceso denegado");
 	define('STR_CMMN_NEW', "Nuevo");
 	define('STR_CMMN_EDIT', "Editar");
@@ -24,6 +24,7 @@
 	define('STR_CMMN_UPLOAD', "cargar");
 	define('STR_CMMN_VIEW', "Ver");
 	define('STR_CMMN_VIEWALL', "View All");
+	define('STR_CMMN_REFRESH', "Refresh");
 	define('STR_CMMN_SAVE', "Salvar");
 	define('STR_CMMN_CANCEL', "Cancelar");
 	define('STR_CMMN_RESET', "Resetear");
@@ -86,4 +87,6 @@
 	define('STR_CMMN_MORE', "More");
 	define('STR_CMMN_TAGS', "Tags");
 	define('STR_CMMN_TAGSHELP', "Separate multiple tags with commas (example: \"php,write file,xml\").  Maximum 20 characters per tag.");
+	define('STR_CMMN_SHOWVERSION', "Versions");
+	define('STR_CMMN_SHOWFILES', "Files");
 ?>

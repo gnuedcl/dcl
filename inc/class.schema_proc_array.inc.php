@@ -206,6 +206,24 @@
 
 			return True;
 		}
+		
+		function CreateIndex($oProc, &$aTables, $sTableName, $sIndexName, $aColumns)
+		{
+			if (isset($aTables[$sTableName]))
+			{
+				$aTables[$sTableName]['ix'][$sIndexName] = $aColumns;
+			}
+			
+			return true;
+		}
+		
+		function DropIndex($oProc, &$aTables, $sTableName, $sIndexName)
+		{
+			if (isset($aTables[$sTableName]) && isset($aTables[$sTableName]['ix'][$sIndexName]))
+				unset($aTables[$sTableName]['ix'][$sIndexName]);
+				
+			return true;
+		}
 
 		function UpdateSequence($oProc, $sTableName, $sSeqField)
 		{

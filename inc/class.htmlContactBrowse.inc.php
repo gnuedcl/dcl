@@ -219,7 +219,10 @@ class htmlContactBrowse
 		{
 			if (strpos($filterSearch, ',') === false)
 			{
-				$oView->AddDef('filterlike', 'last_name', $filterSearch);
+			    if ($filterSearch[0] == '#' && strlen($filterSearch) > 1)
+				    $oView->AddDef('filterlike', 'dcl_contact_license.license_id', substr($filterSearch, 1));
+			    else
+				    $oView->AddDef('filterlike', 'last_name', $filterSearch);
 			}
 			else
 			{

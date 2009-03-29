@@ -5,7 +5,7 @@
 	define('DCL_MENU_NEW', "Add New");
 	define('DCL_MENU_IMPORT', "Upload");
 	define('DCL_MENU_ACTIVITY', "Aktivnost osebja");
-	define('DCL_MENU_GRAPH', "Grafièni prikaz");
+	define('DCL_MENU_GRAPH', "GrafiÃ?Â¨ni prikaz");
 	define('DCL_MENU_STATISTICS', "Statistike");
 	define('DCL_MENU_SCHEDULE', "Schedule");
 	define('DCL_MENU_SEARCH', "Iskanje");
@@ -21,13 +21,13 @@
 	define('DCL_MENU_SYSTEMSETUP', "Sistemska konf.");
 	define('DCL_MENU_NEWACCOUNT', "Nova stranka");
 	define('DCL_MENU_VIEWACCOUNT', "Poglej stranke");
-	define('DCL_MENU_CHECKLISTS', "Èek-liste");
+	define('DCL_MENU_CHECKLISTS', "Ã?Ë?ek-liste");
 	define('DCL_MENU_PRODUCTS', "Produkti");
 	define('DCL_MENU_VIEWS', "Views");
 	define('DCL_MENU_WATCHES', "Opozorilniki");
-	define('DCL_MENU_HELP', "Pomoè");
+	define('DCL_MENU_HELP', "PomoÃ?Â¨");
 	define('DCL_MENU_FAQS', "FAQs");
-	define('DCL_MENU_CLEARSCREEN', "Oèisti zaslov");
+	define('DCL_MENU_CLEARSCREEN', "OÃ?Â¨isti zaslov");
 	define('DCL_MENU_DCLHOMEPAGE', "DCL Home Page");
 	define('DCL_MENU_LICENSEINFO', "License Info");
 	define('DCL_MENU_VERSIONINFO', "Version Info");

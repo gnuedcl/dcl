@@ -202,7 +202,7 @@ class boView
 	
 	function FixName($sName)
 	{
-		$aFix = array('accounts' => 'dcl_org');
+		$aFix = array('accounts' => 'dcl_org', 'revision' => 'reported_version_id.product_version_text');
 		if (strpos($sName, '.') > -1)
 		{
 			// Field
@@ -361,9 +361,14 @@ class boView
 
 	function AddDef($which, $field, $value = '')
 	{
-		if ($this->table == 'workorders' && $field == 'account')
-			$field = 'dcl_wo_account.account_id';
-
+		if ($this->table == 'workorders')
+		{
+			if ($field == 'account')
+				$field = 'dcl_wo_account.account_id';
+			else if ($field == 'revision')
+				$field = 'dcl_product_version.product_version_text';
+		}
+		
 		$aMember =& $this->$which;
 		if (is_array($value))
 		{
@@ -396,9 +401,14 @@ class boView
 
 	function RemoveDef($which, $field)
 	{
-		if ($this->table == 'workorders' && $field == 'account')
-			$field = 'dcl_wo_account.account_id';
-
+		if ($this->table == 'workorders')
+		{
+			if ($field == 'account')
+				$field = 'dcl_wo_account.account_id';
+			else if ($field == 'revision')
+				$field = 'dcl_product_version.product_version_text';
+		}
+		
 		if (substr($which, 0, 6) == 'filter')
 		{
 			$aFilter =& $this->$which;
@@ -445,9 +455,14 @@ class boView
 							$sField = $field;
 						}
 
-						if (strlen($sTable) == 1 && ($sTable == 'a' || $sTable == 'b' || $sTable == 'c'))
-							$sRealTable = 'personnel';
-
+						if (strlen($sTable) == 1)
+						{
+							if ($sTable == 'a' || $sTable == 'b' || $sTable == 'c')
+								$sRealTable = 'personnel';
+							else if ($sTable == 'd' || $sTable == 'e' || $sTable == 'f')
+								$sRealTable = 'dcl_product_version';
+						}
+							
 						if (!$this->m_oDB)
 							$this->m_oDB = new dclDB;
 
@@ -514,6 +529,15 @@ class boView
 					break;
 				case 'personnel c':
 					$join = 'workorders.createby=c.id';
+					break;
+				case 'dcl_product_version d':
+					$join = 'workorders.reported_version_id=d.product_version_id';
+					break;
+				case 'dcl_product_version e':
+					$join = 'workorders.targeted_version_id=e.product_version_id';
+					break;
+				case 'dcl_product_version f':
+					$join = 'workorders.fixed_version_id=f.product_version_id';
 					break;
 				case 'dcl_status_type':
 					$join = '(workorders.status = statuses.id AND statuses.dcl_status_type = dcl_status_type.dcl_status_type_id)';
@@ -691,6 +715,9 @@ class boView
 				case 'dcl_org_contact':
 					$join = "dcl_contact.contact_id = dcl_org_contact.contact_id";
 					break;
+				case 'dcl_contact_license':
+					$join = "dcl_contact.contact_id = dcl_contact_license.contact_id";
+				    break;
 				case 'dcl_contact_addr':
 				case 'dcl_contact_email':
 				case 'dcl_contact_phone':
@@ -707,6 +734,18 @@ class boView
 					$join = 'dcl_product_version.product_version_id = dcl_product_build.product_version_id';
 					break;
 			}
+		}
+		elseif ($this->table == 'dcl_product_version_item')
+		{
+			switch ($table)
+			{
+				case 'workorders':
+					$join = 'dcl_product_version_item.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_version_item.entity_id = workorders.jcn AND dcl_product_version_item.entity_id2 = workorders.seq';
+					break;
+				case 'dcl_sccs_xref':
+				    $join = 'dcl_sccs_xref.dcl_entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_sccs_xref.dcl_entity_id = dcl_product_version_item.entity_id AND dcl_sccs_xref.dcl_entity_id2 = dcl_product_version_item.entity_id2';
+				    break;
+            }
 		}
 		elseif ($this->table == 'dcl_product_build')
 		{
@@ -732,6 +771,21 @@ class boView
 					break;
 			}
 		}
+		elseif ($this->table == 'dcl_product_build_item')
+		{
+			switch ($table)
+			{
+				case 'dcl_product_build':
+					$join = 'dcl_product_build.product_build_id = dcl_product_build_item.product_build_id';
+					break;
+			    case 'workorders':
+					$join = 'dcl_product_build_item.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_build_item.entity_id = workorders.jcn AND dcl_product_build_item.entity_id2 = workorders.seq';
+					break;
+			    case 'statuses':
+					$join = 'workorders.status = statuses.id';
+					break;
+			}
+		    		}
 		elseif ($this->table == 'dcl_product_build_except')
 		{
 			switch ($table)
@@ -802,6 +856,15 @@ class boView
 						case 'c':
 							$table = 'personnel c';
 							break;
+						case 'a':
+							$table = 'dcl_product_version d';
+							break;
+						case 'b':
+							$table = 'dcl_product_version e';
+							break;
+						case 'c':
+							$table = 'dcl_product_version f';
+							break;
 						case 'responsible':
 							$table = 'personnel a';
 							if ($bIsValues)
@@ -843,6 +906,39 @@ class boView
 							else
 								$arr[$i] = str_replace('reportto', 'a', $arr[$i]);
 							break;
+						case 'reported_version_id':
+							$table = 'dcl_product_version d';
+							$iJoinType = 2;
+							if ($bIsValues)
+							{
+								$arr[str_replace('reported_version_id', 'd', $key)] = $arr[$key];
+								unset($arr[$key]);
+							}
+							else
+								$arr[$i] = str_replace('reported_version_id', 'd', $arr[$i]);
+							break;
+						case 'targeted_version_id':
+							$table = 'dcl_product_version e';
+							$iJoinType = 2;
+							if ($bIsValues)
+							{
+								$arr[str_replace('targeted_version_id', 'e', $key)] = $arr[$key];
+								unset($arr[$key]);
+							}
+							else
+								$arr[$i] = str_replace('targeted_version_id', 'e', $arr[$i]);
+							break;
+						case 'fixed_version_id':
+							$table = 'dcl_product_version f';
+							$iJoinType = 2;
+							if ($bIsValues)
+							{
+								$arr[str_replace('fixed_version_id', 'f', $key)] = $arr[$key];
+								unset($arr[$key]);
+							}
+							else
+								$arr[$i] = str_replace('fixed_version_id', 'f', $arr[$i]);
+							break;
 						case 'accounts':
 						case 'dcl_projects':
 						case 'projectmap':
@@ -862,6 +958,7 @@ class boView
 						case 'dcl_contact_email':
 						case 'dcl_contact_phone':
 						case 'dcl_contact_url':
+						case 'dcl_contact_license':
 							$iJoinType = 2;
 							break;
 					}
@@ -930,6 +1027,7 @@ class boView
 		$this->AppendJoins($this->columns);
 		$this->AppendJoins($this->filter);
 		$this->AppendJoins($this->filternot);
+		$this->AppendJoins($this->filterlike);
 
 		$sql = 'SELECT ';
 
@@ -1103,9 +1201,13 @@ class boView
 				}
 				else if (eregi('^.*\.product', $field))
 				{
-					if ($g_oSec->IsOrgUser())
-						$values = array_intersect($values, split(',', $g_oSession->Value('org_products')));
-					
+					if ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace())
+					{
+						$values = array_intersect($values, $g_oSession->GetProductFilter());
+						if (count($values) == 0)
+							$values[] = -1;
+					}
+						
 					$bProductFilter = true;
 					if (count($values) == 1)
 						$productSQL = "($field=" . $this->GetCSLFromArray($values) . ')';
@@ -1449,7 +1551,7 @@ class boView
 			// with n accounts to appear in the report n times.  Otherwise, if we only sort or show the account
 			// column, we'll get the first account (in order) and display a link to show the other accounts
 			// as needed
-			if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' && in_array('accounts.name', $this->columns) || in_array('dcl_org.name', $this->columns))
+			if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' && (in_array('accounts.name', $this->columns) || in_array('dcl_org.name', $this->columns)))
 			{
 				$aOrgFilter = array();
 				if ($g_oSec->IsOrgUser())
@@ -1530,19 +1632,19 @@ class boView
 					$sAccountSQL .= " AND (workorders.seq in (select seq from dcl_wo_account where workorders.jcn = wo_id And account_id in (" . $this->GetCSLFromArray($values) . "))";
 					$sAccountSQL .= '))';
 				}
-				
-				if (!$bProductFilter)
+			}
+			
+			if (!$bProductFilter && ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace()))
+			{
+				if ($bDoneDidWhere == false)
 				{
-					if ($bDoneDidWhere == false)
-					{
-						$bDoneDidWhere = true;
-						$sql .= ' WHERE ';
-					}
-					else
-						$sql .= ' AND ';
-	
-					$sql .= 'product IN (' . $g_oSession->Value('org_products') . ')';
+					$bDoneDidWhere = true;
+					$sql .= ' WHERE ';
 				}
+				else
+					$sql .= ' AND ';
+
+				$sql .= 'product IN (' . join(',', $g_oSession->GetProductFilter()) . ')';
 			}
 			
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWSUBMITTED))
@@ -1581,21 +1683,21 @@ class boView
 			{
 				if (!$bOrgFilter)
 					$sAccountSQL = 'account IN (' . $g_oSession->Value('member_of_orgs') . ')';
-
-				if (!$bProductFilter)
-				{
-					if ($bDoneDidWhere == false)
-					{
-						$bDoneDidWhere = true;
-						$sql .= ' WHERE ';
-					}
-					else
-						$sql .= ' AND ';
-	
-					$sql .= 'product IN (' . $g_oSession->Value('org_products') . ')';
-				}
 			}
-			
+
+			if (!$bProductFilter && ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace()))
+			{
+				if ($bDoneDidWhere == false)
+				{
+					$bDoneDidWhere = true;
+					$sql .= ' WHERE ';
+				}
+				else
+					$sql .= ' AND ';
+
+				$sql .= 'product IN (' . join(',', $g_oSession->GetProductFilter()) . ')';
+			}
+
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEWSUBMITTED))
 			{
 				if ($bDoneDidWhere == false)

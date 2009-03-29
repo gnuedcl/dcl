@@ -33,7 +33,7 @@ class dbTimeCards extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	function Add($targeted_version_id = 0, $fixed_version_id = 0)
 	{
 		global $dcl_info, $g_oSec;
 
@@ -57,7 +57,7 @@ class dbTimeCards extends dclDB
 		$query  = 'INSERT INTO timecards (';
 		if ($idSQL != '')
 			$query .= 'id,';
-		$query .= 'jcn, seq, actionon, inputon, actionby, status, action, hours, summary, description, revision, reassign_from_id, reassign_to_id';
+		$query .= 'jcn, seq, actionon, inputon, actionby, status, action, hours, summary, description, is_public, reassign_from_id, reassign_to_id';
 		$query .= ') VALUES (';
 		if ($idSQL != '')
 			$query .= $idSQL . ',';
@@ -67,7 +67,7 @@ class dbTimeCards extends dclDB
 		$query .= $this->status . ',' . $this->action . ',' . $this->hours;
 		$query .= ',' . $this->Quote($this->summary);
 		$query .= ',' . $this->Quote($this->description);
-		$query .= ',' . $this->Quote($this->revision);
+		$query .= ',' . $this->Quote($this->is_public);
 
 		// Reassign if selected and able
 		if ($this->reassign_to_id > 0 && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN) && $objWO->responsible != $this->reassign_to_id)
@@ -100,6 +100,14 @@ class dbTimeCards extends dclDB
 				$objWO->closedon = '';
 			}
 		}
+		
+		// Check for version updates
+		if ((int)$targeted_version_id > 0)
+			$objWO->targeted_version_id = $targeted_version_id;
+			
+		if ((int)$fixed_version_id > 0)
+			$objWO->fixed_version_id = $fixed_version_id;
+			
 		// ensure the etc hours do not get anything but zero when closed
 		$oStatus = CreateObject('dcl.dbStatuses');
 		if ($oStatus->GetStatusType($objWO->status) == 2)
@@ -118,8 +126,8 @@ class dbTimeCards extends dclDB
 		// Does not update reassign information - that's historical!
 		$query = 'UPDATE timecards SET actionon=' . $this->DisplayToSQL($this->actionon);
 		$query .= ',status=' . $this->status . ',action=';
-		$query .= $this->action . ',hours=' . $this->hours . ',summary=\'' . $this->DBAddSlashes($this->summary);
-		$query .= '\',description=\'' . $this->DBAddSlashes($this->description) . '\',revision=\'' . $this->DBAddSlashes($this->revision) . '\' ';
+		$query .= $this->action . ',hours=' . $this->hours . ',summary=' . $this->Quote($this->summary);
+		$query .= ',description=' . $this->Quote($this->description) . ',is_public=' . $this->Quote($this->is_public) . ' ';
 		$query .= ' WHERE id=' . $this->id;
 
 		$this->Execute($query);
@@ -148,7 +156,7 @@ class dbTimeCards extends dclDB
 		$sql = 'SELECT id, jcn, seq, ';
 		$sql .= $this->ConvertDate('actionon', 'actionon');
 		$sql .= ', ' . $this->ConvertTimestamp('inputon', 'inputon');
-		$sql .= ', actionby, status, action, hours, summary, description, revision, reassign_from_id, reassign_to_id, is_public';
+		$sql .= ', actionby, status, action, hours, summary, description, reassign_from_id, reassign_to_id, is_public';
 		$sql .= " FROM timecards WHERE jcn=$jcn and seq=$seq $sPublicSQL ORDER BY id " . $dcl_info['DCL_TIME_CARD_ORDER'];
 		if (!$this->Query($sql))
 			return -1;

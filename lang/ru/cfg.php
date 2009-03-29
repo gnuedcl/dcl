@@ -1,5 +1,5 @@
 <?php
-	define('STR_CFG_TITLE', "DCL Конфигурация");
+	define('STR_CFG_TITLE', "DCL ц?б╚ц?О©╫ц?е╫ц?Б?═ц?Б?╟ц?Б?║ц?Б?╒ц?Б??ц?О©╫ц?ф?ц?Б?╟ц?Б??");
 	define('STR_CFG_DESC', "This screen will allow you to configure default settings and behaviors in DCL.");
 	define('STR_CFG_SYSTEMTITLE', "System Configuration");
 	define('STR_CFG_DATEFORMAT', "Date Display Format");
@@ -39,6 +39,8 @@
 	define('STR_CFG_WONOTIFICATIONHTMLHELP', "Send work order notifications as HTML.  The notification template specified should be in HTML format.");
 	define('STR_CFG_WOEMAILTEMPLATE', "Notification Template");
 	define('STR_CFG_WOEMAILTEMPLATEHELP', "Notification template to use.  This is located in the templates/custom directory.");
+	define('STR_CFG_WOEMAILTEMPLATEPUBLIC', "Public Notification Template");
+	define('STR_CFG_WOEMAILTEMPLATEPUBLICHELP', "Notification template to use for emails sent to public users.  This is located in the templates/custom directory.");
 	define('STR_CFG_WOSECONDARYACCOUNTSENABLED', "Multiple Organizations");
 	define('STR_CFG_WOSECONDARYACCOUNTSENABLEDHELP', "This allows users to associate more than one organization with a work order.  This is currently not compatible with MySQL.");
 	define('STR_CFG_PROJECTTITLE', "Projects");
@@ -92,6 +94,8 @@
 	define('STR_CFG_TCKNOTIFICATIONHTMLHELP', "Send ticket notifications in HTML format.  If this is selected, make sure you choose a HTML template.");
 	define('STR_CFG_TCKEMAILTEMPLATE', "Ticket Notification Template");
 	define('STR_CFG_TCKEMAILTEMPLATEHELP', "Template file (located in templates/custom directory) to use for ticket notifications.");
+	define('STR_CFG_TCKEMAILTEMPLATEPUBLIC', "Public Ticket Notification Template");
+	define('STR_CFG_TCKEMAILTEMPLATEPUBLICHELP', "Template file (located in templates/custom directory) to use for ticket notifications sent to public users.");
 	define('STR_CFG_GATEWAYTICKETTITLE', "e-Mail Gateway for Tickets");
 	define('STR_CFG_GATEWAYTICKETENABLED', "e-Mail Gateway for Tickets Enabled");
 	define('STR_CFG_GATEWAYTICKETENABLEDHELP', "Enables e-mail gateway for tickets.  This allows you to set up e-mail addresses where users can submit tickets to.");

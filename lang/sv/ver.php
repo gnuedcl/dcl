@@ -7,5 +7,5 @@
 	define('STR_VER_PHPVER', "PHP-version");
 	define('STR_VER_YOURVER', "Din versionsinformation");
 	define('STR_VER_YOURIP', "Din IP-adress");
-	define('STR_VER_YOURBROWSER', "Din webbläsare");
+	define('STR_VER_YOURBROWSER', "Din webblÃ?Â¤sare");
 ?>

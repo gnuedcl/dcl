@@ -23,7 +23,6 @@
 			<div><label for="action">{$smarty.const.STR_TC_ACTION}:</label>{dcl_select_action active="N" setid=$VAL_SETID default=$VAL_TIMECARDS[tc].action_id}</div>
 			<div><label for="status">{$smarty.const.STR_TC_STATUS}:</label>{dcl_select_status active="N" setid=$VAL_SETID default=$VAL_TIMECARDS[tc].status_id}</div>
 			<div><label for="hours">{$smarty.const.STR_TC_HOURS}:</label><input type="text" size="6" maxlength="6" id="hours" name="hours" value="{$VAL_TIMECARDS[tc].hours|escape}"></div>
-			<div><label for="version">{$smarty.const.STR_TC_VERSION}:</label><input type="text" size="20" maxlength="20" id="version" name="version" value="{$VAL_TIMECARDS[tc].version|escape}"></div>
 			<div><label for="summary">{$smarty.const.STR_TC_SUMMARY}:</label><input type="text" size="50" maxlength="100" id="summary" name="summary" value="{$VAL_TIMECARDS[tc].summary|escape}"></div>
 			<div><label for="description">{$smarty.const.STR_TC_DESCRIPTION}:</label><textarea style="width:100%;" rows="6" id="description" name="description">{$VAL_TIMECARDS[tc].description|escape}</textarea></div>
 		</fieldset>
@@ -65,8 +64,6 @@
 		<tr>
 			<th>{$smarty.const.STR_TC_ACTION}:</th>
 			<td>{$VAL_TIMECARDS[tc].action|escape}{if $VAL_TIMECARDS[tc].is_public != "Y"} (Private){/if}</td>
-			<th>{$smarty.const.STR_TC_VERSION}:</th>
-			<td>{$VAL_TIMECARDS[tc].revision|escape}</td>
 		</tr>
 		{if !$IS_PUBLIC && ($VAL_TIMECARDS[tc].reassign_from_id || $VAL_TIMECARDS[tc].reassign_to_id)}
 		<tr>

@@ -81,7 +81,7 @@ function validate(form, status)
 {if !$PERM_ISPUBLIC}
 		<div class="required">
 			<label for="contact_id">{$smarty.const.STR_WO_CONTACT}:</label>
-			{dcl_selector_contact name="contact_id" value="$VAL_CONTACTID" decoded="$VAL_CONTACTNAME"}
+			{dcl_selector_contact name="contact_id" value="$VAL_CONTACTID" decoded="$VAL_CONTACTNAME" orgselector="account"}
 		</div>
 		<div class="required">
 			<label for="account">{$smarty.const.STR_CMMN_ORGANIZATION}:</label>

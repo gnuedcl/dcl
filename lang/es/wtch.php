@@ -8,7 +8,7 @@
 	define('STR_WTCH_ACTIONS', "Acciones");
 	define('STR_WTCH_OPTIONS', "Opciones");
 	define('STR_WTCH_EDIT', "Edite %s Vista");
-	define('STR_WTCH_ADD', "Añada %s Vista");
+	define('STR_WTCH_ADD', "AÃ?Â±ada %s Vista");
 	define('STR_WTCH_YOUHAVENONE', "No tiene ninguna Vista.");
 	define('STR_WTCH_HIGHLIGHTEDNOTE', "** Los campos sombreados son obligatorios!");
 	define('STR_WTCH_ALLSEQ', "Todas Secuencias");

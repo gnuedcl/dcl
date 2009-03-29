@@ -46,7 +46,7 @@ class dbEntityTag extends dclDB
 			$this->Execute("DELETE FROM dcl_entity_tag WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id");
 	}
 	
-	function serialize($entity_id, $entity_key_id, $entity_key_id2, $sTags)
+	function serialize($entity_id, $entity_key_id, $entity_key_id2, $sTags, $bAddOnly = false)
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -55,7 +55,9 @@ class dbEntityTag extends dclDB
 		
 		if ($sTags == '')
 		{
-			$this->deleteByEntity($entity_id, $entity_key_id, $entity_key_id2);
+			if (!$bAddOnly)
+				$this->deleteByEntity($entity_id, $entity_key_id, $entity_key_id2);
+				
 			return;
 		}
 		
@@ -70,7 +72,7 @@ class dbEntityTag extends dclDB
 			
 			if (strlen($sTag) > $GLOBALS['phpgw_baseline'][$oTag->TableName]['fd']['tag_desc']['precision'])
 			{
-				trigger_error(sprintf(STR_DB_TAGLENGTHERR, htmlspecialchars($sTag), $GLOBALS['phpgw_baseline'][$oTag->TableName]['fd']['tag_desc']['precision']));
+				ShowError(sprintf(STR_DB_TAGLENGTHERR, htmlspecialchars($sTag), $GLOBALS['phpgw_baseline'][$oTag->TableName]['fd']['tag_desc']['precision']));
 				continue;
 			}
 			
@@ -86,11 +88,14 @@ class dbEntityTag extends dclDB
 			
 		$sTagID = join(',', $aTagID);
 		
-		// Delete the tags that are no longer referenced
-		if ($entity_id == DCL_ENTITY_WORKORDER)
-			$this->Execute("DELETE FROM dcl_entity_tag WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND tag_id NOT IN ($sTagID)");
-		else
-			$this->Execute("DELETE FROM dcl_entity_tag WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND tag_id NOT IN ($sTagID)");
+		// Delete the tags that are no longer referenced if we're not in add only mode
+		if (!$bAddOnly)
+		{
+			if ($entity_id == DCL_ENTITY_WORKORDER)
+				$this->Execute("DELETE FROM dcl_entity_tag WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND tag_id NOT IN ($sTagID)");
+			else
+				$this->Execute("DELETE FROM dcl_entity_tag WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND tag_id NOT IN ($sTagID)");
+		}
 			
 		// Add the new tags
 		if ($sTagID != '-1')

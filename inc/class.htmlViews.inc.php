@@ -68,12 +68,17 @@ class htmlViews
 
 	function PrintAll($orderBy = 'name')
 	{
-		global $g_oSec;
+		global $g_oSec, $g_oSession;
 
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
+			
+		if ($g_oSession->IsInWorkspace())
+		{
+			ShowWarning('You are currently in a workspace.  It is possible for results to be mutually exclusive if a search contains a product filter.  If you do not see the results you expect, switch to "No Workspace" or another workspace that has the products contained in the search.', '', '', array());
+		}
 
 		$objDB = CreateObject('dcl.dbViews');
 

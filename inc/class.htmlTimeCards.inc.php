@@ -59,6 +59,7 @@ class htmlTimeCards
 		if ($objWO->Query($query) != -1)
 		{
 			$oTable = CreateObject('dcl.htmlTable');
+			$oTable->sCaption = 'Selected Work Orders';
 			$oTable->addColumn(STR_WO_JCN, 'numeric');
 			$oTable->addColumn(STR_WO_SEQ, 'numeric');
 			$oTable->addColumn(STR_WO_RESPONSIBLE, 'string');

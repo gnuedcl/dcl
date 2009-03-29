@@ -9,7 +9,9 @@
 			var iPage = 1;
 			var iMaxPages = 1;
 			var aSelectedID = new Array();
-			var aSelectedName = new Array();			
+			var aSelectedName = new Array();
+			var aSelectedOrgID = new Array();
+			var aSelectedOrgName = new Array();			
 			var bInitComplete = false;
 {literal}
 			function doSave()
@@ -35,7 +37,30 @@
 							bFirst = false;
 						
 						oValues.value += sKey;
-						aText[aText.length] = aSelectedName[sKey];
+						aText.push(aSelectedName[sKey]);
+					}
+
+					if (oOpener.oSecondaryValue != null && oOpener.aSecondaryText != null && aSelectedOrgID.length > 0)
+					{{/literal}
+						{if $VAL_MULTIPLE == "false"}
+						oOpener.oSecondaryValue.value = "";
+						oOpener.aSecondaryText.length = 0;
+						{/if}{literal}
+						
+						var bFirst = true;
+						for (var sKey in aSelectedID)
+						{
+							if (!sKey || !aSelectedID[sKey])
+								continue;
+	
+							if (!bFirst)
+								oOpener.oSecondaryValue.value += ",";
+							else
+								bFirst = false;
+							
+							oOpener.oSecondaryValue.value += aSelectedOrgID[sKey];
+							oOpener.aSecondaryText.push(aSelectedOrgName[sKey]);
+						}
 					}
 				}
 			

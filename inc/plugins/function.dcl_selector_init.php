@@ -28,13 +28,17 @@ function smarty_function_dcl_selector_init($params, &$smarty)
 <script language="JavaScript">
 var oSelectorWindow = null;
 var oSelectorValue = null;
+var oSecondaryValue = null;
 var aSelectorText = null;
+var aSecondaryText = null;
 var fSelectorCallBack = function() {};
 
-function showSelector(oValCtrl, aArrayText, fCallBack, sClass, sMultiple, sWindowName)
+function showSelector(oValCtrl, aArrayText, fCallBack, sClass, sMultiple, sWindowName, oSecControl, aSecText)
 {
 	oSelectorValue = oValCtrl;
+	oSecondaryValue = oSecControl;
 	aSelectorText = aArrayText;
+	aSecondaryText = aSecText;
 	fSelectorCallBack = fCallBack;
 	if (!sWindowName)
 		sWindowName = '_dcl_selector_';

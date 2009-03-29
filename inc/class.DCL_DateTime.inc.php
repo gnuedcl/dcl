@@ -68,6 +68,14 @@ class DCLTimestamp
 			
 		return null;
 	}
+	
+	function ToTimeOnly()
+	{
+		if ($this->time > 0)
+			return date('H:i', $this->time);
+			
+		return null;
+	}
 
 	// return current timestamp in ANSI format
 	function ToANSI()
@@ -83,12 +91,12 @@ class DCLTimestamp
 	{
 		$sANSI = 'YYYY-MM-DD HH:II:SS';
 		$this->time = mktime(
-				substr($s, strpos($this->dbFormatEx, 'H'), 2),	// hour
-				substr($s, strpos($this->dbFormatEx, 'I'), 2),	// minute
-				substr($s, strpos($this->dbFormatEx, 'S'), 2),	// second
-				substr($s, strpos($this->dbFormatEx, 'M'), 2),	// month
-				substr($s, strpos($this->dbFormatEx, 'D'), 2),	// day
-				substr($s, strpos($this->dbFormatEx, 'Y'), 4));	// year
+				substr($s, strpos($sANSI, 'H'), 2),	// hour
+				substr($s, strpos($sANSI, 'I'), 2),	// minute
+				substr($s, strpos($sANSI, 'S'), 2),	// second
+				substr($s, strpos($sANSI, 'M'), 2),	// month
+				substr($s, strpos($sANSI, 'D'), 2),	// day
+				substr($s, strpos($sANSI, 'Y'), 4));	// year
 	}
 
 	// Returns the timestamp as UNIX time

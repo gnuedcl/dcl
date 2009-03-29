@@ -41,11 +41,13 @@ class DCL_MetadataDisplay
 	var $oOrgPhone;
 	var $oOrgEmail;
 	var $oOrgUrl;
+	var $oOrgAddr;
 	var $oProject;
 	var $oAction;
 	var $oTicket;
 	var $oWorkOrder;
 	var $oTag;
+	var $oProductVersion;
 
 	function DCL_MetadataDisplay()
 	{
@@ -65,11 +67,13 @@ class DCL_MetadataDisplay
 		$this->oOrgPhone = null;
 		$this->oOrgEmail = null;
 		$this->oOrgUrl = null;
+		$this->oOrgAddr = null;
 		$this->oProject = null;
 		$this->oAction = null;
 		$this->oTicket = null;
 		$this->oWorkOrder = null;
 		$this->oTag = null;
+		$this->oProductVersion = null;
 	}
 
 	function IsValidID($id)
@@ -151,6 +155,20 @@ class DCL_MetadataDisplay
 			return $this->TriggerError("Could not find product ID $id");
 
 		return $this->oProduct->name;
+	}
+
+	function GetProductVersion($id)
+	{
+		if (!$this->IsValidID($id))
+			return '';
+
+		if ($this->oProductVersion == null)
+			$this->oProductVersion =& CreateObject('dcl.dbProductVersion');
+
+		if ($this->oProductVersion->Load($id, false) == -1)
+			return $this->TriggerError("Could not find product version ID $id");
+
+		return $this->oProductVersion->product_version_text;
 	}
 
 	function GetProject($id)
@@ -268,6 +286,7 @@ class DCL_MetadataDisplay
 			$this->oOrgPhone =& CreateObject('dcl.dbOrgPhone');
 			$this->oOrgEmail =& CreateObject('dcl.dbOrgEmail');
 			$this->oOrgUrl =& CreateObject('dcl.dbOrgUrl');
+			$this->oOrgAddr =& CreateObject('dcl.dbOrgAddr');
 		}
 
 		if ($this->oOrg->Load($id) != -1)
@@ -290,7 +309,42 @@ class DCL_MetadataDisplay
 			{
 				$aRetVal['urltype'] = $this->oOrgUrl->f(0);
 				$aRetVal['url'] = $this->oOrgUrl->f(1);
-			}			
+			}
+			
+			if ($this->oOrgAddr->GetPrimaryAddress($id))
+			{
+				$aRetVal['addrtype'] = $this->oOrgAddr->f('addr_type_name');
+				$aRetVal['addr'] = '';
+
+				if ($this->oOrgAddr->f('add1') != '')
+					$aRetVal['addr'] .= $this->oOrgAddr->f('add1');
+
+				if ($this->oOrgAddr->f('add2') != '')
+				{
+					if ($aRetVal['addr'] != '')
+						$aRetVal['addr'] .= "\n";
+						
+					$aRetVal['addr'] .= $this->oOrgAddr->f('add2');
+				}
+				
+				$sCityStateZip = '';
+				$aCityStateZip = array('city' => ', ', 'state' => '   ', 'zip' => ' ', 'country' => '');
+				foreach ($aCityStateZip as $sKey => $sSuffix)
+				{
+					if ($this->oOrgAddr->f($sKey) != '')
+					{
+						$sCityStateZip .= $this->oOrgAddr->f($sKey) . $sSuffix;
+					}
+				}
+				
+				if ($sCityStateZip != '')
+				{
+					if ($aRetVal['addr'] != '')
+						$aRetVal['addr'] .= "\n";
+						
+					$aRetVal['addr'] .= $sCityStateZip;
+				}
+			}
 		}
 
 		return $aRetVal;

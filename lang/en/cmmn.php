@@ -24,6 +24,7 @@
 	define('STR_CMMN_UPLOAD', "Upload");
 	define('STR_CMMN_VIEW', "View");
 	define('STR_CMMN_VIEWALL', "View All");
+	define('STR_CMMN_REFRESH', "Refresh");
 	define('STR_CMMN_SAVE', "Save");
 	define('STR_CMMN_CANCEL', "Cancel");
 	define('STR_CMMN_RESET', "Reset");
@@ -86,4 +87,6 @@
 	define('STR_CMMN_MORE', "More");
 	define('STR_CMMN_TAGS', "Tags");
 	define('STR_CMMN_TAGSHELP', "Separate multiple tags with commas (example: \"php,write file,xml\").  Maximum 20 characters per tag.");
+	define('STR_CMMN_SHOWVERSION', "Versions");
+	define('STR_CMMN_SHOWFILES', "Files");
 ?>

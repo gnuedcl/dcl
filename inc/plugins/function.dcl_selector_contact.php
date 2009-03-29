@@ -46,7 +46,14 @@ function smarty_function_dcl_selector_contact($params, &$smarty)
 	if (!isset($params['decoded']))
 		$params['decoded'] = '';
 
+	if (!isset($params['window_name']))
+		$params['window_name'] = '_dcl_selector_';
+
 	$sArrayName = 'a_' . $params['name'];
+	
+	$sSecArrayName = '';
+	if (isset($params['orgselector']))
+	    $sSecArrayName = 'a_' . $params['orgselector'];
 ?>
 <script language="JavaScript">
 var <?php echo $sArrayName; ?> = new Array();
@@ -71,9 +78,13 @@ function render_<?php echo $sArrayName; ?>()
 	else
 		document.getElementById("<?php echo $params['id']; ?>Link").innerHTML = '<?php echo STR_CMMN_SELECTONE; ?>';
 <?php } ?>
+<?php if ($sSecArrayName != '') { ?>
+	render_a_<?php echo $params['orgselector']; ?>();
+	//document.getElementById("<?php echo $params['orgselector']; ?>Link").innerHTML = <?php echo $sSecArrayName; ?>[0];
+<?php } ?>
 }
 </script>
-<a id="<?php echo $params['id']; ?>Link" href="javascript:;" onclick="showSelector(document.getElementById('<?php echo $params['id']; ?>'), <?php echo $sArrayName; ?>, render_<?php echo $sArrayName; ?>, 'htmlContactSelector', '<?php echo $params['multiple'] == 'Y' ? 'true' : 'false' ?>');"><?php echo $params['multiple'] == 'Y' || $params['decoded'] == '' ? STR_CMMN_SELECTONE : htmlspecialchars($params['decoded'], ENT_QUOTES); ?></a>
+<a id="<?php echo $params['id']; ?>Link" href="javascript:;" onclick="showSelector(document.getElementById('<?php echo $params['id']; ?>'), <?php echo $sArrayName; ?>, render_<?php echo $sArrayName; ?>, 'htmlContactSelector', '<?php echo $params['multiple'] == 'Y' ? 'true' : 'false' ?>', '<?php echo $params['window_name']; ?>'<?php if ($sSecArrayName != '') { ?>, document.getElementById('<?php echo $params['orgselector']; ?>'), <?php echo $sSecArrayName; } ?>);"><?php echo $params['multiple'] == 'Y' || $params['decoded'] == '' ? STR_CMMN_SELECTONE : htmlspecialchars($params['decoded'], ENT_QUOTES); ?></a>
 <input type="hidden" id="<?php echo $params['id']; ?>" name="<?php echo $params['name']; ?>" value="<?php echo $params['value']; ?>">
 <?php
 }

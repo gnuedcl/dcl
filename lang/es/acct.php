@@ -18,7 +18,7 @@
 	define('STR_ACCT_CONTACTPH', "telefono");
 	define('STR_ACCT_FAX', "Fax");
 	define('STR_ACCT_EDITACCOUNT', "Editar cuenta");
-	define('STR_ACCT_ADDNEWACCOUNT', "Añadir nuevo cuenta");
+	define('STR_ACCT_ADDNEWACCOUNT', "AÃ?Â±adir nuevo cuenta");
 	define('STR_ACCT_HIGHLIGHTEDNOTE', "** Los campos sombreados son obligatorios!");
 	define('STR_ACCT_NOOBJECTERR', "cuenta object not passed to ShowDetail!");
 	define('STR_ACCT_ACCOUNTSEARCH', "Buscar cuenta");

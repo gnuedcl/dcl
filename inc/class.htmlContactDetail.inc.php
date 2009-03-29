@@ -61,6 +61,7 @@ class htmlContactDetail
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE));
 		$t->assign('PERM_VIEW', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW));
+		$t->assign('VAL_TODAY', mktime(0, 0, 0, date('m'), date('j'), date('Y')));
 
 		// Get types for this contact
 		$oContactType =& CreateObject('dcl.dbContactType');
@@ -109,6 +110,20 @@ class htmlContactDetail
 
 		$t->assign_by_ref('ContactEmail', $aEmails);
 		$oContactEmail->FreeResult();
+
+		// Get e-mail addresses
+		$oContactLicenses = CreateObject('dcl.dbContactLicense');
+		$oContactLicenses->ListByContact($oContact->contact_id);
+		$aLicenses = array();
+		while ($oContactLicenses->next_record())
+		{
+		    $oContactLicenses->objDate->SetFromDB($oContactLicenses->Record['expires_on']);
+		    $oContactLicenses->Record['val_expires_on'] = $oContactLicenses->objDate->time;
+			$aLicenses[] = $oContactLicenses->Record;
+		}
+
+		$t->assign_by_ref('ContactLicense', $aLicenses);
+		$oContactLicenses->FreeResult();
 
 		// Get URLs
 		$oContactURL = CreateObject('dcl.dbContactUrl');

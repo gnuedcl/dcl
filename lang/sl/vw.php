@@ -16,6 +16,6 @@
 	define('STR_VW_TABLE', "Tabela");
 	define('STR_VW_ADDVIEW', "Dodaj Pogled");
 	define('STR_VW_NOVIEWS', "No Public Or Private Views Found!");
-	define('STR_VW_TITLE', "Pogledi razvr¹èeni po %s");
+	define('STR_VW_TITLE', "Pogledi razvrÃ?Â¹Ã?Â¨eni po %s");
 	define('STR_VW_SETUP', "Setup");
 ?>

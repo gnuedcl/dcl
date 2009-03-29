@@ -1,17 +1,17 @@
 <?php
 	define('STR_ADMIN_STEP', "Paso %d.");
 	define('STR_ADMIN_SETUPTITLE', "Instalacion DCL");
-	define('STR_ADMIN_SETUPDESC', "Esta pantalla  permite la configuración de la instalación de su DCL.  Los pasos estan indicados para guiarle, en el orden apropiado, en la configuración del sistema, despues de la instalación inicial.Despues, usted puede acceder a los objetos que necesite.");
+	define('STR_ADMIN_SETUPDESC', "Esta pantalla  permite la configuraciÃ?Â³n de la instalaciÃ?Â³n de su DCL.  Los pasos estan indicados para guiarle, en el orden apropiado, en la configuraciÃ?Â³n del sistema, despues de la instalaciÃ?Â³n inicial.Despues, usted puede acceder a los objetos que necesite.");
 	define('STR_ADMIN_PRIORITIES', "Prioridades");
 	define('STR_ADMIN_PRIORITIESDESC', "Prioridades describe como es de urgente un objeto en particular.");
-	define('STR_ADMIN_PRIORITIESNOTE', "Usted debe añadir prioridades nuevas a un conjunto de atributos para que sean accesibles en DCl.");
+	define('STR_ADMIN_PRIORITIESNOTE', "Usted debe aÃ?Â±adir prioridades nuevas a un conjunto de atributos para que sean accesibles en DCl.");
 	define('STR_ADMIN_SEVERITIES', "Severidad");
 	define('STR_ADMIN_SEVERITIESDESC', "Severidad indica el tipo o efecto de un objeto.");
-	define('STR_ADMIN_SEVERITIESNOTE', "Usted debe añadir severidades nuevas a un conjunto de atributos para que sean accesibles en  DCL.");
+	define('STR_ADMIN_SEVERITIESNOTE', "Usted debe aÃ?Â±adir severidades nuevas a un conjunto de atributos para que sean accesibles en  DCL.");
 	define('STR_ADMIN_STATUSES', "Estados");
-	define('STR_ADMIN_STATUSESDESC', "Estados indican el estado de un objeto, normalmente para determinar si esta abierto, cerrdao o en espera.  Puede añadir varios estados para mejorar la descripción del flujo de su trabajo.");
-	define('STR_ADMIN_STATUSESNOTE', "Usted debe añadir estados nuevos a un conjunto de atributos para que sean accesibles en DCL.");
-	define('STR_ADMIN_CONFIG', "Configuración");
+	define('STR_ADMIN_STATUSESDESC', "Estados indican el estado de un objeto, normalmente para determinar si esta abierto, cerrdao o en espera.  Puede aÃ?Â±adir varios estados para mejorar la descripciÃ?Â³n del flujo de su trabajo.");
+	define('STR_ADMIN_STATUSESNOTE', "Usted debe aÃ?Â±adir estados nuevos a un conjunto de atributos para que sean accesibles en DCL.");
+	define('STR_ADMIN_CONFIG', "ConfiguraciÃ?Â³n");
 	define('STR_ADMIN_CONFIGDESC', "Configuracion contiene marcos por defecto y funcionamientos que pueden ser modificados para su instalacion.");
 	define('STR_ADMIN_CONFIGNOTE', "");
 	define('STR_ADMIN_DEPARTMENTS', "Usuarios");
@@ -19,7 +19,7 @@
 	define('STR_ADMIN_DEPARTMENTSNOTE', "");
 	define('STR_ADMIN_ACTIONS', "Acciones");
 	define('STR_ADMIN_ACTIONSDESC', "Las Acciones se usan como notas temporales para describir el tipo de trabajo realizado durante la fase de realizacion de la Work Order.");
-	define('STR_ADMIN_ACTIONSNOTE', "Usted debe añadir acciones nuevas a un conjunto de atributos para que sean accesibles en  DCL.");
+	define('STR_ADMIN_ACTIONSNOTE', "Usted debe aÃ?Â±adir acciones nuevas a un conjunto de atributos para que sean accesibles en  DCL.");
 	define('STR_ADMIN_ATTRIBUTESETS', "Productos");
 	define('STR_ADMIN_ATTRIBUTESETSDESC', "Productos es la lista de objetos que usted esta siguiendo en DCL.  Normalmente un producto indica un paquete particular de software , pero puedes ser usado para casi todo (incluso para objetos no relacionados con el ordenador).");
 	define('STR_ADMIN_ATTRIBUTESETSNOTE', "");

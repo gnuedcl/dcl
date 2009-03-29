@@ -9,7 +9,7 @@
 	define('STR_STAT_NAME', "Nombre");
 	define('STR_STAT_OPTIONS', "Opciones");
 	define('STR_STAT_EDIT', "Editar Estados");
-	define('STR_STAT_ADD', "Añadir Estados");
+	define('STR_STAT_ADD', "AÃ?Â±adir Estados");
 	define('STR_STAT_HIGHLIGHTEDNOTE', "**Los campos sombreados deben estar sombreados!");
 	define('STR_STAT_TYPE', "Type");
 ?>

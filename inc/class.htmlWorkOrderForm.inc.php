@@ -35,16 +35,23 @@ class htmlWorkOrderForm
 		$this->eState = DCL_FORM_ADD;
 	}
 
-	function Show($jcn = 0, $objWO = '', $objTck = '')
+	function Show($jcn = 0, $oSource = '')
 	{
-		global $dcl_info, $g_oSec, $dcl_preferences;
+		global $dcl_info, $g_oSec, $dcl_preferences, $g_oSession;
 
-		$isEdit = is_object($objWO);
-		$isTicket = is_object($objTck);
-
-		if ($isEdit && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $objWO->jcn, $objWO->seq))
+		$isEdit = false;
+		$isTicket = false;
+		$isCopy = false;
+		if (is_object($oSource))
+		{
+			$isEdit = is_a($oSource, 'dbWorkorders') && $oSource->jcn > 0;
+			$isTicket = !$isEdit && is_a($oSource, 'dbTickets');
+			$isCopy = !$isEdit && !$isTicket && is_a($oSource, 'dbWorkorders') && $oSource->jcn == 0;
+		}
+		
+		if ($isEdit && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $oSource->jcn, $oSource->seq))
 			return PrintPermissionDenied();
-		else if ($isTicket && !$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO, $objTck->ticketid))
+		else if ($isTicket && !$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO, $oSource->ticketid))
 			return PrintPermissionDenied();
 		else if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
 			return PrintPermissionDenied();
@@ -61,13 +68,17 @@ class htmlWorkOrderForm
 		$title = '';
 		if ($isTicket)
 		{
-			$title = sprintf(STR_WO_TICKET, $objTck->ticketid);
-			$obj = $objTck;
+			$title = sprintf(STR_WO_TICKET, $oSource->ticketid);
 		}
 		elseif ($isEdit)
 		{
-			$title = sprintf(STR_WO_EDITWO, $objWO->jcn, $objWO->seq);
-			$obj = $objWO;
+			$title = sprintf(STR_WO_EDITWO, $oSource->jcn, $oSource->seq);
+		}
+		elseif ($isCopy)
+		{
+			$title = 'Copy Work Order';
+			if ($jcn > 0)
+				$title .= " as Sequence of $jcn";
 		}
 		elseif ($jcn == 0)
 		{
@@ -87,15 +98,15 @@ class htmlWorkOrderForm
 		if ($isEdit)
 		{
 			$this->oSmarty->assign('VAL_MENUACTION', 'boWorkorders.dbmodifyjcn');
-			$this->oSmarty->assign('VAL_WOID', $obj->jcn);
-			$this->oSmarty->assign('VAL_SEQ', $obj->seq);
+			$this->oSmarty->assign('VAL_WOID', $oSource->jcn);
+			$this->oSmarty->assign('VAL_SEQ', $oSource->seq);
 		}
 		else
 		{
 			$this->oSmarty->assign('VAL_MENUACTION', 'boWorkorders.dbnewjcn');
 
 			if ($isTicket)
-				$this->oSmarty->assign('VAL_TICKETID', $objTck->ticketid);
+				$this->oSmarty->assign('VAL_TICKETID', $oSource->ticketid);
 
 			if ($jcn > 0)
 				$this->oSmarty->assign('VAL_WOID', $jcn);
@@ -115,48 +126,48 @@ class htmlWorkOrderForm
 		$this->oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
 		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
-		if ($isEdit || $isTicket)
+		if ($isEdit || $isTicket || $isCopy)
 		{
 			$oProduct =& CreateObject('dcl.dbProducts');
-			$oProduct->Query('SELECT wosetid FROM products WHERE id=' . ($isTicket ? $objTck->product : $objWO->product));
+			$oProduct->Query('SELECT wosetid FROM products WHERE id=' . ($isTicket ? $oSource->product : $oSource->product));
 			if ($oProduct->next_record())
 				$this->oSmarty->assign('VAL_SETID', $oProduct->f(0));
 
-			if ($isEdit)
+			if ($isEdit || $isCopy)
 			{
-				$this->oSmarty->assign('VAL_SOURCE', $objWO->entity_source_id);
-				$this->oSmarty->assign('VAL_PRODUCT', $objWO->product);
-				$this->oSmarty->assign('VAL_MODULE', $objWO->module_id);
-				$this->oSmarty->assign('VAL_TYPE', $objWO->wo_type_id);
+				$this->oSmarty->assign('VAL_SOURCE', $oSource->entity_source_id);
+				$this->oSmarty->assign('VAL_PRODUCT', $oSource->product);
+				$this->oSmarty->assign('VAL_MODULE', $oSource->module_id);
+				$this->oSmarty->assign('VAL_TYPE', $oSource->wo_type_id);
 
-				$this->oSmarty->assign('VAL_DEADLINEON', $objWO->deadlineon);
-				$this->oSmarty->assign('VAL_ESTSTARTON', $objWO->eststarton);
-				$this->oSmarty->assign('VAL_ESTENDON', $objWO->estendon);
-				$this->oSmarty->assign('VAL_ESTHOURS', $objWO->esthours);
-				$this->oSmarty->assign('VAL_SEVERITY', $objWO->severity);
-				$this->oSmarty->assign('VAL_PRIORITY', $objWO->priority);
-				$this->oSmarty->assign('VAL_CONTACTS', $objWO->contact_id);
+				$this->oSmarty->assign('VAL_DEADLINEON', $oSource->deadlineon);
+				$this->oSmarty->assign('VAL_ESTSTARTON', $oSource->eststarton);
+				$this->oSmarty->assign('VAL_ESTENDON', $oSource->estendon);
+				$this->oSmarty->assign('VAL_ESTHOURS', $oSource->esthours);
+				$this->oSmarty->assign('VAL_SEVERITY', $oSource->severity);
+				$this->oSmarty->assign('VAL_PRIORITY', $oSource->priority);
+				$this->oSmarty->assign('VAL_CONTACTS', $oSource->contact_id);
 			}
 			else
 			{
-				$this->oSmarty->assign('VAL_SOURCE', $objTck->entity_source_id);
-				$this->oSmarty->assign('VAL_PRODUCT', $objTck->product);
-				$this->oSmarty->assign('VAL_MODULE', $objTck->module_id);
+				$this->oSmarty->assign('VAL_SOURCE', $oSource->entity_source_id);
+				$this->oSmarty->assign('VAL_PRODUCT', $oSource->product);
+				$this->oSmarty->assign('VAL_MODULE', $oSource->module_id);
 				
 				$this->oSmarty->assign('VAL_TYPE', 0);
 				$this->oSmarty->assign('VAL_SEVERITY', 0);
 				$this->oSmarty->assign('VAL_PRIORITY', 0);
-				$this->oSmarty->assign('VAL_CONTACTS', $objTck->contact_id);
+				$this->oSmarty->assign('VAL_CONTACTS', $oSource->contact_id);
 			}
 			
 			$oTag =& CreateObject('dcl.dbEntityTag');
 			if ($isTicket)
-				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $objTck->ticketid));
+				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $oSource->ticketid));
 			else
-				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $objWO->jcn, $objWO->seq));
+				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $oSource->jcn, $oSource->seq));
 		}
 
-		if (!$isEdit)
+		if (!$isEdit && !$isCopy)
 		{
 			if ($dcl_info['DCL_AUTO_DATE'] == 'Y')
 			{
@@ -177,47 +188,69 @@ class htmlWorkOrderForm
 			$objPM = CreateObject('dcl.dbProjectmap');
 			if (($jcn > 0 && $objPM->LoadByWO($jcn, 0) != -1) || ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && IsSet($_REQUEST['projectid'])))
 			{
-				$objDBPrj = CreateObject('dcl.dbProjects');
+				$oProject = CreateObject('dcl.dbProjects');
 
 				if ($objPM->projectid > 0)
-					$objDBPrj->Load($objPM->projectid);
+					$oProject->Load($objPM->projectid);
 				else
-					$objDBPrj->Load((int)$_REQUEST['projectid']);
+					$oProject->Load((int)$_REQUEST['projectid']);
 
-				$this->oSmarty->assign('VAL_PROJECT', $objDBPrj->name);
+				$this->oSmarty->assign('VAL_PROJECT', $oProject->name);
 				$this->oSmarty->assign('VAL_PROJECTS', (int)$_REQUEST['projectid']);
-				$this->oSmarty->assign('TXT_WILLBEPARTOFPROJECT', sprintf(STR_WO_WILLBEPARTOFPROJECT, $objDBPrj->name));
+				$this->oSmarty->assign('TXT_WILLBEPARTOFPROJECT', sprintf(STR_WO_WILLBEPARTOFPROJECT, $oProject->name));
+			}
+		}
+		elseif ($isCopy)
+		{
+			$objPM = CreateObject('dcl.dbProjectmap');
+			$bAllSequencesInSameProject = ($jcn > 0 && $objPM->LoadByWO($jcn, 0) != -1);
+			if ($bAllSequencesInSameProject || ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && IsSet($_REQUEST['projectid'])))
+			{
+				$oProject = CreateObject('dcl.dbProjects');
+
+				if ($objPM->projectid > 0)
+					$oProject->Load($objPM->projectid);
+				else
+					$oProject->Load((int)$_REQUEST['projectid']);
+
+				$this->oSmarty->assign('VAL_PROJECT', $oProject->name);
+				$this->oSmarty->assign('VAL_PROJECTS', (int)$_REQUEST['projectid']);
+				
+				if ($bAllSequencesInSameProject)
+					$this->oSmarty->assign('TXT_WILLBEPARTOFPROJECT', sprintf(STR_WO_WILLBEPARTOFPROJECT, $oProject->name));
 			}
 		}
 
 		$this->oSmarty->assign('VAL_HIDEPROJECT', $isEdit);
-		if ($isEdit)
+		if ($isEdit || $isCopy)
 		{
-			$this->oSmarty->assign('VAL_REVISION', $objWO->revision);
-			$this->oSmarty->assign('VAL_SUMMARY', $objWO->summary);
-			$this->oSmarty->assign('VAL_NOTES', $objWO->notes);
-			$this->oSmarty->assign('VAL_DESCRIPTION', $objWO->description);
-			$this->oSmarty->assign('VAL_ISPUBLIC', $objWO->is_public);
-			$this->oSmarty->assign('VAL_RESPONSIBLE', $objWO->responsible);
+			$this->oSmarty->assign('VAL_REPORTED_VERSION', $oSource->reported_version_id);
+			$this->oSmarty->assign('VAL_TARGETED_VERSION', $isCopy ? 0 : $oSource->targeted_version_id);
+			$this->oSmarty->assign('VAL_FIXED_VERSION', $isCopy ? 0 : $oSource->fixed_version_id);
+			$this->oSmarty->assign('VAL_SUMMARY', $oSource->summary);
+			$this->oSmarty->assign('VAL_NOTES', $oSource->notes);
+			$this->oSmarty->assign('VAL_DESCRIPTION', $oSource->description);
+			$this->oSmarty->assign('VAL_ISPUBLIC', $oSource->is_public);
+			$this->oSmarty->assign('VAL_RESPONSIBLE', $oSource->responsible);
 			
-			$this->oSmarty->assign('VAL_CONTACTID', $objWO->contact_id);
-			if ($objWO->contact_id != '' && $objWO->contact_id > 0)
+			$this->oSmarty->assign('VAL_CONTACTID', $oSource->contact_id);
+			if ($oSource->contact_id != '' && $oSource->contact_id > 0)
 			{
-				$aContact =& $oMeta->GetContact($objWO->contact_id);
+				$aContact =& $oMeta->GetContact($oSource->contact_id);
 				if (is_array($aContact) && count($aContact) > 1)
 					$this->oSmarty->assign('VAL_CONTACTNAME', $aContact['name']);
 				else
 					$this->oSmarty->assign('VAL_CONTACTNAME', 'Unknown');
 			}
 
-			if ($objWO->responsible == $GLOBALS['DCLID'])
+			if ($oSource->responsible == $GLOBALS['DCLID'])
 			{
 				$this->oSmarty->assign('VAL_RESPONSIBLENAME', $GLOBALS['DCLNAME']);
 			}
 			else
 			{
 				$oPersonnel =& CreateObject('dcl.dbPersonnel');
-				if ($oPersonnel->Load($objWO->responsible) == -1)
+				if ($oPersonnel->Load($oSource->responsible) == -1)
 					$this->oSmarty->assign('VAL_RESPONSIBLENAME', $oPersonnel->short);
 				else
 					$this->oSmarty->assign('VAL_RESPONSIBLENAME', 'Unknown');
@@ -225,30 +258,30 @@ class htmlWorkOrderForm
 		}
 		elseif ($isTicket)
 		{
-			$this->oSmarty->assign('VAL_REVISION', '');
-			$this->oSmarty->assign('VAL_SUMMARY', $objTck->summary);
-			$this->oSmarty->assign('VAL_DESCRIPTION', $objTck->issue);
+			$this->oSmarty->assign('VAL_REPORTED_VERSION', '');
+			$this->oSmarty->assign('VAL_SUMMARY', $oSource->summary);
+			$this->oSmarty->assign('VAL_DESCRIPTION', $oSource->issue);
 
-			$this->oSmarty->assign('VAL_CONTACTID', $objTck->contact_id);
-			if ($objTck->contact_id != '' && $objTck->contact_id > 0)
+			$this->oSmarty->assign('VAL_CONTACTID', $oSource->contact_id);
+			if ($oSource->contact_id != '' && $oSource->contact_id > 0)
 			{
-				$aContact =& $oMeta->GetContact($objTck->contact_id);
+				$aContact =& $oMeta->GetContact($oSource->contact_id);
 				if (is_array($aContact) && count($aContact) > 1)
 					$this->oSmarty->assign('VAL_CONTACTNAME', $aContact['name']);
 				else
 					$this->oSmarty->assign('VAL_CONTACTNAME', 'Unknown');
 			}
 
-			$notes = 'Copied from ticket dcl://tickets/' . $objTck->ticketid;
+			$notes = 'Copied from ticket dcl://tickets/' . $oSource->ticketid;
 
 			$this->oSmarty->assign('VAL_NOTES', $notes);
-			$this->oSmarty->assign('VAL_ISPUBLIC', $objTck->is_public);
+			$this->oSmarty->assign('VAL_ISPUBLIC', $oSource->is_public);
 			$this->oSmarty->assign('VAL_RESPONSIBLE', $GLOBALS['DCLID']);
 			$this->oSmarty->assign('VAL_RESPONSIBLENAME', $GLOBALS['DCLNAME']);
 		}
 		else
 		{
-			$this->oSmarty->assign('VAL_REVISION', '');
+			$this->oSmarty->assign('VAL_REPORTED_VERSION', '');
 			$this->oSmarty->assign('VAL_CONTACTID', '');
 			$this->oSmarty->assign('VAL_SUMMARY', '');
 			$this->oSmarty->assign('VAL_NOTES', '');
@@ -278,14 +311,14 @@ class htmlWorkOrderForm
 
 		$aOrgID = array();
 		$aOrgName = array();
-		if ($isEdit || $isTicket)
+		if ($isEdit || $isTicket || $isCopy)
 		{
 			$oOrgs =& CreateObject('dcl.boOrg');
 
-			if ($isEdit)
-				$oOrgs->ListSelectedByWorkOrder($objWO->jcn, $objWO->seq);
+			if ($isEdit || $isCopy)
+				$oOrgs->ListSelectedByWorkOrder($oSource->jcn, $oSource->seq);
 			else
-				$oOrgs->ListSelectedByTicket($objTck->ticketid);
+				$oOrgs->ListSelectedByTicket($oSource->ticketid);
 
 			while ($oOrgs->oDB->next_record())
 			{
@@ -295,7 +328,11 @@ class htmlWorkOrderForm
 		}
 		else
 		{
-			if (($iOrgID = @DCL_Sanitize::ToInt($_REQUEST['org_id'])) !== null && $iOrgID > 0)
+			$iOrgID = @DCL_Sanitize::ToInt($_REQUEST['org_id']);
+			if ($iOrgID === null && $g_oSession->Value('member_of_orgs') != '')
+				$iOrgID = array_shift(split(',', $g_oSession->Value('member_of_orgs')));
+			
+			if ($iOrgID !== null && $iOrgID > 0)
 			{
 				$aOrg =& $oMeta->GetOrganization($iOrgID);
 				if (is_array($aOrg) && count($aOrg) > 0)

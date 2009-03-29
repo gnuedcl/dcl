@@ -64,19 +64,32 @@
 						setTimeout('init()', 250);
 				}
 			}
+			
+			var aData = {{/literal}{section name=contact loop=$VAL_CONTACTS}
+"{$VAL_CONTACTS[contact].contact_id|escape:javascript}":{literal}{{/literal}"n":"{$VAL_CONTACTS[contact].last_name|escape:javascript}, {$VAL_CONTACTS[contact].first_name|escape:javascript}","oid":"{$VAL_CONTACTS[contact].org_id|escape:javascript}","on":"{$VAL_CONTACTS[contact].org_name|escape:javascript}"{literal}}{/literal}{if !$smarty.section.contact.last},
+{/if}
+{/section}{literal}};
 
 			function toggle(oControl)
 			{
 {/literal}
 {if $VAL_MULTISELECT}
 				parent.topFrame.aSelectedID[oControl.value] = oControl.checked;
-				if (oControl.checked)
-					parent.topFrame.aSelectedName[oControl.value] = document.getElementById("contact_name_" + oControl.value).innerHTML;
+				parent.topFrame.aSelectedOrgID[oControl.value] = aData[oControl.value].oid;
+				{literal}if (oControl.checked)
+				{
+					parent.topFrame.aSelectedName[oControl.value] = aData[oControl.value].n;
+					parent.topFrame.aSelectedOrgName[oControl.value] = aData[oControl.value].on;
+				}{/literal}
 {else}
 				parent.topFrame.aSelectedID = new Array();
 				parent.topFrame.aSelectedID[oControl.value] = true;
 				parent.topFrame.aSelectedName = new Array();
-				parent.topFrame.aSelectedName[oControl.value] = document.getElementById("contact_name_" + oControl.value).innerHTML;
+				parent.topFrame.aSelectedName[oControl.value] = aData[oControl.value].n;
+				parent.topFrame.aSelectedOrgID = new Array();
+				parent.topFrame.aSelectedOrgID[oControl.value] = aData[oControl.value].oid;
+				parent.topFrame.aSelectedOrgName = new Array();
+				parent.topFrame.aSelectedOrgName[oControl.value] = aData[oControl.value].on;
 {/if}
 {literal}
 			}
@@ -111,7 +124,7 @@
 				</td>
 				<td>{$VAL_CONTACTS[contact].contact_id}</td>
 				<td id="contact_name_{$VAL_CONTACTS[contact].contact_id}">{$VAL_CONTACTS[contact].last_name}, {$VAL_CONTACTS[contact].first_name}</td>
-				<td>{$VAL_CONTACTS[contact].org_name}</td>
+				<td id="org_name_{$VAL_CONTACTS[contact].contact_id}"><div style="display:none" id="org_id_{$VAL_CONTACTS[contact].contact_id}">{$VAL_CONTACTS[contact].org_id}</div>{$VAL_CONTACTS[contact].org_name}</td>
 				<td>{$VAL_CONTACTS[contact].phone_number}</td>
 				<td>{$VAL_CONTACTS[contact].email_addr}</td>
 				</tr>

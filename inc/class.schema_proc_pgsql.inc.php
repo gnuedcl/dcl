@@ -795,15 +795,23 @@
 			if (is_array($aIndexDef) && count($aIndexDef) > 0)
 			{
 				foreach ($aIndexDef as $sIndexName => $aIndexColumns)
-				{
-					$sColumns = join($aIndexColumns, ',');
-					$sSQL = "CREATE INDEX $sIndexName ON $sTableName ($sColumns)";
-					
-					$retVal = ($oProc->m_odb->Query($sSQL) != -1);
-				}
+					$retVal = $this->CreateIndex($oProc, $sTableName, $sIndexName, $aIndexColumns);
 			}
 			
 			return $retVal;
+		}
+		
+		function CreateIndex($oProc, $aTables, $sTableName, $sIndexName, $aColumns)
+		{
+			$sColumns = join($aColumns, ',');
+			$sSQL = "CREATE INDEX $sIndexName ON $sTableName ($sColumns)";
+			
+			return ($oProc->m_odb->Query($sSQL) != -1);
+		}
+
+		function DropIndex($oProc, $aTables, $sTableName, $sIndexName)
+		{
+			return ($oProc->m_odb->Query("DROP INDEX $sIndexName") != -1);
 		}
 
 		function UpdateSequence($oProc, $sTableName, $sSeqField)

@@ -1,7 +1,7 @@
 <?php
 	define('STR_SEC_SECLOG', "Security Logs");
 	define('STR_SEC_SECLOGTITLE', "Security Logs Between %s and %s for %s");
-	define('STR_SEC_GENERATEREPORTFOR', "Erzeuge Bericht über");
+	define('STR_SEC_GENERATEREPORTFOR', "Erzeuge Bericht Ã?Â¼ber");
 	define('STR_SEC_DATERANGE', "Datenbereich");
 	define('STR_SEC_BEGIN', "Beginnt");
 	define('STR_SEC_ENDING', "Endet");

@@ -102,7 +102,7 @@
 				{/if}
 				</td>
 				<td>{$VAL_PRODUCTS[product].id}</td>
-				<td>{if $VAL_ORGS[org].active == "Y"}{$smarty.const.STR_CMMN_YES}{else}{$smarty.const.STR_CMMN_NO}{/if}</td>
+				<td>{if $VAL_PRODUCTS[product].active == "Y"}{$smarty.const.STR_CMMN_YES}{else}{$smarty.const.STR_CMMN_NO}{/if}</td>
 				<td id="product_name_{$VAL_PRODUCTS[product].id}">{$VAL_PRODUCTS[product].name|escape}</td>
 				</tr>
 			{sectionelse}

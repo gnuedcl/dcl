@@ -85,8 +85,14 @@ class boTimecards
 		if ($objWorkorder->Load($objTimecard->jcn, $objTimecard->seq) == -1)
 		    return;
 		    
+		if (($targeted_version_id = @DCL_Sanitize::ToInt($_REQUEST['targeted_version_id'])) === null)
+			$targeted_version_id = 0;
+		
+		if (($fixed_version_id = @DCL_Sanitize::ToInt($_REQUEST['fixed_version_id'])) === null)
+			$fixed_version_id = 0;
+		    
 		$status = $objWorkorder->status;
-		$objTimecard->Add();
+		$objTimecard->Add($targeted_version_id, $fixed_version_id);
 		$notify = '4';
 		if ($status != $objTimecard->status)
 		{
@@ -98,7 +104,7 @@ class boTimecards
 				// also need to close all incomplete tasks and warn user if it happens
 				$this->closeIncompleteTasks($objTimecard->jcn, $objTimecard->seq);
 			}
-			elseif ($oStatus->GetStatusType($objTimecard->status) == 1)
+			elseif ($oStatus->GetStatusType($objTimecard->status) == 1 && $oStatus->GetStatusType($status) != 1)
 				$notify .= ',1';
 		}
 		
@@ -179,12 +185,11 @@ class boTimecards
 		$objWtch->sendNotification($objWorkorder, $notify);
 
 		// if BuildManager is used, find info on who submitted the WO
-//		if ($dcl_info['DCL_USE_BUILDMANAGER'] == 'Y')
-//		{
+		if ($dcl_info['DCL_BUILD_MANAGER_ENABLED'] == 'Y')
+		{
 //			$oBM = CreateObject('dcl.dbBuildManager');
-//			$oBM->Connect();
 //			$oBM->CheckDepartmentSubmit($objTimecard->jcn, $objTimecard->seq, $objWorkorder->product);
-//		}
+		}
 
 		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
 		$objWO->Show($objTimecard->jcn, $objTimecard->seq);
@@ -254,12 +259,20 @@ class boTimecards
 			$objTimecard->is_public = 'Y';
 		else
 			$objTimecard->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+			
+		if (($targeted_version_id = @DCL_Sanitize::ToInt($_REQUEST['targeted_version_id'])) === null)
+			$targeted_version_id = 0;
+		
+		if (($fixed_version_id = @DCL_Sanitize::ToInt($_REQUEST['fixed_version_id'])) === null)
+			$fixed_version_id = 0;
 		
 		$objWorkorder =& CreateObject('dcl.dbWorkorders');
 		$objWtch =& CreateObject('dcl.boWatches');
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
-			foreach ($_REQUEST['selected'] as $key => $val)
+    		$bProcessTags = (isset($_REQUEST['tags']) && trim($_REQUEST['tags']) != '' && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY));
+        	$oTag =& CreateObject('dcl.dbEntityTag');
+    		foreach ($_REQUEST['selected'] as $key => $val)
 			{
 				list($objTimecard->jcn, $objTimecard->seq) = explode('.', $val);
 				
@@ -272,7 +285,14 @@ class boTimecards
 				    continue;
 				    
 				$status = $objWorkorder->status;
-				$objTimecard->Add();
+				$objTimecard->Add($targeted_version_id, $fixed_version_id);
+				
+
+    			// * Tags
+    			if ($bProcessTags)
+        		{
+        			$oTag->serialize(DCL_ENTITY_WORKORDER, $objTimecard->jcn, $objTimecard->seq, $_REQUEST['tags'], true);
+        		}
 				
 				$notify = '4';
 				if ($status != $objTimecard->status)
@@ -339,7 +359,7 @@ class boTimecards
 		$objTC =& CreateObject('dcl.dbTimeCards');
 		$objOldTC =& CreateObject('dcl.dbTimeCards');
 		$objTC->InitFromGlobals();
-		$objTC->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+
 		if ($g_oSec->IsPublicUser())
 			$objTC->is_public = 'Y';
 		else

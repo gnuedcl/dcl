@@ -231,7 +231,7 @@ class boPersonnel
 			$objDBPersonnel->ChangePassword($iID, $sOriginal, $_REQUEST['new'], $_REQUEST['confirm']);
 		}
 	}
-
+	
 	function showall()
 	{
 		global $g_oSec;

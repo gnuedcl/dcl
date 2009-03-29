@@ -17,7 +17,7 @@
 	define('DCL_MENU_MYTICKETS', "Mis Tickets");
 	define('DCL_MENU_ADMIN', "Admin");
 	define('DCL_MENU_MANAGE', "Manage");
-	define('DCL_MENU_CHANGEPASSWORD', "Cambiar Contraseña");
+	define('DCL_MENU_CHANGEPASSWORD', "Cambiar ContraseÃ?Â±a");
 	define('DCL_MENU_SYSTEMSETUP', "Configurar sistema");
 	define('DCL_MENU_NEWACCOUNT', "Nueva Cuenta");
 	define('DCL_MENU_VIEWACCOUNT', "Ver Cuentas");

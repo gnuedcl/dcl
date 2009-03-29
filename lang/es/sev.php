@@ -10,5 +10,5 @@
 	define('STR_SEV_WEIGHT', "Weight");
 	define('STR_SEV_OPTIONS', "Opciones");
 	define('STR_SEV_EDIT', "Editar Severidad");
-	define('STR_SEV_ADD', "Añadir Severidad");
+	define('STR_SEV_ADD', "AÃ?Â±adir Severidad");
 ?>

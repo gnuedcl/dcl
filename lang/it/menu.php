@@ -4,7 +4,7 @@
 	define('DCL_MENU_MYWOS', "Miei Lavori");
 	define('DCL_MENU_NEW', "Add New");
 	define('DCL_MENU_IMPORT', "Importa");
-	define('DCL_MENU_ACTIVITY', "Attività");
+	define('DCL_MENU_ACTIVITY', "AttivitÃ?Â ");
 	define('DCL_MENU_GRAPH', "Grafico");
 	define('DCL_MENU_STATISTICS', "Statistiche");
 	define('DCL_MENU_SCHEDULE', "Schedulazione");

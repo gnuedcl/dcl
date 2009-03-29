@@ -1,6 +1,6 @@
 <?php
 	define('STR_WTCH_TABLETITLE', "Meine Beobachtungsliste - %s");
-	define('STR_WTCH_NOWTCHS', "Keine zu beobachtenden Einträge gefunden!");
+	define('STR_WTCH_NOWTCHS', "Keine zu beobachtenden EintrÃ?Â¤ge gefunden!");
 	define('STR_WTCH_ID', "ID");
 	define('STR_WTCH_TYPE', "Typ");
 	define('STR_WTCH_SUMMARY', "Titel");
@@ -10,15 +10,15 @@
 	define('STR_WTCH_EDIT', "Bearbeite %s Beobachtung");
 	define('STR_WTCH_ADD', "Neue %s Beobachtung");
 	define('STR_WTCH_YOUHAVENONE', "Sie haben keine Beobachtungen definiert.");
-	define('STR_WTCH_HIGHLIGHTEDNOTE', "** Unterlegte Felder müssen gefüllt werden!");
-	define('STR_WTCH_ALLSEQ', "Alle Arbeitsgänge");
-	define('STR_WTCH_INVALIDITEM', "Ungültiges Beobachtungsobjekt.");
+	define('STR_WTCH_HIGHLIGHTEDNOTE', "** Unterlegte Felder mÃ?Â¼ssen gefÃ?Â¼llt werden!");
+	define('STR_WTCH_ALLSEQ', "Alle ArbeitsgÃ?Â¤nge");
+	define('STR_WTCH_INVALIDITEM', "UngÃ?Â¼ltiges Beobachtungsobjekt.");
 	define('STR_WTCH_MYWTCH', "Meine Beobachtungsliste");
 	define('STR_WTCH_PRODUCT', "Produkt");
 	define('STR_WTCH_PROJECT', "Projekt");
-	define('STR_WTCH_PRODUCTWO', "Product Arbeitsaufträge");
+	define('STR_WTCH_PRODUCTWO', "Product ArbeitsauftrÃ?Â¤ge");
 	define('STR_WTCH_PRODUCTTICKET', "Produkt Ticket");
-	define('STR_WTCH_WORKORDER', "Arbeitsaufträge");
+	define('STR_WTCH_WORKORDER', "ArbeitsauftrÃ?Â¤ge");
 	define('STR_WTCH_TICKET', "Ticket");
 	define('STR_WTCH_OPEN', "Offen");
 	define('STR_WTCH_CLOSED', "Geschlossen");

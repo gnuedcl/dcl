@@ -1,6 +1,6 @@
 <?php
-	define('STR_BO_ACCOUNTSUCCESS', "Cuenta %s añadida con exito!");
-	define('STR_BO_PASSWORDERR', "Su contraseña no coinciden o estan en blanco!!!");
+	define('STR_BO_ACCOUNTSUCCESS', "Cuenta %s aÃ?Â±adida con exito!");
+	define('STR_BO_PASSWORDERR', "Su contraseÃ?Â±a no coinciden o estan en blanco!!!");
 	define('STR_BO_DELETED', "Eliminado");
 	define('STR_BO_DEACTIVATED', "Desactivado");
 	define('STR_BO_UPLOADERR', "Could not copy uploaded file to destination directory!No se pudo cargar la copia del fichero al directorio destino!");
@@ -10,10 +10,10 @@
 	define('STR_BO_CSVUPLOADERR', "Imposible abrir el archivo cargado!");
 	define('STR_BO_FILECONTENTS', "File Contents");
 	define('STR_BO_CSVMAPERR', "Could not map field \\\"%s\\\" to ID in line %d!");
-	define('STR_BO_CSVNEWWOADDED', "%d nueva work orders añadida!");
+	define('STR_BO_CSVNEWWOADDED', "%d nueva work orders aÃ?Â±adida!");
 	define('STR_BO_WTCHALLSEQ', "todas las secuencias para WO# %d");
 	define('STR_BO_WTCHSUMMARYERR', "Eh? nombre desconocido/resumen para Watch Item");
-	define('STR_BO_MAILMSG', "Atención a usuarios/CAU:Usted ha recibido este e-mail porque esta (1) directamente implicado, o (2) tiene un watch en esta work order, o (3) tiene un watch en un producto o proyecto asociado con esta work order.  Esto es una instantanea de la work order.");
+	define('STR_BO_MAILMSG', "AtenciÃ?Â³n a usuarios/CAU:Usted ha recibido este e-mail porque esta (1) directamente implicado, o (2) tiene un watch en esta work order, o (3) tiene un watch en un producto o proyecto asociado con esta work order.  Esto es una instantanea de la work order.");
 	define('STR_BO_MAILSUBJ', "Actualizar  Work Order");
 	define('STR_BO_MAILSENT', "Notificacion de E-Mail enviada a %s");
 	define('STR_BO_NOJCNFORSEQWARNING', "No se encontro WO# %d.  En cambio, creando nueva WO#.");
@@ -26,12 +26,12 @@
 	define('STR_BO_ESCALATEDTO', "Escalado a");
 	define('STR_BO_TICKETDELETED', "Ticket #%d borrado");
 	define('STR_BO_GRAPHNEEDSGD', "Usted debe tener el GD modulo compilado en PHP for graphing to work.");
-	define('STR_BO_GRAPHTITLE', "Number of Opened(red)/Closed(blue) Tickets vs. Date");
-	define('STR_BO_WOGRAPHTITLE', "Number of Opened(red)/Closed(blue) Work Orders vs. Date");
+	define('STR_BO_GRAPHTITLE', "Number of Opened/Closed Tickets vs. Date");
+	define('STR_BO_WOGRAPHTITLE', "Number of Opened/Closed Work Orders vs. Date");
 	define('STR_BO_GRAPHCAPTIONX', "fecha");
 	define('STR_BO_GRAPHCAPTIONY', "Numero de apertura/Cierre de Tickets");
 	define('STR_BO_WOGRAPHCAPTIONY', "Number of Opened/Closed Work Orders");
-	define('STR_BO_TICKETMAILMSG', "Atención a usuarios/CAU:Usted esta recibiendo este e-mail porque esta usted (1) directamente implicado, o (2) tiene un watch de este ticket, o (3) tiene un watch en un producto asociado con este ticket.  Esto es una instantanea del ticket.");
+	define('STR_BO_TICKETMAILMSG', "AtenciÃ?Â³n a usuarios/CAU:Usted esta recibiendo este e-mail porque esta usted (1) directamente implicado, o (2) tiene un watch de este ticket, o (3) tiene un watch en un producto asociado con este ticket.  Esto es una instantanea del ticket.");
 	define('STR_BO_PROJECTMAILMSG', "You have been designated as a project lead.");
 	define('STR_BO_LOOKUPNOTFOUND', "Lookup ID %d not found!");
 	define('STR_BO_UPLOADSUCCESS', "");
