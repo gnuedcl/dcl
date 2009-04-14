@@ -3001,11 +3001,11 @@ $test[] = '0.9.5RC10';
 function dcl_upgrade0_9_5RC10()
 {
 	global $dcl_domain_info, $dcl_domain, $phpgw_setup, $setup_info;
-	/*
+	
 	$phpgw_setup->oProc->AddColumn('products', 'is_project_required', array('type' => 'char', 'precision' => 1, 'nullable' => true));
 	$phpgw_setup->oProc->Query("update products set is_project_required = 'N'");
 	$phpgw_setup->oProc->AlterColumn('products', 'is_project_required', array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false));
-	*/
+	
 	$phpgw_setup->oProc->Query("INSERT INTO dcl_entity VALUES (44, 'Hotlist', 'Y')");
 	$phpgw_setup->oProc->Query("INSERT INTO dcl_entity_perm VALUES (44, 1)");
 	$phpgw_setup->oProc->Query("INSERT INTO dcl_entity_perm VALUES (44, 2)");
