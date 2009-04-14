@@ -156,14 +156,14 @@ class htmlWorkOrderTask
 		$aSource = array();
 		$aSource['wo_id'] = $wo_id;
 		$aSource['seq'] = $seq;
-		foreach ($_REQUEST['task_summary'] as $sSummary)
+		foreach ($_REQUEST['task_summary'] as $iKey => $sSummary)
 		{
 			$sSummary = substr(trim($sSummary), 0, 255);
 			if ($sSummary != '')
 			{
 				$aSource['task_order'] = ++$iOrder;
 				$aSource['task_summary'] = $sSummary;
-				$obj->add($aSource);
+				$obj->add($aSource, $iKey);
 			}
 		}
 
@@ -245,7 +245,7 @@ class htmlWorkOrderTask
 	function submitReorder()
 	{
 		global $g_oSec;
-echo file_get_contents('php://input');		
+
 		// this is done as a XMLHTTP request
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			return PrintPermissionDenied();

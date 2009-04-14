@@ -76,6 +76,7 @@ define('DCL_ENTITY_WORKORDER_TASK', 40);
 define('DCL_ENTITY_WORKSPACE', 41);
 define('DCL_ENTITY_TEST_CASE', 42);
 define('DCL_ENTITY_FUNCTIONAL_SPEC', 43);
+define('DCL_ENTITY_HOTLIST', 44);
 
 // Permissions
 define('DCL_PERM_ADMIN', 0);
@@ -645,6 +646,7 @@ function buildMenuArray()
 			STR_CMMN_TAGS => array('htmlTags.browse', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH)),
 			DCL_MENU_CHECKLISTS => array('boChecklists.show', $g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW)),
 			'Workspaces' => array('htmlWorkspaceBrowse.show', $g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW)),
+			'Hotlists' => array('htmlHotlistBrowse.show', $g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW)),
 			DCL_MENU_PRODUCTS => array('htmlProducts.PrintAll', $g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW)),
 			DCL_MENU_VIEWS => array('htmlViews.PrintAll', $g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_VIEW)),
 			DCL_MENU_WATCHES => array('boWatches.showall', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)),

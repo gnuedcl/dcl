@@ -100,20 +100,31 @@ class DCL_Sanitize
 		return $vValue == 'Y' ? 'Y' : 'N';
 	}
 
-	function ToFileName($sFieldName)
+	function ToFileName($sFieldName, $iIndex = -1)
 	{
-		if (is_uploaded_file($_FILES[$sFieldName]['tmp_name']))
-			return $_FILES[$sFieldName]['tmp_name'];
+		if ($iIndex == -1)
+		{
+			if (is_uploaded_file($_FILES[$sFieldName]['tmp_name']))
+				return $_FILES[$sFieldName]['tmp_name'];
+		}
+		else
+		{
+			if (is_uploaded_file($_FILES[$sFieldName]['tmp_name'][$iIndex]))
+				return $_FILES[$sFieldName]['tmp_name'][$iIndex];
+		}
 			
 		return null;
 	}
 	
-	function ToActualFileName($sFieldName)
+	function ToActualFileName($sFieldName, $iIndex = -1)
 	{
 		if (DCL_Sanitize::ToFileName($sFieldName) === null)
 			return null;
 			
-		return $_FILES[$sFieldName]['name'];
+		if ($iIndex == -1)
+			return $_FILES[$sFieldName]['name'];
+			
+		return $_FILES[$sFieldName]['name'][$iIndex];
 	}
 	
 	function IsValidFileName($sFileName)

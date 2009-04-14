@@ -209,6 +209,12 @@ class boWorkorders
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
 		}
 
+		if (isset($_REQUEST['hotlist']))
+		{
+			$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$oHotlist->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
+		}
+
 		// add to a project?
 		if (IsSet($_REQUEST['projectid']))
 		{
@@ -380,6 +386,12 @@ class boWorkorders
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
 		}
 		
+		if (isset($_REQUEST['hotlist']))
+		{
+			$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$oHotlist->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
+		}
+
 		$objWtch =& CreateObject('dcl.boWatches');
 		$objWtch->sendNotification($objWorkorder, '4');
 
@@ -480,6 +492,10 @@ class boWorkorders
 		$oTag =& CreateObject('dcl.dbEntityTag');
 		$oTag->deleteByEntity(DCL_ENTITY_WORKORDER, $iID, $iSeq);
 
+		// Remove from hotlists
+		$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+		$oHotlist->deleteByEntity(DCL_ENTITY_WORKORDER, $iID, $iSeq);
+
 		trigger_error(sprintf(STR_BO_WORKORDERDELETED, $iID, $iSeq), E_USER_NOTICE);
 
 		$objMy =& CreateObject('dcl.htmlMyDCL');
@@ -551,6 +567,7 @@ class boWorkorders
 		$module_id = isset($_REQUEST['module_id']) && is_array($_REQUEST['module_id']) ? $_REQUEST['module_id'] : array();
 		$searchText = $_REQUEST['searchText'];
 		$tags = $_REQUEST['tags'];
+		$hotlist = $_REQUEST['hotlist'];
 		$columns = $_REQUEST['columns'];
 		$groups = $_REQUEST['groups'];
 		$order = $_REQUEST['order'];
@@ -652,7 +669,10 @@ class boWorkorders
 		if (trim($tags) != '')
 			$objView->AddDef('filter', 'dcl_tag.tag_desc', $tags);
 
-		if (count($is_public) > 0)
+		if (trim($hotlist) != '')
+			$objView->AddDef('filter', 'dcl_hotlist.hotlist_tag', $hotlist);
+
+			if (count($is_public) > 0)
 		{
 			foreach ($is_public as $publicValue)
 			{

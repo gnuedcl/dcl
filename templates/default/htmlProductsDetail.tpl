@@ -25,6 +25,9 @@
 			<tr><th>{$smarty.const.STR_CMMN_PUBLIC}:</th><td>{if $VAL_PUBLIC == "Y"}{$smarty.const.STR_CMMN_YES}{else}{$smarty.const.STR_CMMN_NO}{/if}</td>
 				<th>{$smarty.const.STR_PROD_TICKETSTO}:</th><td>{$VAL_TICKETSTO|escape}</td>
 			</tr>
+			<tr><th>Project Required:</th><td>{if $VAL_ISPROJECTREQUIRED == "Y"}{$smarty.const.STR_CMMN_YES}{else}{$smarty.const.STR_CMMN_NO}{/if}</td>
+				<th>&nbsp;</th><td>&nbsp;</td>
+			</tr>
 		</tbody>
 	</table>
 </div>

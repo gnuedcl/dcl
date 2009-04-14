@@ -90,7 +90,8 @@ class TextSanitizer
 	*/
 	function &htmlSpecialChars($text)
 	{
-		return preg_replace("/&amp;/i", '&', htmlspecialchars($text, ENT_QUOTES));
+		$result = preg_replace("/&amp;/i", '&', htmlspecialchars($text, ENT_QUOTES));
+		return $result;
 	}
 
 	function &undoHtmlSpecialChars(&$text)

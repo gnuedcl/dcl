@@ -558,7 +558,13 @@ class boView
 				case 'dcl_entity_tag':
 					$join = 'dcl_entity_tag.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND workorders.jcn = dcl_entity_tag.entity_key_id AND workorders.seq = dcl_entity_tag.entity_key_id2';
 					break;
-				case 'dcl_entity_source':
+				case 'dcl_hotlist':
+					$join = 'dcl_entity_hotlist.hotlist_id = dcl_hotlist.hotlist_id';
+					break;
+				case 'dcl_entity_hotlist':
+					$join = 'dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND workorders.jcn = dcl_entity_hotlist.entity_key_id AND workorders.seq = dcl_entity_hotlist.entity_key_id2';
+					break;
+					case 'dcl_entity_source':
 					$join = 'workorders.entity_source_id = dcl_entity_source.entity_source_id';
 					break;
 				case 'dcl_contact':
@@ -622,7 +628,13 @@ class boView
 				case 'dcl_entity_tag':
 					$join = 'dcl_entity_tag.entity_id = ' . DCL_ENTITY_TICKET . ' AND tickets.ticketid = dcl_entity_tag.entity_key_id';
 					break;
-				case 'dcl_contact':
+				case 'dcl_hotlist':
+					$join = 'dcl_entity_hotlist.hotlist_id = dcl_hotlist.hotlist_id';
+					break;
+				case 'dcl_entity_hotlist':
+					$join = 'dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_TICKET . ' AND tickets.ticketid = dcl_entity_hotlist.entity_key_id';
+					break;
+					case 'dcl_contact':
 					$join = 'tickets.contact_id = dcl_contact.contact_id';
 					break;
 				case 'dcl_contact_addr':
@@ -946,6 +958,8 @@ class boView
 						case 'dcl_wo_account':
 						case 'dcl_entity_tag':
 						case 'dcl_tag':
+						case 'dcl_entity_hotlist':
+						case 'dcl_hotlist':
 						case 'dcl_entity_source':
 						case 'dcl_org':
 						case 'dcl_org_addr':
@@ -978,7 +992,12 @@ class boView
 								($table == 'dcl_entity_tag' || $table == 'dcl_tag') &&
 								!in_array('dcl_tag.tag_desc', $this->order) &&
 								!in_array('dcl_tag.tag_desc', $this->groups) &&
-								!in_array('dcl_tag.tag_desc', $this->columns)))
+								!in_array('dcl_tag.tag_desc', $this->columns)) &&
+							!(($this->table == 'workorders' || $this->table == 'tickets') &&
+								($table == 'dcl_entity_hotlist' || $table == 'dcl_hotlist') &&
+								!in_array('dcl_hotlist.hotlist_tag', $this->order) &&
+								!in_array('dcl_hotlist.hotlist_tag', $this->groups) &&
+								!in_array('dcl_hotlist.hotlist_tag', $this->columns)))
 						{
 							// work orders are associated to projects in the projectmap table
 							// so append it here - we don't want it in the selected columns
@@ -991,6 +1010,8 @@ class boView
 								$this->joins['dcl_wo_account'] = 2;
 							else if (($this->table == 'workorders' || $this->table == 'tickets') && $table == 'dcl_tag' && !isset($this->joins['dcl_entity_tag']))
 								$this->joins['dcl_entity_tag'] = 2;
+							else if (($this->table == 'workorders' || $this->table == 'tickets') && $table == 'dcl_hotlist' && !isset($this->joins['dcl_entity_hotlist']))
+								$this->joins['dcl_entity_hotlist'] = 2;
 							else if ($this->table == 'dcl_contact' && $table == 'dcl_org' && !isset($this->joins['dcl_org_contact']))
 								$this->joins['dcl_org_contact'] = 2;
 							else if ($this->table == 'personnel' && $table == 'dcl_contact_email' && !isset($this->joins['dcl_contact']))
@@ -1080,6 +1101,12 @@ class boView
 				{
 					$sql .= ', (select count(*) from dcl_entity_tag where entity_id = ' . DCL_ENTITY_WORKORDER . ' AND entity_key_id = workorders.jcn And entity_key_id2 = workorders.seq) As _num_tags_';
 				}
+				
+				// One more time for hotlists
+				if (in_array('dcl_hotlist.hotlist_tag', $this->columns))
+				{
+					$sql .= ', (select count(*) from dcl_entity_hotlist where entity_id = ' . DCL_ENTITY_WORKORDER . ' AND entity_key_id = workorders.jcn And entity_key_id2 = workorders.seq) As _num_hotlist_';
+				}
 			}
 			else if ($this->table == 'tickets')
 			{
@@ -1087,6 +1114,12 @@ class boView
 				if (in_array('dcl_tag.tag_desc', $this->columns))
 				{
 					$sql .= ', (select count(*) from dcl_entity_tag where entity_id = ' . DCL_ENTITY_TICKET . ' AND entity_key_id = tickets.ticketid) As _num_tags_';
+				}
+				
+				// Hotlists, too...
+				if (in_array('dcl_hotlist.hotlist_tag', $this->columns))
+				{
+					$sql .= ', (select count(*) from dcl_entity_hotlist where entity_id = ' . DCL_ENTITY_TICKET . ' AND entity_key_id = tickets.ticketid) As _num_hotlist_';
 				}
 			}
 
@@ -1142,6 +1175,7 @@ class boView
 		$createbySQL = '';
 		$closedbySQL = '';
 		$sTagFilter = '';
+		$sHotlistFilter = '';
 		$bOrgFilter = false;
 		$bProductFilter = false;
 		$bFirst = true;
@@ -1287,6 +1321,47 @@ class boView
 						else
 						{
 							$sql .= "(dcl_tag.tag_id in ($sTagFilter))";
+						}
+					}
+				}
+				else if (eregi('^.*\.hotlist_tag', $field))
+				{
+					$iEntity = null;
+					if ($this->table == 'workorders')
+						$iEntity = DCL_ENTITY_WORKORDER;
+					else if ($this->table == 'tickets')
+						$iEntity = DCL_ENTITY_TICKET;
+					else if ($this->table == 'dcl_projects')
+						$iEntity = DCL_ENTITY_PROJECT;
+						
+					if ($iEntity !== null)
+					{
+						if ($bFirst == false)
+							$sql .= ' AND ';
+	
+						$bFirst = false;
+
+						$oHotlist = CreateObject('dcl.dbHotlist');
+						$sHotlistFilter = $oHotlist->getExistingIdsByName($this->GetCSLFromArray($values));
+						if (!in_array('dcl_hotlist.hotlist_tag', $this->order) &&
+							!in_array('dcl_hotlist.hotlist_tag', $this->groups) &&
+							!in_array('dcl_hotlist.hotlist_tag', $this->columns)
+							)
+						{
+							if ($this->table == 'workorders')
+							{
+								$sql .= "((workorders.jcn in (select entity_key_id from dcl_entity_hotlist where entity_id = $iEntity AND dcl_entity_hotlist.hotlist_id in ($sHotlistFilter)))";
+								$sql .= " AND (workorders.seq in (select entity_key_id2 from dcl_entity_hotlist where entity_id = $iEntity AND workorders.jcn = entity_key_id And dcl_entity_hotlist.hotlist_id in ($sHotlistFilter))";
+								$sql .= '))';
+							}
+							else if ($this->table == 'tickets')
+							{
+								$sql .= "(tickets.ticketid in (select entity_key_id from dcl_entity_hotlist where entity_id = $iEntity AND dcl_entity_hotlist.hotlist_id in ($sHotlistFilter)))";
+							}
+						}
+						else
+						{
+							$sql .= "(dcl_hotlist.hotlist_id in ($sHotlistFilter))";
 						}
 					}
 				}
@@ -1583,6 +1658,17 @@ class boView
 
 				$sql .= '))';
 			}
+			
+			// And hotlists...
+			if (in_array('dcl_hotlist.hotlist_tag', $this->columns))
+			{
+				$sql .= ' And (dcl_entity_hotlist.hotlist_id is null Or dcl_entity_hotlist.hotlist_id = ';
+				$sql .= '(Select min(hotlist_id) From dcl_entity_hotlist where entity_id = ' . DCL_ENTITY_WORKORDER . ' AND entity_key_id = workorders.jcn And entity_key_id2 = workorders.seq';
+				if ($sHotlistFilter != '')
+					$sql .= ' AND hotlist_id IN (' . $sHotlistFilter . ')';
+
+				$sql .= '))';
+			}
 		}
 		else if ($this->table == 'tickets')
 		{
@@ -1593,6 +1679,17 @@ class boView
 				$sql .= '(Select min(tag_id) From dcl_entity_tag where entity_id = ' . DCL_ENTITY_TICKET . ' AND entity_key_id = tickets.ticketid';
 				if ($sTagFilter != '')
 					$sql .= ' AND tag_id IN (' . $sTagFilter . ')';
+
+				$sql .= '))';
+			}
+
+			// Hotlists
+			if (in_array('dcl_hotlist.hotlist_tag', $this->columns))
+			{
+				$sql .= ' And (dcl_entity_hotlist.hotlist_id is null Or dcl_entity_hotlist.hotlist_id = ';
+				$sql .= '(Select min(hotlist_id) From dcl_entity_hotlist where entity_id = ' . DCL_ENTITY_TICKET . ' AND entity_key_id = tickets.ticketid';
+				if ($sHotlistFilter != '')
+					$sql .= ' AND hotlist_id IN (' . $sHotlistFilter . ')';
 
 				$sql .= '))';
 			}

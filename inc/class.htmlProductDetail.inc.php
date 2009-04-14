@@ -66,6 +66,7 @@ class htmlProductDetail
 		$this->t->assign('VAL_NAME', $this->oProduct->name);
 		$this->t->assign('VAL_ACTIVE', $this->oProduct->active);
 		$this->t->assign('VAL_PUBLIC', $this->oProduct->is_public);
+		$this->t->assign('VAL_ISPROJECTREQUIRED', $this->oProduct->is_project_required);
 		
 		$objPers->Load($this->oProduct->reportto);
 		$this->t->assign('VAL_REPORTTO', $objPers->short);

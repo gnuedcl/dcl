@@ -33,7 +33,8 @@ $GLOBALS['phpgw_baseline']['products'] = array(
 		'wosetid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'tcksetid' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'is_versioned' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'),
-		'is_public' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N')
+		'is_public' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'),
+		'is_project_required' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N')
 	),
 	'pk' => array('id'),
 	'fk' => array(),

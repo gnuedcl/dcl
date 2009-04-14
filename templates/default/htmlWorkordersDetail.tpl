@@ -105,6 +105,7 @@ function submitAction(sFormName, sAction)
 			</tr>
 	{/if}
 		<tr><th>{$smarty.const.STR_CMMN_TAGS}:</th><td colspan="3">{dcl_tag_link value=$VAL_TAGS}</td></tr>
+		<tr><th>Hotlist:</th><td colspan="3">{dcl_hotlist_link value=$VAL_HOTLIST}</td></tr>
 	{if $VAL_NOTES != ""}
 		<tr><th>{$smarty.const.STR_WO_NOTES}:</th><td colspan="3">{$VAL_NOTES|escape:"link"}</td></tr>
 	{/if}

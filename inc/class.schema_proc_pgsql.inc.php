@@ -795,7 +795,7 @@
 			if (is_array($aIndexDef) && count($aIndexDef) > 0)
 			{
 				foreach ($aIndexDef as $sIndexName => $aIndexColumns)
-					$retVal = $this->CreateIndex($oProc, $sTableName, $sIndexName, $aIndexColumns);
+					$retVal = $this->CreateIndex($oProc, null, $sTableName, $sIndexName, $aIndexColumns);
 			}
 			
 			return $retVal;

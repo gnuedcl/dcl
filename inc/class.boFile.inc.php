@@ -35,7 +35,7 @@ class boFile
 
 	function IsValid()
 	{
-		return ($this->iType == DCL_ENTITY_WORKORDER || $this->iType == DCL_ENTITY_PROJECT || $this->iType == DCL_ENTITY_TICKET);
+		return ($this->iType == DCL_ENTITY_WORKORDER || $this->iType == DCL_ENTITY_PROJECT || $this->iType == DCL_ENTITY_TICKET || $this->iType == DCL_ENTITY_WORKORDER_TASK);
 	}
 
 	function Download()
@@ -89,6 +89,8 @@ class boFile
 					return sprintf('%s/%s/%s/%s', $this->sRoot, 'tck', substr($this->iKey1, -1), $this->iKey1);
 				case DCL_ENTITY_PROJECT:
 					return sprintf('%s/%s/%s/%s', $this->sRoot, 'prj', substr($this->iKey1, -1), $this->iKey1);
+				case DCL_ENTITY_WORKORDER_TASK:
+					return sprintf('%s/%s/%s/%s', $this->sRoot, 'wotask', substr($this->iKey1, -1), $this->iKey1);
 			}
 
 			return trigger_error('Invalid attachment type.');;
@@ -110,6 +112,11 @@ class boFile
 				break;
 			case DCL_ENTITY_PROJECT:
 				$retVal = $this->AddPath($retVal, 'prj');
+				$retVal = $this->AddPath($retVal, substr($this->iKey1, -1));
+				$retVal = $this->AddPath($retVal, $this->iKey1);
+				break;
+			case DCL_ENTITY_WORKORDER_TASK:
+				$retVal = $this->AddPath($retVal, 'wotask');
 				$retVal = $this->AddPath($retVal, substr($this->iKey1, -1));
 				$retVal = $this->AddPath($retVal, $this->iKey1);
 				break;

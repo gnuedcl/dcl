@@ -43,3 +43,4 @@ entity_id	entity_desc	active
 41	Workspace	Y
 42	Test Case	Y
 43	Functional Spec	Y
+44	Hotlist	Y

@@ -5,6 +5,7 @@
 {dcl_xmlhttp_init}
 <script language="JavaScript">
 {literal}
+var productVersionRequired = false;
 function validateAndSubmitForm(form)
 {
 {/literal}
@@ -24,6 +25,9 @@ function validateAndSubmitForm(form)
 			new ValidatorString(form.elements["summary"], "{$smarty.const.STR_WO_SUMMARY}"),
 			new ValidatorString(form.elements["description"], "{$smarty.const.STR_WO_DESCRIPTION}")
 		);
+		
+	if (productVersionRequired)
+		aValidators.push(new ValidatorInteger(form.elements["projectid"], "{$smarty.const.STR_WO_PROJECT}", true));
 {literal}
 	for (var i in aValidators)
 	{
@@ -63,7 +67,18 @@ function UpdateVersionsCallback(aItems)
 	}
 }
 
-function UpdateVersions()
+function IsProjectRequiredCallback(aItems)
+{
+	if (typeof(aItems) != "object" || !aItems.data || !aItems.data.length)
+	{
+		productVersionRequired = false;
+		return;
+	}
+	
+	productVersionRequired = (aItems.data[0].is_project_required == "Y")
+}
+
+function UpdateOptions()
 {
 	var aNames = ["reported_version_id", "targeted_version_id", "fixed_version_id"];
 	for (var i in aNames)
@@ -81,6 +96,7 @@ function UpdateVersions()
 		return;
 {/literal}
 	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=jsonProductVersion.ListVersions{if !$IS_EDIT}&active=Y{/if}&product_id=" + oProduct.options[oProduct.selectedIndex].value, UpdateVersionsCallback);
+	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=jsonProduct.IsProjectRequired&product_id=" + oProduct.options[oProduct.selectedIndex].value, IsProjectRequiredCallback);
 {literal}
 }
 {/literal}
@@ -102,7 +118,7 @@ function UpdateVersions()
 		<legend>{$TXT_TITLE}</legend>
 		<div class="required">
 			<label for="product">{$smarty.const.STR_WO_PRODUCT}:</label>
-			{dcl_select_product default="$VAL_PRODUCT" active="$ACTIVE_ONLY" onchange="productSelChange(this.form);UpdateVersions();"}
+			{dcl_select_product default="$VAL_PRODUCT" active="$ACTIVE_ONLY" onchange="productSelChange(this.form);UpdateOptions();"}
 		</div>
 		<div class="required">
 			<label for="module_id">{$smarty.const.STR_CMMN_MODULE}:</label>
@@ -196,6 +212,11 @@ function UpdateVersions()
 			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
 			<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
 			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
+		</div>
+		<div>
+			<label for="hotlist">Hotlist:</label>
+			<input type="text" name="hotlist" id="hotlist" size="60" value="{$VAL_HOTLIST|escape}">
+			<span>Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
 		</div>
 		<div>
 			<label for="notes">{$smarty.const.STR_WO_NOTES}:</label>

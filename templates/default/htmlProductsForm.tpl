@@ -67,6 +67,10 @@ function validateAndSubmitForm(form)
 			{$CMB_ISVERSIONED}
 		</div>
 		<div class="required">
+			<label for="is_project_required">Project Required:</label>
+			{$CMB_ISPROJECTREQUIRED}
+		</div>
+		<div class="required">
 			<label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label>
 			{$CMB_ISPUBLIC}
 		</div>

@@ -46,7 +46,9 @@ class boWorkOrderTask extends boAdminObject
 	function add($aSource)
 	{
 		$aSource['task_complete'] = 'N';
-		parent::add($aSource);
+		
+		if (parent::add($aSource) != -1)
+			$this->attachFile($aSource);
 	}
 
 	function modify($aSource)
@@ -80,6 +82,29 @@ class boWorkOrderTask extends boAdminObject
 		}
 
 		parent::modify($aSource);
+	}
+	
+	function attachFile($aSource, $iIndex = -1)
+	{
+		if (($wo_task_id = DCL_Sanitize::ToInt($aSource['wo_task_id'])) === null)
+		{
+			trigger_error('Data sanitize failed.', E_USER_ERROR);
+			return;
+		}
+		
+		if ($this->oDB->Load($wo_task_id) == -1)
+			return;
+			
+		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null)
+		{
+			$o =& CreateObject('dcl.boFile');
+			$o->iType = DCL_ENTITY_WORKORDER_TASK;
+			$o->iKey1 = $wo_task_id;
+			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+			$o->sTempFileName = $sFileName;
+			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
+			$o->Upload();
+		}
 	}
 	
 	function toggleComplete($aSource)

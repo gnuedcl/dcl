@@ -47,6 +47,7 @@ class DCL_MetadataDisplay
 	var $oTicket;
 	var $oWorkOrder;
 	var $oTag;
+	var $oHotlist;
 	var $oProductVersion;
 
 	function DCL_MetadataDisplay()
@@ -73,6 +74,7 @@ class DCL_MetadataDisplay
 		$this->oTicket = null;
 		$this->oWorkOrder = null;
 		$this->oTag = null;
+		$this->oHotlist = null;
 		$this->oProductVersion = null;
 	}
 
@@ -244,7 +246,9 @@ class DCL_MetadataDisplay
 		if ($this->oContact->Load($id) != -1)
 		{
 			$aRetVal['name'] = sprintf('%s %s', $this->oContact->first_name, $this->oContact->last_name);
-
+			$aRetVal['last_name'] = $this->oContact->last_name;
+			$aRetVal['first_name'] = $this->oContact->first_name;
+			
 			if ($this->oContactPhone->GetPrimaryPhone($id))
 			{
 				$aRetVal['phonetype'] = $this->oContactPhone->f(0);
@@ -418,6 +422,20 @@ class DCL_MetadataDisplay
 			$this->oTag =& CreateObject('dcl.dbEntityTag');
 			
 		return $this->oTag->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
+	}
+	
+	function GetHotlist($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	{
+		if (!$this->IsValidID($entity_id) || !$this->IsValidID($entity_key_id))
+			return '';
+			
+		if ($entity_id == DCL_ENTITY_WORKORDER && !$this->IsValidID($entity_key_id2))
+			return '';
+			
+		if ($this->oHotlist == null)
+			$this->oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			
+		return $this->oHotlist->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
 }
 ?>

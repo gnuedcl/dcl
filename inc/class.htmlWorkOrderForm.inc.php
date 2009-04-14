@@ -49,12 +49,20 @@ class htmlWorkOrderForm
 			$isCopy = !$isEdit && !$isTicket && is_a($oSource, 'dbWorkorders') && $oSource->jcn == 0;
 		}
 		
-		if ($isEdit && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $oSource->jcn, $oSource->seq))
-			return PrintPermissionDenied();
-		else if ($isTicket && !$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO, $oSource->ticketid))
-			return PrintPermissionDenied();
+		if ($isEdit)
+		{
+			if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $oSource->jcn, $oSource->seq))
+				return PrintPermissionDenied();
+		}
+		else if ($isTicket)
+		{
+			if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO, $oSource->ticketid))
+				return PrintPermissionDenied();
+		}
 		else if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
+		{
 			return PrintPermissionDenied();
+		}
 
 		$objJS = CreateObject('dcl.jsAttributesets');
 		if (!$isEdit)
@@ -165,6 +173,12 @@ class htmlWorkOrderForm
 				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $oSource->ticketid));
 			else
 				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $oSource->jcn, $oSource->seq));
+			
+			$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			if ($isTicket)
+				$this->oSmarty->assign('VAL_HOTLIST', $oHotlist->getTagsForEntity(DCL_ENTITY_TICKET, $oSource->ticketid));
+			else
+				$this->oSmarty->assign('VAL_HOTLIST', $oHotlist->getTagsForEntity(DCL_ENTITY_WORKORDER, $oSource->jcn, $oSource->seq));
 		}
 
 		if (!$isEdit && !$isCopy)

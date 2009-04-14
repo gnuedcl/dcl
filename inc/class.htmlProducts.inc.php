@@ -97,7 +97,7 @@ class htmlProducts
 
 		$objDBProduct = CreateObject('dcl.dbProducts');
 
-		$query = 'SELECT a.id,a.active,a.short,a.name,b.short,c.short,d.name,e.name,a.is_versioned,a.is_public ';
+		$query = 'SELECT a.id,a.active,a.short,a.name,b.short,c.short,d.name,e.name,a.is_versioned,a.is_public,a.is_project_required ';
 		$query .= 'FROM products a,personnel b,personnel c,attributesets d,attributesets e ';
 		$query .= 'WHERE a.reportto=b.id AND a.ticketsto=c.id ';
 		$query .= 'AND a.wosetid=d.id AND a.tcksetid=e.id';
@@ -126,6 +126,7 @@ class htmlProducts
 		$oTable->addColumn(STR_PROD_TCKATTR, 'string');
 		$oTable->addColumn(STR_PROD_VERSIONED, 'string');
 		$oTable->addColumn(STR_CMMN_PUBLIC, 'string');
+		$oTable->addColumn('Project Req', 'string');
 		$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_ADD))
@@ -141,7 +142,8 @@ class htmlProducts
 			$allRecs[$i][1] = $allRecs[$i][1] == 'Y' ? STR_CMMN_YES : STR_CMMN_NO;
 			$allRecs[$i][8] = $allRecs[$i][8] == 'Y' ? STR_CMMN_YES : STR_CMMN_NO;
 			$allRecs[$i][9] = $allRecs[$i][9] == 'Y' ? STR_CMMN_YES : STR_CMMN_NO;
-
+			$allRecs[$i][10] = $allRecs[$i][10] == 'Y' ? STR_CMMN_YES : STR_CMMN_NO;
+			
 			$options = '<a href="' . menuLink('', 'menuAction=boProducts.view&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_VIEW . '</a>';
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEWWIKI))
@@ -297,6 +299,7 @@ class htmlProducts
 		{
 			$t->assign('CMB_ACTIVE', GetYesNoCombo($obj->active, 'active', 0, false));
 			$t->assign('CMB_ISVERSIONED', GetYesNoCombo($obj->is_versioned, 'is_versioned', 0, false));
+			$t->assign('CMB_ISPROJECTREQUIRED', GetYesNoCombo($obj->is_project_required, 'is_project_required', 0, false));
 			$t->assign('CMB_ISPUBLIC', GetYesNoCombo($obj->is_public, 'is_public', 0, false));
 			$t->assign('VAL_SHORT', $obj->short);
 			$t->assign('VAL_NAME', $obj->name);
@@ -309,6 +312,7 @@ class htmlProducts
 		{
 			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 			$t->assign('CMB_ISVERSIONED', GetYesNoCombo('Y', 'is_versioned', 0, false));
+			$t->assign('CMB_ISPROJECTREQUIRED', GetYesNoCombo('N', 'is_project_required', 0, false));
 			$t->assign('CMB_ISPUBLIC', GetYesNoCombo('N', 'is_public', 0, false));
 			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'reportto'));
 			$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'ticketsto'));
