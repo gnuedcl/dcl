@@ -37,4 +37,13 @@ $GLOBALS['phpgw_baseline']['personnel'] = array(
 	'ix' => array(),
 	'uc' => array('uc_personnel_short' => array('short'))
 );
-?>
+
+$GLOBALS['phpgw_baseline']['personnel']['joins'] = array(
+	'departments' => 'personnel.department = departments.id',
+	'personnel a' => 'personnel.reportto = a.id',
+	'dcl_contact' => 'personnel.contact_id = dcl_contact.contact_id',
+	'dcl_contact_addr' => "dcl_contact.contact_id = dcl_contact_addr.contact_id AND dcl_contact_addr.preferred = 'Y'",
+	'dcl_contact_email' => "dcl_contact.contact_id = dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y'",
+	'dcl_contact_phone' => "dcl_contact.contact_id = dcl_contact_phone.contact_id AND dcl_contact_phone.preferred = 'Y'",
+	'dcl_contact_url' => "dcl_contact.contact_id = dcl_contact_url.contact_id AND dcl_contact_url.preferred = 'Y'"
+);

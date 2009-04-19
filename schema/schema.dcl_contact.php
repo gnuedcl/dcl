@@ -41,4 +41,13 @@ $GLOBALS['phpgw_baseline']['dcl_contact'] = array(
 	),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_contact']['joins'] = array(
+	'dcl_org' => "dcl_org.org_id = dcl_org_contact.org_id",
+	'dcl_org_contact' => "dcl_contact.contact_id = dcl_org_contact.contact_id",
+	'dcl_contact_license' => "dcl_contact.contact_id = dcl_contact_license.contact_id",
+	'dcl_contact_addr' => "dcl_contact.contact_id = dcl_contact_addr.contact_id AND dcl_contact_addr.preferred = 'Y'",
+	'dcl_contact_email' => "dcl_contact.contact_id = dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y'",
+	'dcl_contact_phone' => "dcl_contact.contact_id = dcl_contact_phone.contact_id AND dcl_contact_phone.preferred = 'Y'",
+	'dcl_contact_url' => "dcl_contact.contact_id = dcl_contact_url.contact_id AND dcl_contact_url.preferred = 'Y'"
+);

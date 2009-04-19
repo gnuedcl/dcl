@@ -236,8 +236,8 @@ class htmlHotlistBrowse
 
 		$oView = CreateObject('dcl.boView');
 		$oView->table = 'dcl_hotlist';
-		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME));
-		$oView->AddDef('columns', '', array('hotlist_id', 'active', 'hotlist_tag'));
+		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME, '# Items'));
+		$oView->AddDef('columns', '', array('hotlist_id', 'active', 'hotlist_tag', 'count(*):dcl_entity_hotlist'));
 		$oView->AddDef('order', '', array('hotlist_tag'));
 		
 		$oView->numrows = 25;

@@ -49,6 +49,7 @@ class DCL_MetadataDisplay
 	var $oTag;
 	var $oHotlist;
 	var $oProductVersion;
+	var $oTimeCard;
 
 	function DCL_MetadataDisplay()
 	{
@@ -76,6 +77,7 @@ class DCL_MetadataDisplay
 		$this->oTag = null;
 		$this->oHotlist = null;
 		$this->oProductVersion = null;
+		$this->oTimeCard = null;
 	}
 
 	function IsValidID($id)
@@ -436,6 +438,24 @@ class DCL_MetadataDisplay
 			$this->oHotlist =& CreateObject('dcl.dbEntityHotlist');
 			
 		return $this->oHotlist->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
+	}
+	
+	function GetLastTimeCard($jcn, $seq)
+	{
+		global $g_oSec;
+		
+		if (!$this->IsValidID($jcn) || !$this->IsValidID($seq))
+			return '';
+
+		if ($this->oTimeCard == null)
+			$this->oTimeCard =& CreateObject('dcl.dbTimeCards');
+
+		if ($this->oTimeCard->LoadLast($jcn, $seq, $g_oSec->IsPublicUser()) == -1)
+			return null;
+			
+		$aTimeCard = $this->oTimeCard->Record;
+
+		return $aTimeCard;
 	}
 }
 ?>

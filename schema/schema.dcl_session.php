@@ -35,4 +35,7 @@ $GLOBALS['phpgw_baseline']['dcl_session'] = array(
 	'ix' => array(),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_session']['joins'] = array(
+	'personnel' => 'dcl_session.personnel_id = personnel.id'
+);

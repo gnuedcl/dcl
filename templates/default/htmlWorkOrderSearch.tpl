@@ -55,15 +55,22 @@
 	
 	function getTags()
 	{
-		var f = document.forms["mondosearchform"];
+		return getTagsFromElement(document.forms["mondosearchform"].elements["tags"], "{/literal}{$smarty.const.STR_CMMN_TAGS}{literal}");
+	}
+	
+	function getHotlists()
+	{
+		{/literal}{if !$IS_PUBLIC}return getTagsFromElement(document.forms["mondosearchform"].elements["hotlist"], "Hotlists");{/if}{literal}
+	}
+	
+	function getTagsFromElement(e, title)
+	{
 		var sTags = "";
-		if (f.elements["tags"].value != "")
+		if (e.value != "")
 		{
-{/literal}
-			sTags += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">{$smarty.const.STR_CMMN_TAGS}:</th><td>';
-			sTags += f.elements["tags"].value;
+			sTags += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">' + title + ':</th><td>';
+			sTags += e.value;
 			sTags += '</td></tr>';
-{literal}
 		}
 		
 		return sTags;
@@ -197,6 +204,7 @@
 			sSummary += getSelections(f.elements["entity_source_id[]"], "{$smarty.const.STR_CMMN_SOURCE}");
 			sSummary += getDates();
 			sSummary += getTags();
+			{if !$IS_PUBLIC}sSummary += getHotlists();{/if}
 			sSummary += getTextSearch();
 {literal}
 		}
@@ -241,6 +249,7 @@
 					<li><a href="javascript:showHide('divDate');">Dates</a></li>
 					<li><a href="javascript:showHide('divText');">Text</a></li>
 					<li><a href="javascript:showHide('divTags');">{$smarty.const.STR_CMMN_TAGS}</a></li>
+					<li><a href="javascript:showHide('divHotlists');">Hotlists</a></li>
 					<li><a href="javascript:showHide('divReport');">{$smarty.const.STR_WO_REPORTOPTIONS}</a></li>
 				{/strip}</ul>
 			</div>
@@ -363,6 +372,14 @@
 			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 		</div>
 	</fieldset>
+	{if !$IS_PUBLIC}<fieldset id="divHotlists" style="display: none;">
+		<legend>Hotlists</legend>
+		<div>
+			<label for="hotlist">Hotlists:</label>
+			<input type="text" size="70" id="hotlist" name="hotlist" value="{$VAL_HOTLISTS|escape}">
+			<span>Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
+		</div>
+	</fieldset>{/if}
 	<fieldset id="divReport" style="display: none;">
 		<legend>{$smarty.const.STR_WO_REPORTOPTIONS}</legend>
 		<div>
@@ -503,6 +520,9 @@
 		
 		// Tags
 		setOnChangeEventHandler(f.elements["tags"]);
+
+		// Hotlists
+		setOnChangeEventHandler(f.elements["hotlist"]);
 
 		// Checkboxen
 		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["responsible"]);{/if}{literal}

@@ -36,4 +36,12 @@ $GLOBALS['phpgw_baseline']['dcl_product_build'] = array(
 		'uc_dcl_product_build_descr' => array('product_build_descr')
 	)
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_product_build']['joins'] = array(
+	'dcl_product_version' => 'dcl_product_build.product_version_id = dcl_product_version.product_version_id',
+	'dcl_product_build_sccs' => 'dcl_product_build.product_build_id = dcl_product_build_sccs.product_build_id',
+	'dcl_sccs_xref' => 'dcl_product_build_sccs.sccs_xref_id = dcl_sccs_xref.dcl_sccs_xref_id',
+	'dcl_product_version_item' => 'dcl_product_version.product_version_id = dcl_product_version_item.product_version_id',
+	'workorders' => 'dcl_product_version_item.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_version_item.entity_id = workorders.jcn AND dcl_product_version_item.entity_id2 = workorders.seq',
+	'statuses' => 'workorders.status = statuses.id'
+);

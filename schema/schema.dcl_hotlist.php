@@ -38,4 +38,9 @@ $GLOBALS['phpgw_baseline']['dcl_hotlist'] = array(
 	'ix' => array('ix_dcl_hotlist_desc' => array('hotlist_desc')),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_hotlist']['aggregates'] = array(
+	'count(*)' => array(
+		'dcl_entity_hotlist' => 'select count(*) from dcl_entity_hotlist where hotlist_id = dcl_hotlist.hotlist_id AND deleted_on IS NULL'
+	)
+);

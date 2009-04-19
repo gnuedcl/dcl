@@ -39,4 +39,7 @@ $GLOBALS['phpgw_baseline']['dcl_product_version'] = array(
 		'uc_dcl_product_version_text' => array('product_id', 'product_version_text')
 	)
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_product_version']['joins'] = array(
+	'dcl_product_build' => 'dcl_product_version.product_version_id = dcl_product_build.product_version_id'
+);

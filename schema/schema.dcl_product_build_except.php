@@ -35,4 +35,14 @@ $GLOBALS['phpgw_baseline']['dcl_product_build_except'] = array(
 	'ix' => array(),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_product_build_except']['joins'] = array(
+	'workorders' => 'dcl_product_build_except.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_build_except.entity_id = workorders.jcn AND dcl_product_build_except.entity_id2 = workorders.seq',
+	'dcl_projects' => 'dcl_product_build_except.entity_type_id = ' . DCL_ENTITY_PROJECT . ' AND dcl_product_build_except.entity_id = dcl_projects.projectid',
+	'priorities' => 'workorders.priority=priorities.id',
+	'severities' => 'workorders.severity=severities.id',
+	'personnel a' => 'workorders.responsible=a.id',
+	'personnel b' => 'workorders.closedby=b.id',
+	'personnel c' => 'workorders.createby=c.id',
+	'statuses' => 'workorders.status=statuses.id'
+);

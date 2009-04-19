@@ -35,4 +35,9 @@ $GLOBALS['phpgw_baseline']['dcl_product_build_item'] = array(
 	'ix' => array(),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_product_build_item']['joins'] = array(
+	'dcl_product_build' => 'dcl_product_build.product_build_id = dcl_product_build_item.product_build_id',
+    'workorders' => 'dcl_product_build_item.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_build_item.entity_id = workorders.jcn AND dcl_product_build_item.entity_id2 = workorders.seq',
+    'statuses' => 'workorders.status = statuses.id'
+);

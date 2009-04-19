@@ -71,6 +71,8 @@ class htmlWOSearches
 			return PrintPermissionDenied();
 
 		$bView = is_object($oView);
+		
+		$aProtectedFields = array('notes', 'dcl_hotlist.hotlist_tag', 'is_public', 'timecards.actionby', 'timecards.summary');
 
 		$objJS = CreateObject('dcl.jsAttributesets');
 		$objJS->bModules = true;
@@ -304,6 +306,9 @@ class htmlWOSearches
 		if (isset($oView->filter['dcl_tag.tag_desc']) && is_array($oView->filter['dcl_tag.tag_desc']) && count($oView->filter['dcl_tag.tag_desc']) > 0)
 			$t->assign('VAL_TAGS', join(',', $oView->filter['dcl_tag.tag_desc']));
 
+		if (isset($oView->filter['dcl_hotlist.hotlist_tag']) && is_array($oView->filter['dcl_hotlist.hotlist_tag']) && count($oView->filter['dcl_hotlist.hotlist_tag']) > 0)
+			$t->assign('VAL_HOTLISTS', join(',', $oView->filter['dcl_hotlist.hotlist_tag']));
+
 		$aDateChecks = array('createdon', 'closedon', 'statuson', 'lastactionon',
 							'deadlineon', 'eststarton', 'estendon', 'starton');
 
@@ -348,7 +353,9 @@ class htmlWOSearches
 				'dcl_product_module.module_name' => STR_CMMN_MODULE,
 				'dcl_projects.name' => STR_WO_PROJECT,
 				'dcl_org.name' => STR_WO_ACCOUNT,
+				'count(*):dcl_org' => '# ' . STR_WO_ACCOUNT,
 				'dcl_tag.tag_desc' => STR_CMMN_TAGS,
+				'dcl_hotlist.hotlist_tag' => 'Hotlists',
 				'createby.short' => STR_WO_OPENBY,
 				'createdon' => STR_WO_OPENEDON,
 				'closedby.short' => STR_WO_CLOSEBY,
@@ -374,11 +381,16 @@ class htmlWOSearches
 				'description' => STR_WO_DESCRIPTION,
 				'dcl_status_type.dcl_status_type_name' => STR_CMMN_STATUSTYPE,
 				'dcl_entity_source.entity_source_name' => STR_CMMN_SOURCE,
-				'is_public' => STR_CMMN_PUBLIC
+				'is_public' => STR_CMMN_PUBLIC,
+				'actionby.short' => 'Last Time Card By',
+				'timecards.summary' => 'Last Time Card Summary'
 			);
 			
 		if ($g_oSec->IsPublicUser())
-			unset($aCols['notes']);
+		{
+			foreach ($aProtectedFields as $sField)
+				unset($aCols[$sField]);
+		}
 
 		if ($bView)
 		{
@@ -393,7 +405,9 @@ class htmlWOSearches
 					$colName = 'closedby.short';
 				else if ($colName == 'c.short')
 					$colName = 'createby.short';
-
+				else if ($colName == 'g.short')
+					$colName = 'actionby.short';
+					
 				$aShow[$colName] = $aCols[$colName];
 			}
 
@@ -405,17 +419,22 @@ class htmlWOSearches
 					$colName = 'closedby.short';
 				else if ($colName == 'c.short')
 					$colName = 'createby.short';
-
+				else if ($colName == 'g.short')
+					$colName = 'actionby.short';
+					
 				$aGroup[$colName] = $aCols[$colName];
 			}
 			
 			if ($g_oSec->IsPublicUser())
 			{
-				if (isset($aShow['notes']))
-					unset($aShow['notes']);
-					
-				if (isset($aGroup['notes']))
-					unset($aGroup['notes']);
+				foreach ($aProtectedFields as $sField)
+				{
+					if (isset($aShow[$sField]))
+						unset($aShow[$sField]);
+						
+					if (isset($aGroup[$sField]))
+						unset($aGroup[$sField]);
+				}
 			}
 		}
 		else

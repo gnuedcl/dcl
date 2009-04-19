@@ -127,6 +127,15 @@ class htmlWorkOrderResults
 			{
 				$oTable->assign('tag_ordinal', $iColumn);
 			}
+			else if ($sFieldName == '_num_hotlist_')
+			{
+				$iOffset--;
+				$oTable->assign('num_hotlist_ordinal', $iColumn);
+			}
+			else if ($sFieldName == 'hotlist_tag')
+			{
+				$oTable->assign('hotlist_ordinal', $iColumn);
+			}
 			else if ($oView->columns[$iColumn - count($oView->groups)] == 'dcl_org.name')
 			{
 				$oTable->assign('org_ordinal', $iColumn);

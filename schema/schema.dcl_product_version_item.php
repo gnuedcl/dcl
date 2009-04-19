@@ -37,4 +37,8 @@ $GLOBALS['phpgw_baseline']['dcl_product_version_item'] = array(
 	'ix' => array(),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_product_version_item']['joins'] = array(
+	'workorders' => 'dcl_product_version_item.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_version_item.entity_id = workorders.jcn AND dcl_product_version_item.entity_id2 = workorders.seq',
+	'dcl_sccs_xref' => 'dcl_sccs_xref.dcl_entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_sccs_xref.dcl_entity_id = dcl_product_version_item.entity_id AND dcl_sccs_xref.dcl_entity_id2 = dcl_product_version_item.entity_id2'
+);

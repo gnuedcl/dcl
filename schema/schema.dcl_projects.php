@@ -43,4 +43,8 @@ $GLOBALS['phpgw_baseline']['dcl_projects'] = array(
 		'uc_dcl_projects_name' => array('name')
 	)
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_projects']['joins'] = array(
+	'statuses' => 'dcl_projects.status = statuses.id',
+	'personnel a' => 'dcl_projects.reportto = a.id'
+);

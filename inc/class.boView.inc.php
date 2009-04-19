@@ -425,10 +425,13 @@ class boView
 	}
 
 	// That's Comma Separated List :)
-	function GetCSLFromArray(&$arr, $appendTableForJoin = false, $bProcessDates = false)
+	function GetCSLFromArray(&$arr, $appendTableForJoin = false, $bProcessDates = false, $bOrderBy = false)
 	{
 		global $phpgw_baseline;
 
+		if (!isset($phpgw_baseline[$this->table]))
+			LoadSchema($this->table);
+		
 		reset($arr);
 		$retVal = '';
 
@@ -443,8 +446,20 @@ class boView
 
 					if ($bProcessDates)
 					{
-						if (strpos($field, '.') > 0)
+						$iColonIdx = strpos($field, ':'); 
+						if ($iColonIdx > 0)
 						{
+							$func = substr($field, 0, $iColonIdx);
+							$agg = substr($field, $iColonIdx + 1);
+							if (isset($phpgw_baseline[$this->table]) && isset($phpgw_baseline[$this->table]['aggregates']) && isset($phpgw_baseline[$this->table]['aggregates'][$func]) && isset($phpgw_baseline[$this->table]['aggregates'][$func][$agg]))
+							{
+								$retVal .= '(' . $phpgw_baseline[$this->table]['aggregates'][$func][$agg] . ') AS _count_' . $agg . '_';
+							}
+							
+							continue;
+						}
+						else if (strpos($field, '.') > 0)
+												{
 							list($sTable, $sField) = explode('.', $field);
 							$sRealTable = $sTable;
 						}
@@ -457,7 +472,7 @@ class boView
 
 						if (strlen($sTable) == 1)
 						{
-							if ($sTable == 'a' || $sTable == 'b' || $sTable == 'c')
+							if ($sTable == 'a' || $sTable == 'b' || $sTable == 'c' || $sTable == 'g')
 								$sRealTable = 'personnel';
 							else if ($sTable == 'd' || $sTable == 'e' || $sTable == 'f')
 								$sRealTable = 'dcl_product_version';
@@ -476,7 +491,17 @@ class boView
 					}
 					else
 					{
-						if (strpos($field, '.') > 0)
+						$iColonIdx = strpos($field, ':'); 
+						if ($iColonIdx > 0)
+						{
+							$func = substr($field, 0, $iColonIdx);
+							$agg = substr($field, $iColonIdx + 1);
+							if (isset($phpgw_baseline[$this->table]) && isset($phpgw_baseline[$this->table]['aggregates']) && isset($phpgw_baseline[$this->table]['aggregates'][$func]) && isset($phpgw_baseline[$this->table]['aggregates'][$func][$agg]))
+							{
+								$retVal .= ($bOrderBy ? '_count_' . $agg . '_ DESC' : '(' . $phpgw_baseline[$this->table]['aggregates'][$func][$agg] . ') AS _count_' . $agg . '_');
+							}
+						}
+						else if (strpos($field, '.') > 0)
 							$retVal .= $field; // He said they've already got one!
 						else
 							$retVal .= $this->table . '.' . $field;
@@ -484,7 +509,28 @@ class boView
 				}
 			}
 			else
-				$retVal = implode(',', $arr);
+			{
+				foreach ($arr as $field)
+				{
+					if ($retVal != '')
+						$retVal .= ',';
+					
+					$iColonIdx = strpos($field, ':'); 
+					if ($iColonIdx > 0)
+					{
+						$func = substr($field, 0, $iColonIdx);
+						$agg = substr($field, $iColonIdx + 1);
+						if (isset($phpgw_baseline[$this->table]) && isset($phpgw_baseline[$this->table]['aggregates']) && isset($phpgw_baseline[$this->table]['aggregates'][$func]) && isset($phpgw_baseline[$this->table]['aggregates'][$func][$agg]))
+						{
+							$retVal .= '(' . $phpgw_baseline[$this->table]['aggregates'][$func][$agg] . ') AS _count_' . $agg . '_';
+						}
+					}
+					else
+					{
+						$retVal .= $field;
+					}
+				}
+			}
 		}
 
 		return $retVal;
@@ -492,345 +538,19 @@ class boView
 
 	function GetJoinForTable($table)
 	{
+		global $phpgw_baseline;
+		
 		if ($table == '' || $table == $this->table)
 			return '';
 
 		$join = '';
-		if ($this->table == 'workorders')
+		
+		if (isset($phpgw_baseline[$this->table]) && 
+			isset($phpgw_baseline[$this->table]['joins']) && 
+			isset($phpgw_baseline[$this->table]['joins'][$table]))
 		{
-			switch ($table)
-			{
-				case 'severities':
-					$join = 'workorders.severity=severities.id';
-					break;
-				case 'priorities':
-					$join = 'workorders.priority=priorities.id';
-					break;
-				case 'products':
-					$join = 'workorders.product=products.id';
-					break;
-				case 'dcl_projects':
-					$join = 'dcl_projects.projectid = projectmap.projectid';
-					break;
-				case 'dcl_product_module':
-					$join = 'workorders.module_id=dcl_product_module.product_module_id';
-					break;
-				case 'projectmap':
-					$join = 'workorders.jcn = projectmap.jcn AND (workorders.seq = projectmap.seq OR projectmap.seq = 0)';
-					break;
-				case 'statuses':
-					$join = 'workorders.status=statuses.id';
-					break;
-				case 'personnel a':
-					$join = 'workorders.responsible=a.id';
-					break;
-				case 'personnel b':
-					$join = 'workorders.closedby=b.id';
-					break;
-				case 'personnel c':
-					$join = 'workorders.createby=c.id';
-					break;
-				case 'dcl_product_version d':
-					$join = 'workorders.reported_version_id=d.product_version_id';
-					break;
-				case 'dcl_product_version e':
-					$join = 'workorders.targeted_version_id=e.product_version_id';
-					break;
-				case 'dcl_product_version f':
-					$join = 'workorders.fixed_version_id=f.product_version_id';
-					break;
-				case 'dcl_status_type':
-					$join = '(workorders.status = statuses.id AND statuses.dcl_status_type = dcl_status_type.dcl_status_type_id)';
-					break;
-				case 'dcl_wo_type':
-					$join = 'workorders.wo_type_id = dcl_wo_type.wo_type_id';
-					break;
-				case 'accounts':
-				case 'dcl_org':
-					$join = 'dcl_wo_account.account_id = dcl_org.org_id';
-					break;
-				case 'dcl_wo_account':
-					$join = 'workorders.jcn = dcl_wo_account.wo_id AND workorders.seq = dcl_wo_account.seq';
-					break;
-				case 'dcl_tag':
-					$join = 'dcl_entity_tag.tag_id = dcl_tag.tag_id';
-					break;
-				case 'dcl_entity_tag':
-					$join = 'dcl_entity_tag.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND workorders.jcn = dcl_entity_tag.entity_key_id AND workorders.seq = dcl_entity_tag.entity_key_id2';
-					break;
-				case 'dcl_hotlist':
-					$join = 'dcl_entity_hotlist.hotlist_id = dcl_hotlist.hotlist_id';
-					break;
-				case 'dcl_entity_hotlist':
-					$join = 'dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND workorders.jcn = dcl_entity_hotlist.entity_key_id AND workorders.seq = dcl_entity_hotlist.entity_key_id2';
-					break;
-					case 'dcl_entity_source':
-					$join = 'workorders.entity_source_id = dcl_entity_source.entity_source_id';
-					break;
-				case 'dcl_contact':
-					$join = 'workorders.contact_id = dcl_contact.contact_id';
-					break;
-				case 'dcl_contact_addr':
-				case 'dcl_contact_email':
-				case 'dcl_contact_phone':
-				case 'dcl_contact_url':
-					$join = "workorders.contact_id = $table.contact_id AND $table.preferred = 'Y'";
-					break;
-				case 'dcl_org_addr':
-				case 'dcl_org_email':
-				case 'dcl_org_phone':
-				case 'dcl_org_url':
-					$join = "dcl_wo_account.account_id = $table.org_id AND $table.preferred = 'Y'";
-					break;
-			}
-		}
-		elseif ($this->table == 'tickets')
-		{
-			switch ($table)
-			{
-				case 'severities':
-					$join = 'tickets.type = severities.id';
-					break;
-				case 'priorities':
-					$join = 'tickets.priority = priorities.id';
-					break;
-				case 'accounts':
-				case 'dcl_org':
-					$join = 'tickets.account = dcl_org.org_id';
-					break;
-				case 'products':
-					$join = 'tickets.product = products.id';
-					break;
-				case 'dcl_product_module':
-					$join = 'tickets.module_id = dcl_product_module.product_module_id';
-					break;
-				case 'statuses':
-					$join = 'tickets.status = statuses.id';
-					break;
-				case 'personnel a':
-					$join = 'tickets.responsible = a.id';
-					break;
-				case 'personnel b':
-					$join = 'tickets.closedby = b.id';
-					break;
-				case 'personnel c':
-					$join = 'tickets.createdby = c.id';
-					break;
-				case 'dcl_status_type':
-					$join = '(tickets.status = statuses.id AND statuses.dcl_status_type = dcl_status_type.dcl_status_type_id)';
-					break;
-				case 'dcl_entity_source':
-					$join = 'tickets.entity_source_id = dcl_entity_source.entity_source_id';
-					break;
-				case 'dcl_tag':
-					$join = 'dcl_entity_tag.tag_id = dcl_tag.tag_id';
-					break;
-				case 'dcl_entity_tag':
-					$join = 'dcl_entity_tag.entity_id = ' . DCL_ENTITY_TICKET . ' AND tickets.ticketid = dcl_entity_tag.entity_key_id';
-					break;
-				case 'dcl_hotlist':
-					$join = 'dcl_entity_hotlist.hotlist_id = dcl_hotlist.hotlist_id';
-					break;
-				case 'dcl_entity_hotlist':
-					$join = 'dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_TICKET . ' AND tickets.ticketid = dcl_entity_hotlist.entity_key_id';
-					break;
-					case 'dcl_contact':
-					$join = 'tickets.contact_id = dcl_contact.contact_id';
-					break;
-				case 'dcl_contact_addr':
-				case 'dcl_contact_email':
-				case 'dcl_contact_phone':
-				case 'dcl_contact_url':
-					$join = "tickets.contact_id = $table.contact_id AND $table.preferred = 'Y'";
-					break;
-				case 'dcl_org_addr':
-				case 'dcl_org_email':
-				case 'dcl_org_phone':
-				case 'dcl_org_url':
-					$join = "tickets.account = $table.org_id AND $table.preferred = 'Y'";
-					break;
-			}
-		}
-		elseif ($this->table == 'products')
-		{
-			switch ($table)
-			{
-				case 'dcl_org_product_xref':
-					$join = 'products.id = dcl_org_product_xref.product_id';
-					break;
-			}
-		}
-		elseif ($this->table == 'dcl_projects')
-		{
-			switch ($table)
-			{
-				case 'statuses':
-					$join = 'dcl_projects.status = statuses.id';
-					break;
-				case 'personnel a':
-					$join = 'dcl_projects.reportto = a.id';
-					break;
-			}
-		}
-		elseif ($this->table == 'dcl_session')
-		{
-			switch ($table)
-			{
-				case 'personnel':
-					$join = 'dcl_session.personnel_id = personnel.id';
-					break;
-			}
-		}
-		elseif ($this->table == 'personnel')
-		{
-			switch ($table)
-			{
-				case 'departments':
-					$join = 'personnel.department = departments.id';
-					break;
-				case 'personnel a':
-					$join = 'personnel.reportto = a.id';
-					break;
-				case 'dcl_contact':
-					$join = 'personnel.contact_id = dcl_contact.contact_id';
-					break;
-				case 'dcl_contact_addr':
-				case 'dcl_contact_email':
-				case 'dcl_contact_phone':
-				case 'dcl_contact_url':
-					$join = "dcl_contact.contact_id = $table.contact_id AND $table.preferred = 'Y'";
-					break;
-			}
-		}
-		elseif ($this->table == 'dcl_org')
-		{
-			switch ($table)
-			{
-				case 'dcl_org_contact':
-					$join = "dcl_org.org_id = dcl_org_contact.org_id";
-					break;
-				case 'dcl_org_addr':
-				case 'dcl_org_email':
-				case 'dcl_org_phone':
-				case 'dcl_org_url':
-					$join = "dcl_org.org_id = $table.org_id AND $table.preferred = 'Y'";
-					break;
-			}
-		}
-		elseif ($this->table == 'dcl_contact')
-		{
-			switch ($table)
-			{
-				case 'dcl_org':
-					$join = "dcl_org.org_id = dcl_org_contact.org_id";
-					break;
-				case 'dcl_org_contact':
-					$join = "dcl_contact.contact_id = dcl_org_contact.contact_id";
-					break;
-				case 'dcl_contact_license':
-					$join = "dcl_contact.contact_id = dcl_contact_license.contact_id";
-				    break;
-				case 'dcl_contact_addr':
-				case 'dcl_contact_email':
-				case 'dcl_contact_phone':
-				case 'dcl_contact_url':
-					$join = "dcl_contact.contact_id = $table.contact_id AND $table.preferred = 'Y'";
-					break;
-			}
-		}
-		elseif ($this->table == 'dcl_product_version')
-		{
-			switch ($table)
-			{
-				case 'dcl_product_build':
-					$join = 'dcl_product_version.product_version_id = dcl_product_build.product_version_id';
-					break;
-			}
-		}
-		elseif ($this->table == 'dcl_product_version_item')
-		{
-			switch ($table)
-			{
-				case 'workorders':
-					$join = 'dcl_product_version_item.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_version_item.entity_id = workorders.jcn AND dcl_product_version_item.entity_id2 = workorders.seq';
-					break;
-				case 'dcl_sccs_xref':
-				    $join = 'dcl_sccs_xref.dcl_entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_sccs_xref.dcl_entity_id = dcl_product_version_item.entity_id AND dcl_sccs_xref.dcl_entity_id2 = dcl_product_version_item.entity_id2';
-				    break;
-            }
-		}
-		elseif ($this->table == 'dcl_product_build')
-		{
-			switch ($table)
-			{
-				case 'dcl_product_version':
-					$join = 'dcl_product_build.product_version_id = dcl_product_version.product_version_id';
-					break;
-				case 'dcl_product_build_sccs':
-					$join = 'dcl_product_build.product_build_id = dcl_product_build_sccs.product_build_id';
-					break;
-				case 'dcl_sccs_xref':
-					$join = 'dcl_product_build_sccs.sccs_xref_id = dcl_sccs_xref.dcl_sccs_xref_id';
-					break;
-				case 'dcl_product_version_item':
-					$join = 'dcl_product_version.product_version_id = dcl_product_version_item.product_version_id';
-					break;
-				case 'workorders':
-					$join = 'dcl_product_version_item.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_version_item.entity_id = workorders.jcn AND dcl_product_version_item.entity_id2 = workorders.seq';
-					break;
-				case 'statuses':
-					$join = 'workorders.status = statuses.id';
-					break;
-			}
-		}
-		elseif ($this->table == 'dcl_product_build_item')
-		{
-			switch ($table)
-			{
-				case 'dcl_product_build':
-					$join = 'dcl_product_build.product_build_id = dcl_product_build_item.product_build_id';
-					break;
-			    case 'workorders':
-					$join = 'dcl_product_build_item.entity_type_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_product_build_item.entity_id = workorders.jcn AND dcl_product_build_item.entity_id2 = workorders.seq';
-					break;
-			    case 'statuses':
-					$join = 'workorders.status = statuses.id';
-					break;
-			}
-		    		}
-		elseif ($this->table == 'dcl_product_build_except')
-		{
-			switch ($table)
-			{
-				case 'workorders':
-					$join = 'dcl_product_build_except.entity_type_id = ' . DCL_ENTITY_WORKORDER;
-					$join .= ' AND dcl_product_build_except.entity_id = workorders.jcn AND dcl_product_build_except.entity_id2 = workorders.seq';
-					break;
-				case 'dcl_projects':
-					$join = 'dcl_product_build_except.entity_type_id = ' . DCL_ENTITY_PROJECT;
-					$join .= ' AND dcl_product_build_except.entity_id = dcl_projects.projectid';
-					break;
-				case 'priorities':
-					$join = 'workorders.priority=priorities.id';
-					break;
-				case 'severities':
-					$join = 'workorders.severity=severities.id';
-					break;
-				case 'personnel a':
-					$join = 'workorders.responsible=a.id';
-					break;
-				case 'personnel b':
-					$join = 'workorders.closedby=b.id';
-					break;
-				case 'personnel c':
-					$join = 'workorders.createby=c.id';
-					break;
-				case 'statuses':
-					$join = 'workorders.status=statuses.id';
-					break;
-			}
-
-		}
+			$join = $phpgw_baseline[$this->table]['joins'][$table];
+		}	
 
 		return $join;
 	}
@@ -868,14 +588,18 @@ class boView
 						case 'c':
 							$table = 'personnel c';
 							break;
-						case 'a':
+						case 'd':
 							$table = 'dcl_product_version d';
 							break;
-						case 'b':
+						case 'e':
 							$table = 'dcl_product_version e';
 							break;
-						case 'c':
+						case 'f':
 							$table = 'dcl_product_version f';
+							break;
+						case 'g':
+							$table = 'personnel g';
+							$iJoinType = 2;
 							break;
 						case 'responsible':
 							$table = 'personnel a';
@@ -901,12 +625,24 @@ class boView
 						case 'createby':
 							if ($bIsValues)
 							{
-								$arr[str_replace($table, 'b', $key)] = $arr[$key];
+								$arr[str_replace($table, 'c', $key)] = $arr[$key];
 								unset($arr[$key]);
 							}
 							else
 								$arr[$i] = str_replace($table, 'c', $arr[$i]);
 							$table = 'personnel c';
+							break;
+						case 'actionby':
+							if ($bIsValues)
+							{
+								$arr[str_replace($table, 'g', $key)] = $arr[$key];
+								unset($arr[$key]);
+							}
+							else
+								$arr[$i] = str_replace($table, 'g', $arr[$i]);
+							
+							$table = 'personnel g';
+							$iJoinType = 2;
 							break;
 						case 'reportto':
 							$table = 'personnel a';
@@ -973,6 +709,7 @@ class boView
 						case 'dcl_contact_phone':
 						case 'dcl_contact_url':
 						case 'dcl_contact_license':
+						case 'timecards':
 							$iJoinType = 2;
 							break;
 					}
@@ -1021,6 +758,8 @@ class boView
 								$this->joins['dcl_product_version'] = 1;
 								$this->joins['dcl_product_version_item'] = 1;
 							}
+							else if ($this->table == 'workorders' && $table == 'personnel g')
+								$this->joins['timecards'] = 2;
 
 							$this->joins[$table] = $iJoinType;
 						}
@@ -1091,7 +830,7 @@ class boView
 				// If we show account, but don't group by it, then we will want to display an icon to show
 				// the extra accounts.  This count will determine if we need to display the marker for more info
 				// and will be left out of the final rendering by htmlView
-				if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' && in_array('dcl_org.name', $this->columns) || in_array('accounts.name', $this->columns))
+				if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' && (in_array('dcl_org.name', $this->columns) || in_array('accounts.name', $this->columns)))
 				{
 					$sql .= ', (select count(*) from dcl_wo_account where wo_id = workorders.jcn And seq = workorders.seq) As _num_accounts_';
 				}
@@ -1122,7 +861,6 @@ class boView
 					$sql .= ', (select count(*) from dcl_entity_hotlist where entity_id = ' . DCL_ENTITY_TICKET . ' AND entity_key_id = tickets.ticketid) As _num_hotlist_';
 				}
 			}
-
 		}
 
 		$sql .= ' FROM ' . $this->table;
@@ -1614,7 +1352,7 @@ class boView
 					$sql .= ' ' . $this->logiclike . ' ';
 
 				$bFirst = false;
-				$sql .= sprintf('(%s like \'%s%%\')', $objWO->GetUpperSQL($field), strtoupper($values[0]));
+				$sql .= sprintf('(%s like %s)', $objWO->GetUpperSQL($field), $objWO->Quote(strtoupper($values[0]) . '%'));
 			}
 
 			$sql .= ')';
@@ -1830,11 +1568,11 @@ class boView
 		{
 			$sql .= ' ORDER BY ';
 			if (count($this->order) > 0 && count($this->groups) > 0)
-				$sql .= $this->GetCSLFromArray(array_merge($this->groups, $this->order), true);
+				$sql .= $this->GetCSLFromArray(array_merge($this->groups, $this->order), true, false, true);
 			else if (count($this->groups) > 0)
-				$sql .= $this->GetCSLFromArray($this->groups, true);
+				$sql .= $this->GetCSLFromArray($this->groups, true, false, true);
 			else
-				$sql .= $this->GetCSLFromArray($this->order, true);
+				$sql .= $this->GetCSLFromArray($this->order, true, false, true);
 		}
 
 		return $sql;

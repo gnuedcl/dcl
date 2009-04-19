@@ -41,4 +41,7 @@ $GLOBALS['phpgw_baseline']['products'] = array(
 	'ix' => array(),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['products']['joins'] = array(
+	'dcl_org_product_xref' => 'products.id = dcl_org_product_xref.product_id'
+);

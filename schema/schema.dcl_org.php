@@ -40,4 +40,11 @@ $GLOBALS['phpgw_baseline']['dcl_org'] = array(
 	),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['dcl_org']['joins'] = array(
+	'dcl_org_contact' => 'dcl_org.org_id = dcl_org_contact.org_id',
+	'dcl_org_addr' => "dcl_org.org_id = dcl_org_addr.org_id AND dcl_org_addr.preferred = 'Y'",
+	'dcl_org_email' => "dcl_org.org_id = dcl_org_email.org_id AND dcl_org_email.preferred = 'Y'",
+	'dcl_org_phone' => "dcl_org.org_id = dcl_org_phone.org_id AND dcl_org_phone.preferred = 'Y'",
+	'dcl_org_url' => "dcl_org.org_id = dcl_org_url.org_id AND dcl_org_url.preferred = 'Y'"
+);

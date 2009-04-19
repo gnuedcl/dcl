@@ -142,6 +142,16 @@ class dbTimeCards extends dclDB
 	{
 		return parent::Load(array('id' => $id));
 	}
+	
+	function LoadLast($jcn, $seq, $bIsPublic)
+	{
+		$id = $this->ExecuteScalar("select max(id) from timecards where jcn = $jcn and seq = $seq" . ($bIsPublic ? " and is_public = 'Y'" : ''));
+		
+		if ($id > 0)
+			return $this->Load($id);
+			
+		return -1;
+	}
 
 	function GetTimeCards($jcn, $seq, $bIsPublic = false)
 	{
