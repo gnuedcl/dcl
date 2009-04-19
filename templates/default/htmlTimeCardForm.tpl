@@ -120,6 +120,11 @@ function validateAndSubmitForm(form)
 		<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
 		<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 	</div>
+	<div>
+		<label for="hotlist">Hotlists:</label>
+		<input type="text" name="hotlist" id="hotlist" size="60" value="{$VAL_HOTLISTS|escape}">
+		<span>Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
+	</div>
 	{/if}
 	{if $VAL_PRODUCT && $VAL_ISVERSIONED}
 	<div>

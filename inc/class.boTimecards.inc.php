@@ -116,6 +116,13 @@ class boTimecards
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
 		}
 
+		// * Hotlists
+		if (isset($_REQUEST['hotlist']) && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY))
+		{
+			$oTag =& CreateObject('dcl.dbEntityHotlist');
+			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
+		}
+
 		// * Organizations - only if multiple are allowed to improve workflow
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY) && $dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y')
 		{
@@ -272,7 +279,9 @@ class boTimecards
 		{
     		$bProcessTags = (isset($_REQUEST['tags']) && trim($_REQUEST['tags']) != '' && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY));
         	$oTag =& CreateObject('dcl.dbEntityTag');
-    		foreach ($_REQUEST['selected'] as $key => $val)
+    		$bProcessHotlist = (isset($_REQUEST['hotlist']) && trim($_REQUEST['hotlist']) != '' && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY));
+        	$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+        	foreach ($_REQUEST['selected'] as $key => $val)
 			{
 				list($objTimecard->jcn, $objTimecard->seq) = explode('.', $val);
 				
@@ -287,14 +296,19 @@ class boTimecards
 				$status = $objWorkorder->status;
 				$objTimecard->Add($targeted_version_id, $fixed_version_id);
 				
-
     			// * Tags
     			if ($bProcessTags)
         		{
         			$oTag->serialize(DCL_ENTITY_WORKORDER, $objTimecard->jcn, $objTimecard->seq, $_REQUEST['tags'], true);
         		}
 				
-				$notify = '4';
+    			// * Hotlists
+    			if ($bProcessHotlist)
+        		{
+        			$oHotlist->serialize(DCL_ENTITY_WORKORDER, $objTimecard->jcn, $objTimecard->seq, $_REQUEST['hotlist'], true);
+        		}
+				
+        		$notify = '4';
 				if ($status != $objTimecard->status)
 				{
 					$notify .= ',3';

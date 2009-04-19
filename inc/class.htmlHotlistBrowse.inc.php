@@ -69,7 +69,15 @@ class htmlHotlistBrowse
 		
 		foreach ($this->oView->columnhdrs as $sColumn)
 		{
-			$oTable->addColumn($sColumn, 'string');
+			if ($sColumn == STR_CMMN_NAME)
+				$oTable->addColumn($sColumn, 'html');
+			else
+				$oTable->addColumn($sColumn, 'string');
+		}
+		
+		for ($i = 0; $i < count($allRecs); $i++)
+		{
+			$allRecs[$i][2] = '<a href="' . menuLink('', 'menuAction=htmlHotlists.browse&tag=' . $allRecs[$i][2]) . '">' . $allRecs[$i][2] . '</a>';
 		}
 		
 		$aOptions = array(STR_CMMN_NEW => array('menuAction' => 'htmlHotlistForm.add', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD)));
