@@ -306,7 +306,13 @@ class boTicketresolutions
 			$oMail->to = $aContact['email'];
 			$oMail->from = $dcl_info['DCL_CQQ_FROM'];
 			$oMail->subject = $dcl_info['DCL_CQQ_SUBJECT'];
-			$oMail->body = SmartyFetch($t, $dcl_info['DCL_CQQ_TEMPLATE'], 'custom');
+			
+			$sProductTemplate = DCL_ROOT . 'templates/custom/cqq_' . $oTicket->product . '.tpl';
+			if (file_exists($sProductTemplate))
+				$oMail->body = SmartyFetch($t, $sProductTemplate, 'custom');
+			else
+				$oMail->body = SmartyFetch($t, $dcl_info['DCL_CQQ_TEMPLATE'], 'custom');
+			
 			$oMail->Send();
 		}
 	}
