@@ -2115,9 +2115,9 @@ function dcl_upgrade0_9_4_4()
 		$phpgw_setup->oProc->Query("insert into dcl_phone_type (phone_type_name) values ('Data2')");
 		$phpgw_setup->oProc->Query("insert into dcl_org_phone (org_id, phone_type_id, phone_number, preferred, created_on, created_by) select id, 4, data2, 'N', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where data2 is not null and data2 != ''");
 		$phpgw_setup->oProc->Query("insert into dcl_addr_type (addr_type_name) values ('Default')");
-		$phpgw_setup->oProc->Query("insert into dcl_org_addr (org_id, addr_type_id, add1, add2, city, state, zip, preferred, created_by) select id, 1, add1, add2, city, state, zip, 'Y', 1 from accounts where (add1 is not null and add1 != '') or (add2 is not null and add2 != '') or (city is not null and city != '') or (state is not null and state != '') or (zip is not null and zip != '')");
+		$phpgw_setup->oProc->Query("insert into dcl_org_addr (org_id, addr_type_id, add1, add2, city, state, zip, preferred, created_on, created_by) select id, 1, add1, add2, city, state, zip, 'Y', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where (add1 is not null and add1 != '') or (add2 is not null and add2 != '') or (city is not null and city != '') or (state is not null and state != '') or (zip is not null and zip != '')");
 		$phpgw_setup->oProc->Query("insert into dcl_note_type (note_type_name) values ('Converted')");
-		$phpgw_setup->oProc->Query("insert into dcl_org_note (org_id, note_type_id, note_text, created_on, created_by) select id, 1, notes, " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where notes is not null and notes != ''");
+		$phpgw_setup->oProc->Query("insert into dcl_org_note (org_id, note_type_id, note_text, created_on, created_by) select id, 1, notes, " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 from accounts where notes is not null and notes not like ''");
 		$phpgw_setup->oProc->Query("INSERT INTO dcl_org_type_xref SELECT org_id, $iOrgTypeID FROM dcl_org");
 	}
 	
@@ -2258,7 +2258,7 @@ function dcl_upgrade0_9_4_4()
 			$sLastName = $phpgw_setup->oProc->m_odb->DBAddSlashes($oDB->f(0));
 			$sFirstName = $phpgw_setup->oProc->m_odb->DBAddSlashes($oDB->f(1));
 			$iCnvID = $oDB->f(2);
-			$phpgw_setup->oProc->Query("INSERT INTO dcl_contact (first_name, last_name, created_by) VALUES ('$sFirstName', '$sLastName', 1)");
+			$phpgw_setup->oProc->Query("INSERT INTO dcl_contact (first_name, last_name, created_on, created_by) VALUES ('$sFirstName', '$sLastName', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1)");
 			
 			$iID = $phpgw_setup->oProc->m_odb->GetLastInsertID('dcl_contact');
 			$sSQL = "UPDATE dcl_contact_cnv SET contact_id = $iID WHERE cnv_id = $iCnvID";
@@ -2329,9 +2329,9 @@ function dcl_upgrade0_9_4_4()
 		
 		// Add records for phone and email
 		set_time_limit(30);
-		$phpgw_setup->oProc->Query("INSERT INTO dcl_contact_phone (contact_id, phone_type_id, phone_number, preferred, created_by) SELECT DISTINCT contact_id, 1, contactphone, 'N', 1 FROM dcl_contact_cnv WHERE contactphone IS NOT NULL AND contactphone != '' AND contact_id IS NOT NULL");
+		$phpgw_setup->oProc->Query("INSERT INTO dcl_contact_phone (contact_id, phone_type_id, phone_number, preferred, created_on, created_by) SELECT DISTINCT contact_id, 1, contactphone, 'N', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 FROM dcl_contact_cnv WHERE contactphone IS NOT NULL AND contactphone != '' AND contact_id IS NOT NULL");
 		$phpgw_setup->oProc->Query("INSERT INTO dcl_email_type (email_type_name) VALUES ('Default')");
-		$phpgw_setup->oProc->Query("INSERT INTO dcl_contact_email (contact_id, email_type_id, email_addr, preferred, created_by) SELECT DISTINCT contact_id, 1, contactemail, 'N', 1 FROM dcl_contact_cnv WHERE contactemail IS NOT NULL AND contactemail != '' AND contact_id IS NOT NULL");
+		$phpgw_setup->oProc->Query("INSERT INTO dcl_contact_email (contact_id, email_type_id, email_addr, preferred, created_on, created_by) SELECT DISTINCT contact_id, 1, contactemail, 'N', " . $phpgw_setup->oProc->m_odb->GetDateSQL() . ", 1 FROM dcl_contact_cnv WHERE contactemail IS NOT NULL AND contactemail != '' AND contact_id IS NOT NULL");
 		
 		// Update preferred status for email
 		$i = 0;
