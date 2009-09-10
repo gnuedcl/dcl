@@ -61,8 +61,7 @@ class boProjects
 		
 		if (($iTplID = @DCL_Sanitize::ToInt($_REQUEST['template'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			$iTplID = 0;
 		}
 		
 		if ($dcl_info['DCL_PROJECT_XML_TEMPLATES'] == 'Y' && $iTplID != 0)

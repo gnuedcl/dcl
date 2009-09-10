@@ -28,6 +28,10 @@ class htmlMessageWarning extends htmlMessage
 	function htmlMessageWarning()
 	{
 		parent::htmlMessage();
+		
+		if (!defined('STR_CMMN_WARNING'))
+			define('STR_CMMN_WARNING', 'Warning');
+		
 		$this->sTitle = STR_CMMN_WARNING;
 		$this->sTemplate = 'htmlMessageWarning.tpl';
 	}

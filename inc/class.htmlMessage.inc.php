@@ -38,6 +38,10 @@ class htmlMessage
 	{
 		$this->t =& CreateSmarty();
 		$this->sTemplate = 'htmlMessageInfo.tpl';
+		
+		if (!defined('STR_CMMN_INFORMATION'))
+			define('STR_CMMN_INFORMATION', 'Information');
+		
 		$this->sTitle = STR_CMMN_INFORMATION;
 		$this->bIsFirst = !defined('__DCL_MESSAGE__');
 	}

@@ -26,7 +26,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-set_magic_quotes_runtime(0);
+@set_magic_quotes_runtime(0);
 
 class TextSanitizer
 {

@@ -83,7 +83,10 @@ define('DCL_COOKIE_METHOD', '{VAL_cookieMethod}');
  * Do NOT edit this section!!!  This sets up the environment for DCL.                          *
  ***********************************************************************************************/
 // Force magic_quotes_runtime to be off - DO NOT CHANGE OR YOUR DATA MAY GET EXTRA \'s IN IT!
-set_magic_quotes_runtime(0);
+@set_magic_quotes_runtime(0);
+
+if (function_exists('date_default_timezone_set'))
+	@date_default_timezone_set(@date_default_timezone_get());
 
 $reg = array();
 if (IsSet($_REQUEST['DCLINFO']) && !IsSet($_REQUEST['UID']))

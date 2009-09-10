@@ -55,7 +55,7 @@ class dclDB extends DCL_DB_Core
 		{
 			if (!defined('DCL_DB_CONN'))
 			{
-				$this->conn = pg_connect(sprintf('dbname=%s port=%s host=%s user=%s password=%s',
+				$this->conn = @pg_connect(sprintf('dbname=%s port=%s host=%s user=%s password=%s',
 							$dcl_domain_info[$dcl_domain]['dbName'],
 							$dcl_domain_info[$dcl_domain]['dbPort'],
 							$dcl_domain_info[$dcl_domain]['dbHost'],
@@ -77,7 +77,7 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = pg_connect(sprintf('dbname=template1 port=%s host=%s user=%s password=%s',
+		$conn = @pg_connect(sprintf('dbname=template1 port=%s host=%s user=%s password=%s',
 					$dcl_domain_info[$dcl_domain]['dbPort'],
 					$dcl_domain_info[$dcl_domain]['dbHost'],
 					$dcl_domain_info[$dcl_domain]['dbUser'],
@@ -93,7 +93,7 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = pg_connect(sprintf('dbname=%s port=%s host=%s user=%s password=%s',
+		$conn = @pg_connect(sprintf('dbname=%s port=%s host=%s user=%s password=%s',
 							$dcl_domain_info[$dcl_domain]['dbName'],
 							$dcl_domain_info[$dcl_domain]['dbPort'],
 							$dcl_domain_info[$dcl_domain]['dbHost'],
@@ -114,7 +114,7 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = pg_connect(sprintf('port=%s host=%s user=%s password=%s',
+		$conn = @pg_connect(sprintf('dbname=template1 port=%s host=%s user=%s password=%s',
 					$dcl_domain_info[$dcl_domain]['dbPort'],
 					$dcl_domain_info[$dcl_domain]['dbHost'],
 					$dcl_domain_info[$dcl_domain]['dbUser'],

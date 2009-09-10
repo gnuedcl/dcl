@@ -28,6 +28,10 @@ class htmlMessageError extends htmlMessage
 	function htmlMessageError()
 	{
 		parent::htmlMessage();
+		
+		if (!defined('STR_CMMN_ERROR'))
+			define('STR_CMMN_ERROR', 'Error');
+		
 		$this->sTitle = STR_CMMN_ERROR;
 		$this->sTemplate = 'htmlMessageError.tpl';
 	}

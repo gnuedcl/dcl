@@ -135,7 +135,7 @@ function menuLink($target = '', $params = '')
 		$target = DCL_WWW_ROOT . 'main.php';
 
 	if (substr($target, 0, strlen(DCL_WWW_ROOT)) == DCL_WWW_ROOT)
-		$sRet = substr($target, DCL_WWW_ROOT);
+		$sRet = substr($target, strlen(DCL_WWW_ROOT));
 	else
 		$sRet = $target;
 
