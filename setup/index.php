@@ -417,7 +417,7 @@ case 'updateTables':
 	include_once "../inc/functions.inc.php";
 	include_once 'tables_baseline.inc.php';
 
-	$test = array();
+	$UPGRADE_VERSIONS = array();
 	include_once 'tables_update.inc.php';
 	include_once 'class/setup.php';
 
@@ -484,24 +484,24 @@ case 'updateTables':
 
 		$content = '<div style="width: 50%; text-align: left; padding-left: 200px;">';
 		$result = true;
-		if ($dclVersion != $setup_info['dcl']['version'] && count($test) > 0)
+		if ($dclVersion != $setup_info['dcl']['version'] && count($UPGRADE_VERSIONS) > 0)
 		{
 			// Upgrade required
 			$setup_info['dcl']['currentver'] = $dclVersion;
-			$bDeltaOnly = ($test[0] != $setup_info['dcl']['currentver']);
+			$bDeltaOnly = ($UPGRADE_VERSIONS[0] != $setup_info['dcl']['currentver']);
 			$phpgw_setup->oProc->m_bDeltaOnly = $bDeltaOnly;
 			$content .= '<b>Upgrading DCL From Version ' . $dclVersion . '...</b><br/>';
-			for ($i = 0; $i < count($test); $i++)
+			for ($i = 0; $i < count($UPGRADE_VERSIONS); $i++)
 			{
 				// Once we have a match, it starts including database upgrade commands
-				if ($test[$i] == $dclVersion && $bDeltaOnly)
+				if ($UPGRADE_VERSIONS[$i] == $dclVersion && $bDeltaOnly)
 				{
 					$phpgw_setup->oProc->m_bDeltaOnly = false;
 					$bDeltaOnly = false;
 				}
 
-				$fName = 'dcl_upgrade' . str_replace('.', '_', $test[$i]);
-				$result = $result && ($test[$i] != $fName());
+				$fName = 'dcl_upgrade' . str_replace('.', '_', $UPGRADE_VERSIONS[$i]);
+				$result = $result && ($UPGRADE_VERSIONS[$i] != $fName());
 
 				if (!$bDeltaOnly)
 					$content .= _OKIMG . '&nbsp;Version ' . $setup_info['dcl']['currentver'] . ' Completed.<br/>';
