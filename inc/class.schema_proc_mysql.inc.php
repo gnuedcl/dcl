@@ -506,12 +506,12 @@
 			$sColumns = join($aColumns, ',');
 			$sSQL = "CREATE INDEX $sIndexName ON $sTableName ($sColumns)";
 			
-			return ($oProc->m_odb->Query($sSQL) != -1);
+			return ($oProc->m_odb->Query($sSQL) !== -1);
 		}
 
 		function DropIndex($oProc, $aTables, $sTableName, $sIndexName)
 		{
-			return ($oProc->m_odb->Query("DROP INDEX $sIndexName") != -1);
+			return ($oProc->m_odb->Query("DROP INDEX $sIndexName") !== -1);
 		}
 
 		function UpdateSequence($oProc, $sTableName, $sSeqField)
