@@ -35,7 +35,7 @@ $GLOBALS['phpgw_baseline']['dcl_hotlist'] = array(
 	),
 	'pk' => array('hotlist_id'),
 	'fk' => array(),
-	'ix' => array('ix_dcl_hotlist_desc' => array('hotlist_desc')),
+	'ix' => array('ix_dcl_hotlist_tag' => array('hotlist_tag')),
 	'uc' => array()
 );
 
