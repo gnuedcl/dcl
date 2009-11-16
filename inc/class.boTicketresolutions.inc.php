@@ -300,6 +300,7 @@ class boTicketresolutions
 			$t =& CreateSmarty();
 			$t->assign('VAL_TICKETID', $this->oDB->ticketid);
 			$t->assign('VAL_CLOSEDON', date('n/j/Y'));
+			$t->assign('contact', $aContact);
 
 			$oMail =& CreateObject('dcl.boSMTP');
 			$oMail->isHtml = true;
