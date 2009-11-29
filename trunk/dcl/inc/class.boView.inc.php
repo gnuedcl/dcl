@@ -545,8 +545,10 @@ class boView
 
 		$join = '';
 		
-		if (isset($phpgw_baseline[$this->table]) && 
-			isset($phpgw_baseline[$this->table]['joins']) && 
+		if (!isset($phpgw_baseline[$this->table]))
+			LoadSchema($this->table);
+		
+		if (isset($phpgw_baseline[$this->table]['joins']) && 
 			isset($phpgw_baseline[$this->table]['joins'][$table]))
 		{
 			$join = $phpgw_baseline[$this->table]['joins'][$table];
