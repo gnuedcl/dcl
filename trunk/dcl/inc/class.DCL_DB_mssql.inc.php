@@ -56,6 +56,8 @@ class dclDB extends DCL_DB_Core
 		{
 			if (!defined('DCL_DB_CONN'))
 			{
+				ini_set('mssql.textsize', '2147483647');
+				ini_set('mssql.textlimit', '2147483647');
 				$this->conn = mssql_connect($dcl_domain_info[$dcl_domain]['dbHost'],
 						$dcl_domain_info[$dcl_domain]['dbUser'],
 						$dcl_domain_info[$dcl_domain]['dbPassword']);
