@@ -1,12 +1,20 @@
 /* $Id$ */
 /* The basic elements */
-* {
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: #ffffff;
+}
+
+div#left ul
+{
 	margin: 0px;
 	padding: 0px;
 }
 
-body {
-	background-color: #ffffff;
+form
+{
+	margin: 0px;
 }
 
 td, 
@@ -329,6 +337,8 @@ table.dcl_results thead tr.toolbar ul,
 div.dcl_detail table.styled thead tr.toolbar ul, 
 div.dcl_detail table.styled tbody tr.group ul {
 	display: inline;
+	margin: 0px;
+	padding: 0px;
 }
 
 form.styled fieldset div.menu ul li, 

@@ -43,9 +43,9 @@ class dbEntityHotlist extends dclDB
 		$deleted_on = $this->GetDateSQL();
 
 		if ($entity_id == DCL_ENTITY_WORKORDER)
-			$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2");
+			$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by, sort = NULL WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2");
 		else
-			$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id");
+			$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by, sort = NULL WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id");
 	}
 	
 	function serialize($entity_id, $entity_key_id, $entity_key_id2, $sHotlists, $bAddOnly = false)
@@ -96,9 +96,9 @@ class dbEntityHotlist extends dclDB
 			$deleted_by = $GLOBALS['DCLID'];
 			$deleted_on = $this->GetDateSQL();
 			if ($entity_id == DCL_ENTITY_WORKORDER)
-				$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND hotlist_id NOT IN ($sHotlistID)");
+				$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by, sort = NULL WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND hotlist_id NOT IN ($sHotlistID)");
 			else
-				$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND hotlist_id NOT IN ($sHotlistID)");
+				$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by, sort = NULL WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND hotlist_id NOT IN ($sHotlistID)");
 		}
 			
 		// Add the new hotlists
@@ -107,15 +107,15 @@ class dbEntityHotlist extends dclDB
 			$created_by = $GLOBALS['DCLID'];
 			$created_on = $this->GetDateSQL();
 			if ($entity_id == DCL_ENTITY_WORKORDER)
-				$this->Execute("INSERT INTO dcl_entity_hotlist SELECT $entity_id, $entity_key_id, $entity_key_id2, hotlist_id, $created_on, $created_by, NULL, NULL FROM dcl_hotlist WHERE hotlist_id IN ($sHotlistID) AND hotlist_id NOT IN (SELECT hotlist_id FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2)");
+				$this->Execute("INSERT INTO dcl_entity_hotlist SELECT $entity_id, $entity_key_id, $entity_key_id2, hotlist_id, $created_on, $created_by, NULL, NULL, NULL FROM dcl_hotlist WHERE hotlist_id IN ($sHotlistID) AND hotlist_id NOT IN (SELECT hotlist_id FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2)");
 			else
-				$this->Execute("INSERT INTO dcl_entity_hotlist SELECT $entity_id, $entity_key_id, 0, hotlist_id, $created_on, $created_by, NULL, NULL FROM dcl_hotlist WHERE hotlist_id IN ($sHotlistID) AND hotlist_id NOT IN (SELECT hotlist_id FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id)");
+				$this->Execute("INSERT INTO dcl_entity_hotlist SELECT $entity_id, $entity_key_id, 0, hotlist_id, $created_on, $created_by, NULL, NULL, NULL FROM dcl_hotlist WHERE hotlist_id IN ($sHotlistID) AND hotlist_id NOT IN (SELECT hotlist_id FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id)");
 				
 			// Re-add items to list by removing deleted info and updating created info
 			if ($entity_id == DCL_ENTITY_WORKORDER)
-				$this->Execute("UPDATE dcl_entity_hotlist SET created_on = $created_on, created_by = $created_by, deleted_on = NULL, deleted_by = NULL WHERE deleted_on IS NOT NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND hotlist_id IN ($sHotlistID)");
+				$this->Execute("UPDATE dcl_entity_hotlist SET created_on = $created_on, created_by = $created_by, deleted_on = NULL, deleted_by = NULL, sort = NULL WHERE deleted_on IS NOT NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND hotlist_id IN ($sHotlistID)");
 			else
-				$this->Execute("UPDATE dcl_entity_hotlist SET created_on = $created_on, created_by = $created_by, deleted_on = NULL, deleted_by = NULL WHERE deleted_on IS NOT NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND hotlist_id IN ($sHotlistID)");
+				$this->Execute("UPDATE dcl_entity_hotlist SET created_on = $created_on, created_by = $created_by, deleted_on = NULL, deleted_by = NULL, sort = NULL WHERE deleted_on IS NOT NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND hotlist_id IN ($sHotlistID)");
 		}
 	}
 	
@@ -145,14 +145,30 @@ class dbEntityHotlist extends dclDB
 		return $sHotlists;
 	}
 	
+	function setPriority($hotlistId, $aEntities)
+	{
+		$count = 1;
+		foreach ($aEntities as $entity)
+		{
+			$entity_id = $entity[0];
+			$entity_key_id = $entity[1];
+			$entity_key_id2 = $entity[2];
+			
+			if ($entity_id == DCL_ENTITY_WORKORDER)
+				$this->Execute('UPDATE dcl_entity_hotlist SET sort = ' . $count++ . " WHERE hotlist_id = $hotlistId AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2");
+			else
+				$this->Execute('UPDATE dcl_entity_hotlist SET sort = ' . $count++ . " WHERE hotlist_id = $hotlistId AND entity_id = $entity_id AND entity_key_id = $entity_key_id");
+		}
+	}
+	
 	function listByTag($sHotlists)
 	{
-		global $g_oSec, $g_oSession;
+		global $g_oSec;
 		
 		if ($g_oSec->IsPublicUser())
 		{
 			PrintPermissionDenied();
-			return;
+			return -1;
 		}
 		
 		$oDB = CreateObject('dcl.dbHotlist');
@@ -160,18 +176,37 @@ class dbEntityHotlist extends dclDB
 		if ($sID == '-1')
 		{
 			trigger_error('No such hotlist.');
-			return;
+			return -1;
 		}
 		
-		$aHotlists = split(',', $sID);
+		return $this->listById($sID);
+	}
+	
+	function listById($sID)
+	{
+		global $g_oSec, $g_oSession;
+		
+		if ($g_oSec->IsPublicUser() || $sID == '-1')
+		{
+			PrintPermissionDenied();
+			return -1;
+		}
+		
+		$aHotlists = @DCL_Sanitize::ToIntArray($sID);
 		$iHotlistCount = count($aHotlists);
+		if ($iHotlistCount === 0)
+		{
+			return PrintPermissionDenied();
+		}
+		
+		$sID = join(',', $aHotlists);
 		$bMultiHotlist = ($iHotlistCount > 1);
 		
 		$sSQL = '';
 		$bDoneDidWhere = false;
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, statuses.name, personnel.short, timecards.summary FROM ';
+			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, statuses.name, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE deleted_on IS NULL AND entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
@@ -248,7 +283,7 @@ class dbEntityHotlist extends dclDB
 			if ($sSQL != '')
 				$sSQL .= ' UNION ALL ';
 				
-			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, NULL, NULL FROM ';
+			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE deleted_on IS NULL AND entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
@@ -314,10 +349,10 @@ class dbEntityHotlist extends dclDB
 		if ($sSQL == '')
 		{
 			PrintPermissionDenied();
-			return;
+			return -1;
 		}
 
-		return $this->Query($sSQL . ' ORDER BY 1, 2, 3');
+		return $this->Query($sSQL . ' ORDER BY dcl_entity_hotlist.sort, 1, 2, 3');
 	}
 }
 ?>

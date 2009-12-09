@@ -25,7 +25,7 @@
 $setup_info['dcl'] = array();
 $setup_info['dcl']['name']      = 'dcl';
 $setup_info['dcl']['title']     = 'Double Choco Latte';
-$setup_info['dcl']['version']   = '0.9.5RC11';
+$setup_info['dcl']['version']   = '0.9.5RC12';
 $setup_info['dcl']['enable']    = 1;
 $setup_info['dcl']['app_order'] = 1;
 

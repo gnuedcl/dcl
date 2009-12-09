@@ -97,7 +97,11 @@ class htmlHotlistBrowse
 			{
 				$options = '';
 				if ($g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
-					$options = '<a href="' . menuLink('', 'menuAction=htmlHotlistForm.modify&hotlist_id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
+				{
+					$options = '<a href="' . menuLink('', 'menuAction=htmlHotlists.prioritize&hotlist_id=' . $allRecs[$i][0]) . '">' . 'Prioritize' . '</a>';
+					$options .= '&nbsp;|&nbsp;';
+					$options .= '<a href="' . menuLink('', 'menuAction=htmlHotlistForm.modify&hotlist_id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
+				}
 
 				if ($g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE))
 				{

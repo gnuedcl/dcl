@@ -31,7 +31,8 @@ $GLOBALS['phpgw_baseline']['dcl_entity_hotlist'] = array(
 		'created_on' => array('type' => 'timestamp', 'nullable' => false),
 		'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'deleted_on' => array('type' => 'timestamp', 'nullable' => true),
-		'deleted_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
+		'deleted_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
+		'sort' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
 	),
 	'pk' => array('entity_id', 'entity_key_id', 'entity_key_id2', 'hotlist_id'),
 	'fk' => array(),

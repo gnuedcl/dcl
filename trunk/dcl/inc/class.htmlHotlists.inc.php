@@ -97,6 +97,7 @@ class htmlHotlists
 		$oTable->addColumn(STR_WO_STATUS, 'string');
 		$oTable->addColumn('Last Time Card By', 'string');
 		$oTable->addColumn('Last Time Card Summary', 'string');
+		$oTable->addColumn('Priority', 'numeric');
 		$oTable->addColumn('Hotlists', 'string');
 		
 		$oHotlistDB = CreateObject('dcl.dbEntityHotlist');
@@ -113,5 +114,64 @@ class htmlHotlists
 		$oTable->sTemplate = 'htmlTableHotlistBrowse.tpl';
 		$oTable->render();
 	}
+	
+	function prioritize()
+	{
+		global $g_oSec;
+		
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
+			return PrintPermissionDenied();
+			
+		$hotlistId = @DCL_Sanitize::ToInt($_REQUEST['hotlist_id']);
+		if ($hotlistId === null || $hotlistId < 1)
+			return PrintPermissionDenied();
+			
+		$dbHotlist = CreateObject('dcl.dbHotlist');
+		if ($dbHotlist->Load($hotlistId) === -1)
+			return PrintPermissionDenied();
+			
+		$db = CreateObject('dcl.dbEntityHotlist');
+		$rs = $db->listById($hotlistId);
+		if ($rs === -1)
+		{
+			ShowInfo('No items found in hot list.', __FILE__, __LINE__, null);
+			return -1;
+		}
+
+		$t = CreateSmarty();
+		$items = $db->FetchAllRows();
+		$t->assign_by_ref('items', $items);
+		$t->assign('VAL_HOTLIST_ID', $hotlistId);
+		$t->assign('VAL_HOTLIST_NAME', $dbHotlist->hotlist_tag);
+		SmartyDisplay($t, 'htmlHotlistPrioritize.tpl');
+	}
+	
+	function savePriority()
+	{
+		global $g_oSec;
+		
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
+			return PrintPermissionDenied();
+			
+		$hotlistId = @DCL_Sanitize::ToInt($_POST['hotlist_id']);
+		if ($hotlistId === null || $hotlistId < 1)
+			return PrintPermissionDenied();
+			
+		$dbHotlist = CreateObject('dcl.dbHotlist');
+		if ($dbHotlist->Load($hotlistId) === -1)
+			return PrintPermissionDenied();
+
+		$aEntities = array();
+		foreach ($_REQUEST['item_list'] as $entity)
+		{
+			$aEntity = @DCL_Sanitize::ToIntArray(split('_', $entity));
+			if (count($aEntity) === 3)
+				$aEntities[] = $aEntity;
+		}
+			
+		$db = CreateObject('dcl.dbEntityHotlist');
+		$db->setPriority($hotlistId, $aEntities);
+	}
 }
-?>
