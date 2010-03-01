@@ -23,94 +23,71 @@
  */
 
 include('inc/config.php');
-if (@is_dir('../phpgwapi') && @file_exists('../header.inc.php'))
+include(DCL_ROOT . 'inc/functions.inc.php');
+if (!isset($dcl_info))
 {
-	// In phpGroupWare, so redirect to kick start the session
-	global $cd;
-
-	if (!IsSet($cd) || $cd == 2)
-		header('Location: ' . DCL_WWW_ROOT . "main.php?menuAction=htmlMyDCL.show\n");
-
-	exit;
+	// If we had a session, some of the config would be in it
+	// and would have been removed above.
+	$oConfig = CreateObject('dcl.dbConfig');
+	$dcl_info = array();
+	$oConfig->Load();
 }
-else if (@is_dir('../../modules') && @file_exists('../../xoops.css'))
+
+function GetDomainCombo()
 {
-	// And this one is for starting a session in XOOPS
-	global $cd;
+	global $dcl_domain_info;
 
-	if (!IsSet($cd) || $cd == 2)
-		header('Location: ' . DCL_WWW_ROOT . "main.php?menuAction=htmlMyDCL.show\n");
+	if (count($dcl_domain_info) > 1)
+	{
+		$retVal = '<select name="DOMAIN">';
+		reset($dcl_domain_info);
+		while (list($key, $val) = each($dcl_domain_info))
+			$retVal .= '<option value="' . $key . '">' . $val['name'] . '</option>';
 
-	exit;
+		$retVal .= '</select>';
+	}
+	else
+		$retVal = '<input type="hidden" name="DOMAIN" value="default">' . $dcl_domain_info['default']['name'];
+
+	return $retVal;
 }
-else
+
+$t = CreateSmarty();
+
+if (IsSet($GLOBALS['cd']))
 {
-	include(DCL_ROOT . 'inc/functions.inc.php');
-	if (!isset($dcl_info))
+	switch ($GLOBALS['cd'])
 	{
-		// If we had a session, some of the config would be in it
-		// and would have been removed above.
-		$oConfig = CreateObject('dcl.dbConfig');
-		$dcl_info = array();
-		$oConfig->Load();
+		case 1:
+			$t->assign('VAL_ERROR', 'Invalid login or password');
+			break;
+		case 2:
+			$t->assign('VAL_ERROR', 'Could not verify session');
+			break;
+		case 3:
+			$t->assign('VAL_ERROR', 'Could not connect to database');
+			break;
+		case 4:
+			$t->assign('VAL_ERROR', 'Logout successful');
+			break;
+		default:
+			$t->assign('VAL_ERROR', 'Unknown error');
 	}
-
-	function GetDomainCombo()
-	{
-		global $dcl_domain_info;
-
-		if (count($dcl_domain_info) > 1)
-		{
-			$retVal = '<select name="DOMAIN">';
-			reset($dcl_domain_info);
-			while (list($key, $val) = each($dcl_domain_info))
-				$retVal .= '<option value="' . $key . '">' . $val['name'] . '</option>';
-
-			$retVal .= '</select>';
-		}
-		else
-			$retVal = '<input type="hidden" name="DOMAIN" value="default">' . $dcl_domain_info['default']['name'];
-
-		return $retVal;
-	}
-
-	$t = CreateSmarty();
-
-	if (IsSet($GLOBALS['cd']))
-	{
-		switch ($GLOBALS['cd'])
-		{
-			case 1:
-				$t->assign('VAL_ERROR', 'Invalid login or password');
-				break;
-			case 2:
-				$t->assign('VAL_ERROR', 'Could not verify session');
-				break;
-			case 3:
-				$t->assign('VAL_ERROR', 'Could not connect to database');
-				break;
-			case 4:
-				$t->assign('VAL_ERROR', 'Logout successful');
-				break;
-			default:
-				$t->assign('VAL_ERROR', 'Unknown error');
-		}
-	}
-
-	$t->assign('VAL_WELCOME', $dcl_info['DCL_LOGIN_MESSAGE']);
-	$t->assign('TXT_TITLE', $dcl_info['DCL_HTML_TITLE']);
-	$t->assign('TXT_VERSION', $dcl_info['DCL_VERSION']);
-	$t->assign('TXT_LOGIN', 'Please Login');
-	$t->assign('TXT_USER', 'User');
-	$t->assign('TXT_PASSWORD', 'Password');
-	$t->assign('TXT_DOMAIN', 'Domain');
-	$t->assign('BTN_LOGIN', 'Login');
-	$t->assign('BTN_CLEAR', 'Clear');
-	$t->assign('CMB_DOMAIN', GetDomainCombo());
-
-	if (IsSet($GLOBALS['refer_to']))
-		$t->assign('VAL_REFERTO', urldecode($GLOBALS['refer_to']));
-
-	SmartyDisplay($t, 'login.tpl');
 }
+
+$t->assign('VAL_WELCOME', $dcl_info['DCL_LOGIN_MESSAGE']);
+$t->assign('TXT_TITLE', $dcl_info['DCL_HTML_TITLE']);
+$t->assign('TXT_VERSION', $dcl_info['DCL_VERSION']);
+$t->assign('TXT_LOGIN', 'Please Login');
+$t->assign('TXT_USER', 'User');
+$t->assign('TXT_PASSWORD', 'Password');
+$t->assign('TXT_DOMAIN', 'Domain');
+$t->assign('BTN_LOGIN', 'Login');
+$t->assign('BTN_CLEAR', 'Clear');
+$t->assign('CMB_DOMAIN', GetDomainCombo());
+
+if (IsSet($GLOBALS['refer_to']))
+	$t->assign('VAL_REFERTO', urldecode($GLOBALS['refer_to']));
+
+SmartyDisplay($t, 'login.tpl');
 ?>

@@ -15,7 +15,7 @@
 ol { padding: 0px; }
 ol li { display: block;	float: left; width: 140px; margin-right: 8px; background-color: #efefef; border: solid #999999 1px; padding: 4px; cursor: move; }
 ol li h2 { float: left; text-decoration: none; border: 0px none; padding: 4px; color: #666666; }
-ol li h3 { text-decoration: none; border: 0px none; margin: 0px; padding: 2px; font-size: 100%; color: #3A81C1; }
+ol li h3 { text-decoration: none; border: 0px none; margin: 0px; padding: 2px; font-size: 100%; color: #3A81C1; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 ol li p { border: solid #cecece 1px; height: 60px; background-color: #ffffff; text-overflow: ellipsis; overflow: hidden; margin: 0px; padding: 2px; }
 {/literal}
 </style>

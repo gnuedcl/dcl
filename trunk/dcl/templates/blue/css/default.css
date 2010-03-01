@@ -254,7 +254,7 @@ table.inline {
 }
 
 table.dcl_results caption {
-	color: #ff7400;
+	/*color: #ff7400;*/
 	font-size: 125%;
 	margin-bottom: 2px;
 	/*border-bottom: solid #FF7400 2px;*/
@@ -264,7 +264,7 @@ table.dcl_results caption {
 
 table.dcl_results caption.spacer, 
 div.dcl_detail table.styled caption.spacer {
-	margin-top: 16px;
+	/*margin-top: 16px;*/
 }
 
 table.inline caption {
@@ -324,12 +324,12 @@ div.dcl_detail table.styled thead tr.toolbar th {
 
 table.dcl_results thead tr.toolbar th a, 
 div.dcl_detail table.styled thead tr.toolbar th a {
-	color: #000000;
+	color: #000065;
 }
 
 table.dcl_results thead tr.toolbar th a:hover, 
 div.dcl_detail table.styled thead tr.toolbar th a:hover {
-	color: #ff9900;
+	color: #650000;
 }
 
 form.styled fieldset div.menu ul, 
@@ -397,8 +397,8 @@ div.dcl_detail table.styled tbody td.options {
 
 /* filter control style */
 div.dcl_filter {
-	border: solid 1px #bfbd60;
-	background-color: #fffebf;
+	border: solid 1px #3a81c1;
+	background-color: #eeeef9;
 	padding: 4px;
 	text-align: center;
 }
@@ -485,12 +485,18 @@ div.dcl_detail table.styled {
 	right: auto;
 	/*border: solid 1px #3a81c1;*/
 	/*background-color: #eeeef9;*/
-	background-color: #efefef;
-	border: solid 1px #aeaeae;
+	background-color: #eeeef9;
+	border: solid 1px #3a81c1;
 }
 
+div.dcl_detail table.styled tr.styled-summary td table { width: 100%; border-collapse: collapse; }
+div.dcl_detail table.styled tr.styled-summary td table tbody tr td { width: 20%; vertical-align: top; border: solid #aeaeae 1px; }
+div.dcl_detail table.styled tr.styled-summary td table tbody tr td dl { margin: 0; }
+div.dcl_detail table.styled tr.styled-summary td table tbody tr td dt { padding: 0; margin: 0; color: #666666; }
+div.dcl_detail table.styled tr.styled-summary td table tbody tr td dd { padding: 0; font-size: 125%; margin: 0; font-weight: bold; }
+
 div.dcl_detail table.styled caption {
-	color: #ff7400;
+	/*color: #ff7400;*/
 	font-size: 125%;
 	margin-bottom: 2px;
 	/*border-bottom: solid #ff7400 2px;*/
@@ -526,7 +532,7 @@ div.dcl_detail table.styled th {
 	white-space: nowrap;
 	width: 15%;
 	vertical-align: top;
-	color: #3a81c1;
+	color: #666666;
 	/*border-bottom: dotted 1px #3a81c1;*/
 }
 
@@ -619,15 +625,15 @@ span.task_audit {
 /* A new form style */
 form.styled {
 	width: 550px;
-	/*border: solid 1px #000065;
+	border: solid 1px #000065;
+	background-color: #eeeef9;
+	/*border: solid 1px #3a81c1;
 	background-color: #eeeef9;*/
-	border: solid 1px #aeaeae;
-	background-color: #efefef;
 }
 
 form.styled fieldset {
 	/*border-top: solid 1px #3a81c1;*/
-	border-top: solid 1px #333333;
+	border-top: solid 1px #3a81c1;
 	border-left: none;
 	border-right: none;
 	border-bottom: none;
@@ -638,8 +644,8 @@ form.styled fieldset {
 
 form.styled fieldset legend {
 	font-size: 125%;
-	/*color: #000065;*/
-	color: #ff7400;
+	color: #3a81c1;
+	/*color: #ff7400;*/
 	padding: 0px 2px 0px 2px;
 }
 
@@ -674,7 +680,7 @@ form.styled fieldset div label {
 	text-align: right;
 	margin: 2px 2px 0px 0px;
 	/**/
-	color: #3a81c1;
+	color: #666666;
 }
 
 form.styled fieldset div.required label {
@@ -1184,7 +1190,7 @@ h1.wiki, h2.wiki, h3.wiki, h4.wiki, h5.wiki
 	margin-bottom:8pt;
 	width:99%;
 	border-bottom: solid #666666 1px;
-	color: #ff7400;
+	/*color: #ff7400;*/
 }
 
 h1.wiki

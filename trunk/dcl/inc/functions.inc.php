@@ -735,12 +735,12 @@ function ExportArray(&$aFieldNames, &$aData, $filename = 'dclexport.txt')
 {
 	// Silent function to export tab delimited file and force browser to
 	// force the user to save the file.
-	header('Content-Type: application/binary; name=dclexport.txt');
-	header('Content-Disposition: attachment; filename=dclexport.txt');
+	header('Content-Type: application/binary; name="' . $filename . '"');
+	header('Content-Disposition: attachment; filename="' . $filename . '"');
 
 	// Make object, run query, and (for now) blindly dump data.  The first
 	// record will contain column headings.  Any tabs within data will be replaced
-	// by spaces since our fields our tab delimited.
+	// by spaces since our fields are tab delimited.
 	$record = '';
 	if (count($aFieldNames) > 0)
 	{

@@ -1,14 +1,19 @@
 <!-- $Id$ -->
+<style type="text/css">{literal}
+tr.timecard dl { background-color: #eeeef9; border-top: solid 1px #000065; margin-bottom: 0; margin-top: 4px; }
+tr.timecard dl dd { color: #666666; margin: 2px 0px 0px 24px; }
+div.dcl_detail table.styled td.timecard-description { padding: 2px 24px 2px 24px; }
+{/literal}</style>
 <div class="dcl_detail">
 <table width="100%" class="styled">
 	<caption class="spacer">Time Cards</caption>
 	{if $PERM_ACTION}<thead>
-		<tr class="toolbar"><th colspan="4"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr class="toolbar"><th><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>{/if}
 	<tbody>
 {section name=tc loop=$VAL_TIMECARDS}
 {if $PERM_MODIFY_TC && !$VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
-	<tr><td colspan="4">
+	<tr><td>
 	<form class="styled" name="timeCardForm" id="timeCardForm" method="POST" action="{$URL_MAIN_PHP}">
 		<input type="hidden" name="menuAction" value="boTimecards.dbmodify">
 		<input type="hidden" name="actionby" value="{$VAL_TIMECARDS[tc].actionby_id}">
@@ -35,50 +40,35 @@
 	</form>
 	</td></tr>
 {else}
-		<tr class="group">
-			<th colspan="3">{$VAL_TIMECARDS[tc].actionon} ({$VAL_TIMECARDS[tc].actionby|escape}) {$VAL_TIMECARDS[tc].summary|escape}</th>
-			<td class="options">
-			{if $VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
-				<form method="post" action="{$URL_MAIN_PHP}">
-				<input type="hidden" name="menuAction" value="boTimecards.dbdelete">
-				<input type="hidden" name="id" VALUE="{$VAL_TIMECARDS[tc].id}">
-				<input type="submit" value="{$smarty.const.STR_CMMN_DELETE}">
-				<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_JCN}&seq={$VAL_SEQ}';">
-				</form>
-			{else}
-			{if $PERM_MODIFY_TC || $PERM_DELETE_TC}{strip}
-				<ul>
-				{if $PERM_MODIFY_TC}<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.modify&id={$VAL_TIMECARDS[tc].id}">{$smarty.const.STR_CMMN_EDIT}</a></li>{/if}
-				{if $PERM_DELETE_TC}<li{if !$PERM_MODIFY_TC} class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.delete&id={$VAL_TIMECARDS[tc].id}">{$smarty.const.STR_CMMN_DELETE}</a></li>{/if}
-				</ul>
-			{/strip}{/if}
-			{/if}
-			</td>
-		</tr>
-		<tr>
-			<th>{$smarty.const.STR_TC_STATUS}:</th>
-			<td class="highlight">{$VAL_TIMECARDS[tc].status|escape}</td>
-			<th>{$smarty.const.STR_TC_HOURS}:</th>
-			<td>{$VAL_TIMECARDS[tc].hours|escape}</td>
-		</tr>
-		<tr>
-			<th>{$smarty.const.STR_TC_ACTION}:</th>
-			<td>{$VAL_TIMECARDS[tc].action|escape}{if $VAL_TIMECARDS[tc].is_public != "Y"} (Private){/if}</td>
-		</tr>
-		{if !$IS_PUBLIC && ($VAL_TIMECARDS[tc].reassign_from_id || $VAL_TIMECARDS[tc].reassign_to_id)}
-		<tr>
-			<th>{$smarty.const.STR_CMMN_REASSIGN}:</th>
-			<td>{$VAL_TIMECARDS[tc].reassign_from_id|escape}</td>
-			<th>{$smarty.const.STR_CMMN_TO}:</th>
-			<td>{$VAL_TIMECARDS[tc].reassign_to_id|escape}</td>
-		</tr>
-		{/if}
-		{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}
-		<tr>
-			<th>{$smarty.const.STR_TC_DESCRIPTION}:</th>
-			<td colspan="3">{$VAL_TIMECARDS[tc].description|escape:"link"}</td>
-		</tr>
-		{/if}
+<tr class="timecard">
+	<td>
+		<dl>
+			<dt><strong>{$VAL_TIMECARDS[tc].actionby|escape}</strong> {$VAL_TIMECARDS[tc].summary|escape}</dt>
+			<dd><strong>{$VAL_TIMECARDS[tc].action|escape}</strong> @ <strong>{$VAL_TIMECARDS[tc].actionon}</strong> for <strong>{$VAL_TIMECARDS[tc].hours}</strong> Hours
+{if $VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
+		<form method="post" action="{$URL_MAIN_PHP}">
+		<input type="hidden" name="menuAction" value="boTimecards.dbdelete">
+		<input type="hidden" name="id" VALUE="{$VAL_TIMECARDS[tc].id}">
+		<input type="submit" value="{$smarty.const.STR_CMMN_DELETE}">
+		<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_JCN}&seq={$VAL_SEQ}';">
+		</form>
+{else}{if $PERM_MODIFY_TC || $PERM_DELETE_TC}
+	{if $PERM_MODIFY_TC}
+		<a href="{$URL_MAIN_PHP}?menuAction=boTimecards.modify&id={$VAL_TIMECARDS[tc].id}">{$smarty.const.STR_CMMN_EDIT}</a>
+		{if $PERM_DELETE}&nbsp;|&nbsp;{/if}
+	{/if}
+	{if $PERM_DELETE_TC}
+		<a href="{$URL_MAIN_PHP}?menuAction=boTimecards.delete&id={$VAL_TIMECARDS[tc].id}">{$smarty.const.STR_CMMN_DELETE}</a>
+	{/if}{/if}
+{/if}
+			</dd>
+{if !$IS_PUBLIC && ($VAL_TIMECARDS[tc].reassign_from_id || $VAL_TIMECARDS[tc].reassign_to_id)}
+		<dd>Reassign <strong>{$VAL_TIMECARDS[tc].reassign_from_id|escape}</strong> to <strong>{$VAL_TIMECARDS[tc].reassign_to_id|escape}</strong></dd>
+{/if}
+		</dl>
+	</td>
+	{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}</tr><tr><td class="timecard-description">{$VAL_TIMECARDS[tc].description|escape:"link"}</td>{/if}
+</tr>
 {/if}
 {sectionelse}
 {if !$PERM_ACTION}<tr><td>No Time Cards Found</td></tr>{/if}
