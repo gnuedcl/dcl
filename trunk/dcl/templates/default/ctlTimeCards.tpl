@@ -6,7 +6,7 @@ div.dcl_detail table.styled td.timecard-description { padding: 2px 24px 2px 24px
 {/literal}</style>
 <div class="dcl_detail">
 <table width="100%" class="styled">
-	<caption class="spacer">Time Cards</caption>
+	<caption class="spacer">{$VAL_TIMECARDS|@count} Time Cards</caption>
 	{if $PERM_ACTION}<thead>
 		<tr class="toolbar"><th><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>{/if}

@@ -1,6 +1,6 @@
 {strip}
 	<table width="100%" class="dcl_results">
-		<caption class="spacer">Attachments</caption>
+		<caption class="spacer">{$VAL_ATTACHMENTS|@count} Attachments</caption>
 		<thead>
 			{if $PERM_ATTACHFILE}<tr class="toolbar"><th colspan="{if $PERM_REMOVEFILE}4{else}3{/if}"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.upload&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
 			<tr><th>Attachment</th><th>Size</th><th>Date</th>{if $PERM_REMOVEFILE}<th>Options</th>{/if}</tr>
