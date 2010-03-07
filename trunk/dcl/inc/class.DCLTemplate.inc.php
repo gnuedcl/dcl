@@ -48,7 +48,7 @@ class DCLTemplate {
 		global $dcl_info;
 		
 		if ($root == '')
-			$root = DCL_ROOT . 'templates/' . $dcl_info['DCL_DEF_TEMPLATE_SET'];
+			$root = DCL_ROOT . 'templates/' . GetDefaultTemplateSet();
 
 		$this->set_root($root);
 		$this->set_unknowns($unknowns);
