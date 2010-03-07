@@ -1,8 +1,12 @@
 /* $Id$ */
 .horbar	{
-	color: black;
-	background-color: #dcdad5;
-	border: 2px outset #cecac1;
+	color: #ececec;
+	background-color: #efefef;
+	border-bottom: 1px solid #999999;
+	z-index: 100000;
+	background-image: url(../img/bg_menu.png);
+	background-repeat: repeat-x;
+	background-position: bottom;
 }
 
 .horbaritem	{
@@ -15,15 +19,16 @@
 .horbaritem a	{
 	display: block;
 	text-decoration: none;
-	border: 1px solid #dcdad5;
+	border: 1px solid transparent;
+	font-size: 12px;
 }
 
 .horbaritem a:link	{
-	color: #000000;
+	color: #ececec;
 }
 
 .horbaritem a:visited	{
-	color: #000000;
+	color: #ececec;
 }
 
 .horbaritem a:hover	{
@@ -47,6 +52,7 @@
 	left: 0;
 	top: 0;
 	visibility: hidden;
+	z-index: 100000;
 	filter: progid:DXImageTransform.Microsoft.Shadow(color="#777777", Direction=135, Strength=4)
 			alpha(Opacity=90);
 }

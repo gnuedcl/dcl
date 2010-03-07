@@ -3,7 +3,7 @@
  * $Id$
  *
  * Double Choco Latte - Source Configuration Management System
- * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
+ * Copyright (C) 1999-2004 Free Software Foundation
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,31 +24,47 @@
 
 function renderDCLMenu()
 {
-	global $dcl_info;
+	global $dcl_info, $g_oSec, $g_oSession;
 
-	if (!empty($_SERVER))
-		extract($_SERVER);
+	$sTemplateSet = GetDefaultTemplateSet();
+	
+	include(DCL_ROOT . 'templates/' . $sTemplateSet . '/navbar.php');
 
-	$t = CreateTemplate(array('hForm' => 'menu.tpl'));
+	$t =& CreateSmarty();
 
-	$t->set_var('DIR_IMAGES', 'templates/' . GetDefaultTemplateSet() . '/img');
-	$t->set_var('DIR_CSS', 'templates/' . GetDefaultTemplateSet() . '/css');
-	$t->set_var('DIR_JS', 'js');
-	$t->set_var('LNK_LOGOFF', menuLink('logout.php'));
-	$t->set_var('LNK_HOME', menuLink('', 'menuAction=htmlMyDCL.show'));
-	$t->set_var('LNK_PREFERENCES', menuLink('', 'menuAction=htmlPreferences.modify'));
-	$t->set_var('TXT_WORKORDERS', DCL_MENU_WORKORDERS);
-	$t->set_var('TXT_TICKETS', DCL_MENU_TICKETS);
-	$t->set_var('TXT_PROJECTS', DCL_MENU_PROJECTS);
-	$t->set_var('TXT_HOME', DCL_MENU_HOME);
-	$t->set_var('TXT_PREFERENCES', DCL_MENU_PREFERENCES);
-	$t->set_var('TXT_LOGOFF', DCL_MENU_LOGOFF);
+	$t->assign('DIR_IMAGES', 'templates/' . $sTemplateSet . '/img');
+	$t->assign('DIR_CSS', 'templates/' . $sTemplateSet . '/css');
+	$t->assign('DIR_JS', 'js');
+	$t->assign('LNK_LOGOFF', menuLink('logout.php'));
 
-	$aMenu = getMenuJS();
-	$t->set_var('JS_INIT_DCL_MENU', $aMenu[0]);
-	$t->set_var('VAL_DCL_MENU', $aMenu[1]);
+	if ($g_oSec->IsPublicUser())
+		$t->assign('LNK_HOME', menuLink('', 'menuAction=htmlPublicMyDCL.show'));
+	else
+		$t->assign('LNK_HOME', menuLink('', 'menuAction=htmlMyDCL.show'));
 
-	$t->pparse('out', 'hForm');
+	$t->assign('LNK_PREFERENCES', menuLink('', 'menuAction=htmlPreferences.modify'));
+	$t->assign('TXT_WORKORDERS', DCL_MENU_WORKORDERS);
+	$t->assign('TXT_TICKETS', DCL_MENU_TICKETS);
+	$t->assign('TXT_PROJECTS', DCL_MENU_PROJECTS);
+	$t->assign('TXT_HOME', DCL_MENU_HOME);
+	$t->assign('TXT_PREFERENCES', DCL_MENU_PREFERENCES);
+	$t->assign('TXT_LOGOFF', DCL_MENU_LOGOFF);
+	
+	$t->assign('PERM_WORKORDERSEARCH', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW));
+	$t->assign('PERM_TICKETSEARCH', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW));
+	$t->assign('PERM_PROJECTSEARCH', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW));
+	$t->assign('PERM_PREFS', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY));
+	$t->assign('PERM_WORKSPACE', $g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW));
+	$t->assign('VAL_WORKSPACE', $g_oSession->Value('workspace'));
+
+	$aMenu = &getMenuJS();
+	$t->assign('JS_INIT_DCL_MENU', $aMenu[0]);
+	$t->assign('VAL_DCL_MENU', $aMenu[1]);
+	
+	$oNav = new DCLNavBar;
+	$t->assign('NAV_BOXEN', $oNav->getHtml());
+
+	SmartyDisplay($t, 'menu.tpl');
 }
 
 import('LayersMenu');
@@ -78,7 +94,7 @@ function getMenuString()
 
 	foreach ($GLOBALS['DCL_MENU'] as $menuname => $themenu)
 	{
-		if (count($themenu) < 3)
+		if ($menuname == DCL_MENU_HOME || $menuname == DCL_MENU_LOGOFF)
 			continue;
 
 		$sSubMenu = '';
@@ -86,9 +102,25 @@ function getMenuString()
 		{
 			reset($item);
 			list($link, $bHasPerm) = $item;
-			if ($bHasPerm)
+			if (is_array($link))
 			{
-				$sSubMenu .= '..|' . $name . '|' . getMenuLink($link) . "\n";
+				if ($bHasPerm)
+				{
+					foreach ($link as $subName => $subItem)
+					{
+						reset($subItem);
+						list($subLink, $bHasPerm) = $subItem;
+						if ($bHasPerm)
+							$sSubMenu .= '...|' . $subName . '|' . getMenuLink($subLink) . "\n";
+					}
+				}
+			}
+			else 
+			{
+				if ($bHasPerm)
+				{
+					$sSubMenu .= '..|' . $name . '|' . getMenuLink($link) . "\n";
+				}
 			}
 		}
 

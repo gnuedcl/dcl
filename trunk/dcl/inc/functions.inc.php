@@ -389,6 +389,14 @@ function GetPluginDir()
 	return $dcl_info['DCL_FILE_PATH'] . '/plugins/';
 }
 
+function IsTemplateValid($sTemplate)
+{
+	if ($sTemplate == null || trim($sTemplate) == '')
+		return false;
+	
+	return file_exists(DCL_ROOT . 'templates/' . $sTemplate);
+}
+
 function GetDefaultTemplateSet()
 {
 	// Session must be initialized before calling this!
@@ -399,11 +407,14 @@ function GetDefaultTemplateSet()
 		$o = CreateObject('dcl.dbPreferences');
 		$o->preferences_data = $g_oSession->Value('dcl_preferences');
 
-		if ($o->Value('DCL_PREF_TEMPLATE_SET') != '')
+		if (IsTemplateValid($o->Value('DCL_PREF_TEMPLATE_SET')))
 			return $o->Value('DCL_PREF_TEMPLATE_SET');
 	}
 
-	return $dcl_info['DCL_DEF_TEMPLATE_SET'];
+	if (IsTemplateValid($dcl_info['DCL_DEF_TEMPLATE_SET']))
+		return $dcl_info['DCL_DEF_TEMPLATE_SET'];
+		
+	return 'default';
 }
 
 function CreateTemplate($arrTemplate)
