@@ -43,7 +43,7 @@ div.dcl_detail table.styled td.timecard-description { padding: 2px 24px 2px 24px
 <tr class="timecard">
 	<td>
 		<dl>
-			<dt><strong>{$VAL_TIMECARDS[tc].actionby|escape}</strong> {$VAL_TIMECARDS[tc].summary|escape}</dt>
+			<dt>{dcl_gravatar userId=$VAL_TIMECARDS[tc].actionby_id style="float:left;margin-right:2px;"}<strong>{$VAL_TIMECARDS[tc].actionby|escape}</strong> {$VAL_TIMECARDS[tc].summary|escape}</dt>
 			<dd><strong>{$VAL_TIMECARDS[tc].action|escape}</strong> @ <strong>{$VAL_TIMECARDS[tc].actionon}</strong> for <strong>{$VAL_TIMECARDS[tc].hours}</strong> Hours
 {if $VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
 		<form method="post" action="{$URL_MAIN_PHP}">

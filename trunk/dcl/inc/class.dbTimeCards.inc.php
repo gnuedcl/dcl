@@ -189,7 +189,9 @@ class dbTimeCards extends dclDB
 				$aRetVal[$i]['actionon'] = $this->FormatDateForDisplay($aRetVal[$i]['actionon']);
 				$aRetVal[$i]['actionby_id'] = $aRetVal[$i]['actionby'];
 				$aRetVal[$i]['actionby'] = $oMeta->GetPersonnel($aRetVal[$i]['actionby']);
+				$aRetVal[$i]['reassign_from_id_int'] = $aRetVal[$i]['reassign_from_id'];
 				$aRetVal[$i]['reassign_from_id'] = $oMeta->GetPersonnel($aRetVal[$i]['reassign_from_id']);
+				$aRetVal[$i]['reassign_to_id_int'] = $aRetVal[$i]['reassign_to_id'];
 				$aRetVal[$i]['reassign_to_id'] = $oMeta->GetPersonnel($aRetVal[$i]['reassign_to_id']);
 				$aRetVal[$i]['status_id'] = $aRetVal[$i]['status'];
 				$aRetVal[$i]['status'] = $oMeta->GetStatus($aRetVal[$i]['status']);

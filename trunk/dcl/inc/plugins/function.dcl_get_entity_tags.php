@@ -65,4 +65,5 @@ function smarty_function_dcl_get_entity_tags($params, &$smarty)
 			echo htmlspecialchars($sTag, ENT_QUOTES);
 	}
 }
+
 ?>

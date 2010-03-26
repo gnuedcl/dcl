@@ -76,6 +76,7 @@ class htmlWorkOrderDetail
 		$oSmarty->assign('VAL_TYPE', $oMeta->GetWorkOrderType($objWorkOrder->wo_type_id));
 		$oSmarty->assign('VAL_MODULE', $oMeta->GetModule($objWorkOrder->module_id));
 		$oSmarty->assign('VAL_SOURCE', $oMeta->GetSource($objWorkOrder->entity_source_id));
+		$oSmarty->assign('VAL_RESPONSIBLEID', $objWorkOrder->responsible);
 		$oSmarty->assign('VAL_RESPONSIBLE', $oMeta->GetPersonnel($objWorkOrder->responsible));
 		$oSmarty->assign('VAL_PRIORITY', $oMeta->GetPriority($objWorkOrder->priority));
 		$oSmarty->assign('VAL_SEVERITY', $oMeta->GetSeverity($objWorkOrder->severity));

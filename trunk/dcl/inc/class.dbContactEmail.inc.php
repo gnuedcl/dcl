@@ -57,7 +57,23 @@ class dbContactEmail extends dclDB
 		}
 		
 	    if ($this->Query("SELECT et.email_type_name, e.email_addr FROM dcl_contact_email e, dcl_email_type et WHERE e.email_type_id = et.email_type_id AND e.contact_id = $iContactID AND e.preferred = 'Y'") != -1)
-				{
+		{
+			return $this->next_record();
+		}
+
+		return false;
+	}
+	
+	function GetPrimaryEmailByUserID($iUserID)
+	{
+		if (($iUserID = DCL_Sanitize::ToInt($iUserID)) === null)
+		{
+			trigger_error('Data sanitize failed.');
+			return -1;
+		}
+		
+	    if ($this->Query("SELECT et.email_type_name, e.email_addr FROM dcl_contact_email e, dcl_email_type et, personnel p WHERE p.contact_id = e.contact_id AND e.email_type_id = et.email_type_id AND p.id = $iUserID AND e.preferred = 'Y'") != -1)
+		{
 			return $this->next_record();
 		}
 
