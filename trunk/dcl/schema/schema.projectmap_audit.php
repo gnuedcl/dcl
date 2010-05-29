@@ -31,7 +31,7 @@ $GLOBALS['phpgw_baseline']['projectmap_audit'] = array(
 		'audit_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'audit_type' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
 	),
-	'pk' => array('projectid', 'jcn', 'seq'),
+	'pk' => array('projectid', 'jcn', 'seq', 'audit_on'),
 	'fk' => array(),
 	'ix' => array(
 			'ix_projectmap_audit' => array('projectid', 'jcn', 'seq'),

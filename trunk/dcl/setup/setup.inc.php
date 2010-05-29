@@ -25,7 +25,7 @@
 $setup_info['dcl'] = array();
 $setup_info['dcl']['name']      = 'dcl';
 $setup_info['dcl']['title']     = 'Double Choco Latte';
-$setup_info['dcl']['version']   = '0.9.5RC12';
+$setup_info['dcl']['version']   = '0.9.5RC13';
 $setup_info['dcl']['enable']    = 1;
 $setup_info['dcl']['app_order'] = 1;
 
@@ -134,4 +134,3 @@ $setup_info['dcl']['tables'][] = 'views';
 $setup_info['dcl']['tables'][] = 'watches';
 $setup_info['dcl']['tables'][] = 'workorders';
 $setup_info['dcl']['tables'][] = 'workorders_audit';
-?>
