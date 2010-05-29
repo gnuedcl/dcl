@@ -1,0 +1,20 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="dcl" basedir="." default="deploy">
+    <property name="deploydir" value="/Library/WebServer/Documents/dcl" override="true" />
+
+    <fileset dir="." id="allfiles">
+        <include name="**" />
+    </fileset>
+
+    <target name="deploy" description="Deploy files to server location">
+        <copy todir="${deploydir}">
+            <fileset refid="allfiles" />
+        </copy>
+    </target>
+
+    <target name="redeploy" description="Completely refreshes the deployment directory">
+        <delete dir="${deploydir}" />
+        <phingcall target="main" />
+    </target>
+</project>
