@@ -69,7 +69,7 @@
 		{else}
 			{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}
 			{else}
-				{if $smarty.section.item.index == 8}{dcl_hotlist_link value=$records[row][item] selected=$VAL_SELECTEDTAGS browse=Y}
+				{if $smarty.section.item.index == 9}{dcl_hotlist_link value=$records[row][item] selected=$VAL_SELECTEDTAGS browse=Y}
 				{else}{$records[row][item]|escape}
 				{/if}
 			{/if}</td>

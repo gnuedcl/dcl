@@ -206,28 +206,30 @@ class dbEntityHotlist extends dclDB
 		$bDoneDidWhere = false;
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, statuses.name, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
+			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE deleted_on IS NULL AND entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
 				$sSQL .= 'JOIN workorders ON hotlist_matches.entity_key_id = workorders.jcn AND hotlist_matches.entity_key_id2 = workorders.seq ';
 				$sSQL .= 'JOIN statuses ON workorders.status = statuses.id ';
+				$sSQL .= 'JOIN personnel R ON workorders.responsible = R.id ';
 				$sSQL .= 'LEFT JOIN timecards ON workorders.jcn = timecards.jcn AND workorders.seq = timecards.seq AND timecards.id = (select max(id) from timecards where jcn = workorders.jcn AND seq = workorders.seq) ';
 				$sSQL .= 'LEFT JOIN personnel ON timecards.actionby = personnel.id ';
+				$sSQL .= "WHERE statuses.dcl_status_type != 2";
+				
+				$bDoneDidWhere = true;
 				
 				if ($g_oSec->IsPublicUser())
-				{
-					$sSQL .= " WHERE workorders.is_public = 'Y'";
-					$bDoneDidWhere = true;
-				}
+					$sSQL .= " AND workorders.is_public = 'Y'";
 			}
 			else
 			{
 				$sSQL .= 'dcl_entity_hotlist JOIN workorders ON dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_entity_hotlist.entity_key_id = workorders.jcn AND dcl_entity_hotlist.entity_key_id2 = workorders.seq ';
 				$sSQL .= 'JOIN statuses ON workorders.status = statuses.id ';
+				$sSQL .= 'JOIN personnel R ON workorders.responsible = R.id ';
 				$sSQL .= 'LEFT JOIN timecards ON workorders.jcn = timecards.jcn AND workorders.seq = timecards.seq AND timecards.id = (select max(id) from timecards where jcn = workorders.jcn AND seq = workorders.seq) ';
 				$sSQL .= 'LEFT JOIN personnel ON timecards.actionby = personnel.id ';
-				$sSQL .= "WHERE dcl_entity_hotlist.deleted_on IS NULL AND dcl_entity_hotlist.hotlist_id = $sID";
+				$sSQL .= "WHERE dcl_entity_hotlist.deleted_on IS NULL AND dcl_entity_hotlist.hotlist_id = $sID AND statuses.dcl_status_type != 2";
 				
 				$bDoneDidWhere = true;
 				
@@ -283,22 +285,27 @@ class dbEntityHotlist extends dclDB
 			if ($sSQL != '')
 				$sSQL .= ' UNION ALL ';
 				
-			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
+			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE deleted_on IS NULL AND entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
-				$sSQL .= 'JOIN tickets ON hotlist_matches.entity_key_id = tickets.ticketid';
+				$sSQL .= 'JOIN tickets ON hotlist_matches.entity_key_id = tickets.ticketid ';
+				$sSQL .= 'JOIN statuses ON tickets.status = statuses.id ';
+				$sSQL .= 'JOIN personnel R ON tickets.responsible = R.id ';
+				$sSQL .= "WHERE statuses.dcl_status_type != 2 ";
+				
+				$bDoneDidWhere = true;
 				
 				if ($g_oSec->IsPublicUser())
-				{
-					$bDoneDidWhere = true;
 					$sSQL .= " WHERE tickets.is_public = 'Y'";
-				}
 			}
 			else
 			{
 				$sSQL .= 'dcl_entity_hotlist JOIN tickets ON dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_TICKET . ' AND dcl_entity_hotlist.entity_key_id = tickets.ticketid ';
-				$sSQL .= "WHERE dcl_entity_hotlist.deleted_on IS NULL AND dcl_entity_hotlist.hotlist_id = $sID";
+				$sSQL .= 'JOIN statuses ON tickets.status = statuses.id ';
+				$sSQL .= 'JOIN personnel R ON tickets.responsible = R.id ';
+				$sSQL .= "WHERE dcl_entity_hotlist.deleted_on IS NULL AND dcl_entity_hotlist.hotlist_id = $sID AND statuses.dcl_status_type != 2 ";
+
 				$bDoneDidWhere = true;
 				
 				if ($g_oSec->IsPublicUser())
@@ -352,7 +359,7 @@ class dbEntityHotlist extends dclDB
 			return -1;
 		}
 
-		return $this->Query($sSQL . ' ORDER BY 8, 1, 2, 3');
+		return $this->Query($sSQL . ' ORDER BY 9, 1, 2, 3');
 	}
 }
 ?>

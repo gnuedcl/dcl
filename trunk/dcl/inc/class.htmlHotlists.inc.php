@@ -95,6 +95,7 @@ class htmlHotlists
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
 		$oTable->addColumn(STR_WO_STATUS, 'string');
+		$oTable->addColumn(STR_WO_RESPONSIBLE, 'string');
 		$oTable->addColumn('Last Time Card By', 'string');
 		$oTable->addColumn('Last Time Card Summary', 'string');
 		$oTable->addColumn('Priority', 'numeric');

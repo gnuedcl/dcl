@@ -254,7 +254,7 @@ table.inline {
 }
 
 table.dcl_results caption {
-	/*color: #ff7400;*/
+	color: #456d91;
 	font-size: 125%;
 	margin-bottom: 2px;
 	/*border-bottom: solid #FF7400 2px;*/
@@ -313,7 +313,7 @@ table.dcl_results tbody td.notes
 
 table.dcl_results thead tr.toolbar th, 
 div.dcl_detail table.styled thead tr.toolbar th {
-	background-color: #f5f5dc;
+	background-color: #eeeeff;
 }
 
 table.dcl_results thead tr.toolbar th, 
@@ -496,7 +496,7 @@ div.dcl_detail table.styled tr.styled-summary td table tbody tr td dt { padding:
 div.dcl_detail table.styled tr.styled-summary td table tbody tr td dd { padding: 0; font-size: 125%; margin: 0; font-weight: bold; }
 
 div.dcl_detail table.styled caption {
-	/*color: #ff7400;*/
+	color: #456d91;
 	font-size: 125%;
 	margin-bottom: 2px;
 	/*border-bottom: solid #ff7400 2px;*/
