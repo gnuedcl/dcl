@@ -211,6 +211,30 @@ function LoadSchema($sTableName)
 
 function Invoke($sClassMethod)
 {
+	global $dcl_info;
+	
+	if ($dcl_info['DCL_SEC_AUDIT_ENABLED']=='Y' && $dcl_info['DCL_SEC_AUDIT_LOGIN_ONLY'] == 'N')
+	{
+		$oSecAuditDB = CreateObject('dcl.dbSecAudit');
+		$paramArray = array('ticketid' => null, 'jcn' => null, 'seq' => null, 'begindate' => null, 'enddate' => null, 'project' => null, 'org_id' => null, 'contact_id' => null, 'id' => null);
+
+		$values = '';
+		foreach ($paramArray as $param => $value)
+		{
+			if (isset($_REQUEST[$param]))
+			{
+				if ($values != '')
+				{
+					$values .= ', ';
+				}
+
+				$values .= $param . '=>' . $_REQUEST[$param];
+			}
+		}
+
+		$oSecAuditDB->Add($menuAction, $values);
+	}
+
 	list($class, $method) = explode(".", $sClassMethod);
 	import($class);
 	if (!class_exists($class))
@@ -854,30 +878,6 @@ function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOptio
 	return $str;
 }
 
-function ExplodeParams()
-{
-	$paramArray = array('ticketid', 'jcn', 'seq', 'begindate', 'enddate', 'project', 'org_id',
-				'contact_id', 'id');
-	
-	$sOut = '';
-	$bfirst=true;
-	foreach ($paramArray as $lookfor)
-	{
-	
-		if (IsSet($_REQUEST[$lookfor]))
-		{
-			if (!$bfirst)
-				$sOut .= ', ';
-			else
-				$bfirst=false;
-			$sOut.=	$lookfor . '=>' . $_REQUEST[$lookfor];
-		}
-		
-	
-	}
-	return $sOut;
-}
-
 function PrintPermissionDenied()
 {
 	trigger_error(STR_CMMN_PERMISSIONDENIED, E_USER_ERROR);
@@ -949,4 +949,3 @@ function dcl_error_handler($errno, $errstr, $errfile, $errline)
 
 error_reporting(E_ALL);
 set_error_handler('dcl_error_handler');
-?>
