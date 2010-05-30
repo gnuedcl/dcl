@@ -559,7 +559,7 @@ function buildMenuArray()
 	$dcl_info['DCL_MODULE_SPECS_ENABLED'] = false;
 
 	$DCL_MENU = array();
-	$DCL_MENU[DCL_MENU_HOME] = array('htmlMyDCL.show', true);
+	//$DCL_MENU[DCL_MENU_HOME] = array('htmlMyDCL.show', true);
 
 	if ($dcl_info['DCL_MODULE_WO_ENABLED'])
 	{
@@ -692,7 +692,7 @@ function buildMenuArray()
 			DCL_MENU_VERSIONINFO => array('htmlVersion.DisplayVersionInfo', true)
 		);
 	
-	$DCL_MENU[DCL_MENU_LOGOFF] = array('logout.php', true);
+	//$DCL_MENU[DCL_MENU_LOGOFF] = array('logout.php', true);
 }
 
 function GetCharSet()

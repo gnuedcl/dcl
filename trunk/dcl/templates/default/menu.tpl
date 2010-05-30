@@ -1,16 +1,9 @@
 <!-- $Id$ -->
-<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/layersmenu-browser_detection.js"></script>
-<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/layersmenu-library.js"></script>
-<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/layersmenu.js"></script>
-{$JS_INIT_DCL_MENU}
-{if $PERM_WORKSPACE}<script language="JavaScript" type="text/javascript">
-function changeWorkspace()
-{literal}{{/literal}
-	var o = document.getElementById("workspace_id");
-	if (o)
-		location.href = "{$URL_MAIN_PHP}?menuAction=htmlWorkspaceForm.changeWorkspace&workspace_id=" + o.options[o.options.selectedIndex].value;
-{literal}}{/literal}
-</script>{/if}
+<link rel="stylesheet" type="text/css" href="{$DIR_JS}/superfish/css/superfish.css" media="screen">
+<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/jquery-1.4.2.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/jquery.bgiframe.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/superfish.js"></script>
+<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/supersubs.js"></script>
 <div id="header">
 	<div id="headerleft"><div id="apptitle">{dcl_config name='DCL_APP_NAME'|escape}</div></div>
 	<div id="headerright">
@@ -33,10 +26,37 @@ function changeWorkspace()
 			{/if}
 		</div>
 		<div id="quicknav">
-			<a href="{$LNK_HOME}">{$TXT_HOME}</a>&nbsp;|&nbsp;{if $PERM_PREFS}<a href="{$LNK_PREFERENCES}">{$TXT_PREFERENCES}</a>&nbsp;|&nbsp;{/if}{if $PERM_WORKSPACE}{dcl_select_workspace onchange="changeWorkspace();" default=$VAL_WORKSPACE}&nbsp;|&nbsp;{/if}<a href="{$LNK_LOGOFF}">{$TXT_LOGOFF}</a>
+			<a href="{$LNK_HOME}">{$TXT_HOME}</a>&nbsp;|&nbsp;{if $PERM_PREFS}<a href="{$LNK_PREFERENCES}">{$TXT_PREFERENCES}</a>&nbsp;|&nbsp;{/if}{if $PERM_WORKSPACE}{dcl_select_workspace default=$VAL_WORKSPACE}&nbsp;|&nbsp;{/if}<a href="{$LNK_LOGOFF}">{$TXT_LOGOFF}</a>
 		</div>
 	</div>
-</div>
-{$VAL_DCL_MENU}
+</div>{strip}
+<div style="height: 28px; background-color: #bdd2ff;"><ul class="sf-menu">
+{foreach from=$VAL_DCL_MENU key=menu item=menuItems}
+	<li><a href="javascript:;">{$menu|escape}</a><ul>
+	{foreach from=$menuItems key=label item=menuItem name=mainMenuItems}
+		{if $menuItem[1]}
+			{if is_array($menuItem[0])}
+			<ul>
+				{foreach from=$menuItem[0] key=subLabel item=subMenuItem}
+				<li><a href="{if substr($subMenuItem[0], 0, 7) != 'http://'}{$URL_MAIN_PHP}?menuAction={/if}{$subMenuItem[0]|escape}"{if substr($subMenuItem[0], 0, 7) == 'http://'} target="_blank"{/if}>{$subLabel}</a></li>
+				{/foreach}
+			</ul>
+			{else}{if !$smarty.foreach.mainMenuItems.first}</li>{/if}
+			<li><a href="{if substr($menuItem[0], 0, 7) != 'http://'}{$URL_MAIN_PHP}?menuAction={/if}{$menuItem[0]|escape}"{if substr($menuItem[0], 0, 7) == 'http://'} target="_blank"{/if}>{$label}</a>
+			{/if}
+		{/if}
+	{/foreach}
+	</ul></li>
+{/foreach}
+</ul></div>{/strip}
+<div style="clear: both;"></div>
+<script type="text/javascript">
+//<![CDATA[{literal}
+$(document).ready(function() {
+	$(".sf-menu").supersubs().superfish();
+{/literal}{if $PERM_WORKSPACE}{literal}$("#workspace_id").change(function() { location.href = "{/literal}{$URL_MAIN_PHP}{literal}?menuAction=htmlWorkspaceForm.changeWorkspace&workspace_id=" + $(this).val(); });{/literal}{/if}{literal}
+});
+{/literal}//]]>
+</script>
 <div id="left">{$NAV_BOXEN}</div>
 <div id="content"><div style="width:100%;">

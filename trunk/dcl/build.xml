@@ -1,7 +1,7 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
 <project name="dcl" basedir="." default="deploy">
-    <property name="deploydir" value="/Library/WebServer/Documents/dcl" override="true" />
+    <property name="deploydir" value="/Applications/MAMP/htdocs/dcl" override="true" />
 
     <fileset dir="." id="allfiles">
         <include name="**" />

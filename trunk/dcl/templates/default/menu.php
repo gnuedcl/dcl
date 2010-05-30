@@ -57,77 +57,10 @@ function renderDCLMenu()
 	$t->assign('PERM_WORKSPACE', $g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW));
 	$t->assign('VAL_WORKSPACE', $g_oSession->Value('workspace'));
 
-	$aMenu = &getMenuJS();
-	$t->assign('JS_INIT_DCL_MENU', $aMenu[0]);
-	$t->assign('VAL_DCL_MENU', $aMenu[1]);
+	$t->assign('VAL_DCL_MENU', $GLOBALS['DCL_MENU']);
 	
 	$oNav = new DCLNavBar;
 	$t->assign('NAV_BOXEN', $oNav->getHtml());
 
 	SmartyDisplay($t, 'menu.tpl');
 }
-
-import('LayersMenu');
-function getMenuJS()
-{
-	$mid = new LayersMenu(3, 8, 1, 1);
-	$mid->setMenuStructureString(getMenuString());
-	$mid->parseStructureForMenu('hormenu1');
-	$mid->newHorizontalMenu('hormenu1');
-
-	return array($mid->makeHeader(), $mid->getMenu('hormenu1') . "\n" . $mid->makeFooter());
-}
-
-function getMenuLink($link)
-{
-	if (!ereg('html$', $link) && !ereg('\.php$', $link))
-		return menuLink('', 'menuAction=' . $link);
-	elseif (substr($link, 0, 7) != 'http://')
-		return menuLink(DCL_WWW_ROOT . $link);
-
-	return $link;
-}
-
-function getMenuString()
-{
-	$sRetVal = '';
-
-	foreach ($GLOBALS['DCL_MENU'] as $menuname => $themenu)
-	{
-		if ($menuname == DCL_MENU_HOME || $menuname == DCL_MENU_LOGOFF)
-			continue;
-
-		$sSubMenu = '';
-		foreach ($themenu as $name => $item)
-		{
-			reset($item);
-			list($link, $bHasPerm) = $item;
-			if (is_array($link))
-			{
-				if ($bHasPerm)
-				{
-					foreach ($link as $subName => $subItem)
-					{
-						reset($subItem);
-						list($subLink, $bHasPerm) = $subItem;
-						if ($bHasPerm)
-							$sSubMenu .= '...|' . $subName . '|' . getMenuLink($subLink) . "\n";
-					}
-				}
-			}
-			else 
-			{
-				if ($bHasPerm)
-				{
-					$sSubMenu .= '..|' . $name . '|' . getMenuLink($link) . "\n";
-				}
-			}
-		}
-
-		if ($sSubMenu != '')
-			$sRetVal .= '.|' . $menuname . "\n" . $sSubMenu;
-	}
-
-	return $sRetVal;
-}
-?>
