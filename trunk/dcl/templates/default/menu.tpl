@@ -30,7 +30,7 @@
 		</div>
 	</div>
 </div>{strip}
-<div style="height: 28px; background-color: #bdd2ff;"><ul class="sf-menu">
+<div class="sf-menu-container"><ul class="sf-menu">
 {foreach from=$VAL_DCL_MENU key=menu item=menuItems}
 	<li><a href="javascript:;">{$menu|escape}</a><ul>
 	{foreach from=$menuItems key=label item=menuItem name=mainMenuItems}

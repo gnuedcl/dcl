@@ -12,6 +12,12 @@ div#left ul
 	padding: 0px;
 }
 
+div.sf-menu-container
+{
+	height: 28px;
+	background-color: #555555;
+}
+
 form
 {
 	margin: 0px;
