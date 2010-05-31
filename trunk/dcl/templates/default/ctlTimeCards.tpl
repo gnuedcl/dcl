@@ -1,20 +1,11 @@
 <!-- $Id$ -->
-<style type="text/css">{literal}
-table.timecard tbody td { background-color: #ffffff; border: solid 1px #666666; }
-table.timecard tbody blockquote { margin-left: 4px; border: none 0px; background-color: #ffffff; border-left: solid 4px #666666; }
-table.timecard tbody img { margin: 2px; border: solid 1px #cecece; }
-table.timecard tbody tr dl { margin-bottom: 0; margin-top: 4px; }
-table.timecard tbody tr dt { font-size: 14px; }
-table.timecard tbody tr dl dd { color: #666666; margin: 2px 0px 0px 24px; }
-table.timecard tbody tr td.timecard-description { padding: 2px 24px 2px 24px; }
-{/literal}</style>
 <div class="dcl_detail">
 <table width="100%" class="styled timecard">
 	<caption class="spacer">{$VAL_TIMECARDS|@count} Time Cards</caption>
 	{if $PERM_ACTION}<thead>
 		<tr class="toolbar"><th><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>{/if}
-	<tbody>
+	<tbody>{strip}
 {section name=tc loop=$VAL_TIMECARDS}
 {if $PERM_MODIFY_TC && !$VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
 	<tr><td>
@@ -77,6 +68,6 @@ table.timecard tbody tr td.timecard-description { padding: 2px 24px 2px 24px; }
 {sectionelse}
 {if !$PERM_ACTION}<tr><td>No Time Cards Found</td></tr>{/if}
 {/section}
-	</tbody>
+	{/strip}</tbody>
 </table>
 </div>
