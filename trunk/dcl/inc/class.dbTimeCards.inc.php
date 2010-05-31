@@ -163,11 +163,11 @@ class dbTimeCards extends dclDB
 		if ($g_oSec->IsPublicUser() || $bIsPublic)
 			$sPublicSQL = "AND is_public = 'Y'";
 
-		$sql = 'SELECT id, jcn, seq, ';
+		$sql = 'SELECT timecards.id, jcn, seq, ';
 		$sql .= $this->ConvertDate('actionon', 'actionon');
 		$sql .= ', ' . $this->ConvertTimestamp('inputon', 'inputon');
-		$sql .= ', actionby, status, action, hours, summary, description, reassign_from_id, reassign_to_id, is_public';
-		$sql .= " FROM timecards WHERE jcn=$jcn and seq=$seq $sPublicSQL ORDER BY id " . $dcl_info['DCL_TIME_CARD_ORDER'];
+		$sql .= ', actionby, status, action, hours, summary, description, reassign_from_id, reassign_to_id, is_public, s.dcl_status_type';
+		$sql .= " FROM timecards, statuses s WHERE jcn=$jcn and seq=$seq and status = s.id $sPublicSQL ORDER BY id " . $dcl_info['DCL_TIME_CARD_ORDER'];
 		if (!$this->Query($sql))
 			return -1;
 

@@ -48,8 +48,8 @@ table.timecard tbody tr td.timecard-description { padding: 2px 24px 2px 24px; }
 <tr>
 	<td>
 		<dl>
-			<dt>{dcl_gravatar userId=$VAL_TIMECARDS[tc].actionby_id style="float:left;margin-right:2px;"}<strong>{$VAL_TIMECARDS[tc].actionby|escape}</strong> {$VAL_TIMECARDS[tc].summary|escape}</dt>
-			<dd><strong>{$VAL_TIMECARDS[tc].action|escape}</strong> @ <strong>{$VAL_TIMECARDS[tc].actionon}</strong> for <strong>{$VAL_TIMECARDS[tc].hours}</strong> Hours
+			<dt>{dcl_gravatar userId=$VAL_TIMECARDS[tc].actionby_id style="float:left;margin-right:2px;"}<strong>{$VAL_TIMECARDS[tc].actionby|escape}</strong> <span class="status-type-{$VAL_TIMECARDS[tc].dcl_status_type}">{$VAL_TIMECARDS[tc].status|escape}</span> {$VAL_TIMECARDS[tc].summary|escape}</dt>
+			<dd><strong>{$VAL_TIMECARDS[tc].action|escape}</strong> on <strong>{$VAL_TIMECARDS[tc].actionon}</strong> for <strong>{$VAL_TIMECARDS[tc].hours}</strong> Hours
 {if $VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
 		<form method="post" action="{$URL_MAIN_PHP}">
 		<input type="hidden" name="menuAction" value="boTimecards.dbdelete">

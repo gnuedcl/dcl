@@ -54,7 +54,7 @@ function submitAction(sFormName, sAction)
 					<table>
 						<tbody>
 							<tr>
-								<td><dl><dt>{$smarty.const.STR_WO_STATUS}</dt><dd>{$VAL_STATUS|escape}</dd><dt>({$VAL_STATUSON|escape})</dt></dl></td>
+								<td><dl><dt>{$smarty.const.STR_WO_STATUS}</dt><dd class="status-type-{$VAL_STATUS_TYPE}">{$VAL_STATUS|escape}</dd><dt>({$VAL_STATUSON|escape})</dt></dl></td>
 								<td>{dcl_gravatar userId=$VAL_RESPONSIBLEID style="float:left;margin-right:2px;"}<dl><dt>{$smarty.const.STR_WO_RESPONSIBLE}</dt><dd>{$VAL_RESPONSIBLE|escape}</dd><dt>{if $VAL_TOTALHOURS != ""}{$VAL_TOTALHOURS|escape}{else}0{/if} Hours ({$VAL_ETCHOURS|escape} Remaining)</dt></dl></td>
 								<td><dl><dt>{$smarty.const.STR_WO_PRODUCT}</dt><dd>{$VAL_PRODUCT|escape}</dd><dt>{if $VAL_MODULE != ""}({$VAL_MODULE|escape}){/if}</dt></dl></td>
 								<td><dl><dt>{$smarty.const.STR_WO_PRIORITY}</dt><dd>{$VAL_PRIORITY|escape}</dd><dt>{$VAL_SEVERITY|escape}</dt></dl></td>

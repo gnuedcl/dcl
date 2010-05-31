@@ -109,6 +109,29 @@ h5 { font-size: 100%; }
 
 h6 { font-size: 80%;  }
 
+.status-type-1
+{
+	color: #990000;
+	border-bottom: dotted 1px #990000;
+}
+
+.status-type-2
+{
+	color: #009900;
+	border-bottom: dotted 1px #009900;
+}
+
+.status-type-3
+{
+	color: #ff7400;
+	border-bottom: dotted 1px #ff7400;
+}
+
+dd.status-type-1, dd.status-type-2, dd.status-type-3
+{
+	border-bottom: none 0px;
+}
+
 /* The page layout */
 #header {
 	background-color: #ffffff;
@@ -267,10 +290,9 @@ table.inline {
 }
 
 table.dcl_results caption {
-	color: #456d91;
+	color: #333333;
 	font-size: 125%;
 	margin-bottom: 2px;
-	/*border-bottom: solid #FF7400 2px;*/
 	text-align: left;
 	white-space: nowrap;
 }
@@ -509,10 +531,9 @@ div.dcl_detail table.styled tr.styled-summary td table tbody tr td dt { padding:
 div.dcl_detail table.styled tr.styled-summary td table tbody tr td dd { padding: 0; font-size: 125%; margin: 0; font-weight: bold; }
 
 div.dcl_detail table.styled caption {
-	color: #456d91;
+	color: #333333;
 	font-size: 125%;
 	margin-bottom: 2px;
-	/*border-bottom: solid #ff7400 2px;*/
 	text-align: left;
 }
 
