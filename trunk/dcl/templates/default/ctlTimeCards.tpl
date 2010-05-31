@@ -1,9 +1,8 @@
 <!-- $Id$ -->
 <style type="text/css">{literal}
-table.timecard tbody td { background-color: #ffffff; }
+table.timecard tbody td { background-color: #ffffff; border: solid 1px #666666; }
 table.timecard tbody blockquote { margin-left: 4px; border: none 0px; background-color: #ffffff; border-left: solid 4px #666666; }
 table.timecard tbody img { margin: 2px; border: solid 1px #cecece; }
-table.timecard tbody tr+tr { margin-top: 6px; }
 table.timecard tbody tr dl { margin-bottom: 0; margin-top: 4px; }
 table.timecard tbody tr dt { font-size: 14px; }
 table.timecard tbody tr dl dd { color: #666666; margin: 2px 0px 0px 24px; }
