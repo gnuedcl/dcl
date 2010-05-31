@@ -208,4 +208,3 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			Refresh('logout.php?cd=1');
 	}
 }
-?>

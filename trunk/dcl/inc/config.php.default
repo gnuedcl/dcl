@@ -101,4 +101,3 @@ elseif (IsSet($_REQUEST['UID']) && IsSet($_REQUEST['DOMAIN']))
 
 include_once(sprintf('%sinc/class.DCL_DB_%s.inc.php', DCL_ROOT, $dcl_domain_info[$dcl_domain]['dbType']));
 include_once(sprintf('%sinc/class.DCL_Sanitize.inc.php', DCL_ROOT));
-?>
