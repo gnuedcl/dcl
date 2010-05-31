@@ -1,11 +1,16 @@
 <!-- $Id$ -->
 <style type="text/css">{literal}
-tr.timecard dl { background-color: #eeeef9; border-top: solid 1px #000065; margin-bottom: 0; margin-top: 4px; }
-tr.timecard dl dd { color: #666666; margin: 2px 0px 0px 24px; }
-div.dcl_detail table.styled td.timecard-description { padding: 2px 24px 2px 24px; }
+table.timecard tbody td { background-color: #ffffff; }
+table.timecard tbody blockquote { margin-left: 4px; border: none 0px; background-color: #ffffff; border-left: solid 4px #666666; }
+table.timecard tbody img { margin: 2px; border: solid 1px #cecece; }
+table.timecard tbody tr+tr { margin-top: 6px; }
+table.timecard tbody tr dl { margin-bottom: 0; margin-top: 4px; }
+table.timecard tbody tr dt { font-size: 14px; }
+table.timecard tbody tr dl dd { color: #666666; margin: 2px 0px 0px 24px; }
+table.timecard tbody tr td.timecard-description { padding: 2px 24px 2px 24px; }
 {/literal}</style>
 <div class="dcl_detail">
-<table width="100%" class="styled">
+<table width="100%" class="styled timecard">
 	<caption class="spacer">{$VAL_TIMECARDS|@count} Time Cards</caption>
 	{if $PERM_ACTION}<thead>
 		<tr class="toolbar"><th><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
@@ -40,7 +45,7 @@ div.dcl_detail table.styled td.timecard-description { padding: 2px 24px 2px 24px
 	</form>
 	</td></tr>
 {else}
-<tr class="timecard">
+<tr>
 	<td>
 		<dl>
 			<dt>{dcl_gravatar userId=$VAL_TIMECARDS[tc].actionby_id style="float:left;margin-right:2px;"}<strong>{$VAL_TIMECARDS[tc].actionby|escape}</strong> {$VAL_TIMECARDS[tc].summary|escape}</dt>
@@ -66,8 +71,8 @@ div.dcl_detail table.styled td.timecard-description { padding: 2px 24px 2px 24px
 		<dd>Reassign <strong>{$VAL_TIMECARDS[tc].reassign_from_id|escape}</strong> to <strong>{$VAL_TIMECARDS[tc].reassign_to_id|escape}</strong></dd>
 {/if}
 		</dl>
+		{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}<blockquote>{$VAL_TIMECARDS[tc].description|escape:"link"}</blockquote>{/if}
 	</td>
-	{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}</tr><tr><td class="timecard-description">{$VAL_TIMECARDS[tc].description|escape:"link"}</td>{/if}
 </tr>
 {/if}
 {sectionelse}

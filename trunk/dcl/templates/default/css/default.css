@@ -160,18 +160,17 @@ h6 { font-size: 80%;  }
 }
 
 #left {
-	padding-top: 8px;
-	padding-bottom: 15px;
+	padding: 10px;
 	left: 0px;
-	width: 125px;
-	/*background-color: #eeeef9;
-	border: solid #3a81c1 1px;*/
+	width: 150px;
+	background: #F7F6F0;
+	border: 1px solid #D3D1C7;
 	position: absolute;
 	z-index: 0;
 }
 
 #content {
-	margin-left: 130px;
+	margin-left: 178px;
 	padding-top: 1px;
 }
 
@@ -189,26 +188,34 @@ div.listmenu {
 #left ul, 
 div.listmenu ul
 {
-	margin-bottom: 10px;
+	margin: 0px 0px 10px 4px;
 	list-style-type: none;
+}
+
+#left>ul+ul {
+	margin-top: 10px;
 }
 
 #left ul li h3, 
 div.listmenu ul li h3 {
-	color: #3a81c1;
-	border-bottom: solid #3a81c1 1px;
 	font-size: 100%;
 	font-weight: bold;
-	padding-top: 0px;
-	padding-bottom: 0px;
-	padding-left: 5px;
+	color: #333333;
+	padding: 6px 10px;
+	background: url(../img/feed-title-white.jpg) repeat-x top #efefef;
+	border: 1px solid #cccccc;
+	margin: 0px;
 }
 
 #left ul li ul, 
 div.listmenu ul li ul {
 	margin-top: 0px;
+	padding: 15px;
 	list-style-type: square;
-	padding-left: 12px;
+	border-left: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+	background-color: #ffffff;
 }
 
 #left ul li ul li, 
@@ -219,7 +226,7 @@ div.listmenu ul li ul li {
 
 #left ul li ul li a, 
 div.listmenu ul li ul li a {
-	color: #000065;
+	color: #333333;
 	display: block;
 	width: 100%;
 	font-weight: normal;
