@@ -188,8 +188,7 @@ dd.status-type-1, dd.status-type-2, dd.status-type-3
 	width: 150px;
 	background: #F7F6F0;
 	border: 1px solid #D3D1C7;
-	position: absolute;
-	z-index: 0;
+	float: left;
 }
 
 #content {
