@@ -22,25 +22,23 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$GLOBALS['phpgw_baseline']['dcl_hotlist'] = array(
+$GLOBALS['phpgw_baseline']['dcl_entity_hotlist_audit'] = array(
 	'fd' => array(
-		'hotlist_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
-		'hotlist_tag' => array('type' => 'varchar', 'precision' => 20, 'nullable' => false),
-		'hotlist_desc' => array('type' => 'text', 'nullable' => false),
-		'active' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'),
-		'created_on' => array('type' => 'timestamp', 'nullable' => false),
-		'created_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'closed_on' => array('type' => 'timestamp', 'nullable' => true),
-		'closed_by' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
+		'entity_hotlist_audit_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
+		'entity_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'entity_key_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'entity_key_id2' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'hotlist_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'sort' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
+		'audit_on' => array('type' => 'timestamp', 'nullable' => false),
+		'audit_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'audit_type' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
 	),
-	'pk' => array('hotlist_id'),
+	'pk' => array('entity_hotlist_audit_id'),
 	'fk' => array(),
-	'ix' => array('ix_dcl_hotlist_tag' => array('hotlist_tag')),
+	'ix' => array(
+		'ix_dcl_entity_hotlist_audit_entity' => array('entity_id', 'entity_key_id', 'entity_key_id2'),
+		'ix_dcl_entity_hotlist_audit_hotlist' => array('hotlist_id')
+	),
 	'uc' => array()
-);
-
-$GLOBALS['phpgw_baseline']['dcl_hotlist']['aggregates'] = array(
-	'count(*)' => array(
-		'dcl_entity_hotlist' => 'select count(*) from dcl_entity_hotlist where hotlist_id = dcl_hotlist.hotlist_id'
-	)
 );

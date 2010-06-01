@@ -110,6 +110,15 @@ class htmlHotlists
 
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+
+		if (!isset($_REQUEST['includeClosed']) || $_REQUEST['includeClosed'] == 'Y')
+		{
+			$oTable->assign('VAL_INCLUDECLOSED', 'Y');
+		}
+		else
+		{
+			$oTable->assign('VAL_INCLUDECLOSED', 'N');
+		}
 		
 		$oTable->assign('VAL_SELECTEDTAGS', $_REQUEST['tag']);
 		$oTable->sTemplate = 'htmlTableHotlistBrowse.tpl';

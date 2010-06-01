@@ -48,6 +48,7 @@
 		<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_JCN}&seq={$VAL_SEQ}';">
 		</form>
 {else}{if $PERM_MODIFY_TC || $PERM_DELETE_TC}
+	&nbsp;|&nbsp;
 	{if $PERM_MODIFY_TC}
 		<a href="{$URL_MAIN_PHP}?menuAction=boTimecards.modify&id={$VAL_TIMECARDS[tc].id}">{$smarty.const.STR_CMMN_EDIT}</a>
 		{if $PERM_DELETE}&nbsp;|&nbsp;{/if}

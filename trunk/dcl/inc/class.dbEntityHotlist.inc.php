@@ -34,7 +34,7 @@ class dbEntityHotlist extends dclDB
 		parent::Clear();
 	}
 	
-	function deleteByEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	function deleteByEntity($entity_id, $entity_key_id, $entity_key_id2 = 0, $except_hotlist_id = '-1')
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -42,17 +42,19 @@ class dbEntityHotlist extends dclDB
 		$deleted_by = $GLOBALS['DCLID'];
 		$deleted_on = $this->GetDateSQL();
 
-		if ($entity_id == DCL_ENTITY_WORKORDER)
-			$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by, sort = NULL WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2");
-		else
-			$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by, sort = NULL WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id");
+		$this->Execute("INSERT INTO dcl_entity_hotlist_audit (entity_id, entity_key_id, entity_key_id2, hotlist_id, sort, audit_by, audit_on, audit_type)
+						SELECT $entity_id, $entity_key_id, $entity_key_id2, hotlist_id, sort, $deleted_by, $deleted_on, 2
+						FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2
+						AND hotlist_id NOT IN ($except_hotlist_id)");
+
+		$this->Execute("DELETE FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND hotlist_id NOT IN ($except_hotlist_id)");
 	}
 	
 	function serialize($entity_id, $entity_key_id, $entity_key_id2, $sHotlists, $bAddOnly = false)
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
-		$entity_key_id2 = (int)$entity_key_id2;
+		$entity_key_id2 = $entity_id == DCL_ENTITY_WORKORDER ? (int)$entity_key_id2 : 0;
 		$sHotlists = trim($sHotlists);
 		
 		if ($sHotlists == '')
@@ -93,12 +95,7 @@ class dbEntityHotlist extends dclDB
 		// Delete the hotlists that are no longer referenced if we're not in add only mode
 		if (!$bAddOnly)
 		{
-			$deleted_by = $GLOBALS['DCLID'];
-			$deleted_on = $this->GetDateSQL();
-			if ($entity_id == DCL_ENTITY_WORKORDER)
-				$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by, sort = NULL WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND hotlist_id NOT IN ($sHotlistID)");
-			else
-				$this->Execute("UPDATE dcl_entity_hotlist SET deleted_on=$deleted_on, deleted_by=$deleted_by, sort = NULL WHERE deleted_on IS NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND hotlist_id NOT IN ($sHotlistID)");
+			$this->deleteByEntity($entity_id, $entity_key_id, $entity_key_id2, $sHotlistID);
 		}
 			
 		// Add the new hotlists
@@ -106,16 +103,17 @@ class dbEntityHotlist extends dclDB
 		{
 			$created_by = $GLOBALS['DCLID'];
 			$created_on = $this->GetDateSQL();
-			if ($entity_id == DCL_ENTITY_WORKORDER)
-				$this->Execute("INSERT INTO dcl_entity_hotlist SELECT $entity_id, $entity_key_id, $entity_key_id2, hotlist_id, $created_on, $created_by, NULL, NULL, 999999 FROM dcl_hotlist WHERE hotlist_id IN ($sHotlistID) AND hotlist_id NOT IN (SELECT hotlist_id FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2)");
-			else
-				$this->Execute("INSERT INTO dcl_entity_hotlist SELECT $entity_id, $entity_key_id, 0, hotlist_id, $created_on, $created_by, NULL, NULL, 999999 FROM dcl_hotlist WHERE hotlist_id IN ($sHotlistID) AND hotlist_id NOT IN (SELECT hotlist_id FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id)");
-				
-			// Re-add items to list by removing deleted info and updating created info
-			if ($entity_id == DCL_ENTITY_WORKORDER)
-				$this->Execute("UPDATE dcl_entity_hotlist SET created_on = $created_on, created_by = $created_by, deleted_on = NULL, deleted_by = NULL, sort = 999999 WHERE deleted_on IS NOT NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND hotlist_id IN ($sHotlistID)");
-			else
-				$this->Execute("UPDATE dcl_entity_hotlist SET created_on = $created_on, created_by = $created_by, deleted_on = NULL, deleted_by = NULL, sort = 999999 WHERE deleted_on IS NOT NULL AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND hotlist_id IN ($sHotlistID)");
+
+			$this->Execute("INSERT INTO dcl_entity_hotlist_audit (entity_id, entity_key_id, entity_key_id2, hotlist_id, sort, audit_by, audit_on, audit_type)
+							SELECT $entity_id, $entity_key_id, $entity_key_id2, hotlist_id, 999999, $created_by, $created_on, 1
+							FROM dcl_hotlist
+							WHERE hotlist_id IN ($sHotlistID)
+							AND hotlist_id NOT IN (SELECT hotlist_id FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2)");
+
+			$this->Execute("INSERT INTO dcl_entity_hotlist SELECT $entity_id, $entity_key_id, $entity_key_id2, hotlist_id, 999999
+							FROM dcl_hotlist
+							WHERE hotlist_id IN ($sHotlistID)
+							AND hotlist_id NOT IN (SELECT hotlist_id FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2)");
 		}
 	}
 	
@@ -126,9 +124,9 @@ class dbEntityHotlist extends dclDB
 		$entity_key_id2 = (int)$entity_key_id2;
 
 		if ($entity_id == DCL_ENTITY_WORKORDER)
-			$sSQL = 'SELECT T.hotlist_tag FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id AND ET.entity_key_id2 = $entity_key_id2 AND ET.deleted_on IS NULL ORDER BY T.hotlist_tag";
+			$sSQL = 'SELECT T.hotlist_tag FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id AND ET.entity_key_id2 = $entity_key_id2 ORDER BY T.hotlist_tag";
 		else
-			$sSQL = 'SELECT T.hotlist_tag FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id AND ET.deleted_on IS NULL ORDER BY T.hotlist_tag";
+			$sSQL = 'SELECT T.hotlist_tag FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id ORDER BY T.hotlist_tag";
 			
 		if ($this->Query($sSQL) == -1)
 			return '';
@@ -182,7 +180,7 @@ class dbEntityHotlist extends dclDB
 		return $this->listById($sID);
 	}
 	
-	function listById($sID)
+	function listById($sID, $includeClosed = true)
 	{
 		global $g_oSec, $g_oSession;
 		
@@ -209,30 +207,51 @@ class dbEntityHotlist extends dclDB
 			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
-				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE deleted_on IS NULL AND entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
-				$sSQL .= 'JOIN workorders ON hotlist_matches.entity_key_id = workorders.jcn AND hotlist_matches.entity_key_id2 = workorders.seq ';
-				$sSQL .= 'JOIN statuses ON workorders.status = statuses.id ';
-				$sSQL .= 'JOIN personnel R ON workorders.responsible = R.id ';
+				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
+				$sSQL .= $this->JoinKeyword . ' workorders ON hotlist_matches.entity_key_id = workorders.jcn AND hotlist_matches.entity_key_id2 = workorders.seq ';
+				$sSQL .= $this->JoinKeyword . ' statuses ON workorders.status = statuses.id ';
+				$sSQL .= $this->JoinKeyword . ' personnel R ON workorders.responsible = R.id ';
 				$sSQL .= 'LEFT JOIN timecards ON workorders.jcn = timecards.jcn AND workorders.seq = timecards.seq AND timecards.id = (select max(id) from timecards where jcn = workorders.jcn AND seq = workorders.seq) ';
 				$sSQL .= 'LEFT JOIN personnel ON timecards.actionby = personnel.id ';
-				$sSQL .= "WHERE statuses.dcl_status_type != 2";
-				
-				$bDoneDidWhere = true;
+
+				if (!$includeClosed)
+				{
+					$sSQL .= "WHERE statuses.dcl_status_type != 2";
+					$bDoneDidWhere = true;
+				}
 				
 				if ($g_oSec->IsPublicUser())
-					$sSQL .= " AND workorders.is_public = 'Y'";
+				{
+					if ($bDoneDidWhere)
+					{
+						$sSQL .= ' AND ';
+					}
+					else
+					{
+						$sSQL .= ' WHERE ';
+						$bDoneDidWhere = true;
+					}
+
+					$sSQL .= "workorders.is_public = 'Y'";
+				}
 			}
 			else
 			{
 				$sSQL .= 'dcl_entity_hotlist JOIN workorders ON dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_entity_hotlist.entity_key_id = workorders.jcn AND dcl_entity_hotlist.entity_key_id2 = workorders.seq ';
-				$sSQL .= 'JOIN statuses ON workorders.status = statuses.id ';
-				$sSQL .= 'JOIN personnel R ON workorders.responsible = R.id ';
+				$sSQL .= $this->JoinKeyword . ' statuses ON workorders.status = statuses.id ';
+				$sSQL .= $this->JoinKeyword . ' personnel R ON workorders.responsible = R.id ';
 				$sSQL .= 'LEFT JOIN timecards ON workorders.jcn = timecards.jcn AND workorders.seq = timecards.seq AND timecards.id = (select max(id) from timecards where jcn = workorders.jcn AND seq = workorders.seq) ';
 				$sSQL .= 'LEFT JOIN personnel ON timecards.actionby = personnel.id ';
-				$sSQL .= "WHERE dcl_entity_hotlist.deleted_on IS NULL AND dcl_entity_hotlist.hotlist_id = $sID AND statuses.dcl_status_type != 2";
+				$sSQL .= "WHERE dcl_entity_hotlist.hotlist_id = $sID";
 				
 				$bDoneDidWhere = true;
 				
+				if (!$includeClosed)
+				{
+					$sSQL .= " AND statuses.dcl_status_type != 2";
+					$bDoneDidWhere = true;
+				}
+
 				if ($g_oSec->IsPublicUser())
 					$sSQL .= " AND workorders.is_public = 'Y'";					
 			}
@@ -288,26 +307,47 @@ class dbEntityHotlist extends dclDB
 			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
-				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE deleted_on IS NULL AND entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
-				$sSQL .= 'JOIN tickets ON hotlist_matches.entity_key_id = tickets.ticketid ';
-				$sSQL .= 'JOIN statuses ON tickets.status = statuses.id ';
-				$sSQL .= 'JOIN personnel R ON tickets.responsible = R.id ';
-				$sSQL .= "WHERE statuses.dcl_status_type != 2 ";
-				
-				$bDoneDidWhere = true;
-				
+				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
+				$sSQL .= $this->JoinKeyword . ' tickets ON hotlist_matches.entity_key_id = tickets.ticketid ';
+				$sSQL .= $this->JoinKeyword . ' statuses ON tickets.status = statuses.id ';
+				$sSQL .= $this->JoinKeyword . ' personnel R ON tickets.responsible = R.id ';
+
+				if (!$includeClosed)
+				{
+					$sSQL .= "WHERE statuses.dcl_status_type != 2";
+					$bDoneDidWhere = true;
+				}
+
 				if ($g_oSec->IsPublicUser())
-					$sSQL .= " WHERE tickets.is_public = 'Y'";
+				{
+					if ($bDoneDidWhere)
+					{
+						$sSQL .= ' AND ';
+					}
+					else
+					{
+						$sSQL .= ' WHERE ';
+						$bDoneDidWhere = true;
+					}
+
+					$sSQL .= "workorders.is_public = 'Y'";
+				}
 			}
 			else
 			{
 				$sSQL .= 'dcl_entity_hotlist JOIN tickets ON dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_TICKET . ' AND dcl_entity_hotlist.entity_key_id = tickets.ticketid ';
-				$sSQL .= 'JOIN statuses ON tickets.status = statuses.id ';
-				$sSQL .= 'JOIN personnel R ON tickets.responsible = R.id ';
-				$sSQL .= "WHERE dcl_entity_hotlist.deleted_on IS NULL AND dcl_entity_hotlist.hotlist_id = $sID AND statuses.dcl_status_type != 2 ";
+				$sSQL .= $this->JoinKeyword . ' statuses ON tickets.status = statuses.id ';
+				$sSQL .= $this->JoinKeyword . ' personnel R ON tickets.responsible = R.id ';
+				$sSQL .= "WHERE dcl_entity_hotlist.hotlist_id = $sID";
 
 				$bDoneDidWhere = true;
 				
+				if (!$includeClosed)
+				{
+					$sSQL .= " AND statuses.dcl_status_type != 2";
+					$bDoneDidWhere = true;
+				}
+
 				if ($g_oSec->IsPublicUser())
 					$sSQL .= " AND tickets.is_public = 'Y'";
 			}
@@ -361,5 +401,110 @@ class dbEntityHotlist extends dclDB
 
 		return $this->Query($sSQL . ' ORDER BY 9, 1, 2, 3');
 	}
+	
+	function GetStatusCount($hotlist_id)
+	{
+		$sql = 'SELECT s.name, count(*) FROM statuses s, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND s.id = w.status AND h.hotlist_id = $hotlist_id";
+		$sql .= ' GROUP BY s.name ORDER BY 2 DESC';
+
+		return $this->Query($sql);
+	}
+
+	function GetSeverityCount($hotlist_id)
+	{
+		$sql = 'SELECT s.name, count(*) FROM severities s, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND s.id = w.severity AND h.hotlist_id = $hotlist_id";
+		$sql .= ' GROUP BY s.name ORDER BY 2 DESC';
+
+		return $this->Query($sql);
+	}
+
+	function GetPriorityCount($hotlist_id)
+	{
+		$sql = 'SELECT s.name, count(*) FROM priorities s, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND s.id = w.priority AND h.hotlist_id = $hotlist_id";
+		$sql .= ' GROUP BY s.name ORDER BY 2 DESC';
+
+		return $this->Query($sql);
+	}
+
+	function GetDepartmentCount($hotlist_id)
+	{
+		$sql = 'SELECT d.name, count(*) FROM departments d, personnel u, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND w.responsible = u.id AND d.id = u.department AND h.hotlist_id = $hotlist_id";
+		$sql .= ' GROUP BY d.name ORDER BY 2 DESC';
+
+		return $this->Query($sql);
+	}
+
+	function GetModuleCount($hotlist_id)
+	{
+		$sql = 'SELECT m.module_name, count(*) FROM dcl_product_module m, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND m.product_module_id = w.module_id AND h.hotlist_id = $hotlist_id";
+		$sql .= ' GROUP BY m.module_name ORDER BY 2 DESC';
+
+		return $this->Query($sql);
+	}
+
+	function GetTypeCount($hotlist_id)
+	{
+		$sql = 'SELECT t.type_name, count(*) FROM dcl_wo_type t, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND t.wo_type_id = w.wo_type_id AND h.hotlist_id = $hotlist_id";
+		$sql .= ' GROUP BY t.type_name ORDER BY 2 DESC';
+
+		return $this->Query($sql);
+	}
+
+	function GetWorkOrderStatistics($id)
+	{
+		$retval = array(
+				'totaltasks' => 0,
+				'esthours' => 0.0,
+				'totalhours' => 0.0,
+				'etchours' => 0.0,
+				'resources' => 0,
+				'tasksclosed' => 0
+			);
+
+		$obj = new dclDB;
+
+		$sql = 'SELECT COUNT(*), SUM(esthours), SUM(totalhours), SUM(etchours) FROM workorders a, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND a.jcn = h.entity_key_id AND a.seq = h.entity_key_id2 AND h.hotlist_id = $id ";
+		if ($obj->Query($sql) != -1)
+		{
+			if ($obj->next_record())
+			{
+				$retval['totaltasks'] = $obj->f(0);
+				$retval['esthours'] = $obj->f(1);
+				$retval['totalhours'] = $obj->f(2);
+				$retval['etchours'] = $obj->f(3);
+			}
+
+			$obj->FreeResult();
+		}
+
+		$sql = 'SELECT COUNT(distinct responsible) FROM workorders a, dcl_entity_hotlist h, statuses c WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND a.jcn = h.entity_key_id AND a.seq = h.entity_key_id2 AND h.hotlist_id = $id AND a.status=c.id AND c.dcl_status_type!=2";
+		if ($obj->Query($sql) != -1)
+		{
+			if ($obj->next_record())
+				$retval['resources'] = $obj->f(0);
+
+			$obj->FreeResult();
+		}
+
+		$sql = 'SELECT count(*) FROM workorders a, dcl_entity_hotlist h, statuses c WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
+		$sql .= " AND a.jcn = h.entity_key_id AND a.seq = h.entity_key_id2 AND h.hotlist_id = $id AND a.status=c.id AND c.dcl_status_type=2";
+		if ($obj->Query($sql) != -1)
+		{
+			if ($obj->next_record())
+				$retval['tasksclosed'] = $obj->f(0);
+
+			$obj->FreeResult();
+		}
+
+		return $retval;
+	}
 }
-?>
+

@@ -22,16 +22,45 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$GLOBALS['phpgw_baseline']['dcl_entity_hotlist'] = array(
-	'fd' => array(
-		'entity_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'entity_key_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'entity_key_id2' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'hotlist_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'sort' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
-	),
-	'pk' => array('entity_id', 'entity_key_id', 'entity_key_id2', 'hotlist_id'),
-	'fk' => array(),
-	'ix' => array('ix_dcl_entity_hotlist_id' => array('hotlist_id')),
-	'uc' => array()
-);
+LoadStringResource('prj');
+LoadStringResource('wo');
+
+class htmlHotlistProjectDashboard
+{
+	var $oSmarty;
+	var $hotlist;
+
+	function htmlHotlistProjectDashboard()
+	{
+		$this->oSmarty =& CreateSmarty();
+		$this->hotlist = null;
+	}
+
+	function Show()
+	{
+		global $g_oSec;
+
+		commonHeader();
+		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		{
+			trigger_error('Data sanitize failed.');
+			return;
+		}
+		
+		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
+			return PrintPermissionDenied();
+
+		$this->hotlist =& CreateObject('dcl.dbHotlist');
+		if ($this->hotlist->Load($id) == -1)
+		{
+			trigger_error('Could not find a hotlist with an id of ' . $id, E_USER_ERROR);
+			return;
+		}
+
+		$this->oSmarty->assign('VAL_HOTLISTID', $id);
+		$this->oSmarty->assign('VAL_NAME', $this->hotlist->hotlist_desc);
+
+		SmartyDisplay($this->oSmarty, 'htmlHotlistProjectDashboard.tpl');
+	}
+}
+?>

@@ -100,10 +100,6 @@ class htmlProjectsdetail
 	{
 		global $dcl_domain, $dcl_domain_info, $dcl_info;
 
-		$joinKeyword = '';
-		if ($dcl_domain_info[$dcl_domain]['dbType'] == 'mysql') // Hackage to make MySQL happy again
-			$joinKeyword = ' INNER';
-
 		$cols = array('a.jcn', 'a.seq', 'h.type_name', 'b.short', 'c.name', 'g.module_name', 'd.name', 'e.name', 'a.deadlineon', 'a.totalhours', 'a.etchours', 'a.esthours', '(a.totalhours + a.etchours) - a.esthours', 'a.summary');
 		$sql = 'Select a.jcn, a.seq, h.type_name, b.short, c.name, g.module_name, d.name, e.name, ' . $this->oPM->ConvertDate('a.deadlineon', 'deadlineon') . ', a.totalhours, a.etchours, a.esthours, (a.totalhours + a.etchours) - a.esthours, a.summary';
 

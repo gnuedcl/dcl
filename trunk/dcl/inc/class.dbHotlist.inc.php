@@ -104,7 +104,7 @@ class dbHotlist extends dclDB
 	
 	function listByPopular()
 	{
-		$sSQL = 'SELECT dcl_hotlist.hotlist_tag, COUNT(*) FROM dcl_hotlist JOIN dcl_entity_hotlist ON dcl_hotlist.hotlist_id = dcl_entity_hotlist.hotlist_id WHERE dcl_entity_hotlist.deleted_on IS NULL GROUP BY dcl_hotlist.hotlist_tag ORDER BY 2 DESC';
+		$sSQL = 'SELECT dcl_hotlist.hotlist_tag, COUNT(*) FROM dcl_hotlist JOIN dcl_entity_hotlist ON dcl_hotlist.hotlist_id = dcl_entity_hotlist.hotlist_id GROUP BY dcl_hotlist.hotlist_tag ORDER BY 2 DESC';
 		return $this->LimitQuery($sSQL, 0, 50);
 	}
 }

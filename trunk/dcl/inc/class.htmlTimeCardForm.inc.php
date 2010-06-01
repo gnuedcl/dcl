@@ -145,6 +145,9 @@ class htmlTimeCardForm
 			$oTag =& CreateObject('dcl.dbEntityTag');
 			$oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $jcn, $seq));
 
+			$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$oSmarty->assign('VAL_HOTLISTS', $oHotlist->getTagsForEntity(DCL_ENTITY_WORKORDER, $jcn, $seq));
+
 			$oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
 			$oSmarty->assign_by_ref('VAL_ORGNAME', $aOrgName);
 		}

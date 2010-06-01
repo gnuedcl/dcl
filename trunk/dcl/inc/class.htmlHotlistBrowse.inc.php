@@ -90,15 +90,23 @@ class htmlHotlistBrowse
 			}
 		}
 
-		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_HOTLIST => array($g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
+		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_HOTLIST => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
 		{
 			$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
 			for ($i = 0; $i < count($allRecs); $i++)
 			{
 				$options = '';
+				if ($g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
+				{
+					$options = '<a href="' . menuLink('', 'menuAction=htmlHotlistProject.View&id=' . $allRecs[$i][0]) . '">' . 'View as Project' . '</a>';
+				}
+
 				if ($g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
 				{
-					$options = '<a href="' . menuLink('', 'menuAction=htmlHotlists.prioritize&hotlist_id=' . $allRecs[$i][0]) . '">' . 'Prioritize' . '</a>';
+					if ($options != '')
+						$options .= '&nbsp;|&nbsp;';
+
+					$options .= '<a href="' . menuLink('', 'menuAction=htmlHotlists.prioritize&hotlist_id=' . $allRecs[$i][0]) . '">' . 'Prioritize' . '</a>';
 					$options .= '&nbsp;|&nbsp;';
 					$options .= '<a href="' . menuLink('', 'menuAction=htmlHotlistForm.modify&hotlist_id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
 				}

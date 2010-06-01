@@ -28,8 +28,8 @@
 {section loop=$footer name=item}
 {if $smarty.section.item.first}<tfoot><tr>{if $checks}<td></td>{/if}{if $rownum}<td></td>{/if}{/if}{if !in_array($smarty.section.item.index, $groups)}<td class="{$columns[$smarty.section.item.index].type}">{$footer[item]|escape}</td>{/if}{if $smarty.section.item.last}</tr></tfoot>{/if}
 {/section}
-{section loop=$records name=row}
-	{if $smarty.section.row.first}{strip}
+{section loop=$records name=row}{strip}
+	{if $smarty.section.row.first}
 		<tbody>
 		{section loop=$groups name=group}
 			{assign var=groupcol value=$groups[group]}
@@ -38,7 +38,7 @@
 			{$columns[$groupcol].title|escape}&nbsp;[&nbsp;{$records[row][$groupcol]|escape}&nbsp;]&nbsp;
 			{if $smarty.section.group.last}</td></tr>{/if}
 		{/section}
-	{/strip}{elseif count($groups) > 0}{strip}
+	{elseif count($groups) > 0}
 		{assign var=newgroup value=false}
 		{foreach from=$groups item=value key=key}
 			{if $records[row][$value] != $records[row.index_prev][$value]}
@@ -54,7 +54,7 @@
 				{$columns[$groupcol].title|escape}&nbsp;[&nbsp;{$records[row][$groupcol]|escape}&nbsp;]&nbsp;
 				{if $smarty.section.group.last}</td></tr>{/if}
 			{/section}
-		{/if}{/strip}
+		{/if}
 	{/if}
 	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
 	{if $checks}{assign var=woid value=$groupcount}{assign var=seq value=$groupcount+1}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$woid]}.{$records[row][$seq]}"></td>{/if}
@@ -78,6 +78,6 @@
 	{/section}
 	</tr>
 	{if $smarty.section.row.last}</tbody>{/if}
-{/section}
+{/strip}{/section}
 </table>
 {if $checks}</form>{/if}

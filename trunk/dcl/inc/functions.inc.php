@@ -727,7 +727,7 @@ function GetCharSet()
 		case 'ru':
 			return 'koi8-r';
 		default:
-			return 'iso-8859-1';
+			return 'utf-8';
 	}
 }
 
