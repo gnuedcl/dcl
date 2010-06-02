@@ -40,7 +40,8 @@
 		</div>
 		<div>
 			<label for="preferred">Primary:</label>
-			<input type="checkbox" id="preferred" name="preferred" value="Y"{if $VAL_PREFERRED == "Y"} checked="true" disabled="true"{/if}>
+			<input type="checkbox" id="preferred" name="preferred" value="Y"{if $VAL_PREFERRED == "Y"} checked="true" onclick="return false;"{/if}>
+			{if $VAL_PREFERRED == "Y"}<span>This is the preferred address.  If you do not want this to be the preferred address, select another address as the preferred address.</span>{/if}
 		</div>
 		<div class="required">
 			<label for="addr_type_id">Type:</label>

@@ -37,7 +37,8 @@ function validateAndSubmitForm(form)
 		{if $VAL_CONTACTID}<div class="help">{$VAL_FIRSTNAME|escape} {$VAL_LASTNAME|escape}</div>{/if}
 		<div>
 			<label for="preferred">Primary:</label>
-			<input type="checkbox" id="preferred" name="preferred" value="Y"{if $VAL_PREFERRED == "Y"} checked="true" disabled="true"{/if}>
+			<input type="checkbox" id="preferred" name="preferred" value="Y"{if $VAL_PREFERRED == "Y"} checked="true" onclick="return false;"{/if}>
+			{if $VAL_PREFERRED == "Y"}<span>This is the preferred phone number.  If you do not want this to be the preferred phone number, select another phone number as the preferred number.</span>{/if}
 		</div>
 		<div class="required">
 			<label for="phone_type_id">Type:</label>
