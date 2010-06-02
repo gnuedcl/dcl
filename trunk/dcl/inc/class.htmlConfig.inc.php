@@ -52,6 +52,7 @@ class htmlConfig
 		$t->assign('VAL_SESSIONTIMEOUT', $dcl_info['DCL_SESSION_TIMEOUT']);
 		$t->assign('VAL_SECAUDITENABLED', $dcl_info['DCL_SEC_AUDIT_ENABLED']);
 		$t->assign('VAL_SECAUDITLOGINONLY', $dcl_info['DCL_SEC_AUDIT_LOGIN_ONLY']);
+		$t->assign('VAL_FORCESECUREGRAVATAR', $dcl_info['DCL_FORCE_SECURE_GRAVATAR']);
 		
 		// SMTP Server
 		$t->assign('VAL_SMTPENABLED', $dcl_info['DCL_SMTP_ENABLED']);
@@ -127,39 +128,6 @@ class htmlConfig
 		$t->assign('VAL_BUILDMANAGERENABLED', $dcl_info['DCL_BUILD_MANAGER_ENABLED']);
 
 		SmartyDisplay($t, 'htmlConfig.tpl');
-return;
-
-		// e-Mail Gateway for Work Orders
-		$Template->set_var('TXT_GATEWAYWOTITLE', STR_CFG_GATEWAYWOTITLE);
-		$Template->set_var('TXT_GATEWAYWOENABLED', STR_CFG_GATEWAYWOENABLED);
-		$Template->set_var('TXT_GATEWAYWOAUTORESPOND', STR_CFG_GATEWAYWOAUTORESPOND);
-		$Template->set_var('TXT_GATEWAYWOAUTORESPONSEEMAIL', STR_CFG_GATEWAYWOAUTORESPONSEEMAIL);
-		$Template->set_var('TXT_GATEWAYWOREPLY', STR_CFG_GATEWAYWOREPLY);
-		$Template->set_var('TXT_GATEWAYWOSTATUS', STR_CFG_GATEWAYWOSTATUS);
-		$Template->set_var('TXT_GATEWAYWOPRIORITY', STR_CFG_GATEWAYWOPRIORITY);
-		$Template->set_var('TXT_GATEWAYWOSEVERITY', STR_CFG_GATEWAYWOSEVERITY);
-		$Template->set_var('TXT_GATEWAYWOFILEPATH', STR_CFG_GATEWAYWOFILEPATH);
-		$Template->set_var('TXT_GATEWAYWOACCOUNT', STR_CFG_GATEWAYTICKETACCOUNT);
-		$Template->set_var('TXT_GATEWAYWOREPLYLOGGEDBY', STR_CFG_GATEWAYTICKETREPLYLOGGEDBY);
-
-		$Template->set_var('VAL_GATEWAYWOENABLED', $dcl_info['DCL_GATEWAY_WO_ENABLED']);
-		$Template->set_var('VAL_GATEWAYWOAUTORESPOND', $dcl_info['DCL_GATEWAY_WO_AUTORESPOND']);
-		$Template->set_var('VAL_GATEWAYWOAUTORESPONSEEMAIL', $dcl_info['DCL_GATEWAY_WO_AUTORESPONSE_EMAIL']);
-		$Template->set_var('VAL_GATEWAYWOREPLY', $dcl_info['DCL_GATEWAY_WO_REPLY']);
-		$Template->set_var('CMB_GATEWAYWOSTATUS', $this->GetStatusCombo('DCL_GATEWAY_WO_STATUS', $dcl_info['DCL_GATEWAY_WO_STATUS']));
-		$Template->set_var('CMB_GATEWAYWOPRIORITY', $this->GetPriorityCombo('DCL_GATEWAY_WO_PRIORITY', $dcl_info['DCL_GATEWAY_WO_PRIORITY']));
-		$Template->set_var('CMB_GATEWAYWOSEVERITY', $this->GetSeverityCombo('DCL_GATEWAY_WO_SEVERITY', $dcl_info['DCL_GATEWAY_WO_SEVERITY']));
-		$Template->set_var('VAL_GATEWAYWOFILEPATH', $dcl_info['DCL_GATEWAY_WO_FILE_PATH']);
-
-		// SCCS Integration
-		$Template->set_var('TXT_SCM', 'Software Config Mgmt');
-		$Template->set_var('TXT_SCCSENABLED', 'SCCS Integration Enabled');
-		$Template->set_var('TXT_BUILDMANAGERENABLED', 'Build Manager Enabled (Requires SCCS)');
-
-		$Template->set_var('VAL_SCCSENABLED', $dcl_info['DCL_SCCS_ENABLED']);
-		$Template->set_var('VAL_BUILDMANAGERENABLED', $dcl_info['DCL_BUILD_MANAGER_ENABLED']);
-
-		$Template->pparse('out', 'hForm');
 	}
 
 	function _GetCombo($sName, $aOptions, $sDefault)

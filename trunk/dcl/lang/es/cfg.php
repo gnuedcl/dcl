@@ -41,6 +41,8 @@
 	define('STR_CFG_WOEMAILTEMPLATEHELP', "Notification template to use.  This is located in the templates/custom directory.");
 	define('STR_CFG_WOEMAILTEMPLATEPUBLIC', "Public Notification Template");
 	define('STR_CFG_WOEMAILTEMPLATEPUBLICHELP', "Notification template to use for emails sent to public users.  This is located in the templates/custom directory.");
+	define('STR_CFG_FORCESECUREGRAVATAR', "Force Secure Gravatar");
+	define('STR_CFG_FORCESECUREGRAVATARHELP', "If you run DCL with HTTPS but still get warnings about non-secure content, enable this to force DCL to use secure Gravatar requests.");
 	define('STR_CFG_WOSECONDARYACCOUNTSENABLED', "Multiple Organizations");
 	define('STR_CFG_WOSECONDARYACCOUNTSENABLEDHELP', "This allows users to associate more than one organization with a work order.  This is currently not compatible with MySQL.");
 	define('STR_CFG_PROJECTTITLE', "Projects");

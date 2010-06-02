@@ -24,7 +24,7 @@
 
 function smarty_function_dcl_gravatar($params, &$smarty)
 {
-	global $g_oSec, $g_oSession, $g_GravitarsByUserId;
+	global $g_oSec, $g_oSession, $g_GravitarsByUserId, $dcl_info;
 	
 	$userId = -1;
 	if (!isset($params['userId']) || ($userId = DCL_Sanitize::ToInt($params['userId'])) === null)
@@ -57,8 +57,16 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 	$size = 32;
 	if (isset($params['size']) && DCL_Sanitize::ToInt($params['size']) !== null)
 		$size = $params['size'];
-		
-	$gravitarUrl = 'http://www.gravatar.com/avatar/';
+
+	if (UseHttps() || $dcl_info['DCL_FORCE_SECURE_GRAVATAR'] == 'Y')
+	{
+		$gravitarUrl = 'https://secure.gravatar.com/avatar/';
+	}
+	else
+	{
+		$gravitarUrl = 'http://www.gravatar.com/avatar/';
+	}
+
 	$gravitarUrl .= $gravitarHash;
 	$gravitarUrl .= '?s=' . $size;
 	$gravitarUrl .= '&d=identicon';

@@ -7822,6 +7822,12 @@
 		<phrase name="STR_CFG_WOEMAILTEMPLATEPUBLICHELP">
 			<xlt lang="en">Notification template to use for emails sent to public users.  This is located in the templates/custom directory.</xlt>
 		</phrase>
+		<phrase name="STR_CFG_FORCESECUREGRAVATAR">
+			<xlt lang="en">Force Secure Gravatar</xlt>
+		</phrase>
+		<phrase name="STR_CFG_FORCESECUREGRAVATARHELP">
+			<xlt lang="en">If you run DCL with HTTPS but still get warnings about non-secure content, enable this to force DCL to use secure Gravatar requests.</xlt>
+		</phrase>
 		<phrase name="STR_CFG_WOSECONDARYACCOUNTSENABLED">
 			<xlt lang="en">Multiple Organizations</xlt>
 		</phrase>

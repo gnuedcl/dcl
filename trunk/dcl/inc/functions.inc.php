@@ -145,6 +145,15 @@ function menuLink($target = '', $params = '')
 	return $sRet;
 }
 
+function UseHttps()
+{
+	global $dcl_info;
+
+	// These values may or may not fill in and depend on the web server, so we'll check the common settings
+	// To force secure Gravatar request (if this function doesn't work), set DCL_FORCE_SECURE_GRAVATAR = Y in configuration
+	return (IsSet($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' && $_SERVER['HTTPS'] != '0') || $_SERVER['SERVER_PORT'] == 443;
+}
+
 function GPCStripSlashes($thisString)
 {
 	if (get_magic_quotes_gpc() == 0)

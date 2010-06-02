@@ -71,6 +71,11 @@ function validateAndSubmit(f)
 			<input type="checkbox" name="DCL_SEC_AUDIT_LOGIN_ONLY" id="DCL_SEC_AUDIT_LOGIN_ONLY" value="Y"{if $VAL_SECAUDITLOGINONLY == "Y"} checked{/if}>
 			<span>{$smarty.const.STR_CFG_SECAUDITLOGINONLYHELP}</span>
 		</div>
+		<div class="required">
+			<label for="DCL_FORCE_SECURE_GRAVATAR">{$smarty.const.STR_CFG_FORCESECUREGRAVATAR}:</label>
+			<input type="checkbox" name="DCL_FORCE_SECURE_GRAVATAR" id="DCL_FORCE_SECURE_GRAVATAR" value="Y"{if $VAL_FORCESECUREGRAVATAR == "Y"} checked{/if}>
+			<span>{$smarty.const.STR_CFG_FORCESECUREGRAVATARHELP}</span>
+		</div>
 	</fieldset>
 	<fieldset>
 		<legend>{$smarty.const.STR_CFG_EMAILSERVERTITLE}</legend>
