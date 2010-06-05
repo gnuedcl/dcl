@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="{$DIR_JS}/superfish/css/superfish.css" media="screen">
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/jquery-1.4.2.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/jquery.bgiframe.min.js"></script>
-<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/hoverIntent.js"></script>
+<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/hoverIntent.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/superfish.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/supersubs.js"></script>
 <div id="header">
