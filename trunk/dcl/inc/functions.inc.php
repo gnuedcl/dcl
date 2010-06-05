@@ -745,6 +745,10 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 	if (defined('HTML_HEADER_GENERATED'))
 		return;
 
+	header('Content-Type: text/html; charset=utf-8');
+	header('Expires: Fri, 11 Oct 1991 17:01:00 GMT');
+	header('Cache-Control: no-cache, must-revalidate');
+
 	global $phpgw, $dcl_info, $dcl_domain, $dcl_domain_info;
 	define('HTML_HEADER_GENERATED', 1);
 	
