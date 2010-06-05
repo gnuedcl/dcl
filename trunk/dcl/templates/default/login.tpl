@@ -3,7 +3,7 @@
 <html>
 <head>
 <!-- $Id$ -->
-<meta http-equiv="Set-Cookie" content="DCLINFO=;expires=Friday, 31-Dec-00 23:59:59 GMT">
+<meta http-equiv="Set-Cookie" content="DCLINFO=;expires=Sunday, 31-Dec-2000 23:59:59 GMT">
 <meta http-equiv="Expires" content="-1">
 <title>{$TXT_TITLE}</title>
 <script language="JavaScript">{literal}
