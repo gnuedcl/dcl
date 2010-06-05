@@ -174,7 +174,7 @@ class htmlHotlists
 			return PrintPermissionDenied();
 
 		$aEntities = array();
-		foreach ($_REQUEST['item_list'] as $entity)
+		foreach ($_REQUEST['item'] as $entity)
 		{
 			$aEntity = @DCL_Sanitize::ToIntArray(split('_', $entity));
 			if (count($aEntity) === 3)

@@ -4,7 +4,7 @@
 	<thead>
 		<tr class="toolbar"><th colspan="3">
 			<ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlHotlists.prioritize&hotlist_id={$VAL_HOTLIST_ID}">Reload</a></li>
-				<li><a href="javascript:;" onclick="submitReorder();">{$smarty.const.STR_CMMN_SAVE}</a></li>
+				<li><a id="ItemSave" href="javascript:;">{$smarty.const.STR_CMMN_SAVE}</a></li>
 				<li><a href="{$URL_MAIN_PHP}?menuAction=htmlHotlistBrowse.show">{$smarty.const.STR_CMMN_CANCEL}</a></li>
 			</ul>
 		</th></tr>
@@ -31,32 +31,35 @@ ol li p { border: solid #cecece 1px; height: 60px; background-color: #ffffff; te
 </li>
 {/section}
 </ol>
-{dcl_scriptaculous_init}
+<script language="JavaScript" type="text/javascript" src="{$DIR_JS}jquery-ui-1.8.2.custom.min.js"></script>
 <script language="javascript">
+//<![CDATA[
 {literal}
-Sortable.create("item_list", {
-	constraint: false,
-	format: /^[^_\-](?:[A-Za-z0-9\-]*)[_](.*)$/,
-	onChange: function() {
-		var $$items = $$("ol#item_list li h2");
-		for (var index = 0; index < $$items.length; index++) {
-			$$items[index].update(index + 1);
+$(document).ready(function() {
+	$("#item_list").sortable({
+		stop: function(event, ui) {
+			var index = 0;
+			$("#item_list li h2").each(function() {
+				$(this).text(++index);
+			});
 		}
-	}
+	});
+	$("#item_list").disableSelection();
+	$("#ItemSave").click(function() {
+		$.ajax({
+			type: 'POST',
+			url: "{/literal}{$URL_MAIN_PHP}{literal}",
+			data: "menuAction=htmlHotlists.savePriority&hotlist_id={/literal}{$VAL_HOTLIST_ID}{literal}&" + $("#item_list").sortable("serialize", { key: "item[]", expression: /^[^_\-](?:[A-Za-z0-9\-]*)[_](.*)$/ }),
+			success: function() {
+				location.href = "{/literal}{$URL_MAIN_PHP}{literal}?menuAction=htmlHotlistBrowse.show";
+			},
+			error: function() {
+				alert("Could not save hotlist priority order.");
+			},
+			dataType: "text/html"
+		});
+	});
 });
-
-function submitReorder()
-{
-	var aOptions = {
-		method: 'post',
-		postBody: "menuAction=htmlHotlists.savePriority&hotlist_id={/literal}{$VAL_HOTLIST_ID}{literal}&" + Sortable.serialize('item_list'),
-		onComplete: function(oRequest) {
-			location.href = "{/literal}{$URL_MAIN_PHP}{literal}?menuAction=htmlHotlistBrowse.show";
-		}
-	};
 {/literal}
-	new Ajax.Request('{$URL_MAIN_PHP}', aOptions);
-{literal}
-}
-{/literal}
+//]]>
 </script>
