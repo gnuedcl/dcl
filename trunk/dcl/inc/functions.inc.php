@@ -728,24 +728,12 @@ function buildMenuArray()
 	//$DCL_MENU[DCL_MENU_LOGOFF] = array('logout.php', true);
 }
 
-function GetCharSet()
-{
-	$lang = GetPrefLang();
-	switch ($lang)
-	{
-		case 'ru':
-			return 'koi8-r';
-		default:
-			return 'utf-8';
-	}
-}
-
 function commonHeader($formValidateSrc = '', $onLoad = '')
 {
 	if (defined('HTML_HEADER_GENERATED'))
 		return;
 
-	header('Content-Type: text/html; charset=utf-8');
+	header('Content-Type: text/html; charset=iso-8859-1');
 	header('Expires: Fri, 11 Oct 1991 17:01:00 GMT');
 	header('Cache-Control: no-cache, must-revalidate');
 
@@ -767,7 +755,6 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 	$t =& CreateSmarty();
 
 	$t->assign('VAL_TITLE', $title);
-	$t->assign('CHARSET', GetCharSet());
 
 	SmartyDisplay($t, 'index.tpl');
 
