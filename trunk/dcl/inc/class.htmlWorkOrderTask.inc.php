@@ -262,7 +262,7 @@ class htmlWorkOrderTask
 			return;
 		}
 
-		$aTaskList = @DCL_Sanitize::ToIntArray($_REQUEST['task_list']);
+		$aTaskList = @DCL_Sanitize::ToIntArray($_REQUEST['task']);
 		$oDB =& CreateObject('dcl.dbWorkOrderTask');
 		$iOrder = 1;
 		for ($i = 0; $i < count($aTaskList); $i++)

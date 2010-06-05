@@ -470,7 +470,7 @@ function &CreateSmarty()
 	$sDefaultTemplateSet = GetDefaultTemplateSet();
 
 	$oSmarty = new Smarty;
-	$oSmarty->assign('DIR_JS', DCL_WWW_ROOT . "templates/$sDefaultTemplateSet/js/");
+	$oSmarty->assign('DIR_JS', DCL_WWW_ROOT . "js/");
 	$oSmarty->assign('DIR_CSS', DCL_WWW_ROOT . "templates/$sDefaultTemplateSet/css/");
 	$oSmarty->assign('DIR_IMG', DCL_WWW_ROOT . "templates/$sDefaultTemplateSet/img/");
 	$oSmarty->assign('WWW_ROOT', DCL_WWW_ROOT);
