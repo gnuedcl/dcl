@@ -1,2 +1,0 @@
-short	reportto	department	pwd	active	contact_id
-sa	0	0	c12e01f2a13ff5587e1e9e4aedb8242d	Y	1

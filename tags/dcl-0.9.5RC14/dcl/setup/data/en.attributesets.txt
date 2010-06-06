@@ -1,3 +1,0 @@
-short	name	active
-WO	Work Orders	Y
-TCK	Tickets	Y
