@@ -11,14 +11,18 @@
     </fileset>
 
     <target name="deploy" description="Deploy files to server location">
+		<echo>Deploying files to server location...</echo>
         <copy todir="${deploydir}">
             <fileset refid="allfiles" />
         </copy>
     </target>
 
-    <target name="redeploy" description="Completely refreshes the deployment directory">
+	<target name="cleandeploydir" description="Delete the deployment directory">
+		<echo>Cleaning deployment directory...</echo>
         <delete dir="${deploydir}" />
-        <phingcall target="main" />
+    </target>
+
+    <target name="cleandeploy" depends="cleandeploydir,deploy" description="Completely refreshes the deployment directory">
     </target>
 
 	<target name="dist">
