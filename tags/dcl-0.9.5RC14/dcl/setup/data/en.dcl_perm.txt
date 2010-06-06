@@ -1,0 +1,25 @@
+perm_id	perm_desc	active
+0	Administration	Y
+1	Add	Y
+2	Modify	Y
+3	Delete	Y
+4	View	Y
+5	View (Private)	Y
+6	View (Organization)	Y
+7	View (Submitted)	Y
+8	Copy To Work Order	Y
+9	Assign	Y
+10	Action	Y
+11	Change Password	Y
+12	Import	Y
+13	Search	Y
+14	Schedule	Y
+15	Report	Y
+16	Add Task	Y
+17	Remove Task	Y
+18	Attach File	Y
+19	Remove File	Y
+20	View Wiki	Y
+21	Public Items Only	Y
+22	View File Attachment	Y
+23	Audit	Y

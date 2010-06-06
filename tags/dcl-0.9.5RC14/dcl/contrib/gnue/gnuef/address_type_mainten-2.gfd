@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!--  GNUe Designer (pre0.0.2)
+      Form saved on: 2001-10-01 20:47:53  -->
+
+<form width="38" title="Addres Type Maintenance" height="13">
+  <datasource table="address_type" name="dtsrcAddressType" database="dcl"/>
+  <page name="pgAddressType">
+    <block name="blkAddressType" rows="10" datasource="dtsrcAddressType">
+      <entry name="ntryId" x="1" y="2" width="5" field="id" typecast="number" readonly=""/>
+      <entry x="6" y="2" field="description" name="ntryDescription"
+             max_length="34" width="31"/>
+    </block>
+    <label x="1" y="1" width="3" name="lblId" text="Id"/>
+    <label x="6" y="1" width="18" name="lblDescription" text="Description"/>
+  </page>
+</form>
+

@@ -1,0 +1,33 @@
+<?php
+	define('STR_BM_ADD_BUILDMGR', "Add to Build Manager");
+	define('STR_BM_CONFIG_TITLE', "Build Manager Administration");
+	define('STR_BM_RELEASE', "Release Date");
+	define('STR_BM_VERSION', "Version");
+	define('STR_BM_BUILD', "Build");
+	define('STR_BM_PROJECT', "Project");
+	define('STR_BM_ADD_RELEASE', "Add Release Date");
+	define('STR_BM_MOD_RELEASE', "Modify Release Date");
+	define('STR_BM_RELEASEDATE_DESC', "Description");
+	define('STR_BM_RELEASEDATE', "Release Date");
+	define('STR_BM_VERSION_DESC', "Version Number");
+	define('STR_BM_SUBMIT', "Submit");
+	define('STR_BM_PRODUCT', "Product");
+	define('STR_BM_RELEASE_ALIAS_TITLE', "Alias");
+	define('STR_BM_ADD_BUILD', "Add Build Description");
+	define('STR_BM_MOD_BUILD', "Modify Build Description");
+	define('STR_BM_BUILD_DESC', "Build Description");
+	define('STR_BM_RELEASE_ID', "ID");
+	define('STR_BM_TOTAL', "Total Release");
+	define('STR_BM_DCLID', "DCL #");
+	define('STR_BM_SUMMARY', "Summary");
+	define('STR_BM_RELEASEREPORTTITLE', "Build Information");
+	define('STR_BM_STATUS', "Status");
+	define('STR_BM_ADDRELEASE_TITLE', "Add Work Orders to a Release");
+	define('STR_BM_ADDBUILD_TITLE', "Add Work Orders to a Build");
+	define('STR_BM_VERSIONNAME', "Version Name");
+	define('STR_BM_BUILDNAME', "Build Name");
+	define('STR_BM_DEVENV', "Dev-Integration");
+	define('STR_BM_QAENV', "QA");
+	define('STR_BM_BUILDADD', "Add to Build Mangager");
+	define('STR_BM_RELEASEFORM', "Release");
+?>

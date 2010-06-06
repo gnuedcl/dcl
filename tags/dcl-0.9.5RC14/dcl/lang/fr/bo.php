@@ -1,0 +1,38 @@
+<?php
+	define('STR_BO_ACCOUNTSUCCESS', "Client %s AjoutÃ?Â© Avec SuccÃ?Â¨s!");
+	define('STR_BO_PASSWORDERR', "Vos mots de passe ne correspondent pas ou sont blancs!!!");
+	define('STR_BO_DELETED', "EffacÃ?Â©.");
+	define('STR_BO_DEACTIVATED', "DÃ?Â©sactivÃ?Â©.");
+	define('STR_BO_UPLOADERR', "Impossible de copier le fichiÃ?Â©r uploadÃ?Â© sur le rÃ?Â©pertoire destination!");
+	define('STR_BO_TIMECARDDELETED', "Fiche de temps ID %d pour l\'appel %d-%d effacÃ?Â©!");
+	define('STR_BO_WORKORDERDELETED', "Appel %d-%d effacÃ?Â©!");
+	define('STR_BO_CSVUPLOADNONE', "Pas de fichier uploadÃ?Â© pour l\'import!");
+	define('STR_BO_CSVUPLOADERR', "Impossible d\'ouvrir le fichier uploadÃ?Â©!");
+	define('STR_BO_FILECONTENTS', "Contenu du Fichier");
+	define('STR_BO_CSVMAPERR', "Ne peut pas mapper le champ \\\"%s\\\" Ã?Â  l\'ID Ã?Â  la ligne %d!");
+	define('STR_BO_CSVNEWWOADDED', "%d nouveaux appels ajoutÃ?Â©s!");
+	define('STR_BO_WTCHALLSEQ', "Toutes Les SÃ?Â©quences Pour No d\'Ordre de Travail %d");
+	define('STR_BO_WTCHSUMMARYERR', "Eh? Nom/RÃ?Â©sumÃ?Â© inconnu pour l\'alerteur");
+	define('STR_BO_MAILMSG', "Vous avez reÃ?Â§u cet e-mail parce que vous Ã?Âªtes (1) directement concernÃ?Â©, ou (2) avez un alerteur sur cet appel, ou (3) avez un alerteur sur ce produit ou projet associÃ?Â© avec cet Ordre de Travail.  Ceci est un Ã?Â©tat de l\'Ordre de Travail.");
+	define('STR_BO_MAILSUBJ', "Mise A Jour Ordre de Travail DCL");
+	define('STR_BO_MAILSENT', "Notification E-Mail EnvoyÃ?Â© A %s");
+	define('STR_BO_NOJCNFORSEQWARNING', "Ne peut pas trouver No d\'Ordre de Travail %d.  CrÃ?Â©ation nouveau No d\'Ordre de Travail Ã?Â§ la place.");
+	define('STR_BO_NOTLOGGEDIN', "Vous n\'Ã?Âªtes pas connectÃ?Â©.");
+	define('STR_BO_SEEDETAILAT', "See The Detail At: %s");
+	define('STR_BO_CANNOTLOADFAQ', "Impossible de charger la FAQ avec l\'identifiant %d");
+	define('STR_BO_CANNOTLOADQUESTION', "Impossible de charger la question de FAQ avec l\'identifiant %d");
+	define('STR_BO_CANNOTLOADTOPIC', "Impossible de charger le sujet de la FAQ avec l\'identifiant %d");
+	define('STR_BO_PARENTISCHILD', "Le projet parent que vous avez selectionnÃ?Â© est en fait un projet fils.  Selectionnez un autre projet.");
+	define('STR_BO_ESCALATEDTO', "RemontÃ?Â© A");
+	define('STR_BO_TICKETDELETED', "Ticket #%d EffacÃ?Â©");
+	define('STR_BO_GRAPHNEEDSGD', "Vous devez avoir le module GD compilÃ?Â© dans PHP pour que les graphiques fonctionnent.");
+	define('STR_BO_GRAPHTITLE', "Nombre de Tickets d\'Appels Ouverts(rouge)/FermÃ?Â©s(bleu) of Opened(red)/Closed(blue) sur la Date");
+	define('STR_BO_WOGRAPHTITLE', "Number of Opened/Closed Work Orders vs. Date");
+	define('STR_BO_GRAPHCAPTIONX', "Date");
+	define('STR_BO_GRAPHCAPTIONY', "Nombre de tickets Ouverts/FermÃ?Â©s");
+	define('STR_BO_WOGRAPHCAPTIONY', "Number of Opened/Closed Work Orders");
+	define('STR_BO_TICKETMAILMSG', "Vous avez reÃ?Â§u cet e-mail car vous Ã?Âªtes (1) directement inmliquÃ?Â©, ou (2) avez un alerteur sur ce ticket, ou (3) avez un alerteur sur le produit associÃ?Â© Ã?Â  ce ticket.  Il s\'agit d\'une vue du ticket.");
+	define('STR_BO_PROJECTMAILMSG', "Vous avez Ã?Â©tÃ?Â© dÃ?Â©signÃ?Â© comme chef de projet.");
+	define('STR_BO_LOOKUPNOTFOUND', "Lookup ID %d not found!");
+	define('STR_BO_UPLOADSUCCESS', "");
+?>

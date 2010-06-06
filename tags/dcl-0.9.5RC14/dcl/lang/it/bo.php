@@ -1,0 +1,38 @@
+<?php
+	define('STR_BO_ACCOUNTSUCCESS', "Cliente %s Inserito !");
+	define('STR_BO_PASSWORDERR', "Le tue password non corrispondono oppure sono vuote!!!");
+	define('STR_BO_DELETED', "Eliminato.");
+	define('STR_BO_DEACTIVATED', "Disattivato.");
+	define('STR_BO_UPLOADERR', "Non posso copiare il file inviato nella directory di destinazione!");
+	define('STR_BO_TIMECARDDELETED', "La Time card ID %d per ordine %d-%d e\' stata eliminata!");
+	define('STR_BO_WORKORDERDELETED', "Ordine %d-%d eliminato!");
+	define('STR_BO_CSVUPLOADNONE', "Nessun file e\' stato inviato!");
+	define('STR_BO_CSVUPLOADERR', "Non posso aprire il file inviato!");
+	define('STR_BO_FILECONTENTS', "Contenuto del File");
+	define('STR_BO_CSVMAPERR', "Non posso mappare il file \\\"%s\\\" all\'ID per la linea %d!");
+	define('STR_BO_CSVNEWWOADDED', "%d nuovo ordine inserito!");
+	define('STR_BO_WTCHALLSEQ', "Tutte le sequenze per il Lavoro WO# %d");
+	define('STR_BO_WTCHSUMMARYERR', "Eh? Non posso inserire un Avviso per l\'elemento");
+	define('STR_BO_MAILMSG', "Hai ricevuto questa email perche\' sei (1) direttamente coinvolto, oppure (2) hai inserito questo lavoro nella tua lista, oppure (3) hai inserito questo prodotto o progetto nella tua lista.  Questo e\' una immagine del Lavoro.");
+	define('STR_BO_MAILSUBJ', "DCL Aggiornamento Ordine");
+	define('STR_BO_MAILSENT', "Mail di notifica inviata a %s");
+	define('STR_BO_NOJCNFORSEQWARNING', "Non posso trovare il Lavoro WO# %d.  E\' stato creato un nuovo Lavoro WO#.");
+	define('STR_BO_NOTLOGGEDIN', "Non sei autenticato.");
+	define('STR_BO_SEEDETAILAT', "Visualizza i dettagli: %s");
+	define('STR_BO_CANNOTLOADFAQ', "Could not load FAQ by id %d");
+	define('STR_BO_CANNOTLOADQUESTION', "Could not load FAQ question by id %d");
+	define('STR_BO_CANNOTLOADTOPIC', "Could not load FAQ topic by id %d");
+	define('STR_BO_PARENTISCHILD', "The parent project you selected is actually a child project.  Select another project.");
+	define('STR_BO_ESCALATEDTO', "Escalated To");
+	define('STR_BO_TICKETDELETED', "Ticket #%d Deleted");
+	define('STR_BO_GRAPHNEEDSGD', "You must have the GD module compiled into PHP for graphing to work.");
+	define('STR_BO_GRAPHTITLE', "Number of Opened/Closed Tickets vs. Date");
+	define('STR_BO_WOGRAPHTITLE', "Number of Opened/Closed Work Orders vs. Date");
+	define('STR_BO_GRAPHCAPTIONX', "Date");
+	define('STR_BO_GRAPHCAPTIONY', "Number of Opened/Closed Tickets");
+	define('STR_BO_WOGRAPHCAPTIONY', "Number of Opened/Closed Work Orders");
+	define('STR_BO_TICKETMAILMSG', "You are receiving this e-mail because you are (1) directly involved, or (2) have a watch on this ticket, or (3) have a watch on a product associated with this ticket.  This is a snapshot of the ticket.");
+	define('STR_BO_PROJECTMAILMSG', "You have been designated as a project lead.");
+	define('STR_BO_LOOKUPNOTFOUND', "Lookup ID %d not found!");
+	define('STR_BO_UPLOADSUCCESS', "");
+?>

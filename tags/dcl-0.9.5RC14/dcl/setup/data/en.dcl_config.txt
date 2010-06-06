@@ -1,0 +1,85 @@
+dcl_config_name	dcl_config_field	dcl_config_int	dcl_config_double	dcl_config_date	dcl_config_datetime	dcl_config_varchar
+DCL_DATE_FORMAT	dcl_config_varchar					m/d/Y
+DCL_DATE_FORMAT_DB	dcl_config_varchar					Y-m-d
+DCL_TIMESTAMP_FORMAT_DB	dcl_config_varchar					Y-m-d H:i:s
+DCL_TIMESTAMP_FORMAT	dcl_config_varchar					m/d/Y H:i:s
+DCL_MAX_UPLOAD_FILE_SIZE	dcl_config_int	1048576
+DCL_DEFAULT_LANGUAGE	dcl_config_varchar					en
+DCL_PRIVATE_KEY	dcl_config_varchar					IloveDCL
+DCL_ROOT	dcl_config_varchar					http://localhost/dcl/
+DCL_ADD_USER	dcl_config_int	9
+DCL_DEL_WO	dcl_config_int	8
+DCL_MOD_WO	dcl_config_int	7
+DCL_ASSIGN_WO	dcl_config_int	5
+DCL_ADD_WO	dcl_config_int	3
+DCL_HAVE_WO	dcl_config_int	4
+DCL_CHG_PWD	dcl_config_int	2
+DCL_DEF_STATUS_ASSIGN_WO	dcl_config_int	1
+DCL_DEF_STATUS_UNASSIGN_WO	dcl_config_int	4
+DCL_DEF_PRIORITY	dcl_config_int	1
+DCL_DEF_SEVERITY	dcl_config_int	2
+DCL_AUTO_DATE	dcl_config_varchar					Y
+DCL_TIME_CARD_ORDER	dcl_config_varchar					ASC
+DCL_PROJECT_XML_TEMPLATES	dcl_config_varchar					N
+DCL_GD_TYPE	dcl_config_varchar					png
+DCL_CQQ_PERCENT	dcl_config_int	0
+DCL_CQQ_FROM	dcl_config_varchar					Somebody <someone@somewhere.org>
+DCL_CQQ_SUBJECT	dcl_config_varchar					Thank You For Calling
+DCL_CQQ_TEMPLATE	dcl_config_varchar					cqqmail.tpl
+DCL_DEF_TEMPLATE_SET	dcl_config_varchar					default
+DCL_COLOR_LIGHT	dcl_config_varchar					#eeeef8
+DCL_COLOR_DARK	dcl_config_varchar					#000065
+DCL_SMTP_SERVER	dcl_config_varchar					localhost
+DCL_SMTP_ENABLED	dcl_config_varchar					Y
+DCL_SMTP_AUTH_REQUIRED	dcl_config_varchar					N
+DCL_SMTP_AUTH_USER	dcl_config_varchar					smtp_user
+DCL_SMTP_AUTH_PWD	dcl_config_varchar					smtp_pass
+DCL_SMTP_PORT	dcl_config_int	25
+DCL_SMTP_TIMEOUT	dcl_config_int	30
+DCL_PROJECT_BROWSE_PARENTS_ONLY	dcl_config_varchar					N
+DCL_PROJECT_INCLUDE_PARENT_STATS	dcl_config_varchar					N
+DCL_PROJECT_INCLUDE_CHILD_STATS	dcl_config_varchar					Y
+DCL_FILE_PATH	dcl_config_varchar					.
+DCL_HTML_TITLE	dcl_config_varchar					GNUe Double Choco Latte - Copyright (C) 1999-2004 Free Software Foundation
+DCL_DEFAULT_PROJECT_STATUS	dcl_config_int	1
+DCL_DEFAULT_TICKET_STATUS	dcl_config_int	1
+DCL_GATEWAY_TICKET_ENABLED	dcl_config_varchar					N
+DCL_GATEWAY_TICKET_AUTORESPOND	dcl_config_varchar					N
+DCL_GATEWAY_TICKET_REPLY	dcl_config_varchar					N
+DCL_GATEWAY_TICKET_AUTORESPONSE_EMAIL	dcl_config_varchar					nobody@localhost
+DCL_GATEWAY_TICKET_FILE_PATH	dcl_config_varchar					/tmp
+DCL_GATEWAY_TICKET_STATUS	dcl_config_int	0
+DCL_GATEWAY_TICKET_PRIORITY	dcl_config_int	0
+DCL_GATEWAY_TICKET_SEVERITY	dcl_config_int	0
+DCL_GATEWAY_TICKET_ACCOUNT	dcl_config_int	0
+DCL_GATEWAY_TICKET_REPLY_LOGGED_BY	dcl_config_int	0
+DCL_SMTP_DEFAULT_EMAIL	dcl_config_varchar					nobody@localhost
+DCL_WO_NOTIFICATION_HTML	dcl_config_varchar					N
+DCL_WO_EMAIL_TEMPLATE	dcl_config_varchar					notify_wo_en.tpl
+DCL_WO_EMAIL_TEMPLATE_PUBLIC	dcl_config_varchar					notify_wo_en_public.tpl
+DCL_TCK_NOTIFICATION_HTML	dcl_config_varchar					N
+DCL_TCK_EMAIL_TEMPLATE	dcl_config_varchar					notify_tck_en.tpl
+DCL_TCK_EMAIL_TEMPLATE_PUBLIC	dcl_config_varchar					notify_tck_en_public.tpl
+DCL_GATEWAY_WO_AUTORESPOND	dcl_config_varchar					N
+DCL_GATEWAY_WO_AUTORESPONSE_EMAIL	dcl_config_varchar					nobody@localhost
+DCL_GATEWAY_WO_ENABLED	dcl_config_varchar					N
+DCL_GATEWAY_WO_FILE_PATH	dcl_config_varchar					/tmp
+DCL_GATEWAY_WO_PRIORITY	dcl_config_int	0
+DCL_GATEWAY_WO_REPLY	dcl_config_varchar					N
+DCL_GATEWAY_WO_SEVERITY	dcl_config_int	0
+DCL_GATEWAY_WO_STATUS	dcl_config_int	0
+DCL_GATEWAY_WO_ACCOUNT	dcl_config_int	0
+DCL_GATEWAY_WO_REPLY_LOGGED_BY	dcl_config_int	0
+DCL_WO_SECONDARY_ACCOUNTS_ENABLED	dcl_config_varchar					N
+LAST_CONFIG_UPDATE	dcl_config_datetime				2003-05-26 00:00:00
+DCL_SESSION_TIMEOUT	dcl_config_int	20
+DCL_WIKI_ENABLED	dcl_config_varchar						N
+DCL_WIKI_VIEW	dcl_config_int	4
+DCL_WIKI_EDIT	dcl_config_int	5
+DCL_SCCS_ENABLED	dcl_config_varchar						N
+DCL_BUILD_MANAGER_ENABLED	dcl_config_varchar					N
+DCL_APP_NAME	dcl_config_varchar					GNUe DCL
+DCL_LOGIN_MESSAGE	dcl_config_varchar					Welcome to GNUe DCL
+DCL_SEC_AUDIT_ENABLED	dcl_config_varchar					N
+DCL_SEC_AUDIT_LOGIN_ONLY	dcl_config_varchar					N
+DCL_FORCE_SECURE_GRAVATAR	dcl_config_varchar					N

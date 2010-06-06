@@ -1,0 +1,36 @@
+<?php
+	define('STR_USR_SELECTONE', "Select One");
+	define('STR_USR_PASSWORD', "Password");
+	define('STR_USR_SECLVL', "Security Level");
+	define('STR_USR_MINLVL', "Min");
+	define('STR_USR_TODOTHIS', "To Do This...");
+	define('STR_USR_ADMIN', "Administrator");
+	define('STR_USR_ADDASSGN', "Add and assign work orders");
+	define('STR_USR_RESPONSIBLE', "Be responsible for work orders");
+	define('STR_USR_CANCHGPWD', "Able to change own password");
+	define('STR_USR_ADDWO', "Can add work order to system");
+	define('STR_USR_DELWO', "Can delete a work order from the system");
+	define('STR_USR_MODWO', "Can modify an existing work order in the system");
+	define('STR_USR_EMAIL', "e-Mail");
+	define('STR_USR_CHGPWD', "Change Password");
+	define('STR_USR_CHANGE', "Change");
+	define('STR_USR_CLEAR', "Clear");
+	define('STR_USR_NEWPWD', "New Password");
+	define('STR_USR_CURRPWD', "Current Password");
+	define('STR_USR_CONFIRMPWD', "Confirm Password");
+	define('STR_USR_TABLETITLE', "Users - Ordered By %s");
+	define('STR_USR_NOUSERS', "Users could not be found for display!  You may not have any users in your system yet!");
+	define('STR_USR_ID', "ID");
+	define('STR_USR_USER', "User");
+	define('STR_USR_ACTIVEABB', "A");
+	define('STR_USR_ACTIVE', "Active");
+	define('STR_USR_LASTNAME', "Last Name");
+	define('STR_USR_FIRSTNAME', "First Name");
+	define('STR_USR_OPTIONS', "Options");
+	define('STR_USR_REPORTTO', "Report To");
+	define('STR_USR_DEPARTMENT', "Department");
+	define('STR_USR_LOGIN', "Login");
+	define('STR_USR_EDIT', "Edit User");
+	define('STR_USR_ADD', "Add User");
+	define('STR_USR_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
+?>

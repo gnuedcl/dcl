@@ -1,0 +1,36 @@
+<?php
+	define('STR_USR_SELECTONE', "VÃ?Â¤lj en");
+	define('STR_USR_PASSWORD', "LÃ?Â¶senord");
+	define('STR_USR_SECLVL', "SÃ?Â¤kerhetsnivÃ?Â¥");
+	define('STR_USR_MINLVL', "Min");
+	define('STR_USR_TODOTHIS', "Att gÃ?Â¶ra detta...");
+	define('STR_USR_ADMIN', "AdministratÃ?Â¶r");
+	define('STR_USR_ADDASSGN', "LÃ?Â¤gga till och tilldela arbetsorder");
+	define('STR_USR_RESPONSIBLE', "Vara ansvarig fÃ?Â¶r arbetsorder");
+	define('STR_USR_CANCHGPWD', "Kan Ã?Â¤ndra sitt eget lÃ?Â¶senord");
+	define('STR_USR_ADDWO', "Kan skicka arbetsorder");
+	define('STR_USR_DELWO', "Kan ta bort arbetsorder");
+	define('STR_USR_MODWO', "Kan Ã?Â¤ndra befintlig arbetsorder");
+	define('STR_USR_EMAIL', "epost");
+	define('STR_USR_CHGPWD', "Byta lÃ?Â¶senord");
+	define('STR_USR_CHANGE', "Ã?â??ndra");
+	define('STR_USR_CLEAR', "Rensa");
+	define('STR_USR_NEWPWD', "Nytt lÃ?Â¶senord");
+	define('STR_USR_CURRPWD', "Nuvarande lÃ?Â¶senord");
+	define('STR_USR_CONFIRMPWD', "Verifiera lÃ?Â¶senord");
+	define('STR_USR_TABLETITLE', "AnvÃ?Â¤ndare - ordnade efter %s");
+	define('STR_USR_NOUSERS', "Inga anvÃ?Â¤ndare kunde hittas! MÃ?Â¶jligen har Ã?Â¤nnu inga anvÃ?Â¤ndare konfigurerats - kontakta systemadministratÃ?Â¶ren.");
+	define('STR_USR_ID', "ID");
+	define('STR_USR_USER', "AnvÃ?Â¤ndare");
+	define('STR_USR_ACTIVEABB', "A");
+	define('STR_USR_ACTIVE', "Aktiv");
+	define('STR_USR_LASTNAME', "Efternamn");
+	define('STR_USR_FIRSTNAME', "FÃ?Â¶rnamn");
+	define('STR_USR_OPTIONS', "InstÃ?Â¤llningar");
+	define('STR_USR_REPORTTO', "Rapportera till");
+	define('STR_USR_DEPARTMENT', "Avdelning");
+	define('STR_USR_LOGIN', "Logga in");
+	define('STR_USR_EDIT', "Ã?â??ndra anvÃ?Â¤ndare");
+	define('STR_USR_ADD', "LÃ?Â¤gg till anvÃ?Â¤ndare");
+	define('STR_USR_HIGHLIGHTEDNOTE', "** Obligatoriskt fÃ?Â¤lt.");
+?>

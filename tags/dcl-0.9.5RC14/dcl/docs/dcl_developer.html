@@ -1,0 +1,998 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.42)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Double Choco Latte Developer Documentation</TITLE>
+<META NAME="description" CONTENT="Double Choco Latte Developer Documentation">
+<META NAME="keywords" CONTENT="dcl_developer">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="dcl_developer.css">
+
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="file:/usr/lib/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev_g.png">   
+<BR>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+<H1 ALIGN="CENTER">Double Choco Latte Developer Documentation</H1>
+<P ALIGN="CENTER"><STRONG>Michael L. Dean</STRONG></P>
+<P ALIGN="CENTER"><STRONG>$Id$</STRONG></P>
+
+<P>
+<BR>
+
+<H2><A NAME="SECTION00010000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html49"
+  HREF="dcl_developer.html">Contents</A>
+<LI><A NAME="tex2html50"
+  HREF="dcl_developer.html#SECTION00020000000000000000">1 Application Architecture</A>
+<UL>
+<LI><A NAME="tex2html51"
+  HREF="dcl_developer.html#SECTION00021000000000000000">1.1 Login</A>
+<LI><A NAME="tex2html52"
+  HREF="dcl_developer.html#SECTION00022000000000000000">1.2 Logout</A>
+<LI><A NAME="tex2html53"
+  HREF="dcl_developer.html#SECTION00023000000000000000">1.3 Class Factory</A>
+<LI><A NAME="tex2html54"
+  HREF="dcl_developer.html#SECTION00024000000000000000">1.4 Page Requests</A>
+<LI><A NAME="tex2html55"
+  HREF="dcl_developer.html#SECTION00025000000000000000">1.5 File Naming Conventions</A>
+</UL>
+<LI><A NAME="tex2html56"
+  HREF="dcl_developer.html#SECTION00030000000000000000">2 Database Abstraction</A>
+<UL>
+<LI><A NAME="tex2html57"
+  HREF="dcl_developer.html#SECTION00031000000000000000">2.1 Database Date Handling</A>
+<LI><A NAME="tex2html58"
+  HREF="dcl_developer.html#SECTION00032000000000000000">2.2 Other Database Characteristics</A>
+</UL>
+<LI><A NAME="tex2html59"
+  HREF="dcl_developer.html#SECTION00040000000000000000">3 Templates</A>
+<UL>
+<LI><A NAME="tex2html60"
+  HREF="dcl_developer.html#SECTION00041000000000000000">3.1 Location</A>
+<LI><A NAME="tex2html61"
+  HREF="dcl_developer.html#SECTION00042000000000000000">3.2 Variable Naming Conventions</A>
+<LI><A NAME="tex2html62"
+  HREF="dcl_developer.html#SECTION00043000000000000000">3.3 Using Templates in html Classes</A>
+</UL>
+<LI><A NAME="tex2html63"
+  HREF="dcl_developer.html#SECTION00050000000000000000">4 XML DOMish Document Objects</A>
+<UL>
+<LI><A NAME="tex2html64"
+  HREF="dcl_developer.html#SECTION00051000000000000000">4.1 xmlNode</A>
+<LI><A NAME="tex2html65"
+  HREF="dcl_developer.html#SECTION00052000000000000000">4.2 xmlDoc</A>
+<LI><A NAME="tex2html66"
+  HREF="dcl_developer.html#SECTION00053000000000000000">4.3 xmlDoc Object Interface</A>
+</UL>
+<LI><A NAME="tex2html67"
+  HREF="dcl_developer.html#SECTION00060000000000000000">5 Logic Layer</A>
+<LI><A NAME="tex2html68"
+  HREF="dcl_developer.html#SECTION00070000000000000000">6 National Language Support</A>
+<UL>
+<LI><A NAME="tex2html69"
+  HREF="dcl_developer.html#SECTION00071000000000000000">6.1 Location</A>
+<LI><A NAME="tex2html70"
+  HREF="dcl_developer.html#SECTION00072000000000000000">6.2 Naming Conventions</A>
+</UL>
+<LI><A NAME="tex2html71"
+  HREF="dcl_developer.html#SECTION00080000000000000000">7 Database Schema</A>
+<LI><A NAME="tex2html72"
+  HREF="dcl_developer.html#SECTION00090000000000000000">8 TODO Feature List</A>
+<UL>
+<LI><A NAME="tex2html73"
+  HREF="dcl_developer.html#SECTION00091000000000000000">8.1 Authentication</A>
+<LI><A NAME="tex2html74"
+  HREF="dcl_developer.html#SECTION00092000000000000000">8.2 Work Orders</A>
+<LI><A NAME="tex2html75"
+  HREF="dcl_developer.html#SECTION00093000000000000000">8.3 Project Management</A>
+<LI><A NAME="tex2html76"
+  HREF="dcl_developer.html#SECTION00094000000000000000">8.4 Tickets</A>
+<LI><A NAME="tex2html77"
+  HREF="dcl_developer.html#SECTION00095000000000000000">8.5 Security</A>
+<LI><A NAME="tex2html78"
+  HREF="dcl_developer.html#SECTION00096000000000000000">8.6 E-mail Gateway</A>
+<LI><A NAME="tex2html79"
+  HREF="dcl_developer.html#SECTION00097000000000000000">8.7 Reporting</A>
+<LI><A NAME="tex2html80"
+  HREF="dcl_developer.html#SECTION00098000000000000000">8.8 UI</A>
+<LI><A NAME="tex2html81"
+  HREF="dcl_developer.html#SECTION00099000000000000000">8.9 NLS</A>
+<LI><A NAME="tex2html82"
+  HREF="dcl_developer.html#SECTION000910000000000000000">8.10 Accounts</A>
+</UL>
+<LI><A NAME="tex2html83"
+  HREF="dcl_developer.html#SECTION000100000000000000000">9 Contributors</A>
+<UL>
+<LI><A NAME="tex2html84"
+  HREF="dcl_developer.html#SECTION000101000000000000000">9.1 Core Developers</A>
+<LI><A NAME="tex2html85"
+  HREF="dcl_developer.html#SECTION000102000000000000000">9.2 Packagers</A>
+<LI><A NAME="tex2html86"
+  HREF="dcl_developer.html#SECTION000103000000000000000">9.3 Documentation</A>
+<LI><A NAME="tex2html87"
+  HREF="dcl_developer.html#SECTION000104000000000000000">9.4 Translations</A>
+<LI><A NAME="tex2html88"
+  HREF="dcl_developer.html#SECTION000105000000000000000">9.5 Patches</A>
+</UL>
+<LI><A NAME="tex2html89"
+  HREF="dcl_developer.html#SECTION000110000000000000000">About this document ...</A>
+</UL>
+<!--End of Table of Contents-->
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+1 Application Architecture</A>
+</H1>
+
+<P>
+Double Choco Latte is an object oriented implementation of a problem/project
+management system. All actions are performed with objects that are split into
+3 distinct layers: data, logic, presentation.
+
+<P>
+
+<H2><A NAME="SECTION00021000000000000000">
+1.1 Login</A>
+</H2>
+
+<P>
+When logging in to DCL, the login form is submitted to the web server with the
+user's credentials. DCL then attempts to locate that user in the database using
+the short field in the personnel table. If a match is found, it then performs
+an md5 hash of the password and compares it to the hash stored in the database.
+If that matches, a cookie is sent to the client with the user id, menu id, domain
+name, selected language, and password key.
+
+<P>
+For each successive page request, the user's credentials are re-evaluated. The
+cookie stored on the client system is used to load the appropriate person (if
+the person still exists) and compare the hashed password. In the future, this
+will change when real session support is introduced.
+
+<P>
+Also, during login and for each page request, the configuration is read from
+the dcl_config table. This table contains parameters to change the behavior
+and look-n-feel of DCL. When sessions come to town, this information will be
+persisted in the session information to reduce load on the SQL server.
+
+<P>
+
+<H2><A NAME="SECTION00022000000000000000">
+1.2 Logout</A>
+</H2>
+
+<P>
+Logging out simply resets the cookie to nothing, in essense deleting it.
+
+<P>
+
+<H2><A NAME="SECTION00023000000000000000">
+1.3 Class Factory</A>
+</H2>
+
+<P>
+Before going further, it is worth noting that DCL makes use of a class factory
+for object loading and instantiation. The function is named <TT><FONT SIZE="-1">CreateObject</FONT></TT>
+and is used as such:
+
+<P>
+<BLOCKQUOTE>
+<TT>$obj = CreateObject('boSMTP');</TT>
+
+</BLOCKQUOTE>
+<TT>CreateObject</TT> then looks to see if a global variable <TT>CLASSNAME_PHP3_INCLUDED</TT>
+has been defined. If not, it includes the appropriate file (in this case <TT>boSMTP.php3</TT>).
+
+<P>
+After the file has been included (or verified as being previously included),
+the object is instantiated and returned to the calling function. In the above
+example, <TT>$obj</TT> will contain a new instance of the <TT>boSMTP</TT> class.
+
+<P>
+
+<H3><A NAME="SECTION00023100000000000000">
+1.3.1 Why Is It Called a Class Factory?</A>
+</H3>
+
+<P>
+This question will invariably come up. The answer is pretty simple: a class
+factory is a method for the developer to request the class by a unique name
+and let the factory take care of the details for loading it and instantiating
+it. Of course, the factory in this case is represented by the simple function
+<TT>CreateObject</TT>.
+
+<P>
+
+<H2><A NAME="SECTION00024000000000000000">
+1.4 Page Requests</A>
+</H2>
+
+<P>
+Page requests all pass through <TT>main.php3</TT>. <TT>main.php3</TT> evaluates
+the value of the <TT>menuAction</TT> variable. <TT>menuAction</TT> is defined
+as <TT>classname.methodname</TT>. Since all DCL actions are object oriented,
+this makes it a snap to develop new functionality and not worry about directory
+structures and such. All that's required is that the objects are locatable by
+the class factory.
+
+<P>
+What main.php3 does is segment the menuAction var into two distinct entities:
+the class name and method name. Pseudocode for representing this is:
+
+<P>
+<BLOCKQUOTE>
+<TT>list(classname, methodname) = explode('.', menuAction);</TT>
+</BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><TT>$obj = CreateObject(classname);</TT>
+</BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><TT>$obj-&gt;methodname();</TT>
+
+</BLOCKQUOTE>
+
+<P>
+
+<H2><A NAME="SECTION00025000000000000000">
+1.5 File Naming Conventions</A>
+</H2>
+
+<P>
+The file names are representitive of the class' name and the layer it is a part
+of. A file name is composed like so: <TT>&lt;layer&gt;&lt;classname&gt;.php3</TT>.
+
+<P>
+The layers are:
+
+<P>
+<DL>
+<DT><STRONG>bo</STRONG></DT>
+<DD>Business Object. This is the layer that handles the guts of the operations.
+</DD>
+<DT><STRONG>db</STRONG></DT>
+<DD>DataBase. This layer handles the interface between the other layers and
+the database. Normally, every table within DCL will have a corresponding db
+class. However, for some cross reference tables and such, there may not necessarily
+be a class.
+</DD>
+<DT><STRONG>html</STRONG></DT>
+<DD>Presentation. This layer does the majority of page rendering functions.
+This includes instantiating templates, populating their variables, and displaying
+them.
+</DD>
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+2 Database Abstraction</A>
+</H1>
+
+<P>
+The database functionality is abstracted to ease porting of DCL to other SQL
+servers. Currently supported servers are: PostgreSQL, MySQL, Microsoft SQL Server,
+and Sybase Adaptive Server Enterprise. The current abstraction layer is custom
+written for DCL, but it might shift to modified PHPLib versions in the future.
+
+<P>
+Each server has it's own class in a file named after it. PostgreSQL is in pgsql.php3,
+MySQL is in mysql.php3, Microsoft SQL Server is in mssql.php3, and Sybase ASE
+is in sybase.php3.
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000">
+2.1 Database Date Handling</A>
+</H2>
+
+<P>
+To compensate for the differences in how the SQL servers store dates, two classes
+were written: Timestamp and Date. These classes are defined in datetime.php3.
+
+<P>
+The purpose of the each class is to handle the transition of date and timestamp
+entities between the presentation layer and the SQL server. This ensures that
+the data going into the SQL server is correct and that the data displayed to
+the user can be localized to their preference.
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+2.2 Other Database Characteristics</A>
+</H2>
+
+<P>
+Anytime a difference between SQL servers is found, a function is written to
+abstract the difference. This ensures a common interface for all consumers of
+the database layer classes. Some examples are: LIMIT clause, case (in)sensitive
+queries, and data type casting.
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+3 Templates</A>
+</H1>
+
+<P>
+The templates class comes from phpGroupWare, which in turn used the PHPLib templates
+class. To use templates in DCL, a template factory was created. This is implemented
+in the function <TT>CreateTemplate</TT>. <TT>CreateTemplate</TT> takes one parameter:
+an array of handles and template files you would normally pass to set_file.
+Example:
+
+<P>
+<BLOCKQUOTE>
+<TT>$Template = CreateTemplate(array('hForm' =&gt; 'htmlWorkorderForm.tpl'));</TT>
+
+</BLOCKQUOTE>
+<TT><FONT SIZE="-1">CreateTemplate</FONT></TT> will handle finding exactly which <TT><FONT SIZE="-1">htmlWorkorderForm.tpl</FONT></TT>
+the caller needs by using the configured template set.
+
+<P>
+
+<H2><A NAME="SECTION00041000000000000000">
+3.1 Location</A>
+</H2>
+
+<P>
+The templates are located in the <TT>&lt;dcl_root&gt;/templates/&lt;template_set&gt;</TT>
+directory. To create another template set, simply copy the default template
+set to a sibling directory and begin modifying the templates to match the look
+and feel desired.
+
+<P>
+The custom directory contains template files used for non-html rendering. A
+current example is the Customer Quality Questionnaire email template.
+
+<P>
+
+<H2><A NAME="SECTION00042000000000000000">
+3.2 Variable Naming Conventions</A>
+</H2>
+
+<P>
+Templates use several different naming conventions. Currently, all variables
+are prefixed with a special abbreviation to describe what the variable will
+be replaced with.
+
+<P>
+<DL>
+<DT><STRONG>TXT_</STRONG></DT>
+<DD>Static text
+</DD>
+<DT><STRONG>VAL_</STRONG></DT>
+<DD>Data Value
+</DD>
+<DT><STRONG>CMB_</STRONG></DT>
+<DD>Combo Box
+</DD>
+<DT><STRONG>BTN_</STRONG></DT>
+<DD>Button Text
+</DD>
+<DT><STRONG>COLOR_</STRONG></DT>
+<DD>Color (currently light and dark are supported from the DCL configuration)
+</DD>
+</DL>
+
+<P>
+
+<H2><A NAME="SECTION00043000000000000000">
+3.3 Using Templates in html Classes</A>
+</H2>
+
+<P>
+Templates are instantiated by the template factory. If a particular template
+is very large and/or has a large amount of supporting code, an html class is
+created to specifically handle only that template. If the template and supporting
+code is small, several template handlers can be combined into one class in different
+methods.
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+4 XML DOMish Document Objects</A>
+</H1>
+
+<P>
+The latter part of April 2001 saw the introduction of a couple of classes to
+generically support parsing XML documents into a DOMish structure using PHP
+arrays. The objects make use of the bundled XML Expat parser and the PHP xml_parser_set_object
+function, which by nature requires PHP 4 due to objects being passed by reference.
+
+<P>
+
+<H2><A NAME="SECTION00051000000000000000">
+4.1 xmlNode</A>
+</H2>
+
+<P>
+This class represents a node in the XML document. It consists of a name (the
+tag name), an array of attributes (key =&gt; value), an array of child nodes, and
+a pointer to the parent node, if any. Only the root node has a NULL parent node.
+
+<P>
+It is important to remember that an <TT>xmlNode</TT> object does not have any
+methods itself. It is merely the representation of the properties of a node
+in an XML document.
+
+<P>
+
+<H3><A NAME="SECTION00051100000000000000">
+4.1.1 xmlNode Member Variables</A>
+</H3>
+
+<P>
+
+<UL>
+<LI><B>string name</B> - the node element name from the tag (e.g., &lt;Checklist&gt;)
+</LI>
+<LI><B>array(string, string) attributes</B> - an array of keys to values representing
+the attributes of the node
+</LI>
+<LI><B>array(&amp;xmlNode) childNodes</B> - an array of xmlNode objects that are
+the immediate children of a node
+</LI>
+<LI><B>&amp;xmlNode parentNode</B> - the immediate parent xmlNode object. The root
+of a document will be NULL.
+</LI>
+<LI><B>string data</B> - The data contained in the node (e.g., &lt;Value&gt;This is
+the data for this Value node.&lt;/Value&gt;)
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00052000000000000000">
+4.2 xmlDoc</A>
+</H2>
+
+<P>
+xmlDoc is the document class. It is a container for a root node, which contains
+all of the child elements of the XML document. This class is capable of building
+the DOMish structure from a file or a string. It can also reproduce an XML document
+from the DOMish structure, which makes the xmlDoc class ideal for performing
+updates to the nodes.
+
+<P>
+
+<H2><A NAME="SECTION00053000000000000000">
+4.3 xmlDoc Object Interface</A>
+</H2>
+
+<P>
+The interface for the XML objects is relatively minimal at this point. It will
+probably be extended and enhanced in the future as is necessary.
+
+<P>
+
+<H3><A NAME="SECTION00053100000000000000">
+4.3.1 Parsing</A>
+</H3>
+
+<P>
+
+<UL>
+<LI><B>void ParseFile(string sFileName)</B> - Parse the file identified by <TT>sFileName</TT>
+into a DOMish structure
+</LI>
+<LI><B>void ParseString(string sXML)</B> - Parse the string <TT>sXML</TT> into
+a DOMish structure
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00053200000000000000">
+4.3.2 Rendering</A>
+</H3>
+
+<P>
+
+<UL>
+<LI><B>string ToXML()</B> - Returns an XML string representation of the current
+DOMish structure
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00053300000000000000">
+4.3.3 Modifying</A>
+</H3>
+
+<P>
+
+<UL>
+<LI><B>void AddChildNode(xmlNode &amp;oParent, string sName, array aAttributes)</B>
+- Adds a child node to the node pointed to by <TT>oParent</TT>.
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00053400000000000000">
+4.3.4 Navigating</A>
+</H3>
+
+<P>
+
+<UL>
+<LI><B>void FindChildNode(xmlNode &amp;oStart, string element)</B> - Recursively
+searches for the first node with an element name of <TT>element</TT> starting
+from the <TT>oStart</TT> node. The <TT>xmlDoc-&gt;currentNode</TT> member will
+point to the found node, or NULL if a matching node was not found.
+</LI>
+<LI><B>void ListNodes(xmlNode &amp;oStart, string element, string attribute, string
+value)</B> - Recursively retrieves a list of all nodes with an element name of
+<TT>element</TT> and the attribute <TT>attribute</TT> is equal to <TT>value</TT>
+starting from the <TT>oStart</TT> node
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION00053500000000000000">
+4.3.5 Member Variables</A>
+</H3>
+
+<P>
+
+<UL>
+<LI><B>&amp;xmlNode root</B> - the root node of the document, if any
+</LI>
+<LI><B>&amp;xmlNode currentNode</B> - the current node pointer. Also used as the
+result for <TT>FindChildNode</TT>
+</LI>
+<LI><B>array(&amp;xmlNode) nodes</B> - the list of matching nodes found as the result
+of a call to <TT>ListNodes</TT>
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+5 Logic Layer</A>
+</H1>
+
+<P>
+The logic layer (represented mostly by the bo*.php3 classes) controls what
+operations are performed for each function. For example, the boTimeCards.dbadd
+method will accept posted form data, add it to the database, load the associated
+work order, check the time card status against the work order status (and change
+the work order if necessary), and accumulate the time card hours with the existing
+applied work order hours. This is all performed within a database transaction
+as well (so MySQL users are out of luck until the transaction support becomes
+commonplace).
+
+<P>
+Just remember that the bo classes consume the db and html layers. The logic
+layer coordinates the necessary calls between the layers, although some html
+classes may require access to db classes.
+
+<P>
+
+<H1><A NAME="SECTION00070000000000000000">
+6 National Language Support</A>
+</H1>
+
+<P>
+Multiple languages are supported with the use of string resource files. These
+files merely define strings used within DCL as constants.
+
+<P>
+
+<H2><A NAME="SECTION00071000000000000000">
+6.1 Location</A>
+</H2>
+
+<P>
+The string resources are located in <TT>&lt;dcl_root&gt;/str/&lt;language&gt;</TT> directories.
+<TT>&lt;language&gt;</TT> is the short abbreviation of the language (e.g., en for
+English, it for Italian, sv for Swedish, etc).
+
+<P>
+Creating a new translation involves copying an existing set for a language you
+are comfortable with to the new language directory. Then translate each string
+in the file to the new language.
+
+<P>
+In the future, it would be very beneficial to create a small web application
+to maintain and generate these resources from a database. This could be made
+available as part of DCL, or as a development tool for it.
+
+<P>
+
+<H2><A NAME="SECTION00072000000000000000">
+6.2 Naming Conventions</A>
+</H2>
+
+<P>
+All string resource files are given an abbreviated name equivalent to the area
+of DCL they apply to. For example, cfg.str is for the configuration strings,
+wo.str is for work order strings, etc.
+
+<P>
+The strings defined in the resource files are prefixed with <TT>STR_&lt;resource_abbreviation&gt;</TT>.
+So, the cfg.str strings all begin with <TT>STR_CFG_</TT>, wo.str has <TT>STR_WO_</TT>,
+etc. This makes it very easy to identify the resources in the code and which
+file they belong to.
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000">
+7 Database Schema</A>
+</H1>
+
+<P>
+<BR>
+<BR>
+<DIV ALIGN="CENTER"><!-- MATH
+ $\resizebox*{!}{0.95\textheight}{\includegraphics{DoubleChocoLatte.eps}}$
+ -->
+<IMG
+ WIDTH="676" HEIGHT="1035" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="\resizebox*{!}{0.95\textheight}{\includegraphics{DoubleChocoLatte.eps}}"> </DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+<BR>
+<BR>
+
+<P>
+
+<H1><A NAME="SECTION00090000000000000000">
+8 TODO Feature List</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00091000000000000000">
+8.1 Authentication</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>PAM Auth
+</LI>
+<LI>Auto-Login via cookies
+</LI>
+<LI>HTTP Auth
+</LI>
+<LI>PHP4 Sessions (?)
+</LI>
+<LI>Database sessions
+</LI>
+<LI>LDAP Auth
+</LI>
+<LI>Guest/public access
+</LI>
+<LI>Authenticate via email address
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00092000000000000000">
+8.2 Work Orders</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Search by department
+</LI>
+<LI>Dependencies
+</LI>
+<LI>Configurable fields (names, required, etc)
+</LI>
+<LI>Scheduled E-mail of activity
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00093000000000000000">
+8.3 Project Management</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Gantt Chart
+</LI>
+<LI>Best fit scheduler
+</LI>
+<LI>Tree view for projects
+</LI>
+<LI>Change project status
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00094000000000000000">
+8.4 Tickets</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Search by department
+</LI>
+<LI>Configurable fields (names, required, etc)
+</LI>
+<LI>Quality of service contract
+</LI>
+<LI>Auto ticket priority upgrade
+</LI>
+<LI>Allow multiple responsible
+</LI>
+<LI>Aging ticket reminder
+</LI>
+<LI>Queue support
+</LI>
+<LI>Scheduled E-mail of activity
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00095000000000000000">
+8.5 Security</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Roles and permissions
+</LI>
+<LI>Customer access to system with account restriction
+</LI>
+<LI>Verify authenticity of form submissions
+</LI>
+<LI>Validate data submitted from forms on server side
+</LI>
+<LI>Move attachment files outside of web dir and force client download
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00096000000000000000">
+8.6 E-mail Gateway</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Work order submission/query
+</LI>
+<LI>Ticket submission/query
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00097000000000000000">
+8.7 Reporting</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>More analysis and stats
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00098000000000000000">
+8.8 UI</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Templatize menus so templates can be selected @ login
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00099000000000000000">
+8.9 NLS</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Create db utility to maintain language files in str dir
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION000910000000000000000">
+8.10 Accounts</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Create client list w/many-to-many relationship
+</LI>
+<LI>Associate products with account
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION000100000000000000000">
+9 Contributors</A>
+</H1>
+
+<P>
+The following is a quick list of people who have contributed to DCL in one way
+or another. If I forgot you, it's because I'm very disorganized ;-), but I'm
+trying to get this complete. Just shoot me an email and what section you belong
+in and I'll add you to the list.
+
+<P>
+
+<H2><A NAME="SECTION000101000000000000000">
+9.1 Core Developers</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Michael Dean &lt;mdean@users.sourceforge.net&gt;
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION000102000000000000000">
+9.2 Packagers</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Debian - Ola Lundqvist
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION000103000000000000000">
+9.3 Documentation</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Michael Dean
+</LI>
+<LI>Michael Brader
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION000104000000000000000">
+9.4 Translations</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>English - Michael Dean :-)
+</LI>
+<LI>Swedish - Ola Lundqvist
+</LI>
+<LI>German - Herbert Mollien
+</LI>
+<LI>French - Laurent Portefaix
+</LI>
+<LI>Italian - Luca Pescatore, Angelo Addante
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION000105000000000000000">
+9.5 Patches</A>
+</H2>
+
+<P>
+
+<UL>
+<LI>Michael Brader
+</LI>
+<LI>Brian Cooke
+</LI>
+<LI>Urmet Janes
+</LI>
+<LI>Ola Lundqvist
+</LI>
+<LI>Jim Lieb
+</LI>
+<LI>Evelyn Mitchell
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION000110000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>Double Choco Latte Developer Documentation</STRONG><P>
+This document was generated using the
+<A HREF="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 99.2beta8 (1.42)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>
+Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-no_subdir -split 0 -show_section_numbers /usr/local/apache/htdocs/dcl/dcl/docs/dcl_developer.tex</TT>
+<P>
+The translation was initiated by Mike on 2001-05-05<HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="file:/usr/lib/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev_g.png">   
+<BR>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Mike
+2001-05-05
+</ADDRESS>
+</BODY>
+</HTML>

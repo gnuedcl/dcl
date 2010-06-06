@@ -1,0 +1,29 @@
+Very incomplete list here...
+
+Authentication
+	* Support HTTP Authentication
+	* Support PAM if at all possible
+	* Use database sessions for storing user state
+
+Work Orders
+	* Add user defined fields and configuration
+
+Projects
+	* Best fit scheduler
+
+Tickets
+	* Queue operations - a queue monitors multiple products, and an agent can monitor multiple queues
+
+Reporting
+	* Add reports to do simple analysis and reporting (like total hours of open workorders per individual or project).
+	* Gantt charts (!)
+
+Security
+	* ACL using roles/permissions setup
+	* Check authenticity of form submissions (source, get/post method, etc)
+	* Allow customer access to the system to view only their account info
+
+Other
+	* XML interface - perhaps read-only at first for content syndication
+	* Schedulable emailings about starving tickets/work orders
+	* Schedulable emailings about activity for tickets/work orders

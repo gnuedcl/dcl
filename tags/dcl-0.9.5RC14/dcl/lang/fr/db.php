@@ -1,0 +1,35 @@
+<?php
+	define('STR_DB_TAGLENGTHERR', "Tag %s exceeds the maximum of %d characters per tag.  Skipping.");
+	define('STR_DB_ACCOUNTINSERTERR', "Ne peut pas insÃ?Â©rer nouveau client! RequÃ?Âªte: %s");
+	define('STR_DB_ACTIONINSERTERR', "Ne peut pas insÃ?Â©rer nouvelle Fiche de Temps! RequÃ?Âªte: %s");
+	define('STR_DB_DEPTINSERTERR', "Ne peut pas insÃ?Â©rer nouveau dÃ?Â©partement! RequÃ?Âªte: %s");
+	define('STR_DB_USERINSERTERR', "Ne peut pas insÃ?Â©rer nouvel utilisateur! RequÃ?Âªte: %s");
+	define('STR_DB_PWDCHGERR', "Ne peut pas changer le mot de passe! RequÃ?Âªte: %s");
+	define('STR_DB_PWDCHGSUCCESS', "Mot de passe changÃ?Â©!");
+	define('STR_DB_PRIORITYINSERTERR', "Ne peut pas insÃ?Â©rer nouvelle prioritÃ?Â©! RequÃ?Âªte: %s");
+	define('STR_DB_SEVERITYINSERTERR', "Ne peut pas insÃ?Â©rer nouvelle sÃ?Â©vÃ?Â©ritÃ?Â©! RequÃ?Âªte: %s");
+	define('STR_DB_STATUSINSERTERR', "Ne peut pas insÃ?Â©rer nouveau statut! RequÃ?Âªte: %s");
+	define('STR_DB_PRODUCTINSERTERR', "Ne peut pas insÃ?Â©rer nouveau produit! RequÃ?Âªte: %s");
+	define('STR_DB_PROJECTMAPINSERTERR', "Ne peut pas insÃ?Â©rer mappage sur le projet! RequÃ?Âªte: %s");
+	define('STR_DB_PROJECTINSERTERR', "Ne peut pas crÃ?Â©er nouveau projet! RequÃ?Âªte: %s");
+	define('STR_DB_PROJECTBYOIDERR', "Ne peut pas retrouver de projet par ID ou OID %d!");
+	define('STR_DB_PROJECTINSERTSUCCESS', "Projet %s crÃ?Â©Ã?Â©.");
+	define('STR_DB_WORKORDERLOADERR', "Ne peut pas charger l\'Ordre de Travail %d-%d!");
+	define('STR_DB_WORKORDERINSERTERR', "Ne peut pas crÃ?Â©er de nouvel Ordre de Travail!  RequÃ?Âªte: %s");
+	define('STR_DB_WORKORDERBYOIDERR', "Ne peut pas trouver l\'Ordre de Travail par ID ou OID %d!");
+	define('STR_DB_FAQINSERTERR', "Ne peut pas crÃ?Â©er de FAQ!  RequÃ?Âªte: %s");
+	define('STR_DB_FAQANSWERINSERTERR', "Ne peut pas crÃ?Â©er de rÃ?Â©ponse de FAQ!  RequÃ?Âªte: %s");
+	define('STR_DB_FAQQUESTIONINSERTERR', "Ne peut pas crÃ?Â©er de question de FAQ!  RequÃ?Âªte: %s");
+	define('STR_DB_FAQTOPICINSERTERR', "Could not create FAQ topic!  RequÃ?Âªte: %s");
+	define('STR_DB_CONNECTIONFAILED', "Database connection failed!");
+	define('STR_DB_WRONGPWD', "Mauvais mot de passe, chef!");
+	define('STR_DB_RESOLUTIONINSERTERR', "Ne peut pas crÃ?Â©er une rÃ?Â©solution pour le nouveau ticket! RequÃ?Âªte: %s");
+	define('STR_DB_RESOLUTIONBYOIDERR', "Ne peut pas retrouver la rÃ?Â©solution du ticket par ID ou OID %d!");
+	define('STR_DB_TICKETINSERTERR', "Ne peut crÃ?Â©er un nouveau ticket! RequÃ?Âªte: %s");
+	define('STR_DB_TICKETBYOIDERR', "Ne peut pas retrouver le ticket par ID ou OID %d!");
+	define('STR_DB_VIEWINSERTERR', "Ne peut pas crÃ?Â©er une nouvelle vue! RequÃ?Âªte: %s");
+	define('STR_DB_WATCHINSERTERR', "Ne peut pas crÃ?Â©er un nouvel alerteur! RequÃ?Âªte: %s");
+	define('STR_DB_CHKLSTOIDERR', "Error retrieving checklist by ID# %d");
+	define('STR_DB_CHKLSTTPLOIDERR', "Error retrieving checklist template by ID# %d");
+	define('STR_DB_CFGINSERTERR', "Could not add config item.  Query: %s");
+?>
