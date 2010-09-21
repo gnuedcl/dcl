@@ -22,46 +22,45 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-function smarty_function_dcl_get_entity_tags($params, &$smarty)
+function smarty_function_dcl_get_entity_hotlist($params, &$smarty)
 {
 	global $g_oMetaData, $g_oSec, $g_oSession;
-	
+
 	if (!isset($params['entity']))
 	{
-		$smarty->trigger_error('dcl_get_entity_tags: missing parameter entity');
+		$smarty->trigger_error('dcl_get_entity_hotlist: missing parameter entity');
 		return;
 	}
 
 	if (!isset($params['key_id']))
 	{
-		$smarty->trigger_error('dcl_get_entity_tags: missing parameter key_id');
+		$smarty->trigger_error('dcl_get_entity_hotlist: missing parameter key_id');
 		return;
 	}
-	
+
 	if ($params['entity'] == DCL_ENTITY_WORKORDER && !isset($params['key_id2']))
 	{
-		$smarty->trigger_error('dcl_get_entity_tags: missing parameter key_id2 is required for entity ' . $params['entity']);
+		$smarty->trigger_error('dcl_get_entity_hotlist: missing parameter key_id2 is required for entity ' . $params['entity']);
 		return;
 	}
-	
-	$oEntityTag = CreateObject('dcl.dbEntityTag');
-	$sValue = $oEntityTag->getTagsForEntity($params['entity'], $params['key_id'], $params['key_id2']);
-	if ($sValue == '')
+
+	$oEntityHotlist = CreateObject('dcl.dbEntityHotlist');
+	$aHotlists = $oEntityHotlist->getTagsWithPriorityForEntity($params['entity'], $params['key_id'], $params['key_id2']);
+	if (count($aHotlists) == 0)
 		return;
 
-	$aTags = split(',', $sValue);
+	$useLinks = (isset($params['link']) && $params['link'] == 'Y');
 	$bFirst = true;
-	foreach ($aTags as $sTag)
+	foreach ($aHotlists as $item)
 	{
-		$sTag = trim($sTag);
 		if (!$bFirst)
 			echo ', ';
 		else
 			$bFirst = false;
-			
-		if (isset($params['link']) && $params['link'] == 'Y')
-			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sTag) . '">' . htmlspecialchars($sTag, ENT_QUOTES) . '</a>';
+
+		if ($useLinks)
+			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($item['hotlist']) . '">' . htmlspecialchars($item['hotlist'], ENT_QUOTES) . ' #' . $item['priority'] . '</a>';
 		else
-			echo htmlspecialchars($sTag, ENT_QUOTES);
+			echo htmlspecialchars($item['hotlist'], ENT_QUOTES) . ' #' . $item['priority'];
 	}
 }

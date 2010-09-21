@@ -143,6 +143,29 @@ class dbEntityHotlist extends dclDB
 		return $sHotlists;
 	}
 	
+	function getTagsWithPriorityForEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	{
+		$entity_id = (int)$entity_id;
+		$entity_key_id = (int)$entity_key_id;
+		$entity_key_id2 = (int)$entity_key_id2;
+
+		if ($entity_id == DCL_ENTITY_WORKORDER)
+			$sSQL = 'SELECT T.hotlist_tag, ET.sort FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id AND ET.entity_key_id2 = $entity_key_id2 ORDER BY T.hotlist_tag";
+		else
+			$sSQL = 'SELECT T.hotlist_tag, ET.sort FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id ORDER BY T.hotlist_tag";
+
+		if ($this->Query($sSQL) == -1)
+			return '';
+
+		$aHotlists = array();
+		while ($this->next_record())
+		{
+			$aHotlists[] = array('hotlist' => $this->f(0), 'priority' => $this->f(1));
+		}
+
+		return $aHotlists;
+	}
+
 	function setPriority($hotlistId, $aEntities)
 	{
 		$count = 1;

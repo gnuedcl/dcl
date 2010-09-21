@@ -440,6 +440,20 @@ class DCL_MetadataDisplay
 		return $this->oHotlist->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
 	
+	function GetHotlistWithPriority($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	{
+		if (!$this->IsValidID($entity_id) || !$this->IsValidID($entity_key_id))
+			return array();
+
+		if ($entity_id == DCL_ENTITY_WORKORDER && !$this->IsValidID($entity_key_id2))
+			return array();
+
+		if ($this->oHotlist == null)
+			$this->oHotlist =& CreateObject('dcl.dbEntityHotlist');
+
+		return $this->oHotlist->getTagsWithPriorityForEntity($entity_id, $entity_key_id, $entity_key_id2);
+	}
+
 	function GetLastTimeCard($jcn, $seq)
 	{
 		global $g_oSec;

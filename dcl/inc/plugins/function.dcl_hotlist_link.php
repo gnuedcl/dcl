@@ -31,10 +31,23 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		$smarty->trigger_error('dcl_hotlist_link: missing parameter value');
 		return;
 	}
-	
-	$sValue = trim($params['value']);
-	if ($params['value'] == '')
-		return;
+
+	$aHotlists = array();
+	if (is_array($params['value']))
+	{
+		if (count($params['value']) == 0)
+			return;
+
+		$aHotlists = $params['value'];
+	}
+	else
+	{
+		$sValue = trim($params['value']);
+		if ($params['value'] == '')
+			return;
+
+		$aHotlists = split(',', $sValue);
+	}
 		
 	if (!isset($params['browse']))
 		$params['browse'] = 'N';
@@ -47,17 +60,28 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 	foreach ($aSelected as $iIndex => $sSelectedHotlist)
 		$aSelected[$iIndex] = trim($sSelectedHotlist);
 
-	$aHotlists = split(',', $sValue);
 	$bFirst = true;
-	foreach ($aHotlists as $sHotlist)
+	foreach ($aHotlists as $item)
 	{
-		$sHotlist = trim($sHotlist);
+		$sHotlist = '';
+		$priority = '';
+
+		if (is_array($item))
+		{
+			$sHotlist = trim($item['hotlist']);
+			$priority = $item['priority'];
+		}
+		else
+		{
+			$sHotlist = trim($item);
+
+		}
 		if (!$bFirst)
 			echo ', ';
 		else
 			$bFirst = false;
 			
-		echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlists.browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES) . '</a>';
+		echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlists.browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES) . ($priority == '' ? '' : ' #' . $priority) . '</a>';
 		if ($params['browse'] == 'Y')
 		{
 			if (in_array($sHotlist, $aSelected))
