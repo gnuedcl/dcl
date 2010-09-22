@@ -59,7 +59,7 @@ function smarty_function_dcl_get_entity_hotlist($params, &$smarty)
 			$bFirst = false;
 
 		if ($useLinks)
-			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($item['hotlist']) . '">' . htmlspecialchars($item['hotlist'], ENT_QUOTES) . ' #' . $item['priority'] . '</a>';
+			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlists.browse&tag=' . urlencode($item['hotlist']) . '">' . htmlspecialchars($item['hotlist'], ENT_QUOTES) . ' #' . $item['priority'] . '</a>';
 		else
 			echo htmlspecialchars($item['hotlist'], ENT_QUOTES) . ' #' . $item['priority'];
 	}
