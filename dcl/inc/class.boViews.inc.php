@@ -259,8 +259,7 @@ class boViews
 			$record = '';
 			for ($i = 0; $i < count($objView->columns); $i++)
 			{
-				$fieldName = $objView->columns[$i];
-
+				$fieldName = $obj->GetFieldName($i);
 				if ($i > 0)
 					$record .= phpTab;
 
