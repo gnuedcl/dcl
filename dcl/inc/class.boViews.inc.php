@@ -250,34 +250,96 @@ class boViews
 
 		// Output field headings
 		echo $record . phpCrLf;
+		$metadata = CreateObject('dcl.DCL_MetadataDisplay');
+		$workOrderOrg = CreateObject('dcl.dbWorkOrderAccount');
 
 		// Now for the records
 		while ($obj->next_record())
 		{
 			$record = '';
-			for ($i = 0; $i < $obj->NumFields(); $i++)
+			for ($i = 0; $i < count($objView->columns); $i++)
 			{
+				$fieldName = $objView->columns[$i];
+
 				if ($i > 0)
 					$record .= phpTab;
 
+				$fieldValue = $obj->f($i);
+				if ($objView->table == 'tickets')
+				{
+					if ($fieldName == 'seconds')
+					{
+						$fieldValue = $obj->GetHoursText();
+					}
+					else if ($fieldName == 'tag_desc')
+					{
+						$fieldValue = '';
+						$tags = $metadata->GetTags(DCL_ENTITY_TICKET, $obj->f('ticketid'));
+						if (strlen($tags) > 0)
+							$fieldValue = str_replace(',', ', ', $tags);
+					}
+				}
+				else if ($objView->table == 'workorders')
+				{
+					if ($fieldName == 'hotlist_tag')
+					{
+						$fieldValue = '';
+						$hotlists = $metadata->GetHotlistWithPriority(DCL_ENTITY_WORKORDER, $obj->f('jcn'), $obj->f('seq'));
+						if (is_array($hotlists) && count($hotlists) > 0)
+						{
+							foreach ($hotlists as $hotlistTag)
+							{
+								if ($fieldValue != '')
+									$fieldValue .= ', ';
+								
+								$fieldValue .= $hotlistTag['hotlist'] . ' #' . ($hotlistTag['priority'] == 999999 ? '?' : $hotlistTag['priority']);
+							}
+						}
+					}
+					else if ($fieldName == 'tag_desc')
+					{
+						$fieldValue = '';
+						$tags = $metadata->GetTags(DCL_ENTITY_WORKORDER, $obj->f('jcn'), $obj->f('seq'));
+						if (strlen($tags) > 0)
+							$fieldValue = str_replace(',', ', ', $tags);
+					}
+					else if ($objView->columns[$i] == 'dcl_org.name')
+					{
+						$fieldValue = '';
+						if ($obj->f('_num_accounts_') > 0)
+						{
+							if ($workOrderOrg->Load($obj->f('jcn'), $obj->f('seq')) != -1)
+							{
+								do
+								{
+									if ($fieldValue != '')
+										$fieldValue .= ', ';
 
-				if ($objView->table == 'tickets' && $obj->GetFieldName($i) == 'seconds')
-				{
-					$record .= str_replace(phpTab, ' ', $obj->GetHoursText());
+									$workOrderOrg->GetRow();
+									$fieldValue .= $workOrderOrg->account_name;
+								} while ($workOrderOrg->next_record());
+							}
+
+						}
+					}
 				}
-				else
-				{
-					$sData = str_replace(phpTab, ' ', $obj->f($i));
-					$sData = str_replace("\r", ' ', $sData);
-					$sData = str_replace("\n", ' ', $sData);
-					$record .= $sData;
-				}
+
+				$record .= $this->CleanDataForExport($fieldValue);
 			}
 
 			echo $record . phpCrLf;
 		}
 
 		exit; // Don't output footer
+	}
+
+	function CleanDataForExport($data)
+	{
+		$data = str_replace(phpTab, ' ', $data);
+		$data = str_replace("\r", ' ', $data);
+		$data = str_replace("\n", ' ', $data);
+
+		return $data;
 	}
 }
 ?>
