@@ -1,4 +1,4 @@
-<!-- $Id$ -->
+<link rel="stylesheet" href="{$DIR_JS}fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" />
 <script language="JavaScript">
 {literal}
 function forceSubmit(sAction)
@@ -49,12 +49,12 @@ function submitActionIfValid(sAction){
 
 	return bHasChecks;
 }
-
+/*
 function showAccounts(iWOID, iSeq)
 {
-	var sURL = 'main.php?menuAction=htmlWindowList.FrameRender&what=dcl_wo_account.wo_id&wo_id=' + iWOID + '&seq=' + iSeq;
+	var sURL = '{$URL_MAIN_PHP}?menuAction=htmlWindowList.FrameRender&what=dcl_wo_account.wo_id&wo_id=' + iWOID + '&seq=' + iSeq;
 	var newWin = window.open(sURL, '_dcl_selector_', 'width=500,height=255');
-}
+}*/
 {/literal}
 </script>
 <div class="dcl_detail">
@@ -112,3 +112,14 @@ function showAccounts(iWOID, iSeq)
 {include file="ctlProjectChildren.tpl"}
 <p>&nbsp;</p>
 {include file="ctlProjectTasks.tpl"}
+<script type="text/javascript" src="{$DIR_JS}fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+<script type="text/javascript">
+	//<![CDATA[{literal}
+	$(document).ready(function() {
+		$("a.dcl-lightbox").fancybox({
+			type: "iframe"
+
+		});
+	});
+	//]]>{/literal}
+</script>

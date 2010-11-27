@@ -96,7 +96,7 @@
 			<td class="string">{$VAL_TASKS[row].responsible|escape}</td>
 			<td class="string">{$VAL_TASKS[row].product|escape}</td>
 			<td class="string">{$VAL_TASKS[row].module|escape}</td>
-			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs}<img src="{$DIR_IMG}/jump-to-16.png" style="cursor: hand; cursor: pointer;" onclick="showAccounts({$VAL_TASKS[row].woid}, {$VAL_TASKS[row].seq});">{/if}</td>
+			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs}<a href="{$URL_MAIN_PHP}?menuAction=htmlWindowList.Main&what=dcl_wo_account.wo_id&wo_id={$VAL_TASKS[row].woid}&seq={$VAL_TASKS[row].seq}" class="dcl-lightbox"><img alt="Organizations for Work Order {$VAL_TASKS[row].woid}-{$VAL_TASKS[row].seq}" src="{$DIR_IMG}/jump-to-16.png" /></a>{/if}</td>
 			<td class="string">{$VAL_TASKS[row].status|escape}</td>
 			<td class="string">{$VAL_TASKS[row].deadline|escape}</td>
 			<td class="numeric">{$VAL_TASKS[row].hours}</td>
