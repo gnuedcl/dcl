@@ -103,7 +103,10 @@ class htmlProjectSelector
 			else
 				$filterSearch = $_REQUEST['filterSearch'];
 		}
-		
+
+		if (isset($_REQUEST['filterID']) && @DCL_Sanitize::ToInt($_REQUEST['filterID']) !== null)
+			$filterID = explode(',', $_REQUEST['filterID']);
+
 		$aColumnHeaders = array(STR_CMMN_ID, STR_PRJ_LEAD, STR_PRJ_STATUS, STR_PRJ_NAME);
 		$aColumns = array('projectid', 'reportto.short', 'statuses.name', 'dcl_projects.name');
 
