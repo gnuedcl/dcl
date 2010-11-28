@@ -789,15 +789,23 @@ class boWorkorders
 
 		if (count($groups) > 0)
 		{
+			$groupOrder = array();
 			foreach ($groups as $groupField)
 			{
 				if ($groupField == 'priorities.name')
-					$groups[$key] = 'priorities.weight';
+					$groupOrder[] = 'priorities.weight';
 				else if ($groupField == 'severities.name')
-					$groups[$key] = 'severities.weight';
+					$groupOrder[] = 'severities.weight';
+				else if ($groupField == 'dcl_hotlist.hotlist_tag')
+				{
+					$groupOrder[] = $groupField;
+					$groupOrder[] = 'dcl_entity_hotlist.sort';
+				}
+				else
+					$groupOrder[] = $groupField;
 			}
 
-			$objView->AddDef('groups', '', $groups);
+			$objView->AddDef('groups', '', $groupOrder);
 		}
 
 		if (count($columnhdrs) > 0)
@@ -805,15 +813,23 @@ class boWorkorders
 
 		if (count($order) > 0)
 		{
+			$orderOrder = array();
 			foreach ($order as $orderField)
 			{
 				if ($orderField == 'priorities.name')
-					$order[$key] = 'priorities.weight';
+					$orderOrder[] = 'priorities.weight';
 				else if ($orderField == 'severities.name')
-					$order[$key] = 'severities.weight';
+					$orderOrder[] = 'severities.weight';
+				else if ($orderField == 'dcl_hotlist.hotlist_tag')
+				{
+					$orderOrder[] = $orderField;
+					$orderOrder[] = 'dcl_entity_hotlist.sort';
+				}
+				else
+					$orderOrder[] = $orderField;
 			}
 
-			$objView->AddDef('order', '', $order);
+			$objView->AddDef('order', '', $orderOrder);
 		}
 		else
 			$objView->AddDef('order', '', array('jcn', 'seq'));
@@ -824,6 +840,8 @@ class boWorkorders
 			$objView->title = GPCStripSlashes($_REQUEST['title']);
 		else
 			$objView->title = STR_WO_RESULTSTITLE;
+
+		echo $objView->GetSQL();
 
 		$obj =& CreateObject('dcl.htmlWorkOrderResults');
 		$obj->Render($objView);
