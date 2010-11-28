@@ -227,13 +227,15 @@ class dbEntityHotlist extends dclDB
 		$bDoneDidWhere = false;
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
+			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, P.name AS project, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
 				$sSQL .= $this->JoinKeyword . ' workorders ON hotlist_matches.entity_key_id = workorders.jcn AND hotlist_matches.entity_key_id2 = workorders.seq ';
 				$sSQL .= $this->JoinKeyword . ' statuses ON workorders.status = statuses.id ';
 				$sSQL .= $this->JoinKeyword . ' personnel R ON workorders.responsible = R.id ';
+				$sSQL .= 'LEFT JOIN projectmap PM ON workorders.jcn = PM.jcn AND workorders.seq in (0, PM.seq) ';
+				$sSQL .= 'LEFT JOIN dcl_projects P ON P.projectid = PM.projectid ';
 				$sSQL .= 'LEFT JOIN timecards ON workorders.jcn = timecards.jcn AND workorders.seq = timecards.seq AND timecards.id = (select max(id) from timecards where jcn = workorders.jcn AND seq = workorders.seq) ';
 				$sSQL .= 'LEFT JOIN personnel ON timecards.actionby = personnel.id ';
 
@@ -263,6 +265,8 @@ class dbEntityHotlist extends dclDB
 				$sSQL .= 'dcl_entity_hotlist JOIN workorders ON dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_entity_hotlist.entity_key_id = workorders.jcn AND dcl_entity_hotlist.entity_key_id2 = workorders.seq ';
 				$sSQL .= $this->JoinKeyword . ' statuses ON workorders.status = statuses.id ';
 				$sSQL .= $this->JoinKeyword . ' personnel R ON workorders.responsible = R.id ';
+				$sSQL .= 'LEFT JOIN projectmap PM ON workorders.jcn = PM.jcn AND workorders.seq in (0, PM.seq) ';
+				$sSQL .= 'LEFT JOIN dcl_projects P ON P.projectid = PM.projectid ';
 				$sSQL .= 'LEFT JOIN timecards ON workorders.jcn = timecards.jcn AND workorders.seq = timecards.seq AND timecards.id = (select max(id) from timecards where jcn = workorders.jcn AND seq = workorders.seq) ';
 				$sSQL .= 'LEFT JOIN personnel ON timecards.actionby = personnel.id ';
 				$sSQL .= "WHERE dcl_entity_hotlist.hotlist_id = $sID";
@@ -327,7 +331,7 @@ class dbEntityHotlist extends dclDB
 			if ($sSQL != '')
 				$sSQL .= ' UNION ALL ';
 				
-			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
+			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
