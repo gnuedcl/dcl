@@ -566,8 +566,8 @@ class boWorkorders
 		$starton = @$_REQUEST['starton'];
 		$module_id = isset($_REQUEST['module_id']) && is_array($_REQUEST['module_id']) ? $_REQUEST['module_id'] : array();
 		$searchText = $_REQUEST['searchText'];
-		$tags = $_REQUEST['tags'];
-		$hotlist = $_REQUEST['hotlist'];
+		$tags = $_REQUEST['tags'] == '' ? array() : split(',', $_REQUEST['tags']);
+		$hotlist = $_REQUEST['hotlist'] == '' ? array() :split(',', $_REQUEST['hotlist']);
 		$columns = $_REQUEST['columns'];
 		$groups = $_REQUEST['groups'];
 		$order = $_REQUEST['order'];
@@ -666,13 +666,13 @@ class boWorkorders
 				$objView->AddDef('filter', $field, $$field);
 		}
 		
-		if (trim($tags) != '')
+		if (count($tags) > 0)
 			$objView->AddDef('filter', 'dcl_tag.tag_desc', $tags);
 
-		if (trim($hotlist) != '')
+		if (count($hotlist) > 0)
 			$objView->AddDef('filter', 'dcl_hotlist.hotlist_tag', $hotlist);
 
-			if (count($is_public) > 0)
+		if (count($is_public) > 0)
 		{
 			foreach ($is_public as $publicValue)
 			{
