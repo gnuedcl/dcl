@@ -30,6 +30,10 @@ You can see the detail at: {dcl_config name=DCL_ROOT}main.php?menuAction=boWorko
 {$smarty.const.STR_WO_CONTACT}: {dcl_metadata_display type='contact_name' value="`$obj->contact_id`"}
 {$smarty.const.STR_WO_CONTACTPHONE}: {dcl_metadata_display type='contact_phone' value="`$obj->contact_id`"}
 
+{$smarty.const.STR_CMMN_TAGS}: {$VAL_TAGS}
+
+Hotlists: {$VAL_HOTLISTS}
+
 {$smarty.const.STR_WO_NOTES}: {$obj->notes}
 
 {$smarty.const.STR_WO_DESCRIPTION}: {$obj->description}

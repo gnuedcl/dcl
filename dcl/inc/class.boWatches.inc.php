@@ -261,6 +261,18 @@ class boWatches
 		$t =& CreateSmarty();
 		$t->assign_by_ref('obj', $obj);
 
+		$dbEntityTag =& CreateObject('dcl.dbEntityTag');
+		$t->assign('VAL_TAGS', str_replace(',', ', ', $dbEntityTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $obj->jcn, $obj->seq)));
+
+		$dbEntityHotlist =& CreateObject('dcl.dbEntityHotlist');
+		$hotlistCollection = $dbEntityHotlist->getTagsWithPriorityForEntity(DCL_ENTITY_WORKORDER, $obj->jcn, $obj->seq);
+		$hotlists = '';
+
+		foreach ($hotlistCollection as $hotlistEntry)
+			$hotlists .= ($hotlists != '' ? ', ' : '') . $hotlistEntry['hotlist'] . ' #' . $hotlistEntry['priority'];
+
+		$t->assign('VAL_HOTLISTS', $hotlists);
+
 		$oTC =& CreateObject('dcl.dbTimeCards');
 		$t->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($obj->jcn, $obj->seq, $bIsPublic));
 		

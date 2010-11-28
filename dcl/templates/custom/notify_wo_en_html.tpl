@@ -62,6 +62,18 @@
 	<tr><td nowrap><b>{$smarty.const.STR_WO_ETCHOURS|escape}</b></td><td nowrap>{$obj->etchours|escape}</td></tr>
 	</table>
 </td></tr>
+{if $VAL_TAGS != ""}<tr><td colspan="2">
+	<table style="border: solid #cecece 2px;" border="0" width="100%">
+	<tr><th bgcolor="#cecece">{$smarty.const.STR_CMMN_TAGS|escape}</th></tr>
+	<tr><td>{$VAL_TAGS|escape}</td></tr>
+	</table>
+</td></tr>{/if}
+{if $VAL_HOTLISTS != ""}<tr><td colspan="2">
+	<table style="border: solid #cecece 2px;" border="0" width="100%">
+	<tr><th bgcolor="#cecece">Hotlists</th></tr>
+	<tr><td>{$VAL_HOTLISTS|escape}</td></tr>
+	</table>
+</td></tr>{/if}
 {if $obj->notes != ""}<tr><td colspan="2">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th bgcolor="#cecece">{$smarty.const.STR_WO_NOTES|escape}</th></tr>
