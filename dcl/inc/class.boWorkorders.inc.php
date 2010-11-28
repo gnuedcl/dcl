@@ -841,8 +841,6 @@ class boWorkorders
 		else
 			$objView->title = STR_WO_RESULTSTITLE;
 
-		echo $objView->GetSQL();
-
 		$obj =& CreateObject('dcl.htmlWorkOrderResults');
 		$obj->Render($objView);
 	}
