@@ -73,7 +73,7 @@
 			{if $columns[$columnindex].type == "html"}{$records[row][item]}
 			{else}
 				{if $columnindex == 8}{dcl_hotlist_link value=$records[row][item] selected=$VAL_SELECTEDTAGS browse=Y}
-				{elseif $columnindex == 2 && $records[row][4] != ""}<a href="{$URL_MAIN_PHP}?menuAction=boProjects.viewproject&project={$records[row][4]}">{$records[row][item]|escape}</a>
+				{elseif $columnindex == 2 && $records[row][4] != ""}<a href="{$URL_MAIN_PHP}?menuAction=boProjects.viewproject&project={$records[row][4]}">[{$records[row][4]|escape}] {$records[row][item]|escape}</a>
 				{else}{$records[row][item]|escape}
 				{/if}
 			{/if}</td>
