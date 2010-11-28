@@ -95,14 +95,13 @@ class htmlProjectSelector
 			$filterStartsWith = $_REQUEST['filterStartsWith'];
 		
 		$filterSearch = '';
-		if (IsSet($_REQUEST['filterSearch']))
-			$filterSearch = $_REQUEST['filterSearch'];
-			
 		$filterID = '';
-		if (isset($_REQUEST['filterID']))
+		if (isset($_REQUEST['filterSearch']))
 		{
-			if (ereg('^[0-9]+([,][0-9]+)*$', $_REQUEST['filterID']))
-				$filterID = explode(',', $_REQUEST['filterID']);
+			if (ereg('^[0-9]+([,][0-9]+)*$', $_REQUEST['filterSearch']))
+				$filterID = explode(',', $_REQUEST['filterSearch']);
+			else
+				$filterSearch = $_REQUEST['filterSearch'];
 		}
 		
 		$aColumnHeaders = array(STR_CMMN_ID, STR_PRJ_LEAD, STR_PRJ_STATUS, STR_PRJ_NAME);
