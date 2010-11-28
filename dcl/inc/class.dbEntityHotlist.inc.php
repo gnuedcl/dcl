@@ -227,7 +227,7 @@ class dbEntityHotlist extends dclDB
 		$bDoneDidWhere = false;
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, P.name AS project, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
+			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, P.projectid, P.name AS project, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
@@ -331,7 +331,7 @@ class dbEntityHotlist extends dclDB
 			if ($sSQL != '')
 				$sSQL .= ' UNION ALL ';
 				
-			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
+			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, NULL, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
@@ -426,7 +426,7 @@ class dbEntityHotlist extends dclDB
 			return -1;
 		}
 
-		return $this->Query($sSQL . ' ORDER BY 9, 1, 2, 3');
+		return $this->Query($sSQL . ' ORDER BY 11, 1, 2, 3');
 	}
 	
 	function GetStatusCount($hotlist_id)
