@@ -39,8 +39,11 @@ class dbTimeCards extends dclDB
 
 		if (($fEtcHours = DCL_Sanitize::ToDecimal($_REQUEST['etchours'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			if ($_REQUEST['menuAction'] !== 'boTimecards.dbbatchadd')
+			{
+				trigger_error('Data sanitize failed.');
+				return;
+			}
 		}
 
 		$objWO = CreateObject('dcl.dbWorkorders');
@@ -83,7 +86,7 @@ class dbTimeCards extends dclDB
 		
 		$objWO->lastactionon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 		$objWO->totalhours = $objWO->totalhours + $this->hours;
-		$objWO->etchours = $_REQUEST['etchours'];
+		$objWO->etchours = $fEtcHours !== null ? $fEtcHours : $objWO->etchours;
 		if ($currstatus != $this->status)
 		{
 			$objWO->status = $this->status;

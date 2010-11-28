@@ -61,7 +61,7 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_VIEWFORM', $oView->GetForm());
 
 			$oSmarty->assign('VAL_SELECTED', $selected);
-			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo(1, 'status', 'name', 0, true, $setid));
+			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo(0, 'status', 'name', 0, true, $setid, '-- Do Not Change --'));
 			$oSmarty->assign('VAL_WOETCHOURS', '0');
 			$oSmarty->assign('VAL_UPDATEWOETCHOURS', 'false');
 			$oSmarty->assign('VAL_ENABLEPUBLIC', 'N');

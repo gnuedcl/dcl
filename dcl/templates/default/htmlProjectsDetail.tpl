@@ -49,12 +49,6 @@ function submitActionIfValid(sAction){
 
 	return bHasChecks;
 }
-/*
-function showAccounts(iWOID, iSeq)
-{
-	var sURL = '{$URL_MAIN_PHP}?menuAction=htmlWindowList.FrameRender&what=dcl_wo_account.wo_id&wo_id=' + iWOID + '&seq=' + iSeq;
-	var newWin = window.open(sURL, '_dcl_selector_', 'width=500,height=255');
-}*/
 {/literal}
 </script>
 <div class="dcl_detail">

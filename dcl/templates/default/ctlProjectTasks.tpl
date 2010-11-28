@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 <form method="POST" action="{$URL_MAIN_PHP}" name="frmWorkorders">
 	<input type="hidden" name="menuAction" value="">
-	<input type="hidden" name="return_to" value="boProjects.viewproject">
+	<input type="hidden" name="return_to" value="menuAction=boProjects.viewproject">
 	<input type="hidden" name="project" value="{$VAL_PROJECTID}">
 	<div class="dcl_filter">
 		<span><label for="wostatus">{$smarty.const.STR_PRJ_FILTERWOBYSTATUS}:</label> {dcl_select_status default=$VAL_FILTERSTATUS name=wostatus allowHideOrOnlyClosed=Y}</span>

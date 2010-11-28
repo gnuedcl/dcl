@@ -26,7 +26,7 @@ LoadStringResource('stat');
 
 class htmlStatuses
 {
-	function GetCombo($default = 0, $cbName = 'status', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0)
+	function GetCombo($default = 0, $cbName = 'status', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0, $zeroOption = '_SELECT_ONE_')
 	{
 		$query = "SELECT a.id,a.$longShort FROM statuses a ";
 
@@ -48,7 +48,12 @@ class htmlStatuses
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+
+		if ($zeroOption == '_SELECT_ONE_')
+			$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		else
+			$oSelect->sZeroOption = $zeroOption;
+
 		$oSelect->SetFromQuery($query);
 
 		return $oSelect->GetHTML();

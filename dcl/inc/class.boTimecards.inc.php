@@ -272,6 +272,11 @@ class boTimecards
 		
 		if (($fixed_version_id = @DCL_Sanitize::ToInt($_REQUEST['fixed_version_id'])) === null)
 			$fixed_version_id = 0;
+
+		if (($batchStatus = @DCL_Sanitize::ToInt($_REQUEST['status'])) === null)
+			$batchStatus = 0;
+
+		$batchEtc = @DCL_Sanitize::ToDecimal($_REQUEST['etchours']);
 		
 		$objWorkorder =& CreateObject('dcl.dbWorkorders');
 		$objWtch =& CreateObject('dcl.boWatches');
@@ -294,6 +299,9 @@ class boTimecards
 				    continue;
 				    
 				$status = $objWorkorder->status;
+				if ($batchStatus == 0)
+					$objTimecard->status = $status;
+				
 				$objTimecard->Add($targeted_version_id, $fixed_version_id);
 				
     			// * Tags

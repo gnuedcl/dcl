@@ -24,9 +24,9 @@ function validateAndSubmitForm(form)
 	var aValidators = new Array(
 			new ValidatorDate(form.elements["actionon"], "{$smarty.const.STR_TC_DATE}", true),
 			new ValidatorSelection(form.elements["action"], "{$smarty.const.STR_TC_ACTION}"),
-			new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_TC_STATUS}"),
+			{if !$IS_BATCH}new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_TC_STATUS}"),{/if}
 			new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}", true),
-			new ValidatorDecimal(form.elements["etchours"], "{$smarty.const.STR_TC_ETC}", true),
+			new ValidatorDecimal(form.elements["etchours"], "{$smarty.const.STR_TC_ETC}", {if !$IS_BATCH}true{else}false{/if}),
 			new ValidatorString(form.elements["summary"], "{$smarty.const.STR_TC_SUMMARY}")
 		);
 {literal}
@@ -74,10 +74,10 @@ function validateAndSubmitForm(form)
 			<label for="copy_me_on_notification">Copy Me on Notification:</label>
 			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
 		</div>
-		<div class="required">
+		<div{if !$IS_BATCH} class="required"{/if}>
 			<label for="status">{$smarty.const.STR_TC_STATUS}:</label>
 			{$CMB_STATUS}
-			<span>The current status is selected for you.  If your action put this work order in a new status, please select it.</span>
+			<span>{if !$IS_BATCH}The current status is selected for you.  If your action put this work order in a new status, please select it.{else}If you want to change all selected work orders to the same status, please select it.{/if}</span>
 		</div>
 		<div class="required">
 			<label for="action">{$smarty.const.STR_TC_ACTION}:</label>
@@ -89,10 +89,10 @@ function validateAndSubmitForm(form)
 			<input type="text" name="hours" size="6" maxlength="6" value="{$VAL_HOURS}" onblur="javascript:updateEtc(this.form)">
 			<span>Enter the number of hours spent on this action.  Fractional hours are allowed (i.e., 2.5 is 2 and one-half hours).</span>
 		</div>
-		<div class="required">
+		<div{if !$IS_BATCH} class="required"{/if}>
 			<label for="etchours">{$smarty.const.STR_TC_ETC}:</label>
 			<input type="text" name="etchours" size="6" maxlength="6" value="{$VAL_ETCHOURS}">
-			<span>Enter an estimate of how many hours remain for this work order to be completed.</span>
+			<span>{if !$IS_BATCH}Enter an estimate of how many hours remain for this work order to be completed.{else}If you want to change all selected work orders to the same ETC, enter it here.{/if}</span>
 		</div>
 		<div class="required">
 			<label for="summary">{$smarty.const.STR_TC_SUMMARY}:</label>
