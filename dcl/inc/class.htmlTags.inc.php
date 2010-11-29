@@ -63,7 +63,7 @@ class htmlTags
 		
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
-			$allRecs[$i][0] = '<a href="' . menuLink('', 'menuAction=htmlTags.browse&tag=' . urlencode($allRecs[$i][0])) . '">' . htmlspecialchars($allRecs[$i][0]) . '</a>';
+			$allRecs[$i][0] = '<a class="dcl-tag" href="' . menuLink('', 'menuAction=htmlTags.browse&tag=' . urlencode($allRecs[$i][0])) . '">' . htmlspecialchars($allRecs[$i][0]) . '</a>';
 		}
 
 		$oTable->setData($allRecs);

@@ -63,7 +63,7 @@ class htmlHotlists
 		
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
-			$allRecs[$i][0] = '<a href="' . menuLink('', 'menuAction=htmlHotlists.browse&tag=' . urlencode($allRecs[$i][0])) . '">' . htmlspecialchars($allRecs[$i][0]) . '</a>';
+			$allRecs[$i][0] = '<a class="dcl-hotlist" href="' . menuLink('', 'menuAction=htmlHotlists.browse&tag=' . urlencode($allRecs[$i][0])) . '">' . htmlspecialchars($allRecs[$i][0]) . '</a>';
 		}
 
 		$oTable->setData($allRecs);

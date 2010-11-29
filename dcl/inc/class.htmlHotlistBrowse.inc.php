@@ -77,7 +77,7 @@ class htmlHotlistBrowse
 		
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
-			$allRecs[$i][2] = '<a href="' . menuLink('', 'menuAction=htmlHotlists.browse&tag=' . $allRecs[$i][2]) . '">' . $allRecs[$i][2] . '</a>';
+			$allRecs[$i][2] = '<a class="dcl-hotlist" href="' . menuLink('', 'menuAction=htmlHotlists.browse&tag=' . $allRecs[$i][2]) . '">' . $allRecs[$i][2] . '</a>';
 		}
 		
 		$aOptions = array(STR_CMMN_NEW => array('menuAction' => 'htmlHotlistForm.add', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD)));

@@ -18,6 +18,25 @@ div.sf-menu-container
 	background-color: #555555;
 }
 
+a.dcl-tag, span.dcl-tag
+{
+	border: solid 1px #bfbf60;
+	background-color: #ffffe6;
+}
+
+a.dcl-hotlist, span.dcl-hotlist
+{
+	border: solid 1px #bf6060;
+	background-color: #ffe6e6;
+}
+
+a.dcl-tag, span.dcl-tag, a.dcl-hotlist, span.dcl-hotlist
+{
+	padding: 2px;
+	margin: 2px;
+	display: inline-block;
+}
+
 form
 {
 	margin: 0px;
@@ -325,6 +344,8 @@ table.dcl_results tfoot td {
 	border-bottom: solid #aeaeae 1px;
 	padding-left: 4px;
 	padding-right: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 	text-align: left;
 }
 
