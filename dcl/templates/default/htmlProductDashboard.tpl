@@ -24,10 +24,10 @@
 			</tr>
 			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.bySeverity&id={$VAL_ID}"></td>
 				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byPriority&id={$VAL_ID}"></td>
-			<tr>
+			</tr>
 			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byModule&id={$VAL_ID}"></td>
 				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byType&id={$VAL_ID}"></td>
-			<tr>
+			</tr>
 		</tbody>
 	</table>
 </div>

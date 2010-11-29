@@ -24,7 +24,7 @@
 			</tr>
 			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byTypeTicket&id={$VAL_ID}"></td>
 				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byPriorityTicket&id={$VAL_ID}"></td>
-			<tr>
+			</tr>
 		</tbody>
 	</table>
 </div>
