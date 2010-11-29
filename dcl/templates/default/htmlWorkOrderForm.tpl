@@ -118,7 +118,7 @@ function UpdateOptions()
 		<legend>{$TXT_TITLE}</legend>
 		<div class="required">
 			<label for="product">{$smarty.const.STR_WO_PRODUCT}:</label>
-			{dcl_select_product default="$VAL_PRODUCT" active="$ACTIVE_ONLY" onchange="productSelChange(this.form);UpdateOptions();"}
+			{dcl_select_product default="$VAL_PRODUCT" active="$ACTIVE_ONLY"}
 		</div>
 		<div class="required">
 			<label for="module_id">{$smarty.const.STR_CMMN_MODULE}:</label>
@@ -259,3 +259,17 @@ function UpdateOptions()
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript">
+	//<![CDATA[{literal}
+	$(document).ready(function() {
+		$("#product").change(function() {
+			productSelChange(this.form);
+			UpdateOptions();
+		});
+
+		if ($("#product").val() != "0") {
+			$("#product").change();
+		}
+	});
+	//]]>{/literal}
+</script>
