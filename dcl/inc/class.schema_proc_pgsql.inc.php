@@ -39,7 +39,10 @@
 			switch($sType)
 			{
 				case 'auto':
-					$sTranslated = 'int4';
+					if ($iPrecision == 8)
+						$sTranslated = 'int8';
+					else
+						$sTranslated = 'int4';
 					break;
 				case 'blob':
 					$sTranslated = 'text';
@@ -126,6 +129,9 @@
 			{
 				case 'serial':
 					$sTranslated = "'type' => 'auto'";
+					break;
+				case 'bigserial':
+					$sTranslated = "'type' => 'auto', 'precision' => 8";
 					break;
 				case 'int2':
 					$sTranslated = "'type' => 'int', 'precision' => 2";
