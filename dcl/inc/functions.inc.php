@@ -460,23 +460,6 @@ function GetJSDateFormat()
 	return str_replace('Y', 'y', $calDateFormat);
 }
 
-function IncludeCalendar()
-{
-	if (defined('DCL_CALENDAR_INCLUDED'))
-		return;
-
-	define('DCL_CALENDAR_INCLUDED', 1);
-
-	$t = CreateTemplate(array('hForm' => 'htmlCalendar.tpl'));
-
-	$calDateFormat = str_replace('mm', '%m', GetJSDateFormat());
-	$calDateFormat = str_replace('dd', '%d', $calDateFormat);
-	$calDateFormat = str_replace('y', '%Y', $calDateFormat);
-
-	$t->set_var('VAL_JSDATEFORMAT', $calDateFormat);
-	$t->pparse('out', 'hForm');
-}
-
 function buildMenuArray()
 {
 	global $dcl_info, $DCL_MENU, $g_oSec;
@@ -699,17 +682,6 @@ function ExportArray(&$aFieldNames, &$aData, $filename = 'dclexport.txt')
 	}
 
 	exit; // Don't output footer
-}
-
-// FIXME: only left in htmlChecklistForm
-function GetCalendarLink($linkTo)
-{
-	// Should have called IncludeCalendar() before this code goes out
-	$link = '<a href="javascript:doNothing()" ';
-	$link .= 'onclick="showCalendar(\'' . $linkTo . '\');">';
-	$link .= '<img src="img/calendar.gif" border="0"></a>';
-
-	return $link;
 }
 
 function ShowDeleteYesNo($title, $action, $id, $name, $canBeDeactivated = true, $idfield = 'id', $id2 = 0, $id2field = '')

@@ -104,7 +104,7 @@ class htmlChecklistForm
 			echo ' value="' . $this->oDate->ToDisplay() . '"';
 		}
 		echo '>';
-		echo GetCalendarLink($node->attributes['name']);
+		echo '<a href="javascript:;" onclick="showCalendar(\'' . $node->attributes['name'] . '\');"><img src="img/calendar.gif" border="0"></a>';
 	}
 
 	function RenderPersonnel(&$node)
