@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: class.dbContactType.inc.php 12 2006-12-01 01:46:51Z mdean $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
@@ -22,30 +22,25 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('db');
-class dbContactLicense extends dclDB
-{
-	function dbContactLicense()
-	{
-		parent::dclDB();
-		$this->TableName = 'dcl_contact_license';
-		LoadSchema($this->TableName);
-		
-		parent::Clear();
-	}
+LoadStringResource('bo');
 
-	function ListByContact($contact_id)
+class boContactLicense extends boAdminObject
+{
+	function boContactLicense()
 	{
-		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
-		{
-			trigger_error('Data sanitize failed.');
-			return -1;
-		}
+		parent::boAdminObject();
 		
-		$sql = 'SELECT l.contact_license_id, l.contact_id, l.product_id, l.product_version, l.license_id, l.registered_on, l.expires_on, l.license_notes, p.name';
-		$sql .= ' FROM ' . $this->TableName . ' l, products p WHERE l.contact_id = ' . $contact_id . ' AND p.id = l.product_id';
-		$sql .= ' ORDER BY p.name, l.expires_on DESC, l.license_id';
-		return $this->Query($sql);
+		$this->oDB = new dbContactLicense();
+		$this->sKeyField = 'contact_license_id';
+		$this->Entity = DCL_ENTITY_CONTACT;
+		$this->PermAdd = DCL_PERM_MODIFY;
+		$this->PermDelete = DCL_PERM_MODIFY;
+
+		$this->sCreatedDateField = 'created_on';
+		$this->sCreatedByField = 'created_by';
+		$this->sModifiedDateField = 'modified_on';
+		$this->sModifiedByField = 'modified_by';
+		
+		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by');
 	}
 }
-?>

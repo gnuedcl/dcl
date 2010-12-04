@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: class.htmlWorkOrderForm.inc.php,v 1.2.2.2.2.15 2004/09/26 18:50:37 mdean Exp $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation

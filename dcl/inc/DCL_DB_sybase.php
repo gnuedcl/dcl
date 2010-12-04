@@ -22,23 +22,14 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once(DCL_ROOT . 'inc/class.DCL_DB_Core.inc.php');
+include_once(DCL_ROOT . 'inc/DCL_DB_Core.php');
 
 class dclDB extends DCL_DB_Core
 {
 	function dclDB()
 	{
 		parent::DCL_DB_Core();
-		$this->emptyTimestamp = "''";
-		$this->EscapeQuoteChar = "\\";
-	}
-
-	function mysql_die($error = '')
-	{
-		if (empty($error))
-			trigger_error(mysql_error());
-		else
-			trigger_error($error);
+		$this->JoinKeyword = 'JOIN';
 	}
 
 	function Connect($conn = '')
@@ -49,12 +40,11 @@ class dclDB extends DCL_DB_Core
 		{
 			if (!defined('DCL_DB_CONN'))
 			{
-				$connString = $dcl_domain_info[$dcl_domain]['dbHost'];
-				if ($dcl_domain_info[$dcl_domain]['dbPort'] != '')
-					$connString .= ':' . $dcl_domain_info[$dcl_domain]['dbPort'];
-				$this->conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
-						$dcl_domain_info[$dcl_domain]['dbPassword']) or $this->mysql_die();
+				$this->conn = @sybase_connect($dcl_domain_info[$dcl_domain]['dbHost'], 
+						$dcl_domain_info[$dcl_domain]['dbUser'], 
+						$dcl_domain_info[$dcl_domain]['dbPassword']);
 
+				@sybase_select_db($dcl_domain_info[$dcl_domain]['dbName'], $this->conn);
 				define('DCL_DB_CONN', $this->conn);
 			}
 			else
@@ -63,8 +53,6 @@ class dclDB extends DCL_DB_Core
 		else
 			$this->conn = $conn;
 
-		mysql_select_db($dcl_domain_info[$dcl_domain]['dbName'], $this->conn) or $this->mysql_die();
-
 		return $this->conn;
 	}
 
@@ -72,19 +60,12 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$connString = $dcl_domain_info[$dcl_domain]['dbHost'];
-		if ($dcl_domain_info[$dcl_domain]['dbPort'] != '')
-			$connString .= ':' . $dcl_domain_info[$dcl_domain]['dbPort'];
+		$conn = sybase_connect($dcl_domain_info[$dcl_domain]['dbHost'],
+				$dcl_domain_info[$dcl_domain]['dbUser'],
+				$dcl_domain_info[$dcl_domain]['dbPassword']);
 
-		$conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
-				$dcl_domain_info[$dcl_domain]['dbPassword'], true);
-
-		$bConnect = false;
-		if ($conn !== false)
-		{
-			$bConnect = ($conn > 0);
-			mysql_close($conn);
-		}
+		$bConnect = ($conn > 0);
+		sybase_close($conn);
 
 		return $bConnect;
 	}
@@ -93,17 +74,14 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$connString = $dcl_domain_info[$dcl_domain]['dbHost'];
-		if ($dcl_domain_info[$dcl_domain]['dbPort'] != '')
-			$connString .= ':' . $dcl_domain_info[$dcl_domain]['dbPort'];
+		$conn = sybase_connect($dcl_domain_info[$dcl_domain]['dbHost'],
+				$dcl_domain_info[$dcl_domain]['dbUser'],
+				$dcl_domain_info[$dcl_domain]['dbPassword']);
 
-		$conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
-				$dcl_domain_info[$dcl_domain]['dbPassword'], true);
-
-		if ($conn !== false && $conn > 0)
+		if ($conn > 0)
 		{
-			$bRetVal = mysql_select_db($dcl_domain_info[$dcl_domain]['dbName'], $conn);
-			mysql_close($conn);
+			$bRetVal = sybase_select_db($dcl_domain_info[$dcl_domain]['dbName'], $conn);
+			sybase_close($conn);
 
 			return $bRetVal;
 		}
@@ -115,30 +93,18 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$connString = $dcl_domain_info[$dcl_domain]['dbHost'];
-		if ($dcl_domain_info[$dcl_domain]['dbPort'] != '')
-			$connString .= ':' . $dcl_domain_info[$dcl_domain]['dbPort'];
-
-		$conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
+		$conn = sybase_connect($dcl_domain_info[$dcl_domain]['dbHost'],
+				$dcl_domain_info[$dcl_domain]['dbUser'],
 				$dcl_domain_info[$dcl_domain]['dbPassword']);
 
 		$query = sprintf('Create Database %s', $dcl_domain_info[$dcl_domain]['dbName']);
 
-		return (mysql_query($query, $conn) > 0);
+		return (sybase_query($query, $conn) > 0);
 	}
 
 	function TableExists($sTableName)
 	{
-		$oDB = new dclDB;
-		$oDB->Connect();
-		$oDB->Query("show tables");
-		while ($oDB->next_record())
-		{
-			if ($oDB->f(0) == $sTableName)
-				return true;
-		}
-
-		return false;
+		return ($this->ExecuteScalar("select count(*) from sysobjects where name='$sTableName' and type='u'") > 0);
 	}
 
 	function Query($query)
@@ -146,11 +112,12 @@ class dclDB extends DCL_DB_Core
 		$this->res = 0;
 		$this->oid = 0;
 		$this->cur = -1;
+		$this->vcur = -1;
 		$this->Record = array();
 
 		if ($this->conn)
 		{
-			$this->res = mysql_query($query, $this->conn) or $this->mysql_die();
+			$this->res = sybase_query($query, $this->conn);
 			if ($this->res)
 			{
 				$this->cur = 0;
@@ -171,14 +138,21 @@ class dclDB extends DCL_DB_Core
 		$this->res = 0;
 		$this->oid = 0;
 		$this->cur = -1;
+		$this->vcur = -1;
 		$this->Record = array();
 
 		if ($this->conn)
 		{
-			$this->res = mysql_query($query . ' LIMIT ' . $offset . ',' . $rows, $this->conn) or $this->mysql_die();
+			@$this->res = sybase_query($query, $this->conn);
 			if ($this->res)
 			{
-				$this->cur = 0;
+				$this->cur = $offset;
+				// Push cursor to appropriate row in case next_record() is used
+				if ($offset > 0)
+					@sybase_data_seek($this->res, $offset);
+
+				$this->vcur = $offset + $rows - 1;
+
 				return $this->res;
 			}
 			else
@@ -195,7 +169,7 @@ class dclDB extends DCL_DB_Core
 	{
 		if ($this->conn)
 		{
-			mysql_query($query, $this->conn) or $this->mysql_die();
+			sybase_query($query, $this->conn) or trigger_error("Could not execute query: $query");
 			return 1;
 		}
 
@@ -210,13 +184,13 @@ class dclDB extends DCL_DB_Core
 		if (!$this->conn)
 			$this->Connect();
 
-		$res = mysql_query($sql, $this->conn) or $this->mysql_die();
+		$res = sybase_query($sql, $this->conn);
 		if ($res)
 		{
-			if (mysql_num_rows($res) > 0)
-				$retVal = mysql_result($res, 0, 0);
+			if (sybase_num_rows($res) > 0)
+				$retVal = sybase_result($res, 0, 0);
 
-			mysql_free_result($res);
+			sybase_free_result($res);
 		}
 
 		return $retVal;
@@ -227,13 +201,22 @@ class dclDB extends DCL_DB_Core
 		$this->res = 0;
 		$this->oid = 0;
 		$this->cur = -1;
+		$this->vcur = -1;
 		$this->Record = array();
 
 		if ($this->conn)
 		{
-			$this->res = mysql_query($query, $this->conn);
+			$this->res = sybase_query($query, $this->conn);
 			if ($this->res)
-				return $this->oid = mysql_insert_id($this->conn);
+			{
+				$oidRes = sybase_query('SELECT @@identity', $this->conn);
+				if ($oidRes)
+					$this->oid = sybase_result($oidRes, 0, 0);
+				else
+					trigger_error('Could not retrieve @@identity of newly inserted record!!  Query: ' . $query);
+
+				return $this->oid;
+			}
 			else
 			{
 				trigger_error("Error executing query: $query");
@@ -251,36 +234,30 @@ class dclDB extends DCL_DB_Core
 	{
 		$this->Record = array();
 		if ($this->res != 0)
-			mysql_free_result($this->res);
+			@sybase_free_result($this->res);
 
 		$this->res = 0;
 	}
 
 	function BeginTransaction()
 	{
-        // Might as well be sending this to /dev/null
-		//return $this->Execute("BEGIN");
-		return 1;
+		return $this->Execute('BEGIN TRANSACTION');
 	}
 
 	function EndTransaction()
 	{
-        // Might as well be sending this to /dev/null
-		//return $this->Execute("COMMIT");
-		return 1;
+		return $this->Execute('COMMIT');
 	}
 
 	function RollbackTransaction()
 	{
-        // Might as well be sending this to /dev/null
-		//return $this->Execute("ROLLBACK");
-		return 1;
+		return $this->Execute('ROLLBACK TRAN');
 	}
 
 	function NumFields()
 	{
 		if ($this->res)
-			return mysql_num_fields($this->res);
+			return sybase_num_fields($this->res);
 		else
 			return -1;
 	}
@@ -292,15 +269,13 @@ class dclDB extends DCL_DB_Core
 		if ($this->cur == -1)
 			$this->cur = 0;
 
-		if ($this->res)
-			$this->Record = mysql_fetch_array($this->res);
+		if ($this->vcur == -1 || ($this->cur++ <= $this->vcur))
+			$this->Record = @sybase_fetch_array($this->res);
 		else
-			return false;
+			$this->Record = NULL;
 
-		$this->cur++;
 		//$this->Errno  = mysql_errno();
 		//$this->Error  = mysql_error();
-
 
 		$stat = is_array($this->Record);
 		if (!$stat)
@@ -311,9 +286,11 @@ class dclDB extends DCL_DB_Core
 
 	function GetFieldName($fieldIndex)
 	{
-		// Seems the official call is mysql_field_name, but mysql_fieldname is for backward compatability
 		if ($this->res)
-			return mysql_fieldname($this->res, $fieldIndex);
+		{
+			$objInfo = sybase_fetch_field($this->res, $fieldIndex);
+			return $objInfo->name;
+		}
 
 		return '';
 	}
@@ -326,13 +303,10 @@ class dclDB extends DCL_DB_Core
 		if ($this->cur == -1)
 			$this->cur = 0;
 
-		if ($this->res)
+		while ($a = @sybase_fetch_row($this->res))
 		{
-			while ($a = mysql_fetch_row($this->res))
-			{
-				$this->cur++;
-				$retVal[$i++] = $a;
-			}
+			$this->cur++;
+			$retVal[$i++] = $a;
 		}
 
 		return $retVal;
@@ -345,58 +319,82 @@ class dclDB extends DCL_DB_Core
 
 	function GetDateSQL()
 	{
-		return 'now()';
+		return 'GetDate()';
+	}
+
+	function GetUpperSQL($text)
+	{
+		return $text;
 	}
 
 	function GetLastInsertID($sTable)
 	{
-		return mysql_insert_id($this->conn);
+		$res = sybase_query('SELECT @@identity', $this->conn);
+		if ($res)
+		{
+			$Record = @sybase_fetch_array($res);
+			sybase_free_result($res);
+			return $Record[0];
+		}
+
+		trigger_error('Could not retrieve @@identity of newly inserted record!!');
+		return -1;
 	}
 
 	function ConvertDate($sExpression, $sField)
 	{
-		if ($sExpression == $sField)
-			return $sField;
-
-		return "$sExpression AS $sField";
+		return "str_replace(convert(varchar(10), $sExpression, 111), '/', '-') AS $sField";
 	}
 
 	function ConvertTimestamp($sExpression, $sField)
 	{
-		if ($sExpression == $sField)
-			return $sField;
-
-		return "$sExpression AS $sField";
+		return "str_replace(convert(varchar(10), $sExpression, 111), '/', '-') + ' ' + convert(varchar(8), $sExpression, 108) AS $sField";
 	}
 
 	function IsDate($vField)
 	{
-		return ($this->res > 0 && mysql_field_type($this->res, $vField) == 'date');
+		if (!$this->res)
+			return false;
+
+		$o = sybase_fetch_field($this->res, $vField);
+		return ($o['type'] == 'datetime' && strlen($this->f($vField)) == 10);
 	}
 
 	function IsTimestamp($vField)
 	{
-		$sFieldType = mysql_field_type($this->res, $vField);
-		return ($this->res > 0 && ($sFieldType == 'timestamp' || $sFieldType == 'datetime'));
+		if (!$this->res)
+			return false;
+
+		$o = sybase_fetch_field($this->res, $vField);
+		return ($o['type'] == 'datetime' && strlen($this->f($vField)) > 10);
+	}
+
+	function index_names()
+	{
+		global $dcl_domain, $dcl_domain_info;
+
+		$this->query("SELECT name FROM sysobjects WHERE type = 'i' ORDER BY name");
+		$i = 0;
+		$return = array();
+		while ($this->next_record())
+		{
+			$return[$i] = array();
+			$return[$i]['index_name']		= $this->f(0);
+			$return[$i]['tablespace_name']	= $dcl_domain_info[$dcl_domain]['dbName'];
+			$return[$i++]['database']		= $dcl_domain_info[$dcl_domain]['dbName'];
+		}
+
+		return $return;
 	}
 
 	function FieldExists($sTable, $sField)
 	{
-		$oDB = new dclDB;
-		$oDB->Connect();
-		$oDB->Query("describe $sTable");
-		while ($oDB->next_record())
-		{
-			if ($oDB->f(0) == $sField)
-				return true;
-		}
-
-		return false;
+		return ($this->ExecuteScalar("select count(*) from syscolumns where id = object_id('$sTable') and name = '$sField'") == 1);
 	}
 
 	function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField)
 	{
-		$sRetVal = "(unix_timestamp($sEndDateSQL) - unix_timestamp($sBeginDateSQL)) / 60";
+		$sRetVal = "datediff(mi, $sBeginDateSQL, $sEndDateSQL)";
 
 		if ($sAsField == '')
 			return $sRetVal;

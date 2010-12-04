@@ -22,7 +22,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once(DCL_ROOT . 'inc/class.DCL_DateTime.inc.php');
+include_once(DCL_ROOT . 'inc/DCL_DateTime.php');
 
 /**
  * API - All Classes Relating to DCL API

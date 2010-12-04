@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: class.dbWorkOrderAccount.inc.php 46 2007-02-19 19:58:12Z mdean $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation

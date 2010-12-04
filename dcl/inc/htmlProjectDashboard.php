@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: class.boOrgUrl.inc.php 45 2007-02-19 19:46:28Z mdean $
+ * $Id$
  *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
@@ -22,32 +22,44 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class boSccsXref extends boAdminObject
-{
-	function boSccsXref()
-	{
-		parent::boAdminObject();
+LoadStringResource('prj');
+LoadStringResource('wo');
 
-		$this->oDB = new dbSccsXref();
-		$this->sKeyField = 'dcl_sccs_xref_id';
-		$this->Entity = DCL_ENTITY_CHANGELOG;
-	}
-	
-	function add()
+class htmlProjectDashboard
+{
+	var $oSmarty;
+	var $oProject;
+
+	function htmlProjectDashboard()
 	{
-		$aSource = array(
-				'dcl_entity_type_id' => $_REQUEST['dcl_entity_type_id'],
-				'dcl_entity_id' => $_REQUEST['dcl_entity_id'],
-				'dcl_entity_id2' => $_REQUEST['dcl_entity_id2'],
-				'dcl_sccs_id' => $_REQUEST['dcl_sccs_id'],
-				'personnel_id' => $_REQUEST['personnel_id'],
-				'sccs_project_path' => $_REQUEST['sccs_project_path'],
-				'sccs_file_name' => $_REQUEST['sccs_file_name'],
-				'sccs_version' => $_REQUEST['sccs_version'],
-				'sccs_comments' => $_REQUEST['sccs_comments'],
-				'sccs_checkin_on' => 'now()'
-			);
+		$this->oSmarty =& CreateSmarty();
+		$this->oProject = null;
+	}
+
+	function Show()
+	{
+		global $g_oSec;
+
+		commonHeader();
+		if (($projectid = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		{
+			trigger_error('Data sanitize failed.');
+			return;
+		}
 		
-		parent::add($aSource);
+		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
+			return PrintPermissionDenied();
+
+		$this->oProject = new dbProjects();
+		if ($this->oProject->Load($projectid) == -1)
+		{
+			trigger_error('Could not find a project with an id of ' . $projectid, E_USER_ERROR);
+			return;
+		}
+
+		$this->oSmarty->assign('VAL_PROJECTID', $this->oProject->projectid);
+		$this->oSmarty->assign('VAL_NAME', $this->oProject->name);
+
+		SmartyDisplay($this->oSmarty, 'htmlProjectDashboard.tpl');
 	}
 }

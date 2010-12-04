@@ -2,8 +2,6 @@
 /*
  * $Id$
  *
- * Original implementation by Urmet Janes.  Many thanks!
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -24,7 +22,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once(DCL_ROOT . 'inc/class.DCL_DB_Core.inc.php');
+include_once(DCL_ROOT . 'inc/DCL_DB_Core.php');
 
 /**
  * API - All Classes Relating to DCL API
@@ -35,17 +33,18 @@ include_once(DCL_ROOT . 'inc/class.DCL_DB_Core.inc.php');
  */
    
 /**
- * Provides support for Microsoft SQL server
+ * Provides support for PostgreSQL SQL server
  * @package api
  * @subpackage database
- * @copyright Copyright (C) 1999-2004 Free Software Foundation
+ * @copyright Copyright &copy; 1999-2004 Free Software Foundation
  * @version $Id$
  */
-class dclDB extends DCL_DB_Core 
+class dclDB extends DCL_DB_Core
 {
 	function dclDB()
-	{		
+	{
 		parent::DCL_DB_Core();
+		$this->JoinKeyword = 'JOIN';
 	}
 
 	function Connect($conn = '')
@@ -56,27 +55,20 @@ class dclDB extends DCL_DB_Core
 		{
 			if (!defined('DCL_DB_CONN'))
 			{
-				ini_set('mssql.textsize', '2147483647');
-				ini_set('mssql.textlimit', '2147483647');
-				$this->conn = mssql_connect($dcl_domain_info[$dcl_domain]['dbHost'],
-						$dcl_domain_info[$dcl_domain]['dbUser'],
-						$dcl_domain_info[$dcl_domain]['dbPassword']);
-
-				if (!mssql_select_db($dcl_domain_info[$dcl_domain]['dbName'], $this->conn))
-				{
-					// Couldn't select database - close connection and return 0
-					mssql_close($this->conn);
-					$this->conn = 0;
-					return 0;
-				}
+				$this->conn = @pg_connect(sprintf('dbname=%s port=%s host=%s user=%s password=%s',
+							$dcl_domain_info[$dcl_domain]['dbName'],
+							$dcl_domain_info[$dcl_domain]['dbPort'],
+							$dcl_domain_info[$dcl_domain]['dbHost'],
+							$dcl_domain_info[$dcl_domain]['dbUser'],
+							$dcl_domain_info[$dcl_domain]['dbPassword']));
 
 				define('DCL_DB_CONN', $this->conn);
 			}
 			else
 				$this->conn = DCL_DB_CONN;
 		}
-		else
-			$this->conn = $conn;
+		//else
+			//$this->conn = $conn;
 
 		return $this->conn;
 	}
@@ -85,12 +77,14 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = mssql_connect($dcl_domain_info[$dcl_domain]['dbHost'],
-				$dcl_domain_info[$dcl_domain]['dbUser'],
-				$dcl_domain_info[$dcl_domain]['dbPassword']);
+		$conn = @pg_connect(sprintf('dbname=template1 port=%s host=%s user=%s password=%s',
+					$dcl_domain_info[$dcl_domain]['dbPort'],
+					$dcl_domain_info[$dcl_domain]['dbHost'],
+					$dcl_domain_info[$dcl_domain]['dbUser'],
+					$dcl_domain_info[$dcl_domain]['dbPassword']));
 
 		$bConnect = ($conn > 0);
-		mssql_close($conn);
+		pg_close($conn);
 
 		return $bConnect;
 	}
@@ -99,16 +93,18 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = mssql_connect($dcl_domain_info[$dcl_domain]['dbHost'],
-				$dcl_domain_info[$dcl_domain]['dbUser'],
-				$dcl_domain_info[$dcl_domain]['dbPassword']);
+		$conn = @pg_connect(sprintf('dbname=%s port=%s host=%s user=%s password=%s',
+							$dcl_domain_info[$dcl_domain]['dbName'],
+							$dcl_domain_info[$dcl_domain]['dbPort'],
+							$dcl_domain_info[$dcl_domain]['dbHost'],
+							$dcl_domain_info[$dcl_domain]['dbUser'],
+							$dcl_domain_info[$dcl_domain]['dbPassword']));
 
 		if ($conn > 0)
 		{
-			$bRetVal = mssql_select_db($dcl_domain_info[$dcl_domain]['dbName'], $conn);
-			mssql_close($conn);
+			pg_close($conn);
 
-			return $bRetVal;
+			return true;
 		}
 
 		return false;
@@ -118,18 +114,20 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = mssql_connect($dcl_domain_info[$dcl_domain]['dbHost'],
-				$dcl_domain_info[$dcl_domain]['dbUser'],
-				$dcl_domain_info[$dcl_domain]['dbPassword']);
+		$conn = @pg_connect(sprintf('dbname=template1 port=%s host=%s user=%s password=%s',
+					$dcl_domain_info[$dcl_domain]['dbPort'],
+					$dcl_domain_info[$dcl_domain]['dbHost'],
+					$dcl_domain_info[$dcl_domain]['dbUser'],
+					$dcl_domain_info[$dcl_domain]['dbPassword']));
 
-		$query = sprintf('Create Database %s', $dcl_domain_info[$dcl_domain]['dbName']);
+		$query = sprintf('CREATE DATABASE %s', $dcl_domain_info[$dcl_domain]['dbName']);
 
-		return (mssql_query($query, $conn) > 0);
+		return (pg_exec($conn, $query) > 0);
 	}
 
 	function TableExists($sTableName)
 	{
-		return ($this->ExecuteScalar("select count(*) from sysobjects where name='$sTableName' and type='u'") > 0);
+		return ($this->ExecuteScalar("select count(*) from pg_class where relname='$sTableName' and relkind='r'") > 0);
 	}
 
 	function Query($query)
@@ -137,12 +135,11 @@ class dclDB extends DCL_DB_Core
 		$this->res = 0;
 		$this->oid = 0;
 		$this->cur = -1;
-		$this->vcur = -1;
 		$this->Record = array();
 
 		if ($this->conn)
 		{
-			$this->res = mssql_query($query, $this->conn);
+			@$this->res = pg_Exec($this->conn, $query);
 			if ($this->res)
 			{
 				$this->cur = 0;
@@ -150,12 +147,14 @@ class dclDB extends DCL_DB_Core
 			}
 			else
 			{
-				trigger_error("Error executing query: $query");
+				trigger_error(pg_ErrorMessage() . " " . $query, E_USER_ERROR);
 				return -1;
 			}
 		}
 		else
 			return -1;
+
+		return 1;
 	}
 
 	function LimitQuery($query, $offset, $rows)
@@ -163,26 +162,19 @@ class dclDB extends DCL_DB_Core
 		$this->res = 0;
 		$this->oid = 0;
 		$this->cur = -1;
-		$this->vcur = -1;
 		$this->Record = array();
 
 		if ($this->conn)
 		{
-			@$this->res = mssql_query($query, $this->conn);
+			@$this->res = pg_Exec($this->conn, $query . ' LIMIT ' . $rows . ' OFFSET ' . $offset);
 			if ($this->res)
 			{
-				$this->cur = $offset;
-				// Push cursor to appropriate row in case next_record() is used
-				if ($offset > 0)
-					@mssql_data_seek($this->res, $offset);
-
-				$this->vcur = $offset + $rows - 1;
-
+				$this->cur = 0;
 				return $this->res;
 			}
 			else
 			{
-				trigger_error('Server Returned: [' . mssql_get_last_message() . '] for query: ' . $query);
+				trigger_error(pg_ErrorMessage() . " " . $query, E_USER_ERROR);
 				return -1;
 			}
 		}
@@ -194,7 +186,11 @@ class dclDB extends DCL_DB_Core
 	{
 		if ($this->conn)
 		{
-			mssql_query($query, $this->conn);
+			if (!pg_Exec($this->conn, $query))
+			{
+				trigger_error(pg_ErrorMessage() . " " . $query, E_USER_ERROR);
+				return -1;
+			}
 			return 1;
 		}
 
@@ -206,16 +202,12 @@ class dclDB extends DCL_DB_Core
 	{
 		$retVal = null;
 
-		if (!$this->conn)
-			$this->Connect();
-
-		$res = mssql_query($sql, $this->conn);
+		$res = pg_Exec($this->conn, $sql);
 		if ($res)
 		{
-			if (mssql_num_rows($res) > 0)
-				$retVal = mssql_result($res, 0, 0);
-
-			mssql_free_result($res);
+			$Record = @pg_fetch_array($res, 0);
+			$retVal = $Record[0];
+			pg_freeresult($res);
 		}
 
 		return $retVal;
@@ -226,25 +218,16 @@ class dclDB extends DCL_DB_Core
 		$this->res = 0;
 		$this->oid = 0;
 		$this->cur = -1;
-		$this->vcur = -1;
 		$this->Record = array();
 
 		if ($this->conn)
 		{
-			$this->res = mssql_query($query, $this->conn);
-			$oidRes = mssql_query('SELECT @@identity', $this->conn);
-			if ($this->res || $oidRes)
-			{
-				if ($oidRes)
-					$this->oid = mssql_result($oidRes, 0, 0);
-				else
-					trigger_error('Could not retrieve @@identity of newly inserted record!!  Query: ' . $query);
-
-				return $this->oid;
-			}
+			$this->res = pg_Exec($this->conn, $query);
+			if ($this->res)
+				return $this->oid = pg_GetLastOid($this->res);
 			else
 			{
-				trigger_error("Error executing query: $query");
+				trigger_error(pg_ErrorMessage() . " " . $query, E_USER_ERROR);
 				return -1;
 			}
 		}
@@ -259,30 +242,30 @@ class dclDB extends DCL_DB_Core
 	{
 		$this->Record = array();
 		if ($this->res != 0)
-			@mssql_free_result($this->res);
+			@pg_freeresult($this->res);
 
 		$this->res = 0;
 	}
 
 	function BeginTransaction()
 	{
-		return $this->Execute('BEGIN TRAN');
+		return $this->Execute('BEGIN');
 	}
 
 	function EndTransaction()
 	{
-		return $this->Execute('COMMIT TRAN');
+		return $this->Execute('COMMIT');
 	}
 
 	function RollbackTransaction()
 	{
-		return $this->Execute('ROLLBACK TRAN');
+		return $this->Execute('ROLLBACK');
 	}
 
 	function NumFields()
 	{
 		if ($this->res)
-			return mssql_num_fields($this->res);
+			return pg_NumFields($this->res);
 		else
 			return -1;
 	}
@@ -294,10 +277,7 @@ class dclDB extends DCL_DB_Core
 		if ($this->cur == -1)
 			$this->cur = 0;
 
-		if ($this->vcur == -1 || ($this->cur++ <= $this->vcur))
-			$this->Record = @mssql_fetch_array($this->res);
-		else
-			$this->Record = NULL;
+		$this->Record = @pg_fetch_array($this->res, $this->cur++);
 
 		$stat = is_array($this->Record);
 		if (!$stat)
@@ -309,9 +289,22 @@ class dclDB extends DCL_DB_Core
 	function GetFieldName($fieldIndex)
 	{
 		if ($this->res)
-			return mssql_field_name($this->res, $fieldIndex);
+			return pg_fieldname($this->res, $fieldIndex);
 
 		return '';
+	}
+
+	function IsFieldNull($thisField)
+	{
+		if ($this->res)
+		{
+			if (count($this->Record) > 0)
+				return $this->Record[$thisField] == NULL;
+
+			return pg_FieldIsNULL($this->res, $this->cur, $thisField);
+		}
+		else
+			return -1;
 	}
 
 	function FetchAllRows()
@@ -322,64 +315,79 @@ class dclDB extends DCL_DB_Core
 		if ($this->cur == -1)
 			$this->cur = 0;
 
-		while ($a = @mssql_fetch_row($this->res))
-		{
-			$this->cur++;
+		while ($a = @pg_fetch_row($this->res, $this->cur++))
 			$retVal[$i++] = $a;
-		}
 
 		return $retVal;
 	}
 
 	function GetNewIDSQLForTable($tableName)
 	{
-		return '';
+		return "nextval('seq_" . $tableName . "')";
 	}
 
 	function GetDateSQL()
 	{
-		return 'GetDate()';
+        // From Urmet Janes for MSSQL support
+		return 'now()';
+	}
+
+	function GetRTrimSQL($text)
+	{
+		return "trim(trailing ' ' from $text)";
+	}
+
+	function GetUpperSQL($text)
+	{
+		return sprintf('upper(%s)', $text);
 	}
 
 	function GetLastInsertID($sTable)
 	{
-		$res = mssql_query('SELECT @@identity', $this->conn);
+		@$res = pg_Exec($this->conn, "select currval('seq_$sTable')");
 		if ($res)
 		{
-			$Record = @mssql_fetch_array($res);
-			mssql_free_result($res);
+			$Record = @pg_fetch_array($res, 0);
+			@pg_FreeResult($res);
 			return $Record[0];
 		}
 
-		trigger_error('Could not retrieve @@identity of newly inserted record!!');
+		trigger_error("Error getting last insert ID for table $sTable! " . pg_ErrorMessage());
 		return -1;
 	}
 
 	function ConvertDate($sExpression, $sField)
 	{
-		return "Replace(convert(varchar(10), $sExpression, 111), '/', '-') AS $sField";
+		if ($sExpression == $sField)
+			return $sField;
+
+		return "$sExpression AS $sField";
 	}
 
 	function ConvertTimestamp($sExpression, $sField)
 	{
-		return "convert(varchar(20), $sExpression, 20) AS $sField";
+		if ($sExpression == $sField)
+			return $sField;
+
+		return "$sExpression AS $sField";
 	}
 
 	function IsDate($vField)
 	{
-		return ($this->res > 0 && mssql_field_type($this->res, $vField) == 'smalldatetime');
+		return ($this->res > 0 && pg_fieldtype($this->res, $vField) == 'date');
 	}
 
 	function IsTimestamp($vField)
 	{
-		return ($this->res > 0 && mssql_field_type($this->res, $vField) == 'datetime');
+		// substr because it could be timestamp or timestamptz
+		return ($this->res > 0 && substr(pg_fieldtype($this->res, $vField), 0, 9) == 'timestamp');
 	}
 
 	function index_names()
 	{
 		global $dcl_domain, $dcl_domain_info;
 
-		$this->query("SELECT name FROM sysobjects WHERE type = 'i' ORDER BY name");
+		$this->query("SELECT relname FROM pg_class WHERE NOT relname ~ 'pg_.*' AND relkind ='i' ORDER BY relname");
 		$i = 0;
 		$return = array();
 		while ($this->next_record())
@@ -395,17 +403,25 @@ class dclDB extends DCL_DB_Core
 
 	function FieldExists($sTable, $sField)
 	{
-		return ($this->ExecuteScalar("select count(*) from syscolumns where id = object_id('$sTable') and name = '$sField'") == 1);
+		return ($this->ExecuteScalar("select count(*) from pg_attribute a join pg_class b on a.attrelid = b.oid where b.relname = '$sTable' and a.attname = '$sField'") == 1);
 	}
 
 	function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField)
 	{
-		$sRetVal = "datediff(mi, $sBeginDateSQL, $sEndDateSQL)";
+		$sRetVal = "extract(epoch from age($sEndDateSQL, $sBeginDateSQL)) / 60";
 
 		if ($sAsField == '')
 			return $sRetVal;
 
 		return "$sRetVal AS $sAsField";
+	}
+
+	function DBAddSlashes($thisString)
+	{
+		if (!IsSet($thisString) || $thisString == '')
+			return '';
+
+		return str_replace("'", "''", str_replace("\\", "\\\\", $thisString));
 	}
 }
 ?>

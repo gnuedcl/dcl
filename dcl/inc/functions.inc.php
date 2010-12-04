@@ -129,9 +129,9 @@ define('DCL_NOW', 'now()');
 
 function __autoload($className)
 {
-	if (file_exists(DCL_ROOT . 'inc/class.' . $className . '.inc.php'))
+	if (file_exists(DCL_ROOT . 'inc/' . $className . '.php'))
 	{
-		require_once(DCL_ROOT . 'inc/class.' . $className . '.inc.php');
+		require_once(DCL_ROOT . 'inc/' . $className . '.php');
 		return;
 	}
 
