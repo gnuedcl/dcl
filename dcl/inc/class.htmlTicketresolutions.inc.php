@@ -47,17 +47,17 @@ class htmlTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$oResolution = CreateObject('dcl.dbTicketresolutions');
+		$oResolution = new dbTicketresolutions();
 		if ($oResolution->Load($id) == -1)
 			return;
 			
-		$oTicket =& CreateObject('dcl.dbTickets');
+		$oTicket = new dbTickets();
 		if ($oTicket->Load($oResolution->ticketid) == -1)
 		{
 			return -1;
 		}
 		
-		$obj =& CreateObject('dcl.htmlTicketDetail');
+		$obj = new htmlTicketDetail();
 		$obj->Show($oTicket, $id, false);
 	}
 
@@ -69,14 +69,14 @@ class htmlTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$oBO = CreateObject('dcl.boTicketresolutions');
+		$oBO = new boTicketresolutions();
 		CleanArray($_REQUEST);
 		$oBO->modify($_REQUEST);
 
-		$obj = CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		$obj->Load($oBO->oDB->ticketid);
 
-		$objH = CreateObject('dcl.htmlTicketDetail');
+		$objH = new htmlTicketDetail();
 		$objH->Show($obj);
 	}
 
@@ -94,17 +94,17 @@ class htmlTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$oResolution = CreateObject('dcl.dbTicketresolutions');
+		$oResolution = new dbTicketresolutions();
 		if ($oResolution->Load($id) == -1)
 			return;
 			
-		$oTicket =& CreateObject('dcl.dbTickets');
+		$oTicket = new dbTickets();
 		if ($oTicket->Load($oResolution->ticketid) == -1)
 		{
 			return -1;
 		}
 		
-		$obj =& CreateObject('dcl.htmlTicketDetail');
+		$obj = new htmlTicketDetail();
 		$obj->Show($oTicket, $id, true);
 	}
 
@@ -122,26 +122,26 @@ class htmlTicketresolutions
 			return;
 		}
 		
-		$oResolution = CreateObject('dcl.dbTicketresolutions');
+		$oResolution = new dbTicketresolutions();
 		if ($oResolution->Load($id) == -1)
 			return;
 			
 		$iTicketID = $oResolution->ticketid;
 		
-		$oBO = CreateObject('dcl.boTicketresolutions');
+		$oBO = new boTicketresolutions();
 		$aKey = array('resid' => $id, 'ticketid' => $iTicketID);
 		$oBO->delete($aKey);
 
 		if (EvaluateReturnTo())
 			return;
 
-		$oTicket =& CreateObject('dcl.dbTickets');
+		$oTicket = new dbTickets();
 		if ($oTicket->Load($iTicketID) == -1)
 		{
 			return -1;
 		}
 		
-		$objH = CreateObject('dcl.htmlTicketDetail');
+		$objH = new htmlTicketDetail();
 		$objH->Show($oTicket);
 	}
 
@@ -161,9 +161,9 @@ class htmlTicketresolutions
 				return PrintPermissionDenied();
 		}
 
-		$objT = CreateObject('dcl.dbTickets');
-		$objProduct = CreateObject('dcl.dbProducts');
-		$objStat = CreateObject('dcl.htmlStatuses');
+		$objT = new dbTickets();
+		$objProduct = new dbProducts();
+		$objStat = new htmlStatuses();
 
 		if ($objT->Load((int)$ticketid) == -1)
 			return;
@@ -201,7 +201,7 @@ class htmlTicketresolutions
 			$t->assign('PERM_ASSIGN',$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN));
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
 			{
-				$objPersonnel =& CreateObject('dcl.htmlPersonnel');
+				$objPersonnel = new htmlPersonnel();
 				$t->assign('CMB_REASSIGN', $objPersonnel->GetCombo(0, 'reassign_to_id', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
 			}
 
@@ -210,7 +210,7 @@ class htmlTicketresolutions
 			
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
 			{
-				$oTag =& CreateObject('dcl.dbEntityTag');
+				$oTag = new dbEntityTag();
 				$t->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $ticketid));
 			}
 		}
@@ -220,4 +220,3 @@ class htmlTicketresolutions
 		SmartyDisplay($t, 'htmlTicketresolutionsForm.tpl');
 	}
 }
-?>

@@ -33,7 +33,7 @@ class htmlProjectsdetail
 
 	function htmlProjectsDetail()
 	{
-		$this->oPM =& CreateObject('dcl.dbProjectmap');
+		$this->oPM = new dbProjectmap();
 		$this->oSmarty =& CreateSmarty();
 		$this->oProject = null;
 	}
@@ -50,14 +50,14 @@ class htmlProjectsdetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
 			return PrintPermissionDenied();
 
-		$this->oProject =& CreateObject('dcl.dbProjects');
+		$this->oProject = new dbProjects();
 		if ($this->oProject->Load($projectid) == -1)
 		{
 			trigger_error('Could not find a project with an id of ' . $projectid, E_USER_ERROR);
 			return;
 		}
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 
 		$this->oSmarty->assign('VAL_PROJECTID', $this->oProject->projectid);
 		$this->oSmarty->assign('VAL_REPORTTO', $oMeta->GetPersonnel($this->oProject->reportto));
@@ -86,11 +86,11 @@ class htmlProjectsdetail
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEWFILE))
 		{
-			$oAttachments =& CreateObject('dcl.boFile');
+			$oAttachments = new boFile();
 			$this->oSmarty->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_PROJECT, $this->oProject->projectid));
 		}
 
-		$oProjects =& CreateObject('dcl.boProjects');
+		$oProjects = new boProjects();
 		$this->oSmarty->assign('VAL_PROJECTS', $oProjects->GetParentProjectPath($this->oProject->projectid));
 
 		SmartyDisplay($this->oSmarty, 'htmlProjectsDetail.tpl');
@@ -149,8 +149,8 @@ class htmlProjectsdetail
 			{
 				$aTasks = array();
 
-				$objHWO = CreateObject('dcl.htmlWorkorders');
-				$objWOAcct = CreateObject('dcl.dbWorkOrderAccount');
+				$objHWO = new htmlWorkorders();
+				$objWOAcct = new dbWorkOrderAccount();
 				$oDate = new DCLDate;
 
 				for ($i = 0; $i < count($allRecs); $i++)
@@ -224,7 +224,7 @@ class htmlProjectsdetail
 		$oDB->Query('SELECT projectid FROM dcl_projects WHERE parentprojectid = ' . $this->oProject->projectid . ' ORDER BY name');
 		if ($oDB->next_record())
 		{
-			$oProject = CreateObject('dcl.dbProjects');
+			$oProject = new dbProjects();
 			$aProjects = array();
 			do
 			{
@@ -315,7 +315,7 @@ class htmlProjectsdetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbProjects');
+		$obj = new dbProjects();
 		if ($obj->Load($projectid) == -1)
 			return;
 			
@@ -332,8 +332,8 @@ class htmlProjectsdetail
 		echo GetHiddenVar('project', $projectid);
 		echo GetHiddenVar('menuAction', 'boProjects.showtree');
 
-		$objStat = CreateObject('dcl.htmlStatuses');
-		$objPersonnel = CreateObject('dcl.htmlPersonnel');
+		$objStat = new htmlStatuses();
+		$objPersonnel = new htmlPersonnel();
 
 		echo '<b>', STR_PRJ_FILTERWOBYSTATUS, ':</b>';
 		echo $objStat->GetCombo($wostatus, 'wostatus');
@@ -363,7 +363,7 @@ class htmlProjectsdetail
 
 	function DisplayChildProjects($childOfID, $wostatus, $woresponsible, $level = 0)
 	{
-		$oPM = CreateObject('dcl.dbProjectmap');
+		$oPM = new dbProjectmap();
 		$oPM->Query('SELECT projectid,name FROM dcl_projects WHERE parentprojectid=' . $childOfID);
 		$a = $oPM->FetchAllRows();
 		$oPM->FreeResult();
@@ -448,7 +448,7 @@ class htmlProjectsdetail
 			return PrintPermissionDenied();
 
 		// TODO: Security check
-		$o = CreateObject('dcl.boFile');
+		$o = new boFile();
 		$o->iType = DCL_ENTITY_PROJECT;
 		$o->iKey1 = $id;
 		$o->sFileName = $_REQUEST['filename'];
@@ -456,4 +456,3 @@ class htmlProjectsdetail
 		$o->Download();
 	}
 }
-?>

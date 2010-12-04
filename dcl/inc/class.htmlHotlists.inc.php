@@ -51,12 +51,12 @@ class htmlHotlists
 			return;
 		}
 		
-		$oDB = CreateObject('dcl.dbHotlist');
+		$oDB = new dbHotlist();
 		$oDB->listByPopular();
 		
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Popular Hotlists');
 		$oTable->addColumn(STR_CMMN_TAGS, 'html');
 		$oTable->addColumn('Count', 'numeric');
@@ -85,12 +85,12 @@ class htmlHotlists
 		if (!isset($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')
 			return $this->cloud();
 			
-		$oDB = CreateObject('dcl.dbEntityHotlist');
+		$oDB = new dbEntityHotlist();
 		$oDB->listByTag($_REQUEST['tag']);
 		
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Browsing Hotlists');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
@@ -102,7 +102,7 @@ class htmlHotlists
 		$oTable->addColumn('Priority', 'numeric');
 		$oTable->addColumn('Hotlists', 'string');
 
-		$oHotlistDB = CreateObject('dcl.dbEntityHotlist');
+		$oHotlistDB = new dbEntityHotlist();
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
 			$sHotlists = $oHotlistDB->getTagsForEntity($allRecs[$i][0], $allRecs[$i][1], $allRecs[$i][2]);
@@ -138,11 +138,11 @@ class htmlHotlists
 		if ($hotlistId === null || $hotlistId < 1)
 			return PrintPermissionDenied();
 			
-		$dbHotlist = CreateObject('dcl.dbHotlist');
+		$dbHotlist = new dbHotlist();
 		if ($dbHotlist->Load($hotlistId) === -1)
 			return PrintPermissionDenied();
 			
-		$db = CreateObject('dcl.dbEntityHotlist');
+		$db = new dbEntityHotlist();
 		$rs = $db->listById($hotlistId);
 		if ($rs === -1)
 		{
@@ -170,7 +170,7 @@ class htmlHotlists
 		if ($hotlistId === null || $hotlistId < 1)
 			return PrintPermissionDenied();
 			
-		$dbHotlist = CreateObject('dcl.dbHotlist');
+		$dbHotlist = new dbHotlist();
 		if ($dbHotlist->Load($hotlistId) === -1)
 			return PrintPermissionDenied();
 
@@ -182,7 +182,7 @@ class htmlHotlists
 				$aEntities[] = $aEntity;
 		}
 			
-		$db = CreateObject('dcl.dbEntityHotlist');
+		$db = new dbEntityHotlist();
 		$db->setPriority($hotlistId, $aEntities);
 	}
 }

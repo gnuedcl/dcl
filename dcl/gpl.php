@@ -24,7 +24,7 @@
 
 include_once('login.php');
 
-$g_oSec = CreateObject('dcl.boSecurity');
+$g_oSec = new boSecurity();
 
 $g_oPage = GetPageObject();
 $g_oPage->StartPage();
@@ -419,4 +419,3 @@ POSSIBILITY OF SUCH DAMAGES.
 </TD></TR></TABLE>
 <?php
 $g_oPage->EndPage();
-?>

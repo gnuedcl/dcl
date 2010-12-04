@@ -30,7 +30,7 @@ class boWorkOrderTask extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbWorkOrderTask');
+		$this->oDB = new dbWorkOrderTask();
 		$this->sKeyField = 'wo_task_id';
 		$this->Entity = DCL_ENTITY_WORKORDER;
 		$this->PermAdd = DCL_PERM_ACTION;
@@ -96,7 +96,7 @@ class boWorkOrderTask extends boAdminObject
 			
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null)
 		{
-			$o =& CreateObject('dcl.boFile');
+			$o = new boFile();
 			$o->iType = DCL_ENTITY_WORKORDER_TASK;
 			$o->iKey1 = $wo_task_id;
 			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
@@ -121,4 +121,3 @@ class boWorkOrderTask extends boAdminObject
 		$this->modify($aSource);
 	}
 }
-?>

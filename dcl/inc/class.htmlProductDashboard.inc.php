@@ -72,7 +72,7 @@ class htmlProductDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $productid))
 			return PrintPermissionDenied();
 
-		$this->oProduct =& CreateObject('dcl.dbProducts');
+		$this->oProduct = new dbProducts();
 		if ($this->oProduct->Load($productid) == -1)
 		{
 			trigger_error('Could not find a product with an id of ' . $productid, E_USER_ERROR);
@@ -92,4 +92,3 @@ class htmlProductDashboard
 		SmartyDisplay($this->oSmarty, $sPage);
 	}
 }
-?>

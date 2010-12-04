@@ -28,7 +28,7 @@ class htmlViews
 {
 	function GetCombo($default = 0, $cbName = 'viewid', $size = 0, $includePublic = true, $forTable = '')
 	{
-		$objDB = CreateObject('dcl.dbViews');
+		$objDB = new dbViews();
 		$objDB->cacheEnabled = false;
 
 		$query = 'SELECT viewid,name FROM views WHERE ';
@@ -80,12 +80,12 @@ class htmlViews
 			ShowWarning('You are currently in a workspace.  It is possible for results to be mutually exclusive if a search contains a product filter.  If you do not see the results you expect, switch to "No Workspace" or another workspace that has the products contained in the search.', '', '', array());
 		}
 
-		$objDB = CreateObject('dcl.dbViews');
+		$objDB = new dbViews();
 
 		$objDB->Query('SELECT viewid,whoid,ispublic,name,tablename FROM views WHERE whoid=' . $GLOBALS['DCLID'] . " OR ispublic='Y' ORDER BY $orderBy");
 		$allRecs = $objDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_VW_TITLE, $orderBy));
 		$oTable->addColumn(STR_VW_ID, 'numeric');
 		$oTable->addColumn(STR_VW_OWNER, 'string');
@@ -94,7 +94,7 @@ class htmlViews
 		$oTable->addColumn(STR_VW_TABLE, 'string');
 		$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
 
-		$objDBP = CreateObject('dcl.dbPersonnel');
+		$objDBP = new dbPersonnel();
 
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
@@ -152,8 +152,8 @@ class htmlViews
 
 		// Add the URL pieces
 		$viewUrl = '';
-		$objView = CreateObject("dcl.boView");
-		$o = CreateObject('dcl.dbPersonnel');
+		$objView = new boView();
+		$o = new dbPersonnel();
 		while (list($key, $val) = each($objView->urlpieces))
 		{
 			if (IsSet($_REQUEST[$val]))
@@ -166,4 +166,3 @@ class htmlViews
 		$Template->pparse('out', 'hForm');
 	}
 }
-?>

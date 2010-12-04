@@ -29,7 +29,7 @@ class boSeverities extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbSeverities');
+		$this->oDB = new dbSeverities();
 		$this->Entity = DCL_ENTITY_SEVERITY;
 	}
 
@@ -41,7 +41,7 @@ class boSeverities extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlSeverities');
+		$obj = new htmlSeverities();
 		$obj->PrintAll();
 	}
 
@@ -53,7 +53,7 @@ class boSeverities extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlSeverities');
+		$obj = new htmlSeverities();
 		$obj->ShowEntryForm();
 	}
 
@@ -68,7 +68,7 @@ class boSeverities extends boAdminObject
 		$this->oDB->InitFromGlobals();
 		$this->oDB->Add();
 
-		$objHTML =& CreateObject('dcl.htmlSeverities');
+		$objHTML = new htmlSeverities();
 		$objHTML->PrintAll();
 	}
 
@@ -89,7 +89,7 @@ class boSeverities extends boAdminObject
 		if ($this->oDB->Load($iID) == -1)
 			return;
 			
-		$objHTML =& CreateObject('dcl.htmlSeverities');
+		$objHTML = new htmlSeverities();
 		$objHTML->ShowEntryForm($this->oDB);
 	}
 
@@ -104,7 +104,7 @@ class boSeverities extends boAdminObject
 		$this->oDB->InitFromGlobals();
 		$this->oDB->Edit();
 
-		$objHTML =& CreateObject('dcl.htmlSeverities');
+		$objHTML = new htmlSeverities();
 		$objHTML->PrintAll();
 	}
 	function delete()
@@ -143,8 +143,7 @@ class boSeverities extends boAdminObject
 		
 		parent::delete(array('id' => $iID));
 
-		$objHTML =& CreateObject('dcl.htmlSeverities');
+		$objHTML = new htmlSeverities();
 		$objHTML->PrintAll();
 	}
 }
-?>

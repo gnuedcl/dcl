@@ -44,7 +44,7 @@ class htmlStatuses
 
 		$query .= "ORDER BY $longShort";
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -66,11 +66,11 @@ class htmlStatuses
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$objDBStatus = CreateObject('dcl.dbStatuses');
+		$objDBStatus = new dbStatuses();
 		$objDBStatus->Query("SELECT a.id,a.active,a.short,a.name,b.dcl_status_type_name FROM statuses a,dcl_status_type b WHERE b.dcl_status_type_id=a.dcl_status_type ORDER BY a.$orderBy");
 		$allRecs = $objDBStatus->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_STAT_TABLETITLE, $orderBy));
 		$oTable->addColumn(STR_STAT_ID, 'numeric');
 		$oTable->addColumn(STR_STAT_ACTIVE, 'string');
@@ -124,7 +124,7 @@ class htmlStatuses
 
 		$t = CreateSmarty();
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->SetOptionsFromDb('dcl_status_type', 'dcl_status_type_id', 'dcl_status_type_name', '', $order = 'dcl_status_type_id');
 		$oSelect->vDefault = 0;
 		$oSelect->sName = 'dcl_status_type';
@@ -152,4 +152,3 @@ class htmlStatuses
 		SmartyDisplay($t, 'htmlStatusesForm.tpl');
 	}
 }
-?>

@@ -30,7 +30,7 @@ class boOrgEmail extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbOrgEmail');
+		$this->oDB = new dbOrgEmail();
 		$this->sKeyField = 'org_email_id';
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->PermAdd = DCL_PERM_MODIFY;
@@ -56,4 +56,3 @@ class boOrgEmail extends boAdminObject
 		parent::modify($aSource);
 	}
 }
-?>

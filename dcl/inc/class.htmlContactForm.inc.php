@@ -60,7 +60,7 @@ class htmlContactForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbContact');
+		$obj = new dbContact();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -81,7 +81,7 @@ class htmlContactForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE, $id))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbContact');
+		$obj = new dbContact();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -99,7 +99,7 @@ class htmlContactForm
 
 		CleanArray($_REQUEST);
 
-		$obj = CreateObject('dcl.boContact');
+		$obj = new boContact();
 		$iContactID = $obj->add(array(
 								'first_name' => $_REQUEST['first_name'],
 								'middle_name' => $_REQUEST['middle_name'],
@@ -120,7 +120,7 @@ class htmlContactForm
 		$aContactTypes = @DCL_Sanitize::ToIntArray($_REQUEST['contact_type_id']);
 		if ($aContactTypes !== null)
 		{
-			$oContactTypeXref =& CreateObject('dcl.boContactTypeXref');
+			$oContactTypeXref = new boContactTypeXref();
 			$oContactTypeXref->PermAdd = DCL_PERM_ADD;
 			foreach ($aContactTypes as $iTypeID)
 			{
@@ -131,7 +131,7 @@ class htmlContactForm
 		$org_id = DCL_Sanitize::ToInt($_REQUEST['org_id']);
 		if ($org_id > 0)
 		{
-			$oOrgContact = CreateObject('dcl.boOrgContact');
+			$oOrgContact = new boOrgContact();
 			$oOrgContact->add(array(
 								'org_id' => $org_id,
 								'contact_id' => $iContactID,
@@ -144,7 +144,7 @@ class htmlContactForm
 		$addr_type_id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id']);
 		if ($addr_type_id > 0)
 		{
-			$oContactAddr = CreateObject('dcl.boContactAddr');
+			$oContactAddr = new boContactAddr();
 			$oContactAddr->add(array(
 							'contact_id' => $iContactID,
 							'addr_type_id' => $addr_type_id,
@@ -164,7 +164,7 @@ class htmlContactForm
 		$phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id']);
 		if ($phone_type_id > 0 && $_REQUEST['phone_number'] != '')
 		{
-			$oContactPhone = CreateObject('dcl.boContactPhone');
+			$oContactPhone = new boContactPhone();
 			$oContactPhone->add(array(
 								'contact_id' => $iContactID,
 								'phone_type_id' => $phone_type_id,
@@ -179,7 +179,7 @@ class htmlContactForm
 		$email_type_id = DCL_Sanitize::ToInt($_REQUEST['email_type_id']);
 		if ($email_type_id > 0 && $_REQUEST['email_addr'] != '')
 		{
-			$oContactEmail = CreateObject('dcl.boContactEmail');
+			$oContactEmail = new boContactEmail();
 			$oContactEmail->add(array(
 								'contact_id' => $iContactID,
 								'email_type_id' => $email_type_id,
@@ -194,7 +194,7 @@ class htmlContactForm
 		$url_type_id = DCL_Sanitize::ToInt($_REQUEST['url_type_id']);
 		if ($_POST['url_type_id'] > 0 && $_REQUEST['url_addr'] != '')
 		{
-			$oContactUrl = CreateObject('dcl.boContactUrl');
+			$oContactUrl = new boContactUrl();
 			$oContactUrl->add(array(
 								'contact_id' => $iContactID,
 								'url_type_id' => $url_type_id,
@@ -232,7 +232,7 @@ class htmlContactForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boContact');
+		$obj = new boContact();
 		CleanArray($_REQUEST);
 
 		$aValues = array('contact_id' => DCL_Sanitize::ToInt($_REQUEST['contact_id']),
@@ -248,7 +248,7 @@ class htmlContactForm
 
 		$obj->modify($aValues);
 
-		$oContact = CreateObject('dcl.htmlContactDetail');
+		$oContact = new htmlContactDetail();
 		$oContact->show();
 	}
 
@@ -266,13 +266,13 @@ class htmlContactForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE, $id))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boContact');
+		$obj = new boContact();
 		CleanArray($_REQUEST);
 
 		$aKey = array('contact_id' => $id);
 		$obj->delete($aKey);
 
-		$oContact = CreateObject('dcl.htmlContactBrowse');
+		$oContact = new htmlContactBrowse();
 		$oContact->show();
 	}
 
@@ -304,7 +304,7 @@ class htmlContactForm
 			if (isset($_REQUEST['hideMenu']))
 				$oSmarty->assign('hideMenu', $_REQUEST['hideMenu']);
 
-			$oContactType =& CreateObject('dcl.dbContactType');
+			$oContactType = new dbContactType();
 			$oSmarty->assign('contactTypes', $oContactType->GetTypes());
 
 			SmartyDisplay($oSmarty, 'htmlNewContactForm.tpl');
@@ -326,10 +326,9 @@ class htmlContactForm
 		$oSmarty->assign('VAL_MIDDLENAME', $obj->middle_name);
 		$oSmarty->assign('VAL_LASTNAME', $obj->last_name);
 
-		$oContactType =& CreateObject('dcl.dbContactType');
+		$oContactType = new dbContactType();
 		$oSmarty->assign('contactTypes', $oContactType->GetTypes($obj->contact_id));
 
 		SmartyDisplay($oSmarty, 'htmlContactForm.tpl');
 	}
 }
-?>

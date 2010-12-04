@@ -33,8 +33,8 @@ class htmlHotlistProject
 
 	function htmlHotlistProject()
 	{
-		$this->hotlist =& CreateObject('dcl.dbHotlist');
-		$this->entityHotlist =& CreateObject('dcl.dbEntityHotlist');
+		$this->hotlist = new dbHotlist();
+		$this->entityHotlist = new dbEntityHotlist();
 		$this->oSmarty =& CreateSmarty();
 	}
 
@@ -86,7 +86,7 @@ class htmlHotlistProject
 			return;
 		}
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 
 		$this->oSmarty->assign('VAL_HOTLISTID', $id);
 		$this->oSmarty->assign('VAL_NAME', $this->hotlist->hotlist_tag);
@@ -159,8 +159,8 @@ class htmlHotlistProject
 			{
 				$aTasks = array();
 
-				$objHWO = CreateObject('dcl.htmlWorkorders');
-				$objWOAcct = CreateObject('dcl.dbWorkOrderAccount');
+				$objHWO = new htmlWorkorders();
+				$objWOAcct = new dbWorkOrderAccount();
 				$oDate = new DCLDate;
 
 				for ($i = 0; $i < count($allRecs); $i++)
@@ -238,7 +238,7 @@ class htmlHotlistProject
 			return;
 		}
 
-		$entityHotlist = CreateObject('dcl.dbEntityHotlist');
+		$entityHotlist = new dbEntityHotlist();
 
 		$arrayStats = $entityHotlist->GetWorkOrderStatistics($this->hotlist->hotlist_id);
 		$this->oSmarty->assign('VAL_TOTALTASKS', $arrayStats['totaltasks']);

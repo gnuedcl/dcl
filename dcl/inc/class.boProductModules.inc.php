@@ -29,10 +29,9 @@ class boProductModules extends boAdminObject
 
 	function boProductModules()
 	{
-		$this->oDB =& CreateObject('dcl.dbProductModules');
+		$this->oDB = new dbProductModules();
 		$this->sKeyField = 'product_module_id';
 		$this->sDescField = 'module_name';
 		$this->Entity = DCL_ENTITY_PRODUCTMODULE;
 	}
 }
-?>

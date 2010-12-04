@@ -45,7 +45,7 @@ function smarty_function_dcl_select_status($params, &$smarty)
 	if ($params['active'] == 'Y')
 		$sFilter = "active = 'Y'";
 
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -60,4 +60,3 @@ function smarty_function_dcl_select_status($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

@@ -44,7 +44,7 @@ class htmlActions
 
 		$query .= "ORDER BY $longShort";
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -63,11 +63,11 @@ class htmlActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$objDBActions = CreateObject('dcl.dbActions');
+		$objDBActions = new dbActions();
 		$objDBActions->Query("SELECT id,active,short,name FROM actions ORDER BY $orderBy");
 		$allRecs = $objDBActions->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_ACTN_TABLETITLE, $orderBy));
 		$oTable->addColumn(STR_ACTN_ID, 'numeric');
 		$oTable->addColumn(STR_ACTN_ACTIVEABB, 'string');
@@ -135,4 +135,3 @@ class htmlActions
 		SmartyDisplay($t, 'htmlActionsForm.tpl');
 	}
 }
-?>

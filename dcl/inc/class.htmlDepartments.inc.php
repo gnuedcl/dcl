@@ -35,7 +35,7 @@ class htmlDepartments
 
 		$query .= "ORDER BY $longShort";
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -53,12 +53,12 @@ class htmlDepartments
 		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$objDBDepts = CreateObject('dcl.dbDepartments');
+		$objDBDepts = new dbDepartments();
 
 		$objDBDepts->Query("SELECT id,active,short,name FROM departments ORDER BY $orderBy");
 		$allRecs = $objDBDepts->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_DEPT_TABLETITLE, $orderBy));
 		$oTable->addColumn(STR_DEPT_ID, 'numeric');
 		$oTable->addColumn(STR_DEPT_ACTIVE, 'string');
@@ -126,4 +126,3 @@ class htmlDepartments
 		SmartyDisplay($t, 'htmlDepartmentsForm.tpl');
 	}
 }
-?>

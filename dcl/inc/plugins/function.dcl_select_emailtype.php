@@ -38,7 +38,7 @@ function smarty_function_dcl_select_emailtype($params, &$smarty)
 
 	$sSQL = 'SELECT email_type_id, email_type_name FROM dcl_email_type ORDER BY email_type_name';
 
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -47,4 +47,3 @@ function smarty_function_dcl_select_emailtype($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

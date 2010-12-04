@@ -36,10 +36,10 @@ class htmlTicketSearches
 			return;
 		}
 		
-		$oDB = CreateObject('dcl.dbViews');
+		$oDB = new dbViews();
 		if ($oDB->Load($id) != -1)
 		{
-			$oView = CreateObject('dcl.boView');
+			$oView = new boView();
 			$oView->SetFromURLString($oDB->viewurl);
 			$this->Show($oView);
 		}
@@ -49,7 +49,7 @@ class htmlTicketSearches
 	{
 		commonHeader();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 		$this->Show($oView);
 	}
@@ -62,22 +62,22 @@ class htmlTicketSearches
 
 		$bView = is_object($oView);
 
-		$objJS =& CreateObject('dcl.jsAttributesets');
+		$objJS = new jsAttributesets();
 		$objJS->bModules = true;
 		$objJS->bStatusTypes = true;
 		$objJS->bDepartments = !$g_oSec->IsPublicUser();
 		$objJS->DisplayAttributeScript();
 
-		$oSelect =& CreateObject('dcl.htmlSelect');
-		$objPersonnel =& CreateObject('dcl.htmlPersonnel');
-		$objProducts =& CreateObject('dcl.htmlProducts');
-		$objPriorities =& CreateObject('dcl.htmlPriorities');
-		$objSeverities =& CreateObject('dcl.htmlSeverities');
-		$objStatuses =& CreateObject('dcl.htmlStatuses');
-		$objDepartment =& CreateObject('dcl.htmlDepartments');
-		$objModules =& CreateObject('dcl.htmlProductModules');
+		$oSelect = new htmlSelect();
+		$objPersonnel = new htmlPersonnel();
+		$objProducts = new htmlProducts();
+		$objPriorities = new htmlPriorities();
+		$objSeverities = new htmlSeverities();
+		$objStatuses = new htmlStatuses();
+		$objDepartment = new htmlDepartments();
+		$objModules = new htmlProductModules();
 
-		$oDBP =& CreateObject('dcl.dbPersonnel');
+		$oDBP = new dbPersonnel();
 		$oDBP->Load($GLOBALS['DCLID']);
 		
 		$t =& CreateSmarty();
@@ -240,7 +240,7 @@ class htmlTicketSearches
 		$oSelect->sName = 'account';
 		$t->assign('CMB_ACCOUNTS', $oSelect->GetHTML());
 
-		$oSource = CreateObject('dcl.htmlEntitySource');
+		$oSource = new htmlEntitySource();
 		$t->assign('CMB_SOURCE', $oSource->GetCombo($aDefault['entity_source_id'], 'entity_source_id', 8, false));
 
 		// Modules only show for selected products
@@ -423,10 +423,9 @@ class htmlTicketSearches
 		
 		$t =& CreateSmarty();
 
-		$obj = CreateObject('dcl.htmlViews');
+		$obj = new htmlViews();
 		$t->assign('CMB_VIEWS', $obj->GetCombo(0, 'viewid', 0, true, 'tickets'));
 		
 		SmartyDisplay($t, 'htmlMyTicketSearches.tpl');
 	}
 }
-?>

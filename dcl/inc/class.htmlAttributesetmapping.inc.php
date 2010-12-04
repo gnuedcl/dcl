@@ -62,16 +62,17 @@ class htmlAttributesetmapping
 			default:
 		}
 
-		$obj = CreateObject('dcl.dbAttributesets');
+		$obj = new dbAttributesets();
 		$obj->Load($setid);
 
-		$objDB = CreateObject('dcl.db' . ucfirst($table));
+		$tableClassName = 'db' . ucfirst($table);
+		$objDB = new $tableClassName();
 
 		$objDB->Query("SELECT id,name FROM $table ORDER BY name");
 		$arrAll = $objDB->FetchAllRows();
 
 		$arrSelected = array();
-		$objMap = CreateObject('dcl.dbAttributesetsmap');
+		$objMap = new dbAttributesetsmap();
 		$objMap->LoadMapForType($setid, $typeid);
 		while ($objMap->next_record())
 		{
@@ -108,4 +109,3 @@ class htmlAttributesetmapping
 		SmartyDisplay($t, 'htmlAttributesetmapping.tpl');
 	}
 }
-?>

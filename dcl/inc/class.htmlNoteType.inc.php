@@ -40,7 +40,7 @@ class htmlNoteType
 		$table = 'dcl_note_type';
 		$order = 'note_type_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'note_type_id', 'note_type_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -58,20 +58,20 @@ class htmlNoteType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_note_type';
 		$o->title = sprintf('Note Types');
 		$o->AddDef('columns', '', array('note_type_id', 'note_type_name'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$o->AddDef('order', '', $orderBy);
 
-		$oDB = CreateObject('dcl.dbNoteType');
+		$oDB = new dbNoteType();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Note Types');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
@@ -135,7 +135,7 @@ class htmlNoteType
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbNoteType');
+		$obj = new dbNoteType();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -156,7 +156,7 @@ class htmlNoteType
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbNoteType');
+		$obj = new dbNoteType();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -171,7 +171,7 @@ class htmlNoteType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boNoteType');
+		$obj = new boNoteType();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 
@@ -188,7 +188,7 @@ class htmlNoteType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boNoteType');
+		$obj = new boNoteType();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -203,7 +203,7 @@ class htmlNoteType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boNoteType');
+		$obj = new boNoteType();
 		CleanArray($_REQUEST);
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
@@ -250,4 +250,3 @@ class htmlNoteType
 		SmartyDisplay($t, 'htmlNoteTypeForm.tpl');
 	}
 }
-?>

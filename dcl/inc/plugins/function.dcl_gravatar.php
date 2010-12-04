@@ -36,7 +36,7 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 	$gravitarHash = '';
 	if (!isset($g_GravitarsByUserId) || !isset($g_GravitarsByUserId[$userId]))
 	{
-		$dbContactEmail = CreateObject('dcl.dbContactEmail');
+		$dbContactEmail = new dbContactEmail();
 		$emailResult = $dbContactEmail->GetPrimaryEmailByUserID($params['userId']);
 		if ($emailResult === -1 || $emailResult === false)
 		{
@@ -77,4 +77,3 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 		
 	echo ' />';
 }
-?>

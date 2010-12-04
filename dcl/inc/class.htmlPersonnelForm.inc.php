@@ -42,7 +42,7 @@ class htmlPersonnelForm
 			return;
 		}
 		
-		$oPersonnel =& CreateObject('dcl.dbPersonnel');
+		$oPersonnel = new dbPersonnel();
 		if ($oPersonnel->Load($id) != -1)
 			$this->ShowEntryForm($oPersonnel);
 	}
@@ -58,8 +58,8 @@ class htmlPersonnelForm
 		$Template = &CreateSmarty();
 		$Template->assign('IS_EDIT', $isEdit);
 
-		$oUserRole = CreateObject('dcl.dbUserRole');
-		$oDept = CreateObject('dcl.htmlDepartments');
+		$oUserRole = new dbUserRole();
+		$oDept = new htmlDepartments();
 		if ($isEdit)
 		{
 			$Template->assign('VAL_PERSONNELID', $obj->id);
@@ -69,7 +69,7 @@ class htmlPersonnelForm
 			$Template->assign('VAL_DEPARTMENT', $obj->department);
 			$Template->assign('Roles', $oUserRole->GetGlobalRoles($obj->id));
 			
-			$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			$oMeta = new DCL_MetadataDisplay();
 			$aContact =& $oMeta->GetContact($obj->contact_id);
 			
 			$Template->assign('VAL_CONTACTID', $obj->contact_id);
@@ -87,4 +87,3 @@ class htmlPersonnelForm
 		SmartyDisplay($Template, 'htmlPersonnelForm.tpl');
 	}
 }
-?>

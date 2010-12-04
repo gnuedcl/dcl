@@ -33,7 +33,7 @@ class htmlHotlistBrowse
 		$this->sPagingMenuAction = 'htmlHotlistBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = CreateObject('dcl.dbHotlist');
+		$this->oDB = new dbHotlist();
 	}
 
 	function Render(&$oView)
@@ -58,7 +58,7 @@ class htmlHotlistBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$allRecs = $this->oDB->FetchAllRows();
 		
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
@@ -186,7 +186,7 @@ class htmlHotlistBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -254,7 +254,7 @@ class htmlHotlistBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->table = 'dcl_hotlist';
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME, '# Items'));
 		$oView->AddDef('columns', '', array('hotlist_id', 'active', 'hotlist_tag', 'count(*):dcl_entity_hotlist'));
@@ -279,4 +279,3 @@ class htmlHotlistBrowse
 		$this->Render($oView);
 	}
 }
-?>

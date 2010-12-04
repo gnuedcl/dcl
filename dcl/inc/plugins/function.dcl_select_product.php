@@ -62,7 +62,7 @@ function smarty_function_dcl_select_product($params, &$smarty)
 		$sFilter .= ($sFilter == '' ? '' : ' AND ') . ' id IN (' . join(',', $aProducts) . ')';
 	}
 	
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -72,4 +72,3 @@ function smarty_function_dcl_select_product($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

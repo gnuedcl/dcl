@@ -53,7 +53,7 @@ function smarty_function_dcl_select_product_version($params, &$smarty)
 		$sFilter .= 'product_id = ' . $params['product'];
 	}
 	
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -63,4 +63,3 @@ function smarty_function_dcl_select_product_version($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

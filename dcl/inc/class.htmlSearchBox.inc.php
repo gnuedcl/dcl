@@ -31,7 +31,7 @@ class htmlSearchBox
 
 	function htmlSearchBox()
 	{
-		$this->oView = CreateObject('dcl.boView');
+		$this->oView = new boView();
 		$this->oView->style = 'report';
 	}
 
@@ -99,7 +99,7 @@ class htmlSearchBox
 		}
 
 		$sWhere = '';
-		$oView =& CreateObject('dcl.boExplicitView');
+		$oView = new boExplicitView();
 		foreach ($aWorkOrders as $wo_id => $aSeq)
 		{
 			if ($sWhere != '')
@@ -148,7 +148,7 @@ class htmlSearchBox
 			list($woid, $seq) = explode('-', $sWorkOrders);
 			if ($seq > 0)
 			{
-				$obj = CreateObject('dcl.htmlWorkOrderDetail');
+				$obj = new htmlWorkOrderDetail();
 				$obj->Show($woid, $seq);
 				return;
 			}
@@ -226,10 +226,10 @@ class htmlSearchBox
 	{
 		commonHeader();
 
-		$obj = CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		if ($obj->Load($ticketid) != -1)
 		{
-			$objHT = CreateObject('dcl.htmlTicketDetail');
+			$objHT = new htmlTicketDetail();
 			$objHT->Show($obj);
 		}
 	}
@@ -277,7 +277,7 @@ class htmlSearchBox
 	{
 		commonHeader();
 
-		$obj = CreateObject('dcl.htmlProjectsdetail');
+		$obj = new htmlProjectsdetail();
 		$obj->show($projectid, 0, 0);
 	}
 
@@ -285,7 +285,7 @@ class htmlSearchBox
 	{
 		commonHeader();
 		
-		$obj = CreateObject('dcl.htmlProjects');
+		$obj = new htmlProjects();
 		$_REQUEST['filterName'] = $searchText;
 		$obj->show();
 	}
@@ -294,9 +294,8 @@ class htmlSearchBox
 	{
 	    commonHeader();
 	    
-	    $obj = CreateObject('dcl.htmlTags');
+	    $obj = new htmlTags();
 	    $_REQUEST['tag'] = $searchText;
 	    $obj->browse();
 	}
 }
-?>

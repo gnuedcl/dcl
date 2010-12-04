@@ -34,15 +34,15 @@ class reportPersonnelActivity
 		if ($needHdr == true)
 			commonHeader();
 
-		$objPersonnel = CreateObject('dcl.htmlPersonnel');
-		$oDept = CreateObject('dcl.htmlDepartments');
+		$objPersonnel = new htmlPersonnel();
+		$oDept = new htmlDepartments();
 
-		$oDBPersonnel = CreateObject('dcl.dbPersonnel');
+		$oDBPersonnel = new dbPersonnel();
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
 			return;
 
 		$t =& CreateSmarty();
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		
 		$iDept = $oDBPersonnel->department;
 		if (isset($_REQUEST['department']))
@@ -363,7 +363,7 @@ class reportPersonnelActivity
 		$bExport = (IsSet($_REQUEST['export']) && $_REQUEST['export'] == '1');
 
 		$responsible = '';
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		if ($_REQUEST['bytype'] == '1')
 		{
 			if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
@@ -463,7 +463,7 @@ class reportPersonnelActivity
 				}
 				else
 				{
-					$oTable = CreateObject('dcl.htmlTable');
+					$oTable = new htmlTable();
 					$oTable->addColumn('', 'string');
 					foreach (array_keys($aDateArray) as $sDate)
 					{
@@ -505,11 +505,11 @@ class reportPersonnelActivity
 	{
 		$bExport = (IsSet($_REQUEST['export']) && $_REQUEST['export'] == '1');
 
-		$objS = CreateObject('dcl.dbStatuses');
-		$objPr = CreateObject('dcl.dbPriorities');
-		$objSe = CreateObject('dcl.dbSeverities');
-		$objW = CreateObject('dcl.dbWorkorders');
-		$oPM = CreateObject('dcl.dbProjectmap');
+		$objS = new dbStatuses();
+		$objPr = new dbPriorities();
+		$objSe = new dbSeverities();
+		$objW = new dbWorkorders();
+		$oPM = new dbProjectmap();
 		$objDB = new dclDB;
 		
 		$aGroupOptions = array('1' => 'Project', '2' => 'Action', '3' => 'Date', '4' => 'Product', '5' => 'by');
@@ -517,7 +517,7 @@ class reportPersonnelActivity
 		if (!array_key_exists($groupBy, $aGroupOptions))
 			$groupBy = '0';
 		
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$responsible = 0;
 		$department = 0;
 		if ($_REQUEST['bytype'] == '1')
@@ -883,7 +883,7 @@ class reportPersonnelActivity
 				}
 				else
 				{
-					$oTable = CreateObject('dcl.htmlTable');
+					$oTable = new htmlTable();
 					$oTable->addFooter('Totals');
 	
 					if ($groupBy != '1')
@@ -975,4 +975,3 @@ class reportPersonnelActivity
 		}
 	}
 }
-?>

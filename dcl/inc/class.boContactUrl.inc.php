@@ -30,7 +30,7 @@ class boContactUrl extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbContactUrl');
+		$this->oDB = new dbContactUrl();
 		$this->sKeyField = 'contact_url_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
 		$this->PermAdd = DCL_PERM_MODIFY;
@@ -56,4 +56,3 @@ class boContactUrl extends boAdminObject
 		parent::modify($aSource);
 	}
 }
-?>

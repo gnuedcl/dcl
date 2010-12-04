@@ -30,7 +30,7 @@ class boOrg extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbOrg');
+		$this->oDB = new dbOrg();
 		$this->sKeyField = 'org_id';
 		$this->Entity = DCL_ENTITY_ORG;
 
@@ -58,7 +58,7 @@ class boOrg extends boAdminObject
 
 		$this->oDB->Execute($sql);
 		
-		$oOrgTypeXref =& CreateObject('dcl.boOrgTypeXref');
+		$oOrgTypeXref = new boOrgTypeXref();
 		foreach ($aSource['org_type_id'] as $org_type_id)
 		{
 			if (!$oOrgTypeXref->exists(array('org_id' => $aSource['org_id'], 'org_type_id' => $org_type_id)))
@@ -137,4 +137,3 @@ class boOrg extends boAdminObject
 		return $this->oDB->Query($sSQL);
 	}
 }
-?>

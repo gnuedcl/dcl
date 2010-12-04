@@ -72,7 +72,7 @@ class xmlProjects
 
 		$query = sprintf('select %s,%s from %s order by %s', $valField, $textField, $table, $textField);
 
-		$obj = CreateObject('dcl.' . $objName);
+		$obj = new $objName();
 		if ($obj->Query($query) != -1)
 		{
 			$i = 0;
@@ -200,7 +200,7 @@ class xmlProjects
 				$this->objWO->etchours = $objWO->esthours;
 				if ($this->objWO->responsible == 0)
 				{
-					$objProduct = CreateObject('dcl.dbProducts');
+					$objProduct = new dbProducts();
 					$objProduct->Load($this->objWO->product);
 					$this->objWO->responsible = $objProduct->reportto;
 				}
@@ -256,7 +256,7 @@ class xmlProjects
 		$this->oDate->SetFromDisplay($baseDate);
 		$this->lBaseDate = $this->oDate->time;
 
-		$this->objWO = CreateObject('dcl.dbWorkorders');
+		$this->objWO = new dbWorkorders();
 		$this->varArray = $vars;
 
 		$template .= '.xml';
@@ -277,7 +277,7 @@ class xmlProjects
 
 		xml_parser_free($this->xmlParser);
 
-		$objPM = CreateObject('dcl.dbProjectmap');
+		$objPM = new dbProjectmap();
 		$objPM->projectid = $projectid;
 		$objPM->jcn = $this->jcn;
 		$objPM->seq = 0;
@@ -365,4 +365,3 @@ class xmlProjects
 		}
 	}
 }
-?>

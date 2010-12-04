@@ -37,7 +37,7 @@ class jsonProductVersion
 		if ($product_id === null)
 			exit;
 		
-		$oDB = CreateObject('dcl.dbProductVersion');
+		$oDB = new dbProductVersion();
 		$aOptions = $oDB->GetOptions('product_version_id', 'product_version_text', 'active', (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y'), '', "product_id=$product_id");
 
 		$bFirst = true;
@@ -61,4 +61,3 @@ class jsonProductVersion
 		exit;
 	}
 }
-?>

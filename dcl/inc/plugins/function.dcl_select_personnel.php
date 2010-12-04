@@ -90,7 +90,7 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 
 	$sSQL .= 'ORDER BY p.short';
 
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -99,4 +99,3 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

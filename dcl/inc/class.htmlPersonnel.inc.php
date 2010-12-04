@@ -28,7 +28,7 @@ class htmlPersonnel
 {
 	function GetCombo($default = 0, $cbName = 'responsible', $longShort = 'short', $size = 0, $activeOnly = true, $minsec = 0, $projectid = 0)
 	{
-		$objDBPersonnel = CreateObject('dcl.dbPersonnel');
+		$objDBPersonnel = new dbPersonnel();
 		$objDBPersonnel->cacheEnabled = false;
 
 		if ($projectid > 0)
@@ -53,7 +53,7 @@ class htmlPersonnel
 		$query .= "ORDER BY short";
 		$objDBPersonnel->Query($query);
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -82,4 +82,3 @@ class htmlPersonnel
 		SmartyDisplay($oSmarty, 'htmlPersonnelPasswdForm.tpl');
 	}
 }
-?>

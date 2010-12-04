@@ -113,7 +113,7 @@ class dbSession extends dclDB
 
 		// Check for config refresh
 		global $dcl_info;
-		$o = CreateObject('dcl.dbConfig');
+		$o = new dbConfig();
 		if (!isset($dcl_info) || !is_array($dcl_info) || !isset($dcl_info['LAST_CONFIG_UPDATE']) || $o->Value('LAST_CONFIG_UPDATE') != $dcl_info['LAST_CONFIG_UPDATE'])
 		{
 			$o->Load();
@@ -226,4 +226,3 @@ class dbSession extends dclDB
 		$this->session_data = array();
 	}
 }
-?>

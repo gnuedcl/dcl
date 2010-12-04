@@ -385,7 +385,7 @@ class jsAttributesets
 		if (!$this->bActions && !$this->bPriorities && !$this->bSeverities && !$this->bStatuses && !$this->bModules)
 			return;
 
-		$this->db = CreateObject('dcl.dbActions'); // Just for data access - doesn't matter which
+		$this->db = new dbActions(); // Just for data access - doesn't matter which
 
 		print("<script language=\"JavaScript1.2\">\n");
 
@@ -459,4 +459,3 @@ class jsAttributesets
 		print('</script>');
 	}
 }
-?>

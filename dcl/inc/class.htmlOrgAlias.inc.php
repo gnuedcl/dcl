@@ -56,7 +56,7 @@ class htmlOrgAlias
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbOrgAlias');
+		$obj = new dbOrgAlias();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -88,7 +88,7 @@ class htmlOrgAlias
 
 		CleanArray($_REQUEST);
 
-		$oOrgAlias =& CreateObject('dcl.boOrgAlias');
+		$oOrgAlias = new boOrgAlias();
 		$oOrgAlias->add(array(
 						'org_id' => $id,
 						'alias' => $_REQUEST['alias'],
@@ -110,7 +110,7 @@ class htmlOrgAlias
 
 		CleanArray($_REQUEST);
 
-		$obj =& CreateObject('dcl.boOrgAlias');
+		$obj = new boOrgAlias();
 		$obj->modify($_REQUEST);
 
 		$this->ShowOrgDetail();
@@ -132,7 +132,7 @@ class htmlOrgAlias
 
 		$aKey = array('org_alias_id' => $id);
 
-		$obj =& CreateObject('dcl.boOrgAlias');
+		$obj = new boOrgAlias();
 		$obj->delete($aKey);
 
 		$this->ShowOrgDetail();
@@ -140,7 +140,7 @@ class htmlOrgAlias
 
 	function ShowOrgDetail()
 	{
-		$oOrg =& CreateObject('dcl.htmlOrgDetail');
+		$oOrg = new htmlOrgDetail();
 		$oOrg->show();
 	}
 
@@ -161,7 +161,7 @@ class htmlOrgAlias
 		$oSmarty =& CreateSmarty();
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
-		$oOrg = CreateObject('dcl.dbOrg');
+		$oOrg = new dbOrg();
 		$oOrg->Load($_REQUEST['org_id']);
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);
@@ -182,4 +182,3 @@ class htmlOrgAlias
 		SmartyDisplay($oSmarty, 'htmlOrgAlias.tpl');
 	}
 }
-?>

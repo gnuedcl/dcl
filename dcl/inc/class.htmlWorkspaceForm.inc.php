@@ -57,7 +57,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbWorkspace');
+		$obj = new dbWorkspace();
 		$obj->workspace_id = $id;
 		$this->ShowEntryForm($obj, true);
 	}
@@ -76,7 +76,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbWorkspace');
+		$obj = new dbWorkspace();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -97,7 +97,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbWorkspace');
+		$obj = new dbWorkspace();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -112,7 +112,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boWorkspace');
+		$obj = new boWorkspace();
 		CleanArray($_REQUEST);
 		$aUsers = @DCL_Sanitize::ToIntArray($_REQUEST['users']);
 		$aProducts = @DCL_Sanitize::ToIntArray($_REQUEST['products']);
@@ -124,7 +124,7 @@ class htmlWorkspaceForm
 				)
 			);
 
-		$oWS = createObject('dcl.htmlWorkspaceBrowse');
+		$oWS = new htmlWorkspaceBrowse();
 		$oWS->show();
 	}
 
@@ -142,7 +142,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boWorkspace');
+		$obj = new boWorkspace();
 		CleanArray($_REQUEST);
 		$aUsers = @DCL_Sanitize::ToIntArray($_REQUEST['users']);
 		$aProducts = @DCL_Sanitize::ToIntArray($_REQUEST['products']);
@@ -155,7 +155,7 @@ class htmlWorkspaceForm
 						)
 			);
 
-		$oWS = createObject('dcl.htmlWorkspaceBrowse');
+		$oWS = new htmlWorkspaceBrowse();
 		$oWS->show();
 	}
 
@@ -173,10 +173,10 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boWorkspace');
+		$obj = new boWorkspace();
 		$obj->delete(array('workspace_id' => $id));
 
-		$oWS = createObject('dcl.htmlWorkspaceBrowse');
+		$oWS = new htmlWorkspaceBrowse();
 		$oWS->show();
 	}
 
@@ -201,7 +201,7 @@ class htmlWorkspaceForm
 		
 		if ($id > 0)
 		{
-			$oWS = CreateObject('dcl.dbWorkspace');
+			$oWS = new dbWorkspace();
 			$aProducts = $oWS->GetProducts($id);
 			
 			if (count($aProducts) == 0)
@@ -251,7 +251,7 @@ class htmlWorkspaceForm
 
 		$Template = CreateSmarty();
 
-		$oWS = CreateObject('dcl.dbWorkspace');
+		$oWS = new dbWorkspace();
 		$aProductID = array();
 		$aProductName = array();
 		if ($isEdit || $bCopy)
@@ -288,4 +288,3 @@ class htmlWorkspaceForm
 		SmartyDisplay($Template, 'htmlWorkspaceForm.tpl');
 	}
 }
-?>

@@ -70,7 +70,7 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbWorkOrderTask');
+		$obj = new dbWorkOrderTask();
 		if ($obj->Load($wo_task_id) == -1)
 			return;
 			
@@ -91,7 +91,7 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbWorkOrderTask');
+		$obj = new dbWorkOrderTask();
 		if ($obj->Load($wo_task_id) == -1)
 			return;
 			
@@ -119,7 +119,7 @@ class htmlWorkOrderTask
 			return PrintPermissionDenied();
 
 		$oSmarty =& CreateSmarty();
-		$oTasks =& CreateObject('dcl.dbWorkOrderTask');
+		$oTasks = new dbWorkOrderTask();
 		$oSmarty->assign('VAL_TASKS', $oTasks->GetTasksForWorkOrder($wo_id, $seq, false));
 		$oSmarty->assign('VAL_JCN', $wo_id);
 		$oSmarty->assign('VAL_SEQ', $seq);
@@ -148,7 +148,7 @@ class htmlWorkOrderTask
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boWorkOrderTask');
+		$obj = new boWorkOrderTask();
 		$iOrder = $obj->oDB->ExecuteScalar("SELECT MAX(task_order) FROM dcl_wo_task WHERE wo_id = $wo_id AND seq = $seq");
 		if ($iOrder === null)
 			$iOrder = 0;
@@ -167,7 +167,7 @@ class htmlWorkOrderTask
 			}
 		}
 
-		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objWO = new htmlWorkOrderDetail();
 		$objWO->Show($wo_id, $seq);
 	}
 
@@ -185,11 +185,11 @@ class htmlWorkOrderTask
 			return;
 		}
 
-		$obj = CreateObject('dcl.boWorkOrderTask');
+		$obj = new boWorkOrderTask();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
-		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objWO = new htmlWorkOrderDetail();
 		$objWO->Show($obj->oDB->wo_id, $obj->oDB->seq);
 	}
 	
@@ -209,11 +209,11 @@ class htmlWorkOrderTask
 		
 		$task_complete = @DCL_Sanitize::ToYN($_REQUEST['task_complete']);
 
-		$obj = CreateObject('dcl.boWorkOrderTask');
+		$obj = new boWorkOrderTask();
 		$aSource = array('wo_task_id' => $wo_task_id, 'task_complete' => $task_complete);
 		$obj->toggleComplete($aSource);
 
-		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objWO = new htmlWorkOrderDetail();
 		$objWO->Show($obj->oDB->wo_id, $obj->oDB->seq);
 	}
 
@@ -232,12 +232,12 @@ class htmlWorkOrderTask
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boWorkOrderTask');
+		$obj = new boWorkOrderTask();
 		if ($obj->oDB->Load($wo_task_id) != -1)
 		{
 			$obj->delete(array('wo_task_id' => $wo_task_id));
 	
-			$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+			$objWO = new htmlWorkOrderDetail();
 			$objWO->Show($obj->oDB->wo_id, $obj->oDB->seq);
 		}
 	}
@@ -263,7 +263,7 @@ class htmlWorkOrderTask
 		}
 
 		$aTaskList = @DCL_Sanitize::ToIntArray($_REQUEST['task']);
-		$oDB =& CreateObject('dcl.dbWorkOrderTask');
+		$oDB = new dbWorkOrderTask();
 		$iOrder = 1;
 		for ($i = 0; $i < count($aTaskList); $i++)
 		{
@@ -317,4 +317,3 @@ class htmlWorkOrderTask
 		SmartyDisplay($t, 'htmlWorkOrderTaskForm.tpl');
 	}
 }
-?>

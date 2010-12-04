@@ -34,7 +34,7 @@ class imgHotlistProject
 		header('Expires: Thu, 11 Mar 1993 08:00:00 GMT');
 		
 		$this->iMaxSliceIndex = 11;
-		$this->img = CreateObject('dcl.DCL_Chart');
+		$this->img = new DCL_Chart();
 		$this->aAddlColors = array(
 			array(94, 48, 0),
 			array(201, 34, 0),
@@ -115,7 +115,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbEntityHotlist');
+		$oDB = new dbEntityHotlist();
 		if ($oDB->GetStatusCount($id) == -1)
 			exit;
 
@@ -135,7 +135,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbEntityHotlist');
+		$oDB = new dbEntityHotlist();
 		if ($oDB->GetDepartmentCount($id) == -1)
 			exit;
 
@@ -155,7 +155,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbEntityHotlist');
+		$oDB = new dbEntityHotlist();
 		if ($oDB->GetSeverityCount($id) == -1)
 			exit;
 
@@ -175,7 +175,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbEntityHotlist');
+		$oDB = new dbEntityHotlist();
 		if ($oDB->GetPriorityCount($id) == -1)
 			exit;
 
@@ -195,7 +195,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbEntityHotlist');
+		$oDB = new dbEntityHotlist();
 		if ($oDB->GetModuleCount($id) == -1)
 			exit;
 
@@ -215,11 +215,10 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbEntityHotlist');
+		$oDB = new dbEntityHotlist();
 		if ($oDB->GetTypeCount($id) == -1)
 			exit;
 
 		$this->pie($oDB, 'Work Orders By Type');
 	}
 }
-?>

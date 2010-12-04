@@ -30,7 +30,7 @@ class boContactLicense extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbContactLicense');
+		$this->oDB = new dbContactLicense();
 		$this->sKeyField = 'contact_license_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
 		$this->PermAdd = DCL_PERM_MODIFY;
@@ -44,4 +44,3 @@ class boContactLicense extends boAdminObject
 		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by');
 	}
 }
-?>

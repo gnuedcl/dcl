@@ -50,7 +50,7 @@ class htmlProjectDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
 			return PrintPermissionDenied();
 
-		$this->oProject =& CreateObject('dcl.dbProjects');
+		$this->oProject = new dbProjects();
 		if ($this->oProject->Load($projectid) == -1)
 		{
 			trigger_error('Could not find a project with an id of ' . $projectid, E_USER_ERROR);
@@ -63,4 +63,3 @@ class htmlProjectDashboard
 		SmartyDisplay($this->oSmarty, 'htmlProjectDashboard.tpl');
 	}
 }
-?>

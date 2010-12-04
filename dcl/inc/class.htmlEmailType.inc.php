@@ -40,7 +40,7 @@ class htmlEmailType
 		$table = 'dcl_email_type';
 		$order = 'email_type_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'email_type_id', 'email_type_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -58,20 +58,20 @@ class htmlEmailType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_email_type';
 		$o->title = sprintf('Email Types');
 		$o->AddDef('columns', '', array('email_type_id', 'email_type_name'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$o->AddDef('order', '', $orderBy);
 
-		$oDB = CreateObject('dcl.dbEmailType');
+		$oDB = new dbEmailType();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Email Types');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
@@ -135,7 +135,7 @@ class htmlEmailType
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbEmailType');
+		$obj = new dbEmailType();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -156,7 +156,7 @@ class htmlEmailType
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbEmailType');
+		$obj = new dbEmailType();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -171,7 +171,7 @@ class htmlEmailType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boEmailType');
+		$obj = new boEmailType();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 
@@ -188,7 +188,7 @@ class htmlEmailType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boEmailType');
+		$obj = new boEmailType();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -203,7 +203,7 @@ class htmlEmailType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boEmailType');
+		$obj = new boEmailType();
 		CleanArray($_REQUEST);
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
@@ -250,4 +250,3 @@ class htmlEmailType
 		SmartyDisplay($t, 'htmlEmailTypeForm.tpl');
 	}
 }
-?>

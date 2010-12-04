@@ -46,7 +46,7 @@ class dbTimeCards extends dclDB
 			}
 		}
 
-		$objWO = CreateObject('dcl.dbWorkorders');
+		$objWO = new dbWorkorders();
 		if ($objWO->Load($this->jcn, $this->seq) == -1)
 		{
 			trigger_error(printf(STR_DB_WORKORDERLOADERR, $this->jcn, $this->seq));
@@ -91,7 +91,7 @@ class dbTimeCards extends dclDB
 		{
 			$objWO->status = $this->status;
 			$objWO->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
-			$oStatus = CreateObject('dcl.dbStatuses');
+			$oStatus = new dbStatuses();
 			if ($oStatus->GetStatusType($this->status) == 2 && $oStatus->GetStatusType($currstatus) != 2)
 			{
 				$objWO->closedby = $this->actionby;
@@ -112,7 +112,7 @@ class dbTimeCards extends dclDB
 			$objWO->fixed_version_id = $fixed_version_id;
 			
 		// ensure the etc hours do not get anything but zero when closed
-		$oStatus = CreateObject('dcl.dbStatuses');
+		$oStatus = new dbStatuses();
 		if ($oStatus->GetStatusType($objWO->status) == 2)
 			$objWO->etchours = 0.0;
 		if ($justStarted == 1)
@@ -186,7 +186,7 @@ class dbTimeCards extends dclDB
 
 		if (count($aRetVal) > 0)
 		{
-			$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			$oMeta = new DCL_MetadataDisplay();
 			for ($i = 0; $i < count($aRetVal); $i++)
 			{
 				$aRetVal[$i]['actionon'] = $this->FormatDateForDisplay($aRetVal[$i]['actionon']);
@@ -221,4 +221,3 @@ class dbTimeCards extends dclDB
 		return $this->ExecuteScalar("SELECT MAX(id) FROM timecards WHERE id < $iTCID AND jcn = $iID AND seq = $iSeq");
 	}
 }
-?>

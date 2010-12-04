@@ -34,7 +34,7 @@ class boDepartments
 		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlDepartments');
+		$obj = new htmlDepartments();
 		$obj->PrintAll();
 	}
 
@@ -46,7 +46,7 @@ class boDepartments
 		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlDepartments');
+		$obj = new htmlDepartments();
 		$obj->ShowEntryForm();
 	}
 
@@ -58,11 +58,11 @@ class boDepartments
 		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbDepartments');
+		$obj = new dbDepartments();
 		$obj->InitFromGlobals();
 		$obj->Add();
 
-		$objHTML =& CreateObject('dcl.htmlDepartments');
+		$objHTML = new htmlDepartments();
 		$objHTML->PrintAll();
 	}
 
@@ -80,11 +80,11 @@ class boDepartments
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbDepartments');
+		$obj = new dbDepartments();
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		$objHTML =& CreateObject('dcl.htmlDepartments');
+		$objHTML = new htmlDepartments();
 		$objHTML->ShowEntryForm($obj);
 	}
 
@@ -96,11 +96,11 @@ class boDepartments
 		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbDepartments');
+		$obj = new dbDepartments();
 		$obj->InitFromGlobals();
 		$obj->Edit();
 		
-		$objHTML =& CreateObject('dcl.htmlDepartments');
+		$objHTML = new htmlDepartments();
 		$objHTML->PrintAll();
 	}
 
@@ -118,7 +118,7 @@ class boDepartments
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbDepartments');
+		$obj = new dbDepartments();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -139,7 +139,7 @@ class boDepartments
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbDepartments');
+		$obj = new dbDepartments();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -154,8 +154,7 @@ class boDepartments
 			print(STR_BO_DEACTIVATED);
 		}
 
-		$objHTML =& CreateObject('dcl.html' . $classSubName);
+		$objHTML = new htmlDepartments();
 		$objHTML->PrintAll();
 	}
 }
-?>

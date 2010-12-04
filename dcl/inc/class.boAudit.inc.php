@@ -32,7 +32,7 @@ class boAudit
 	
 	function LoadDiff($class, $aID)
 	{
-		$this->oDB =& CreateObject('dcl.' . $class);
+		$this->oDB = new $class();
 		
 		$aAuditTrail = $this->oDB->AuditLoad($aID);
 		$aDiff = array();
@@ -73,4 +73,3 @@ class boAudit
 		return $aDiff;
 	}
 }
-?>

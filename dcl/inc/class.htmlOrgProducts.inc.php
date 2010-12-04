@@ -46,12 +46,12 @@ class htmlOrgProducts
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $id))
 			return PrintPermissionDenied();
 
-		$oOrg = CreateObject('dcl.dbOrg');
+		$oOrg = new dbOrg();
 		if ($oOrg->Load($id) == -1)
 		    return;
 		    
 		// Get orgs for this contact
-		$oViewProduct =& CreateObject('dcl.boView');
+		$oViewProduct = new boView();
 		$oViewProduct->table = 'products';
 		$oViewProduct->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$oViewProduct->AddDef('columns', '', array('id', 'name'));
@@ -61,7 +61,7 @@ class htmlOrgProducts
 		$aProducts = array();
 		$aProductsNames = array();
 		
-		$oProducts =& CreateObject('dcl.dbProducts');
+		$oProducts = new dbProducts();
 		if ($oProducts->Query($oViewProduct->GetSQL()) != -1)
 		{
 			while ($oProducts->next_record())
@@ -94,10 +94,10 @@ class htmlOrgProducts
 		CleanArray($_REQUEST);
 
 		$aProducts = @DCL_Sanitize::ToIntArray($_REQUEST['product_id']);
-		$oDbProduct = CreateObject('dcl.dbOrgProduct');
+		$oDbProduct = new dbOrgProduct();
 		$oDbProduct->updateProducts($id, $aProducts);
 
-		$oOrgDetail = CreateObject('dcl.htmlOrgDetail');
+		$oOrgDetail = new htmlOrgDetail();
 		$oOrgDetail->show();
 	}
 
@@ -122,4 +122,3 @@ class htmlOrgProducts
 		SmartyDisplay($oSmarty, 'htmlOrgProducts.tpl');
 	}
 }
-?>

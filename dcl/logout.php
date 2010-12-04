@@ -27,7 +27,7 @@ if (!defined('__DCL_CONFIG_INCLUDED__'))
 
 include_once(DCL_ROOT . 'inc/functions.inc.php');
 
-$g_oSession = CreateObject('dcl.dbSession');
+$g_oSession = new dbSession();
 list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
 if (strlen($dcl_session_id) == 32)
 {
@@ -42,7 +42,7 @@ if (strlen($dcl_session_id) == 32)
 	{
 		if (isset($GLOBALS['dcl_info']) && isset($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']) && $GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
 		{
-			$oSecAuditDB = CreateObject('dcl.dbSecAudit');
+			$oSecAuditDB = new dbSecAudit();
 			$oSecAuditDB->Add('logout');
 		}
 	
@@ -70,4 +70,3 @@ function Refresh($toHere = 'index.php', $session_id = '', $domain = 'default')
 	
 	exit;
 }
-?>

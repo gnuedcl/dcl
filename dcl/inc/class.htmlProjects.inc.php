@@ -61,7 +61,7 @@ class htmlProjects
 			$whereClause .= 'dcl_projects.status = statuses.id AND statuses.dcl_status_type != 2';
 		}
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -80,7 +80,7 @@ class htmlProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->numrows = 25;
 
 		$filterStatus = @DCL_Sanitize::ToSignedInt($_REQUEST['filterStatus']);
@@ -114,7 +114,7 @@ class htmlProjects
 		if (isset($_REQUEST['filterName']) && trim($_REQUEST['filterName']) != '')
 			$oView->AddDef('filterlike', 'name', GPCStripSlashes($_REQUEST['filterName']));
 
-		$oHtml = CreateObject('dcl.htmlProjectsBrowse');
+		$oHtml = new htmlProjectsBrowse();
 		$oHtml->Render($oView);
 	}
 
@@ -167,7 +167,7 @@ class htmlProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.dbSccsXref');
+		$o = new dbSccsXref();
 		if ($o->ListChangeLog(DCL_ENTITY_PROJECT, $id) != -1)
 		{
 			$allRecs = array();
@@ -176,7 +176,7 @@ class htmlProjects
 				$allRecs[] = array($o->f(0) . ': ' . $o->f(2), $o->f(1), $o->f(3), $o->f(4), $o->f(5), $o->FormatTimestampForDisplay($o->f(6)));
 			}
 
-			$oTable =& CreateObject('dcl.htmlTable');
+			$oTable = new htmlTable();
 			$oTable->setCaption("ChangeLog for Project $id");
 			$oTable->addColumn('Project', 'string');
 			$oTable->addColumn('Changed By', 'string');
@@ -193,4 +193,3 @@ class htmlProjects
 		}
 	}
 }
-?>

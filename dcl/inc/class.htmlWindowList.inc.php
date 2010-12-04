@@ -114,7 +114,7 @@ class htmlWindowList
 		else
 			$sql .= ' Order By ' . $order;
 
-		$oDB = CreateObject('dcl.dbWorkorders');
+		$oDB = new dbWorkorders();
 		$oDB->Query($sql);
 		while ($oDB->next_record())
 		{
@@ -156,4 +156,3 @@ class htmlWindowList
 		exit;
 	}
 }
-?>

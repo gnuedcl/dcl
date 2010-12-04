@@ -38,11 +38,11 @@ class htmlWorkOrderDetail
 		else if ($forDelete && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $jcn, $seq))
 			return PrintPermissionDenied();
 
-		$objWorkOrder = CreateObject('dcl.dbWorkorders');
+		$objWorkOrder = new dbWorkorders();
 		if ($objWorkOrder->Load($jcn, $seq) == -1)
 			return trigger_error(sprintf(STR_WO_NOTFOUNDERR, $jcn, $seq), E_USER_ERROR);
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$oSmarty =& CreateSmarty();
 		
 		$oSmarty->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
@@ -103,27 +103,27 @@ class htmlWorkOrderDetail
 		if ($forDelete && $editTimeCardID == 0)
 			$oSmarty->assign('IS_DELETE', true);
 
-		$oTC =& CreateObject('dcl.dbTimeCards');
+		$oTC = new dbTimeCards();
 		$oSmarty->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($objWorkOrder->jcn, $objWorkOrder->seq));
 		$oSmarty->assign('VAL_EDITTCID', $editTimeCardID);
 		$oSmarty->assign('VAL_FORDELETE', $forDelete);
 		
-		$oTasks =& CreateObject('dcl.dbWorkOrderTask');
+		$oTasks = new dbWorkOrderTask();
 		$oSmarty->assign('VAL_TASKS', $oTasks->GetTasksForWorkOrder($objWorkOrder->jcn, $objWorkOrder->seq));
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWFILE))
 		{
-			$oAttachments =& CreateObject('dcl.boFile');
+			$oAttachments = new boFile();
 			$oSmarty->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_WORKORDER, $objWorkOrder->jcn, $objWorkOrder->seq));
 		}
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
 		{
-			$oProjects =& CreateObject('dcl.boProjects');
+			$oProjects = new boProjects();
 			$oSmarty->assign('VAL_PROJECTS', $oProjects->GetProjectPath($objWorkOrder->jcn, $objWorkOrder->seq));
 		}
 
-		$oAcct =& CreateObject('dcl.dbWorkOrderAccount');
+		$oAcct = new dbWorkOrderAccount();
 		if ($oAcct->Load($objWorkOrder->jcn, $objWorkOrder->seq) != -1)
 		{
 			$aOrgs = array();
@@ -191,7 +191,7 @@ class htmlWorkOrderDetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boFile');
+		$o = new boFile();
 		$o->iType = DCL_ENTITY_WORKORDER;
 		$o->iKey1 = $jcn;
 		$o->iKey2 = $seq;
@@ -200,4 +200,3 @@ class htmlWorkOrderDetail
 		$o->Download();
 	}
 }
-?>

@@ -30,7 +30,7 @@ class boOrgContact extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbOrgContact');
+		$this->oDB = new dbOrgContact();
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->sKeyField = '';
 		
@@ -69,4 +69,3 @@ class boOrgContact extends boAdminObject
 	{
 	}
 }
-?>

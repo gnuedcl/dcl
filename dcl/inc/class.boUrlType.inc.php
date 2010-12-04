@@ -30,9 +30,8 @@ class boUrlType extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbUrlType');
+		$this->oDB = new dbUrlType();
 		$this->sKeyField = 'url_type_id';
 		$this->Entity = DCL_ENTITY_URLTYPE;
 	}
 }
-?>

@@ -53,7 +53,7 @@ class dbFaq extends dclDB
 
 	function Delete()
 	{
-		$oDB =& CreateObject('dcl.dbFaqtopics');
+		$oDB = new dbFaqtopics();
 		$oDB->DeleteByFaq($this->faqid);
 		
 		return parent::Delete(array('faqid' => $this->faqid));
@@ -64,4 +64,3 @@ class dbFaq extends dclDB
 		return parent::Load(array('faqid' => $id));
 	}
 }
-?>

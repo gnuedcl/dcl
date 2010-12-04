@@ -32,14 +32,14 @@ class htmlWatches
 
 	function htmlWatches()
 	{
-		$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
-		$this->objW = CreateObject('dcl.dbWorkorders');
-		$this->objT = CreateObject('dcl.dbTickets');
+		$this->oMeta = new DCL_MetadataDisplay();
+		$this->objW = new dbWorkorders();
+		$this->objT = new dbTickets();
 	}
 
 	function GetCombo($default = 1, $id = 'actions')
 	{
-		$obj = CreateObject('dcl.dbWatches');
+		$obj = new dbWatches();
 
 		$retVal = "<select id=\"$id\" name=\"$id\">";
 		while (list($key, $val) = each($obj->arrActions))
@@ -88,7 +88,7 @@ class htmlWatches
 	{
 		global $dcl_info;
 		
-		$obj = CreateObject('dcl.dbWatches');
+		$obj = new dbWatches();
 
 		$obj->Query(sprintf('SELECT * FROM watches WHERE whoid=%d ORDER BY typeid,watchid', $GLOBALS['DCLID']));
 		$bGotSome = true;
@@ -123,7 +123,7 @@ class htmlWatches
 		}
 		while ($obj->next_record());
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(STR_WTCH_MYWTCH);
 		$oTable->setShowRownum(true);
 		$oTable->setData($aData);
@@ -168,7 +168,7 @@ class htmlWatches
 			if (!isset($_REQUEST['whatid2']) || ($whatid2 = DCL_Sanitize::ToInt($_REQUEST['whatid2'])) === null)
 				$whatid2 = 0;
 			
-			$objW = CreateObject('dcl.dbWatches');
+			$objW = new dbWatches();
 			$t->assign('TXT_TITLE', sprintf(STR_WTCH_ADD, $objW->arrTypeid[$typeid]));
 			$t->assign('VAL_DESC', $this->GetObjectDescription($typeid, $whatid1, $whatid2));
 			$t->assign('VAL_TYPEID', $typeid);
@@ -222,4 +222,3 @@ class htmlWatches
 		return array($summary => $link);
 	}
 }
-?>

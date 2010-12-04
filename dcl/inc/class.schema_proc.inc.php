@@ -24,8 +24,9 @@
 
 		function schema_proc($dbms)
 		{
-			$this->m_oTranslator = CreateObject('dcl.schema_proc_' . $dbms);
-			$this->m_oDeltaProc = CreateObject('dcl.schema_proc_array');
+			$schemaProcDbms = 'schema_proc_' . $dbms;
+			$this->m_oTranslator = new $schemaProcDbms;
+			$this->m_oDeltaProc = new schema_proc_array();
 			$this->m_aTables = array();
 			$this->m_bDeltaOnly = False; // Default to false here in case it's just a CreateTable script
 		}
@@ -546,4 +547,3 @@
 			return $this->m_oTranslator->UpdateSequence($this, $sTableName, $sFieldName);
 		}
 	}
-?>

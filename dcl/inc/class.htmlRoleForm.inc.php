@@ -57,7 +57,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbRole');
+		$obj = new dbRole();
 		$obj->role_id = $id;
 		$this->ShowEntryForm($obj, true);
 	}
@@ -76,7 +76,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbRole');
+		$obj = new dbRole();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -97,7 +97,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbRole');
+		$obj = new dbRole();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -112,7 +112,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boRole');
+		$obj = new boRole();
 		CleanArray($_REQUEST);
 		$obj->add(array(
 					'role_desc' => $_REQUEST['role_desc'],
@@ -121,7 +121,7 @@ class htmlRoleForm
 				)
 			);
 
-		$oRole = createObject('dcl.htmlRole');
+		$oRole = new htmlRole();
 		$oRole->show();
 	}
 
@@ -139,7 +139,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boRole');
+		$obj = new boRole();
 		CleanArray($_REQUEST);
 		$obj->modify(array(
 					'role_id' => $id,
@@ -149,7 +149,7 @@ class htmlRoleForm
 				)
 			);
 
-		$oRole = createObject('dcl.htmlRole');
+		$oRole = new htmlRole();
 		$oRole->show();
 	}
 
@@ -167,10 +167,10 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boRole');
+		$obj = new boRole();
 		$obj->delete(array('role_id' => $id));
 
-		$oRole = createObject('dcl.htmlRole');
+		$oRole = new htmlRole();
 		$oRole->show();
 	}
 
@@ -185,7 +185,7 @@ class htmlRoleForm
 		$Template = CreateSmarty();
 		$Template->assign('VAL_FORMACTION', menuLink());
 
-		$oRole = CreateObject('dcl.dbRole');
+		$oRole = new dbRole();
 		if ($isEdit)
 		{
 			$Template->assign('menuAction', 'htmlRoleForm.submitModify');
@@ -206,4 +206,3 @@ class htmlRoleForm
 		SmartyDisplay($Template, 'htmlRoleForm.tpl');
 	}
 }
-?>

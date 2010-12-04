@@ -55,7 +55,7 @@ class dbWorkorders extends dclDB
 		{
 			if ($this->responsible == 0)
 			{
-				$objProduct = CreateObject('dcl.dbProducts');
+				$objProduct = new dbProducts();
 				$objProduct->Load($this->product);
 				$this->responsible = $objProduct->reportto;
 				$this->status = $dcl_info['DCL_DEF_STATUS_UNASSIGN_WO'];
@@ -217,7 +217,7 @@ class dbWorkorders extends dclDB
 		
 		$bCanView = true;
 		$bIsPublic = false;
-		$oUR =& CreateObject('dcl.dbUserRole');
+		$oUR = new dbUserRole();
 		$oUR->ListPermissions($iPersonnelID, DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
 		while ($oUR->next_record() && $bCanView)
 		{
@@ -229,7 +229,7 @@ class dbWorkorders extends dclDB
 					
 				if ($bCanView)
 				{
-					$oDBProduct =& CreateObject('dcl.dbProducts');
+					$oDBProduct = new dbProducts();
 					if ($oDBProduct->Load($obj->product) !== -1)
 					{
 						$bCanView = ($oDBProduct->is_public == 'Y');
@@ -249,7 +249,7 @@ class dbWorkorders extends dclDB
 			{
 				if ($obj->jcn != $this->iWoid || $obj->seq != $this->iSeq)
 				{
-					$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
+					$oWOA = new dbWorkOrderAccount();
 					if ($oWOA->Load($obj->jcn, $obj->seq) != -1)
 					{
 						$this->iWoid = $obj->jcn;
@@ -292,4 +292,3 @@ class dbWorkorders extends dclDB
 		return $bCanView;
 	}
 }
-?>

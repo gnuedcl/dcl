@@ -48,7 +48,7 @@ class htmlTicketDetail
 		$oSmarty->assign('VAL_WIKITYPE', DCL_ENTITY_TICKET);
 		$oSmarty->assign('VAL_WATCHTYPE', '5');
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$oSmarty->assign('VAL_CREATEDBY', $oMeta->GetPersonnel($obj->createdby));
 		$oSmarty->assign('VAL_CLOSEDBY', $oMeta->GetPersonnel($obj->closedby));
 		$oSmarty->assign('VAL_RESPONSIBLE', $oMeta->GetPersonnel($obj->responsible));
@@ -80,7 +80,7 @@ class htmlTicketDetail
 
 		if ($obj->entity_source_id != '' && $obj->entity_source_id > 0)
 		{
-			$oSource = CreateObject('dcl.dbEntitySource');
+			$oSource = new dbEntitySource();
 			$oSource->Load($obj->entity_source_id);
 			$oSmarty->assign('VAL_SOURCE', $oSource->entity_source_name);
 		}
@@ -90,11 +90,11 @@ class htmlTicketDetail
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEWFILE))
 		{
-			$oAttachments =& CreateObject('dcl.boFile');
+			$oAttachments = new boFile();
 			$oSmarty->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_TICKET, $obj->ticketid));
 		}
 
-		$oTR =& CreateObject('dcl.dbTicketresolutions');
+		$oTR = new dbTicketresolutions();
 		$oSmarty->assign('VAL_RESOLUTIONS', $oTR->GetResolutionsArray($obj->ticketid));
 
 		$oSmarty->assign('PERM_ACTION', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION));
@@ -134,7 +134,7 @@ class htmlTicketDetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boFile');
+		$o = new boFile();
 		$o->iType = DCL_ENTITY_TICKET;
 		$o->iKey1 = $id;
 		$o->sFileName = $_REQUEST['filename'];
@@ -142,4 +142,3 @@ class htmlTicketDetail
 		$o->Download();
 	}
 }
-?>

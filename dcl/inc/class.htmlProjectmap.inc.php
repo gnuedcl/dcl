@@ -33,7 +33,7 @@ class htmlProjectmap
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 			return PrintPermissionDenied();
 
-		$objProject = CreateObject('dcl.htmlProjects');
+		$objProject = new htmlProjects();
 		
 		$t =& CreateSmarty();
 		
@@ -80,7 +80,7 @@ class htmlProjectmap
 		{
 			$this->_display($_REQUEST['selected'], null, 'htmlProjectmap.submitBatchMove', 'Batch Move Work Orders to Another Project');
 
-			$obj = CreateObject('dcl.htmlTimeCards');
+			$obj = new htmlTimeCards();
 			$obj->ShowBatchWO();
 		}
 		else
@@ -97,7 +97,7 @@ class htmlProjectmap
 			return PrintPermissionDenied();
 
 		CleanArray($_REQUEST);
-		$o = CreateObject('dcl.boProjects');
+		$o = new boProjects();
 		$o->move($_REQUEST);
 	}
 
@@ -123,12 +123,11 @@ class htmlProjectmap
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boProjects');
+		$o = new boProjects();
 		$o->batchMove($_REQUEST);
 		unset($o);
 
-		$o = CreateObject('dcl.htmlProjectsdetail');
+		$o = new htmlProjectsdetail();
 		$o->show($projectid, $wostatus, $woresponsible);
 	}
 }
-?>

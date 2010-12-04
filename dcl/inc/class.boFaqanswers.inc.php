@@ -40,17 +40,17 @@ class boFaqanswers
 			return;
 		}
 		
-		$objF =& CreateObject('dcl.dbFaqquestions');
+		$objF = new dbFaqquestions();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADQUESTION, $iID);
 			return;
 		}
 
-		$obj =& CreateObject('dcl.htmlFaqanswers');
+		$obj = new htmlFaqanswers();
 		$obj->DisplayForm();
 
-		$objH =& CreateObject('dcl.htmlFaqquestions');
+		$objH = new htmlFaqquestions();
 		print('<p>');
 		$objH->ShowQuestion($objF);
 	}
@@ -69,21 +69,21 @@ class boFaqanswers
 			return;
 		}
 		
-		$objF =& CreateObject('dcl.dbFaqquestions');
+		$objF = new dbFaqquestions();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADQUESTION, $iID);
 			return;
 		}
 
-		$obj =& CreateObject('dcl.dbFaqanswers');
+		$obj = new dbFaqanswers();
 		$obj->InitFromGlobals();
 		$obj->createby = $GLOBALS['DCLID'];
 		$obj->createon = DCL_NOW;
 		$obj->active = 'Y';
 		$obj->Add();
 
-		$objH =& CreateObject('dcl.htmlFaqquestions');
+		$objH = new htmlFaqquestions();
 		print('<p>');
 		$objH->ShowQuestion($objF);
 	}
@@ -102,11 +102,11 @@ class boFaqanswers
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbFaqanswers');
+		$obj = new dbFaqanswers();
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		$objH =& CreateObject('dcl.htmlFaqanswers');
+		$objH = new htmlFaqanswers();
 		$objH->DisplayForm($obj);
 	}
 
@@ -124,20 +124,20 @@ class boFaqanswers
 			return;
 		}
 		
-		$objF =& CreateObject('dcl.dbFaqquestions');
+		$objF = new dbFaqquestions();
 		if ($objF->Load($iID) == -1)
 		{
 			return;
 		}
 
-		$obj =& CreateObject('dcl.dbFaqanswers');
+		$obj = new dbFaqanswers();
 		$obj->InitFromGlobals();
 		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
 		$obj->modifyby = $GLOBALS['DCLID'];
 		$obj->modifyon = DCL_NOW;
 		$obj->Edit();
 		
-		$objH =& CreateObject('dcl.htmlFaqquestions');
+		$objH = new htmlFaqquestions();
 		$objH->ShowQuestion($objF);
 	}
 
@@ -155,7 +155,7 @@ class boFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $iID))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbFaqanswers');
+		$obj = new dbFaqanswers();
 		if ($obj->Load($iID) == -1)
 			return;
 		
@@ -176,21 +176,20 @@ class boFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $iID))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbFaqanswers');
+		$obj = new dbFaqanswers();
 		if ($obj->Load($iID) == -1)
 			return;
 			
 		$iQuestionID = $obj->questionid;
 		$obj->Delete($iID);
 		
-		$objQ =& CreateObject('dcl.dbFaqquestions');
+		$objQ = new dbFaqquestions();
 		if ($objQ->Load($iQuestionID) == -1)
 		{
 			return -1;
 		}
 		
-		$objH =& CreateObject('dcl.htmlFaqquestions');
+		$objH = new htmlFaqquestions();
 		$objH->ShowQuestion($objQ);
 	}
 }
-?>

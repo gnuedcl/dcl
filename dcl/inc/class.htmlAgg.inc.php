@@ -134,7 +134,7 @@ class htmlAgg
 	{
 		$this->Init();
 
-		$oDB = CreateObject('dcl.dbWorkorders');
+		$oDB = new dbWorkorders();
 		$oDB->Query($this->_GetSQL());
 		$aDetail = array();
 		$i = -1;
@@ -168,7 +168,7 @@ class htmlAgg
 		}
 		else
 		{
-			$oTable = CreateObject('dcl.htmlTable');
+			$oTable = new htmlTable();
 			$oTable->addColumn('Open', 'html');
 			$oTable->addColumn('Completed', 'html');
 			$oTable->addColumn($this->_aTypeInfo[$this->group][$this->sub][1], 'string');
@@ -182,7 +182,7 @@ class htmlAgg
 		$this->Init();
 		$aItems = $this->_aTypeInfo[$this->group][$this->sub];
 
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->style = 'report';
 		$objView->title = 'Aggregate Search Results';
 		$objView->table = $this->group;
@@ -293,4 +293,3 @@ class htmlAgg
 		return $sql;
 	}
 }
-?>

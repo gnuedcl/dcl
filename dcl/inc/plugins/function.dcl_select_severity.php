@@ -59,7 +59,7 @@ function smarty_function_dcl_select_severity($params, &$smarty)
 		$sSQL .= ' ORDER BY a.name';
 	}
 
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -68,4 +68,3 @@ function smarty_function_dcl_select_severity($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

@@ -31,8 +31,8 @@ class htmlMetricsWorkOrders
 
 	function htmlMetricsWorkOrders()
 	{
-		$this->oProduct = CreateObject('dcl.dbProducts');
-		$this->oProject = CreateObject('dcl.dbProjects');
+		$this->oProduct = new dbProducts();
+		$this->oProject = new dbProjects();
 		$this->aProjects = array();
 	}
 
@@ -43,8 +43,8 @@ class htmlMetricsWorkOrders
 		if ($needHdr == true)
 			commonHeader();
 
-		$oProducts = CreateObject('dcl.htmlProducts');
-		$oProjects = CreateObject('dcl.htmlProjects');
+		$oProducts = new htmlProducts();
+		$oProjects = new htmlProjects();
 
 		$oSmarty = CreateSmarty();
 		$oSmarty->assign('VAL_FORMACTION', menuLink());
@@ -80,7 +80,7 @@ class htmlMetricsWorkOrders
 		if (isset($_REQUEST['projects']))
 		{
 			$aProjects = DCL_Sanitize::ToIntArray($_REQUEST['projects']);
-			$oProjectMap = CreateObject('dcl.dbProjectmap');
+			$oProjectMap = new dbProjectmap();
 			if (isset($_REQUEST['childProjects']) && $_REQUEST['childProjects'] == '1')
 			{
 				$this->aProjects = array();
@@ -148,7 +148,7 @@ class htmlMetricsWorkOrders
 		$oDB = new dclDB;
 		if ($oDB->query($sSQL) != -1)
 		{
-			$oTable = CreateObject('dcl.htmlTable');
+			$oTable = new htmlTable();
 			$oTable->setInline(true);
 			$oTable->setCaption($sCaption);
 			$oTable->addColumn($sAggregateBy, 'html');
@@ -253,7 +253,7 @@ class htmlMetricsWorkOrders
 		if (count($this->aProjects) > 0)
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
-		$oDB = CreateObject('dcl.dbWorkorders');
+		$oDB = new dbWorkorders();
 		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
 		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)
@@ -288,7 +288,7 @@ class htmlMetricsWorkOrders
 		if (count($this->aProjects) > 0)
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
-		$oDB = CreateObject('dcl.dbWorkorders');
+		$oDB = new dbWorkorders();
 		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
 		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)
@@ -323,7 +323,7 @@ class htmlMetricsWorkOrders
 		if (count($this->aProjects) > 0)
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
-		$oDB = CreateObject('dcl.dbWorkorders');
+		$oDB = new dbWorkorders();
 		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
 		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)
@@ -340,4 +340,3 @@ class htmlMetricsWorkOrders
 		$this->executeItem($sSQL, 'Work Orders Touched', STR_WO_STATUS);
 	}
 }
-?>

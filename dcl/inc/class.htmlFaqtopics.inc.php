@@ -76,7 +76,7 @@ class htmlFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $obj->faqid))
 			return PrintPermissionDenied();
 
-		$objFaq = CreateObject('dcl.dbFaq');
+		$objFaq = new dbFaq();
 		if ($objFaq->Load($obj->faqid) == -1)
 		{
 		    return;
@@ -92,7 +92,7 @@ class htmlFaqtopics
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE));
 
-		$objF = CreateObject('dcl.dbFaqquestions');
+		$objF = new dbFaqquestions();
 		if ($objF->LoadByFaqTopicID($obj->topicid) == -1)
 		{
 			return;
@@ -109,4 +109,3 @@ class htmlFaqtopics
 		SmartyDisplay($t, 'htmlFaqtopicsDetail.tpl');
 	}
 }
-?>

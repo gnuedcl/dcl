@@ -41,7 +41,7 @@ class boSMTP
 	{
 		global $dcl_info, $dcl_domain;
 
-		$this->oSocket =& CreateObject('dcl.boSocket');
+		$this->oSocket = new boSocket();
 		$this->oSocket->sHost = $dcl_info['DCL_SMTP_SERVER'];
 		$this->oSocket->iPort = $dcl_info['DCL_SMTP_PORT'];
 		$this->oSocket->iTimeout = $dcl_info['DCL_SMTP_TIMEOUT'];
@@ -250,4 +250,3 @@ class boSMTP
 		return false;
 	}
 }
-?>

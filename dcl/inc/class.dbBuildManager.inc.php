@@ -36,7 +36,7 @@ class dbBuildManager extends dclDB
 		$this->TableName = 'dcl_product_build_sccs';
 		LoadSchema($this->TableName);
 		
-		$this->oDbProductBuildException = CreateObject('dcl.dbProductBuildException');
+		$this->oDbProductBuildException = new dbProductBuildException();
 		
 		parent::Clear();
 	}
@@ -48,7 +48,7 @@ class dbBuildManager extends dclDB
 		//Getting Buildid from session, then create Build Item DB Object
 		$aReleaseID = &$g_oSession->Value('releaseid');
 		$aBuildID = &$g_oSession->Value('buildid');
-		$oBuildItem = CreateObject('dcl.dbProductBuildItem');
+		$oBuildItem = new dbProductBuildItem();
 		
 		$this->oDbProductBuildException->DeleteBySession($g_oSession->dcl_session_id, (int)$g_oSession->Value('buildid'));
 					
@@ -196,12 +196,12 @@ class dbBuildManager extends dclDB
 	{	
 		global $g_oSession;
 		
-		$oBuildSccs = CreateObject('dcl.dbProductBuildSccs');
+		$oBuildSccs = new dbProductBuildSccs();
 		$oBuildSccs->product_build_id = $g_oSession->Value('buildid');
 		
 		if ($sccsid == -1)
 		{
-			$oSccs = CreateObject('dcl.dbSccsXref');
+			$oSccs = new dbSccsXref();
 			$oSccs->Query(sprintf('SELECT dcl_sccs_xref_id FROM dcl_sccs_xref WHERE dcl_entity_type_id = %d AND dcl_entity_id = %d AND dcl_entity_id2 = %d',
 					DCL_ENTITY_WORKORDER,
 					$jcn,
@@ -256,7 +256,7 @@ class dbBuildManager extends dclDB
 
 		if ($status >= DCL_BUILDMANAGER_APPLIED)
 		{
-			$oVersionItem = CreateObject('dcl.dbProductVersionItem');
+			$oVersionItem = new dbProductVersionItem();
 			if ($oVersionItem->Load(array('product_version_id' => $releaseid,'entity_type_id' => DCL_ENTITY_WORKORDER, 'entity_id' => $jcn, 'entity_id2' => $seq)) != -1)			
 			{
 				$oVersionItem->version_status_id = DCL_BUILDMANAGER_SUBMIT;
@@ -272,7 +272,7 @@ class dbBuildManager extends dclDB
 		
 		if ($init == 0)
 		{
-			$oVersionItem = CreateObject('dcl.dbProductVersionItem');
+			$oVersionItem = new dbProductVersionItem();
 			if ($oVersionItem->Load(array('product_version_id' => $g_oSession->Value('releaseid'), 'entity_type_id' => DCL_ENTITY_WORKORDER, 'entity_id' => $jcn, 'entity_id2' => $seq)) != -1)
 			{
 				$oVersionItem->version_status_id = DCL_BUILDMANAGER_APPLIED;
@@ -291,11 +291,11 @@ class dbBuildManager extends dclDB
 		
 		if ($g_oSession->IsRegistered('ErrorLog'))
 		{			
-			$obj = CreateObject('dcl.htmlBuildManager');
+			$obj = new htmlBuildManager();
 			$obj->ShowErrorReport();	
 		}
 		//Show the build detail of work orders submitted
-		$obj = CreateObject('dcl.htmlBuildManager');
+		$obj = new htmlBuildManager();
 		$obj->ShowWOByBuild($versionid, $buildid);
 	
 		$this->DeleteSession();
@@ -314,4 +314,3 @@ class dbBuildManager extends dclDB
 		$g_oSession->Edit();
 	}
 }
-?>

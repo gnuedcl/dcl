@@ -110,7 +110,7 @@ class htmlChecklistForm
 	function RenderPersonnel(&$node)
 	{
 		if ($this->oSelect == NULL)
-			$this->oSelect = CreateObject('dcl.htmlSelect');
+			$this->oSelect = new htmlSelect();
 
 		if (substr($node->attributes['type'], -3, 3) == 'one')
 			$this->oSelect->iSize = 0;
@@ -127,7 +127,7 @@ class htmlChecklistForm
 	function RenderProducts(&$node)
 	{
 		if ($this->oSelect == NULL)
-			$this->oSelect = CreateObject('dcl.htmlSelect');
+			$this->oSelect = new htmlSelect();
 
 		if (substr($node->attributes['type'], -3, 3) == 'one')
 			$this->oSelect->iSize = 0;
@@ -318,7 +318,7 @@ class htmlChecklistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 			
-		$this->xml = CreateObject('dcl.xmlDoc');
+		$this->xml = new xmlDoc();
 		$this->xml->ParseFile($file);
 
 		$t =& CreateSmarty();
@@ -368,4 +368,3 @@ class htmlChecklistForm
 			$this->UpdateNodes($node->childNodes[$i]);
 	}
 }
-?>

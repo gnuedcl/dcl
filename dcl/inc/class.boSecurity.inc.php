@@ -58,7 +58,7 @@ class boSecurity
 			return false;
 		}
 		
-		$oDB =& CreateObject('dcl.dbUserRole');
+		$oDB = new dbUserRole();
 		return $oDB->HasSpecificRole($GLOBALS['DCLID'], $role_id);
 	}
 
@@ -151,7 +151,7 @@ class boSecurity
 		$sKey = $entity . '_' . $id1 . '_' . $id2;
 		$sGlobalKey = $entity . '_0_0';
 		$g_oSession->ValueRef('Permissions', $aPermissions);
-		$oDB = CreateObject('dcl.dbUserRole');
+		$oDB = new dbUserRole();
 
 		if (!is_array($aPermissions) || !isset($aPermissions[$sGlobalKey]))
 		{
@@ -191,4 +191,3 @@ class boSecurity
 		return $aPermissions;
 	}
 }
-?>

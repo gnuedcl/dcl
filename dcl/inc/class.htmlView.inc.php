@@ -38,7 +38,7 @@ class htmlView
 
 	function htmlView()
 	{
-		$this->oDB = CreateObject('dcl.dbWorkorders');
+		$this->oDB = new dbWorkorders();
 
 		$this->bNeedsHeader = true;
 
@@ -115,7 +115,7 @@ class htmlView
 
 		commonHeader();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if ($this->bShowPager)
@@ -190,7 +190,7 @@ class htmlView
 	{
 		commonHeader();
 
-		$obj = CreateObject('dcl.boView');
+		$obj = new boView();
 		$obj->SetFromURL();
 
 		$this->Render($obj);
@@ -621,4 +621,3 @@ class htmlView
 			$this->Template->parse('hDetailColumnLinkSetLinks', 'detailColumnLinkSetLink', true);
 	}
 }
-?>

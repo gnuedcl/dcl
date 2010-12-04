@@ -30,7 +30,7 @@ class boContactType extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbContactType');
+		$this->oDB = new dbContactType();
 		$this->sKeyField = 'contact_type_id';
 		$this->Entity = DCL_ENTITY_CONTACTTYPE;
 	}
@@ -47,4 +47,3 @@ class boContactType extends boAdminObject
 		parent::modify($aSource);
 	}
 }
-?>

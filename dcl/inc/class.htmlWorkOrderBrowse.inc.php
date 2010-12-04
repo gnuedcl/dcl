@@ -34,7 +34,7 @@ class htmlWorkOrderBrowse
 		$this->sPagingMenuAction = 'htmlWorkOrderBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = CreateObject('dcl.dbWorkorders');
+		$this->oDB = new dbWorkorders();
 	}
 
 	function Render(&$oView)
@@ -59,7 +59,7 @@ class htmlWorkOrderBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setData($this->oDB->FetchAllRows());
 		
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
@@ -174,7 +174,7 @@ class htmlWorkOrderBrowse
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -254,4 +254,3 @@ class htmlWorkOrderBrowse
 		return true;
 	}
 }
-?>

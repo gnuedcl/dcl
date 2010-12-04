@@ -30,9 +30,8 @@ class boAddrType extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbAddrType');
+		$this->oDB = new dbAddrType();
 		$this->sKeyField = 'addr_type_id';
 		$this->Entity = DCL_ENTITY_ADDRTYPE;
 	}
 }
-?>

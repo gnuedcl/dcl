@@ -33,7 +33,7 @@ class htmlContactSelector
 	{
 		$this->bMultiSelect = false;
 		$this->oSmarty =& CreateSmarty();
-		$this->oView =& CreateObject('dcl.boView');
+		$this->oView = new boView();
 		$this->oDB = new dclDB;
 	}
 
@@ -183,7 +183,7 @@ class htmlContactSelector
 
 		if ($this->oDB->LimitQuery($this->oView->GetSQL(), $this->oView->startrow, $this->oView->numrows) != -1)
 		{
-			$oMetadata = CreateObject('dcl.DCL_MetadataDisplay');
+			$oMetadata = new DCL_MetadataDisplay();
 			$aContacts = array();
 			while ($this->oDB->next_record())
 			{
@@ -207,4 +207,3 @@ class htmlContactSelector
 		exit();
 	}
 }
-?>

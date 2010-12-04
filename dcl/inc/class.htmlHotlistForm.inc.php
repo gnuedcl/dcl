@@ -57,7 +57,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbHotlist');
+		$obj = new dbHotlist();
 		$obj->hotlist_id = $id;
 		$this->ShowEntryForm($obj, true);
 	}
@@ -76,7 +76,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbHotlist');
+		$obj = new dbHotlist();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -97,7 +97,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbHotlist');
+		$obj = new dbHotlist();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -112,7 +112,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boHotlist');
+		$obj = new boHotlist();
 		CleanArray($_REQUEST);
 		$active = @DCL_Sanitize::ToYN($_REQUEST['active']);
 		$obj->add(array(
@@ -124,7 +124,7 @@ class htmlHotlistForm
 				)
 			);
 
-		$oWS = createObject('dcl.htmlHotlistBrowse');
+		$oWS = new htmlHotlistBrowse();
 		$oWS->show();
 	}
 
@@ -142,7 +142,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boHotlist');
+		$obj = new boHotlist();
 		CleanArray($_REQUEST);
 		$active = @DCL_Sanitize::ToYN($_REQUEST['active']);
 		$obj->modify(array(
@@ -155,7 +155,7 @@ class htmlHotlistForm
 				)
 			);
 
-		$oWS = createObject('dcl.htmlHotlistBrowse');
+		$oWS = new htmlHotlistBrowse();
 		$oWS->show();
 	}
 
@@ -173,10 +173,10 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boHotlist');
+		$obj = new boHotlist();
 		$obj->delete(array('hotlist_id' => $id));
 
-		$oWS = createObject('dcl.htmlHotlistBrowse');
+		$oWS = new htmlHotlistBrowse();
 		$oWS->show();
 	}
 
@@ -209,4 +209,3 @@ class htmlHotlistForm
 		SmartyDisplay($Template, 'htmlHotlistForm.tpl');
 	}
 }
-?>

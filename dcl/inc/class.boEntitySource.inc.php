@@ -28,7 +28,7 @@ class boEntitySource extends boAdminObject
 {
 	function boEntitySource()
 	{
-		$this->oDB =& CreateObject('dcl.dbEntitySource');
+		$this->oDB = new dbEntitySource();
 		$this->sKeyField = 'entity_source_id';
 		$this->sDescField = 'entity_source_name';
 		$this->Entity = DCL_ENTITY_SOURCE;
@@ -57,4 +57,3 @@ class boEntitySource extends boAdminObject
 		return $this->oDB->Query($sSQL);
 	}
 }
-?>

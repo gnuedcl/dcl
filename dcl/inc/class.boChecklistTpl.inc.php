@@ -59,7 +59,7 @@ class boChecklistTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView =& CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->table = 'dcl_chklst_tpl';
 		$oView->style = 'report';
 		$oView->title = STR_CHK_CHECKLISTTEMPLATES;
@@ -83,13 +83,13 @@ class boChecklistTpl
 		$oView->startrow = $startrow;
 		$oView->numrows = $numrows;
 
-		$oDB =& CreateObject('dcl.dbChklstTpl');
+		$oDB = new dbChklstTpl();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(STR_CHK_INITIATEDCHECKLISTS);
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_ACTIVE, 'string');
@@ -160,7 +160,7 @@ class boChecklistTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 			
-		$obj =& CreateObject('dcl.htmlChklstTpl');
+		$obj = new htmlChklstTpl();
 		$obj->add();
 	}
 
@@ -177,7 +177,7 @@ class boChecklistTpl
 		{
 			$sName = '';
 
-			$oXML =& CreateObject('dcl.xmlDoc');
+			$oXML = new xmlDoc();
 			$oXML->ParseFile($sFileName);
 			$oXML->FindChildNode($oXML->root, 'Name');
 			if ($oXML->currentNode != NULL)
@@ -193,7 +193,7 @@ class boChecklistTpl
 				}
 
 				echo htmlspecialchars($sName);
-				$o =& CreateObject('dcl.dbChklstTpl');
+				$o = new dbChklstTpl();
 				$o->dcl_chklst_tpl_name = $sName;
 				$o->Add();
 				if (IsSet($o->dcl_chklst_tpl_id))
@@ -218,7 +218,7 @@ class boChecklistTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlChklstTpl');
+		$obj = new htmlChklstTpl();
 		$obj->modify();
 	}
 
@@ -236,7 +236,7 @@ class boChecklistTpl
 			return;
 		}
 		
-		$o =& CreateObject('dcl.dbChklstTpl');
+		$o = new dbChklstTpl();
 		if ($o->Load($iID) != -1)
 		{
 			$sFileName = @DCL_Sanitize::ToFileName('userfile');
@@ -244,7 +244,7 @@ class boChecklistTpl
 			{
 				$sName = '';
 
-				$oXML =& CreateObject('dcl.xmlDoc');
+				$oXML = new xmlDoc();
 				$oXML->ParseFile($sFileName);
 				$oXML->FindChildNode($oXML->root, 'Name');
 				if ($oXML->currentNode != NULL)
@@ -305,7 +305,7 @@ class boChecklistTpl
 			return;
 		}
 		
-		$o =& CreateObject('dcl.dbChklstTpl');
+		$o = new dbChklstTpl();
 		if ($o->Load($iID) != -1)
 			ShowDeleteYesNo(STR_CHK_CHECKLISTTEMPLATE, 'boChecklistTpl.dbdelete', $o->dcl_chklst_tpl_id, $o->dcl_chklst_tpl_name, true, 'dcl_chklst_tpl_id');
 	}
@@ -324,7 +324,7 @@ class boChecklistTpl
 			return;
 		}
 		
-		$o =& CreateObject('dcl.dbChklstTpl');
+		$o = new dbChklstTpl();
 		if ($o->HasChecklists($iID))
 		{
 			// records? - deactivate it
@@ -361,8 +361,7 @@ class boChecklistTpl
 			return;
 		}
 		
-		$oCL =& CreateObject('dcl.htmlChecklistForm');
+		$oCL = new htmlChecklistForm();
 		$oCL->show($iID, $this->GetTplPath($iID), true);
 	}
 }
-?>

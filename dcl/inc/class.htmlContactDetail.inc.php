@@ -48,7 +48,7 @@ class htmlContactDetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 
-		$oContact = CreateObject('dcl.dbContact');
+		$oContact = new dbContact();
 		if ($oContact->Load((int)$_REQUEST['contact_id']) == -1)
 		{
 			trigger_error('Could not load contact ID [' . $id . ']', E_USER_ERROR);
@@ -64,7 +64,7 @@ class htmlContactDetail
 		$t->assign('VAL_TODAY', mktime(0, 0, 0, date('m'), date('j'), date('Y')));
 
 		// Get types for this contact
-		$oContactType =& CreateObject('dcl.dbContactType');
+		$oContactType = new dbContactType();
 		$oContactType->ListByContact($oContact->contact_id);
 		$aTypes = array();
 		while ($oContactType->next_record())
@@ -76,7 +76,7 @@ class htmlContactDetail
 		$oContactType->FreeResult();
 
 		// Get addresses
-		$oContactAddress = CreateObject('dcl.dbContactAddr');
+		$oContactAddress = new dbContactAddr();
 		$oContactAddress->ListByContact($oContact->contact_id);
 		$aAddresses = array();
 		while ($oContactAddress->next_record())
@@ -88,7 +88,7 @@ class htmlContactDetail
 		$oContactAddress->FreeResult();
 
 		// Get phone numbers
-		$oContactPhone = CreateObject('dcl.dbContactPhone');
+		$oContactPhone = new dbContactPhone();
 		$oContactPhone->ListByContact($oContact->contact_id);
 		$aPhoneNumbers = array();
 		while ($oContactPhone->next_record())
@@ -100,7 +100,7 @@ class htmlContactDetail
 		$oContactPhone->FreeResult();
 
 		// Get e-mail addresses
-		$oContactEmail = CreateObject('dcl.dbContactEmail');
+		$oContactEmail = new dbContactEmail();
 		$oContactEmail->ListByContact($oContact->contact_id);
 		$aEmails = array();
 		while ($oContactEmail->next_record())
@@ -112,7 +112,7 @@ class htmlContactDetail
 		$oContactEmail->FreeResult();
 
 		// Get e-mail addresses
-		$oContactLicenses = CreateObject('dcl.dbContactLicense');
+		$oContactLicenses = new dbContactLicense();
 		$oContactLicenses->ListByContact($oContact->contact_id);
 		$aLicenses = array();
 		while ($oContactLicenses->next_record())
@@ -126,7 +126,7 @@ class htmlContactDetail
 		$oContactLicenses->FreeResult();
 
 		// Get URLs
-		$oContactURL = CreateObject('dcl.dbContactUrl');
+		$oContactURL = new dbContactUrl();
 		$oContactURL->ListByContact($oContact->contact_id);
 		$aURL = array();
 		while ($oContactURL->next_record())
@@ -138,7 +138,7 @@ class htmlContactDetail
 		$oContactURL->FreeResult();
 		
 		// Get orgs for this contact
-		$oViewOrg =& CreateObject('dcl.boView');
+		$oViewOrg = new boView();
 		$oViewOrg->table = 'dcl_org';
 		$oViewOrg->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME, 'Phone', 'Email', 'Internet'));
 		$oViewOrg->AddDef('columns', '', array('org_id', 'name', 'dcl_org_phone.phone_number', 'dcl_org_email.email_addr', 'dcl_org_url.url_addr'));
@@ -146,7 +146,7 @@ class htmlContactDetail
 		$oViewOrg->AddDef('filter', 'dcl_org_contact.contact_id', $oContact->contact_id);
 		//$oViewContact->AddDef('filter', 'active', "'Y'");
 
-		$oOrgs =& CreateObject('dcl.dbOrg');
+		$oOrgs = new dbOrg();
 		if ($oOrgs->Query($oViewOrg->GetSQL()) != -1)
 		{
 			$aOrgs = array();
@@ -167,7 +167,7 @@ class htmlContactDetail
 		}
 
 		// Get last 10 tickets
-		$oViewTicket = CreateObject('dcl.boView');
+		$oViewTicket = new boView();
 		$oViewTicket->title = 'Last 10 Tickets';
 		$oViewTicket->style = 'report';
 		$oViewTicket->table = 'tickets';
@@ -185,7 +185,7 @@ class htmlContactDetail
 		$oViewTicket->AddDef('order', '', array('createdon DESC'));
 		$oViewTicket->numrows = 10;
 		
-		$oTickets =& CreateObject('dcl.dbTickets');
+		$oTickets = new dbTickets();
 		$oTickets->LimitQuery($oViewTicket->GetSQL(), 0, $oViewTicket->numrows);
 		$aTickets = array();
 		while ($oTickets->next_record())
@@ -203,7 +203,7 @@ class htmlContactDetail
 		$oTickets->FreeResult();
 
 		// Get last 10 work orders
-		$oViewWO = CreateObject('dcl.boView');
+		$oViewWO = new boView();
 		$oViewWO->title = 'Last 10 Work Orders';
 		$oViewWO->style = 'report';
 		$oViewWO->table = 'workorders';
@@ -224,7 +224,7 @@ class htmlContactDetail
 		$oViewWO->AddDef('order', '', array('createdon DESC'));
 		$oViewWO->numrows = 10;
 		
-		$oWO =& CreateObject('dcl.dbWorkorders');
+		$oWO = new dbWorkorders();
 		$oWO->LimitQuery($oViewWO->GetSQL(), 0, $oViewWO->numrows);
 		$aWO = array();
 		while ($oWO->next_record())
@@ -246,4 +246,3 @@ class htmlContactDetail
 		SmartyDisplay($t, 'htmlContactDetail.tpl');
 	}
 }
-?>

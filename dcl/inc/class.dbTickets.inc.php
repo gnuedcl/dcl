@@ -42,7 +42,7 @@ class dbTickets extends dclDB
 
 	function Add()
 	{
-		$oStatus = CreateObject('dcl.dbStatuses');
+		$oStatus = new dbStatuses();
 		if ($oStatus->GetStatusType($this->status) == 2)
 		{
 		    if ($this->closedon === null)
@@ -71,7 +71,7 @@ class dbTickets extends dclDB
 
 	function Edit()
 	{
-		$oStatus = CreateObject('dcl.dbStatuses');
+		$oStatus = new dbStatuses();
 		if ($oStatus->GetStatusType($this->status) == 2)
 		{
 			$this->closedon = DCL_NOW;
@@ -173,7 +173,7 @@ class dbTickets extends dclDB
 		
 		$bCanReceive = true;
 		$bIsPublic = false;
-		$oUR =& CreateObject('dcl.dbUserRole');
+		$oUR = new dbUserRole();
 		$oUR->ListPermissions($iPersonnelID, DCL_ENTITY_TICKET, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
 		while ($oUR->next_record() && $bCanReceive)
 		{
@@ -185,7 +185,7 @@ class dbTickets extends dclDB
 					
 				if ($bCanReceive)
 				{
-					$oDBProduct =& CreateObject('dcl.dbProducts');
+					$oDBProduct = new dbProducts();
 					if ($oDBProduct->Load($obj->product) !== -1)
 					{
 						$bCanReceive = ($oDBProduct->is_public == 'Y');
@@ -224,4 +224,3 @@ class dbTickets extends dclDB
 		return $bCanReceive;
 	}
 }
-?>

@@ -57,7 +57,7 @@ class htmlContactAddress
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbContactAddr');
+		$obj = new dbContactAddr();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -92,7 +92,7 @@ class htmlContactAddress
 
 		CleanArray($_REQUEST);
 
-		$oContactAddr = CreateObject('dcl.boContactAddr');
+		$oContactAddr = new boContactAddr();
 		$oContactAddr->add(array(
 						'contact_id' => $id,
 						'addr_type_id' => $addr_type_id,
@@ -121,7 +121,7 @@ class htmlContactAddress
 
 		CleanArray($_REQUEST);
 
-		$obj =& CreateObject('dcl.boContactAddr');
+		$obj = new boContactAddr();
 		$obj->modify($_REQUEST);
 
 		$this->ShowContactDetail();
@@ -145,7 +145,7 @@ class htmlContactAddress
 
 		$aKey = array('contact_addr_id' => $id);
 
-		$obj =& CreateObject('dcl.boContactAddr');
+		$obj = new boContactAddr();
 		$obj->delete($aKey);
 
 		$this->ShowContactDetail();
@@ -153,7 +153,7 @@ class htmlContactAddress
 
 	function ShowContactDetail()
 	{
-		$oContact =& CreateObject('dcl.htmlContactDetail');
+		$oContact = new htmlContactDetail();
 		$oContact->show();
 	}
 
@@ -172,11 +172,11 @@ class htmlContactAddress
 		}
 
 		$oSmarty =& CreateSmarty();
-		$oAddrType =& CreateObject('dcl.htmlAddrType');
+		$oAddrType = new htmlAddrType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
 
-		$oContact = CreateObject('dcl.dbContact');
+		$oContact = new dbContact();
 		$oContact->Load($_REQUEST['contact_id']);
 		$oSmarty->assign('VAL_FIRSTNAME', $oContact->first_name);
 		$oSmarty->assign('VAL_LASTNAME', $oContact->last_name);
@@ -206,4 +206,3 @@ class htmlContactAddress
 		SmartyDisplay($oSmarty, 'htmlAddrForm.tpl');
 	}
 }
-?>

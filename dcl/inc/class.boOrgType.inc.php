@@ -30,9 +30,8 @@ class boOrgType extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbOrgType');
+		$this->oDB = new dbOrgType();
 		$this->sKeyField = 'org_type_id';
 		$this->Entity = DCL_ENTITY_ORGTYPE;
 	}
 }
-?>

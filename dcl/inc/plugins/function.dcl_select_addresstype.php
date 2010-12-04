@@ -38,7 +38,7 @@ function smarty_function_dcl_select_addresstype($params, &$smarty)
 
 	$sSQL = 'SELECT addr_type_id, addr_type_name FROM dcl_addr_type ORDER BY addr_type_name';
 
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -47,4 +47,3 @@ function smarty_function_dcl_select_addresstype($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

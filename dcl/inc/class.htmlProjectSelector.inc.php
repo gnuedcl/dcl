@@ -34,7 +34,7 @@ class htmlProjectSelector
 	{
 		$this->bMultiSelect = false;
 		$this->oSmarty =& CreateSmarty();
-		$this->oView =& CreateObject('dcl.boView');
+		$this->oView = new boView();
 		$this->oDB = new dclDB;
 	}
 	
@@ -183,4 +183,3 @@ class htmlProjectSelector
 		exit();
 	}
 }
-?>

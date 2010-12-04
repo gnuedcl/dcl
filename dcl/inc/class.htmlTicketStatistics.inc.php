@@ -33,8 +33,8 @@ class htmlTicketStatistics
 
 		commonHeader();
 
-		$objPersonnel = CreateObject('dcl.htmlPersonnel');
-		$objProducts = CreateObject('dcl.htmlProducts');
+		$objPersonnel = new htmlPersonnel();
+		$objProducts = new htmlProducts();
 		
 		$t = CreateSmarty();
 		$t->assign('CMB_PEOPLE', $objPersonnel->GetCombo(0, 'people', 'lastfirst', 8, false));
@@ -51,9 +51,9 @@ class htmlTicketStatistics
 
 		global $products, $people, $begindate, $enddate, $activity, $byaccount;
 
-		$objProduct = CreateObject('dcl.dbProducts');
-		$objStatuses = CreateObject('dcl.dbStatuses');
-		$objTickets = CreateObject('dcl.dbTickets');
+		$objProduct = new dbProducts();
+		$objStatuses = new dbStatuses();
+		$objTickets = new dbTickets();
 
 		$doingActivity = (IsSet($activity) && ($activity == '1'));
 		$doingAccounts = (IsSet($byaccount) && ($byaccount == '1'));
@@ -62,14 +62,14 @@ class htmlTicketStatistics
 			$vsTable = 'dcl_org';
 			$vsDesc = 'name';
 			$vsField = 'account';
-			$objPersonnel = CreateObject('dcl.dbOrg');
+			$objPersonnel = new dbOrg();
 		}
 		else
 		{
 			$vsTable = 'personnel';
 			$vsDesc = 'short';
 			$vsField = 'responsible';
-			$objPersonnel = CreateObject('dcl.dbPersonnel');
+			$objPersonnel = new dbPersonnel();
 		}
 
 		if (count($products) < 1)
@@ -392,7 +392,7 @@ trigger_error($query);
 		global $responsible, $product, $status, $begindate, $enddate;
 		$obj = new dclDB;
 
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->table = 'tickets';
 		$objView->style = 'report';
 		$objView->title = STR_TCK_STATSEARCHRESULTS;
@@ -419,4 +419,3 @@ trigger_error($query);
 		$obj->Render($objView);
 	}
 }
-?>

@@ -34,7 +34,7 @@ class reportTicketActivity
 		if ($needHdr == true)
 			commonHeader();
 
-		$objPersonnel = CreateObject('dcl.htmlPersonnel');
+		$objPersonnel = new htmlPersonnel();
 		
 		$t = CreateSmarty();
 		$t->assign('CMB_RESPONSIBLE', $objPersonnel->GetCombo($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, false));
@@ -66,10 +66,10 @@ class reportTicketActivity
 			return;
 		}
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 
-		$obj = CreateObject('dcl.dbTickets');
-		$objT = CreateObject('dcl.dbTicketresolutions');
+		$obj = new dbTickets();
+		$objT = new dbTicketresolutions();
 
 		$sColumns = $obj->SelectAllColumns('a.');
 		$query = 'select ' . $sColumns . ' from tickets a, ticketresolutions b where a.ticketid=b.ticketid and b.loggedby=' . $responsible;
@@ -114,7 +114,7 @@ class reportTicketActivity
 				}
 				while ($obj->next_record());
 
-				$oTable = CreateObject('dcl.htmlTable');
+				$oTable = new htmlTable();
 				$oTable->addColumn(STR_TCK_PRODUCT, 'string');
 				$oTable->addColumn(STR_TCK_ACCOUNT, 'string');
 				$oTable->addColumn(STR_TCK_STATUS, 'string');
@@ -140,4 +140,3 @@ class reportTicketActivity
 		}
 	}
 }
-?>

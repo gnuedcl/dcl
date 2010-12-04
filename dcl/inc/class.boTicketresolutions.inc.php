@@ -30,7 +30,7 @@ class boTicketresolutions
 	
 	function boTicketresolutions()
 	{
-		$this->oDB =& CreateObject('dcl.dbTicketresolutions');
+		$this->oDB = new dbTicketresolutions();
 	}
 
 	function add()
@@ -47,14 +47,14 @@ class boTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION, $iID))
 			return PrintPermissionDenied();
 
-		$objTicket =& CreateObject('dcl.dbTickets');
+		$objTicket = new dbTickets();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
-		$obj =& CreateObject('dcl.htmlTicketresolutions');
+		$obj = new htmlTicketresolutions();
 		$obj->DisplayForm($iID);
 
-		$objHT =& CreateObject('dcl.htmlTicketDetail');
+		$objHT = new htmlTicketDetail();
 		$objHT->Show($objTicket);
 	}
 
@@ -77,7 +77,7 @@ class boTicketresolutions
 		$this->oDB->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 		$this->oDB->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
 
-		$obj =& CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		if ($obj->Load($this->oDB->ticketid) == -1)
 			return;
 
@@ -86,7 +86,7 @@ class boTicketresolutions
 		$notify = '4';
 		if ($this->oDB->status != $obj->status)
 		{
-			$oStatus =& CreateObject('dcl.dbStatuses');
+			$oStatus = new dbStatuses();
 			$notify .= ',3';
 			$obj->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 			if ($oStatus->GetStatusType($this->oDB->status) == 2)
@@ -103,12 +103,12 @@ class boTicketresolutions
 
 		if (IsSet($_REQUEST['escalate']) && $_REQUEST['escalate'] == '1')
 		{
-			$objP =& CreateObject('dcl.dbProducts');
+			$objP = new dbProducts();
 			$objP->Load($obj->product);
 			if ($obj->responsible != $objP->ticketsto)
 			{
 				$obj->responsible = $objP->ticketsto;
-				$objDP =& CreateObject('dcl.dbPersonnel');
+				$objDP = new dbPersonnel();
 				$objDP->Load($obj->responsible);
 				$this->oDB->resolution = '*** ' . STR_BO_ESCALATEDTO . ': ' . $objDP->short . ' ***' . phpCrLf . phpCrLf . $this->oDB->resolution;
 			}
@@ -124,7 +124,7 @@ class boTicketresolutions
 		
 		if (isset($_REQUEST['tags']) && $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
 		{
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			$oTag->serialize(DCL_ENTITY_TICKET, $iID, 0, $_REQUEST['tags']);
 		}
 
@@ -142,12 +142,12 @@ class boTicketresolutions
 		$obj->Edit();
 		$this->oDB->EndTransaction();
 
-		$objWtch =& CreateObject('dcl.boWatches');
+		$objWtch = new boWatches();
 		$objWtch->sendTicketNotification($obj, $notify);
 
 		@$this->sendCustomerResponseEmail($obj);
 
-		$objH =& CreateObject('dcl.htmlTicketDetail');
+		$objH = new htmlTicketDetail();
 		$objH->Show($obj);
 	}
 
@@ -167,7 +167,7 @@ class boTicketresolutions
 		$this->oDB->InitFromArray($aSource);
 		$this->oDB->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
 
-		$oTicket =& CreateObject('dcl.dbTickets');
+		$oTicket = new dbTickets();
 		$oTicket->Load($this->oDB->ticketid);
 		$oTicket->lastactionon = DCL_NOW;
 
@@ -176,7 +176,7 @@ class boTicketresolutions
 		{
 			if ($this->oDB->status != $oTicket->status)
 			{
-				$oStatus =& CreateObject('dcl.dbStatuses');
+				$oStatus = new dbStatuses();
 				$notify .= ',3';
 				$oTicket->statuson = DCL_NOW;
 				if ($oStatus->GetStatusType($this->oDB->status) == 2)
@@ -201,7 +201,7 @@ class boTicketresolutions
 		$oTicket->Edit();
 		$this->oDB->EndTransaction();
 
-		$objWtch =& CreateObject('dcl.boWatches');
+		$objWtch = new boWatches();
 		$objWtch->sendTicketNotification($oTicket, $notify);
 
 		@$this->sendCustomerResponseEmail($oTicket);
@@ -218,14 +218,14 @@ class boTicketresolutions
 
 		$this->oDB->InitFromArray($aSource);
 		
-		$oTicket =& CreateObject('dcl.dbTickets');
+		$oTicket = new dbTickets();
 		$oTicket->Load($this->oDB->ticketid);
 		$oTicket->lastactionon = DCL_NOW;
 
 		// Get the next resolution issued after this one.  If not, assume
 		// that this resolution was the last one entered and affected the ticket
 		// status when input.
-		$oQueryTR =& CreateObject('dcl.dbTicketresolutions');
+		$oQueryTR = new dbTicketresolutions();
 		if ($oQueryTR->Load($aSource['resid']) == -1)
 			return;
 			
@@ -240,7 +240,7 @@ class boTicketresolutions
 				if ($oQueryTR->status != $oTicket->status)
 				{
 					$oTicket->statuson = DCL_NOW;
-					$oStatus =& CreateObject('dcl.dbStatuses');
+					$oStatus = new dbStatuses();
 					if ($oStatus->GetStatusType($oQueryTR->status) == 2 && $oStatus->GetStatusType($oTicket->status) != 2)
 					{
 						$oTicket->closedby = $oQueryTR->loggedby;
@@ -284,11 +284,11 @@ class boTicketresolutions
 		if (!is_object($this->oDB) || $dcl_info['DCL_CQQ_PERCENT'] == 0)
 			return;
 
-		$oStatus =& CreateObject('dcl.dbStatuses');
+		$oStatus = new dbStatuses();
 		if ($oStatus->GetStatusType($this->oDB->status) != 2)
 			return;
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$aContact = $oMeta->GetContact($oTicket->contact_id);
 		if (!IsSet($aContact['email']) || trim($aContact['email']) == '')
 			return;
@@ -302,7 +302,7 @@ class boTicketresolutions
 			$t->assign('VAL_CLOSEDON', date('n/j/Y'));
 			$t->assign('contact', $aContact);
 
-			$oMail =& CreateObject('dcl.boSMTP');
+			$oMail = new boSMTP();
 			$oMail->isHtml = true;
 			$oMail->to = $aContact['email'];
 			$oMail->from = $dcl_info['DCL_CQQ_FROM'];
@@ -318,4 +318,3 @@ class boTicketresolutions
 		}
 	}
 }
-?>

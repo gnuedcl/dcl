@@ -30,7 +30,7 @@ class boOrgAddr extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbOrgAddr');
+		$this->oDB = new dbOrgAddr();
 		$this->sKeyField = 'org_addr_id';
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->PermAdd = DCL_PERM_MODIFY;
@@ -56,4 +56,3 @@ class boOrgAddr extends boAdminObject
 		parent::modify($aSource);
 	}
 }
-?>

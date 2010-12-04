@@ -62,7 +62,7 @@ class boChecklists
 		$filterStatus = @DCL_Sanitize::ToInt($_REQUEST['filterStatus']);
 		$filterType = @DCL_Sanitize::ToInt($_REQUEST['filterType']);
 
-		$oView =& CreateObject('dcl.boView');
+		$oView = new boView();
 
 		$oView->table = 'dcl_chklst';
 		$oView->style = 'report';
@@ -76,13 +76,13 @@ class boChecklists
 		if ($filterType !== null)
 			$oView->AddDef('filter', 'dcl_chklst_tpl_id', $filterType);
 
-		$oDB =& CreateObject('dcl.dbChklst');
+		$oDB = new dbChklst();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(STR_CHK_INITIATEDCHECKLISTS);
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CHK_SUMMARY, 'string');
@@ -145,7 +145,7 @@ class boChecklists
 			return;
 		}
 		
-		$o =& CreateObject('dcl.dbChklstTpl');
+		$o = new dbChklstTpl();
 		if ($o->Load($iID) != -1)
 		{
 			$t = CreateSmarty();
@@ -177,9 +177,9 @@ class boChecklists
 				else
 				{
 					$nextID = count($oNode->childNodes);
-					$oNode->childNodes[$nextID] = &CreateObject('dcl.xmlNode');
+					$oNode->childNodes[$nextID] = new xmlNode();
 					$oNode->childNodes[$nextID]->name = 'Values';
-					$oNode->childNodes[$nextID]->childNodes[0] = &CreateObject('dcl.xmlNode');
+					$oNode->childNodes[$nextID]->childNodes[0] = new xmlNode();
 					$oNode->childNodes[$nextID]->childNodes[0]->name = 'Value';
 					$oNode->childNodes[$nextID]->childNodes[0]->data = $sValue;
 				}
@@ -208,13 +208,13 @@ class boChecklists
 			return;
 		}
 		
-		$tpl =& CreateObject('dcl.boChecklistTpl');
+		$tpl = new boChecklistTpl();
 		$tplFilePath = $tpl->GetTplPath($iID);
-		$oXML =& CreateObject('dcl.xmlDoc');
+		$oXML = new xmlDoc();
 		$oXML->ParseFile($tplFilePath);
 		$oXML->FindChildNode($oXML->root, 'CurrentState');
 
-		$oTpl =& CreateObject('dcl.dbChklstTpl');
+		$oTpl = new dbChklstTpl();
 		if ($oTpl->Load($iID) == -1)
 			return;
 
@@ -224,7 +224,7 @@ class boChecklists
 			return;
 		}
 
-		$o =& CreateObject('dcl.dbChklst');
+		$o = new dbChklst();
 		$o->dcl_chklst_tpl_id = $iID;
 		$o->dcl_chklst_summary = $o->GPCStripSlashes($_REQUEST['dcl_chklst_summary']);
 		$o->dcl_chklst_createby = $GLOBALS['DCLID'];
@@ -277,7 +277,7 @@ class boChecklists
 
 	function showform($id, $bIsView = false)
 	{
-		$oCL =& CreateObject('dcl.htmlChecklistForm');
+		$oCL = new htmlChecklistForm();
 		$oCL->show($id, $this->GetChklstPath($id), $bIsView);
 	}
 
@@ -295,17 +295,17 @@ class boChecklists
 			return;
 		}
 		
-		$oCL =& CreateObject('dcl.htmlChecklistForm');
+		$oCL = new htmlChecklistForm();
 		$sFilePath = $this->GetChklstPath($iID);
 
-		$oCL->xml =& CreateObject('dcl.xmlDoc');
+		$oCL->xml = new xmlDoc();
 		$oCL->xml->ParseFile($sFilePath);
 		$oCL->UpdateNodes($oCL->xml->root);
 		$this->AddChange($oCL->xml, $GLOBALS['DCLNAME'], date('Y-m-d'), $_REQUEST['dcl_chklst_state']);
 		$this->SetNodeValue($oCL->xml, 'CurrentState', $_REQUEST['dcl_chklst_status']);
 		$oCL->xml->ToFile($sFilePath);
 
-		$o =& CreateObject('dcl.dbChklst');
+		$o = new dbChklst();
 		if ($o->Load($iID) != -1)
 		{
 			$o->dcl_chklst_modifyby = $GLOBALS['DCLID'];
@@ -331,7 +331,7 @@ class boChecklists
 			return;
 		}
 		
-		$o =& CreateObject('dcl.dbChklst');
+		$o = new dbChklst();
 		if ($o->Load($iID) != -1)
 			ShowDeleteYesNo('Checklist', 'boChecklists.dbdelete', $o->dcl_chklst_id, $o->dcl_chklst_summary, false, 'dcl_chklst_id');
 	}
@@ -350,7 +350,7 @@ class boChecklists
 			return;
 		}
 		
-		$o =& CreateObject('dcl.dbChklst');
+		$o = new dbChklst();
 		$o->dcl_chklst_id = $iID;
 		$o->Delete();
 		$filePath = $this->GetChklstPath($iID);
@@ -379,12 +379,12 @@ class boChecklists
 		if ($oXML->currentNode != NULL)
 		{
 			$a = array('ChangeBy' => $sBy, 'ChangeOn' => $sOn, 'ChangeState' => $sState);
-			$o =& CreateObject('dcl.xmlNode');
+			$o = new xmlNode();
 			$o->name = 'Change';
 			$nextid = 0;
 			while (list($k, $v) = each($a))
 			{
-				$o->childNodes[$nextid] = &CreateObject('dcl.xmlNode');
+				$o->childNodes[$nextid] = new xmlNode();
 				$o->childNodes[$nextid]->name = $k;
 				$o->childNodes[$nextid]->data = $v;
 				$nextid++;
@@ -393,4 +393,3 @@ class boChecklists
 		}
 	}
 }
-?>

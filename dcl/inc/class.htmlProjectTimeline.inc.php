@@ -38,7 +38,7 @@ class htmlProjectTimeline
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		    return PrintPermissionDenied();
 		    
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$t = CreateSmarty();
 		$t->assign('VAL_PROJECTNAME', $oMeta->GetProject($id));
 		$t->assign('VAL_PROJECTID', $id);
@@ -127,7 +127,7 @@ class htmlProjectTimeline
 		        $aResults[] = $aRecord;
 		    }
 		    
-    		$oTable =& CreateObject('dcl.htmlTable');
+    		$oTable = new htmlTable();
     		$oTable->setCaption('Project Timeline');
     		$oTable->addColumn('Date', 'string');
     		$oTable->addColumn('Time', 'string');
@@ -186,4 +186,3 @@ class htmlProjectTimeline
 	        where P.projectid = $projectid AND dcl_entity_type_id = 1 AND SC.sccs_checkin_on BETWEEN '$begin_dt' AND '$end_dt 23:59'";
     }
 }
-?>

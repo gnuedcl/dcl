@@ -51,12 +51,12 @@ class htmlTags
 			return;
 		}
 		
-		$oDB = CreateObject('dcl.dbTag');
+		$oDB = new dbTag();
 		$oDB->listByPopular();
 		
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Popular Tags');
 		$oTable->addColumn(STR_CMMN_TAGS, 'html');
 		$oTable->addColumn('Count', 'numeric');
@@ -85,18 +85,18 @@ class htmlTags
 		if (!isset($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')
 			return $this->cloud();
 			
-		$oDB = CreateObject('dcl.dbEntityTag');
+		$oDB = new dbEntityTag();
 		$oDB->listByTag($_REQUEST['tag']);
 		
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Browsing Tags');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
 		$oTable->addColumn(STR_CMMN_TAGS, 'string');
 		
-		$oTagDB = CreateObject('dcl.dbEntityTag');
+		$oTagDB = new dbEntityTag();
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
 			$sTags = $oTagDB->getTagsForEntity($allRecs[$i][0], $allRecs[$i][1], $allRecs[$i][2]);
@@ -111,4 +111,3 @@ class htmlTags
 		$oTable->render();
 	}
 }
-?>

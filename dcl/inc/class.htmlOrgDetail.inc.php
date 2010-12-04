@@ -47,7 +47,7 @@ class htmlOrgDetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 
-		$oOrg = CreateObject('dcl.dbOrg');
+		$oOrg = new dbOrg();
 		if ($oOrg->Load($id) == -1)
 		{
 			trigger_error('Could not load organization ID [' . $id . ']', E_USER_ERROR);
@@ -62,7 +62,7 @@ class htmlOrgDetail
 		$t->assign('PERM_VIEW', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW));
 
 		// Get aliases for this org
-		$oOrgAlias = CreateObject('dcl.dbOrgAlias');
+		$oOrgAlias = new dbOrgAlias();
 		$oOrgAlias->ListByOrg($oOrg->org_id);
 		$aAliases = array();
 		while ($oOrgAlias->next_record())
@@ -74,7 +74,7 @@ class htmlOrgDetail
 		$oOrgAlias->FreeResult();
 
 		// Get types for this org
-		$oOrgType =& CreateObject('dcl.dbOrgType');
+		$oOrgType = new dbOrgType();
 		$oOrgType->ListByOrg($oOrg->org_id);
 		$aTypes = array();
 		while ($oOrgType->next_record())
@@ -86,7 +86,7 @@ class htmlOrgDetail
 		$oOrgType->FreeResult();
 
 		// Get products for this org
-		$oOrgProduct =& CreateObject('dcl.dbOrgProduct');
+		$oOrgProduct = new dbOrgProduct();
 		$oOrgProduct->ListByOrg($oOrg->org_id);
 		$aProducts = array();
 		while ($oOrgProduct->next_record())
@@ -98,7 +98,7 @@ class htmlOrgDetail
 		$oOrgProduct->FreeResult();
 
 		// Get addresses
-		$oOrgAddress = CreateObject('dcl.dbOrgAddr');
+		$oOrgAddress = new dbOrgAddr();
 		$oOrgAddress->ListByOrg($oOrg->org_id);
 		$aAddresses = array();
 		while ($oOrgAddress->next_record())
@@ -110,7 +110,7 @@ class htmlOrgDetail
 		$oOrgAddress->FreeResult();
 
 		// Get phone numbers
-		$oOrgPhone = CreateObject('dcl.dbOrgPhone');
+		$oOrgPhone = new dbOrgPhone();
 		$oOrgPhone->ListByOrg($oOrg->org_id);
 		$aPhoneNumbers = array();
 		while ($oOrgPhone->next_record())
@@ -122,7 +122,7 @@ class htmlOrgDetail
 		$oOrgPhone->FreeResult();
 
 		// Get e-mail addresses
-		$oOrgEmail = CreateObject('dcl.dbOrgEmail');
+		$oOrgEmail = new dbOrgEmail();
 		$oOrgEmail->ListByOrg($oOrg->org_id);
 		$aEmails = array();
 		while ($oOrgEmail->next_record())
@@ -134,7 +134,7 @@ class htmlOrgDetail
 		$oOrgEmail->FreeResult();
 
 		// Get URLs
-		$oOrgURL = CreateObject('dcl.dbOrgUrl');
+		$oOrgURL = new dbOrgUrl();
 		$oOrgURL->ListByOrg($oOrg->org_id);
 		$aURL = array();
 		while ($oOrgURL->next_record())
@@ -146,11 +146,11 @@ class htmlOrgDetail
 		$oOrgURL->FreeResult();
 		
 		// Get main contacts
-		$oOrgContacts = CreateObject('dcl.dbOrg');
+		$oOrgContacts = new dbOrg();
 		$oOrgContacts->ListMainContacts($oOrg->org_id);
 		$aContacts = array();
-		$oMetadata = CreateObject('dcl.DCL_MetadataDisplay');
-		$oContactType =& CreateObject('dcl.dbContactType');
+		$oMetadata = new DCL_MetadataDisplay();
+		$oContactType = new dbContactType();
 		while ($oOrgContacts->next_record())
 		{
 			$aContact = $oMetadata->GetContact($oOrgContacts->f('contact_id'));
@@ -173,7 +173,7 @@ class htmlOrgDetail
 		$oOrgContacts->FreeResult();
 
 		// Get last 10 tickets
-		$oViewTicket = CreateObject('dcl.boView');
+		$oViewTicket = new boView();
 		$oViewTicket->title = 'Last 10 Tickets';
 		$oViewTicket->style = 'report';
 		$oViewTicket->table = 'tickets';
@@ -191,7 +191,7 @@ class htmlOrgDetail
 		$oViewTicket->AddDef('order', '', array('createdon DESC'));
 		$oViewTicket->numrows = 10;
 		
-		$oTickets =& CreateObject('dcl.dbTickets');
+		$oTickets = new dbTickets();
 		$oTickets->LimitQuery($oViewTicket->GetSQL(), 0, $oViewTicket->numrows);
 		$aTickets = array();
 		while ($oTickets->next_record())
@@ -209,7 +209,7 @@ class htmlOrgDetail
 		$oTickets->FreeResult();
 
 		// Get last 10 work orders
-		$oViewWO = CreateObject('dcl.boView');
+		$oViewWO = new boView();
 		$oViewWO->title = 'Last 10 Work Orders';
 		$oViewWO->style = 'report';
 		$oViewWO->table = 'workorders';
@@ -230,7 +230,7 @@ class htmlOrgDetail
 		$oViewWO->AddDef('order', '', array('createdon DESC'));
 		$oViewWO->numrows = 10;
 		
-		$oWO =& CreateObject('dcl.dbWorkorders');
+		$oWO = new dbWorkorders();
 		$oWO->LimitQuery($oViewWO->GetSQL(), 0, $oViewWO->numrows);
 		$aWO = array();
 		while ($oWO->next_record())
@@ -252,4 +252,3 @@ class htmlOrgDetail
 		SmartyDisplay($t, 'htmlOrgDetail.tpl');
 	}
 }
-?>

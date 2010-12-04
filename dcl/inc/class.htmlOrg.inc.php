@@ -28,7 +28,7 @@ class htmlOrg
 	{
 		global $g_oSec, $g_oSession;
 		
-		$oDB = CreateObject('dcl.dbOrg');
+		$oDB = new dbOrg();
 		$oDB->cacheEnabled = false;
 
 		$orderBy = 'name';
@@ -53,7 +53,7 @@ class htmlOrg
 
 		$oDB->Query($query);
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -74,7 +74,7 @@ class htmlOrg
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->startrow = 0;
 		$oView->numrows = 25;
 
@@ -93,7 +93,7 @@ class htmlOrg
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$oView->AddDef('filter', 'active', "'$filterActive'");
 
-		$oHtml = CreateObject('dcl.htmlOrgBrowse');
+		$oHtml = new htmlOrgBrowse();
 		$oHtml->Render($oView);
 	}
 	
@@ -107,10 +107,10 @@ class htmlOrg
 			return;
 		}
 		
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$aOrg = $oMeta->GetOrganization($id);
 		
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->title = sprintf('%s Work Orders', $aOrg['name']);
 		$objView->style = 'report';
 		$objView->table = 'workorders';
@@ -145,10 +145,10 @@ class htmlOrg
 			return;
 		}
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$aOrg = $oMeta->GetOrganization($id);
 		
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->title = sprintf('%s Tickets', $aOrg['name']);
 		$objView->style = 'report';
 		$objView->table = 'tickets';
@@ -172,4 +172,3 @@ class htmlOrg
 		$objHV->Render($objView);
 	}
 }
-?>

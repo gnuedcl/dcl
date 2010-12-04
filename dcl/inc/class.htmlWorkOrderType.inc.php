@@ -43,7 +43,7 @@ class htmlWorkOrderType
 
 		$order = 'type_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'wo_type_id', 'type_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -61,20 +61,20 @@ class htmlWorkOrderType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_wo_type';
 		$o->title = STR_WO_WORKORDERTYPES;
 		$o->AddDef('columns', '', array('wo_type_id', 'active', 'type_name'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME));
 		$o->AddDef('order', '', $orderBy);
 
-		$oDB = CreateObject('dcl.dbWorkOrderType');
+		$oDB = new dbWorkOrderType();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(STR_WO_WORKORDERTYPES);
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_ACTIVE, 'string');
@@ -139,7 +139,7 @@ class htmlWorkOrderType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbWorkOrderType');
+		$obj = new dbWorkOrderType();
 		if ($obj->Load($wo_type_id) == -1)
 			return;
 			
@@ -160,7 +160,7 @@ class htmlWorkOrderType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbWorkOrderType');
+		$obj = new dbWorkOrderType();
 		if ($obj->Load($wo_type_id) == -1)
 			return;
 			
@@ -175,7 +175,7 @@ class htmlWorkOrderType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boWorkOrderType');
+		$obj = new boWorkOrderType();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 		$this->ShowAll();
@@ -189,7 +189,7 @@ class htmlWorkOrderType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boWorkOrderType');
+		$obj = new boWorkOrderType();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -210,7 +210,7 @@ class htmlWorkOrderType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boWorkOrderType');
+		$obj = new boWorkOrderType();
 		CleanArray($_REQUEST);
 		$obj->delete(array('wo_type_id' => $id));
 
@@ -256,4 +256,3 @@ class htmlWorkOrderType
 		SmartyDisplay($t, 'htmlWorkOrderTypeForm.tpl');
 	}
 }
-?>

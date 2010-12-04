@@ -35,7 +35,7 @@ class htmlAudit
 		$this->aAudit = array();
 		$this->aAuditAccount = array();
 		$this->aAuditProject = array();
-		$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$this->oMeta = new DCL_MetadataDisplay();
 	}
 
 	function show()
@@ -55,7 +55,7 @@ class htmlAudit
 		}
 
 		$oSmarty =& CreateSmarty();
-		$oAudit =& CreateObject('dcl.boAudit');
+		$oAudit = new boAudit();
 
 		switch ($type)
 		{
@@ -71,10 +71,10 @@ class htmlAudit
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetWorkOrder($id, $id2));
 				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boWorkorders.viewjcn&jcn=$id&seq=$id2"));
 
-				$oAccount =& CreateObject('dcl.dbWorkOrderAccount');
+				$oAccount = new dbWorkOrderAccount();
 				$this->aAuditAccount = $oAccount->AuditWorkOrderList($id, $id2);
 
-				$oProject =& CreateObject('dcl.dbProjectmap');
+				$oProject = new dbProjectmap();
 				$this->aAuditProject = $oProject->AuditWorkOrderList($id, $id2);
 				break;
 			case DCL_ENTITY_PROJECT:
@@ -83,7 +83,7 @@ class htmlAudit
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetProject($id));
 				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boProjects.viewproject&wostatus=0&project=$id"));
 
-				$oProject =& CreateObject('dcl.dbProjectmap');
+				$oProject = new dbProjectmap();
 				$this->aAuditWorkOrder = $oProject->AuditProjectList($id);
 				break;
 			case DCL_ENTITY_TICKET:
@@ -179,4 +179,3 @@ class htmlAudit
 		}
 	}
 }
-?>

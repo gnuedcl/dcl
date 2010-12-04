@@ -51,7 +51,7 @@ class htmlProductModules
 
 		$order = 'module_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'product_module_id', 'module_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -75,11 +75,11 @@ class htmlProductModules
 			return;
 		}
 
-		$oProduct = CreateObject('dcl.dbProducts');
+		$oProduct = new dbProducts();
 		if ($oProduct->Load($id) == -1)
 			return;
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_product_module';
 		$o->title = 'Modules for Product ' . $oProduct->name;
 		$o->AddDef('columns', '', array('product_module_id', 'active', 'module_name'));
@@ -87,13 +87,13 @@ class htmlProductModules
 		$o->AddDef('order', '', $orderBy);
 		$o->AddDef('filter', 'product_id', $id);
 
-		$oDB = CreateObject('dcl.dbProductModules');
+		$oDB = new dbProductModules();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Modules for Product ' . $oProduct->name);
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_ACTIVE, 'string');
@@ -156,7 +156,7 @@ class htmlProductModules
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbProductModules');
+		$obj = new dbProductModules();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -177,7 +177,7 @@ class htmlProductModules
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbProductModules');
+		$obj = new dbProductModules();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -192,7 +192,7 @@ class htmlProductModules
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boProductModules');
+		$obj = new boProductModules();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 		$this->PrintAll();
@@ -206,7 +206,7 @@ class htmlProductModules
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boProductModules');
+		$obj = new boProductModules();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -227,7 +227,7 @@ class htmlProductModules
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boProductModules');
+		$obj = new boProductModules();
 		CleanArray($_REQUEST);
 		if ($obj->oDB->Load($id) == -1)
 			return;
@@ -263,7 +263,7 @@ class htmlProductModules
 			}
 		}
 
-		$oProduct = CreateObject('dcl.dbProducts');
+		$oProduct = new dbProducts();
 		$iProductID = $isEdit ? $obj->product_id : $product_id;
 		if ($oProduct->Load($iProductID) == -1)
 		{
@@ -292,4 +292,3 @@ class htmlProductModules
 		SmartyDisplay($t, 'htmlProductModulesForm.tpl');
 	}
 }
-?>

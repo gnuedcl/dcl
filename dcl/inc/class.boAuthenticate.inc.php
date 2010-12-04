@@ -31,7 +31,7 @@ class boAuthenticate
 
 	function boAuthenticate()
 	{
-		$this->_oDB =& CreateObject('dcl.dbPersonnel');
+		$this->_oDB = new dbPersonnel();
 		$this->_oDB->cacheEnabled = false;
 
 		$this->_SetCredentials();
@@ -73,4 +73,3 @@ class boAuthenticate
 		return false;
 	}
 }
-?>

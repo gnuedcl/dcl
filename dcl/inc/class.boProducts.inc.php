@@ -27,7 +27,7 @@ class boProducts extends boAdminObject
 {
 	function boProducts()
 	{
-		$this->oDB =& CreateObject('dcl.dbProducts');
+		$this->oDB = new dbProducts();
 		$this->sKeyField = 'id';
 		$this->sDescField = 'name';
 		$this->sPublicField = 'is_public';
@@ -41,7 +41,7 @@ class boProducts extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbProducts');
+		$obj = new dbProducts();
 		$obj->InitFromArray($aSource);
 		$obj->Add();
 	}
@@ -53,7 +53,7 @@ class boProducts extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_MODIFY, (int)$aSource['id']))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbProducts');
+		$obj = new dbProducts();
 		$obj->InitFromArray($aSource);
 		$obj->Edit();
 	}
@@ -71,7 +71,7 @@ class boProducts extends boAdminObject
 			return;
 		}
 		
-		$oDB =& CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if (!$oDB->HasFKRef($id))
 		{
 			$oDB->id = $id;
@@ -107,7 +107,7 @@ class boProducts extends boAdminObject
 		if (IsSet($_REQUEST['versionid']))
 			$versionid = @DCL_Sanitize::ToInt($_REQUEST['versionid']);
 		
-		$obj =& CreateObject('dcl.htmlProductDetail');
+		$obj = new htmlProductDetail();
 		if ($which !== null)
 		{
 			if ($versionid !== null)
@@ -164,4 +164,3 @@ class boProducts extends boAdminObject
 		$this->view();
 	}
 }
-?>

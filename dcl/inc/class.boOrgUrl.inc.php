@@ -30,7 +30,7 @@ class boOrgUrl extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbOrgUrl');
+		$this->oDB = new dbOrgUrl();
 		$this->sKeyField = 'org_url_id';
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->PermAdd = DCL_PERM_MODIFY;
@@ -56,4 +56,3 @@ class boOrgUrl extends boAdminObject
 		parent::modify($aSource);
 	}
 }
-?>

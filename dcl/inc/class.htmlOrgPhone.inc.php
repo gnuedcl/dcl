@@ -56,7 +56,7 @@ class htmlOrgPhone
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbOrgPhone');
+		$obj = new dbOrgPhone();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -90,7 +90,7 @@ class htmlOrgPhone
 		
 		CleanArray($_REQUEST);
 
-		$oOrgPhone =& CreateObject('dcl.boOrgPhone');
+		$oOrgPhone = new boOrgPhone();
 		$oOrgPhone->add(array(
 						'org_id' => $id,
 						'phone_type_id' => $phone_type_id,
@@ -114,7 +114,7 @@ class htmlOrgPhone
 
 		CleanArray($_REQUEST);
 
-		$obj =& CreateObject('dcl.boOrgPhone');
+		$obj = new boOrgPhone();
 		$obj->modify($_REQUEST);
 
 		$this->ShowOrgDetail();
@@ -138,7 +138,7 @@ class htmlOrgPhone
 
 		$aKey = array('org_phone_id' => $id);
 
-		$obj =& CreateObject('dcl.boOrgPhone');
+		$obj = new boOrgPhone();
 		$obj->delete($aKey);
 
 		$this->ShowOrgDetail();
@@ -146,7 +146,7 @@ class htmlOrgPhone
 
 	function ShowOrgDetail()
 	{
-		$oOrg =& CreateObject('dcl.htmlOrgDetail');
+		$oOrg = new htmlOrgDetail();
 		$oOrg->show();
 	}
 
@@ -165,11 +165,11 @@ class htmlOrgPhone
 		}
 		
 		$oSmarty =& CreateSmarty();
-		$oPhoneType =& CreateObject('dcl.htmlPhoneType');
+		$oPhoneType = new htmlPhoneType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
-		$oOrg = CreateObject('dcl.dbOrg');
+		$oOrg = new dbOrg();
 		$oOrg->Load($_REQUEST['org_id']);
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);
@@ -192,4 +192,3 @@ class htmlOrgPhone
 		SmartyDisplay($oSmarty, 'htmlPhoneForm.tpl');
 	}
 }
-?>

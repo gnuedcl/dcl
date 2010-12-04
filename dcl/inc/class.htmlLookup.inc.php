@@ -78,14 +78,14 @@ class htmlLookup
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbLookup');
+		$obj = new dbLookup();
 		if ($obj->Load($this->id) == -1)
 		{
 			trigger_error(STR_LKP_NOTFOUND, $this->id);
 			return;
 		}
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 	}
 
 	function showall()
@@ -95,11 +95,11 @@ class htmlLookup
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbLookup');
+		$obj = new dbLookup();
 		$obj->Query("SELECT dcl_lookup_id, dcl_lookup_active, dcl_lookup_name FROM dcl_lookup ORDER BY dcl_lookup_name");
 		$allRecs = $obj->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(STR_LKP_TABLETITLE);
 		$oTable->addColumn(STR_LKP_ID, 'numeric');
 		$oTable->addColumn(STR_LKP_ACTIVEABB, 'string');
@@ -133,4 +133,3 @@ class htmlLookup
 		$oTable->render();
 	}
 }
-?>

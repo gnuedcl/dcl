@@ -30,7 +30,7 @@ class boOrgAlias extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbOrgAlias');
+		$this->oDB = new dbOrgAlias();
 		$this->sKeyField = 'org_alias_id';
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->PermAdd = DCL_PERM_MODIFY;
@@ -44,4 +44,3 @@ class boOrgAlias extends boAdminObject
 		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by');
 	}
 }
-?>

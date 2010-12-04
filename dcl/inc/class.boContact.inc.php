@@ -30,7 +30,7 @@ class boContact extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbContact');
+		$this->oDB = new dbContact();
 		$this->sKeyField = 'contact_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
 		
@@ -58,7 +58,7 @@ class boContact extends boAdminObject
 
 		$this->oDB->Execute($sql);
 		
-		$oContactTypeXref =& CreateObject('dcl.boContactTypeXref');
+		$oContactTypeXref = new boContactTypeXref();
 		foreach ($aSource['contact_type_id'] as $contact_type_id)
 		{
 			if (!$oContactTypeXref->exists(array('contact_id' => $aSource['contact_id'], 'contact_type_id' => $contact_type_id)))
@@ -91,4 +91,3 @@ class boContact extends boAdminObject
 		parent::delete($aSource);
 	}
 }
-?>

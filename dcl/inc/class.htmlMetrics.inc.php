@@ -40,7 +40,7 @@ class htmlMetrics
 		$this->oDB->query("select a.id, a.short, count(*) from personnel a join dcl_sccs_xref b on a.id = b.personnel_id group by a.id, a.short order by 3 desc");
 		$aRecords = $this->oDB->FetchAllRows();
 		
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('ChangeLog Entries');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn('User', 'html');
@@ -70,7 +70,7 @@ class htmlMetrics
 			'ChangeLog' => 'dcl_sccs_xref'
 		);
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Table Record Counts');
 		$oTable->addColumn('Table', 'string');
 		$oTable->addColumn('Records', 'numeric');
@@ -88,4 +88,3 @@ class htmlMetrics
 		$oTable->render();
 	}
 }
-?>

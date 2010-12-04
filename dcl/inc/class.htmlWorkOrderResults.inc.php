@@ -45,7 +45,7 @@ class htmlWorkOrderResults
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 			return PrintPermissionDenied();
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		
 		$bIsExplicitView = is_a($oView, 'boExplicitView');
 		if (!$bIsExplicitView)
@@ -157,4 +157,3 @@ class htmlWorkOrderResults
 		$oTable->render();
 	}
 }
-?>

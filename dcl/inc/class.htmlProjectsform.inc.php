@@ -37,9 +37,9 @@ class htmlProjectsform
 
 		$t = CreateSmarty();
 
-		$objPrj = CreateObject('dcl.htmlProjects');
-		$objHTMLPersonnel = CreateObject('dcl.htmlPersonnel');
-		$oStatus = CreateObject('dcl.htmlStatuses');
+		$objPrj = new htmlProjects();
+		$objHTMLPersonnel = new htmlPersonnel();
+		$oStatus = new htmlStatuses();
 		if ($isEdit)
 		{
 			$t->assign('VAL_PROJECTID', $obj->projectid);
@@ -64,7 +64,7 @@ class htmlProjectsform
 		
 		if ($dcl_info['DCL_PROJECT_XML_TEMPLATES'] == 'Y' && !$isEdit)
 		{
-			$objXMLProject = CreateObject('dcl.xmlProjects');
+			$objXMLProject = new xmlProjects();
 			$objXMLProject->createCombo();
 			
 			$t->assign('CMB_XMLPROJECTS', $objXMLProject->comboHTML);
@@ -75,4 +75,3 @@ class htmlProjectsform
 		SmartyDisplay($t, 'htmlProjectsForm.tpl');
 	}
 }
-?>

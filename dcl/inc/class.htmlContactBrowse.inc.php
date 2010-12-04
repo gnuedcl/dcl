@@ -33,7 +33,7 @@ class htmlContactBrowse
 		$this->sPagingMenuAction = 'htmlContactBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = CreateObject('dcl.dbContact');
+		$this->oDB = new dbContact();
 	}
 
 	function Render(&$oView)
@@ -58,9 +58,9 @@ class htmlContactBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		
-		$oMetadata = CreateObject('dcl.DCL_MetadataDisplay');
+		$oMetadata = new DCL_MetadataDisplay();
 		$aContacts = array();
 		while ($this->oDB->next_record())
 		{
@@ -182,7 +182,7 @@ class htmlContactBrowse
 			return PrintPermissionDenied();
 
 		CleanArray($_REQUEST);
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -281,7 +281,7 @@ class htmlContactBrowse
 
 		CleanArray($_REQUEST);
 		$oDB = new dclDB;
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->table = 'dcl_contact';
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_LASTNAME, STR_CMMN_FIRSTNAME, 'Organization', 'Phone', 'Email', 'Internet'));
 		$oView->AddDef('columns', '', array('contact_id', 'active', 'last_name', 'first_name'));
@@ -310,4 +310,3 @@ class htmlContactBrowse
 		$this->Render($oView);
 	}
 }
-?>

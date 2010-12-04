@@ -41,13 +41,13 @@ class htmlBuildManagerVersionView
 		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oDB = CreateObject('dcl.dbBuildManager');
+		$oDB = new dbBuildManager();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption($oView->title);
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_BM_RELEASE_ALIAS_TITLE, 'string');
@@ -90,4 +90,3 @@ class htmlBuildManagerVersionView
 		$oTable->render();
 	}
 }
-?>

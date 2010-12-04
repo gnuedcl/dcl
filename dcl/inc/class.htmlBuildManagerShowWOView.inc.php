@@ -46,13 +46,13 @@ class htmlBuildManagerShowWOView
 		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oDB = CreateObject('dcl.dbBuildManager');
+		$oDB = new dbBuildManager();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->addColumn(STR_WO_JCN, 'html');
 		$oTable->addColumn(STR_WO_SEQ, 'html');
 		$oTable->addColumn(STR_WO_SUMMARY, 'string');
@@ -84,4 +84,3 @@ class htmlBuildManagerShowWOView
 		$oTable->render();
 	}	
 }
-?>

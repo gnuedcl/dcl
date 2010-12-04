@@ -35,7 +35,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlProjectsform');
+		$obj = new htmlProjectsform();
 		$obj->Show();
 	}
 
@@ -47,7 +47,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$objProject =& CreateObject('dcl.dbProjects');
+		$objProject = new dbProjects();
 		if ($objProject->Exists($_REQUEST['name']))
 		{
 			trigger_error(sprintf(STR_PRJ_ALREADYEXISTS, $_REQUEST['name']));
@@ -67,7 +67,7 @@ class boProjects
 		if ($dcl_info['DCL_PROJECT_XML_TEMPLATES'] == 'Y' && $iTplID != 0)
 		{
 			// user selected a template, so we must generate workorders
-			$objXMLProject =& CreateObject('dcl.xmlProjects');
+			$objXMLProject = new xmlProjects();
 
 			$params = explode('&', $_REQUEST['encodedparams']);
 			$selectedParams = array();
@@ -83,7 +83,7 @@ class boProjects
 		if ($objProject->reportto != $GLOBALS['DCLID'])
 			$this->SendNewMailMsg($objProject);
 
-		$objHTMLProject =& CreateObject('dcl.htmlProjectsdetail');
+		$objHTMLProject = new htmlProjectsdetail();
 		$objHTMLProject->Show($objProject->projectid, 0, 0);
 	}
 
@@ -107,17 +107,17 @@ class boProjects
 			return;
 		}
 		
-		$objPM =& CreateObject('dcl.dbProjectmap');
+		$objPM = new dbProjectmap();
 		if ($objPM->LoadByWO($jcn, $seq) != -1)
 		{
 			// Mapped implicitly (seq = 0) or explicitly (seq > 0)
 			$objPM->GetRow();
-			$objHTMLProjects = CreateObject('dcl.htmlProjectsdetail');
+			$objHTMLProjects = new htmlProjectsdetail();
 			$objHTMLProjects->Show($objPM->projectid, 0, 0);
 		}
 		else
 		{
-			$objHTMLProjectmap = CreateObject('dcl.htmlProjectmap');
+			$objHTMLProjectmap = new htmlProjectmap();
 			$objHTMLProjectmap->ChooseProjectForJCN($jcn, $seq);
 		}
 	}
@@ -130,7 +130,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 			return PrintPermissionDenied();
 
-		$objPM =& CreateObject('dcl.dbProjectmap');
+		$objPM = new dbProjectmap();
 		$objPM->InitFromGlobals();
 		if (IsSet($_REQUEST['addall']) && $_REQUEST['addall'] == '1')
 		{
@@ -141,7 +141,7 @@ class boProjects
 		
 		$objPM->Add();
 
-		$objHTMLProjects =& CreateObject('dcl.htmlProjectsdetail');
+		$objHTMLProjects = new htmlProjectsdetail();
 		$objHTMLProjects->Show($objPM->projectid, 0, 0);
 	}
 
@@ -162,7 +162,7 @@ class boProjects
 			if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $project))
 				return PrintPermissionDenied();
 
-			$obj =& CreateObject('dcl.htmlProjectsdetail');
+			$obj = new htmlProjectsdetail();
 			$wostatus = 0;
 			$woresponsible = 0;
 			
@@ -192,7 +192,7 @@ class boProjects
 			if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $project))
 				return PrintPermissionDenied();
 
-			$obj =& CreateObject('dcl.htmlProjectsdetail');
+			$obj = new htmlProjectsdetail();
 			$wostatus = 0;
 			$woresponsible = 0;
 			
@@ -220,11 +220,11 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $projectid))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbProjects');
+		$obj = new dbProjects();
 		if ($obj->Load($projectid) == -1)
 			return;
 		
-		$objHTML =& CreateObject('dcl.htmlProjectsform');
+		$objHTML = new htmlProjectsform();
 		$objHTML->Show($obj);
 	}
 
@@ -242,7 +242,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $projectid))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbProjects');
+		$obj = new dbProjects();
 		if ($obj->Load($projectid) != -1)
 		{
 			if (($status = @DCL_Sanitize::ToInt($_REQUEST['status'])) === null ||
@@ -253,7 +253,7 @@ class boProjects
 				return;
 			}
 		
-			$oStatus =& CreateObject('dcl.dbStatuses');
+			$oStatus = new dbStatuses();
 			if ($oStatus->GetStatusType($status) == 2 && $oStatus->GetStatusType($obj->status) != 2)
 			{
 				// moving to closed
@@ -268,7 +268,7 @@ class boProjects
 			$bChangeParent = ($obj->parentprojectid != $parentprojectid);
 			$iOriginalParent = $obj->parentprojectid;
 			$obj->InitFromGlobals();
-			$objHTML =& CreateObject('dcl.htmlProjectsdetail');
+			$objHTML = new htmlProjectsdetail();
 			if ($bChangeParent && $obj->parentprojectid > 0)
 			{
 				if (!$obj->ParentIsNotChild($obj->projectid, $obj->parentprojectid))
@@ -277,7 +277,7 @@ class boProjects
 
 					$obj->parentprojectid = $iOriginalParent;
 					
-					$oForm =& CreateObject('dcl.htmlProjectsform');
+					$oForm = new htmlProjectsform();
 					$oForm->Show($obj);
 					return;
 				}
@@ -288,7 +288,7 @@ class boProjects
 		}
 		else
 		{
-			$o =& CreateObject('dcl.htmlProjects');
+			$o = new htmlProjects();
 			$o->show();
 		}
 	}
@@ -307,7 +307,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $projectid))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbProjects');
+		$obj = new dbProjects();
 		if ($obj->Load($projectid) == -1)
 			return;
 			
@@ -328,16 +328,16 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $projectid))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbProjects');
+		$obj = new dbProjects();
 		$obj->projectid = $projectid;
 		$obj->Delete();
 
 		// Wipe out any watches anyone may have had
-		$oWatch =& CreateObject('dcl.dbWatches');
+		$oWatch = new dbWatches();
 		$oWatch->DeleteByObjectID(2, $obj->projectid);
 
 		// Browse around some more
-		$objHTMLProjects =& CreateObject('dcl.htmlProjects');
+		$objHTMLProjects = new htmlProjects();
 		$objHTMLProjects->show();
 	}
 
@@ -359,7 +359,7 @@ class boProjects
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbProjectmap');
+		$obj = new dbProjectmap();
 		if ($obj->LoadByWO($jcn, $seq) != -1)
 		{
 			if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVETASK, $obj->projectid))
@@ -367,7 +367,7 @@ class boProjects
 			else
 				PrintPermissionDenied();
 
-			$objPrj =& CreateObject('dcl.htmlProjectsdetail');
+			$objPrj = new htmlProjectsdetail();
 			$objPrj->Show($projectid, 0, 0);
 		}
 		else
@@ -380,7 +380,7 @@ class boProjects
 	// Only intended to be called as a utility function - no UI output unless needed
 	function dbunmap($jcn, $seq, $unmapseqonly = false, $allforjcn = false)
 	{
-		$obj =& CreateObject('dcl.dbProjectmap');
+		$obj = new dbProjectmap();
 		if ($obj->LoadByWOFilter($jcn, $seq, $unmapseqonly, $allforjcn) == -1)
 			return;
 
@@ -425,7 +425,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE, $projectid))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlProjects');
+		$obj = new htmlProjects();
 		$obj->ShowUploadFileForm($projectid);
 	}
 
@@ -445,7 +445,7 @@ class boProjects
 
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null)
 		{
-			$o =& CreateObject('dcl.boFile');
+			$o = new boFile();
 			$o->iType = DCL_ENTITY_PROJECT;
 			$o->iKey1 = $projectid;
 			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
@@ -459,7 +459,7 @@ class boProjects
 			return;
 		}
 
-		$objHTML =& CreateObject('dcl.htmlProjectsdetail');
+		$objHTML = new htmlProjectsdetail();
 		$objHTML->Show($projectid, 0, 0);
 	}
 
@@ -483,7 +483,7 @@ class boProjects
 			return;
 		}
 			
-		$obj =& CreateObject('dcl.htmlProjects');
+		$obj = new htmlProjects();
 		$obj->ShowDeleteAttachmentYesNo($projectid, $_REQUEST['filename']);
 	}
 
@@ -511,14 +511,14 @@ class boProjects
 		if (is_file($attachPath . $_REQUEST['filename']) && is_readable($attachPath . $_REQUEST['filename']))
 			unlink($attachPath . $_REQUEST['filename']);
 
-		$objHTML =& CreateObject('dcl.htmlProjectsdetail');
+		$objHTML = new htmlProjectsdetail();
 		$objHTML->Show($projectid, 0, 0);
 	}
 
 	function showmy()
 	{
 		commonHeader();
-		$obj =& CreateObject('dcl.htmlProjects');
+		$obj = new htmlProjects();
 		$obj->my(0);
 	}
 
@@ -530,7 +530,7 @@ class boProjects
 		$oDB = new dclDB;
 		$oDB->BeginTransaction();
 
-		$objPM =& CreateObject('dcl.dbProjectmap');
+		$objPM = new dbProjectmap();
 		$objPM->projectid = $aSource['projectid'];
 
 		foreach ($aSource['selected'] as $val)
@@ -558,7 +558,7 @@ class boProjects
 		if (!is_object($obj))
 			return PrintPermissionDenied();
 
-		$objPersonnel =& CreateObject('dcl.dbPersonnel');
+		$objPersonnel = new dbPersonnel();
 		if ($objPersonnel->Load($obj->reportto) == -1)
 			return;
 		
@@ -573,7 +573,7 @@ class boProjects
 		$mailMsg .= STR_PRJ_DESCRIPTION . ': ' . $obj->description;
 		$mailMsg .= phpCrLf . phpCrLf . STR_PRJ_EMAILSIG;
 
-		$oMail = CreateObject('dcl.boSMTP');
+		$oMail = new boSMTP();
 		$oMail->to = $objPersonnel->email;
 		$oMail->from = $GLOBALS['USEREMAIL'];
 		$oMail->subject = sprintf(STR_PRJ_EMAILSUBJECT, $obj->name);
@@ -587,10 +587,10 @@ class boProjects
 	{
 		$aProjects = array();
 
-		$objPM =& CreateObject('dcl.dbProjectmap');
+		$objPM = new dbProjectmap();
 		if ($objPM->LoadByWO($jcn, $seq) != -1)
 		{
-			$objDBPrj = CreateObject('dcl.dbProjects');
+			$objDBPrj = new dbProjects();
 			$project_path = explode(',', $objDBPrj->GetProjectParents($objPM->projectid, true));
 			while (list($key, $project_id) = each($project_path))
 			{
@@ -609,7 +609,7 @@ class boProjects
 	{
 		$aProjects = array();
 
-		$objDBPrj =& CreateObject('dcl.dbProjects');
+		$objDBPrj = new dbProjects();
 		$sParentProjects = $objDBPrj->GetProjectParents($projectid);
 		if ($sParentProjects == '')
 			return null;
@@ -627,4 +627,3 @@ class boProjects
 		return $aProjects;
 	}
 }
-?>

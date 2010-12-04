@@ -33,7 +33,7 @@ class boViews
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlViews');
+		$obj = new htmlViews();
 		$obj->ShowEntryForm();
 		print('<p>');
 		$obj->PrintAll();
@@ -47,10 +47,10 @@ class boViews
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$objDB =& CreateObject('dcl.dbViews');
+		$objDB = new dbViews();
 		$objDB->InitFromGlobals();
 
-		$objView =& CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->SetFromURL();
 		
 		$objDB->viewurl = $objView->GetURL();
@@ -71,7 +71,7 @@ class boViews
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbViews');
+		$obj = new dbViews();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -99,7 +99,7 @@ class boViews
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbViews');
+		$obj = new dbViews();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -118,7 +118,7 @@ class boViews
 		else
 			PrintPermissionDenied();
 
-		$objHTML =& CreateObject('dcl.htmlViews');
+		$objHTML = new htmlViews();
 		$objHTML->PrintAll();
 	}
 
@@ -131,14 +131,14 @@ class boViews
 			return;
 		}
 		
-		$objDB =& CreateObject('dcl.dbViews');
+		$objDB = new dbViews();
 		if ($objDB->Load($iID) == -1)
 			return;
 
 		if ($objDB->ispublic == 'N' && $objDB->whoid != $GLOBALS['DCLID'])
 			return PrintPermissionDenied();
 
-		$objView =& CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->SetFromURLString($objDB->viewurl);
 
 		if (IsSet($_REQUEST['btnNav']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -178,7 +178,7 @@ class boViews
 	function page()
 	{
 		commonHeader();
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->SetFromURL();
 
 		if ((IsSet($_REQUEST['btnNav']) || IsSet($_REQUEST['jumptopage'])) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -226,7 +226,7 @@ class boViews
 		header('Content-Type: application/binary; name=dclexport.txt');
 		header('Content-Disposition: attachment; filename=dclexport.txt');
 
-		$objView =& CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->SetFromURL();
 
 		// Make object, run query, and (for now) blindly dump data.  The first
@@ -250,8 +250,8 @@ class boViews
 
 		// Output field headings
 		echo $record . phpCrLf;
-		$metadata = CreateObject('dcl.DCL_MetadataDisplay');
-		$workOrderOrg = CreateObject('dcl.dbWorkOrderAccount');
+		$metadata = new DCL_MetadataDisplay();
+		$workOrderOrg = new dbWorkOrderAccount();
 
 		// Now for the records
 		while ($obj->next_record())
@@ -341,4 +341,3 @@ class boViews
 		return $data;
 	}
 }
-?>

@@ -30,7 +30,7 @@ class boContactPhone extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbContactPhone');
+		$this->oDB = new dbContactPhone();
 		$this->sKeyField = 'contact_phone_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
 		$this->PermAdd = DCL_PERM_MODIFY;
@@ -56,4 +56,3 @@ class boContactPhone extends boAdminObject
 		parent::modify($aSource);
 	}
 }
-?>

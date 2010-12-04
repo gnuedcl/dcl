@@ -99,7 +99,7 @@ class dbTicketresolutions extends dclDB
 
 		if (count($aRetVal) > 0)
 		{
-			$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			$oMeta = new DCL_MetadataDisplay();
 			for ($i = 0; $i < count($aRetVal); $i++)
 			{
 				$aRetVal[$i]['time'] = $this->GetHoursText($aRetVal[$i]['startedon'], $aRetVal[$i]['loggedon']);
@@ -130,4 +130,3 @@ class dbTicketresolutions extends dclDB
 		return $this->ExecuteScalar("SELECT MAX(resid) FROM ticketresolutions WHERE resid < $iResID AND ticketid = $iTicketID");
 	}
 }
-?>

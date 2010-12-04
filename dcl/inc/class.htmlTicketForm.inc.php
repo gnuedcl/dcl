@@ -35,7 +35,7 @@ class htmlTicketForm
 			return PrintPermissionDenied();
 
 		$oSmarty =& CreateSmarty();
-		$objJS =& CreateObject('dcl.jsAttributesets');
+		$objJS = new jsAttributesets();
 
 		if (!$isEdit)
 			$objJS->bActiveOnly = true;
@@ -57,10 +57,10 @@ class htmlTicketForm
 		$oSmarty->assign('VAL_DCLID', $GLOBALS['DCLID']);
 		$oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		if ($isEdit)
 		{
-			$oProduct =& CreateObject('dcl.dbProducts');
+			$oProduct = new dbProducts();
 			$oProduct->Query('SELECT tcksetid FROM products WHERE id=' . $obj->product);
 			if ($oProduct->next_record())
 				$oSmarty->assign('VAL_SETID', $oProduct->f(0));
@@ -81,7 +81,7 @@ class htmlTicketForm
 			$oSmarty->assign('VAL_CONTACTID', $obj->contact_id);
 			if ($obj->contact_id > 0)
 			{
-				$oContact =& CreateObject('dcl.dbContact');
+				$oContact = new dbContact();
 				if ($oContact->Load(array('contact_id' => $obj->contact_id)) != -1)
 					$oSmarty->assign('VAL_CONTACTNAME', sprintf('%s %s', $oContact->first_name, $oContact->last_name));
 			}
@@ -93,14 +93,14 @@ class htmlTicketForm
 			}
 			else
 			{
-				$oPersonnel =& CreateObject('dcl.dbPersonnel');
+				$oPersonnel = new dbPersonnel();
 				if ($oPersonnel->Load($obj->responsible) != -1)
 					$oSmarty->assign('VAL_RESPONSIBLENAME', $oPersonnel->short);
 				else
 					$oSmarty->assign('VAL_RESPONSIBLENAME', 'Unknown');
 			}
 
-			$oOrgs =& CreateObject('dcl.boOrg');
+			$oOrgs = new boOrg();
 			$oOrgs->ListSelectedByTicket($obj->ticketid);
 			if ($oOrgs->oDB->next_record())
 			{
@@ -112,7 +112,7 @@ class htmlTicketForm
 			$oSmarty->assign('VAL_TICKETID', $obj->ticketid);
 			$oSmarty->assign('VAL_STATUS', $obj->status);
 			
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			$oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $obj->ticketid));
 		}
 		else
@@ -150,4 +150,3 @@ class htmlTicketForm
 		SmartyDisplay($oSmarty, 'htmlTicketForm.tpl');
 	}
 }
-?>

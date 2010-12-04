@@ -30,7 +30,7 @@ class boOrgNote extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbOrgNote');
+		$this->oDB = new dbOrgNote();
 		$this->sKeyField = 'org_note_id';
 		$this->Entity = DCL_ENTITY_ORG;
 
@@ -40,4 +40,3 @@ class boOrgNote extends boAdminObject
 		$this->sModifiedByField = 'modified_by';
 	}
 }
-?>

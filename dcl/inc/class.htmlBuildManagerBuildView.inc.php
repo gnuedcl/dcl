@@ -43,20 +43,20 @@ class htmlBuildManagerBuildView
 		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oDB = CreateObject('dcl.dbBuildManager');
+		$oDB = new dbBuildManager();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn('Version ID', 'numeric');
 		$oTable->addColumn(STR_BM_RELEASEDATE_DESC, 'string');
 		
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		
-		$oProductVersion = CreateObject('dcl.dbProductVersion');
+		$oProductVersion = new dbProductVersion();
 		$oProductVersion->Load(array('product_version_id' => $this->product_version_id));
 
 		$oTable->setCaption($oView->title . ': ' . $oProductVersion->product_version_text);
@@ -85,4 +85,3 @@ class htmlBuildManagerBuildView
 		$oTable->render();
 	}	
 }
-?>

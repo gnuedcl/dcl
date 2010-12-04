@@ -35,7 +35,7 @@ class boActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlActions');
+		$obj = new htmlActions();
 		$obj->PrintAll();
 	}
 
@@ -47,7 +47,7 @@ class boActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlActions');
+		$obj = new htmlActions();
 		$obj->ShowEntryForm();
 	}
 
@@ -59,11 +59,11 @@ class boActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbActions');
+		$obj = new dbActions();
 		$obj->InitFromGlobals();
 		$obj->Add();
 
-		$objHTML = CreateObject('dcl.htmlActions');
+		$objHTML = new htmlActions();
 		$objHTML->PrintAll();
 	}
 
@@ -75,7 +75,7 @@ class boActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbActions');
+		$obj = new dbActions();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -86,7 +86,7 @@ class boActions
 		if ($obj->Load($iID) == -1)
 			return;
 
-		$objHTML =& CreateObject('dcl.htmlActions');
+		$objHTML = new htmlActions();
 		$objHTML->ShowEntryForm($obj);
 	}
 
@@ -98,11 +98,11 @@ class boActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbActions');
+		$obj = new dbActions();
 		$obj->InitFromGlobals();
 		$obj->Edit();
 		
-		$objHTML = CreateObject('dcl.htmlActions');
+		$objHTML = new htmlActions();
 		$objHTML->PrintAll();
 	}
 
@@ -114,7 +114,7 @@ class boActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbActions');
+		$obj = new dbActions();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
 			trigger_error('Data sanitize failed.');
@@ -135,7 +135,7 @@ class boActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbActions');
+		$obj = new dbActions();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
 			trigger_error('Data sanitize failed.');
@@ -156,8 +156,7 @@ class boActions
 			print(STR_BO_DEACTIVATED);
 		}
 
-		$objHTML =& CreateObject('dcl.html' . $classSubName);
+		$objHTML = new htmlActions();
 		$objHTML->PrintAll();
 	}
 }
-?>

@@ -63,12 +63,12 @@ class htmlFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbFaq');
+		$obj = new dbFaq();
 		$query = "SELECT faqid,active,name,createby,createon,modifyby,modifyon FROM faq ORDER BY $orderBy";
 		$obj->Query($query);
 		$allRecs = $obj->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_FAQ_ORDEREDBY, $orderBy));
 		$oTable->addColumn(STR_FAQ_ID, 'numeric');
 		$oTable->addColumn(STR_FAQ_ACCT, 'string');
@@ -83,7 +83,7 @@ class htmlFaq
 
 		if (count($allRecs) > 0)
 		{
-			$objP = CreateObject('dcl.dbPersonnel');
+			$objP = new dbPersonnel();
 			$oTable->addColumn(STR_FAQ_OPTIONS, 'html');
 			for ($i = 0; $i < count($allRecs); $i++)
 			{
@@ -132,11 +132,10 @@ class htmlFaq
 		$oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY));
 		$oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE));
 
-		$objF = CreateObject("dcl.dbFaqtopics");
+		$objF = new dbFaqtopics();
 		$objF->LoadByFaqID($obj->faqid);
 		$oSmarty->assign_by_ref('VAL_TOPICS', $objF->ResultToArray());
 
 		SmartyDisplay($oSmarty, 'htmlFaqDetail.tpl');
 	}
 }
-?>

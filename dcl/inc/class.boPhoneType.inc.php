@@ -30,9 +30,8 @@ class boPhoneType extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbPhoneType');
+		$this->oDB = new dbPhoneType();
 		$this->sKeyField = 'phone_type_id';
 		$this->Entity = DCL_ENTITY_PHONETYPE;
 	}
 }
-?>

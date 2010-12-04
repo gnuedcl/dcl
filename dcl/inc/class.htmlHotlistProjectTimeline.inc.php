@@ -38,7 +38,7 @@ class htmlHotlistProjectTimeline
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		    return PrintPermissionDenied();
 		    
-		$hotlist = CreateObject('dcl.dbHotlist');
+		$hotlist = new dbHotlist();
 		$hotlist->Load($id);
 
 		$t = CreateSmarty();
@@ -129,7 +129,7 @@ class htmlHotlistProjectTimeline
 		        $aResults[] = $aRecord;
 		    }
 		    
-    		$oTable =& CreateObject('dcl.htmlTable');
+    		$oTable = new htmlTable();
     		$oTable->setCaption('Hotlist Timeline');
     		$oTable->addColumn('Date', 'string');
     		$oTable->addColumn('Time', 'string');
@@ -190,4 +190,3 @@ class htmlHotlistProjectTimeline
 	        where P.projectid = $projectid AND dcl_entity_type_id = 1 AND SC.sccs_checkin_on BETWEEN '$begin_dt' AND '$end_dt 23:59'";
     }
 }
-?>

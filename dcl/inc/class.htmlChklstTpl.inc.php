@@ -48,7 +48,7 @@ class htmlChklstTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_MODIFY, $id))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.dbChklstTpl');
+		$o = new dbChklstTpl();
 		if ($o->Load($id) == -1)
 		    return;
 
@@ -89,4 +89,3 @@ class htmlChklstTpl
 		SmartyDisplay($t, 'htmlChklstTplAdd.tpl');
 	}
 }
-?>

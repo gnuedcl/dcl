@@ -40,10 +40,10 @@ class htmlWOSearches
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 			return PrintPermissionDenied();
 
-		$oDB = CreateObject('dcl.dbViews');
+		$oDB = new dbViews();
 		if ($oDB->Load($id) != -1)
 		{
-			$oView = CreateObject('dcl.boView');
+			$oView = new boView();
 			$oView->SetFromURLString($oDB->viewurl);
 			$this->Show($oView);
 		}
@@ -57,7 +57,7 @@ class htmlWOSearches
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 		$this->Show($oView);
 	}
@@ -74,23 +74,23 @@ class htmlWOSearches
 		
 		$aProtectedFields = array('notes', 'dcl_hotlist.hotlist_tag', 'is_public', 'timecards.actionby', 'timecards.summary');
 
-		$objJS = CreateObject('dcl.jsAttributesets');
+		$objJS = new jsAttributesets();
 		$objJS->bModules = true;
 		$objJS->bStatusTypes = true;
 		$objJS->bDepartments = !$g_oSec->IsPublicUser();
 		$objJS->DisplayAttributeScript();
 
-		$objPersonnel = CreateObject('dcl.htmlPersonnel');
-		$objDepartment = CreateObject('dcl.htmlDepartments');
-		$objProducts = CreateObject('dcl.htmlProducts');
-		$objPriorities = CreateObject('dcl.htmlPriorities');
-		$objSeverities = CreateObject('dcl.htmlSeverities');
-		$objStatuses = CreateObject('dcl.htmlStatuses');
-		$objProjects = CreateObject('dcl.htmlProjects');
-		$objModules = CreateObject('dcl.htmlProductModules');
-		$objType = CreateObject('dcl.htmlWorkOrderType');
+		$objPersonnel = new htmlPersonnel();
+		$objDepartment = new htmlDepartments();
+		$objProducts = new htmlProducts();
+		$objPriorities = new htmlPriorities();
+		$objSeverities = new htmlSeverities();
+		$objStatuses = new htmlStatuses();
+		$objProjects = new htmlProjects();
+		$objModules = new htmlProductModules();
+		$objType = new htmlWorkOrderType();
 
-		$oDBP = CreateObject('dcl.dbPersonnel');
+		$oDBP = new dbPersonnel();
 		$oDBP->Load($GLOBALS['DCLID']);
 		
 		$t =& CreateSmarty();
@@ -257,7 +257,7 @@ class htmlWOSearches
 			$t->assign('CMB_PUBLIC', GetYesNoCombo($aDefault['is_public'], 'is_public', 2, false));
 		}
 
-		$oSelect =& CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 
 		if ($g_oSec->IsOrgUser())
 			$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', 'org_id IN (' . $g_oSession->Value('member_of_orgs') . ')', 'name');
@@ -269,7 +269,7 @@ class htmlWOSearches
 		$oSelect->sName = 'account';
 		$t->assign('CMB_ACCOUNTS', $oSelect->GetHTML());
 
-		$oSource = CreateObject('dcl.htmlEntitySource');
+		$oSource = new htmlEntitySource();
 		$t->assign('CMB_SOURCE', $oSource->GetCombo($aDefault['entity_source_id'], 'entity_source_id', 8, false));
 
 		// Empty status is for selecting status type, then filtering status if desired
@@ -489,10 +489,9 @@ class htmlWOSearches
 		
 		$t =& CreateSmarty();
 
-		$obj = CreateObject('dcl.htmlViews');
+		$obj = new htmlViews();
 		$t->assign('CMB_VIEWS', $obj->GetCombo(0, 'viewid', 0, true, 'workorders'));
 		
 		SmartyDisplay($t, 'htmlMyWorkorderSearches.tpl');
 	}
 }
-?>

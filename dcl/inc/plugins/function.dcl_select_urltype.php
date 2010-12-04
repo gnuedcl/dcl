@@ -38,7 +38,7 @@ function smarty_function_dcl_select_urltype($params, &$smarty)
 
 	$sSQL = 'SELECT url_type_id, url_type_name FROM dcl_url_type ORDER BY url_type_name';
 
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -47,4 +47,3 @@ function smarty_function_dcl_select_urltype($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

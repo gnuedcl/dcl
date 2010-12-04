@@ -30,7 +30,7 @@ class boOrgProduct extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbOrgProduct');
+		$this->oDB = new dbOrgProduct();
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->sKeyField = '';
 		
@@ -71,4 +71,3 @@ class boOrgProduct extends boAdminObject
 			$this->oDB->Execute("DELETE FROM dcl_org_product_xref WHERE product_id = $product_id");
 	}
 }
-?>

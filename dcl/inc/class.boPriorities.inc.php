@@ -27,7 +27,7 @@ class boPriorities extends boAdminObject
 {
 	function boPriorities()
 	{
-		$this->oDB =& CreateObject('dcl.dbPriorities');
+		$this->oDB = new dbPriorities();
 		$this->sKeyField = 'id';
 		$this->sDescField = 'name';
 		$this->Entity = DCL_ENTITY_PRIORITY;
@@ -41,7 +41,7 @@ class boPriorities extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlPriorities');
+		$obj = new htmlPriorities();
 		$obj->PrintAll();
 	}
 
@@ -53,7 +53,7 @@ class boPriorities extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlPriorities');
+		$obj = new htmlPriorities();
 		$obj->ShowEntryForm();
 	}
 
@@ -68,7 +68,7 @@ class boPriorities extends boAdminObject
 		$this->oDB->InitFromGlobals();
 		$this->oDB->Add();
 
-		$objHTML =& CreateObject('dcl.htmlPriorities');
+		$objHTML = new htmlPriorities();
 		$objHTML->PrintAll();
 	}
 
@@ -89,7 +89,7 @@ class boPriorities extends boAdminObject
 		if ($this->oDB->Load($iID) == -1)
 			return;
 			
-		$objHTML =& CreateObject('dcl.htmlPriorities');
+		$objHTML = new htmlPriorities();
 		$objHTML->ShowEntryForm($this->oDB);
 	}
 
@@ -104,7 +104,7 @@ class boPriorities extends boAdminObject
 		$this->oDB->InitFromGlobals();
 		$this->oDB->Edit();
 
-		$objHTML =& CreateObject('dcl.htmlPriorities');
+		$objHTML = new htmlPriorities();
 		$objHTML->PrintAll();
 	}
 	function delete()
@@ -143,8 +143,7 @@ class boPriorities extends boAdminObject
 		
 		parent::delete(array('id' => $iID));
 
-		$objHTML =& CreateObject('dcl.html' . $classSubName);
+		$objHTML = new htmlPriorities();
 		$objHTML->PrintAll();
 	}
 }
-?>

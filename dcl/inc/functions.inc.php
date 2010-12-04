@@ -226,7 +226,7 @@ function GetPrefLang()
 	$lang = '';
 	if (is_object($g_oSession))
 	{
-		$oPrefs = CreateObject('dcl.dbPreferences');
+		$oPrefs = new dbPreferences();
 		$oPrefs->preferences_data = $g_oSession->Value('dcl_preferences');
 
 		$lang = $oPrefs->Value('DCL_PREF_LANGUAGE');
@@ -262,7 +262,7 @@ function Invoke($sClassMethod)
 	
 	if ($dcl_info['DCL_SEC_AUDIT_ENABLED']=='Y' && $dcl_info['DCL_SEC_AUDIT_LOGIN_ONLY'] == 'N')
 	{
-		$oSecAuditDB = CreateObject('dcl.dbSecAudit');
+		$oSecAuditDB = new dbSecAudit();
 		$paramArray = array('ticketid' => null, 'jcn' => null, 'seq' => null, 'begindate' => null, 'enddate' => null, 'project' => null, 'org_id' => null, 'contact_id' => null, 'id' => null);
 
 		$values = '';
@@ -289,7 +289,7 @@ function Invoke($sClassMethod)
 		return;
 	}
 
-	$obj = new $class;
+	$obj = new $class();
 	if (!method_exists($obj, $method))
 	{
 		trigger_error('Class ' . $class . ' does not contain a definition for method ' . $method, E_USER_ERROR);
@@ -310,7 +310,7 @@ function InvokePlugin($sPluginName, &$aParams = null, $method = 'Invoke')
 		return;
 	}
 	
-	$obj = new $class;
+	$obj = new $class();
 	if (!method_exists($obj, $method))
 	{
 		trigger_error('Plugin class ' . $class . ' does not contain a definition for method ' . $method, E_USER_ERROR);
@@ -360,49 +360,29 @@ function &CreateViewObject($sType = '')
 	switch ($sType)
 	{
 		case 'workorders':
-			$oRetVal = CreateObject('dcl.htmlWorkOrderResults');
+			$oRetVal = new htmlWorkOrderResults();
 			break;
 		case 'tickets':
-			$oRetVal = CreateObject('dcl.htmlTicketResults');
+			$oRetVal = new htmlTicketResults();
 			break;
 		case 'dcl_product_module':
-			$oRetVal = CreateObject('dcl.htmlProductModuleView');
+			$oRetVal = new htmlProductModuleView();
 			break;
 		default:
-			$oRetVal = CreateObject('dcl.htmlView');
+			$oRetVal = new htmlView();
 	}
 	
 	return $oRetVal;
 }
 
-if (!function_exists('CreateObject'))
+function GetAuthenticator()
 {
-	function &CreateObject($className)
-	{
-		$className = substr($className, 4);
-
-		$obj = new $className;
-
-		return $obj;
-	}
+	return new boAuthenticate();
 }
 
-function &GetAuthenticator()
+function GetPageObject()
 {
-	$oRetVal = null;
-	
-	$oRetVal = CreateObject('dcl.boAuthenticate');
-		
-	return $oRetVal;
-}
-
-function &GetPageObject()
-{
-	$oRetVal = null;
-	
-	$oRetVal = CreateObject('dcl.Page');
-		
-	return $oRetVal;
+	return new Page();
 }
 
 function GetPluginDir()
@@ -427,7 +407,7 @@ function GetDefaultTemplateSet()
 
 	if (isset($g_oSession) || is_object($g_oSession))
 	{
-		$o = CreateObject('dcl.dbPreferences');
+		$o = new dbPreferences();
 		$o->preferences_data = $g_oSession->Value('dcl_preferences');
 
 		if (IsTemplateValid($o->Value('DCL_PREF_TEMPLATE_SET')))
@@ -446,7 +426,7 @@ function CreateTemplate($arrTemplate)
 
 	// Create a template object and hook it up to the template in the
 	// configured template set
-	$Template = CreateObject('dcl.DCLTemplate');
+	$Template = new DCLTemplate();
 	$Template->set_root(DCL_ROOT . 'templates/' . GetDefaultTemplateSet());
 	$Template->set_file($arrTemplate);
 
@@ -459,7 +439,7 @@ function &CreateSmarty()
 
 	$sDefaultTemplateSet = GetDefaultTemplateSet();
 
-	$oSmarty = new Smarty;
+	$oSmarty = new Smarty();
 	$oSmarty->assign('DIR_JS', DCL_WWW_ROOT . "js/");
 	$oSmarty->assign('DIR_CSS', DCL_WWW_ROOT . "templates/$sDefaultTemplateSet/css/");
 	$oSmarty->assign('DIR_IMG', DCL_WWW_ROOT . "templates/$sDefaultTemplateSet/img/");
@@ -582,14 +562,13 @@ function buildMenuArray()
 	$dcl_info['DCL_MODULE_SPECS_ENABLED'] = false;
 
 	$DCL_MENU = array();
-	//$DCL_MENU[DCL_MENU_HOME] = array('htmlMyDCL.show', true);
 
 	if ($dcl_info['DCL_MODULE_WO_ENABLED'])
 	{
 		$aViews = array();
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			$oDB = CreateObject('dcl.dbViews');
+			$oDB = new dbViews();
 			if ($oDB->ListByUser($GLOBALS['DCLID'], DCL_ENTITY_WORKORDER) !== -1)
 			{
 				while ($oDB->next_record())
@@ -628,7 +607,7 @@ function buildMenuArray()
 		$aViews = array();
 		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 		{
-			$oDB = CreateObject('dcl.dbViews');
+			$oDB = new dbViews();
 			if ($oDB->ListByUser($GLOBALS['DCLID'], DCL_ENTITY_TICKET) !== -1)
 			{
 				while ($oDB->next_record())

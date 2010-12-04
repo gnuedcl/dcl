@@ -34,7 +34,7 @@ class boAttributesets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlAttributesets');
+		$obj = new htmlAttributesets();
 		$obj->PrintAll();
 	}
 
@@ -58,7 +58,7 @@ class boAttributesets
 			return;
 		}
 
-		$obj =& CreateObject('dcl.htmlAttributesetmapping');
+		$obj = new htmlAttributesetmapping();
 		$obj->Show($iSetID, $iTypeID);
 	}
 
@@ -82,7 +82,7 @@ class boAttributesets
 			return;
 		}
 
-		$obj =& CreateObject('dcl.dbAttributesetsmap');
+		$obj = new dbAttributesetsmap();
 		$obj->setid = $iSetID;
 		$obj->typeid = $iTypeID;
 		
@@ -103,10 +103,10 @@ class boAttributesets
 
 		$obj->EndTransaction();
 
-		$objA =& CreateObject('dcl.dbAttributesets');
+		$objA = new dbAttributesets();
 		$objA->Load($obj->setid);
 
-		$objH =& CreateObject('dcl.htmlAttributesetdetail');
+		$objH = new htmlAttributesetdetail();
 		$objH->Show($objA);
 	}
 
@@ -124,11 +124,11 @@ class boAttributesets
 			return;
 		}
 
-		$objA =& CreateObject('dcl.dbAttributesets');
+		$objA = new dbAttributesets();
 		if ($objA->Load($iID) == -1)
 			return;
 
-		$obj =& CreateObject('dcl.htmlAttributesetdetail');
+		$obj = new htmlAttributesetdetail();
 		$obj->Show($objA);
 	}
 
@@ -140,7 +140,7 @@ class boAttributesets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlAttributesets');
+		$obj = new htmlAttributesets();
 		$obj->ShowEntryForm();
 	}
 
@@ -152,11 +152,11 @@ class boAttributesets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbAttributesets');
+		$obj = new dbAttributesets();
 		$obj->InitFromGlobals();
 		$obj->Add();
 
-		$objHTML =& CreateObject('dcl.htmlAttributesets');
+		$objHTML = new htmlAttributesets();
 		$objHTML->PrintAll();
 	}
 
@@ -174,11 +174,11 @@ class boAttributesets
 			return;
 		}
 
-		$obj =& CreateObject('dcl.dbAttributesets');
+		$obj = new dbAttributesets();
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		$objHTML =& CreateObject('dcl.htmlAttributesets');
+		$objHTML = new htmlAttributesets();
 		$objHTML->ShowEntryForm($obj);
 	}
 
@@ -190,11 +190,11 @@ class boAttributesets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbAttributesets');
+		$obj = new dbAttributesets();
 		$obj->InitFromGlobals();
 		$obj->Edit();
 		
-		$objHTML =& CreateObject('dcl.htmlAttributesets');
+		$objHTML = new htmlAttributesets();
 		$objHTML->PrintAll();
 	}
 	function delete()
@@ -211,7 +211,7 @@ class boAttributesets
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbAttributesets');
+		$obj = new dbAttributesets();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -232,7 +232,7 @@ class boAttributesets
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbAttributesets');
+		$obj = new dbAttributesets();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -247,8 +247,7 @@ class boAttributesets
 			print(STR_BO_DEACTIVATED);
 		}
 
-		$objHTML =& CreateObject('dcl.html' . $classSubName);
+		$objHTML = new htmlAttributesets();
 		$objHTML->PrintAll();
 	}
 }
-?>

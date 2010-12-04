@@ -87,7 +87,7 @@ class dbFaqquestions extends dclDB
 
 	function Delete()
 	{
-		$o =& CreateObject('dcl.dbFaqanswers');
+		$o = new dbFaqanswers();
 		if ($o->DeleteByQuestion($this->questionid) == -1)
 		{
 			return -1;
@@ -151,4 +151,3 @@ class dbFaqquestions extends dclDB
 		return 1;
 	}
 }
-?>

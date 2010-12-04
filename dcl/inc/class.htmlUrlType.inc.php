@@ -40,7 +40,7 @@ class htmlUrlType
 		$table = 'dcl_url_type';
 		$order = 'url_type_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'url_type_id', 'url_type_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -58,20 +58,20 @@ class htmlUrlType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_URLTYPE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_url_type';
 		$o->title = sprintf('URL Types');
 		$o->AddDef('columns', '', array('url_type_id', 'url_type_name'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$o->AddDef('order', '', $orderBy);
 
-		$oDB = CreateObject('dcl.dbUrlType');
+		$oDB = new dbUrlType();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('URL Types');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
@@ -135,7 +135,7 @@ class htmlUrlType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbUrlType');
+		$obj = new dbUrlType();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -156,7 +156,7 @@ class htmlUrlType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbUrlType');
+		$obj = new dbUrlType();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -171,7 +171,7 @@ class htmlUrlType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_URLTYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boUrlType');
+		$obj = new boUrlType();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 
@@ -188,7 +188,7 @@ class htmlUrlType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_URLTYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boUrlType');
+		$obj = new boUrlType();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -210,7 +210,7 @@ class htmlUrlType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boUrlType');
+		$obj = new boUrlType();
 		$aKey = array('url_type_id' => $id);
 		$obj->delete($aKey);
 
@@ -249,4 +249,3 @@ class htmlUrlType
 		SmartyDisplay($t, 'htmlUrlTypeForm.tpl');
 	}
 }
-?>

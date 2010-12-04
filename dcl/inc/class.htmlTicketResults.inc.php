@@ -42,7 +42,7 @@ class htmlTicketResults
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 			return PrintPermissionDenied();
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		
 		$oTable->assign('VAL_VIEWSETTINGS', $oView->GetForm());
 		$aProducts = IsSet($_REQUEST['product']) ? DCL_Sanitize::ToIntArray($_REQUEST['product']) : array();
@@ -123,4 +123,3 @@ class htmlTicketResults
 		$oTable->render();
 	}
 }
-?>

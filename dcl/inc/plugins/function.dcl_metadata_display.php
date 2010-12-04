@@ -39,7 +39,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 	}
 
 	if (!isset($g_oMetaData) || !is_a($g_oMetaData, 'DCL_Metadatadisplay'))
-		$g_oMetaData = CreateObject('dcl.DCL_MetadataDisplay');
+		$g_oMetaData = new DCL_MetadataDisplay();
 		
 	switch ($params['type'])
 	{
@@ -70,7 +70,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 				return;
 			}
 			
-			$oProjects =& CreateObject('dcl.boProjects');
+			$oProjects = new boProjects();
 			$aProjects = $oProjects->GetProjectPath($params['value'], $params['value2']);
 			if (count($aProjects) > 0)
 			{
@@ -169,7 +169,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 				return;
 			}
 
-			$oAcct =& CreateObject('dcl.dbWorkOrderAccount');
+			$oAcct = new dbWorkOrderAccount();
 			$aOrgs = array();
 			if ($oAcct->Load($params['value'], $params['value2']) != -1)
 			{
@@ -198,4 +198,3 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 
 	return $params['value'];
 }
-?>

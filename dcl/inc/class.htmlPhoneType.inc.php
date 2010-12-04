@@ -40,7 +40,7 @@ class htmlPhoneType
 		$table = 'dcl_phone_type';
 		$order = 'phone_type_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'phone_type_id', 'phone_type_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -58,20 +58,20 @@ class htmlPhoneType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_phone_type';
 		$o->title = sprintf('Phone Types');
 		$o->AddDef('columns', '', array('phone_type_id', 'phone_type_name'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$o->AddDef('order', '', $orderBy);
 
-		$oDB = CreateObject('dcl.dbPhoneType');
+		$oDB = new dbPhoneType();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Phone Types');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
@@ -135,7 +135,7 @@ class htmlPhoneType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbPhoneType');
+		$obj = new dbPhoneType();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -156,7 +156,7 @@ class htmlPhoneType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbPhoneType');
+		$obj = new dbPhoneType();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -171,7 +171,7 @@ class htmlPhoneType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boPhoneType');
+		$obj = new boPhoneType();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 
@@ -188,7 +188,7 @@ class htmlPhoneType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boPhoneType');
+		$obj = new boPhoneType();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -209,7 +209,7 @@ class htmlPhoneType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boPhoneType');
+		$obj = new boPhoneType();
 		CleanArray($_REQUEST);
 
 		$aKey = array('phone_type_id' => $id);
@@ -250,4 +250,3 @@ class htmlPhoneType
 		SmartyDisplay($t, 'htmlPhoneTypeForm.tpl');
 	}
 }
-?>

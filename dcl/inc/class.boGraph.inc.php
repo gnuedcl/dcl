@@ -130,7 +130,7 @@ class boGraph
 	
 	function Render()
 	{
-		$oChart = CreateObject('dcl.DCL_Chart');
+		$oChart = new DCL_Chart();
 		$oChart->Init($this->graph_width, $this->graph_height);
 		
 		$oChart->Data->AddPoint($this->data[0], 'Serie1');
@@ -159,4 +159,3 @@ class boGraph
 		exit;
 	}
 }
-?>

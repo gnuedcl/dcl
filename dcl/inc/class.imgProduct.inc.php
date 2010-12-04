@@ -34,7 +34,7 @@ class imgProduct
 		header('Expires: Thu, 11 Mar 1993 08:00:00 GMT');
 		
 		$this->iMaxSliceIndex = 11;
-		$this->img = CreateObject('dcl.DCL_Chart');
+		$this->img = new DCL_Chart();
 		$this->aAddlColors = array(
 			array(94, 48, 0),
 			array(201, 34, 0),
@@ -109,7 +109,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetProductCount() == -1)
 			exit;
 
@@ -123,7 +123,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetProductCountTicket() == -1)
 			exit;
 
@@ -143,7 +143,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetStatusCount($id) == -1)
 			exit;
 
@@ -163,7 +163,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetDepartmentCount($id) == -1)
 			exit;
 
@@ -183,7 +183,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetSeverityCount($id) == -1)
 			exit;
 
@@ -203,7 +203,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetPriorityCount($id) == -1)
 			exit;
 
@@ -223,7 +223,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetModuleCount($id) == -1)
 			exit;
 
@@ -243,7 +243,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetTypeCount($id) == -1)
 			exit;
 
@@ -263,7 +263,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetStatusCountTicket($id) == -1)
 			exit;
 
@@ -283,7 +283,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetTypeCountTicket($id) == -1)
 			exit;
 
@@ -303,7 +303,7 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetPriorityCountTicket($id) == -1)
 			exit;
 
@@ -323,11 +323,10 @@ class imgProduct
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 			
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		if ($oDB->GetModuleCountTicket($id) == -1)
 			exit;
 
 		$this->pie($oDB, 'Tickets By Module');
 	}
 }
-?>

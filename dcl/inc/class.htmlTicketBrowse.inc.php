@@ -35,7 +35,7 @@ class htmlTicketBrowse
 		$this->sPagingMenuAction = 'htmlTicketBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = CreateObject('dcl.dbTickets');
+		$this->oDB = new dbTickets();
 	}
 
 	function Render(&$oView)
@@ -60,7 +60,7 @@ class htmlTicketBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$iEndOffset = 0;
 		for ($iColumn = count($oView->groups); $iColumn < $this->oDB->NumFields(); $iColumn++)
 		{
@@ -151,7 +151,7 @@ class htmlTicketBrowse
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -231,4 +231,3 @@ class htmlTicketBrowse
 		return true;
 	}
 }
-?>

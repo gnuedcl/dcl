@@ -81,7 +81,7 @@ class dbFaqtopics extends dclDB
 
 	function Delete()
 	{
-		$o =& CreateObject('dcl.dbFaqquestions');
+		$o = new dbFaqquestions();
 		if ($o->DeleteByTopic($this->topicid) == -1)
 		{
 			return -1;
@@ -145,4 +145,3 @@ class dbFaqtopics extends dclDB
 		return 1;
 	}
 }
-?>

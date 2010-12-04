@@ -42,7 +42,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlWorkOrderForm');
+		$obj = new htmlWorkOrderForm();
 		$obj->Show();
 	}
 
@@ -64,7 +64,7 @@ class boWorkorders
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.htmlWorkOrderForm');
+		$obj = new htmlWorkOrderForm();
 		$obj->Show($iID);
 	}
 
@@ -93,17 +93,17 @@ class boWorkorders
 		
 		$bSequence = isset($_REQUEST['copyseq']) && $_REQUEST['copyseq'] == 'true';
 		
-		$oWO =& CreateObject('dcl.dbWorkorders');
+		$oWO = new dbWorkorders();
 		$oWO->Load($iID, $iSeq);
 		
-		$oProject =& CreateObject('dcl.dbProjectmap');
+		$oProject = new dbProjectmap();
 		if ($oProject->LoadByWO($iID, $iSeq) != -1)
 			$_REQUEST['projectid'] = $oProject->projectid;
 			
 		$oWO->jcn = 0;
 		$oWO->seq = 0;
 
-		$obj =& CreateObject('dcl.htmlWorkOrderForm');
+		$obj = new htmlWorkOrderForm();
 		$obj->Show($bSequence ? $iID : 0, $oWO);
 	}
 
@@ -127,10 +127,10 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
 			return PrintPermissionDenied();
 
-		$oWO =& CreateObject('dcl.dbWorkorders');
+		$oWO = new dbWorkorders();
 		$oWO->Load($iID, $iSeq);
 
-		$obj =& CreateObject('dcl.htmlWorkOrderForm');
+		$obj = new htmlWorkOrderForm();
 		$obj->Show($iID, $oWO);
 	}
 
@@ -142,7 +142,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$objWorkorder =& CreateObject('dcl.dbWorkorders');
+		$objWorkorder = new dbWorkorders();
 
 		// If we're creating a seq, be sure the jcn exists
 		$iID = 0;
@@ -176,7 +176,7 @@ class boWorkorders
 				$aAccounts = explode(',', $_REQUEST['secaccounts']);
 				if (count($aAccounts) > 0)
 				{
-					$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
+					$oWOA = new dbWorkOrderAccount();
 					$oWOA->wo_id = $objWorkorder->jcn;
 					$oWOA->seq = $objWorkorder->seq;
 
@@ -195,7 +195,7 @@ class boWorkorders
 		{
 			if (($iOrgID = @DCL_Sanitize::ToInt($_REQUEST['secaccounts'])) !== null && $iOrgID > 0)
 			{
-				$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
+				$oWOA = new dbWorkOrderAccount();
 				$oWOA->wo_id = $objWorkorder->jcn;
 				$oWOA->seq = $objWorkorder->seq;
 				$oWOA->account_id = $iOrgID;
@@ -205,13 +205,13 @@ class boWorkorders
 		
 		if (isset($_REQUEST['tags']))
 		{
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
 		}
 
 		if (isset($_REQUEST['hotlist']))
 		{
-			$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$oHotlist = new dbEntityHotlist();
 			$oHotlist->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
 		}
 
@@ -222,7 +222,7 @@ class boWorkorders
 			{
 				if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK, $iProjID))
 				{
-					$objPM =& CreateObject('dcl.dbProjectmap');
+					$objPM = new dbProjectmap();
 					$objPM->projectid = $iProjID;
 					$objPM->jcn = $objWorkorder->jcn;
 		
@@ -242,7 +242,7 @@ class boWorkorders
 		// upload a file attachment?
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null)
 		{
-			$o =& CreateObject('dcl.boFile');
+			$o = new boFile();
 			$o->iType = DCL_ENTITY_WORKORDER;
 			$o->iKey1 = $objWorkorder->jcn;
 			$o->iKey2 = $objWorkorder->seq;
@@ -257,7 +257,7 @@ class boWorkorders
 		{
 			if (($iTicketID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) !== null && $iTicketID > 0)
 			{
-				$oTR =& CreateObject('dcl.dbTicketresolutions');
+				$oTR = new dbTicketresolutions();
 				$oTR->ticketid = $iTicketID;
 				$oTR->loggedby = $GLOBALS['DCLID'];
 				$oTR->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
@@ -265,7 +265,7 @@ class boWorkorders
 				$oTR->is_public = $objWorkorder->is_public;
 				$oTR->resolution = sprintf('Copied to dcl://workorders/%d-%d', $objWorkorder->jcn, $objWorkorder->seq);
 	
-				$oTck =& CreateObject('dcl.dbTickets');
+				$oTck = new dbTickets();
 				$oTck->Load($oTR->ticketid);
 				$oTck->lastactionon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 				$oTR->status = $oTck->status;
@@ -280,13 +280,13 @@ class boWorkorders
 		// Reload work order to update fields now that we have it all stored
 		$objWorkorder->Load($objWorkorder->jcn, $objWorkorder->seq);
 
-		$objWtch =& CreateObject('dcl.boWatches');
+		$objWtch = new boWatches();
 		$objWtch->sendNotification($objWorkorder, '4,1');
 
 		if (EvaluateReturnTo())
 			return;
 
-		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objWO = new htmlWorkOrderDetail();
 		$objWO->Show($objWorkorder->jcn, $objWorkorder->seq);
 	}
 
@@ -310,7 +310,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
 			return PrintPermissionDenied();
 
-		$objWorkorder =& CreateObject('dcl.dbWorkorders');
+		$objWorkorder = new dbWorkorders();
 		if ($objWorkorder->Load($iID, $iSeq) == -1)
 			return;
 
@@ -350,7 +350,7 @@ class boWorkorders
 		if ($bModified)
 			$objWorkorder->Edit();
 
-		$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
+		$oWOA = new dbWorkOrderAccount();
 		if (IsSet($_REQUEST['secaccounts']))
 		{
 			$aAccounts = @DCL_Sanitize::ToIntArray($_REQUEST['secaccounts']);
@@ -382,23 +382,23 @@ class boWorkorders
 
 		if (isset($_REQUEST['tags']))
 		{
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
 		}
 		
 		if (isset($_REQUEST['hotlist']))
 		{
-			$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$oHotlist = new dbEntityHotlist();
 			$oHotlist->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
 		}
 
-		$objWtch =& CreateObject('dcl.boWatches');
+		$objWtch = new boWatches();
 		$objWtch->sendNotification($objWorkorder, '4');
 
 		if (EvaluateReturnTo())
 			return;
 
-		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objWO = new htmlWorkOrderDetail();
 		$objWO->Show($objWorkorder->jcn, $objWorkorder->seq);
 	}
 
@@ -422,7 +422,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $iID, $iSeq))
 			return PrintPermissionDenied();
 
-		$oWO =& CreateObject('dcl.dbWorkorders');
+		$oWO = new dbWorkorders();
 		if ($oWO->Load($iID, $iSeq) == -1)
 			return;
 
@@ -450,25 +450,25 @@ class boWorkorders
 			return PrintPermissionDenied();
 
 		// Remove from projects
-		$objPM =& CreateObject('dcl.boProjects');
+		$objPM = new boProjects();
 		$objPM->dbunmap($iID, $iSeq, true);
 
 		// Remove secondary accounts
 		if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y')
 		{
-			$oWOA = CreateObject('dcl.dbWorkOrderAccount');
+			$oWOA = new dbWorkOrderAccount();
 			$oWOA->DeleteByWorkOrder($iID, $iSeq);
 		}
 
 		// Remove the work order entry - also does time cards
-		$obj =& CreateObject('dcl.dbWorkorders');
+		$obj = new dbWorkorders();
 		$obj->jcn = $iID;
 		$obj->seq = $iSeq;
 
 		$obj->Delete();
 
 		// Remove account references
-		$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
+		$oWOA = new dbWorkOrderAccount();
 		$oWOA->DeleteByWorkOrder($obj->jcn, $obj->seq);
 
 		// Remove all attachments
@@ -485,20 +485,20 @@ class boWorkorders
 		}
 		
 		// Remove tasks
-		$oTasks =& CreateObject('dcl.dbWorkOrderTask');
+		$oTasks = new dbWorkOrderTask();
 		$oTasks->DeleteByWorkOrder($iID, $iSeq);
 		
 		// Remove tags
-		$oTag =& CreateObject('dcl.dbEntityTag');
+		$oTag = new dbEntityTag();
 		$oTag->deleteByEntity(DCL_ENTITY_WORKORDER, $iID, $iSeq);
 
 		// Remove from hotlists
-		$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+		$oHotlist = new dbEntityHotlist();
 		$oHotlist->deleteByEntity(DCL_ENTITY_WORKORDER, $iID, $iSeq);
 
 		trigger_error(sprintf(STR_BO_WORKORDERDELETED, $iID, $iSeq), E_USER_NOTICE);
 
-		$objMy =& CreateObject('dcl.htmlMyDCL');
+		$objMy = new htmlMyDCL();
 		$objMy->showMy();
 	}
 
@@ -519,7 +519,7 @@ class boWorkorders
 			if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $iID, $iSeq))
 				return PrintPermissionDenied();
 				
-			$obj =& CreateObject('dcl.htmlWorkOrderDetail');
+			$obj = new htmlWorkOrderDetail();
 			$obj->Show($iID, $iSeq);
 			return;
 		}
@@ -527,7 +527,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $iID))
 			return PrintPermissionDenied();
 
-		$objView =& CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->style = 'report';
 		$objView->title = STR_WO_RESULTSTITLE;
 
@@ -543,7 +543,7 @@ class boWorkorders
 			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
 				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_WO_SUMMARY));
 
-		$objHV =& CreateObject('dcl.htmlWorkOrderResults');
+		$objHV = new htmlWorkOrderResults();
 		$objHV->Render($objView);
 	}
 
@@ -589,7 +589,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 			return PrintPermissionDenied();
 
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->table = 'workorders';
 
 		if (strlen($columnhdrs) > 0)
@@ -841,7 +841,7 @@ class boWorkorders
 		else
 			$objView->title = STR_WO_RESULTSTITLE;
 
-		$obj =& CreateObject('dcl.htmlWorkOrderResults');
+		$obj = new htmlWorkOrderResults();
 		$obj->Render($objView);
 	}
 
@@ -856,7 +856,7 @@ class boWorkorders
 			return;
 		}
 
-		$obj =& CreateObject('dcl.htmlWorkorders');
+		$obj = new htmlWorkorders();
 		$obj->DisplayGraphForm();
 	}
 
@@ -883,13 +883,13 @@ class boWorkorders
 		if (($iProduct = @DCL_Sanitize::ToInt($_REQUEST['product'])) === null)
 		    $iProduct = 0;
 		
-		$objG =& CreateObject('dcl.boGraph');
-		$obj =& CreateObject('dcl.dbWorkorders');
+		$objG = new boGraph();
+		$obj = new dbWorkorders();
 		
-		$beginDate = new DCLTimestamp;
-		$endDate = new DCLTimestamp;
-		$testDate = new DCLDate;
-		$testTS = new DCLTimestamp;
+		$beginDate = new DCLTimestamp();
+		$endDate = new DCLTimestamp();
+		$testDate = new DCLDate();
+		$testTS = new DCLTimestamp();
 
 		$endDate->SetFromDisplay($dateFrom . ' 23:59:59');
 		$beginDate->SetFromDisplay($dateFrom . ' 00:00:00');
@@ -956,7 +956,7 @@ class boWorkorders
 		$objG->title = STR_BO_WOGRAPHTITLE;
 		if ($iProduct > 0)
 		{
-			$oDB =& CreateObject('dcl.dbProducts');
+			$oDB = new dbProducts();
 			if ($oDB->Load($iProduct) != -1)
 				$objG->title .= ' ' . $oDB->name;
 		}
@@ -993,10 +993,10 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN, $iID, $iSeq))
 			return PrintPermissionDenied();
 
-		$objWO =& CreateObject('dcl.htmlWorkorders');
+		$objWO = new htmlWorkorders();
 		$objWO->PrintReassignForm();
 
-		$obj =& CreateObject('dcl.htmlWorkOrderDetail');
+		$obj = new htmlWorkOrderDetail();
 		$obj->Show($iID, $iSeq);
 	}
 
@@ -1025,7 +1025,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN, $iID, $iSeq))
 			return PrintPermissionDenied();
 
-		$objWO =& CreateObject('dcl.dbWorkorders');
+		$objWO = new dbWorkorders();
 		if ($objWO->Load($iID, $iSeq) == -1)
 			return;
 		
@@ -1045,7 +1045,7 @@ class boWorkorders
 			$objWO->estendon = $estendon;
 			$objWO->esthours = $fEstHours;
 
-			$oStatus =& CreateObject("dcl.dbStatuses");
+			$oStatus = new dbStatuses();
 			if ($oStatus->GetStatusType($objWO->status) != 2)
 			{
 				$objWO->etchours = $fEtcHours;
@@ -1062,11 +1062,11 @@ class boWorkorders
 			$objWO->severity = $iSeverity;
 			$objWO->Edit();
 
-			$objWtch =& CreateObject('dcl.boWatches');
+			$objWtch = new boWatches();
 			$objWtch->sendNotification($objWO, '4');
 		}
 
-		$objHTMLWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objHTMLWO = new htmlWorkOrderDetail();
 		$objHTMLWO->Show($iID, $iSeq);
 	}
 
@@ -1078,10 +1078,10 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN))
 			return PrintPermissionDenied();
 
-		$objWO =& CreateObject('dcl.htmlWorkorders');
+		$objWO = new htmlWorkorders();
 		$objWO->PrintReassignForm();
 
-		$obj =& CreateObject('dcl.htmlTimeCards');
+		$obj = new htmlTimeCards();
 		$obj->ShowBatchWO();
 	}
 
@@ -1095,8 +1095,8 @@ class boWorkorders
 
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
-			$objWtch =& CreateObject('dcl.boWatches');
-			$objWO =& CreateObject('dcl.dbWorkorders');
+			$objWtch = new boWatches();
+			$objWO = new dbWorkorders();
 			$bNeedBreak = false;
 
 			if (($iResponsible = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
@@ -1146,10 +1146,10 @@ class boWorkorders
 		if (EvaluateReturnTo())
 			return;
 
-		$objView =& CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->SetFromURL();
 		
-		$objH =& CreateObject('dcl.htmlWorkOrderResults');
+		$objH = new htmlWorkOrderResults();
 		$objH->Render($objView);
 	}
 
@@ -1168,10 +1168,10 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $iID, $iSeq))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlWorkorders');
+		$obj = new htmlWorkorders();
 		$obj->ShowUploadFileForm($iID, $iSeq);
 
-		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objWO = new htmlWorkOrderDetail();
 		$objWO->Show($iID, $iSeq);
 	}
 
@@ -1190,14 +1190,14 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $iID, $iSeq))
 			return PrintPermissionDenied();
 		
-		$oWO =& CreateObject('dcl.dbWorkorders');
+		$oWO = new dbWorkorders();
 		if ($oWO->Load($iID, $iSeq) == -1)
 			return;
 
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) === null)
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boFile');
+		$o = new boFile();
 		$o->iType = DCL_ENTITY_WORKORDER;
 		$o->iKey1 = $iID;
 		$o->iKey2 = $iSeq;
@@ -1206,7 +1206,7 @@ class boWorkorders
 		$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 		$o->Upload();
 		
-		$obj = CreateObject('dcl.htmlWorkOrderDetail');
+		$obj = new htmlWorkOrderDetail();
 		$obj->Show($iID, $iSeq);
 	}
 
@@ -1226,10 +1226,10 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $iID, $iSeq))
 			return PrintPermissionDenied();
 
-		$objH =& CreateObject('dcl.htmlWorkorders');
+		$objH = new htmlWorkorders();
 		$objH->ShowDeleteAttachmentYesNo($iID, $iSeq, $_REQUEST['filename']);
 
-		$obj =& CreateObject('dcl.htmlWorkOrderDetail');
+		$obj = new htmlWorkOrderDetail();
 		$obj->Show($iID, $iSeq);
 	}
 
@@ -1253,7 +1253,7 @@ class boWorkorders
 		if (is_file($attachPath . $_REQUEST['filename']) && is_readable($attachPath . $_REQUEST['filename']))
 			unlink($attachPath . $_REQUEST['filename']);
 
-		$obj =& CreateObject('dcl.htmlWorkOrderDetail');
+		$obj = new htmlWorkOrderDetail();
 		$obj->Show($iID, $iSeq);
 	}
 
@@ -1266,14 +1266,14 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT))
 			return PrintPermissionDenied();
 
-		$objHTMLWO =& CreateObject('dcl.htmlWorkorders');
+		$objHTMLWO = new htmlWorkorders();
 		$objHTMLWO->ShowCSVUploadDialog();
 	}
 
 	function verifyID($field, $id)
 	{
 		if ($this->oMetaData === null)
-			$this->oMetaData =& CreateObject('dcl.DCL_MetadataDisplay');
+			$this->oMetaData = new DCL_MetadataDisplay();
 
 		$oVal = null;
 		switch ($field)
@@ -1356,10 +1356,10 @@ class boWorkorders
 				return -1;
 		}
 		
-		$objWorkorder =& CreateObject('dcl.dbWorkorders');
-		$objTemp =& CreateObject('dcl.dbWorkorders');
-		$objProjectmap =& CreateObject('dcl.dbProjectmap');
-		$objWtch =& CreateObject('dcl.boWatches');
+		$objWorkorder = new dbWorkorders();
+		$objTemp = new dbWorkorders();
+		$objProjectmap = new dbProjectmap();
+		$objWtch = new boWatches();
 
 		while($data = fgetcsv($hFile, 1000))
 		{
@@ -1478,7 +1478,7 @@ class boWorkorders
 		if (count($newjcns) > 0)
 		{
 			// Display imported work orders
-			$objView =& CreateObject('dcl.boView');
+			$objView = new boView();
 			$objView->style = 'report';
 			$objView->title = 'Work Order CSV Upload Results';
 			$objView->AddDef('filter', 'jcn', $newjcns);
@@ -1492,7 +1492,7 @@ class boWorkorders
 				array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
 					STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_WO_SUMMARY));
 	
-			$objHV =& CreateObject('dcl.htmlWorkOrderResults');
+			$objHV = new htmlWorkOrderResults();
 			$objHV->Render($objView);
 		}
 	}
@@ -1501,8 +1501,8 @@ class boWorkorders
 	{
 		commonHeader();
 		
-		$obj =& CreateObject('dcl.htmlWorkorders');
-		$objDB =& CreateObject('dcl.dbWorkorders');
+		$obj = new htmlWorkorders();
+		$objDB = new dbWorkorders();
 		
 		if ($_REQUEST['which'] == 'responsible')
 			$obj->showmy($objDB, 'responsible', STR_WO_MYWO, STR_WO_NOOPEN, 0);
@@ -1518,8 +1518,8 @@ class boWorkorders
 
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
-			$obj =& CreateObject('dcl.htmlWorkOrderDetail');
-			$objWorkorder =& CreateObject('dcl.dbWorkorders');
+			$obj = new htmlWorkOrderDetail();
+			$objWorkorder = new dbWorkorders();
 			$bNeedBreak = false;
 			
 			foreach ($_REQUEST['selected'] as $val)
@@ -1547,12 +1547,11 @@ class boWorkorders
 		}
 		else
 		{
-			$objView =& CreateObject('dcl.boView');
+			$objView = new boView();
 			$objView->SetFromURL();
 			
-			$objH =& CreateObject('dcl.htmlWorkOrderResults');
+			$objH = new htmlWorkOrderResults();
 			$objH->Render($objView);
 		}
 	}
 }
-?>

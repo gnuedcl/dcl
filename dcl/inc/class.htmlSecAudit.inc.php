@@ -36,14 +36,14 @@ class htmlSecAudit
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 		
-		$objPersonnel = CreateObject('dcl.htmlPersonnel');
+		$objPersonnel = new htmlPersonnel();
 		
-		$oDBPersonnel = CreateObject('dcl.dbPersonnel');
+		$oDBPersonnel = new dbPersonnel();
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
 			return;
 			
 		$t =& CreateSmarty();
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		
 		$t->assign('CMB_USERS', $objPersonnel->GetCombo(0, 'responsible', 'lastfirst', 0, false));
 		
@@ -70,7 +70,7 @@ class htmlSecAudit
 			
 			
 			
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		
 		$oTable->addColumn(STR_USR_LOGIN, 'string');
 		$oTable->addColumn(STR_SEC_ACTIONON, 'numeric');
@@ -88,4 +88,3 @@ class htmlSecAudit
 	
 	}
 }
-?>

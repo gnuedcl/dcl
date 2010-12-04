@@ -30,7 +30,7 @@ class boWorkspace extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbWorkspace');
+		$this->oDB = new dbWorkspace();
 		$this->sKeyField = 'workspace_id';
 		$this->Entity = DCL_ENTITY_WORKSPACE;
 
@@ -49,10 +49,10 @@ class boWorkspace extends boAdminObject
 		
 		if ($this->oDB->workspace_id > 0)
 		{
-			$oWSP = CreateObject('dcl.dbWorkspaceProduct');
+			$oWSP = new dbWorkspaceProduct();
 			$oWSP->serialize($this->oDB->workspace_id, $aSource['products'], true);
 						
-			$oWSU = CreateObject('dcl.dbWorkspaceUser');
+			$oWSU = new dbWorkspaceUser();
 			$oWSU->serialize($this->oDB->workspace_id, $aSource['users'], true);
 		}
 	}
@@ -62,11 +62,10 @@ class boWorkspace extends boAdminObject
 		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
 		parent::modify($aSource);
 
-		$oWSP = CreateObject('dcl.dbWorkspaceProduct');
+		$oWSP = new dbWorkspaceProduct();
 		$oWSP->serialize($aSource['workspace_id'], $aSource['products'], false);
 						
-		$oWSU = CreateObject('dcl.dbWorkspaceUser');
+		$oWSU = new dbWorkspaceUser();
 		$oWSU->serialize($this->oDB->workspace_id, $aSource['users'], false);
 	}
 }
-?>

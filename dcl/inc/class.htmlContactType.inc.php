@@ -38,7 +38,7 @@ class htmlContactType
 		$table = 'dcl_contact_type';
 		$order = 'contact_type_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'contact_type_id', 'contact_type_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -57,20 +57,20 @@ class htmlContactType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_contact_type';
 		$o->title = STR_ADMIN_CONTACTTYPES;
 		$o->AddDef('columns', '', array('contact_type_id', 'contact_type_name', 'contact_type_is_main'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME, 'Main'));
 		$o->AddDef('order', '', $orderBy);
 
-		$oDB = CreateObject('dcl.dbContactType');
+		$oDB = new dbContactType();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_ADMIN_CONTACTTYPES, $orderBy));
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
@@ -135,7 +135,7 @@ class htmlContactType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbContactType');
+		$obj = new dbContactType();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -156,7 +156,7 @@ class htmlContactType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbContactType');
+		$obj = new dbContactType();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -171,7 +171,7 @@ class htmlContactType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boContactType');
+		$obj = new boContactType();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 
@@ -188,7 +188,7 @@ class htmlContactType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boContactType');
+		$obj = new boContactType();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -210,7 +210,7 @@ class htmlContactType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boContactType');
+		$obj = new boContactType();
 		$aKey = array('contact_type_id' => $id);
 		$obj->delete($aKey);
 
@@ -250,4 +250,3 @@ class htmlContactType
 		SmartyDisplay($t, 'htmlContactTypeForm.tpl');
 	}
 }
-?>

@@ -65,7 +65,7 @@ class dbEntityHotlist extends dclDB
 			return;
 		}
 		
-		$oHotlist =& CreateObject('dcl.dbHotlist');
+		$oHotlist = new dbHotlist();
 		$aHotlists = split(',', $sHotlists);
 		$aHotlistID = array();
 		foreach ($aHotlists as $sHotlist)
@@ -192,7 +192,7 @@ class dbEntityHotlist extends dclDB
 			return -1;
 		}
 		
-		$oDB = CreateObject('dcl.dbHotlist');
+		$oDB = new dbHotlist();
 		$sID = $oDB->getExistingIdsByName(trim($sHotlists));
 		if ($sID == '-1')
 		{
@@ -534,4 +534,3 @@ class dbEntityHotlist extends dclDB
 		return $retval;
 	}
 }
-

@@ -33,7 +33,7 @@ class htmlContact
 
 		commonHeader();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->startrow = 0;
 		$oView->numrows = 25;
 
@@ -52,7 +52,7 @@ class htmlContact
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$oView->AddDef('filter', 'active', "'$filterActive'");
 
-		$oHtml = CreateObject('dcl.htmlContactBrowse');
+		$oHtml = new htmlContactBrowse();
 		$oHtml->Render($oView);
 	}
 
@@ -66,10 +66,10 @@ class htmlContact
 			return;
 		}
 		
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$aContact = $oMeta->GetContact($id);
 		
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->title = sprintf('%s Work Orders', $aContact['name']);
 		$objView->style = 'report';
 		$objView->table = 'workorders';
@@ -111,10 +111,10 @@ class htmlContact
 			return;
 		}
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$aContact = $oMeta->GetContact($id);
 		
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->title = sprintf('%s Tickets', $aContact['name']);
 		$objView->style = 'report';
 		$objView->table = 'tickets';
@@ -168,7 +168,7 @@ class htmlContact
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		$oSmarty =& CreateSmarty();
 		if (count($contact_id) > 1)
 		{
@@ -238,8 +238,8 @@ class htmlContact
 			// Merge orgs
 			$sSQL = 'SELECT org_id FROM dcl_org_contact WHERE contact_id IN (' . $sMergeContacts . ')';
 			
-			$oDB =& CreateObject('dcl.dbOrgContact');
-			$oDB2 =& CreateObject('dcl.dbOrgContact');
+			$oDB = new dbOrgContact();
+			$oDB2 = new dbOrgContact();
 			
 			$oDB->BeginTransaction();
 			if ($oDB->Query($sSQL) == -1)
@@ -336,14 +336,13 @@ class htmlContact
 
 		if (isset($_REQUEST['chainMenuAction']) && $_REQUEST['chainMenuAction'] == 'htmlContactBrowse.Page')
 		{
-			$oCD =& CreateObject('dcl.htmlContactBrowse');
+			$oCD = new htmlContactBrowse();
 			$oCD->Page();
 		}
 		else
 		{
-			$oDetail =& CreateObject('dcl.htmlContactDetail');
+			$oDetail = new htmlContactDetail();
 			$oDetail->show();
 		}
 	}
 }
-?>

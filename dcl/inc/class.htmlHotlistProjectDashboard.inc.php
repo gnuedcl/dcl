@@ -50,7 +50,7 @@ class htmlHotlistProjectDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			return PrintPermissionDenied();
 
-		$this->hotlist =& CreateObject('dcl.dbHotlist');
+		$this->hotlist = new dbHotlist();
 		if ($this->hotlist->Load($id) == -1)
 		{
 			trigger_error('Could not find a hotlist with an id of ' . $id, E_USER_ERROR);
@@ -63,4 +63,3 @@ class htmlHotlistProjectDashboard
 		SmartyDisplay($this->oSmarty, 'htmlHotlistProjectDashboard.tpl');
 	}
 }
-?>

@@ -254,7 +254,7 @@ class boView
 
 		if (IsSet($_REQUEST['vti']))
 		{
-			$o =& CreateObject('dcl.dbPersonnel');
+			$o = new dbPersonnel();
 			$this->title = $o->GPCStripSlashes($_REQUEST['vti']);
 		}
 
@@ -1040,7 +1040,7 @@ class boView
 	
 						$bFirst = false;
 
-						$oTag = CreateObject('dcl.dbTag');
+						$oTag = new dbTag();
 						$sTagFilter = $oTag->getExistingIdsByName($this->GetCSLFromArray($values));
 						if (!in_array('dcl_tag.tag_desc', $this->order) &&
 							!in_array('dcl_tag.tag_desc', $this->groups) &&
@@ -1081,7 +1081,7 @@ class boView
 	
 						$bFirst = false;
 
-						$oHotlist = CreateObject('dcl.dbHotlist');
+						$oHotlist = new dbHotlist();
 						$sHotlistFilter = $oHotlist->getExistingIdsByName($this->GetCSLFromArray($values));
 						if (!in_array('dcl_hotlist.hotlist_tag', $this->order) &&
 							!in_array('dcl_hotlist.hotlist_tag', $this->groups) &&
@@ -1272,7 +1272,7 @@ class boView
 			}
 		}
 
-		$objWO =& CreateObject('dcl.dbWorkorders');
+		$objWO = new dbWorkorders();
 
 		if (count($this->filterdate) > 0)
 		{
@@ -1580,4 +1580,3 @@ class boView
 		return $sql;
 	}
 }
-?>

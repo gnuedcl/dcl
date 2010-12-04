@@ -80,7 +80,7 @@ class scheduleByPerson
 			return;
 		}
 
-		$dbWO = CreateObject('dcl.dbWorkorders');
+		$dbWO = new dbWorkorders();
 		if ($beginDate == '')
 			$startDate = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 		else
@@ -104,7 +104,7 @@ class scheduleByPerson
 			$hoursLeftInDay = $hoursInDay;
 			do
 			{
-				$dbWork = CreateObject('dcl.dbWorkorders');
+				$dbWork = new dbWorkorders();
 				if ($dbWork->Load($dbWO->f('jcn'), $dbWO->f('seq')) != -1)
 				{
 					$etcHours = $dbWork->f('etchours');
@@ -128,7 +128,7 @@ class scheduleByPerson
 
 		commonHeader();
 
-		$objPersonnel = CreateObject('dcl.htmlPersonnel');
+		$objPersonnel = new htmlPersonnel();
 		$t =& CreateSmarty();
 		
 		$t->assign('CMB_PERSON', $objPersonnel->GetCombo($GLOBALS['DCLID'], 'personID', 'lastfirst'));
@@ -136,4 +136,3 @@ class scheduleByPerson
 		SmartyDisplay($t, 'htmlScheduleByPerson.tpl');
 	}
 }
-?>

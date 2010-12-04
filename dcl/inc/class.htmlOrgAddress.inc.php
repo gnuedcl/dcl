@@ -56,7 +56,7 @@ class htmlOrgAddress
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbOrgAddr');
+		$obj = new dbOrgAddr();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -90,7 +90,7 @@ class htmlOrgAddress
 
 		CleanArray($_REQUEST);
 
-		$oOrgAddr = CreateObject('dcl.boOrgAddr');
+		$oOrgAddr = new boOrgAddr();
 		$oOrgAddr->add(array(
 						'org_id' => $id,
 						'addr_type_id' => $addr_type_id,
@@ -119,7 +119,7 @@ class htmlOrgAddress
 
 		CleanArray($_REQUEST);
 
-		$obj =& CreateObject('dcl.boOrgAddr');
+		$obj = new boOrgAddr();
 		$obj->modify($_REQUEST);
 
 		$this->ShowOrgDetail();
@@ -143,7 +143,7 @@ class htmlOrgAddress
 
 		$aKey = array('org_addr_id' => $id);
 
-		$obj =& CreateObject('dcl.boOrgAddr');
+		$obj = new boOrgAddr();
 		$obj->delete($aKey);
 
 		$this->ShowOrgDetail();
@@ -151,7 +151,7 @@ class htmlOrgAddress
 
 	function ShowOrgDetail()
 	{
-		$oOrg =& CreateObject('dcl.htmlOrgDetail');
+		$oOrg = new htmlOrgDetail();
 		$oOrg->show();
 	}
 
@@ -170,11 +170,11 @@ class htmlOrgAddress
 		}
 
 		$oSmarty =& CreateSmarty();
-		$oAddrType =& CreateObject('dcl.htmlAddrType');
+		$oAddrType = new htmlAddrType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
-		$oOrg = CreateObject('dcl.dbOrg');
+		$oOrg = new dbOrg();
 		$oOrg->Load($_REQUEST['org_id']);
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);
@@ -203,4 +203,3 @@ class htmlOrgAddress
 		SmartyDisplay($oSmarty, 'htmlAddrForm.tpl');
 	}
 }
-?>

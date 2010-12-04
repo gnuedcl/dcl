@@ -92,18 +92,6 @@ $b_next = '';
 // options for mainfile.php
 $xoopsOption['nocommon'] = true;
 define('DCL_INSTALL', 1);
-function CreateObject($className, $sParam = 'undefined')
-{
-	$className = substr($className, 4);
-	include_once(DCL_ROOT . 'inc/class.' . $className . '.inc.php');
-
-	if ($sParam == 'undefined')
-		$obj = new $className;
-	else
-		$obj = new $className($sParam);
-
-	return $obj;
-}
 
 if(!empty($_POST['op']))
     $op = $_POST['op'];
@@ -386,9 +374,8 @@ case "createTables":
 	include_once "../inc/functions.inc.php";
 	include_once 'tables_current.inc.php';
 
-	$oProc = CreateObject('dcl.schema_proc', $dcl_domain_info[$dcl_domain]['dbType']);
+	$oProc = new schema_proc($dcl_domain_info[$dcl_domain]['dbType']);
 	$oProc->m_odb = new dclDB;
-	$oProc->m_odb->Connect();
 
 	$content = '<div style="text-align: left; width: 50%; padding-left: 200px;">';
 	ob_start();
@@ -423,7 +410,6 @@ case 'updateTables':
 
 	// Get current version
 	$oDB = new dclDB;
-	$oDB->Connect();
 	if ($oDB->TableExists('dcl_config'))
 	{
 		$dclVersion = $oDB->ExecuteScalar("SELECT dcl_config_varchar FROM dcl_config WHERE dcl_config_name = 'DCL_VERSION'");
@@ -473,10 +459,9 @@ case 'updateTables':
 				break;
 		}
 
-		$phpgw_setup = new DCLSetup;
-		$phpgw_setup->oProc = CreateObject('dcl.schema_proc', $dcl_domain_info[$dcl_domain]['dbType']);
+		$phpgw_setup = new DCLSetup();
+		$phpgw_setup->oProc = new schema_proc($dcl_domain_info[$dcl_domain]['dbType']);
 		$phpgw_setup->oProc->m_odb = new dclDB;
-		$phpgw_setup->oProc->m_odb->Connect();
 		$phpgw_setup->oProc->m_aTables = $phpgw_baseline;
 
 		$setup_info = array();
@@ -596,4 +581,3 @@ function check_language($language){
         return 'english';
     }
 }
-?>

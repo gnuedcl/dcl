@@ -56,7 +56,7 @@ class htmlOrgUrl
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbOrgUrl');
+		$obj = new dbOrgUrl();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -90,7 +90,7 @@ class htmlOrgUrl
 		
 		CleanArray($_REQUEST);
 
-		$oOrgPhone =& CreateObject('dcl.boOrgUrl');
+		$oOrgPhone = new boOrgUrl();
 		$oOrgPhone->add(array(
 						'org_id' => $id,
 						'url_type_id' => $url_type_id,
@@ -114,7 +114,7 @@ class htmlOrgUrl
 
 		CleanArray($_REQUEST);
 
-		$obj =& CreateObject('dcl.boOrgUrl');
+		$obj = new boOrgUrl();
 		$obj->modify($_REQUEST);
 
 		$this->ShowOrgDetail();
@@ -138,7 +138,7 @@ class htmlOrgUrl
 
 		$aKey = array('org_url_id' => $id);
 
-		$obj =& CreateObject('dcl.boOrgUrl');
+		$obj = new boOrgUrl();
 		$obj->delete($aKey);
 
 		$this->ShowOrgDetail();
@@ -146,7 +146,7 @@ class htmlOrgUrl
 
 	function ShowOrgDetail()
 	{
-		$oOrg =& CreateObject('dcl.htmlOrgDetail');
+		$oOrg = new htmlOrgDetail();
 		$oOrg->show();
 	}
 
@@ -165,11 +165,11 @@ class htmlOrgUrl
 		}
 		
 		$oSmarty =& CreateSmarty();
-		$oUrlType =& CreateObject('dcl.htmlUrlType');
+		$oUrlType = new htmlUrlType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
-		$oOrg = CreateObject('dcl.dbOrg');
+		$oOrg = new dbOrg();
 		$oOrg->Load($_REQUEST['org_id']);
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);
@@ -192,4 +192,3 @@ class htmlOrgUrl
 		SmartyDisplay($oSmarty, 'htmlUrlForm.tpl');
 	}
 }
-?>

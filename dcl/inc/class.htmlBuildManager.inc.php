@@ -30,7 +30,7 @@ class htmlBuildManager
 {
 	function GetCombo($default = 0, $cbName = 'product_version_descr', $longShort = 'product_version_descr', $validate=0, $productid,$size = 0, $activeOnly = true, $minsec = 0)
 	{
-		$objDBRDate = CreateObject('dcl.dbProductVersion');
+		$objDBRDate = new dbProductVersion();
 		$objDBRDate->Connect();
 
 		$whereClause = '';
@@ -47,7 +47,7 @@ class htmlBuildManager
 		//$query .= "ORDER BY $orderBy";
 		$objDBRDate->Query($query);
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		//$oSelect->sOnChange = '';
@@ -68,7 +68,7 @@ class htmlBuildManager
 	
 	function GetBuildCombo($default = 0, $cbName = 'product_build_descr', $longShort = 'product_build_descr', $validate=0, $versionid,$size = 0, $activeOnly = true, $minsec = 0)
 	{
-		$objDBRDate = CreateObject('dcl.dbProductBuild');
+		$objDBRDate = new dbProductBuild();
 		$objDBRDate->Connect();
 
 		$whereClause = '';
@@ -85,7 +85,7 @@ class htmlBuildManager
 		//$query .= "ORDER BY $orderBy";
 		$objDBRDate->Query($query);
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		//$oSelect->sOnChange = '';
@@ -107,7 +107,7 @@ class htmlBuildManager
 	{
 		global $dcl_info;
 
-		$oProduct = CreateObject('dcl.dbProducts');
+		$oProduct = new dbProducts();
 		$oProduct->Load($_REQUEST['product_id']);
 		
 		$oSmarty =& CreateSmarty();
@@ -123,10 +123,10 @@ class htmlBuildManager
 	{
 		global $dcl_info;
 
-		$oDbProduct = CreateObject('dcl.dbProducts');
+		$oDbProduct = new dbProducts();
 		$oDbProduct->Load($_REQUEST['product_id']);
 		
-		$oVersion = CreateObject('dcl.dbProductVersion');
+		$oVersion = new dbProductVersion();
 		$oVersion->Load(array('product_version_id' => $_REQUEST['product_version_id']));
 		
 		$oSmarty =& CreateSmarty();
@@ -151,7 +151,7 @@ class htmlBuildManager
 		includeCalendar();			
 		$Template = CreateTemplate(array('hForm' => 'htmlBuildManagerRelease.tpl'));
 
-		$oProduct = CreateObject('dcl.dbProducts');
+		$oProduct = new dbProducts();
 		$oProduct->Connect();
 		$oProduct->Load($_REQUEST['product_id']);
 		
@@ -160,7 +160,7 @@ class htmlBuildManager
 		$Template->set_var('VAL_JSDATEFORMAT', GetJSDateFormat());
 		$Template->set_var('VAL_MENU', 'boBuildManager.modifySumbit');
 		
-		$oPV = CreateObject('dcl.dbProductVersion');
+		$oPV = new dbProductVersion();
 		if ($oPV->Load(array('product_version_id' => $versionid)) == -1)
 		{
 			ShowError('Failed to load version ID ' . $versionid, 'Error');
@@ -211,13 +211,13 @@ class htmlBuildManager
 				return;
 			}
 
-		$oDbProduct = CreateObject('dcl.dbProducts');
+		$oDbProduct = new dbProducts();
 		$oDbProduct->Load($product_id);
 		
-		$oVersion = CreateObject('dcl.dbProductVersion');
+		$oVersion = new dbProductVersion();
 		$oVersion->Load(array('product_version_id' => $product_version_id));
 
-		$oPB = CreateObject('dcl.dbProductBuild');
+		$oPB = new dbProductBuild();
 		if ($oPB->Load(array('product_build_id' => $buildid)) == -1)
 		{
 			ShowError('Failed to load build ID ' . $buildid, 'Error');
@@ -240,16 +240,16 @@ class htmlBuildManager
 	{
 		commonHeader();
 
-		$oBuild = CreateObject('dcl.dbProductBuild');
+		$oBuild = new dbProductBuild();
 		$oBuild->Load(array('product_build_id' => $_REQUEST['product_build_id']));
 		
-		$oVersion = CreateObject('dcl.dbProductVersion');
+		$oVersion = new dbProductVersion();
 		$oVersion->Load(array('product_version_id' => $oBuild->product_version_id));
 		
-		$obj = CreateObject('dcl.htmlProductDetail');
+		$obj = new htmlProductDetail();
 		$obj->Show($oVersion->product_id, 'build', $oBuild->product_version_id);
 
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->title = sprintf(STR_PROD_WOBUILDINFO, $oBuild->product_build_descr);
 		$objView->table = 'dcl_product_build_item';
 		
@@ -257,7 +257,7 @@ class htmlBuildManager
 		$objView->AddDef('columnhdrs', '', array(STR_WO_JCN, STR_WO_SEQ, STR_WO_SUMMARY, STR_WO_STATUS));
 		$objView->AddDef('filter', 'dcl_product_build.product_build_id', $oBuild->product_build_id);
 
-		$objHV = CreateObject('dcl.htmlBuildManagerShowWOView');
+		$objHV = new htmlBuildManagerShowWOView();
 		$objHV->buildid = $oBuild->product_build_id;
 		$objHV->versionid = $oBuild->product_version_id;
 		$objHV->productid = $oVersion->product_id;
@@ -288,7 +288,7 @@ class htmlBuildManager
 			$g_oSession->Register('releaseid', $versionid);
 			$g_oSession->Edit();			
 			
-			$oPV = CreateObject('dcl.dbProductVersion');
+			$oPV = new dbProductVersion();
 			if ($oPV->Load(array('product_version_id' => $versionid)) == -1)
 			{
 				ShowError('Failed to load version ID ' . $versionid, 'Error');
@@ -311,7 +311,7 @@ class htmlBuildManager
 	{
 		global $dcl_info, $g_oSession;
 
-		$obj =& CreateObject('dcl.htmlTimeCards');
+		$obj = new htmlTimeCards();
 		$_REQUEST['selected'] =& $g_oSession->Value('BMselected');
 		$obj->ShowBatchWO();
 	}
@@ -335,7 +335,7 @@ class htmlBuildManager
 		$Template->set_var('BTN_SUBMIT', STR_BM_SUBMIT);
 		$Template->pparse('out', 'hForm');
 		
-		$objWO = CreateObject('dcl.dbWorkorders');
+		$objWO = new dbWorkorders();
 		$objWO->Connect();
 		
 		while (list($key, $jcnseq) = each($selected))
@@ -358,10 +358,10 @@ class htmlBuildManager
 	{
 		global $dcl_info, $g_oSession;
 		
-		$obj = CreateObject('dcl.htmlViews');
+		$obj = new htmlViews();
 		$obj->name = "Build Manager Error";		
 	
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$reportname = "BuildManager Error Report";
 		$objView->title = sprintf(STR_PROD_WOTITLE, $obj->name);
 		$objView->style = 'report';
@@ -381,8 +381,7 @@ class htmlBuildManager
 		$objView->AddDef('filter', 'session_id', "'" . $g_oSession->dcl_session_id . "'");
 		$objView->AddDef('filter', 'product_build_id', $g_oSession->Value('buildid'));
 
-		$objHV = CreateObject('dcl.htmlView');
+		$objHV = new htmlView();
 		$objHV->Render($objView);
 	}
 }
-?>

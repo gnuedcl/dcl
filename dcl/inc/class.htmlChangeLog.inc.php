@@ -37,7 +37,7 @@ class htmlChangeLog
 		
 		$this->oDB = new dclDB;
 
-		$this->oPersonnel = CreateObject('dcl.dbPersonnel');
+		$this->oPersonnel = new dbPersonnel();
 		$this->oPersonnel->Load($id);
 	}
 
@@ -73,7 +73,7 @@ class htmlChangeLog
 				return;
 			}
 
-			$oRepository = CreateObject('dcl.dbSccsXref');
+			$oRepository = new dbSccsXref();
 			$sRepository = $oRepository->ExecuteScalar("select sccs_descr from dcl_sccs where dcl_sccs_id = $sccs_id");
 
 			array_push($aRetVal, array('link' => menuLink('', 'menuAction=htmlChangeLog.ShowProjectCommits&dcl_sccs_id=' . $sccs_id . '&personnel_id=' . $id), 'title' => $sRepository));
@@ -115,7 +115,7 @@ class htmlChangeLog
 			$aDisplayRecords[$i] = array($this->GetLink('menuAction=htmlChangeLog.ShowProjectCommits&dcl_sccs_id=' . $aRecords[$i][0] . '&personnel_id=' . $id, $aRecords[$i][1]), $aRecords[$i][2]);
 		}
 		
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->addColumn('Repository', 'html');
 		$oTable->addColumn('Commits', 'numeric');
 		$oTable->setData($aDisplayRecords);
@@ -149,7 +149,7 @@ class htmlChangeLog
 			return;
 		}
 
-		$oPersonnel = CreateObject('dcl.dbPersonnel');
+		$oPersonnel = new dbPersonnel();
 		if ($oPersonnel->Load($id) == -1)
 		    return;
 
@@ -162,7 +162,7 @@ class htmlChangeLog
 			$aDisplayRecords[$i] = array($this->GetLink('menuAction=htmlChangeLog.ShowFileCommits&dcl_sccs_id=' . $sccs_id . '&personnel_id=' . $id . '&sccs_project_path=' . rawurlencode($aRecords[$i][0]), $aRecords[$i][0]), $aRecords[$i][1]);
 		}
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->addColumn('Project', 'html');
 		$oTable->addColumn('Commits', 'numeric');
 		$oTable->setData($aDisplayRecords);
@@ -198,7 +198,7 @@ class htmlChangeLog
 
 		$sccs_project_path = $_REQUEST['sccs_project_path'];
 
-		$oPersonnel = CreateObject('dcl.dbPersonnel');
+		$oPersonnel = new dbPersonnel();
 		if ($oPersonnel->Load($id) == -1)
 			return;
 
@@ -211,7 +211,7 @@ class htmlChangeLog
 			$aDisplayRecords[$i] = array($this->GetLink('menuAction=htmlChangeLog.ShowVersionCommits&dcl_sccs_id=' . $dcl_sccs_id . '&personnel_id=' . $id . '&sccs_project_path=' . rawurlencode($sccs_project_path) . '&sccs_file_name=' . rawurlencode($aRecords[$i][0]), $aRecords[$i][0]), $aRecords[$i][1]);
 		}
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->addColumn('File', 'html');
 		$oTable->addColumn('Commits', 'numeric');
 		$oTable->setData($aDisplayRecords);
@@ -249,7 +249,7 @@ class htmlChangeLog
 		$sccs_project_path = $_REQUEST['sccs_project_path'];
 		$sccs_file_name = $_REQUEST['sccs_file_name'];
 
-		$oPersonnel = CreateObject('dcl.dbPersonnel');
+		$oPersonnel = new dbPersonnel();
 		if ($oPersonnel->Load($id) == -1)
 			return;
 
@@ -263,14 +263,14 @@ class htmlChangeLog
 			$aDisplayRecords[$i][1] = $this->oDB->FormatTimestampForDisplay($aRecords[$i][1]);
 			$aDisplayRecords[$i][2] = $aRecords[$i][2];
 			
-			$oMeta = CreateObject('dcl.DCL_MetadataDisplay');
+			$oMeta = new DCL_MetadataDisplay();
 			if ($aRecords[$i][3] == DCL_ENTITY_WORKORDER)
 				$aDisplayRecords[$i][3] = $this->GetLink('menuAction=boWorkorders.viewjcn&jcn=' . $aRecords[$i][4] . '&seq=' . $aRecords[$i][5], '[' . $aRecords[$i][4] . '-' . $aRecords[$i][5] . ']' . $oMeta->GetWorkOrder($aRecords[$i][4], $aRecords[$i][5]));
 			else if ($aRecords[$i][3] == DCL_ENTITY_PROJECT)
 				$aDisplayRecords[$i][3] = $this->GetLink('menuAction=boProjects.viewproject&project=' . $aRecords[$i][4], '[' . $aRecords[$i][4] . ']' . $oMeta->GetProject($aRecords[$i][4]));
 		}
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->addColumn('Version', 'string');
 		$oTable->addColumn('Commit On', 'string');
 		$oTable->addColumn('Comment', 'string');
@@ -290,4 +290,3 @@ class htmlChangeLog
 		$this->oDB->FreeResult();
 	}
 }
-?>

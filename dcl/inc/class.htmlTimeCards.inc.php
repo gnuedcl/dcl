@@ -31,7 +31,7 @@ class htmlTimeCards
 	{
 		global $dcl_info;
 
-		$objWO = CreateObject('dcl.dbWorkorders');
+		$objWO = new dbWorkorders();
 		$query = 'select a.jcn, a.seq, b.short, c.name, e.name, a.summary from workorders a ' . $objWO->JoinKeyword . ' personnel b on a.responsible = b.id ';
 		$query .= $objWO->JoinKeyword . ' statuses c on a.status = c.id left join projectmap d on a.jcn = d.jcn and (a.seq = d.seq or d.seq = 0) ';
 		$query .= 'left join dcl_projects e on d.projectid = e.projectid ';
@@ -58,7 +58,7 @@ class htmlTimeCards
 		$query .= ')';
 		if ($objWO->Query($query) != -1)
 		{
-			$oTable = CreateObject('dcl.htmlTable');
+			$oTable = new htmlTable();
 			$oTable->sCaption = 'Selected Work Orders';
 			$oTable->addColumn(STR_WO_JCN, 'numeric');
 			$oTable->addColumn(STR_WO_SEQ, 'numeric');
@@ -81,14 +81,14 @@ class htmlTimeCards
 
 		$retVal = '';
 
-		$objTimeCard = CreateObject('dcl.dbTimeCards');
+		$objTimeCard = new dbTimeCards();
 		if ($objTimeCard->GetTimeCards($jcn, $seq) != -1)
 		{
-			$objPersonnel = CreateObject('dcl.dbPersonnel');
-			$objStatus = CreateObject('dcl.dbStatuses');
-			$objAction = CreateObject('dcl.dbActions');
+			$objPersonnel = new dbPersonnel();
+			$objStatus = new dbStatuses();
+			$objAction = new dbActions();
 
-			$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			$oMeta =& new DCL_MetadataDisplay();
 
 			$oSmarty =& CreateSmarty();
 			$oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY));
@@ -101,7 +101,7 @@ class htmlTimeCards
 				if (!$forDelete && $editID == $objTimeCard->id)
 				{
 					$retVal .= '<tr><th align="left" colspan="2">';
-					$oTCF = CreateObject('dcl.htmlTimeCardForm');
+					$oTCF = new htmlTimeCardForm();
 					$retVal .= $oTCF->GetForm($objTimeCard->jcn, $objTimeCard->seq, $objTimeCard);
 					$retVal .= '</th></tr>';
 				}
@@ -137,4 +137,3 @@ class htmlTimeCards
 		return $retVal;
 	}
 }
-?>

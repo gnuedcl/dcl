@@ -28,10 +28,9 @@ class boWorkOrderType extends boAdminObject
 {
 	function boWorkOrderType()
 	{
-		$this->oDB =& CreateObject('dcl.dbWorkOrderType');
+		$this->oDB = new dbWorkOrderType();
 		$this->sKeyField = 'wo_type_id';
 		$this->sDescField = 'type_name';
 		$this->Entity = DCL_ENTITY_WORKORDERTYPE;
 	}
 }
-?>

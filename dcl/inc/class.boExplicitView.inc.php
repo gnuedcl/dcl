@@ -174,7 +174,7 @@ class boExplicitView
 
 		if (IsSet($_REQUEST['vti']))
 		{
-			$o = CreateObject('dcl.dbPersonnel');
+			$o = new dbPersonnel();
 			$this->title = $o->GPCStripSlashes($_REQUEST['vti']);
 		}
 
@@ -253,4 +253,3 @@ class boExplicitView
 		return $this->sql;
 	}
 }
-?>

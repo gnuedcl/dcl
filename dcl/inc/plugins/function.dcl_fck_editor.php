@@ -36,11 +36,10 @@ function smarty_function_dcl_fck_editor($params, &$smarty)
 	if (!isset($params['height']))
 		$params['height'] = '200';
 
-	$oEditor =& CreateObject('dcl.FCK_Editor');
+	$oEditor = new FCK_Editor();
 	$oEditor->instanceName = $params['name'];
 	$oEditor->Value = $params['value'];
 	$oEditor->Width = $params['width'];
 	$oEditor->Height = $params['height'];
 	$oEditor->Create();
 }
-?>

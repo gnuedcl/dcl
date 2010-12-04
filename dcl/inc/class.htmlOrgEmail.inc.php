@@ -56,7 +56,7 @@ class htmlOrgEmail
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbOrgEmail');
+		$obj = new dbOrgEmail();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -90,7 +90,7 @@ class htmlOrgEmail
 
 		CleanArray($_REQUEST);
 
-		$oOrgAlias =& CreateObject('dcl.boOrgEmail');
+		$oOrgAlias = new boOrgEmail();
 		$oOrgAlias->add(array(
 						'org_id' => $id,
 						'email_type_id' => $email_type_id,
@@ -114,7 +114,7 @@ class htmlOrgEmail
 
 		CleanArray($_REQUEST);
 
-		$obj =& CreateObject('dcl.boOrgEmail');
+		$obj = new boOrgEmail();
 		$obj->modify($_REQUEST);
 
 		$this->ShowOrgDetail();
@@ -138,7 +138,7 @@ class htmlOrgEmail
 
 		$aKey = array('org_email_id' => $id);
 
-		$obj =& CreateObject('dcl.boOrgEmail');
+		$obj = new boOrgEmail();
 		$obj->delete($aKey);
 
 		$this->ShowOrgDetail();
@@ -146,7 +146,7 @@ class htmlOrgEmail
 
 	function ShowOrgDetail()
 	{
-		$oOrg =& CreateObject('dcl.htmlOrgDetail');
+		$oOrg = new htmlOrgDetail();
 		$oOrg->show();
 	}
 
@@ -165,11 +165,11 @@ class htmlOrgEmail
 		}
 
 		$oSmarty =& CreateSmarty();
-		$oEmailType =& CreateObject('dcl.htmlEmailType');
+		$oEmailType = new htmlEmailType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
-		$oOrg = CreateObject('dcl.dbOrg');
+		$oOrg = new dbOrg();
 		$oOrg->Load($_REQUEST['org_id']);
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);
@@ -192,4 +192,3 @@ class htmlOrgEmail
 		SmartyDisplay($oSmarty, 'htmlEmailForm.tpl');
 	}
 }
-?>

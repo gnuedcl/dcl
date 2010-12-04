@@ -92,7 +92,7 @@ class xmlDoc
 
 	function AddChildNode(&$oParent, $sName, $aAttributes)
 	{
-		$oNew = &CreateObject('dcl.xmlNode');
+		$oNew = new xmlNode();
 		$oNew->name = &$sName;
 		$oNew->attributes = &$aAttributes;
 		$oNew->parentNode = &$oParent;
@@ -137,7 +137,7 @@ class xmlDoc
 	{
 		if ($this->root == NULL)
 		{
-			$this->root = &CreateObject('dcl.xmlNode');
+			$this->root = new xmlNode();
 			$this->root->name = $name;
 			$this->root->attributes = $attributes;
 			$this->currentNode = &$this->root;
@@ -227,4 +227,3 @@ class xmlDoc
 		return true;
 	}
 }
-?>

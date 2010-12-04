@@ -43,9 +43,9 @@ class htmlTimeCardForm
 		else if (!$isEdit && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			return PrintPermissionDenied();
 
-		$objStatuses =& CreateObject('dcl.htmlStatuses');
-		$objActions =& CreateObject('dcl.htmlActions');
-		$objPersonnel =& CreateObject('dcl.htmlPersonnel');
+		$objStatuses = new htmlStatuses();
+		$objActions = new htmlActions();
+		$objPersonnel = new htmlPersonnel();
 
 		$oSmarty =& CreateSmarty();
 
@@ -56,7 +56,7 @@ class htmlTimeCardForm
 		$setid = 0;
 		if ($isBatch)
 		{
-			$oView =& CreateObject('dcl.boView');
+			$oView = new boView();
 			$oView->SetFromURL();
 			$oSmarty->assign('VAL_VIEWFORM', $oView->GetForm());
 
@@ -68,10 +68,10 @@ class htmlTimeCardForm
 		}
 		else
 		{
-			$oWO = CreateObject('dcl.dbWorkorders');
+			$oWO = new dbWorkorders();
 			$oWO->Load($jcn, $seq);
 
-			$oProduct = CreateObject('dcl.dbProducts');
+			$oProduct = new dbProducts();
 			$oProduct->Load($oWO->product);
 			$setid = $oProduct->wosetid;
 
@@ -122,10 +122,10 @@ class htmlTimeCardForm
 		{
 			$aOrgID = array();
 			$aOrgName = array();
-			$objPM = CreateObject('dcl.dbProjectmap');
+			$objPM = new dbProjectmap();
 			if ($objPM->LoadByWO($jcn, $seq) != -1)
 			{
-				$objDBPrj = CreateObject('dcl.dbProjects');
+				$objDBPrj = new dbProjects();
 	
 				if ($objPM->projectid > 0)
 					$objDBPrj->Load($objPM->projectid);
@@ -134,7 +134,7 @@ class htmlTimeCardForm
 				$oSmarty->assign('VAL_PROJECTS', $objPM->projectid);
 			}
 
-			$oOrgs =& CreateObject('dcl.boOrg');
+			$oOrgs = new boOrg();
 			$oOrgs->ListSelectedByWorkOrder($jcn, $seq);
 			while ($oOrgs->oDB->next_record())
 			{
@@ -142,10 +142,10 @@ class htmlTimeCardForm
 				$aOrgName[] = $oOrgs->oDB->f(1);
 			}
 			
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			$oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $jcn, $seq));
 
-			$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$oHotlist = new dbEntityHotlist();
 			$oSmarty->assign('VAL_HOTLISTS', $oHotlist->getTagsForEntity(DCL_ENTITY_WORKORDER, $jcn, $seq));
 
 			$oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
@@ -161,4 +161,3 @@ class htmlTimeCardForm
 		return SmartyFetch($oSmarty, 'htmlTimeCardForm.tpl');
 	}
 }
-?>

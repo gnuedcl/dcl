@@ -26,7 +26,7 @@ class htmlRole
 {
 	function GetCombo($default = 0, $cbName = 'role_id', $size = 0, $activeOnly = true)
 	{
-		$oDB = CreateObject('dcl.dbRole');
+		$oDB = new dbRole();
 		$oDB->cacheEnabled = false;
 
 		$query = "SELECT role_id, role_desc FROM dcl_role ";
@@ -37,7 +37,7 @@ class htmlRole
 
 		$oDB->Query($query);
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -58,7 +58,7 @@ class htmlRole
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->startrow = 0;
 		$oView->numrows = 25;
 
@@ -77,8 +77,7 @@ class htmlRole
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$oView->AddDef('filter', 'active', "'$filterActive'");
 
-		$oHtml = CreateObject('dcl.htmlRoleBrowse');
+		$oHtml = new htmlRoleBrowse();
 		$oHtml->Render($oView);
 	}
 }
-?>

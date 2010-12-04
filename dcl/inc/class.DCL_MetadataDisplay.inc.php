@@ -97,7 +97,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oStatus == null)
-			$this->oStatus =& CreateObject('dcl.dbStatuses');
+			$this->oStatus = new dbStatuses();
 
 		if ($this->oStatus->Load($id, false) == -1)
 			return $this->TriggerError("Could not find status ID $id");
@@ -111,7 +111,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oPersonnel == null)
-			$this->oPersonnel =& CreateObject('dcl.dbPersonnel');
+			$this->oPersonnel = new dbPersonnel();
 
 		if ($this->oPersonnel->Load($id, false) == -1)
 			return $this->TriggerError("Could not find personnel ID $id");
@@ -125,7 +125,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oSeverity == null)
-			$this->oSeverity =& CreateObject('dcl.dbSeverities');
+			$this->oSeverity = new dbSeverities();
 
 		if ($this->oSeverity->Load($id, false) == -1)
 			return $this->TriggerError("Could not find severity ID $id");
@@ -139,7 +139,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oPriority == null)
-			$this->oPriority =& CreateObject('dcl.dbPriorities');
+			$this->oPriority = new dbPriorities();
 
 		if ($this->oPriority->Load($id, false) == -1)
 			return $this->TriggerError("Could not find priority ID $id");
@@ -153,7 +153,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oProduct == null)
-			$this->oProduct =& CreateObject('dcl.dbProducts');
+			$this->oProduct = new dbProducts();
 
 		if ($this->oProduct->Load($id, false) == -1)
 			return $this->TriggerError("Could not find product ID $id");
@@ -167,7 +167,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oProductVersion == null)
-			$this->oProductVersion =& CreateObject('dcl.dbProductVersion');
+			$this->oProductVersion = new dbProductVersion();
 
 		if ($this->oProductVersion->Load($id, false) == -1)
 			return $this->TriggerError("Could not find product version ID $id");
@@ -181,7 +181,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oProject == null)
-			$this->oProject =& CreateObject('dcl.dbProjects');
+			$this->oProject = new dbProjects();
 
 		if ($this->oProject->Load($id, false) == -1)
 			return $this->TriggerError("Could not find project ID $id");
@@ -195,7 +195,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oWorkOrderType == null)
-			$this->oWorkOrderType =& CreateObject('dcl.dbWorkOrderType');
+			$this->oWorkOrderType = new dbWorkOrderType();
 
 		if ($this->oWorkOrderType->Load(array('wo_type_id' => $id)) == -1)
 			return $this->TriggerError("Could not find work order type ID $id");
@@ -209,7 +209,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oModule == null)
-			$this->oModule =& CreateObject('dcl.dbProductModules');
+			$this->oModule = new dbProductModules();
 
 		if ($this->oModule->Load($id, false) == -1)
 			return $this->TriggerError("Could not find module ID $id");
@@ -223,7 +223,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oSource == null)
-			$this->oSource =& CreateObject('dcl.dbEntitySource');
+			$this->oSource = new dbEntitySource();
 
 		if ($this->oSource->Load(array('entity_source_id' => $id)) == -1)
 			return $this->TriggerError("Could not find source ID $id");
@@ -239,10 +239,10 @@ class DCL_MetadataDisplay
 
 		if ($this->oContact == null)
 		{
-			$this->oContact =& CreateObject('dcl.dbContact');
-			$this->oContactPhone =& CreateObject('dcl.dbContactPhone');
-			$this->oContactEmail =& CreateObject('dcl.dbContactEmail');
-			$this->oContactUrl =& CreateObject('dcl.dbContactUrl');
+			$this->oContact = new dbContact();
+			$this->oContactPhone = new dbContactPhone();
+			$this->oContactEmail = new dbContactEmail();
+			$this->oContactUrl = new dbContactUrl();
 		}
 
 		if ($this->oContact->Load($id) != -1)
@@ -288,11 +288,11 @@ class DCL_MetadataDisplay
 
 		if ($this->oOrg == null)
 		{
-			$this->oOrg =& CreateObject('dcl.dbOrg');
-			$this->oOrgPhone =& CreateObject('dcl.dbOrgPhone');
-			$this->oOrgEmail =& CreateObject('dcl.dbOrgEmail');
-			$this->oOrgUrl =& CreateObject('dcl.dbOrgUrl');
-			$this->oOrgAddr =& CreateObject('dcl.dbOrgAddr');
+			$this->oOrg = new dbOrg();
+			$this->oOrgPhone = new dbOrgPhone();
+			$this->oOrgEmail = new dbOrgEmail();
+			$this->oOrgUrl = new dbOrgUrl();
+			$this->oOrgAddr = new dbOrgAddr();
 		}
 
 		if ($this->oOrg->Load($id) != -1)
@@ -362,7 +362,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oAction == null)
-			$this->oAction =& CreateObject('dcl.dbActions');
+			$this->oAction = new dbActions();
 
 		if ($this->oAction->Load($id) == -1)
 			return $this->TriggerError("Could not find action ID $id");
@@ -376,7 +376,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oWorkOrder == null)
-			$this->oWorkOrder =& CreateObject('dcl.dbWorkorders');
+			$this->oWorkOrder = new dbWorkorders();
 
 		if ($this->oWorkOrder->Load($jcn, $seq) == -1)
 			return $this->TriggerError("Could not find workorder ID $jcn-$seq");
@@ -390,7 +390,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oTicket == null)
-			$this->oTicket =& CreateObject('dcl.dbTickets');
+			$this->oTicket = new dbTickets();
 
 		if ($this->oTicket->Load($id) == -1)
 			return $this->TriggerError("Could not find ticket ID $id");
@@ -404,7 +404,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oDepartment == null)
-			$this->oDepartment =& CreateObject('dcl.dbDepartments');
+			$this->oDepartment = new dbDepartments();
 
 		if ($this->oDepartment->Load($id) == -1)
 			return $this->TriggerError("Could not find department ID $id");
@@ -421,7 +421,7 @@ class DCL_MetadataDisplay
 			return '';
 			
 		if ($this->oTag == null)
-			$this->oTag =& CreateObject('dcl.dbEntityTag');
+			$this->oTag = new dbEntityTag();
 			
 		return $this->oTag->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
@@ -435,7 +435,7 @@ class DCL_MetadataDisplay
 			return '';
 			
 		if ($this->oHotlist == null)
-			$this->oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$this->oHotlist = new dbEntityHotlist();
 			
 		return $this->oHotlist->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
@@ -449,7 +449,7 @@ class DCL_MetadataDisplay
 			return array();
 
 		if ($this->oHotlist == null)
-			$this->oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$this->oHotlist = new dbEntityHotlist();
 
 		return $this->oHotlist->getTagsWithPriorityForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
@@ -462,7 +462,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oTimeCard == null)
-			$this->oTimeCard =& CreateObject('dcl.dbTimeCards');
+			$this->oTimeCard = new dbTimeCards();
 
 		if ($this->oTimeCard->LoadLast($jcn, $seq, $g_oSec->IsPublicUser()) == -1)
 			return null;
@@ -472,4 +472,3 @@ class DCL_MetadataDisplay
 		return $aTimeCard;
 	}
 }
-?>

@@ -35,7 +35,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 	if (!defined('DCL_ENTITY_GLOBAL'))
 		include_once(DCL_ROOT . 'inc/functions.inc.php');
 
-	$g_oSec = CreateObject('dcl.boSecurity');
+	$g_oSec = new boSecurity();
 
 	function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 	{
@@ -112,7 +112,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 
 	if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
 	{
-		$g_oSession = CreateObject('dcl.dbSession');
+		$g_oSession = new dbSession();
 		list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
 		if (strlen($dcl_session_id) != 32)
 			Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
@@ -137,18 +137,18 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 		$aAuthInfo = array();
 		if ($obj->IsValidLogin($aAuthInfo))
 		{		
-			$oConfig = CreateObject('dcl.dbConfig');
+			$oConfig = new dbConfig();
 			$dcl_info = array();
 			$oConfig->Load();
 
-			$g_oSession = CreateObject('dcl.dbSession');
+			$g_oSession = new dbSession();
 			if (!$g_oSession->conn)
 				Refresh('logout.php?cd=3');
 
 			$g_oSession->personnel_id = $aAuthInfo['id'];
 			$g_oSession->Add();
 
-			$oPreferences = CreateObject('dcl.dbPreferences');
+			$oPreferences = new dbPreferences();
 			$oPreferences->Load($aAuthInfo['id']);
 
 			// Save the user ID and copy it to global space so Security object can use the info
@@ -166,12 +166,12 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			{
 				if ($g_oSec->IsOrgUser())
 				{
-					$oContact =& CreateObject('dcl.dbContact');
+					$oContact = new dbContact();
 					$aOrgs = $oContact->GetOrgArray($aAuthInfo['contact_id']);
 					$g_oSession->Register('member_of_orgs', join(',', $aOrgs));
 					
 					// Also grab the filtered product list for the orgs
-					$oOrg =& CreateObject('dcl.dbOrg');
+					$oOrg = new dbOrg();
 					$aProducts = $oOrg->GetProductArray($aOrgs);
 					if (count($aProducts) == 0)
 						$aProducts = array('-1');
@@ -184,7 +184,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			
 			if ($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
 			{
-				$oSecAuditDB = CreateObject('dcl.dbSecAudit');
+				$oSecAuditDB = new dbSecAudit();
 				$oSecAuditDB->Add('login');
 			}
 

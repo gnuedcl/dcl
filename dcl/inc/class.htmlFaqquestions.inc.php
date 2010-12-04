@@ -70,11 +70,11 @@ class htmlFaqquestions
 			return;
 		}
 
-		$objFaqT = CreateObject('dcl.dbFaqtopics');
+		$objFaqT = new dbFaqtopics();
 		if ($objFaqT->Load($obj->topicid) == -1)
 		    return;
 
-		$objFaq = CreateObject('dcl.dbFaq');
+		$objFaq = new dbFaq();
 		if ($objFaq->Load($objFaqT->faqid) == -1)
 		    return;
 
@@ -93,7 +93,7 @@ class htmlFaqquestions
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY, $objFaq->faqid));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $objFaq->faqid));
 
-		$objF = CreateObject('dcl.dbFaqanswers');
+		$objF = new dbFaqanswers();
 		if ($objF->LoadByQuestionID($obj->questionid) == -1)
 		{
 		    return;
@@ -110,4 +110,3 @@ class htmlFaqquestions
 		SmartyDisplay($t, 'htmlFaqquestionsDetail.tpl');
 	}
 }
-?>

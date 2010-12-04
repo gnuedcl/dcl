@@ -104,7 +104,7 @@ class htmlRoleBrowse extends htmlView
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if ((IsSet($_REQUEST['btnNav']) || IsSet($_REQUEST['jumptopage'])) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -447,4 +447,3 @@ class htmlRoleBrowse extends htmlView
 		$this->_ResetDetailCells();
 	}
 }
-?>

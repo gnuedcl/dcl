@@ -47,7 +47,7 @@ class boWatches
 	function showall()
 	{
 		commonHeader();
-		$obj =& CreateObject('dcl.htmlWatches');
+		$obj = new htmlWatches();
 		$obj->PrintMine();
 	}
 
@@ -91,12 +91,12 @@ class boWatches
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbWatches');
+		$obj = new dbWatches();
 		$query = sprintf('SELECT * FROM watches WHERE typeid=%d AND whoid=%d AND whatid1=%d', $iTypeID, $GLOBALS['DCLID'], $iWhatID1);
 		if ($iWhatID2 !== null)
 			$query .= sprintf(' AND whatid2=%d', $iWhatID2);
 
-		$objHTML =& CreateObject('dcl.htmlWatches');
+		$objHTML = new htmlWatches();
 		if ($obj->Query($query) != -1)
 		{
 			if ($obj->next_record())
@@ -119,11 +119,11 @@ class boWatches
 	{
 		commonHeader();
 		
-		$obj =& CreateObject('dcl.dbWatches');
+		$obj = new dbWatches();
 		$obj->InitFromGlobals();
 		$obj->Add();
 
-		$objHTML =& CreateObject('dcl.htmlWatches');
+		$objHTML = new htmlWatches();
 		$objHTML->PrintMine();
 	}
 
@@ -137,14 +137,14 @@ class boWatches
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbWatches');
+		$obj = new dbWatches();
 		if ($obj->Load($iID) == -1)
 			return;
 			
 		if ($obj->whoid != $GLOBALS['DCLID'])
 			return PrintPermissionDenied();
 			
-		$objHTML =& CreateObject('dcl.htmlWatches');
+		$objHTML = new htmlWatches();
 		$objHTML->ShowEntryForm($obj, $this->getWatchDescription($obj));
 	}
 
@@ -158,7 +158,7 @@ class boWatches
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbWatches');
+		$obj = new dbWatches();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -168,7 +168,7 @@ class boWatches
 		$obj->InitFromGlobals();
 		$obj->Edit();
 		
-		$objHTML =& CreateObject('dcl.htmlWatches');
+		$objHTML = new htmlWatches();
 		$objHTML->PrintMine();
 	}
 	function delete()
@@ -181,7 +181,7 @@ class boWatches
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbWatches');
+		$obj = new dbWatches();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -201,14 +201,14 @@ class boWatches
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbWatches');
+		$obj = new dbWatches();
 		if ($obj->Load($iID) != -1)
 		{
 			$obj->Delete();
 			trigger_error(STR_BO_DELETED, E_USER_NOTICE);
 		}
 
-		$objHTML =& CreateObject('dcl.htmlWatches');
+		$objHTML = new htmlWatches();
 		$objHTML->PrintMine();
 	}
 
@@ -218,10 +218,10 @@ class boWatches
 			return '';
 
 		if ($this->oMeta == null)
-			$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			$this->oMeta = new DCL_MetadataDisplay();
 
-		$objW =& CreateObject('dcl.dbWorkorders');
-		$objT =& CreateObject('dcl.dbTickets');
+		$objW = new dbWorkorders();
+		$objT = new dbTickets();
 
 		$summary = '';
 		switch ($obj->typeid)
@@ -261,10 +261,10 @@ class boWatches
 		$t =& CreateSmarty();
 		$t->assign_by_ref('obj', $obj);
 
-		$dbEntityTag =& CreateObject('dcl.dbEntityTag');
+		$dbEntityTag = new dbEntityTag();
 		$t->assign('VAL_TAGS', str_replace(',', ', ', $dbEntityTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $obj->jcn, $obj->seq)));
 
-		$dbEntityHotlist =& CreateObject('dcl.dbEntityHotlist');
+		$dbEntityHotlist = new dbEntityHotlist();
 		$hotlistCollection = $dbEntityHotlist->getTagsWithPriorityForEntity(DCL_ENTITY_WORKORDER, $obj->jcn, $obj->seq);
 		$hotlists = '';
 
@@ -273,7 +273,7 @@ class boWatches
 
 		$t->assign('VAL_HOTLISTS', $hotlists);
 
-		$oTC =& CreateObject('dcl.dbTimeCards');
+		$oTC = new dbTimeCards();
 		$t->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($obj->jcn, $obj->seq, $bIsPublic));
 		
 		if ($bIsPublic)
@@ -290,10 +290,10 @@ class boWatches
 		if (!is_object($obj) || $actions == '' || $dcl_info['DCL_SMTP_ENABLED'] != 'Y')
 			return;
 
-		$oMail =& CreateObject('dcl.boSMTP');
+		$oMail = new boSMTP();
 		$oMail->isHtml = ($dcl_info['DCL_WO_NOTIFICATION_HTML'] == 'Y');
 
-		$objWtch =& CreateObject('dcl.dbWatches');
+		$objWtch = new dbWatches();
 		$query = "select distinct email_addr, whoid from personnel " . $objWtch->JoinKeyword . " dcl_contact_email ON personnel.contact_id=dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y' ";
 		$query .= $objWtch->JoinKeyword . ' watches ON id=whoid ';
 		$query .= 'LEFT JOIN dcl_wo_account ON typeid = 6 AND wo_id = ' . $obj->jcn;
@@ -303,7 +303,7 @@ class boWatches
 		
 		if ($obj->IsInAProject())
 		{
-			$oPM =& CreateObject('dcl.dbProjectmap');
+			$oPM = new dbProjectmap();
 			$oPM->LoadByWO($obj->jcn, $obj->seq);
 			$query .= sprintf(' or (typeid=2 and whatid1=%d)', $oPM->projectid);
 		}
@@ -321,7 +321,7 @@ class boWatches
 			$mailFrom = '<' . $g_oSession->Value('USEREMAIL') . '>';
 
 		if ($this->oMeta == null)
-			$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			$this->oMeta = new DCL_MetadataDisplay();
 			
 		$bIsPublic = false;
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
@@ -341,7 +341,7 @@ class boWatches
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createby, $bIsPublic))
 			{
-				$oPrefs = CreateObject('dcl.dbPreferences');
+				$oPrefs = new dbPreferences();
 				if ($oPrefs->Load($obj->createby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
 				{
 					if ($bIsPublic)
@@ -464,7 +464,7 @@ class boWatches
 		$t =& CreateSmarty();
 		$t->assign_by_ref('obj', $obj);
 		
-		$objTR =& CreateObject('dcl.dbTicketresolutions');
+		$objTR = new dbTicketresolutions();
 		$t->assign('VAL_RESOLUTIONS', $objTR->GetResolutionsArray($obj->ticketid, $bIsPublic));
 		
 		if ($bIsPublic)
@@ -480,11 +480,11 @@ class boWatches
 		if ($dcl_info['DCL_SMTP_ENABLED'] != 'Y' || !is_object($obj))
 			return;
 
-		$oMail =& CreateObject('dcl.boSMTP');
+		$oMail = new boSMTP();
 		$oMail->isHtml = ($dcl_info['DCL_TCK_NOTIFICATION_HTML'] == 'Y');
 
 		// Got the message constructed, so send it!
-		$objWtch =& CreateObject('dcl.dbWatches');
+		$objWtch = new dbWatches();
 		$query = "select distinct email_addr, whoid from personnel " . $objWtch->JoinKeyword . " dcl_contact_email ON personnel.contact_id=dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y' ";
 		$query .= $objWtch->JoinKeyword . ' watches ON id=whoid ';
 		$query .= "where id = whoid AND actions in ($actions) and (";
@@ -504,7 +504,7 @@ class boWatches
 			$mailFrom = '<' . $g_oSession->Value('USEREMAIL') . '>';
 
 		if ($this->oMeta == null)
-			$this->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			$this->oMeta = new DCL_MetadataDisplay();
 			
 		$bIsPublic = false;
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
@@ -524,7 +524,7 @@ class boWatches
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createdby, $bIsPublic))
 			{
-				$oPrefs = CreateObject('dcl.dbPreferences');
+				$oPrefs = new dbPreferences();
 				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
 				{
 					if ($bIsPublic)
@@ -639,8 +639,7 @@ class boWatches
 	function showmy()
 	{
 		commonHeader();
-		$obj =& CreateObject('dcl.htmlWatches');
+		$obj = new htmlWatches();
 		$obj->my(0);
 	}
 }
-?>

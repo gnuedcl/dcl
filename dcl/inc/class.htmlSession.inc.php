@@ -33,7 +33,7 @@ class htmlSession
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_DELETE) || $_REQUEST['session_id'] == $g_oSession->dcl_session_id)
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boSession');
+		$o = new boSession();
 		$o->Kill($_REQUEST);
 
 		$this->Show();
@@ -48,7 +48,7 @@ class htmlSession
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->table = 'dcl_session';
 		$oView->style = 'report';
 		$oView->title = 'DCL Sessions';
@@ -61,13 +61,13 @@ class htmlSession
 				'Last Access',
 				'Session ID'));
 
-		$oDB = CreateObject('dcl.dbSession');
+		$oDB = new dbSession();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption($oView->title);
 		$oTable->addColumn('User', 'string');
 		$oTable->addColumn('Login Date', 'string');
@@ -108,4 +108,3 @@ class htmlSession
 		echo '</pre>';
 	}
 }
-?>

@@ -30,7 +30,7 @@ class boWorkspaceUser extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbWorkspaceUser');
+		$this->oDB = new dbWorkspaceUser();
 		$this->Entity = DCL_ENTITY_WORKSPACE;
 		$this->sKeyField = '';
 		
@@ -77,4 +77,3 @@ class boWorkspaceUser extends boAdminObject
 			$this->oDB->Execute("DELETE FROM dcl_workspace_user WHERE workspace_id = $workspace_id");
 	}
 }
-?>

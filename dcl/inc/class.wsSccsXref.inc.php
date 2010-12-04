@@ -47,7 +47,7 @@ class wsSccsXref
 	
 	function getUserID()
 	{
-		$oAuth = CreateObject('dcl.boAuthenticate');
+		$oAuth = new boAuthenticate();
 		$aAuthInfo = array();
 		if ($oAuth->IsValidLogin($aAuthInfo))
 		{
@@ -69,7 +69,7 @@ class wsSccsXref
 		$sSQL .= ' AND ((ur.entity_type_id = rp.entity_id AND ur.entity_type_id = 0 AND ur.entity_id1 = 0 AND ur.entity_id2 = 0) OR';
 		$sSQL .= ' (rp.entity_id = 0 AND ur.entity_type_id = 0 AND ur.entity_id1 = 0 AND ur.entity_id2 = 0))';
 		
-		$oDB = CreateObject('dcl.dbPersonnel');
+		$oDB = new dbPersonnel();
 		$oDB->Query($sSQL);
 		$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset>';
 
@@ -87,7 +87,7 @@ class wsSccsXref
 			wsSccsXref::returnEmptyResponse();
 		}
 		
-		$oDB = CreateObject('dcl.dbSccs');
+		$oDB = new dbSccs();
 		if ($oDB->Load($id) != -1)
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset>';
@@ -103,7 +103,7 @@ class wsSccsXref
 	
 	function getRepositoryByPath()
 	{
-		$oDB = CreateObject('dcl.dbSccs');
+		$oDB = new dbSccs();
 		$sPath = $oDB->GPCStripSlashes($_POST['sccs_repository']);
 		if ($oDB->LoadByPath($sPath) != -1)
 		{
@@ -120,7 +120,7 @@ class wsSccsXref
 	
 	function addRepository()
 	{
-		$oDB = CreateObject('dcl.dbSccs');
+		$oDB = new dbSccs();
 		$oDB->InitFrom_POST();
 		$oDB->Add();
 	}
@@ -132,7 +132,7 @@ class wsSccsXref
 			wsSccsXref::returnEmptyResponse();
 		}
 		
-		$oDB = CreateObject('dcl.dbWorkorders');
+		$oDB = new dbWorkorders();
 		if ($oDB->Query("SELECT summary, description, status, responsible, product, etchours FROM workorders WHERE jcn = $iWOID AND seq = $iSeq") != -1 && $oDB->next_record())
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset><workorders>';
@@ -157,7 +157,7 @@ class wsSccsXref
 			wsSccsXref::returnEmptyResponse();
 		}
 		
-		$oDB = CreateObject('dcl.dbProjects');
+		$oDB = new dbProjects();
 		if ($oDB->Query("SELECT name, description FROM dcl_projects WHERE projectid = $iProjectID") != -1 && $oDB->next_record())
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset><dcl_projects>';
@@ -184,10 +184,9 @@ class wsSccsXref
 			wsSccsXref::returnForbidden();
 		}
 		
-		$oDB = CreateObject('dcl.dbSccsXref');
+		$oDB = new dbSccsXref();
 		$oDB->InitFrom_POST();
 		$oDB->sccs_checkin_on = 'now()';
 		$oDB->Add();
 	}
 }
-?>

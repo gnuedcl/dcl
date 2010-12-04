@@ -35,7 +35,6 @@ function smarty_function_dcl_select_watch_action($params, &$smarty)
 	if (!isset($params['default']))
 		$params['default'] = '1';
 
-	$oViews =& CreateObject('dcl.htmlWatches');
+	$oViews = new htmlWatches();
 	return $oViews->GetCombo($params['default'], $params['name']);
 }
-?>

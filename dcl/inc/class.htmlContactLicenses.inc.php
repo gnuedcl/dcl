@@ -56,7 +56,7 @@ class htmlContactLicenses
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbContactLicense');
+		$obj = new dbContactLicense();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -93,7 +93,7 @@ class htmlContactLicenses
 
 		CleanArray($_REQUEST);
 
-		$oContactEmail =& CreateObject('dcl.boContactLicense');
+		$oContactEmail = new boContactLicense();
 		$oContactEmail->add(array(
 						'contact_id' => $contact_id,
 						'product_id' => $product_id,
@@ -131,7 +131,7 @@ class htmlContactLicenses
 
 		CleanArray($_REQUEST);
 
-		$obj =& CreateObject('dcl.boContactLicense');
+		$obj = new boContactLicense();
 		$obj->modify(array(
 		                'contact_license_id' => $id,
 						'contact_id' => $contact_id,
@@ -167,7 +167,7 @@ class htmlContactLicenses
 
 		$aKey = array('contact_license_id' => $id);
 
-		$obj =& CreateObject('dcl.boContactLicense');
+		$obj = new boContactLicense();
 		$obj->delete($aKey);
 
 		$this->ShowContactDetail();
@@ -175,7 +175,7 @@ class htmlContactLicenses
 
 	function ShowContactDetail()
 	{
-		$oContact =& CreateObject('dcl.htmlContactDetail');
+		$oContact = new htmlContactDetail();
 		$oContact->show();
 	}
 
@@ -194,11 +194,11 @@ class htmlContactLicenses
 		}
 
 		$oSmarty =& CreateSmarty();
-		$oEmailType =& CreateObject('dcl.htmlEmailType');
+		$oEmailType = new htmlEmailType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
 
-		$oContact = CreateObject('dcl.dbContact');
+		$oContact = new dbContact();
 		if ($oContact->Load($id) == -1)
 		    return;
 		    
@@ -227,4 +227,3 @@ class htmlContactLicenses
 		SmartyDisplay($oSmarty, 'htmlLicenseForm.tpl');
 	}
 }
-?>

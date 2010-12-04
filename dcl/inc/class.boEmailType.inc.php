@@ -30,9 +30,8 @@ class boEmailType extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbEmailType');
+		$this->oDB = new dbEmailType();
 		$this->sKeyField = 'email_type_id';
 		$this->Entity = DCL_ENTITY_EMAILTYPE;
 	}
 }
-?>

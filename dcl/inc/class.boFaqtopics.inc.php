@@ -40,17 +40,17 @@ class boFaqtopics
 			return;
 		}
 		
-		$objF =& CreateObject('dcl.dbFaq');
+		$objF = new dbFaq();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADFAQ, $iID);
 			return;
 		}
 
-		$obj =& CreateObject('dcl.htmlFaqtopics');
+		$obj = new htmlFaqtopics();
 		$obj->DisplayForm();
 
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		print('<p>');
 		$objH->ShowFaq($objF);
 	}
@@ -69,21 +69,21 @@ class boFaqtopics
 			return;
 		}
 		
-		$objF =& CreateObject('dcl.dbFaq');
+		$objF = new dbFaq();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADFAQ, $iID);
 			return;
 		}
 
-		$obj =& CreateObject('dcl.dbFaqtopics');
+		$obj = new dbFaqtopics();
 		$obj->InitFromGlobals();
 		$obj->createby = $GLOBALS['DCLID'];
 		$obj->createon = DCL_NOW;
 		$obj->active = 'Y';
 		$obj->Add();
 
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->ShowFaq($objF);
 	}
 	
@@ -101,11 +101,11 @@ class boFaqtopics
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbFaqtopics');
+		$obj = new dbFaqtopics();
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		$objH =& CreateObject('dcl.htmlFaqtopics');
+		$objH = new htmlFaqtopics();
 		$objH->DisplayForm($obj);
 	}
 
@@ -123,21 +123,21 @@ class boFaqtopics
 			return;
 		}
 		
-		$objF =& CreateObject('dcl.dbFaq');
+		$objF = new dbFaq();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADFAQ, $iID);
 			return;
 		}
 
-		$obj =& CreateObject('dcl.dbFaqtopics');
+		$obj = new dbFaqtopics();
 		$obj->InitFromGlobals();
 		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
 		$obj->modifyby = $GLOBALS['DCLID'];
 		$obj->modifyon = DCL_NOW;
 		$obj->Edit();
 		
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->ShowFaq($objF);
 	}
 
@@ -155,7 +155,7 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $iID))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbFaqtopics');
+		$obj = new dbFaqtopics();
 		if ($obj->Load($iID) == -1)
 			return;
 		
@@ -176,20 +176,20 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $iID))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbFaqtopics');
+		$obj = new dbFaqtopics();
 		if ($obj->Load($iID) == -1)
 			return;
 			
 		$iFaqID = $obj->faqid;
 		$obj->Delete($iID);
 		
-		$objF =& CreateObject('dcl.dbFaq');
+		$objF = new dbFaq();
 		if ($objF->Load($iFaqID) == -1)
 		{
 			return -1;
 		}
 		
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->ShowFaq($objF);
 	}
 
@@ -207,12 +207,11 @@ class boFaqtopics
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbFaqtopics');
+		$obj = new dbFaqtopics();
 		if ($obj->Load($iID) == -1)
 			return;
 
-		$objH =& CreateObject('dcl.htmlFaqtopics');
+		$objH = new htmlFaqtopics();
 		$objH->ShowTopic($obj);
 	}
 }
-?>

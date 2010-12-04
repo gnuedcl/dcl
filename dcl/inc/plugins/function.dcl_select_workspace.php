@@ -38,7 +38,7 @@ function smarty_function_dcl_select_workspace($params, &$smarty)
 	if (!isset($params['size']))
 		$params['size'] = 1;
 
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -51,4 +51,3 @@ function smarty_function_dcl_select_workspace($params, &$smarty)
 	
 	return $oSelect->GetHTML();
 }
-?>

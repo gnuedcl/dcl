@@ -61,7 +61,7 @@ class dbEntityTag extends dclDB
 			return;
 		}
 		
-		$oTag =& CreateObject('dcl.dbTag');
+		$oTag = new dbTag();
 		$aTags = split(',', $sTags);
 		$aTagID = array();
 		foreach ($aTags as $sTag)
@@ -137,7 +137,7 @@ class dbEntityTag extends dclDB
 	{
 		global $g_oSec, $g_oSession;
 		
-		$oDB = CreateObject('dcl.dbTag');
+		$oDB = new dbTag();
 		$sID = $oDB->getExistingIdsByName(trim($sTags));
 		if ($sID == '-1')
 		{
@@ -295,4 +295,3 @@ class dbEntityTag extends dclDB
 		return $this->Query($sSQL . ' ORDER BY 1, 2, 3');
 	}
 }
-?>

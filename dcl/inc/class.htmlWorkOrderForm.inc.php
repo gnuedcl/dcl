@@ -64,7 +64,7 @@ class htmlWorkOrderForm
 			return PrintPermissionDenied();
 		}
 
-		$objJS = CreateObject('dcl.jsAttributesets');
+		$objJS = new jsAttributesets();
 		if (!$isEdit)
 			$objJS->bActiveOnly = true;
 
@@ -133,10 +133,10 @@ class htmlWorkOrderForm
 		$this->oSmarty->assign('PERM_ISPUBLICUSER', $g_oSec->IsPublicUser());
 		$this->oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 		if ($isEdit || $isTicket || $isCopy)
 		{
-			$oProduct =& CreateObject('dcl.dbProducts');
+			$oProduct = new dbProducts();
 			$oProduct->Query('SELECT wosetid FROM products WHERE id=' . ($isTicket ? $oSource->product : $oSource->product));
 			if ($oProduct->next_record())
 				$this->oSmarty->assign('VAL_SETID', $oProduct->f(0));
@@ -168,13 +168,13 @@ class htmlWorkOrderForm
 				$this->oSmarty->assign('VAL_CONTACTS', $oSource->contact_id);
 			}
 			
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			if ($isTicket)
 				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $oSource->ticketid));
 			else
 				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $oSource->jcn, $oSource->seq));
 			
-			$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+			$oHotlist = new dbEntityHotlist();
 			if ($isTicket)
 				$this->oSmarty->assign('VAL_HOTLIST', $oHotlist->getTagsForEntity(DCL_ENTITY_TICKET, $oSource->ticketid));
 			else
@@ -199,10 +199,10 @@ class htmlWorkOrderForm
 			$this->oSmarty->assign('VAL_ESTHOURS', '');
 
 			// If not editing, display project options (if any)
-			$objPM = CreateObject('dcl.dbProjectmap');
+			$objPM = new dbProjectmap();
 			if (($jcn > 0 && $objPM->LoadByWO($jcn, 0) != -1) || ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && IsSet($_REQUEST['projectid'])))
 			{
-				$oProject = CreateObject('dcl.dbProjects');
+				$oProject = new dbProjects();
 
 				if ($objPM->projectid > 0)
 					$oProject->Load($objPM->projectid);
@@ -216,11 +216,11 @@ class htmlWorkOrderForm
 		}
 		elseif ($isCopy)
 		{
-			$objPM = CreateObject('dcl.dbProjectmap');
+			$objPM = new dbProjectmap();
 			$bAllSequencesInSameProject = ($jcn > 0 && $objPM->LoadByWO($jcn, 0) != -1);
 			if ($bAllSequencesInSameProject || ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && IsSet($_REQUEST['projectid'])))
 			{
-				$oProject = CreateObject('dcl.dbProjects');
+				$oProject = new dbProjects();
 
 				if ($objPM->projectid > 0)
 					$oProject->Load($objPM->projectid);
@@ -263,7 +263,7 @@ class htmlWorkOrderForm
 			}
 			else
 			{
-				$oPersonnel =& CreateObject('dcl.dbPersonnel');
+				$oPersonnel = new dbPersonnel();
 				if ($oPersonnel->Load($oSource->responsible) == -1)
 					$this->oSmarty->assign('VAL_RESPONSIBLENAME', $oPersonnel->short);
 				else
@@ -318,7 +318,7 @@ class htmlWorkOrderForm
 		$sAssignedContactID = @$this->oSmarty->get_template_vars('VAL_CONTACTID');
 		if ($sAssignedContactID != '')
 		{
-			$oContact =& CreateObject('dcl.dbContact');
+			$oContact = new dbContact();
 			if ($oContact->Load(array('contact_id' => $sAssignedContactID)) != -1)
 				$this->oSmarty->assign('VAL_CONTACT', sprintf('%s, %s', $oContact->last_name, $oContact->first_name));
 		}
@@ -327,7 +327,7 @@ class htmlWorkOrderForm
 		$aOrgName = array();
 		if ($isEdit || $isTicket || $isCopy)
 		{
-			$oOrgs =& CreateObject('dcl.boOrg');
+			$oOrgs = new boOrg();
 
 			if ($isEdit || $isCopy)
 				$oOrgs->ListSelectedByWorkOrder($oSource->jcn, $oSource->seq);
@@ -371,4 +371,3 @@ class htmlWorkOrderForm
 		SmartyDisplay($this->oSmarty, 'htmlWorkOrderForm.tpl');
 	}
 }
-?>

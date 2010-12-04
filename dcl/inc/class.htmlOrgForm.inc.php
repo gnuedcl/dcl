@@ -56,7 +56,7 @@ class htmlOrgForm
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbOrg');
+		$obj = new dbOrg();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -77,7 +77,7 @@ class htmlOrgForm
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbOrg');
+		$obj = new dbOrg();
 		$obj->Load(array('org_id' => $id));
 		ShowDeleteYesNo('Organization', 'htmlOrgForm.submitDelete', $obj->org_id, $obj->name);
 	}
@@ -93,7 +93,7 @@ class htmlOrgForm
 
 		CleanArray($_REQUEST);
 
-		$obj = CreateObject('dcl.boOrg');
+		$obj = new boOrg();
 		$oOrgID = $obj->add(array(
 								'name' => $_REQUEST['name'],
 								'active' => 'Y',
@@ -112,7 +112,7 @@ class htmlOrgForm
 		$aOrgTypes = @DCL_Sanitize::ToIntArray($_REQUEST['org_type_id']);
 		if ($aOrgTypes !== null)
 		{
-			$oOrgTypeXref =& CreateObject('dcl.boOrgTypeXref');
+			$oOrgTypeXref = new boOrgTypeXref();
 			$oOrgTypeXref->PermAdd = DCL_PERM_ADD;
 			foreach ($aOrgTypes as $iTypeID)
 			{
@@ -124,7 +124,7 @@ class htmlOrgForm
 		// So, we need to temporarily set the PermAdd to DCL_PERM_ADD so these will succeed.
 		if ($_REQUEST['alias'] != '')
 		{
-			$oOrgAlias = CreateObject('dcl.boOrgAlias');
+			$oOrgAlias = new boOrgAlias();
 			$oOrgAlias->PermAdd = DCL_PERM_ADD;
 			$oOrgAlias->add(array(
 							'org_id' => $oOrgID,
@@ -138,7 +138,7 @@ class htmlOrgForm
 		$addr_type_id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id']);
 		if ($addr_type_id > 0)
 		{
-			$oOrgAddr = CreateObject('dcl.boOrgAddr');
+			$oOrgAddr = new boOrgAddr();
 			$oOrgAddr->PermAdd = DCL_PERM_ADD;
 			$oOrgAddr->add(array(
 							'org_id' => $oOrgID,
@@ -159,7 +159,7 @@ class htmlOrgForm
 		$phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id']);
 		if ($_POST['phone_type_id'] > 0 && $_POST['phone_number'] != '')
 		{
-			$oOrgPhone = CreateObject('dcl.boOrgPhone');
+			$oOrgPhone = new boOrgPhone();
 			$oOrgPhone->PermAdd = DCL_PERM_ADD;
 			$oOrgPhone->add(array(
 								'org_id' => $oOrgID,
@@ -175,7 +175,7 @@ class htmlOrgForm
 		$email_type_id = DCL_Sanitize::ToInt($_REQUEST['email_type_id']);
 		if ($_POST['email_type_id'] > 0 && $_POST['email_addr'] != '')
 		{
-			$oOrgEmail = CreateObject('dcl.boOrgEmail');
+			$oOrgEmail = new boOrgEmail();
 			$oOrgEmail->PermAdd = DCL_PERM_ADD;
 			$oOrgEmail->add(array(
 								'org_id' => $oOrgID,
@@ -191,7 +191,7 @@ class htmlOrgForm
 		$url_type_id = DCL_Sanitize::ToInt($_REQUEST['url_type_id']);
 		if ($_POST['url_type_id'] > 0 && $_POST['url_addr'] != '')
 		{
-			$oOrgUrl = CreateObject('dcl.boOrgUrl');
+			$oOrgUrl = new boOrgUrl();
 			$oOrgUrl->PermAdd = DCL_PERM_ADD;
 			$oOrgUrl->add(array(
 								'org_id' => $oOrgID,
@@ -208,7 +208,7 @@ class htmlOrgForm
 			return;
 
 		$_REQUEST['org_id'] = $oOrgID;
-		$oOrg =& CreateObject('dcl.htmlOrgDetail');
+		$oOrg = new htmlOrgDetail();
 		$oOrg->show();
 	}
 
@@ -220,7 +220,7 @@ class htmlOrgForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boOrg');
+		$obj = new boOrg();
 		CleanArray($_REQUEST);
 
 		$aValues = array('org_id' => DCL_Sanitize::ToInt($_REQUEST['org_id']),
@@ -234,7 +234,7 @@ class htmlOrgForm
 
 		$obj->modify($aValues);
 
-		$oOrg =& CreateObject('dcl.htmlOrgDetail');
+		$oOrg = new htmlOrgDetail();
 		$oOrg->show();
 	}
 
@@ -252,13 +252,13 @@ class htmlOrgForm
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boOrg');
+		$obj = new boOrg();
 		CleanArray($_REQUEST);
 
 		$aKey = array('org_id' => $id);
 		$obj->delete($aKey);
 
-		$oOrg =& CreateObject('dcl.htmlOrgBrowse');
+		$oOrg = new htmlOrgBrowse();
 		$oOrg->show();
 	}
 
@@ -299,7 +299,7 @@ class htmlOrgForm
 			$oSmarty->assign('VAL_ACTIVE', $obj->active);
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Organization');
 			
-			$oOrgType =& CreateObject('dcl.dbOrgType');
+			$oOrgType = new dbOrgType();
 			$oSmarty->assign('orgTypes', $oOrgType->GetTypes($obj->org_id));
 
 			SmartyDisplay($oSmarty, 'htmlOrgForm.tpl');
@@ -309,23 +309,22 @@ class htmlOrgForm
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Organization');
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgForm.submitAdd');
 
-			$oAddrType = CreateObject('dcl.htmlAddrType');
+			$oAddrType = new htmlAddrType();
 			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->GetCombo());
 
-			$oEmailType = CreateObject('dcl.htmlEmailType');
+			$oEmailType = new htmlEmailType();
 			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->GetCombo());
 
-			$oPhoneType = CreateObject('dcl.htmlPhoneType');
+			$oPhoneType = new htmlPhoneType();
 			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->GetCombo());
 
-			$oUrlType = CreateObject('dcl.htmlUrlType');
+			$oUrlType = new htmlUrlType();
 			$oSmarty->assign('CMB_URLTYPE', $oUrlType->GetCombo());
 
-			$oOrgType =& CreateObject('dcl.dbOrgType');
+			$oOrgType = new dbOrgType();
 			$oSmarty->assign('orgTypes', $oOrgType->GetTypes());
 
 			SmartyDisplay($oSmarty, 'htmlNewOrgForm.tpl');
 		}
 	}
 }
-?>

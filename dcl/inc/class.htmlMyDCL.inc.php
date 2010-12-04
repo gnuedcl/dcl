@@ -61,7 +61,7 @@ class htmlMyDCL
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			return;
 			
-		$oTS =& CreateObject('dcl.htmlWorkOrderTimesheet');
+		$oTS = new htmlWorkOrderTimesheet();
 		$oTS->ShowEntryForm();
 	}
 	
@@ -69,7 +69,7 @@ class htmlMyDCL
 	{
 		global $g_oSec;
 		
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		
 		if ($forField == 'responsible')
 			$objView->title = STR_TCK_MYTICKETS;
@@ -96,7 +96,7 @@ class htmlMyDCL
 			$objView->AddDef('filternot', 'responsible', $GLOBALS['DCLID']);
 		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'ticketid'));
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		foreach ($objView->columnhdrs as $sColumn)
 		{
 			if ($sColumn == STR_TCK_TICKET)
@@ -138,7 +138,7 @@ class htmlMyDCL
 	{
 		global $g_oSec;
 		
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		
 		if ($forField == 'responsible')
 			$objView->title = STR_WO_MYWO;
@@ -170,7 +170,7 @@ class htmlMyDCL
 			
 		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'deadlineon', 'eststarton', 'jcn', 'seq'));
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		foreach ($objView->columnhdrs as $sColumn)
 		{
 			if ($sColumn == STR_WO_JCN || $sColumn == STR_WO_SEQ)
@@ -213,7 +213,7 @@ class htmlMyDCL
 	
 	function myProjects()
 	{
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->numrows = 5;
 
 		$oView->table = 'dcl_projects';
@@ -227,7 +227,7 @@ class htmlMyDCL
 
 		$oView->AddDef('order', '', array('dcl_projects.name'));
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		foreach ($oView->columnhdrs as $sColumn)
 		{
 			if ($sColumn == STR_PRJ_NAME)
@@ -261,4 +261,3 @@ class htmlMyDCL
 		}
 	}
 }
-?>

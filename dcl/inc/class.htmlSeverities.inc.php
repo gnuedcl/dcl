@@ -47,7 +47,7 @@ class htmlSeverities
 			$query .= ' ORDER BY a.name';
 		}
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -64,11 +64,11 @@ class htmlSeverities
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$objDBSeverity = CreateObject('dcl.dbSeverities');
+		$objDBSeverity = new dbSeverities();
 		$objDBSeverity->Query("SELECT id,active,short,name,weight FROM severities ORDER BY $orderBy");
 		$allRecs = $objDBSeverity->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_SEV_TABLETITLE, $orderBy));
 		$oTable->addColumn(STR_SEV_ID, 'numeric');
 		$oTable->addColumn(STR_SEV_ACTIVE, 'string');
@@ -138,4 +138,3 @@ class htmlSeverities
 		SmartyDisplay($t, 'htmlSeveritiesForm.tpl');
 	}
 }
-?>

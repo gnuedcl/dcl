@@ -30,7 +30,7 @@ class boHotlist extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbHotlist');
+		$this->oDB = new dbHotlist();
 		$this->sKeyField = 'hotlist_id';
 		$this->Entity = DCL_ENTITY_HOTLIST;
 
@@ -54,4 +54,3 @@ class boHotlist extends boAdminObject
 		parent::modify($aSource);
 	}
 }
-?>

@@ -36,11 +36,11 @@ class htmlWorkorders
 
 		$bIsBatch = IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0;
 
-		$objWO =& CreateObject('dcl.dbWorkorders');
-		$objProduct =& CreateObject('dcl.dbProducts');
-		$objHTMLPersonnel =& CreateObject('dcl.htmlPersonnel');
-		$objHTMLPriorities =& CreateObject('dcl.htmlPriorities');
-		$objHTMLSeverities =& CreateObject('dcl.htmlSeverities');
+		$objWO = new dbWorkorders();
+		$objProduct = new dbProducts();
+		$objHTMLPersonnel = new htmlPersonnel();
+		$objHTMLPriorities = new htmlPriorities();
+		$objHTMLSeverities = new htmlSeverities();
 
 		$t = CreateSmarty();
 		
@@ -78,7 +78,7 @@ class htmlWorkorders
 			$t->assign('CMB_PRIORITY', $objHTMLPriorities->GetCombo(0, 'priority', 'name', 0, false));
 			$t->assign('CMB_SEVERITY', $objHTMLSeverities->GetCombo(0, 'severity', 'name', 0, false));
 
-			$oView =& CreateObject('dcl.boView');
+			$oView = new boView();
 			$oView->SetFromURL();
 			$t->assign('VAL_VIEW', $oView->GetForm());
 		}
@@ -176,7 +176,7 @@ class htmlWorkorders
 		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));
 
-		$o = CreateObject('dcl.htmlProducts');
+		$o = new htmlProducts();
 		$t->assign('CMB_PRODUCTS', $o->GetCombo(0, 'product', 'name', 0, 0, false));
 		
 		SmartyDisplay($t, 'htmlWorkOrderGraph.tpl');
@@ -200,8 +200,8 @@ class htmlWorkorders
 			return PrintPermissionDenied();
 
 		$oSmarty =& CreateSmarty();
-		$oNotification =& CreateObject('dcl.boWatches');
-		$oNotification->oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oNotification = new boWatches();
+		$oNotification->oMeta = new DCL_MetadataDisplay();
 		$oNotification->oMeta->GetWorkOrder($jcn, $seq);
 		
 		$oSmarty->assign('VAL_HTML', "<br/><br/>" . $oNotification->GetWorkOrderNotificationBody($oNotification->oMeta->oWorkOrder, true));
@@ -225,7 +225,7 @@ class htmlWorkorders
 			return;
 		}
 
-		$o = CreateObject('dcl.dbSccsXref');
+		$o = new dbSccsXref();
 		if ($o->ListChangeLog(DCL_ENTITY_WORKORDER, $jcn, $seq) != -1)
 		{
 			$allRecs = array();
@@ -234,7 +234,7 @@ class htmlWorkorders
 				$allRecs[] = array($o->f(0) . ': ' . $o->f(2), $o->f(1), $o->f(3), $o->f(4), $o->f(5), $o->FormatTimestampForDisplay($o->f(6)));
 			}
 
-			$oTable =& CreateObject('dcl.htmlTable');
+			$oTable = new htmlTable();
 			$oTable->setCaption("ChangeLog for Work Order $jcn-$seq");
 			$oTable->addColumn('Project', 'string');
 			$oTable->addColumn('Changed By', 'string');
@@ -269,7 +269,7 @@ class htmlWorkorders
 			return;
 		}
 
-		$o = CreateObject('dcl.dbSccsXref');
+		$o = new dbSccsXref();
 		if ($o->ListChangeLog(DCL_ENTITY_WORKORDER, $jcn, $seq) != -1)
 		{
 			$allRecs = array();
@@ -278,7 +278,7 @@ class htmlWorkorders
 				$allRecs[] = array($o->f(0) . ': ' . $o->f(2), $o->f(1), $o->f(3), $o->f(4), $o->f(5), $o->FormatTimestampForDisplay($o->f(6)));
 			}
 
-			$oTable =& CreateObject('dcl.htmlTable');
+			$oTable = new htmlTable();
 			$oTable->setCaption("ChangeLog for Work Order $jcn-$seq");
 			$oTable->addColumn('Project', 'string');
 			$oTable->addColumn('Changed By', 'string');
@@ -297,15 +297,15 @@ class htmlWorkorders
 			$oTable->assign('VAL_JCN', $jcn);
 			$oTable->assign('VAL_SEQ', $seq);
 
-			$oWO = CreateObject('dcl.dbWorkorders');
+			$oWO = new dbWorkorders();
 			$oWO->Load($jcn, $seq);
 			$oTable->assign('VAL_SUMMARY', $oWO->summary);
 
-			$oProd = CreateObject('dcl.dbProducts');
+			$oProd = new dbProducts();
 			$oProd->Load($oWO->product);
 			$oTable->assign('VAL_PRODUCT', $oProd->name);
 			
-			$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+			$oMeta = new DCL_MetadataDisplay();
 			if ($oWO->fixed_version_id > 0)
 			{
 				$oTable->assign('VAL_VERSION', $oMeta->GetProductVersion($oWO->fixed_version_id));
@@ -315,7 +315,7 @@ class htmlWorkorders
 				$oTable->assign('VAL_VERSION', $oMeta->GetProductVersion($oWO->targeted_version_id));
 			}
 
-			$oTC = CreateObject('dcl.dbTimeCards');
+			$oTC = new dbTimeCards();
 			$oTC->LimitQuery("SELECT actionon FROM timecards WHERE status = 25 AND jcn = $jcn AND seq = $seq ORDER BY actionon DESC, id DESC", 0, 1);
 			if ($oTC->next_record())
 			{
@@ -336,7 +336,7 @@ class htmlWorkorders
 			return;
 		}
 
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->title = $title;
 		$objView->style = 'report';
 		if ($g_oSec->IsPublicUser())
@@ -395,7 +395,7 @@ class htmlWorkorders
 									array('perm' => DCL_PERM_VIEWSUBMITTED, 'id1' => 0, 'id2' => 0)))))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		if ((IsSet($_REQUEST['btnNav']) || IsSet($_REQUEST['jumptopage'])) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
 		{
 			if (IsSet($_REQUEST['btnNav']) && $_REQUEST['btnNav'] == '<<')
@@ -498,7 +498,7 @@ class htmlWorkorders
 		if ($filterPriority != '0')
 			$oView->AddDef('filter', 'priority', $filterPriority);
 
-		$oHtml = CreateObject('dcl.htmlWorkOrderBrowse');
+		$oHtml = new htmlWorkOrderBrowse();
 		$oHtml->sColumnTitle = STR_CMMN_OPTIONS;
 		$oHtml->sPagingMenuAction = 'htmlWorkorders.show';
 		$oHtml->bColumnSort = false;
@@ -506,4 +506,3 @@ class htmlWorkorders
 		$oHtml->Render($oView);
 	}
 }
-?>

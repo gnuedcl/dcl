@@ -108,7 +108,7 @@ class dbPersonnel extends dclDB
 			if ($this->IsPasswordOK($userID, $oldPassword) == false)
 			{
 				trigger_error(STR_DB_WRONGPWD, E_USER_ERROR);
-				$objPersonnel = CreateObject('dcl.htmlPersonnel');
+				$objPersonnel = new htmlPersonnel();
 				$objPersonnel->DisplayPasswdForm();
 				return;
 			}
@@ -124,4 +124,3 @@ class dbPersonnel extends dclDB
 		$this->pwd = md5($this->pwd);
 	}
 }
-?>

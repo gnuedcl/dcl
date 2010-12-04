@@ -30,9 +30,8 @@ class boOrgTypeXref extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbOrgTypeXref');
+		$this->oDB = new dbOrgTypeXref();
 		$this->sKeyField = '';
 		$this->Entity = DCL_ENTITY_ORG;
 	}
 }
-?>

@@ -30,7 +30,7 @@ class boContactNote extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbContactNote');
+		$this->oDB = new dbContactNote();
 		$this->sKeyField = 'contact_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
 		
@@ -40,4 +40,3 @@ class boContactNote extends boAdminObject
 		$this->sModifiedByField = 'modified_by';		
 	}
 }
-?>

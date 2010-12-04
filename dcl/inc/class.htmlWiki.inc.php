@@ -72,7 +72,7 @@ class htmlWiki
 		}
 
 
-		$oMeta =& CreateObject('dcl.DCL_MetadataDisplay');
+		$oMeta = new DCL_MetadataDisplay();
 
 		$sHTML = '';
 		switch ($type)
@@ -97,13 +97,13 @@ class htmlWiki
 					return;
 				}
 				
-				$o = CreateObject('dcl.dbWorkorders');
+				$o = new dbWorkorders();
 				$o->Load($id, $id2);
 				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_WOWIKI, $id, $id2, $o->summary));
 				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $id . '&seq=' . $id2));
 				break;
 			case DCL_ENTITY_TICKET:
-				$o = CreateObject('dcl.dbTickets');
+				$o = new dbTickets();
 				$o->Load($id);
 				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_TICKETWIKI, $id, $o->summary));
 				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=boTickets.view&ticketid=' . $id));
@@ -150,7 +150,7 @@ class htmlWiki
 		if (in_array($name, $this->aLockedPages))
 			unset($editmode);
 
-		$obj = CreateObject('dcl.dbWiki');
+		$obj = new dbWiki();
 		if ((!$obj->Exists($type, $id, $id2, $name) || $obj->Load($type, $id, $id2, $name) == -1) && $name != 'RecentChanges')
 			$obj = $this->quickwiki($type, $id, $id2, $name);
 
@@ -534,7 +534,7 @@ class htmlWiki
 
 		$theList = array();
 
-		$obj = CreateObject('dcl.dbWiki');
+		$obj = new dbWiki();
 		$obj->ListRecentChanges($type, $id, $id2);
 
 		$count = 0;
@@ -581,7 +581,7 @@ class htmlWiki
 		if ($type != DCL_ENTITY_WORKORDER)
 			$id2 = 0;
 		
-		$o = CreateObject('dcl.dbWiki');
+		$o = new dbWiki();
 		if ($o->Load($type, $id, $id2, $name) != -1)
 		{
 			$ddate = date("d M Y - H:i"); // Replace <d> tag with current date
@@ -599,7 +599,7 @@ class htmlWiki
 	{
 		global $g_oSession;
 		
-		$o = CreateObject('dcl.dbWiki');
+		$o = new dbWiki();
 		$o->dcl_entity_type_id = $type;
 		$o->dcl_entity_id = $id;
 		$o->dcl_entity_id2 = $id2;
@@ -611,4 +611,3 @@ class htmlWiki
 		return $o;
 	}
 }
-?>

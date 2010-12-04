@@ -30,7 +30,7 @@ class boOrgPhone extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB =& CreateObject('dcl.dbOrgPhone');
+		$this->oDB = new dbOrgPhone();
 		$this->sKeyField = 'org_phone_id';
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->PermAdd = DCL_PERM_MODIFY;
@@ -56,4 +56,3 @@ class boOrgPhone extends boAdminObject
 		parent::modify($aSource);
 	}
 }
-?>

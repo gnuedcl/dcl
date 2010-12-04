@@ -35,14 +35,13 @@ class boBuildManager
 		    return;
 		}
 		
-		$obj = CreateObject('dcl.dbBuildManager');
-		$obj->Connect();
+		$obj = new dbBuildManager();
 		
 		$query = "SELECT * FROM dcl_product_version where product_version_id = $id";
 		$obj->Query($query);
 		$allRecs = $obj->FetchAllRows();
 		
-		$obj = CreateObject('dcl.htmlBuildManager');
+		$obj = new htmlBuildManager();
 		$obj->ModifyReleasePage($allRecs);
 	}
 	
@@ -51,7 +50,7 @@ class boBuildManager
 	{	
 		// Determines if the user is trying to add a RELEASE or to add a BUILD
 		commonHeader();
-		$obj = CreateObject('dcl.htmlBuildManager');
+		$obj = new htmlBuildManager();
 		SWITCH ($_REQUEST['which'])
 		{
 			case "release":
@@ -70,12 +69,12 @@ class boBuildManager
 		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
 			return PrintPermissionDenied();
 		
-		$oDB = CreateObject('dcl.dbProductVersion');
+		$oDB = new dbProductVersion();
 		$oDB->InitFrom_POST();
 		$oDB->active = (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y' ? 'Y' : 'N');
 		$oDB->Add();
 		
-		$obj = CreateObject('dcl.htmlProductDetail');
+		$obj = new htmlProductDetail();
 		$obj->Show($product_id, 'release');
 	}
 	
@@ -88,12 +87,12 @@ class boBuildManager
 		if (($product_version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
 			return PrintPermissionDenied();
 		
-		$oDB = CreateObject('dcl.dbProductVersion');
+		$oDB = new dbProductVersion();
 		$oDB->InitFrom_POST();
 		$oDB->active = (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y' ? 'Y' : 'N');
 		$oDB->Edit();
 		
-		$obj = CreateObject('dcl.htmlProductDetail');
+		$obj = new htmlProductDetail();
 		$obj->Show($product_id, 'release');
 	}
 	
@@ -103,7 +102,7 @@ class boBuildManager
 		
 		global $init;
 		
-		$oDB = CreateObject('dcl.dbProductBuild');
+		$oDB = new dbProductBuild();
 		$oDB->InitFrom_Post();
 		if ($init == 0)
 		{
@@ -114,7 +113,7 @@ class boBuildManager
 		else
 			$oDB->Edit();
 
-		$obj = CreateObject('dcl.htmlProductDetail');
+		$obj = new htmlProductDetail();
 		$obj->Show($_POST['product_id'], $_POST['which'], $_POST['product_version_id']);
 	}
 	
@@ -124,7 +123,7 @@ class boBuildManager
 		
 		commonHeader();
 			
-		$obj = CreateObject('dcl.htmlBuildManager');
+		$obj = new htmlBuildManager();
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
 			// Select a version to associate with
@@ -142,7 +141,7 @@ class boBuildManager
 			}
 			
 			// Add items to version
-			$oVersionItem = CreateObject('dcl.dbProductVersionItem');
+			$oVersionItem = new dbProductVersionItem();
 			$oVersionItem->product_version_id = $product_version_id;
 			$oVersionItem->entity_type_id = DCL_ENTITY_WORKORDER;
 			$oVersionItem->version_status_id = 1;
@@ -180,7 +179,7 @@ class boBuildManager
 		$g_oSession->Register('env', $env);
 		$g_oSession->Edit();
 		
-		$obj = CreateObject('dcl.dbBuildManager');
+		$obj = new dbBuildManager();
 		$obj->Connect();
 		$obj->CheckBM($selected);		
 	}
@@ -189,7 +188,7 @@ class boBuildManager
 	{
 		global $dcl_info;
 		commonHeader();
-		$obj = CreateObject('dcl.htmlBuildManager');
+		$obj = new htmlBuildManager();
 		switch ($_REQUEST['from'])
 		{
 			case 'version':
@@ -199,7 +198,7 @@ class boBuildManager
 			        return;
 			    }
 			    
-				$objView = CreateObject('dcl.boView');
+				$objView = new boView();
 
 				$objView->title = sprintf(STR_PROD_RELEASEINFO, 'Version');
 				$objView->style = 'report';
@@ -210,7 +209,7 @@ class boBuildManager
 				$objView->AddDef('filter', 'product_version_id', $version_id);
 				$objView->AddDef('order', '', array('entity_id,entity_id2'));
 				
-				$objHV = CreateObject('dcl.htmlBuildManagerVersionView');
+				$objHV = new htmlBuildManagerVersionView();
 				$objHV->ModNav = 'WO';
 				$objHV->id = $GLOBALS['product_id'];
 				break;				
@@ -227,7 +226,7 @@ class boBuildManager
 			        return;
 			    }
 			    
-			    $objView = CreateObject('dcl.boView');
+			    $objView = new boView();
 
 				$objView->title = sprintf(STR_PROD_RELEASEINFO, 'Version');
 				$objView->style = 'report';
@@ -239,7 +238,7 @@ class boBuildManager
 				$objView->AddDef('filter', 'product_build_id', $product_build_id);
 				$objView->AddDef('order', '', array('entity_id,entity_id2'));
 
-				$objHV = CreateObject('dcl.htmlBuildManagerBuildView');
+				$objHV = new htmlBuildManagerBuildView();
 				$objHV->ModNav = 'WO';
 				$objHV->product_version_id = $GLOBALS['versionid'];
 				$objHV->productid = $GLOBALS['product_id'];
@@ -259,7 +258,7 @@ class boBuildManager
 		if (!$GLOBALS['g_oSec']->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEWFILE))
 			return PrintPermissionDenied();
 	
-		$obj = CreateObject('dcl.htmlBuildManager');
+		$obj = new htmlBuildManager();
 		switch ($GLOBALS['from'])
 		{
 			case 'version':	
@@ -275,7 +274,7 @@ class boBuildManager
 			        return;
 			    }
 			    
-			    $objView = CreateObject('dcl.boView');
+			    $objView = new boView();
 
 				$objView->title = sprintf(STR_PROD_RELEASEINFO, 'Version');
 				$objView->style = 'report';
@@ -286,12 +285,12 @@ class boBuildManager
 				$objView->AddDef('filter', 'product_version_id', $version_id);
 				$objView->AddDef('order', '', array('dcl_sccs_xref.sccs_project_path,dcl_sccs_xref.sccs_file_name '));
 
-				$objHV = CreateObject('dcl.htmlBuildManagerVersionView');
+				$objHV = new htmlBuildManagerVersionView();
 				$objHV->ModNav = 'showfiles';
 				$objHV->id = $product_id; 
 				break;			
 			case 'build':
-				$objView = CreateObject('dcl.boView');
+				$objView = new boView();
 				$objView->title = sprintf(STR_PROD_RELEASEINFO, 'Build');
 				$objView->style = 'report';
 				$objView->table = 'dcl_product_version_item';
@@ -301,7 +300,7 @@ class boBuildManager
 				$objView->AddDef('filter', 'dcl_product_build_item.product_build_id', $GLOBALS['build_id']);
 				$objView->AddDef('order', '', array('dcl_sccs_xref.sccs_project_path,dcl_sccs_xref.sccs_file_name '));
 
-				$objHV = CreateObject('dcl.htmlBuildManagerBuildView');
+				$objHV = new htmlBuildManagerBuildView();
 				$objHV->ModNav = 'showfiles';
 				$objHV->productid = $GLOBALS['product_id'];
 				$objHV->product_version_id = $GLOBALS['product_version_id'];
@@ -313,4 +312,3 @@ class boBuildManager
 		$objHV->Render($objView);
 	}
 }
-?>

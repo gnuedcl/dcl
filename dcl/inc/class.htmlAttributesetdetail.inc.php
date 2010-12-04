@@ -43,7 +43,7 @@ class htmlAttributesetdetail
 		$t->assign('VAL_ATTRIBUTESETNAME', $obj->name);
 		SmartyDisplay($t, 'htmlAttributesetdetail.tpl');
 
-		$objA = CreateObject('dcl.dbActions');
+		$objA = new dbActions();
 		$theAttributes = array('actions', 'priorities', 'severities', 'statuses');
 		$aTitles = array('actions' => STR_ATTR_ACTIONS, 'priorities' => STR_ATTR_PRIORITIES, 'severities' => STR_ATTR_SEVERITIES, 'statuses' => STR_ATTR_STATUSES);
 
@@ -63,7 +63,7 @@ class htmlAttributesetdetail
 
 			if ($objA->Query($query) != -1)
 			{
-				$oTable = CreateObject('dcl.htmlTable');
+				$oTable = new htmlTable();
 				$oTable->setCaption($aTitles[$theAttributes[$cnt]]);
 				$oTable->setInline(true);
 				
@@ -78,4 +78,3 @@ class htmlAttributesetdetail
 		}
 	}
 }
-?>

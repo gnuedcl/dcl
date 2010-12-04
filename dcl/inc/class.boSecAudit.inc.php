@@ -41,7 +41,7 @@ class boSecAudit
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 			
-		$obj =& CreateObject('dcl.htmlSecAudit');
+		$obj = new htmlSecAudit();
 		$obj->Show();
 	
 	}
@@ -67,8 +67,8 @@ class boSecAudit
 			return;
 		}
 		
-		$objDBPer =& CreateObject('dcl.dbPersonnel');
-		$objDBSA =& CreateObject('dcl.dbSecAudit');
+		$objDBPer = new dbPersonnel();
+		$objDBSA = new dbSecAudit();
 		
 
 		
@@ -123,7 +123,7 @@ class boSecAudit
 		}
 		
 		
-		$obj =& CreateObject('dcl.htmlSecAudit');
+		$obj = new htmlSecAudit();
 		if (!$obj->Render($reportAr, $begindate, $enddate, $respname))
 		{
 			trigger_error(STR_SEC_RPTERROR, E_USER_ERROR);
@@ -133,4 +133,3 @@ class boSecAudit
 	
 	}
 }
-?>

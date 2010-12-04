@@ -56,7 +56,7 @@ class htmlContactPhone
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbContactPhone');
+		$obj = new dbContactPhone();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -90,7 +90,7 @@ class htmlContactPhone
 		
 		CleanArray($_REQUEST);
 
-		$oContactPhone =& CreateObject('dcl.boContactPhone');
+		$oContactPhone = new boContactPhone();
 		$oContactPhone->add(array(
 						'contact_id' => $id,
 						'phone_type_id' => $phone_type_id,
@@ -114,7 +114,7 @@ class htmlContactPhone
 
 		CleanArray($_REQUEST);
 
-		$obj =& CreateObject('dcl.boContactPhone');
+		$obj = new boContactPhone();
 		$obj->modify($_REQUEST);
 
 		$this->ShowContactDetail();
@@ -138,7 +138,7 @@ class htmlContactPhone
 
 		$aKey = array('contact_phone_id' => $id);
 
-		$obj =& CreateObject('dcl.boContactPhone');
+		$obj = new boContactPhone();
 		$obj->delete($aKey);
 
 		$this->ShowContactDetail();
@@ -146,7 +146,7 @@ class htmlContactPhone
 
 	function ShowContactDetail()
 	{
-		$oContact =& CreateObject('dcl.htmlContactDetail');
+		$oContact = new htmlContactDetail();
 		$oContact->show();
 	}
 
@@ -165,11 +165,11 @@ class htmlContactPhone
 		}
 
 		$oSmarty =& CreateSmarty();
-		$oPhoneType =& CreateObject('dcl.htmlPhoneType');
+		$oPhoneType = new htmlPhoneType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
 
-		$oContact = CreateObject('dcl.dbContact');
+		$oContact = new dbContact();
 		$oContact->Load($_REQUEST['contact_id']);
 		$oSmarty->assign('VAL_FIRSTNAME', $oContact->first_name);
 		$oSmarty->assign('VAL_LASTNAME', $oContact->last_name);
@@ -194,4 +194,3 @@ class htmlContactPhone
 		SmartyDisplay($oSmarty, 'htmlPhoneForm.tpl');
 	}
 }
-?>

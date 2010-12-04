@@ -35,8 +35,8 @@ class htmlWOStatistics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 			
-		$objPersonnel = CreateObject('dcl.htmlPersonnel');
-		$objProducts = CreateObject('dcl.htmlProducts');
+		$objPersonnel = new htmlPersonnel();
+		$objProducts = new htmlProducts();
 
 		$t =& CreateSmarty();
 
@@ -54,10 +54,10 @@ class htmlWOStatistics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$objProduct = CreateObject('dcl.dbProducts');
-		$objPersonnel = CreateObject('dcl.dbPersonnel');
-		$objStatuses = CreateObject('dcl.dbStatuses');
-		$objWorkorders = CreateObject('dcl.dbWorkorders');
+		$objProduct = new dbProducts();
+		$objPersonnel = new dbPersonnel();
+		$objStatuses = new dbStatuses();
+		$objWorkorders = new dbWorkorders();
 		
 		$products = @DCL_Sanitize::ToIntArray($_REQUEST['products']);
 		$people = @DCL_Sanitize::ToIntArray($_REQUEST['people']);
@@ -325,7 +325,7 @@ class htmlWOStatistics
 		
 		$obj = new dclDB;
 
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->style = 'report';
 		$objView->title = STR_WOST_SEARCHRESULTS;
 
@@ -359,4 +359,3 @@ class htmlWOStatistics
 		$obj->Render($objView);
 	}
 }
-?>

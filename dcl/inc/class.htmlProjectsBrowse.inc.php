@@ -35,7 +35,7 @@ class htmlProjectsBrowse
 		$this->sPagingMenuAction = 'htmlProjectsBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = CreateObject('dcl.dbProjects');
+		$this->oDB = new dbProjects();
 	}
 
 	function Render(&$oView)
@@ -60,7 +60,7 @@ class htmlProjectsBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setData($this->oDB->FetchAllRows());
 		
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
@@ -135,7 +135,7 @@ class htmlProjectsBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -207,4 +207,3 @@ class htmlProjectsBrowse
 		return true;
 	}
 }
-?>

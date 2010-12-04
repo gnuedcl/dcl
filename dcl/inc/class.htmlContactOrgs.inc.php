@@ -46,12 +46,12 @@ class htmlContactOrgs
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
 			return PrintPermissionDenied();
 
-		$oContact = CreateObject('dcl.dbContact');
+		$oContact = new dbContact();
 		if ($oContact->Load($id) == -1)
 		    return;
 		    
 		// Get orgs for this contact
-		$oViewOrg =& CreateObject('dcl.boView');
+		$oViewOrg = new boView();
 		$oViewOrg->table = 'dcl_org';
 		$oViewOrg->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$oViewOrg->AddDef('columns', '', array('org_id', 'name'));
@@ -61,7 +61,7 @@ class htmlContactOrgs
 		$aOrgs = array();
 		$aOrgNames = array();
 		
-		$oOrgs =& CreateObject('dcl.dbOrg');
+		$oOrgs = new dbOrg();
 		if ($oOrgs->Query($oViewOrg->GetSQL()) != -1)
 		{
 			while ($oOrgs->next_record())
@@ -94,10 +94,10 @@ class htmlContactOrgs
 		CleanArray($_REQUEST);
 
 		$aOrgs = @DCL_Sanitize::ToIntArray($_REQUEST['org_id']);
-		$oDbContact = CreateObject('dcl.dbOrgContact');
+		$oDbContact = new dbOrgContact();
 		$oDbContact->updateOrgs($id, $aOrgs);
 
-		$oContact = CreateObject('dcl.htmlContactDetail');
+		$oContact = new htmlContactDetail();
 		$oContact->show();
 	}
 
@@ -124,4 +124,3 @@ class htmlContactOrgs
 		SmartyDisplay($oSmarty, 'htmlContactOrgs.tpl');
 	}
 }
-?>

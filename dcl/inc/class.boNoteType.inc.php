@@ -30,9 +30,8 @@ class boNoteType extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbNoteType');
+		$this->oDB = new dbNoteType();
 		$this->sKeyField = 'note_type_id';
 		$this->Entity = DCL_ENTITY_NOTETYPE;
 	}
 }
-?>

@@ -38,7 +38,7 @@ class htmlOrgType
 		$table = 'dcl_org_type';
 		$order = 'org_type_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'org_type_id', 'org_type_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -54,20 +54,20 @@ class htmlOrgType
 
 		commonHeader();
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_org_type';
 		$o->title = STR_ADMIN_ORGTYPES;
 		$o->AddDef('columns', '', array('org_type_id', 'org_type_name'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$o->AddDef('order', '', $orderBy);
 
-		$oDB = CreateObject('dcl.dbOrgType');
+		$oDB = new dbOrgType();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_ADMIN_ORGTYPES, $orderBy));
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
@@ -131,7 +131,7 @@ class htmlOrgType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbOrgType');
+		$obj = new dbOrgType();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -152,7 +152,7 @@ class htmlOrgType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.dbOrgType');
+		$obj = new dbOrgType();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -167,7 +167,7 @@ class htmlOrgType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORGTYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boOrgType');
+		$obj = new boOrgType();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 
@@ -184,7 +184,7 @@ class htmlOrgType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORGTYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boOrgType');
+		$obj = new boOrgType();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -205,7 +205,7 @@ class htmlOrgType
 			return;
 		}
 		
-		$obj = CreateObject('dcl.boOrgType');
+		$obj = new boOrgType();
 		$aKey = array('org_type_id' => $id);
 		$obj->delete($aKey);
 
@@ -244,4 +244,3 @@ class htmlOrgType
 		SmartyDisplay($t, 'htmlOrgTypeForm.tpl');
 	}
 }
-?>

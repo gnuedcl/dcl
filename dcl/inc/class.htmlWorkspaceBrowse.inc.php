@@ -33,7 +33,7 @@ class htmlWorkspaceBrowse
 		$this->sPagingMenuAction = 'htmlWorkspaceBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = CreateObject('dcl.dbWorkspace');
+		$this->oDB = new dbWorkspace();
 	}
 
 	function Render(&$oView)
@@ -58,7 +58,7 @@ class htmlWorkspaceBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$allRecs = $this->oDB->FetchAllRows();
 		
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
@@ -166,7 +166,7 @@ class htmlWorkspaceBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -234,7 +234,7 @@ class htmlWorkspaceBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->table = 'dcl_workspace';
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME));
 		$oView->AddDef('columns', '', array('workspace_id', 'active', 'workspace_name'));
@@ -259,4 +259,3 @@ class htmlWorkspaceBrowse
 		$this->Render($oView);
 	}
 }
-?>

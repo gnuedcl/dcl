@@ -28,7 +28,7 @@ class htmlAttributesets
 {
 	function GetCombo($default = 0, $cbName = 'setid', $longShort = 'name', $size = 0, $activeOnly = true)
 	{
-		$obj = CreateObject('dcl.dbAttributesets');
+		$obj = new dbAttributesets();
 		$obj->cacheEnabled = false;
 
 		$query = 'SELECT id,name FROM attributesets ';
@@ -69,11 +69,11 @@ class htmlAttributesets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$objDBStatus = CreateObject('dcl.dbAttributesets');
+		$objDBStatus = new dbAttributesets();
 		$objDBStatus->Query("SELECT id,active,short,name FROM attributesets ORDER BY $orderBy");
 		$allRecs = $objDBStatus->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(STR_ATTR_ATTRIBUTESETS);
 		$oTable->addColumn(STR_ATTR_ID, 'numeric');
 		$oTable->addColumn(STR_ATTR_ACTIVE, 'string');
@@ -136,4 +136,3 @@ class htmlAttributesets
 		SmartyDisplay($t, 'htmlAttributesetsForm.tpl');
 	}
 }
-?>

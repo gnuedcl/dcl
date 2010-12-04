@@ -47,7 +47,7 @@ class htmlPriorities
 			$query .= ' ORDER BY a.name';
 		}
 
-		$oSelect = CreateObject('dcl.htmlSelect');
+		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
@@ -64,11 +64,11 @@ class htmlPriorities
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$objDBPriority = CreateObject('dcl.dbPriorities');
+		$objDBPriority = new dbPriorities();
 		$objDBPriority->Query("SELECT id,active,short,name,weight FROM priorities ORDER BY $orderBy");
 		$allRecs = $objDBPriority->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption(sprintf(STR_PRIO_TABLETITLE, $orderBy));
 		$oTable->addColumn(STR_PRIO_ID, 'numeric');
 		$oTable->addColumn(STR_PRIO_ACTIVE, 'string');
@@ -139,4 +139,3 @@ class htmlPriorities
 		SmartyDisplay($t, 'htmlPrioritiesForm.tpl');
 	}
 }
-?>

@@ -38,7 +38,7 @@ function smarty_function_dcl_select_phonetype($params, &$smarty)
 
 	$sSQL = 'SELECT phone_type_id, phone_type_name FROM dcl_phone_type ORDER BY phone_type_name';
 
-	$oSelect =& CreateObject('dcl.htmlSelect');
+	$oSelect = new htmlSelect();
 	$oSelect->vDefault = $params['default'];
 	$oSelect->sName = $params['name'];
 	$oSelect->iSize = $params['size'];
@@ -47,4 +47,3 @@ function smarty_function_dcl_select_phonetype($params, &$smarty)
 
 	return $oSelect->GetHTML();
 }
-?>

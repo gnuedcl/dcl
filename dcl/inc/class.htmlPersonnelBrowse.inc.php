@@ -32,7 +32,7 @@ class htmlPersonnelBrowse
 	function htmlPersonnelBrowse()
 	{
 		$this->oSmarty =& CreateSmarty();
-		$this->oView =& CreateObject('dcl.boView');
+		$this->oView = new boView();
 		$this->oDB = new dclDB;
 	}
 
@@ -130,4 +130,3 @@ class htmlPersonnelBrowse
 		SmartyDisplay($this->oSmarty, 'htmlPersonnelBrowse.tpl');
 	}
 }
-?>

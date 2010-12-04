@@ -34,7 +34,7 @@ class boStatuses
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlStatuses');
+		$obj = new htmlStatuses();
 		$obj->PrintAll();
 	}
 
@@ -46,7 +46,7 @@ class boStatuses
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlStatuses');
+		$obj = new htmlStatuses();
 		$obj->ShowEntryForm();
 	}
 
@@ -58,11 +58,11 @@ class boStatuses
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbStatuses');
+		$obj = new dbStatuses();
 		$obj->InitFromGlobals();
 		$obj->Add();
 
-		$objHTML =& CreateObject('dcl.htmlStatuses');
+		$objHTML = new htmlStatuses();
 		$objHTML->PrintAll();
 	}
 
@@ -80,11 +80,11 @@ class boStatuses
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbStatuses');
+		$obj = new dbStatuses();
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		$objHTML =& CreateObject('dcl.htmlStatuses');
+		$objHTML = new htmlStatuses();
 		$objHTML->ShowEntryForm($obj);
 	}
 
@@ -96,11 +96,11 @@ class boStatuses
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbStatuses');
+		$obj = new dbStatuses();
 		$obj->InitFromGlobals();
 		$obj->Edit();
 		
-		$objHTML =& CreateObject('dcl.htmlStatuses');
+		$objHTML = new htmlStatuses();
 		$objHTML->PrintAll();
 	}
 	function delete()
@@ -117,7 +117,7 @@ class boStatuses
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbStatuses');
+		$obj = new dbStatuses();
 		if ($obj->Load($iID) == -1)
 			return;
 		
@@ -138,7 +138,7 @@ class boStatuses
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbStatuses');
+		$obj = new dbStatuses();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -153,8 +153,7 @@ class boStatuses
 			print(STR_BO_DEACTIVATED);
 		}
 
-		$objHTML =& CreateObject('dcl.htmlStatuses');
+		$objHTML = new htmlStatuses();
 		$objHTML->PrintAll();
 	}
 }
-?>

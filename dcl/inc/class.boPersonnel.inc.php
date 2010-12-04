@@ -34,7 +34,7 @@ class boPersonnel
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlPersonnel');
+		$obj = new htmlPersonnel();
 		$obj->ShowEntryForm();
 	}
 
@@ -46,7 +46,7 @@ class boPersonnel
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbPersonnel');
+		$obj = new dbPersonnel();
 		$obj->InitFromGlobals();
 		if (isset($_REQUEST['active']))
 			$obj->active = 'Y';
@@ -60,7 +60,7 @@ class boPersonnel
 		if (count($aRoles) > 0)
 		{
 			// Set up global user roles
-			$oUserRole =& CreateObject('dcl.dbUserRole');
+			$oUserRole = new dbUserRole();
 			$oUserRole->personnel_id = $obj->id;
 			$oUserRole->entity_type_id = DCL_ENTITY_GLOBAL;
 			$oUserRole->entity_id1 = 0;
@@ -70,7 +70,7 @@ class boPersonnel
 				$oUserRole->add();
 		}
 
-		$oBrowse =& CreateObject('dcl.htmlPersonnelBrowse');
+		$oBrowse = new htmlPersonnelBrowse();
 		$oBrowse->show();
 	}
 
@@ -88,11 +88,11 @@ class boPersonnel
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbPersonnel');
+		$obj = new dbPersonnel();
 		if ($obj->Load($iID) == -1)
 			return;
 
-		$objHTML =& CreateObject('dcl.htmlPersonnelForm');
+		$objHTML = new htmlPersonnelForm();
 		$objHTML->ShowEntryForm($obj);
 	}
 
@@ -104,7 +104,7 @@ class boPersonnel
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbPersonnel');
+		$obj = new dbPersonnel();
 		$obj->InitFromGlobals();
 		if (isset($_REQUEST['active']))
 			$obj->active = 'Y';
@@ -113,7 +113,7 @@ class boPersonnel
 
 		$obj->Edit();
 
-		$oUserRole =& CreateObject('dcl.dbUserRole');
+		$oUserRole = new dbUserRole();
 		$oUserRole->DeleteGlobalRolesNotIn($obj->id);
 		
 		$aRoles = @DCL_Sanitize::ToIntArray($_REQUEST['roles']);
@@ -129,7 +129,7 @@ class boPersonnel
 				$oUserRole->add();
 		}
 
-		$oBrowse =& CreateObject('dcl.htmlPersonnelBrowse');
+		$oBrowse = new htmlPersonnelBrowse();
 		$oBrowse->show();
 	}
 
@@ -147,7 +147,7 @@ class boPersonnel
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbPersonnel');
+		$obj = new dbPersonnel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -168,7 +168,7 @@ class boPersonnel
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbPersonnel');
+		$obj = new dbPersonnel();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -181,7 +181,7 @@ class boPersonnel
 			$obj->SetActive(array($obj->sKeyField => $iID), false);
 		}
 
-		$oBrowse =& CreateObject('dcl.htmlPersonnelBrowse');
+		$oBrowse = new htmlPersonnelBrowse();
 		$oBrowse->show();
 	}
 
@@ -193,7 +193,7 @@ class boPersonnel
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD))
 			return PrintPermissionDenied();
 
-		$objPersonnel =& CreateObject('dcl.htmlPersonnel');
+		$objPersonnel = new htmlPersonnel();
 		$objPersonnel->DisplayPasswdForm();
 	}
 
@@ -218,12 +218,12 @@ class boPersonnel
 		if ($_REQUEST['confirm'] != $_REQUEST['new'] || $_REQUEST['new'] == '')
 		{
 			trigger_error(STR_BO_PASSWORDERR);
-			$objPersonnel =& CreateObject('dcl.htmlPersonnel');
+			$objPersonnel = new htmlPersonnel();
 			$objPersonnel->DisplayPasswdForm();
 		}
 		else
 		{
-			$objDBPersonnel =& CreateObject('dcl.dbPersonnel');
+			$objDBPersonnel = new dbPersonnel();
 			$sOriginal = '';
 			if (isset($_REQUEST['original']))
 				$sOriginal = $_REQUEST['original'];
@@ -240,8 +240,7 @@ class boPersonnel
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlPersonnelBrowse');
+		$obj = new htmlPersonnelBrowse();
 		$obj->show();
 	}
 }
-?>

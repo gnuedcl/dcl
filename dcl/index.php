@@ -28,7 +28,7 @@ if (!isset($dcl_info))
 {
 	// If we had a session, some of the config would be in it
 	// and would have been removed above.
-	$oConfig = CreateObject('dcl.dbConfig');
+	$oConfig = new dbConfig();
 	$dcl_info = array();
 	$oConfig->Load();
 }
@@ -90,4 +90,3 @@ if (IsSet($GLOBALS['refer_to']))
 	$t->assign('VAL_REFERTO', urldecode($GLOBALS['refer_to']));
 
 SmartyDisplay($t, 'login.tpl');
-?>

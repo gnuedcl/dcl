@@ -33,7 +33,7 @@ class boLookup
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlLookup');
+		$obj = new htmlLookup();
 		$obj->Show();
 	}
 
@@ -45,11 +45,11 @@ class boLookup
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbLookup');
+		$obj = new dbLookup();
 		$obj->InitFromGlobals();
 		$obj->Add();
 
-		$objHTML =& CreateObject('dcl.htmlLookup');
+		$objHTML = new htmlLookup();
 		$objHTML->showall();
 	}
 
@@ -67,10 +67,10 @@ class boLookup
 			return;
 		}
 		
-		$oDB =& CreateObject('dcl.dbLookup');
+		$oDB = new dbLookup();
 		if ($oDB->Load($iID) != -1)
 		{
-			$obj = CreateObject('dcl.htmlLookup');
+			$obj = new htmlLookup();
 			$obj->id = $oDB->dcl_lookup_id;
 			$obj->active = $oDB->dcl_lookup_active;
 			$obj->name = $oDB->dcl_lookup_name;
@@ -89,11 +89,11 @@ class boLookup
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbLookup');
+		$obj = new dbLookup();
 		$obj->InitFromGlobals();
 		$obj->Edit();
 
-		$objHTML =& CreateObject('dcl.htmlLookup');
+		$objHTML = new htmlLookup();
 		$objHTML->showall();
 	}
 
@@ -111,7 +111,7 @@ class boLookup
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbLookup');
+		$obj = new dbLookup();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -132,7 +132,7 @@ class boLookup
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbLookup');
+		$obj = new dbLookup();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -147,7 +147,7 @@ class boLookup
 			print(STR_BO_DEACTIVATED);
 		}
 
-		$objHTML =& CreateObject('dcl.html' . $classSubName);
+		$objHTML = new htmlLookup();
 		$objHTML->showall();
 	}
 
@@ -159,7 +159,7 @@ class boLookup
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlLookup');
+		$obj = new htmlLookup();
 		$obj->showall();
 	}
 
@@ -171,7 +171,6 @@ class boLookup
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlLookup');
+		$obj = new htmlLookup();
 	}
 }
-?>

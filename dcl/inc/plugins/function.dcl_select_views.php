@@ -43,7 +43,6 @@ function smarty_function_dcl_select_views($params, &$smarty)
 	if (!isset($params['table']))
 		$params['table'] = 'workorders';
 
-	$oViews =& CreateObject('dcl.htmlViews');
+	$oViews = new htmlViews();
 	return $oViews->GetCombo($params['default'], $params['name'], $params['size'], $params['public'], $params['table']);
 }
-?>

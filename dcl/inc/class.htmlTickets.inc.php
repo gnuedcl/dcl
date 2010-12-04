@@ -33,10 +33,10 @@ class htmlTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN, $obj->ticketid))
 			return PrintPermissionDenied();
 
-		$objProduct = CreateObject('dcl.dbProducts');
-		$objHTMLPersonnel = CreateObject('dcl.htmlPersonnel');
-		$objHTMLPriorities = CreateObject('dcl.htmlPriorities');
-		$objHTMLSeverities = CreateObject('dcl.htmlSeverities');
+		$objProduct = new dbProducts();
+		$objHTMLPersonnel = new htmlPersonnel();
+		$objHTMLPriorities = new htmlPriorities();
+		$objHTMLSeverities = new htmlSeverities();
 
 		$objProduct->Query('SELECT tcksetid FROM products WHERE id=' . $obj->product);
 		$objProduct->next_record();
@@ -92,7 +92,7 @@ class htmlTickets
 		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));
 
-		$o = CreateObject('dcl.htmlProducts');
+		$o = new htmlProducts();
 		$t->assign('CMB_PRODUCTS', $o->GetCombo(0, 'product', 'name', 0, 0, false));
 		
 		SmartyDisplay($t, 'htmlTicketGraph.tpl');
@@ -108,9 +108,9 @@ class htmlTickets
 	{
 		global $dcl_info, $g_oSec;
 
-		$obj = CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 
-		$objView = CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->title = $title;
 		$objView->style = 'report';
 		$objView->table = 'tickets';
@@ -141,7 +141,7 @@ class htmlTickets
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		if ((IsSet($_REQUEST['btnNav']) || IsSet($_REQUEST['jumptopage'])) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
 		{
 			if (IsSet($_REQUEST['btnNav']) && $_REQUEST['btnNav'] == '<<')
@@ -216,8 +216,7 @@ class htmlTickets
 		if ($filterType != '0')
 			$oView->AddDef('filter', 'type', $filterType);
 
-		$oHtml = CreateObject('dcl.htmlTicketBrowse');
+		$oHtml = new htmlTicketBrowse();
 		$oHtml->Render($oView);
 	}
 }
-?>

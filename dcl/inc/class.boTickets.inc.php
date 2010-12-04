@@ -35,7 +35,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlTicketForm');
+		$obj = new htmlTicketForm();
 		$obj->Show();
 	}
 
@@ -47,7 +47,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		$obj->InitFromGlobals();
 		$obj->createdby = $GLOBALS['DCLID'];
 		$obj->createdon = DCL_NOW;
@@ -56,7 +56,7 @@ class boTickets
 		// If not set, get the ticket lead for the product
 		if (!IsSet($_REQUEST['responsible']))
 		{
-			$objProduct =& CreateObject('dcl.dbProducts');
+			$objProduct = new dbProducts();
 			if ($objProduct->Load($obj->product) == -1)
 				return;
 				
@@ -68,7 +68,7 @@ class boTickets
 		if (IsSet($_REQUEST['resolution']) && $_REQUEST['resolution'] != '')
 			$obj->lastactionon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 
-		$oStatus =& CreateObject('dcl.dbStatuses');
+		$oStatus = new dbStatuses();
 		if ($oStatus->GetStatusType($obj->status) == 2)
 		{
 			$obj->closedby = $GLOBALS['DCLID'];
@@ -83,7 +83,7 @@ class boTickets
 		{
 			$obj->contact_id = $g_oSession->Value('contact_id');
 			
-			$dbContact = CreateObject('dcl.dbContact');
+			$dbContact = new dbContact();
 			$aOrg = $dbContact->GetFirstOrg($obj->contact_id);
 			$obj->account = $aOrg['org_id'];
 		}
@@ -93,14 +93,14 @@ class boTickets
 		// Tags
 		if (isset($_REQUEST['tags']))
 		{
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			$oTag->serialize(DCL_ENTITY_TICKET, $obj->ticketid, 0, $_REQUEST['tags']);
 		}
 
 		// upload a file attachment?
 		if (($sFileName = @DCL_Sanitize::ToFileName('userfile')) !== null)
 		{
-			$o = CreateObject('dcl.boFile');
+			$o = new boFile();
 			$o->iType = DCL_ENTITY_TICKET;
 			$o->iKey1 = $obj->ticketid;
 			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
@@ -111,7 +111,7 @@ class boTickets
 
 		if (IsSet($_REQUEST['resolution']) && $_REQUEST['resolution'] != '')
 		{
-			$objR =& CreateObject('dcl.dbTicketresolutions');
+			$objR = new dbTicketresolutions();
 			$objR->InitFromGlobals();
 			$objR->loggedby = $GLOBALS['DCLID'];
 			$objR->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
@@ -128,7 +128,7 @@ class boTickets
 			$obj->seconds += ($end->time - $start->time);
 			$obj->Edit();
 
-			$oTR =& CreateObject('dcl.boTicketresolutions');
+			$oTR = new boTicketresolutions();
 			$oTR->oDB =& $objR;
 			$oTR->sendCustomerResponseEmail($obj);
 		}
@@ -140,10 +140,10 @@ class boTickets
 		// Reload the ticket now that we have all of the fields updated
 		$obj->Load($obj->ticketid);
 
-		$objWatch =& CreateObject('dcl.boWatches');
+		$objWatch = new boWatches();
 		$objWatch->sendTicketNotification($obj, $notify);
 
-		$objH =& CreateObject('dcl.htmlTicketDetail');
+		$objH = new htmlTicketDetail();
 		$objH->Show($obj);
 	}
 
@@ -162,11 +162,11 @@ class boTickets
 			return;
 		}
 		
-		$oTicket =& CreateObject('dcl.dbTickets');
+		$oTicket = new dbTickets();
 		if ($oTicket->Load($iID) == -1)
 			return;
 
-		$objHWO =& CreateObject('dcl.htmlWorkOrderForm');
+		$objHWO = new htmlWorkOrderForm();
 		$objHWO->Show(0, $oTicket);
 	}
 
@@ -184,7 +184,7 @@ class boTickets
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -194,7 +194,7 @@ class boTickets
 			return;
 		}
 
-		$objF =& CreateObject('dcl.htmlTicketForm');
+		$objF = new htmlTicketForm();
 		$objF->Show($obj);
 	}
 
@@ -212,7 +212,7 @@ class boTickets
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -263,7 +263,7 @@ class boTickets
 		$oldResponsible = $obj->responsible;
 		if (!IsSet($_REQUEST['responsible']))
 		{
-			$objProduct =& CreateObject('dcl.dbProducts');
+			$objProduct = new dbProducts();
 			$objProduct->Load($obj->product);
 			
 			if ($objProduct->ticketsto != $obj->responsible)
@@ -289,7 +289,7 @@ class boTickets
 
 		if (isset($_REQUEST['tags']))
 		{
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			$oTag->serialize(DCL_ENTITY_TICKET, $obj->ticketid, 0, $_REQUEST['tags']);
 		}
 		
@@ -297,11 +297,11 @@ class boTickets
 		{
 			$obj->Edit();
 
-			$objWtch =& CreateObject('dcl.boWatches');
+			$objWtch = new boWatches();
 			$objWtch->sendTicketNotification($obj, '4');
 		}
 
-		$objH =& CreateObject('dcl.htmlTicketDetail');
+		$objH = new htmlTicketDetail();
 		$objH->Show($obj);
 	}
 
@@ -319,7 +319,7 @@ class boTickets
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -346,7 +346,7 @@ class boTickets
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -359,7 +359,7 @@ class boTickets
 		$obj->Delete();
 
 		// Remove tags
-		$oTag =& CreateObject('dcl.dbEntityTag');
+		$oTag = new dbEntityTag();
 		$oTag->deleteByEntity(DCL_ENTITY_TICKET, $iID, 0);
 
 		// Remove all attachments
@@ -377,7 +377,7 @@ class boTickets
 
 		trigger_error(sprintf(STR_BO_TICKETDELETED, $iID), E_USER_NOTICE);
 
-		$objMy =& CreateObject('dcl.htmlMyDCL');
+		$objMy = new htmlMyDCL();
 		$objMy->showMy();
 	}
 
@@ -395,10 +395,10 @@ class boTickets
 			return;
 		}
 		
-		$objTicket =& CreateObject('dcl.dbTickets');
+		$objTicket = new dbTickets();
 		if ($objTicket->Load($iID) != -1)
 		{
-			$objHT =& CreateObject('dcl.htmlTicketDetail');
+			$objHT = new htmlTicketDetail();
 			$objHT->Show($objTicket);
 		}
 		else
@@ -406,9 +406,9 @@ class boTickets
 			trigger_error(sprintf(STR_TCK_COULDNOTFIND, $iID));
 
 			if ($g_oSec->IsPublicUser())
-				$objMy =& CreateObject('dcl.htmlPublicMyDCL');
+				$objMy = new htmlPublicMyDCL();
 			else
-				$objMy =& CreateObject('dcl.htmlMyDCL');
+				$objMy = new htmlMyDCL();
 
 			$objMy->showMy();
 		}
@@ -425,7 +425,7 @@ class boTickets
 			return;
 		}
 
-		$obj =& CreateObject('dcl.htmlTickets');
+		$obj = new htmlTickets();
 		$obj->DisplayGraphForm();
 	}
 
@@ -440,8 +440,8 @@ class boTickets
 			return;
 		}
 
-		$objG =& CreateObject('dcl.boGraph');
-		$obj =& CreateObject('dcl.dbTickets');
+		$objG = new boGraph();
+		$obj = new dbTickets();
 		$beginDate = new DCLTimestamp;
 		$endDate = new DCLTimestamp;
 		$testDate = new DCLTimestamp;
@@ -505,7 +505,7 @@ class boTickets
 		$objG->title = STR_BO_GRAPHTITLE;
 		if ($product_id > 0)
 		{
-			$oDB =& CreateObject('dcl.dbProducts');
+			$oDB = new dbProducts();
 			if ($oDB->Load($product_id) != -1)
 				$objG->title .= ' ' . $oDB->name;
 		}
@@ -535,14 +535,14 @@ class boTickets
 			return;
 		}
 		
-		$objTicket =& CreateObject('dcl.dbTickets');
+		$objTicket = new dbTickets();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
-		$obj =& CreateObject('dcl.htmlTickets');
+		$obj = new htmlTickets();
 		$obj->PrintReassignForm($objTicket);
 
-		$objHT =& CreateObject('dcl.htmlTicketDetail');
+		$objHT = new htmlTicketDetail();
 		$objHT->Show($objTicket);
 	}
 
@@ -578,7 +578,7 @@ class boTickets
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbTickets');
+		$obj = new dbTickets();
 		if ($obj->Load($iID) == -1)
 			return;
 		
@@ -591,11 +591,11 @@ class boTickets
 			$obj->type = $type;
 			$obj->Edit();
 
-			$objWtch =& CreateObject('dcl.boWatches');
+			$objWtch = new boWatches();
 			$objWtch->sendTicketNotification($obj, '4');
 		}
 
-		$objHT =& CreateObject('dcl.htmlTicketDetail');
+		$objHT = new htmlTicketDetail();
 		$objHT->Show($obj);
 	}
 
@@ -613,14 +613,14 @@ class boTickets
 			return;
 		}
 		
-		$objTicket =& CreateObject('dcl.dbTickets');
+		$objTicket = new dbTickets();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
-		$obj =& CreateObject('dcl.htmlTickets');
+		$obj = new htmlTickets();
 		$obj->ShowUploadFileForm($objTicket);
 
-		$objD =& CreateObject('dcl.htmlTicketDetail');
+		$objD = new htmlTicketDetail();
 		$objD->Show($objTicket);
 	}
 
@@ -638,14 +638,14 @@ class boTickets
 			return;
 		}
 		
-		$objTicket =& CreateObject('dcl.dbTickets');
+		$objTicket = new dbTickets();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) === null)
 			return PrintPermissionDenied();
 
-		$o =& CreateObject('dcl.boFile');
+		$o = new boFile();
 		$o->iType = DCL_ENTITY_TICKET;
 		$o->iKey1 = $iID;
 		$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
@@ -653,7 +653,7 @@ class boTickets
 		$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 		$o->Upload();
 
-		$obj =& CreateObject('dcl.htmlTicketDetail');
+		$obj = new htmlTicketDetail();
 		$obj->Show($objTicket);
 	}
 
@@ -671,7 +671,7 @@ class boTickets
 			return;
 		}
 		
-		$objTicket =& CreateObject('dcl.dbTickets');
+		$objTicket = new dbTickets();
 		if ($objTicket->Load($iID) == -1)
 			return;
 			
@@ -681,10 +681,10 @@ class boTickets
 			return;
 		}
 
-		$obj =& CreateObject('dcl.htmlTickets');
+		$obj = new htmlTickets();
 		$obj->ShowDeleteAttachmentYesNo($iID, $_REQUEST['filename']);
 
-		$objD =& CreateObject('dcl.htmlTicketDetail');
+		$objD = new htmlTicketDetail();
 		$objD->Show($objTicket);
 	}
 
@@ -708,7 +708,7 @@ class boTickets
 			return;
 		}
 
-		$objTicket =& CreateObject('dcl.dbTickets');
+		$objTicket = new dbTickets();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
@@ -716,7 +716,7 @@ class boTickets
 		if (is_file($attachPath . $_REQUEST['filename']) && is_readable($attachPath . $_REQUEST['filename']))
 			unlink($attachPath . $_REQUEST['filename']);
 
-		$obj =& CreateObject('dcl.htmlTicketDetail');
+		$obj = new htmlTicketDetail();
 		$obj->Show($objTicket);
 	}
 
@@ -772,7 +772,7 @@ class boTickets
 		else
 			$order = array();
 
-		$objView =& CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->table = 'tickets';
 
 		if (count($personnel) > 0 || count($department) > 0)
@@ -971,15 +971,14 @@ class boTickets
 		else
 			$objView->title = STR_TCK_TICKETSEARCHRESULTS;
 
-		$obj =& CreateObject('dcl.htmlTicketResults');
+		$obj = new htmlTicketResults();
 		$obj->Render($objView);
 	}
 
 	function showmy()
 	{
 		commonHeader();
-		$obj =& CreateObject('dcl.htmlTickets');
+		$obj = new htmlTickets();
 		$obj->my(0);
 	}
 }
-?>

@@ -33,7 +33,7 @@ class htmlOrgBrowse
 		$this->sPagingMenuAction = 'htmlOrgBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = CreateObject('dcl.dbOrg');
+		$this->oDB = new dbOrg();
 	}
 
 	function Render(&$oView)
@@ -58,7 +58,7 @@ class htmlOrgBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setData($this->oDB->FetchAllRows());
 		
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
@@ -143,7 +143,7 @@ class htmlOrgBrowse
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_ORG => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -211,7 +211,7 @@ class htmlOrgBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oView = CreateObject('dcl.boView');
+		$oView = new boView();
 		$oView->table = 'dcl_org';
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME, 'Phone', 'Email', 'Internet'));
 		$oView->AddDef('columns', '', array('org_id', 'active', 'name', 'dcl_org_phone.phone_number', 'dcl_org_email.email_addr', 'dcl_org_url.url_addr'));
@@ -236,4 +236,3 @@ class htmlOrgBrowse
 		$this->Render($oView);
 	}
 }
-?>

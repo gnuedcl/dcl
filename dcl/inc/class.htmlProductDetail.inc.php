@@ -42,7 +42,7 @@ class htmlProductDetail
 		$this->sView = 'summary';
 		$this->iVersion = 0;
 
-		$this->oProduct = CreateObject('dcl.dbProducts');
+		$this->oProduct = new dbProducts();
 	}
 
 	function Show($id, $which = 'summary', $version = 0)
@@ -60,7 +60,7 @@ class htmlProductDetail
 		if ($this->oProduct->Load($id) == -1)
 		    return;
 
-		$objPers = CreateObject('dcl.dbPersonnel');
+		$objPers = new dbPersonnel();
 
 		$this->t->assign('VAL_ID', $id);
 		$this->t->assign('VAL_NAME', $this->oProduct->name);
@@ -85,7 +85,7 @@ class htmlProductDetail
 
 		if ($this->sView == 'summary')
 		{
-			$oMetrics = CreateObject('dcl.htmlMetricsWorkOrders');
+			$oMetrics = new htmlMetricsWorkOrders();
 			$_REQUEST['products'] = $id;
 			$_REQUEST['begindate'] = date($dcl_info['DCL_DATE_FORMAT'], time() - (86400 * 7));
 			$_REQUEST['enddate'] = date($dcl_info['DCL_DATE_FORMAT']);
@@ -101,14 +101,14 @@ class htmlProductDetail
 
 		if ($this->sView == 'modules')
 		{
-			$oModules = CreateObject('dcl.htmlProductModules');
+			$oModules = new htmlProductModules();
 			$_REQUEST['product_id'] = $id;
 			$oModules->PrintAll();
 		}
 		else if ($this->sView != 'summary')
 		{
 			// This shows the non-closed work orders/tickets grouped by status
-			$objView = CreateObject('dcl.boView');
+			$objView = new boView();
 			if ($this->sView == 'workorders')
 			{
 				$objView->title = sprintf(STR_PROD_WOTITLE, $this->oProduct->name);
@@ -143,7 +143,7 @@ class htmlProductDetail
 				$objView->AddDef('filter', 'product_id', $id);
 				$objView->AddDef('order', '', array('product_version_target_date desc'));
 
-				$objHV = CreateObject('dcl.htmlBuildManagerVersionView');
+				$objHV = new htmlBuildManagerVersionView();
 				$objHV->productid = $id;
 			}
 			elseif ($this->sView == 'build')
@@ -158,7 +158,7 @@ class htmlProductDetail
 				$objView->AddDef('filter', 'dcl_product_build.product_version_id', $this->iVersion);
 				//$objView->AddDef('order', '', array('product_version_target_date'));
 
-				$objHV = CreateObject('dcl.htmlBuildManagerBuildView');
+				$objHV = new htmlBuildManagerBuildView();
 				$objHV->productid = $id;
 				$objHV->product_version_id = $this->iVersion;
 			}
@@ -188,4 +188,3 @@ class htmlProductDetail
 		}
 	}
 }
-?>

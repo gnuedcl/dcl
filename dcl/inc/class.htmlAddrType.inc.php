@@ -40,7 +40,7 @@ class htmlAddrType
 		$table = 'dcl_addr_type';
 		$order = 'addr_type_name';
 
-		$obj = CreateObject('dcl.htmlSelect');
+		$obj = new htmlSelect();
 		$obj->SetOptionsFromDb($table, 'addr_type_id', 'addr_type_name', $filter, $order);
 		$obj->vDefault = $default;
 		$obj->sName = $cbName;
@@ -58,20 +58,20 @@ class htmlAddrType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADDRTYPE, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$o = CreateObject('dcl.boView');
+		$o = new boView();
 		$o->table = 'dcl_addr_type';
 		$o->title = sprintf('Address Types');
 		$o->AddDef('columns', '', array('addr_type_id', 'addr_type_name'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$o->AddDef('order', '', $orderBy);
 
-		$oDB = CreateObject('dcl.dbAddrType');
+		$oDB = new dbAddrType();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Address Types');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
@@ -135,7 +135,7 @@ class htmlAddrType
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbAddrType');
+		$obj = new dbAddrType();
 		if ($obj->Load($id) != -1)
 			$this->ShowEntryForm($obj);
 	}
@@ -154,7 +154,7 @@ class htmlAddrType
 			return;
 		}
 
-		$obj = CreateObject('dcl.dbAddrType');
+		$obj = new dbAddrType();
 		if ($obj->Load($id) != -1)
 			ShowDeleteYesNo('Address Type', 'htmlAddrType.submitDelete', $obj->addr_type_id, $obj->addr_type_name);
 	}
@@ -167,7 +167,7 @@ class htmlAddrType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADDRTYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boAddrType');
+		$obj = new boAddrType();
 		CleanArray($_REQUEST);
 		$obj->add($_REQUEST);
 
@@ -184,7 +184,7 @@ class htmlAddrType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADDRTYPE, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.boAddrType');
+		$obj = new boAddrType();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
 
@@ -205,7 +205,7 @@ class htmlAddrType
 			return;
 		}
 
-		$obj = CreateObject('dcl.boAddrType');
+		$obj = new boAddrType();
 
 		$aKey = array('addr_type_id' => $id);
 		$obj->delete($aKey);
@@ -247,4 +247,3 @@ class htmlAddrType
 		SmartyDisplay($t, 'htmlAddrTypeForm.tpl');
 	}
 }
-?>

@@ -37,7 +37,7 @@ class jsonProduct
 		if ($product_id === null)
 			exit;
 		
-		$oDB = CreateObject('dcl.dbProducts');
+		$oDB = new dbProducts();
 		$oDB->Load($product_id);
 
 		$bFirst = true;
@@ -49,4 +49,3 @@ class jsonProduct
 		exit;
 	}
 }
-?>

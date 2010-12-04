@@ -32,7 +32,7 @@ class htmlProducts
 	{
 		global $g_oSec, $g_oSession;
 
-		$objDBProducts = CreateObject('dcl.dbProducts');
+		$objDBProducts = new dbProducts();
 		$objDBProducts->cacheEnabled = false;
 		$whereClause = '';
 		
@@ -72,7 +72,7 @@ class htmlProducts
 
 		$objDBProducts->Query("SELECT id,$longShort FROM products " . $whereClause . " ORDER BY $longShort");
 
-		$o = CreateObject('dcl.htmlSelect');
+		$o = new htmlSelect();
 		$o->vDefault = $default;
 		$o->sName = $cbName;
 		$o->iSize = $size;
@@ -95,7 +95,7 @@ class htmlProducts
 			
 		$filterLead = @DCL_Sanitize::ToInt($_REQUEST['filterLead']);
 
-		$objDBProduct = CreateObject('dcl.dbProducts');
+		$objDBProduct = new dbProducts();
 
 		$query = 'SELECT a.id,a.active,a.short,a.name,b.short,c.short,d.name,e.name,a.is_versioned,a.is_public,a.is_project_required ';
 		$query .= 'FROM products a,personnel b,personnel c,attributesets d,attributesets e ';
@@ -114,7 +114,7 @@ class htmlProducts
 		$objDBProduct->Query($query);
 		$allRecs = $objDBProduct->FetchAllRows();
 
-		$oTable =& CreateObject('dcl.htmlTable');
+		$oTable = new htmlTable();
 		$oTable->setCaption('Products');
 		$oTable->addColumn(STR_PROD_ID, 'numeric');
 		$oTable->addColumn(STR_PROD_ACTIVEABB, 'string');
@@ -176,7 +176,7 @@ class htmlProducts
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$oProduct = CreateObject('dcl.boProducts');
+		$oProduct = new boProducts();
 		CleanArray($_REQUEST);
 		$oProduct->add($_REQUEST);
 
@@ -198,7 +198,7 @@ class htmlProducts
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_MODIFY, $id))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbProducts');
+		$obj = new dbProducts();
 		if ($obj->Load($id) == -1)
 			return;
 
@@ -219,11 +219,11 @@ class htmlProducts
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_MODIFY, $id))
 			return PrintPermissionDenied();
 
-		$oProduct = CreateObject('dcl.boProducts');
+		$oProduct = new boProducts();
 		CleanArray($_REQUEST);
 		$oProduct->modify($_REQUEST);
 		
-		$obj =& CreateObject('dcl.htmlProductDetail');
+		$obj = new htmlProductDetail();
 		$obj->Show($id);
 	}
 
@@ -241,7 +241,7 @@ class htmlProducts
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE, $id))
 			return PrintPermissionDenied();
 
-		$obj = CreateObject('dcl.dbProducts');
+		$obj = new dbProducts();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -262,7 +262,7 @@ class htmlProducts
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE, $id))
 			return PrintPermissionDenied();
 
-		$oProduct = CreateObject('dcl.boProducts');
+		$oProduct = new boProducts();
 		$oProduct->delete($id);
 
 		$this->PrintAll();
@@ -293,8 +293,8 @@ class htmlProducts
 		}
 
 		// Data
-		$objHTMLPersonnel = CreateObject('dcl.htmlPersonnel');
-		$objHA = CreateObject('dcl.htmlAttributesets');
+		$objHTMLPersonnel = new htmlPersonnel();
+		$objHA = new htmlAttributesets();
 		if ($isEdit)
 		{
 			$t->assign('CMB_ACTIVE', GetYesNoCombo($obj->active, 'active', 0, false));
@@ -323,4 +323,3 @@ class htmlProducts
 		SmartyDisplay($t, 'htmlProductsForm.tpl');
 	}
 }
-?>

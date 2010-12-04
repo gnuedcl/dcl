@@ -243,25 +243,25 @@ class htmlConfig
 
 	function GetStatusCombo($sName, $sDefault)
 	{
-		$o = CreateObject('dcl.htmlStatuses');
+		$o = new htmlStatuses();
 		return $o->GetCombo(intval($sDefault), $sName);
 	}
 
 	function GetPriorityCombo($sName, $sDefault)
 	{
-		$o = CreateObject('dcl.htmlPriorities');
+		$o = new htmlPriorities();
 		return $o->GetCombo(intval($sDefault), $sName);
 	}
 
 	function GetSeverityCombo($sName, $sDefault)
 	{
-		$o = CreateObject('dcl.htmlSeverities');
+		$o = new htmlSeverities();
 		return $o->GetCombo(intval($sDefault), $sName);
 	}
 
 	function GetAccountCombo($sName, $sDefault)
 	{
-		$o =& CreateObject('dcl.dbOrg');
+		$o = new dbOrg();
 		$aOptions = $o->GetOptions('org_id', 'name', 'active', $bActiveOnly = true);
 
 		$aSelect = array();
@@ -275,7 +275,7 @@ class htmlConfig
 
 	function GetPersonnelCombo($sName, $sDefault)
 	{
-		$o = CreateObject('dcl.htmlPersonnel');
+		$o = new htmlPersonnel();
 		return $o->GetCombo(intval($sDefault), $sName);
 	}
 
@@ -300,4 +300,3 @@ class htmlConfig
 		return $this->_GetCombo($sName, $aOptions, $sDefault);
 	}
 }
-?>

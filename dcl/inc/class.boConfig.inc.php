@@ -34,7 +34,7 @@ class boConfig
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlConfig');
+		$obj = new htmlConfig();
 		$obj->Show();
 	}
 
@@ -62,7 +62,7 @@ class boConfig
 		// the ones that have changed.
 		$bHasUpdates = false;
 
-		$oConfig =& CreateObject('dcl.dbConfig');
+		$oConfig = new dbConfig();
 		$oConfig->LoadForModify();
 		while ($oConfig->next_record())
 		{
@@ -96,8 +96,7 @@ class boConfig
 		if ($bHasUpdates)
 			$oConfigTemp->UpdateTimeStamp();
 
-		$obj =& CreateObject('dcl.htmlAdminMain');
+		$obj = new htmlAdminMain();
 		$obj->Show();
 	}
 }
-?>

@@ -34,8 +34,7 @@ class boAdmin
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlAdminMain');
+		$obj = new htmlAdminMain();
 		$obj->Show();
 	}
 }
-?>

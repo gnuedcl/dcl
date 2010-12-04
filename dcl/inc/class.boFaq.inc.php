@@ -34,7 +34,7 @@ class boFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.htmlFaq');
+		$obj = new htmlFaq();
 		$obj->DisplayForm();
 		print('<p>');
 		$obj->ShowAll();
@@ -48,13 +48,13 @@ class boFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbFaq');
+		$obj = new dbFaq();
 		$obj->InitFromGlobals();
 		$obj->createby = $GLOBALS['DCLID'];
 		$obj->createon = DCL_NOW;
 		$obj->Add();
 
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->ShowAll();
 	}
 
@@ -72,11 +72,11 @@ class boFaq
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbFaq');
+		$obj = new dbFaq();
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->DisplayForm($obj);
 	}
 
@@ -88,14 +88,14 @@ class boFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbFaq');
+		$obj = new dbFaq();
 		$obj->InitFromGlobals();
 		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
 		$obj->modifyby = $GLOBALS['DCLID'];
 		$obj->modifyon = DCL_NOW;
 		$obj->Edit();
 		
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->ShowFaq($obj);
 	}
 
@@ -113,7 +113,7 @@ class boFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE, $iID))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbFaq');
+		$obj = new dbFaq();
 		if ($obj->Load($iID) == -1)
 			return;
 		
@@ -134,13 +134,13 @@ class boFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE, $iID))
 			return PrintPermissionDenied();
 
-		$obj =& CreateObject('dcl.dbFaq');
+		$obj = new dbFaq();
 		if ($obj->Load($iID) == -1)
 			return;
 			
 		$obj->Delete($iID);
 		
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->ShowAll();
 	}
 
@@ -158,11 +158,11 @@ class boFaq
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.dbFaq');
+		$obj = new dbFaq();
 		if ($obj->Load($iID) == -1)
 			return;
 
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->ShowFaq($obj);
 	}
 
@@ -174,8 +174,7 @@ class boFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$objH =& CreateObject('dcl.htmlFaq');
+		$objH = new htmlFaq();
 		$objH->ShowAll();
 	}
 }
-?>

@@ -30,9 +30,8 @@ class boContactTypeXref extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB =& CreateObject('dcl.dbContactTypeXref');
+		$this->oDB = new dbContactTypeXref();
 		$this->sKeyField = '';
 		$this->Entity = DCL_ENTITY_CONTACT;
 	}
 }
-?>
