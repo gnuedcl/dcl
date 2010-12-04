@@ -46,16 +46,16 @@ class boTimecards
 			return;
 		}
 		
-		$obj =& CreateObject('dcl.htmlTimeCardForm');
+		$obj = new htmlTimeCardForm();
 		$obj->Show($jcn, $seq);
 
-		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objWO = new htmlWorkOrderDetail();
 		$objWO->Show($jcn, $seq);
 	}
 	
 	function closeIncompleteTasks($wo_id, $seq)
 	{
-		$oTasks =& CreateObject('dcl.dbWorkOrderTask');
+		$oTasks = new dbWorkOrderTask();
 		if ($oTasks->CloseAllIncompleteTasksForWorkOrder($wo_id, $seq))
 		{
 			trigger_error('Remaining incomplete tasks have been marked as closed by you.', E_USER_WARNING);
@@ -70,9 +70,9 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			return PrintPermissionDenied();
 
-		$objTimecard =& CreateObject('dcl.dbTimeCards');
-		$objWorkorder =& CreateObject('dcl.dbWorkorders');
-		$oStatus =& CreateObject('dcl.dbStatuses');
+		$objTimecard = new dbTimeCards();
+		$objWorkorder = new dbWorkorders();
+		$oStatus = new dbStatuses();
 
 		$objTimecard->InitFromGlobals();
 		$objTimecard->actionby = $GLOBALS['DCLID'];
@@ -92,19 +92,27 @@ class boTimecards
 			$fixed_version_id = 0;
 		    
 		$status = $objWorkorder->status;
+		$oldStatusType = $oStatus->GetStatusType($status);
+		$newStatusType = $oStatus->GetStatusType($objTimecard->status);
+
+		if ($oldStatusType != $newStatusType && $newStatusType == 2)
+		{
+			// Check if re-open is allowed
+		}
+
 		$objTimecard->Add($targeted_version_id, $fixed_version_id);
 		$notify = '4';
 		if ($status != $objTimecard->status)
 		{
 			$notify .= ',3';
-			if ($oStatus->GetStatusType($objTimecard->status) == 2)
+			if ($newStatusType == 2)
 			{
 				$notify .= ',2';
 				
 				// also need to close all incomplete tasks and warn user if it happens
 				$this->closeIncompleteTasks($objTimecard->jcn, $objTimecard->seq);
 			}
-			elseif ($oStatus->GetStatusType($objTimecard->status) == 1 && $oStatus->GetStatusType($status) != 1)
+			elseif ($newStatusType == 1 && $oldStatusType != 1)
 				$notify .= ',1';
 		}
 		
@@ -112,21 +120,21 @@ class boTimecards
 		// * Tags
 		if (isset($_REQUEST['tags']) && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY))
 		{
-			$oTag =& CreateObject('dcl.dbEntityTag');
+			$oTag = new dbEntityTag();
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
 		}
 
 		// * Hotlists
 		if (isset($_REQUEST['hotlist']) && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY))
 		{
-			$oTag =& CreateObject('dcl.dbEntityHotlist');
+			$oTag = new dbEntityHotlist();
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
 		}
 
 		// * Organizations - only if multiple are allowed to improve workflow
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY) && $dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y')
 		{
-			$oWOA =& CreateObject('dcl.dbWorkOrderAccount');
+			$oWOA = new dbWorkOrderAccount();
 			if (IsSet($_REQUEST['secaccounts']))
 			{
 				$aAccounts = @DCL_Sanitize::ToIntArray($_REQUEST['secaccounts']);
@@ -160,10 +168,10 @@ class boTimecards
 		{
 			if (($iProjID = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
 			{
-				$oProjectMap =& CreateObject('dcl.dbProjectmap');
+				$oProjectMap = new dbProjectmap();
 				if ($oProjectMap->LoadByWO($objWorkorder->jcn, $objWorkorder->seq) == -1 || $oProjectMap->projectid != $iProjID)
 				{
-					$oProject = CreateObject('dcl.boProjects');
+					$oProject = new boProjects();
 					$aSource = array();
 					$aSource['selected'] = array($objWorkorder->jcn . '.' . $objWorkorder->seq);
 					$aSource['projectid'] = $iProjID;
@@ -176,7 +184,7 @@ class boTimecards
 		// * File attachment
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE))
 		{
-			$o =& CreateObject('dcl.boFile');
+			$o = new boFile();
 			$o->iType = DCL_ENTITY_WORKORDER;
 			$o->iKey1 = $objWorkorder->jcn;
 			$o->iKey2 = $objWorkorder->seq;
@@ -186,7 +194,7 @@ class boTimecards
 			$o->Upload();
 		}
 
-		$objWtch =& CreateObject('dcl.boWatches');
+		$objWtch = new boWatches();
 		// Reload before sending since time card modifies the work order
 		$objWorkorder->Load($objTimecard->jcn, $objTimecard->seq);
 		$objWtch->sendNotification($objWorkorder, $notify);
@@ -194,11 +202,11 @@ class boTimecards
 		// if BuildManager is used, find info on who submitted the WO
 		if ($dcl_info['DCL_BUILD_MANAGER_ENABLED'] == 'Y')
 		{
-//			$oBM = CreateObject('dcl.dbBuildManager');
+//			$oBM = new dbBuildManager();
 //			$oBM->CheckDepartmentSubmit($objTimecard->jcn, $objTimecard->seq, $objWorkorder->product);
 		}
 
-		$objWO =& CreateObject('dcl.htmlWorkOrderDetail');
+		$objWO = new htmlWorkOrderDetail();
 		$objWO->Show($objTimecard->jcn, $objTimecard->seq);
 	}
 
@@ -228,10 +236,10 @@ class boTimecards
 
 		if (count($aSelected) > 0)
 		{
-			$objTC =& CreateObject('dcl.htmlTimeCardForm');
+			$objTC = new htmlTimeCardForm();
 			$objTC->Show(-1, -1, '', $aSelected);
 
-			$obj =& CreateObject('dcl.htmlTimeCards');
+			$obj = new htmlTimeCards();
 			$_REQUEST['selected'] = $aSelected;
 			$obj->ShowBatchWO();
 
@@ -241,10 +249,10 @@ class boTimecards
 		if (EvaluateReturnTo())
 			return;
 
-		$objView =& CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->SetFromURL();
 		
-		$objH =& CreateObject('dcl.htmlWorkOrderResults');
+		$objH = new htmlWorkOrderResults();
 		$objH->Render($objView);
 	}
 
@@ -259,7 +267,7 @@ class boTimecards
 			return EvaluateReturnTo();
 		}
 
-		$objTimecard =& CreateObject('dcl.dbTimeCards');
+		$objTimecard = new dbTimeCards();
 		$objTimecard->InitFromGlobals();
 		$objTimecard->actionby = $GLOBALS['DCLID'];
 		if ($g_oSec->IsPublicUser())
@@ -278,14 +286,14 @@ class boTimecards
 
 		$batchEtc = @DCL_Sanitize::ToDecimal($_REQUEST['etchours']);
 		
-		$objWorkorder =& CreateObject('dcl.dbWorkorders');
-		$objWtch =& CreateObject('dcl.boWatches');
+		$objWorkorder = new dbWorkorders();
+		$objWtch = new boWatches();
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
     		$bProcessTags = (isset($_REQUEST['tags']) && trim($_REQUEST['tags']) != '' && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY));
-        	$oTag =& CreateObject('dcl.dbEntityTag');
+        	$oTag = new dbEntityTag();
     		$bProcessHotlist = (isset($_REQUEST['hotlist']) && trim($_REQUEST['hotlist']) != '' && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY));
-        	$oHotlist =& CreateObject('dcl.dbEntityHotlist');
+        	$oHotlist = new dbEntityHotlist();
         	foreach ($_REQUEST['selected'] as $key => $val)
 			{
 				list($objTimecard->jcn, $objTimecard->seq) = explode('.', $val);
@@ -320,7 +328,7 @@ class boTimecards
 				if ($status != $objTimecard->status)
 				{
 					$notify .= ',3';
-					$oStatus =& CreateObject('dcl.dbStatuses');
+					$oStatus = new dbStatuses();
 					if ($oStatus->GetStatusType($objTimecard->status) == 2)
 					{
 						$notify .= ',2';
@@ -341,10 +349,10 @@ class boTimecards
 		if (EvaluateReturnTo())
 			return;
 
-		$objView =& CreateObject('dcl.boView');
+		$objView = new boView();
 		$objView->SetFromURL();
 		
-		$objH =& CreateObject('dcl.htmlWorkOrderResults');
+		$objH = new htmlWorkOrderResults();
 		$objH->Render($objView);
 	}
 
@@ -362,11 +370,11 @@ class boTimecards
 			return;
 		}
 		
-		$objTC =& CreateObject('dcl.dbTimeCards');
+		$objTC = new dbTimeCards();
 		if ($objTC->Load($iID) == -1)
 			return;
 
-		$obj =& CreateObject('dcl.htmlWorkOrderDetail');
+		$obj = new htmlWorkOrderDetail();
 		$obj->Show($objTC->jcn, $objTC->seq, $objTC->id);
 	}
 
@@ -378,8 +386,8 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$objTC =& CreateObject('dcl.dbTimeCards');
-		$objOldTC =& CreateObject('dcl.dbTimeCards');
+		$objTC = new dbTimeCards();
+		$objOldTC = new dbTimeCards();
 		$objTC->InitFromGlobals();
 
 		if ($g_oSec->IsPublicUser())
@@ -396,7 +404,7 @@ class boTimecards
 		// If the hours change, we'll need to adjust the workorder
 		$hoursDiff = $objTC->hours - $objOldTC->hours;
 
-		$objWO =& CreateObject('dcl.dbWorkorders');
+		$objWO = new dbWorkorders();
 		if ($objWO->Load($objTC->jcn, $objTC->seq) == -1)
 			return;
 		
@@ -410,7 +418,7 @@ class boTimecards
 		{
 			$notify .= ',3';
 
-			$objQueryTC =& CreateObject('dcl.dbTimeCards');
+			$objQueryTC = new dbTimeCards();
 			if ($objQueryTC->IsLastTimeCard($objTC->id, $objTC->jcn, $objTC->seq))
 			{
 				// We're the last one!  This does (of course) assume that time cards
@@ -421,7 +429,7 @@ class boTimecards
 					$objWO->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 					$woChanged = true;
 					
-					$oStatus =& CreateObject('dcl.dbStatuses');
+					$oStatus = new dbStatuses();
 					if ($oStatus->GetStatusType($objTC->status) == 2)
 					{
 						$objWO->closedby = $objTC->actionby;
@@ -459,10 +467,10 @@ class boTimecards
 			$objTC->EndTransaction();
 		}
 
-		$objWtch =& CreateObject('dcl.boWatches');
+		$objWtch = new boWatches();
 		$objWtch->sendNotification($objWO, $notify);
 
-		$obj =& CreateObject('dcl.htmlWorkOrderDetail');
+		$obj = new htmlWorkOrderDetail();
 		$obj->Show($objTC->jcn, $objTC->seq);
 	}
 
@@ -480,11 +488,11 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$objTC =& CreateObject('dcl.dbTimeCards');
+		$objTC = new dbTimeCards();
 		if ($objTC->Load($iID) == -1)
 			return;
 
-		$obj =& CreateObject('dcl.htmlWorkOrderDetail');
+		$obj = new htmlWorkOrderDetail();
 		$obj->Show($objTC->jcn, $objTC->seq, $objTC->id, true);
 	}
 
@@ -500,21 +508,21 @@ class boTimecards
 			return;
 		}
 		
-		$objTC =& CreateObject('dcl.dbTimeCards');
+		$objTC = new dbTimeCards();
 		if ($objTC->Load($iID) == -1)
 			return;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
 			return PrintPermissionDenied();
 
-		$objWO =& CreateObject('dcl.dbWorkorders');
+		$objWO = new dbWorkorders();
 		if ($objWO->Load($objTC->jcn, $objTC->seq) == -1)
 			return;
 
 		// Get the next time card issued after this one.  If not, assume
 		// that this time card was the last one entered and affected the work order
 		// status when input.
-		$objQueryTC =& CreateObject('dcl.dbTimeCards');
+		$objQueryTC = new dbTimeCards();
 		if (($iNextID = $objQueryTC->GetNextTimeCardID($objTC->id, $objTC->jcn, $objTC->seq)) === null)
 		{
 			// OK, we're the last time card input, therefore we control status.
@@ -526,7 +534,7 @@ class boTimecards
 				if ($objQueryTC->status != $objWO->status)
 				{
 					$objWO->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
-					$oStatus =& CreateObject('dcl.dbStatuses');
+					$oStatus = new dbStatuses();
 					if ($oStatus->GetStatusType($objQueryTC->status) == 2 && $oStatus->GetStatusType($objWO->status) != 2)
 					{
 						$objWO->closedby = $objQueryTC->actionby;
@@ -571,8 +579,7 @@ class boTimecards
 
 		trigger_error(sprintf(STR_BO_TIMECARDDELETED, $objTC->id, $objWO->jcn, $objWO->seq), E_USER_NOTICE);
 
-		$obj =& CreateObject('dcl.htmlWorkOrderDetail');
+		$obj = new htmlWorkOrderDetail();
 		$obj->Show($objTC->jcn, $objTC->seq);
 	}
 }
-?>
