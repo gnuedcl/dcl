@@ -114,7 +114,7 @@ class htmlActions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 			
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -132,6 +132,6 @@ class htmlActions
 			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 		}
 
-		SmartyDisplay($t, 'htmlActionsForm.tpl');
+		$t->Render('htmlActionsForm.tpl');
 	}
 }

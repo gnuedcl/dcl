@@ -165,7 +165,7 @@ class htmlContactEmail
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oEmailType = new htmlEmailType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
@@ -194,6 +194,6 @@ class htmlContactEmail
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactEmail.submitAdd');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlEmailForm.tpl');
+		$oSmarty->Render('htmlEmailForm.tpl');
 	}
 }

@@ -220,7 +220,7 @@ class htmlOrgType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORGTYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -241,6 +241,6 @@ class htmlOrgType
 			$t->assign('menuAction', 'htmlOrgType.submitAdd');
 		}
 
-		SmartyDisplay($t, 'htmlOrgTypeForm.tpl');
+		$t->Render('htmlOrgTypeForm.tpl');
 	}
 }

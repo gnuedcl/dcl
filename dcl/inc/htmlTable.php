@@ -41,7 +41,7 @@ class htmlTable
 	
 	function htmlTable()
 	{
-		$this->oSmarty = CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		
 		$this->aData = array();
 		$this->aToolbar = array();
@@ -143,7 +143,7 @@ class htmlTable
 		$this->oSmarty->assign('width', $this->sWidth);
 		$this->oSmarty->assign('spacer', $this->bSpacer);
 		
-		SmartyDisplay($this->oSmarty, $this->sTemplate);
+		$this->oSmarty->Render($this->sTemplate);
 	}
 }
 ?>

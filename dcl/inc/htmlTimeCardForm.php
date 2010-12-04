@@ -47,7 +47,7 @@ class htmlTimeCardForm
 		$objActions = new htmlActions();
 		$objPersonnel = new htmlPersonnel();
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 
 		$oSmarty->assign('IS_BATCH', $isBatch);
 		$oSmarty->assign('IS_EDIT', $isEdit);
@@ -158,6 +158,6 @@ class htmlTimeCardForm
 		if (isset($_REQUEST['project']))
 			$oSmarty->assign('VAL_PROJECT', $_REQUEST['project']);
 
-		return SmartyFetch($oSmarty, 'htmlTimeCardForm.tpl');
+		return $t->ToString('htmlTimeCardForm.tpl');
 	}
 }

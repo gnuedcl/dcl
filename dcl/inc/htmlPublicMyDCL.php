@@ -30,12 +30,11 @@ class htmlPublicMyDCL
 		
 		commonHeader();
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('PERM_TICKETS', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED)))));
 		$t->assign('PERM_WORKORDERS', $g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED)))));
 		$t->assign('PERM_FAQ', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW));
 
-		SmartyDisplay($t, 'htmlPublicMyDCL.tpl');
+		$t->Render('htmlPublicMyDCL.tpl');
 	}
 }
-?>

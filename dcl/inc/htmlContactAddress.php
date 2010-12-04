@@ -171,7 +171,7 @@ class htmlContactAddress
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oAddrType = new htmlAddrType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
@@ -203,6 +203,6 @@ class htmlContactAddress
 			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->GetCombo());
 		}
 
-		SmartyDisplay($oSmarty, 'htmlAddrForm.tpl');
+		$oSmarty->Render('htmlAddrForm.tpl');
 	}
 }

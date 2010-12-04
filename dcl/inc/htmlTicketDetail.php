@@ -39,7 +39,7 @@ class htmlTicketDetail
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW, $obj->ticketid), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT, $obj->ticketid), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED, $obj->ticketid)))))
 			return PrintPermissionDenied();
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 
 		$oSmarty->assign('IS_DELETE', $forDelete);
 		$oSmarty->assign('VAL_EDITRESID', $editResID);
@@ -114,9 +114,9 @@ class htmlTicketDetail
 		$oSmarty->assign('PERM_PUBLICONLY', $g_oSec->IsPublicUser());
 
 		if ($g_oSec->IsPublicUser())
-			SmartyDisplay($oSmarty, 'htmlTicketDetailPublic.tpl');
+			$oSmarty->Render('htmlTicketDetailPublic.tpl');
 		else
-			SmartyDisplay($oSmarty, 'htmlTicketDetail.tpl');
+			$oSmarty->Render('htmlTicketDetail.tpl');
 	}
 
 	function Download()

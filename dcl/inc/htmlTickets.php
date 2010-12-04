@@ -42,14 +42,14 @@ class htmlTickets
 		$objProduct->next_record();
 		$setid = $objProduct->f(0);
 		
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('TXT_TITLE', sprintf(STR_TCK_REASSIGNTICKET, $obj->ticketid));
 		$t->assign('VAL_TICKETID', $obj->ticketid);
 		$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->GetCombo($obj->responsible, 'responsible', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
 		$t->assign('CMB_PRIORITY', $objHTMLPriorities->GetCombo($obj->priority, 'priority', 'name', 0, false, $setid));
 		$t->assign('CMB_TYPE', $objHTMLSeverities->GetCombo($obj->type, 'type', 'name', 0, false, $setid));
 		
-		SmartyDisplay($t, 'htmlTicketReassignForm.tpl');
+		$t->Render('htmlTicketReassignForm.tpl');
 	}
 
 	function ShowUploadFileForm($obj)
@@ -59,13 +59,13 @@ class htmlTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ATTACHFILE, $obj->ticketid))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$t->assign('VAL_TICKETID', $obj->ticketid);
 		$t->assign('LNK_CANCEL', menuLink('', 'menuAction=boTickets.view&ticketid=' . $obj->ticketid));
 		
-		SmartyDisplay($t, 'htmlTicketAddAttachment.tpl');
+		$t->Render('htmlTicketAddAttachment.tpl');
 	}
 
 	function ShowDeleteAttachmentYesNo($ticketid, $filename)
@@ -75,19 +75,19 @@ class htmlTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REMOVEFILE, $ticketid))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('VAL_FILENAME', $filename);
 		$t->assign('VAL_TICKETID', $ticketid);
 		$t->assign('TXT_DELCONFIRM', sprintf(STR_TCK_CONFIRMDELATT, $filename));
 		
-		SmartyDisplay($t, 'htmlTicketDelAttachment.tpl');
+		$t->Render('htmlTicketDelAttachment.tpl');
 	}
 
 	function DisplayGraphForm()
 	{
 		global $dcl_info;
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));
@@ -95,7 +95,7 @@ class htmlTickets
 		$o = new htmlProducts();
 		$t->assign('CMB_PRODUCTS', $o->GetCombo(0, 'product', 'name', 0, 0, false));
 		
-		SmartyDisplay($t, 'htmlTicketGraph.tpl');
+		$t->Render('htmlTicketGraph.tpl');
 	}
 
 	function showSubmissions()

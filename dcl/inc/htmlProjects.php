@@ -125,13 +125,13 @@ class htmlProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE, $projectid))
 			return PrintPermissionDenied();
 			
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$t->assign('VAL_PROJECTID', $projectid);
 		$t->assign('LNK_CANCEL', menuLink('', 'menuAction=boProjects.viewproject&project=' . $projectid));
 		
-		SmartyDisplay($t, 'htmlProjectsUpload.tpl');
+		$t->Render('htmlProjectsUpload.tpl');
 	}
 
 	function ShowDeleteAttachmentYesNo($projectid, $filename)
@@ -141,12 +141,12 @@ class htmlProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE, $projectid))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('VAL_FILENAME', $filename);
 		$t->assign('VAL_PROJECTID', $projectid);
 		$t->assign('TXT_DELCONFIRM', sprintf(STR_PRJ_DELCONFIRM, $filename));
 		
-		SmartyDisplay($t, 'htmlProjectsDeleteAttachment.tpl');
+		$t->Render('htmlProjectsDeleteAttachment.tpl');
 	}
 
 	function changeLog()

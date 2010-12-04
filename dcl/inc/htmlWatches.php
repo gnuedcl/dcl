@@ -141,7 +141,7 @@ class htmlWatches
 
 		$isEdit = is_object($obj);
 		
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);
 
 		if ($isEdit)
@@ -178,7 +178,7 @@ class htmlWatches
 			$t->assign('VAL_WHATID2', $whatid2);
 		}
 
-		SmartyDisplay($t, 'htmlWatchForm.tpl');
+		$t->Render('htmlWatchForm.tpl');
 	}
 
 	function GetMyViewLinkAndDescription($obj)

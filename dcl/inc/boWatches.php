@@ -258,7 +258,7 @@ class boWatches
 	{
 		global $dcl_info;
 		
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign_by_ref('obj', $obj);
 
 		$dbEntityTag = new dbEntityTag();
@@ -277,9 +277,9 @@ class boWatches
 		$t->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($obj->jcn, $obj->seq, $bIsPublic));
 		
 		if ($bIsPublic)
-			return SmartyFetch($t, $dcl_info['DCL_WO_EMAIL_TEMPLATE_PUBLIC'], 'custom');
+			return $t->ToString($dcl_info['DCL_WO_EMAIL_TEMPLATE_PUBLIC'], 'custom');
 		
-		return SmartyFetch($t, $dcl_info['DCL_WO_EMAIL_TEMPLATE'], 'custom');
+		return $t->ToString($dcl_info['DCL_WO_EMAIL_TEMPLATE'], 'custom');
 	}
 	
 	// obj is a dbWorkorder object and actions is a comma delimited list of actions to send for
@@ -461,16 +461,16 @@ class boWatches
 	{
 		global $dcl_info;
 		
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign_by_ref('obj', $obj);
 		
 		$objTR = new dbTicketresolutions();
 		$t->assign('VAL_RESOLUTIONS', $objTR->GetResolutionsArray($obj->ticketid, $bIsPublic));
 		
 		if ($bIsPublic)
-			return SmartyFetch($t, $dcl_info['DCL_TCK_EMAIL_TEMPLATE_PUBLIC'], 'custom');
+			return $t->ToString($dcl_info['DCL_TCK_EMAIL_TEMPLATE_PUBLIC'], 'custom');
 		
-		return SmartyFetch($t, $dcl_info['DCL_TCK_EMAIL_TEMPLATE'], 'custom');
+		return $t->ToString($dcl_info['DCL_TCK_EMAIL_TEMPLATE'], 'custom');
 	}
 	
 	function sendTicketNotification($obj, $actions, $bShowNotifyMsg = true)

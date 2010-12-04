@@ -71,7 +71,7 @@ class htmlChklstTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 			
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		if ($isEdit)
 		{
@@ -86,6 +86,6 @@ class htmlChklstTpl
 			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'dcl_chklst_tpl_active', 0, false));
 		}
 		
-		SmartyDisplay($t, 'htmlChklstTplAdd.tpl');
+		$t->Render('htmlChklstTplAdd.tpl');
 	}
 }

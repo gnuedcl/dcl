@@ -105,7 +105,7 @@ class htmlContactOrgs
 	{
 		global $dcl_info, $g_oSec;
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $oContact->contact_id))
 			return PrintPermissionDenied();
@@ -121,6 +121,6 @@ class htmlContactOrgs
 		$oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
 		$oSmarty->assign_by_ref('VAL_ORGNAME', $aOrgName);
 
-		SmartyDisplay($oSmarty, 'htmlContactOrgs.tpl');
+		$oSmarty->Render('htmlContactOrgs.tpl');
 	}
 }

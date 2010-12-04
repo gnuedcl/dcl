@@ -39,9 +39,9 @@ class htmlAttributesetdetail
 			return;
 		}
 		
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('VAL_ATTRIBUTESETNAME', $obj->name);
-		SmartyDisplay($t, 'htmlAttributesetdetail.tpl');
+		$t->Render('htmlAttributesetdetail.tpl');
 
 		$objA = new dbActions();
 		$theAttributes = array('actions', 'priorities', 'severities', 'statuses');

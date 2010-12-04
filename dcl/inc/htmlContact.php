@@ -169,7 +169,7 @@ class htmlContact
 			return PrintPermissionDenied();
 
 		$oMeta = new DCL_MetadataDisplay();
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		if (count($contact_id) > 1)
 		{
 			$aContacts = $contact_id;
@@ -205,7 +205,7 @@ class htmlContact
 			$oSmarty->assign_by_ref('VAL_LASTPAGE', $aLastContactBrowsePage);
 		}
 		
-		SmartyDisplay($oSmarty, 'htmlContactMerge.tpl');
+		$oSmarty->Render('htmlContactMerge.tpl');
 	}
 	
 	function doMerge()

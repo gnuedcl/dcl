@@ -41,7 +41,7 @@ class reportPersonnelActivity
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
 			return;
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$oSelect = new htmlSelect();
 		
 		$iDept = $oDBPersonnel->department;
@@ -124,7 +124,7 @@ class reportPersonnelActivity
 		else if ($g_oSession->IsRegistered('personnel_activity_timesheet'))
 			$t->assign('VAL_TIMESHEET', $g_oSession->Value('personnel_activity_timesheet'));
 			
-		SmartyDisplay($t, 'htmlPersonnelActivity.tpl');
+		$t->Render('htmlPersonnelActivity.tpl');
 	}
 
 	function execute()

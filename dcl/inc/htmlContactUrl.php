@@ -164,7 +164,7 @@ class htmlContactUrl
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oUrlType = new htmlUrlType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
@@ -193,6 +193,6 @@ class htmlContactUrl
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactUrl.submitAdd');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlUrlForm.tpl');
+		$oSmarty->Render('htmlUrlForm.tpl');
 	}
 }

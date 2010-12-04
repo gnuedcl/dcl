@@ -93,7 +93,7 @@ class htmlWOSearches
 		$oDBP = new dbPersonnel();
 		$oDBP->Load($GLOBALS['DCLID']);
 		
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		if ($bView)
 			$t->assign('VAL_REPORTTITLE', $oView->title);
@@ -480,18 +480,18 @@ class htmlWOSearches
 			$t->assign('VAL_SORT');
 		}
 
-		SmartyDisplay($t, 'htmlWorkOrderSearch.tpl');
+		$t->Render('htmlWorkOrderSearch.tpl');
 	}
 
 	function my()
 	{
 		global $dcl_info;
 		
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$obj = new htmlViews();
 		$t->assign('CMB_VIEWS', $obj->GetCombo(0, 'viewid', 0, true, 'workorders'));
 		
-		SmartyDisplay($t, 'htmlMyWorkorderSearches.tpl');
+		$t->Render('htmlMyWorkorderSearches.tpl');
 	}
 }

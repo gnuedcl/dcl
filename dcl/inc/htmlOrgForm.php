@@ -278,7 +278,7 @@ class htmlOrgForm
 				return PrintPermissionDenied();
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		
 		if (isset($_REQUEST['return_to']))
 		{
@@ -302,7 +302,7 @@ class htmlOrgForm
 			$oOrgType = new dbOrgType();
 			$oSmarty->assign('orgTypes', $oOrgType->GetTypes($obj->org_id));
 
-			SmartyDisplay($oSmarty, 'htmlOrgForm.tpl');
+			$oSmarty->Render('htmlOrgForm.tpl');
 		}
 		else
 		{
@@ -324,7 +324,7 @@ class htmlOrgForm
 			$oOrgType = new dbOrgType();
 			$oSmarty->assign('orgTypes', $oOrgType->GetTypes());
 
-			SmartyDisplay($oSmarty, 'htmlNewOrgForm.tpl');
+			$oSmarty->Render('htmlNewOrgForm.tpl');
 		}
 	}
 }

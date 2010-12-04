@@ -182,7 +182,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$Template = CreateSmarty();
+		$Template = new DCL_Smarty();
 		$Template->assign('VAL_FORMACTION', menuLink());
 
 		$oRole = new dbRole();
@@ -203,6 +203,6 @@ class htmlRoleForm
 			$Template->assign('Permissions', $oRole->GetPermissions($bCopy ? $obj->role_id : -1));
 		}
 
-		SmartyDisplay($Template, 'htmlRoleForm.tpl');
+		$Template->Render('htmlRoleForm.tpl');
 	}
 }

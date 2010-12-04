@@ -226,7 +226,7 @@ class htmlPhoneType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -247,6 +247,6 @@ class htmlPhoneType
 			$t->assign('menuAction', 'htmlPhoneType.submitAdd');
 		}
 
-		SmartyDisplay($t, 'htmlPhoneTypeForm.tpl');
+		$t->Render('htmlPhoneTypeForm.tpl');
 	}
 }

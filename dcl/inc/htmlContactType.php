@@ -225,7 +225,7 @@ class htmlContactType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -247,6 +247,6 @@ class htmlContactType
 			$t->assign('menuAction', 'htmlContactType.submitAdd');
 		}
 
-		SmartyDisplay($t, 'htmlContactTypeForm.tpl');
+		$t->Render('htmlContactTypeForm.tpl');
 	}
 }

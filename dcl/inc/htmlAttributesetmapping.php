@@ -97,7 +97,7 @@ class htmlAttributesetmapping
 		foreach ($arrSelectedData as $key => $val)
 			$htmlSelected .= '<option value="' . $key . '">' . $val . '</option>';
 			
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('IS_WEIGHTED', ($typeid == 2 || $typeid == 3));
 		$t->assign('VAL_NAME', $obj->name);
 		$t->assign('VAL_TYPE', $typeText);
@@ -106,6 +106,6 @@ class htmlAttributesetmapping
 		$t->assign('OPT_AVAILABLE', $htmlAvailable);
 		$t->assign('OPT_SELECTED', $htmlSelected);
 		
-		SmartyDisplay($t, 'htmlAttributesetmapping.tpl');
+		$t->Render('htmlAttributesetmapping.tpl');
 	}
 }

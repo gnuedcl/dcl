@@ -90,7 +90,7 @@ class htmlTimeCards
 
 			$oMeta =& new DCL_MetadataDisplay();
 
-			$oSmarty =& CreateSmarty();
+			$oSmarty = new DCL_Smarty();
 			$oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY));
 			$oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE));
 			$oSmarty->assign('IS_DELETE', $forDelete);
@@ -129,7 +129,7 @@ class htmlTimeCards
 					else
 						$oSmarty->assign('VAL_REASSIGNTO', '');
 
-					$retVal .= SmartyFetch($oSmarty, 'htmlTimeCardDetail.tpl');
+					$retVal .= $oSmarty->ToString('htmlTimeCardDetail.tpl');
 				}
 			}
 		}

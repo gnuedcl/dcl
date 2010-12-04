@@ -39,7 +39,7 @@ class htmlProjectTimeline
 		    return PrintPermissionDenied();
 		    
 		$oMeta = new DCL_MetadataDisplay();
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('VAL_PROJECTNAME', $oMeta->GetProject($id));
 		$t->assign('VAL_PROJECTID', $id);
 		$t->assign('VAL_DAYS', 7);
@@ -47,7 +47,7 @@ class htmlProjectTimeline
 		$t->assign('VAL_SCOPE', true);
 		$t->assign('VAL_TIMECARDS', true);
 		$t->assign('VAL_CODE', true);
-		SmartyDisplay($t, 'htmlProjectTimelineForm.tpl');
+		$t->Render('htmlProjectTimelineForm.tpl');
     }
     
     function Render()

@@ -35,7 +35,7 @@ class htmlProjectmap
 
 		$objProject = new htmlProjects();
 		
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		$t->assign('TXT_FUNCTION', $sFunction);
         $t->assign('menuAction', $menuAction);
@@ -43,7 +43,7 @@ class htmlProjectmap
 		$t->assign('jcn', $jcn);
 		$t->assign('seq', $seq);
 		
-		SmartyDisplay($t, 'htmlProjectmapForm.tpl');
+		$t->Render('htmlProjectmapForm.tpl');
 	}
 
 	function ChooseProjectForJCN($jcn, $seq)

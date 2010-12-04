@@ -31,11 +31,11 @@ class DCLNavBar
 	var $_class;
 	var $_method;
 
-	function DCLNavBar()
+	function __construct()
 	{
 		global $dcl_info;
 
-		$this->t = CreateSmarty();
+		$this->t = new DCL_Smarty();
 		if (IsSet($_REQUEST['menuAction']) && $_REQUEST['menuAction'] != 'clearScreen')
 			list($this->_class, $this->_method) = explode('.', $_REQUEST['menuAction']);
 	}
@@ -169,7 +169,8 @@ class DCLNavBar
 		}
 
 		$this->t->assign('VAL_NAVBOXITEMS', $aLinks);
-		return SmartyFetch($this->t, 'navbar.tpl');
+
+		return $this->t->ToString('navbar.tpl');
 	}
 
 	function getHtml()
@@ -277,4 +278,3 @@ class DCLNavBar
 		return ($menuAction == 'boProjects.viewproject');
 	}
 }
-?>

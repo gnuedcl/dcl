@@ -33,7 +33,7 @@ class htmlOrganizationDashboard
 
 	function htmlOrganizationDashboard()
 	{
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->oOrg = null;
 	}
 
@@ -45,7 +45,7 @@ class htmlOrganizationDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		SmartyDisplay($this->oSmarty, 'htmlOrganizationDashboardAll.tpl');
+		$this->oSmarty->Render('htmlOrganizationDashboardAll.tpl');
 	}
 
 	function Show()
@@ -87,6 +87,6 @@ class htmlOrganizationDashboard
 		$this->oSmarty->assign('PERM_EDIT', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
 		$this->oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE));
 
-		SmartyDisplay($this->oSmarty, $sPage);
+		$this->oSmarty->Render($sPage);
 	}
 }

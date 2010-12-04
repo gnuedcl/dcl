@@ -118,13 +118,13 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			return PrintPermissionDenied();
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oTasks = new dbWorkOrderTask();
 		$oSmarty->assign('VAL_TASKS', $oTasks->GetTasksForWorkOrder($wo_id, $seq, false));
 		$oSmarty->assign('VAL_JCN', $wo_id);
 		$oSmarty->assign('VAL_SEQ', $seq);
 		
-		SmartyDisplay($oSmarty, 'htmlWorkOrderTaskReorder.tpl');
+		$oSmarty->Render('htmlWorkOrderTaskReorder.tpl');
 	}
 
 	function submitAdd()
@@ -283,7 +283,7 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			return PrintPermissionDenied();
 			
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);
 
 		// Data
@@ -314,6 +314,6 @@ class htmlWorkOrderTask
 			$t->assign('VAL_SUMMARY', '');
 		}
 
-		SmartyDisplay($t, 'htmlWorkOrderTaskForm.tpl');
+		$t->Render('htmlWorkOrderTaskForm.tpl');
 	}
 }

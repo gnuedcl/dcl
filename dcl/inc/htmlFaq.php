@@ -34,7 +34,7 @@ class htmlFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 
 		$oSmarty->assign('IS_EDIT', $isEdit);
 
@@ -52,7 +52,7 @@ class htmlFaq
 			$oSmarty->assign('VAL_ACTIVE', 'Y');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlFaqForm.tpl');
+		$oSmarty->Render('htmlFaqForm.tpl');
 	}
 
 	function ExecuteSearch($searchFld, $searchText) {}
@@ -124,7 +124,7 @@ class htmlFaq
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $obj->faqid))
 			return PrintPermissionDenied();
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('VAL_NAME', $obj->name);
 		$oSmarty->assign('VAL_DESCRIPTION', $obj->description);
 		$oSmarty->assign('PERM_ADDTOPIC', $g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD, $obj->faqid));
@@ -136,6 +136,6 @@ class htmlFaq
 		$objF->LoadByFaqID($obj->faqid);
 		$oSmarty->assign_by_ref('VAL_TOPICS', $objF->ResultToArray());
 
-		SmartyDisplay($oSmarty, 'htmlFaqDetail.tpl');
+		$oSmarty->Render('htmlFaqDetail.tpl');
 	}
 }

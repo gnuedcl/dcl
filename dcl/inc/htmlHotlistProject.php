@@ -35,7 +35,7 @@ class htmlHotlistProject
 	{
 		$this->hotlist = new dbHotlist();
 		$this->entityHotlist = new dbEntityHotlist();
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 	}
 
 	function View()
@@ -103,7 +103,7 @@ class htmlHotlistProject
 		$this->SetStatistics();
 		$this->SetTasks($status, $responsible, $bIsGrouping);
 
-		SmartyDisplay($this->oSmarty, 'htmlHotlistProjectDetail.tpl');
+		$this->oSmarty->Render('htmlHotlistProjectDetail.tpl');
 	}
 	
 	function SetTasks($wostatus, $woresponsible, $bIsGrouping)

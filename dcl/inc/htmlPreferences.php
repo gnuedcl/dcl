@@ -36,7 +36,7 @@ class htmlPreferences
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		$t->assign('PERM_MODIFYCONTACT', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY) || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN));
 		$t->assign('VAL_CONTACTID', $g_oSession->Value('contact_id'));
@@ -64,7 +64,7 @@ class htmlPreferences
 
 		$t->assign('CMB_DEFAULTLANGUAGE', $o->GetLangCombo('DCL_PREF_LANGUAGE', $lang));
 
-		SmartyDisplay($t, 'htmlPreferences.tpl');
+		$t->Render('htmlPreferences.tpl');
 	}
 
 	function submitModify()

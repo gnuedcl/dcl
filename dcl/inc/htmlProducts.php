@@ -278,7 +278,7 @@ class htmlProducts
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD, $isEdit ? (int)$obj->id : 0))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 				
 		if ($isEdit)
 		{
@@ -320,6 +320,6 @@ class htmlProducts
 			$t->assign('CMB_TCKATTRIBUTESET', $objHA->GetCombo(0, 'tcksetid'));
 		}
 
-		SmartyDisplay($t, 'htmlProductsForm.tpl');
+		$t->Render('htmlProductsForm.tpl');
 	}
 }

@@ -55,7 +55,7 @@ class htmlPersonnelForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$Template = &CreateSmarty();
+		$Template = new DCL_Smarty();
 		$Template->assign('IS_EDIT', $isEdit);
 
 		$oUserRole = new dbUserRole();
@@ -84,6 +84,6 @@ class htmlPersonnelForm
 			$Template->assign('Roles', $oUserRole->GetGlobalRoles());
 		}
 
-		SmartyDisplay($Template, 'htmlPersonnelForm.tpl');
+		$Template->Render('htmlPersonnelForm.tpl');
 	}
 }

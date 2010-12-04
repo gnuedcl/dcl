@@ -225,7 +225,7 @@ class htmlWorkOrderType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 			
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);
 
 		if ($isEdit)
@@ -253,6 +253,6 @@ class htmlWorkOrderType
 			$t->assign('VAL_NAME', '');
 		}
 
-		SmartyDisplay($t, 'htmlWorkOrderTypeForm.tpl');
+		$t->Render('htmlWorkOrderTypeForm.tpl');
 	}
 }

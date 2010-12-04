@@ -226,7 +226,7 @@ class htmlNoteType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -247,6 +247,6 @@ class htmlNoteType
 			$t->assign('menuAction', 'htmlNoteType.submitAdd');
 		}
 
-		SmartyDisplay($t, 'htmlNoteTypeForm.tpl');
+		$t->Render('htmlNoteTypeForm.tpl');
 	}
 }

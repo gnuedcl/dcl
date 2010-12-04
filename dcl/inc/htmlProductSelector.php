@@ -32,7 +32,7 @@ class htmlProductSelector
 	function htmlProductSelector()
 	{
 		$this->bMultiSelect = false;
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->oView = new boView();
 		$this->oDB = new dclDB;
 	}
@@ -55,7 +55,7 @@ class htmlProductSelector
 		if (isset($_REQUEST['filterActive']) && $_REQUEST['filterActive'] != '')
 			$this->oSmarty->assign('VAL_FILTERACTIVE', $_REQUEST['filterActive']);
 
-		SmartyDisplay($this->oSmarty, 'htmlProductSelector.tpl');
+		$this->oSmarty->Render('htmlProductSelector.tpl');
 	}
 
 	function showControlFrame()
@@ -76,7 +76,7 @@ class htmlProductSelector
 
 		$this->oSmarty->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
 		$this->oSmarty->assign('VAL_FILTERACTIVE', $filterActive);
-		SmartyDisplay($this->oSmarty, 'htmlProductSelectorControl.tpl');
+		$this->oSmarty->Render('htmlProductSelectorControl.tpl');
 		exit();
 	}
 
@@ -161,7 +161,7 @@ class htmlProductSelector
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 
-			SmartyDisplay($this->oSmarty, 'htmlProductSelectorBrowse.tpl');
+			$this->oSmarty->Render('htmlProductSelectorBrowse.tpl');
 		}
 
 		exit();

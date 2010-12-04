@@ -33,7 +33,7 @@ class htmlProjectSelector
 	function htmlProjectSelector()
 	{
 		$this->bMultiSelect = false;
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->oView = new boView();
 		$this->oDB = new dclDB;
 	}
@@ -53,7 +53,7 @@ class htmlProjectSelector
 		if (isset($_REQUEST['filterID']) && $_REQUEST['filterID'] != '')
 			$this->oSmarty->assign('VAL_FILTERID', $_REQUEST['filterID']);
 
-		SmartyDisplay($this->oSmarty, 'htmlProjectSelector.tpl');
+		$this->oSmarty->Render('htmlProjectSelector.tpl');
 	}
 	
 	function showControlFrame()
@@ -75,7 +75,7 @@ class htmlProjectSelector
 		$this->oSmarty->assign('VAL_FILTERSTATUS', $filterStatus);
 
 		$this->oSmarty->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
-		SmartyDisplay($this->oSmarty, 'htmlProjectSelectorControl.tpl');
+		$this->oSmarty->Render('htmlProjectSelectorControl.tpl');
 		exit();
 	}
 	
@@ -177,7 +177,7 @@ class htmlProjectSelector
 			$this->oSmarty->assign('VAL_FILTERID', $filterID);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 			
- 			SmartyDisplay($this->oSmarty, 'htmlProjectSelectorBrowse.tpl');
+ 			$this->oSmarty->Render('htmlProjectSelectorBrowse.tpl');
 		}
 		
 		exit();

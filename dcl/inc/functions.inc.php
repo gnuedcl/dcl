@@ -150,6 +150,12 @@ function __autoload($className)
 		return;
 	}
 
+	if ($className == 'Smarty')
+	{
+		require_once(DCL_ROOT . 'inc/Smarty.class.php');
+		return;
+	}
+
 	if ($className === 'pData')
 	{
 		require_once(DCL_ROOT . 'vendor/pChart/pData.class');
@@ -423,67 +429,6 @@ function CreateTemplate($arrTemplate)
 	return $Template;
 }
 
-function &CreateSmarty()
-{
-	require_once(DCL_ROOT . 'inc/Smarty.class.php');
-
-	$sDefaultTemplateSet = GetDefaultTemplateSet();
-
-	$oSmarty = new Smarty();
-	$oSmarty->assign('DIR_JS', DCL_WWW_ROOT . "js/");
-	$oSmarty->assign('DIR_CSS', DCL_WWW_ROOT . "templates/$sDefaultTemplateSet/css/");
-	$oSmarty->assign('DIR_IMG', DCL_WWW_ROOT . "templates/$sDefaultTemplateSet/img/");
-	$oSmarty->assign('WWW_ROOT', DCL_WWW_ROOT);
-	$oSmarty->assign('URL_MAIN_PHP', menuLink());
-
-	return $oSmarty;
-}
-
-function SmartyInit(&$oSmarty, &$sTemplateName, $sTemplateSet = '')
-{
-	if (substr($sTemplateSet, 0, 8) == 'plugins.')
-	{
-		$sPluginPath = substr($sTemplateSet, 8);
-		$oSmarty->template_dir = GetPluginDir() . $sPluginPath . '/templates/';
-		$oSmarty->compile_dir = GetPluginDir() . $sPluginPath . '/templates_c/';
-
-		// Nothing more to do for plugins
-		return;
-	}
-	
-	if ($sTemplateSet == '')
-		$sDefaultTemplateSet = GetDefaultTemplateSet();
-	else
-		$sDefaultTemplateSet = $sTemplateSet;
-
-	$oSmarty->template_dir = DCL_ROOT . "templates/$sDefaultTemplateSet/";
-	if (!$oSmarty->template_exists($sTemplateName) && $sDefaultTemplateSet != 'default')
-	{
-		$sDefaultTemplateSet = 'default';
-		$oSmarty->template_dir = DCL_ROOT . "templates/default/";
-		if (!$oSmarty->template_exists($sTemplateName))
-		{
-			trigger_error("Cannot find template [$sTemplateName]");
-			return;
-		}
-	}
-
-	// Have the template
-	$oSmarty->compile_dir = DCL_ROOT . 'templates/' . $sDefaultTemplateSet . '/templates_c';
-}
-
-function SmartyDisplay(&$oSmarty, $sTemplateName, $sTemplateSet = '')
-{
-	SmartyInit($oSmarty, $sTemplateName, $sTemplateSet);
-	$oSmarty->display($sTemplateName);
-}
-
-function SmartyFetch(&$oSmarty, $sTemplateName, $sTemplateSet = '')
-{
-	SmartyInit($oSmarty, $sTemplateName, $sTemplateSet);
-	return $oSmarty->fetch($sTemplateName);
-}
-
 function RefreshTop($sRefreshTo)
 {
 	$t = CreateTemplate(array('hForm' => 'refreshTop.tpl'));
@@ -708,11 +653,9 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 		buildMenuArray();
 	}
 	
-	$t =& CreateSmarty();
-
+	$t = new DCL_Smarty();
 	$t->assign('VAL_TITLE', $title);
-
-	SmartyDisplay($t, 'index.tpl');
+	$t->Render('index.tpl');
 
 	$sTemplateSet = GetDefaultTemplateSet();
 	if (!$bHideMenu && file_exists(DCL_ROOT . 'templates/' . $sTemplateSet . '/menu.php'))
@@ -781,7 +724,7 @@ function ShowDeleteYesNo($title, $action, $id, $name, $canBeDeactivated = true, 
 {
 	global $dcl_info;
 
-	$t = CreateSmarty();
+	$t = new DCL_Smarty();
 
 	$t->assign('TXT_TITLE', sprintf(STR_CMMN_DELETEITEM, $title));
 	if ($canBeDeactivated)
@@ -802,7 +745,7 @@ function ShowDeleteYesNo($title, $action, $id, $name, $canBeDeactivated = true, 
 	$t->assign('VAL_NAME', $name);
 	$t->assign('VAL_WARNING', sprintf(STR_CMMN_DELETECONFIRM, $title, $name));
 
-	SmartyDisplay($t, 'htmlDeleteItem.tpl');
+	$t->Render('htmlDeleteItem.tpl');
 }
 
 function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOption = true)

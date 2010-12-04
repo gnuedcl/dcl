@@ -32,7 +32,7 @@ class htmlContactSelector
 	function htmlContactSelector()
 	{
 		$this->bMultiSelect = false;
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->oView = new boView();
 		$this->oDB = new dclDB;
 	}
@@ -57,7 +57,7 @@ class htmlContactSelector
 		else
 			$this->oSmarty->assign('VAL_FILTERACTIVE', '');
 
-		SmartyDisplay($this->oSmarty, 'htmlContactSelector.tpl');
+		$this->oSmarty->Render('htmlContactSelector.tpl');
 	}
 
 	function showControlFrame()
@@ -80,7 +80,7 @@ class htmlContactSelector
 		$this->oSmarty->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_ADD));
 		$this->oSmarty->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
 
-		SmartyDisplay($this->oSmarty, 'htmlContactSelectorControl.tpl');
+		$this->oSmarty->Render('htmlContactSelectorControl.tpl');
 		
 		exit();
 	}
@@ -201,7 +201,7 @@ class htmlContactSelector
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 
- 			SmartyDisplay($this->oSmarty, 'htmlContactSelectorBrowse.tpl');
+ 			$this->oSmarty->Render('htmlContactSelectorBrowse.tpl');
 		}
 
 		exit();

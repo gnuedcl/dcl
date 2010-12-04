@@ -41,7 +41,7 @@ class htmlHotlistProjectTimeline
 		$hotlist = new dbHotlist();
 		$hotlist->Load($id);
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('VAL_HOTLISTNAME', $hotlist->hotlist_desc);
 		$t->assign('VAL_HOTLISTID', $id);
 		$t->assign('VAL_DAYS', 7);
@@ -49,7 +49,7 @@ class htmlHotlistProjectTimeline
 		$t->assign('VAL_SCOPE', true);
 		$t->assign('VAL_TIMECARDS', true);
 		$t->assign('VAL_CODE', true);
-		SmartyDisplay($t, 'htmlHotlistProjectTimelineForm.tpl');
+		$t->Render('htmlHotlistProjectTimelineForm.tpl');
     }
     
     function Render()

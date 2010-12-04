@@ -43,7 +43,7 @@ class htmlWorkOrderDetail
 			return trigger_error(sprintf(STR_WO_NOTFOUNDERR, $jcn, $seq), E_USER_ERROR);
 
 		$oMeta = new DCL_MetadataDisplay();
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		
 		$oSmarty->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
 
@@ -170,9 +170,9 @@ class htmlWorkOrderDetail
 		$oSmarty->assign('PERM_ISPUBLICUSER', $g_oSec->IsPublicUser());
 
 		if ($g_oSec->IsPublicUser())
-			SmartyDisplay($oSmarty, 'htmlWorkordersDetailPublic.tpl');
+			$oSmarty->Render('htmlWorkordersDetailPublic.tpl');
 		else
-			SmartyDisplay($oSmarty, 'htmlWorkordersDetail.tpl');
+			$oSmarty->Render('htmlWorkordersDetail.tpl');
 	}
 
 	function Download()

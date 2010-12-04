@@ -36,7 +36,7 @@ class reportTicketActivity
 
 		$objPersonnel = new htmlPersonnel();
 		
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('CMB_RESPONSIBLE', $objPersonnel->GetCombo($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, false));
 
 		if (IsSet($_REQUEST['begindate']) && ($beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate'])) !== null)
@@ -49,7 +49,7 @@ class reportTicketActivity
 		else
 			$t->assign('VAL_ENDDATE', '');
 		
-		SmartyDisplay($t, 'htmlTicketActivity.tpl');
+		$t->Render('htmlTicketActivity.tpl');
 	}
 
 	function execute()

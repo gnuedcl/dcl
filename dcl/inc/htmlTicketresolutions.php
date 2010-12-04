@@ -172,7 +172,7 @@ class htmlTicketresolutions
 		$objProduct->next_record();
 		$setid = $objProduct->f(0);
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);
 		$t->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
@@ -217,6 +217,6 @@ class htmlTicketresolutions
 
 		$t->assign('ticketid', $ticketid);
 
-		SmartyDisplay($t, 'htmlTicketresolutionsForm.tpl');
+		$t->Render('htmlTicketresolutionsForm.tpl');
 	}
 }

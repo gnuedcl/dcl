@@ -33,7 +33,7 @@ class htmlProductDashboard
 
 	function htmlProductDashboard()
 	{
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->oProduct = null;
 	}
 
@@ -45,7 +45,7 @@ class htmlProductDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		SmartyDisplay($this->oSmarty, 'htmlProductDashboardAll.tpl');
+		$this->oSmarty->Render('htmlProductDashboardAll.tpl');
 	}
 	
 	function Show()
@@ -89,6 +89,6 @@ class htmlProductDashboard
 		$this->oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE));
 		$this->oSmarty->assign('PERM_VERSIONS', $dcl_info['DCL_BUILD_MANAGER_ENABLED'] == 'Y' && $this->oProduct->is_versioned == 'Y');
 		
-		SmartyDisplay($this->oSmarty, $sPage);
+		$this->oSmarty->Render($sPage);
 	}
 }

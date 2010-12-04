@@ -32,7 +32,7 @@ class htmlHotlistProjectDashboard
 
 	function htmlHotlistProjectDashboard()
 	{
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->hotlist = null;
 	}
 
@@ -60,6 +60,6 @@ class htmlHotlistProjectDashboard
 		$this->oSmarty->assign('VAL_HOTLISTID', $id);
 		$this->oSmarty->assign('VAL_NAME', $this->hotlist->hotlist_desc);
 
-		SmartyDisplay($this->oSmarty, 'htmlHotlistProjectDashboard.tpl');
+		$this->oSmarty->Render('htmlHotlistProjectDashboard.tpl');
 	}
 }

@@ -164,7 +164,7 @@ class htmlOrgPhone
 			return;
 		}
 		
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oPhoneType = new htmlPhoneType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
@@ -189,6 +189,6 @@ class htmlOrgPhone
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgPhone.submitAdd');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlPhoneForm.tpl');
+		$oSmarty->Render('htmlPhoneForm.tpl');
 	}
 }

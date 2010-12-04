@@ -36,7 +36,7 @@ class htmlMessage
 	
 	function htmlMessage()
 	{
-		$this->t =& CreateSmarty();
+		$this->t = new DCL_Smarty();
 		$this->sTemplate = 'htmlMessageInfo.tpl';
 		
 		if (!defined('STR_CMMN_INFORMATION'))
@@ -66,7 +66,7 @@ class htmlMessage
 		if (!defined('__DCL_MESSAGE__'))
 			define('__DCL_MESSAGE__', 1);
 			
-		SmartyDisplay($this->t, $this->sTemplate);
+		$this->t->Render($this->sTemplate);
 	}
 	
 	function SetShow($sMessage, $sFile, $iLine, &$aBacktrace)
@@ -78,4 +78,3 @@ class htmlMessage
 		$this->Show();
 	}
 }
-?>

@@ -226,7 +226,7 @@ class htmlEmailType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 			
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -247,6 +247,6 @@ class htmlEmailType
 			$t->assign('menuAction', 'htmlEmailType.submitAdd');
 		}
 
-		SmartyDisplay($t, 'htmlEmailTypeForm.tpl');
+		$t->Render('htmlEmailTypeForm.tpl');
 	}
 }

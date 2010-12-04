@@ -169,7 +169,7 @@ class htmlOrgAddress
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oAddrType = new htmlAddrType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
@@ -200,6 +200,6 @@ class htmlOrgAddress
 			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->GetCombo());
 		}
 
-		SmartyDisplay($oSmarty, 'htmlAddrForm.tpl');
+		$oSmarty->Render('htmlAddrForm.tpl');
 	}
 }

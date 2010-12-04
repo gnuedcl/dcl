@@ -73,12 +73,12 @@ class htmlPersonnel
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD))
 			return PrintPermissionDenied();
 		
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		
 		$oSmarty->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN));
 		$oSmarty->assign('VAL_USERID', $GLOBALS['DCLID']);
 		$oSmarty->assign('VAL_USERNAME', $GLOBALS['DCLNAME']);
 		
-		SmartyDisplay($oSmarty, 'htmlPersonnelPasswdForm.tpl');
+		$oSmarty->Render('htmlPersonnelPasswdForm.tpl');
 	}
 }

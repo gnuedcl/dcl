@@ -321,11 +321,11 @@ class htmlChecklistForm
 		$this->xml = new xmlDoc();
 		$this->xml->ParseFile($file);
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		$t->assign_by_ref('root', $this->xml->root);
 
-		SmartyDisplay($t, 'htmlChecklistForm.tpl');
+		$t->Render('htmlChecklistForm.tpl');
 
 		echo '<form class="styled" method="post" action="' . menuLink() . '">';
 		if (!$bIsView)

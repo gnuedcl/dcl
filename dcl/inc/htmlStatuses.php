@@ -122,7 +122,7 @@ class htmlStatuses
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$oSelect = new htmlSelect();
 		$oSelect->SetOptionsFromDb('dcl_status_type', 'dcl_status_type_id', 'dcl_status_type_name', '', $order = 'dcl_status_type_id');
@@ -149,6 +149,6 @@ class htmlStatuses
 
 		$t->assign('CMB_TYPE', $oSelect->GetHtml());
 		
-		SmartyDisplay($t, 'htmlStatusesForm.tpl');
+		$t->Render('htmlStatusesForm.tpl');
 	}
 }

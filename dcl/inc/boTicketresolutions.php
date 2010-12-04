@@ -297,7 +297,7 @@ class boTicketresolutions
 		$pct = rand(1, 100);
 		if ($pct <= $dcl_info['DCL_CQQ_PERCENT'])
 		{
-			$t =& CreateSmarty();
+			$t = new DCL_Smarty();
 			$t->assign('VAL_TICKETID', $this->oDB->ticketid);
 			$t->assign('VAL_CLOSEDON', date('n/j/Y'));
 			$t->assign('contact', $aContact);
@@ -310,9 +310,9 @@ class boTicketresolutions
 			
 			$sProductTemplate = DCL_ROOT . 'templates/custom/cqq_' . $oTicket->product . '.tpl';
 			if (file_exists($sProductTemplate))
-				$oMail->body = SmartyFetch($t, $sProductTemplate, 'custom');
+				$oMail->body = $t->ToString ($sProductTemplate, 'custom');
 			else
-				$oMail->body = SmartyFetch($t, $dcl_info['DCL_CQQ_TEMPLATE'], 'custom');
+				$oMail->body = $t->ToString($dcl_info['DCL_CQQ_TEMPLATE'], 'custom');
 			
 			$oMail->Send();
 		}

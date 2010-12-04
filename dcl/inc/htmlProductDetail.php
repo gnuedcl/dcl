@@ -36,7 +36,7 @@ class htmlProductDetail
 
 	function htmlProductDetail()
 	{
-		$this->t = CreateSmarty();
+		$this->t = new DCL_Smarty();
 
 		$this->id = 0;
 		$this->sView = 'summary';
@@ -81,7 +81,7 @@ class htmlProductDetail
 		$this->t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE));
 		$this->t->assign('PERM_VERSIONS', $dcl_info['DCL_BUILD_MANAGER_ENABLED'] == 'Y' && $this->oProduct->is_versioned == 'Y');
 		
-		SmartyDisplay($this->t, 'htmlProductsDetail.tpl');
+		$this->t->Render('htmlProductsDetail.tpl');
 
 		if ($this->sView == 'summary')
 		{

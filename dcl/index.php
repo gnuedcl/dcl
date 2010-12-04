@@ -52,7 +52,7 @@ function GetDomainCombo()
 	return $retVal;
 }
 
-$t = CreateSmarty();
+$t = new DCL_Smarty();
 
 if (IsSet($GLOBALS['cd']))
 {
@@ -89,4 +89,4 @@ $t->assign('CMB_DOMAIN', GetDomainCombo());
 if (IsSet($GLOBALS['refer_to']))
 	$t->assign('VAL_REFERTO', urldecode($GLOBALS['refer_to']));
 
-SmartyDisplay($t, 'login.tpl');
+$t->Render('login.tpl');

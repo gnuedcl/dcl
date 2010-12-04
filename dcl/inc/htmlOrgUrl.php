@@ -164,7 +164,7 @@ class htmlOrgUrl
 			return;
 		}
 		
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oUrlType = new htmlUrlType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
@@ -189,6 +189,6 @@ class htmlOrgUrl
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgUrl.submitAdd');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlUrlForm.tpl');
+		$oSmarty->Render('htmlUrlForm.tpl');
 	}
 }

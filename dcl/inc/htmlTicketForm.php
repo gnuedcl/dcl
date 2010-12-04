@@ -34,7 +34,7 @@ class htmlTicketForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD, $isEdit ? $obj->ticketid : 0))
 			return PrintPermissionDenied();
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$objJS = new jsAttributesets();
 
 		if (!$isEdit)
@@ -147,6 +147,6 @@ class htmlTicketForm
 			}
 		}
 
-		SmartyDisplay($oSmarty, 'htmlTicketForm.tpl');
+		$oSmarty->Render('htmlTicketForm.tpl');
 	}
 }

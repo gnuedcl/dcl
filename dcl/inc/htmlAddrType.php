@@ -223,7 +223,7 @@ class htmlAddrType
 		else if (!$isEdit && !$g_oSec->HasPerm(DCL_ENTITY_ADDRTYPE, DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -244,6 +244,6 @@ class htmlAddrType
 			$t->assign('menuAction', 'htmlAddrType.submitAdd');
 		}
 
-		SmartyDisplay($t, 'htmlAddrTypeForm.tpl');
+		$t->Render('htmlAddrTypeForm.tpl');
 	}
 }

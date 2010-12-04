@@ -105,7 +105,7 @@ class htmlDepartments
 		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -123,6 +123,6 @@ class htmlDepartments
 			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 		}
 
-		SmartyDisplay($t, 'htmlDepartmentsForm.tpl');
+		$t->Render('htmlDepartmentsForm.tpl');
 	}
 }

@@ -225,7 +225,7 @@ class htmlUrlType
 		if (!$g_oSec->HasPerm(DCL_ENTITY_URLTYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 			
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -246,6 +246,6 @@ class htmlUrlType
 			$t->assign('menuAction', 'htmlUrlType.submitAdd');
 		}
 
-		SmartyDisplay($t, 'htmlUrlTypeForm.tpl');
+		$t->Render('htmlUrlTypeForm.tpl');
 	}
 }

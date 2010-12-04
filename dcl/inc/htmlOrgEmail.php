@@ -164,7 +164,7 @@ class htmlOrgEmail
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oEmailType = new htmlEmailType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
@@ -189,6 +189,6 @@ class htmlOrgEmail
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgEmail.submitAdd');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlEmailForm.tpl');
+		$oSmarty->Render('htmlEmailForm.tpl');
 	}
 }

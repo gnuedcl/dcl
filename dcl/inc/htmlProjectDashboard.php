@@ -32,7 +32,7 @@ class htmlProjectDashboard
 
 	function htmlProjectDashboard()
 	{
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->oProject = null;
 	}
 
@@ -60,6 +60,6 @@ class htmlProjectDashboard
 		$this->oSmarty->assign('VAL_PROJECTID', $this->oProject->projectid);
 		$this->oSmarty->assign('VAL_NAME', $this->oProject->name);
 
-		SmartyDisplay($this->oSmarty, 'htmlProjectDashboard.tpl');
+		$this->oSmarty->Render('htmlProjectDashboard.tpl');
 	}
 }

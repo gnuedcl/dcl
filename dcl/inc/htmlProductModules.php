@@ -271,7 +271,7 @@ class htmlProductModules
 			return;
 		}
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('product_id', $iProductID);
 		
 		if ($isEdit)
@@ -289,6 +289,6 @@ class htmlProductModules
 			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 		}
 
-		SmartyDisplay($t, 'htmlProductModulesForm.tpl');
+		$t->Render('htmlProductModulesForm.tpl');
 	}
 }

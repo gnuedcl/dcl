@@ -54,7 +54,7 @@ class htmlAudit
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oAudit = new boAudit();
 
 		switch ($type)
@@ -101,7 +101,7 @@ class htmlAudit
 		$oSmarty->assign_by_ref('VAL_AUDITPROJECT', $this->aAuditProject);
 		$oSmarty->assign_by_ref('VAL_AUDITWORKORDER', $this->aAuditWorkOrder);
 
-		SmartyDisplay($oSmarty, 'htmlAuditTrail.tpl');
+		$oSmarty->Render('htmlAuditTrail.tpl');
 	}
 
 	function prepareForDisplay()

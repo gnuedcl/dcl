@@ -34,7 +34,7 @@ class htmlProjectsdetail
 	function htmlProjectsDetail()
 	{
 		$this->oPM = new dbProjectmap();
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->oProject = null;
 	}
 
@@ -93,7 +93,7 @@ class htmlProjectsdetail
 		$oProjects = new boProjects();
 		$this->oSmarty->assign('VAL_PROJECTS', $oProjects->GetParentProjectPath($this->oProject->projectid));
 
-		SmartyDisplay($this->oSmarty, 'htmlProjectsDetail.tpl');
+		$this->oSmarty->Render('htmlProjectsDetail.tpl');
 	}
 
 	function SetTasks($wostatus, $woresponsible, $bIsGrouping)

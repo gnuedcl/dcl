@@ -148,13 +148,13 @@ class boChecklists
 		$o = new dbChklstTpl();
 		if ($o->Load($iID) != -1)
 		{
-			$t = CreateSmarty();
+			$t = new DCL_Smarty();
 			$t->assign('VAL_TPLID', $iID);
 			$t->assign('dcl_chklst_tpl_id', $o->dcl_chklst_tpl_id);
 			$t->assign('VAL_TPLNAME', $o->dcl_chklst_tpl_name);
 			$t->assign('VAL_SUMMARY', '');
 
-			SmartyDisplay($t, 'htmlNewChecklist.tpl');
+			$t->Render('htmlNewChecklist.tpl');
 		}
 		else
 			printf(STR_CHK_ERRLOADINGTPLID, $iID);

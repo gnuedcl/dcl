@@ -150,12 +150,12 @@ class htmlHotlists
 			return -1;
 		}
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$items = $db->FetchAllRows();
 		$t->assign_by_ref('items', $items);
 		$t->assign('VAL_HOTLIST_ID', $hotlistId);
 		$t->assign('VAL_HOTLIST_NAME', $dbHotlist->hotlist_tag);
-		SmartyDisplay($t, 'htmlHotlistPrioritize.tpl');
+		$t->Render('htmlHotlistPrioritize.tpl');
 	}
 	
 	function savePriority()

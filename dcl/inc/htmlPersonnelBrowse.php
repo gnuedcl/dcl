@@ -31,7 +31,7 @@ class htmlPersonnelBrowse
 
 	function htmlPersonnelBrowse()
 	{
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->oView = new boView();
 		$this->oDB = new dclDB;
 	}
@@ -127,6 +127,6 @@ class htmlPersonnelBrowse
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 		}
 
-		SmartyDisplay($this->oSmarty, 'htmlPersonnelBrowse.tpl');
+		$this->oSmarty->Render('htmlPersonnelBrowse.tpl');
 	}
 }

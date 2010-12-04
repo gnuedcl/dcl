@@ -158,7 +158,7 @@ class htmlOrgAlias
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
 		$oOrg = new dbOrg();
@@ -179,6 +179,6 @@ class htmlOrgAlias
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgAlias.submitAdd');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlOrgAlias.tpl');
+		$oSmarty->Render('htmlOrgAlias.tpl');
 	}
 }

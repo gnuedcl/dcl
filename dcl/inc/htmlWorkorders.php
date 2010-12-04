@@ -42,7 +42,7 @@ class htmlWorkorders
 		$objHTMLPriorities = new htmlPriorities();
 		$objHTMLSeverities = new htmlSeverities();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		if (!$bIsBatch)
 		{
@@ -111,11 +111,11 @@ class htmlWorkorders
 
 		if ($bIsBatch)
 		{
-			SmartyDisplay($t, 'htmlWorkOrderBatchAssign.tpl');
+			$t->Render('htmlWorkOrderBatchAssign.tpl');
 		}
 		else
 		{
-			SmartyDisplay($t, 'htmlWorkOrderReassign.tpl');
+			$t->Render('htmlWorkOrderReassign.tpl');
 		}
 	}
 
@@ -126,12 +126,12 @@ class htmlWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $jcn, $seq))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$t->assign('VAL_JCN', $jcn);
 		$t->assign('VAL_SEQ', $seq);
 
-		SmartyDisplay($t, 'htmlWorkOrderAddAttachment.tpl');
+		$t->Render('htmlWorkOrderAddAttachment.tpl');
 	}
 
 	function ShowDeleteAttachmentYesNo($jcn, $seq, $filename)
@@ -162,16 +162,16 @@ class htmlWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT))
 			return PrintPermissionDenied();
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
-		SmartyDisplay($t, 'htmlWorkOrderCSVUpload.tpl');
+		$t->Render('htmlWorkOrderCSVUpload.tpl');
 	}
 
 	function DisplayGraphForm()
 	{
 		global $dcl_info;
 		
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));
@@ -179,7 +179,7 @@ class htmlWorkorders
 		$o = new htmlProducts();
 		$t->assign('CMB_PRODUCTS', $o->GetCombo(0, 'product', 'name', 0, 0, false));
 		
-		SmartyDisplay($t, 'htmlWorkOrderGraph.tpl');
+		$t->Render('htmlWorkOrderGraph.tpl');
 	}
 	
 	function email()
@@ -199,13 +199,13 @@ class htmlWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))
 			return PrintPermissionDenied();
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oNotification = new boWatches();
 		$oNotification->oMeta = new DCL_MetadataDisplay();
 		$oNotification->oMeta->GetWorkOrder($jcn, $seq);
 		
 		$oSmarty->assign('VAL_HTML', "<br/><br/>" . $oNotification->GetWorkOrderNotificationBody($oNotification->oMeta->oWorkOrder, true));
-		SmartyDisplay($oSmarty, 'htmlEmail.tpl');
+		$oSmarty->Render('htmlEmail.tpl');
 	}
 
 	function changeLog()

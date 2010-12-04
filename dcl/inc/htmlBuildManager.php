@@ -110,13 +110,13 @@ class htmlBuildManager
 		$oProduct = new dbProducts();
 		$oProduct->Load($_REQUEST['product_id']);
 		
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 
 		$oSmarty->assign('menuAction', 'boBuildManager.addRelease');
 		$oSmarty->assign('VAL_PRODUCTID', $oProduct->id);
 		$oSmarty->assign('VAL_PRODUCTNAME', $oProduct->name);
 
-		SmartyDisplay($oSmarty, 'htmlBuildManagerRelease.tpl');
+		$oSmarty->Render('htmlBuildManagerRelease.tpl');
 	}
 	
 	function ShowAddBuildPage()
@@ -129,7 +129,7 @@ class htmlBuildManager
 		$oVersion = new dbProductVersion();
 		$oVersion->Load(array('product_version_id' => $_REQUEST['product_version_id']));
 		
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		
 		$oSmarty->assign('VAL_PRODUCTID', $_REQUEST['product_id']);
 		$oSmarty->assign('VAL_VERSIONID', $_REQUEST['product_version_id']);
@@ -137,7 +137,7 @@ class htmlBuildManager
 		$oSmarty->assign('VAL_VERSION', $oVersion->product_version_text);
 		$oSmarty->assign('VAL_WHICH', $_REQUEST['which']);
 		
-		SmartyDisplay($oSmarty, 'htmlBuildManagerBuild.tpl');
+		$oSmarty->Render('htmlBuildManagerBuild.tpl');
 	}
 	
 	function ModifyReleaseInfo()
@@ -224,7 +224,7 @@ class htmlBuildManager
 			return;
 		}
 		
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		
 		$oSmarty->assign('VAL_PRODUCTID', $product_id);
 		$oSmarty->assign('VAL_VERSIONID', $product_version_id);
@@ -233,7 +233,7 @@ class htmlBuildManager
 		$oSmarty->assign('VAL_WHICH', $_REQUEST['which']);
 		$oSmarty->assign('VAL_BM_BUILDNAME', $oPB->product_build_descr);
 		
-		SmartyDisplay($oSmarty, 'htmlBuildManagerBuild.tpl');
+		$oSmarty->Render('htmlBuildManagerBuild.tpl');
 	}		
 	
 	function ShowWOByBuild()
@@ -271,7 +271,7 @@ class htmlBuildManager
 		
 		global $dcl_info, $init, $g_oSession;	
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$init = @DCL_Sanitize::ToInt($_REQUEST['init']);
 		if ($init != 1)
@@ -303,7 +303,7 @@ class htmlBuildManager
 			$t->assign('VAL_MENUACTION', 'boBuildManager.InsertBM');
 		}
 		
-		SmartyDisplay($t, 'htmlBuildManagerForm.tpl');
+		$t->Render('htmlBuildManagerForm.tpl');
 	}
 	
 	

@@ -34,7 +34,7 @@ class htmlFaqquestions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQQUESTION, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 			
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);
 
 		if ($isEdit)
@@ -57,7 +57,7 @@ class htmlFaqquestions
 			$t->assign('VAL_TOPICID', $id);
 		}
 
-		SmartyDisplay($t, 'htmlFaqquestionsForm.tpl');
+		$t->Render('htmlFaqquestionsForm.tpl');
 	}
 
 	function ShowQuestion($obj)
@@ -81,7 +81,7 @@ class htmlFaqquestions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $objFaq->faqid))
 			return PrintPermissionDenied();
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		$t->assign('VAL_FAQID', $objFaq->faqid);
 		$t->assign('VAL_FAQNAME', htmlspecialchars($objFaq->name));
@@ -107,6 +107,6 @@ class htmlFaqquestions
 		
 		$t->assign('VAL_ANSWERS', $aRecords);
 		
-		SmartyDisplay($t, 'htmlFaqquestionsDetail.tpl');
+		$t->Render('htmlFaqquestionsDetail.tpl');
 	}
 }

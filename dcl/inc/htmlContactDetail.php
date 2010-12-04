@@ -55,7 +55,7 @@ class htmlContactDetail
 			return;
 		}
 
-		$t = &CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->register_object('Contact', $oContact);
 
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY));
@@ -243,6 +243,6 @@ class htmlContactDetail
 		$t->assign_by_ref('WorkOrders', $aWO);
 		$oWO->FreeResult();
 
-		SmartyDisplay($t, 'htmlContactDetail.tpl');
+		$t->Render('htmlContactDetail.tpl');
 	}
 }

@@ -58,7 +58,7 @@ else
 
 function Refresh($toHere = 'index.php', $session_id = '', $domain = 'default')
 {
-	$oSmarty =& CreateSmarty();
+	$oSmarty = new DCL_Smarty();
 
 	if (isset($_REQUEST['refer_to']) && $_REQUEST['refer_to'] != '')
 	{
@@ -66,7 +66,7 @@ function Refresh($toHere = 'index.php', $session_id = '', $domain = 'default')
 	}
 	
 	$oSmarty->assign('URL', $toHere);
-	SmartyDisplay($oSmarty, 'logout.tpl');
+	$oSmarty->Render('logout.tpl');
 	
 	exit;
 }

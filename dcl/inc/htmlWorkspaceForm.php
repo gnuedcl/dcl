@@ -249,7 +249,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$Template = CreateSmarty();
+		$Template = new DCL_Smarty();
 
 		$oWS = new dbWorkspace();
 		$aProductID = array();
@@ -285,6 +285,6 @@ class htmlWorkspaceForm
 			$Template->assign('VAL_PRODUCTNAMES', $aProductName);
 		}
 
-		SmartyDisplay($Template, 'htmlWorkspaceForm.tpl');
+		$Template->Render('htmlWorkspaceForm.tpl');
 	}
 }

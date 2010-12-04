@@ -281,7 +281,7 @@ class htmlContactForm
 		global $dcl_info, $g_oSec;
 
 		$isEdit = is_object($obj);
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		if (isset($_REQUEST['return_to']))
 		{
 			$oSmarty->assign('return_to', $_REQUEST['return_to']);
@@ -307,7 +307,7 @@ class htmlContactForm
 			$oContactType = new dbContactType();
 			$oSmarty->assign('contactTypes', $oContactType->GetTypes());
 
-			SmartyDisplay($oSmarty, 'htmlNewContactForm.tpl');
+			$oSmarty->Render('htmlNewContactForm.tpl');
 
 			return;
 		}
@@ -329,6 +329,6 @@ class htmlContactForm
 		$oContactType = new dbContactType();
 		$oSmarty->assign('contactTypes', $oContactType->GetTypes($obj->contact_id));
 
-		SmartyDisplay($oSmarty, 'htmlContactForm.tpl');
+		$oSmarty->Render('htmlContactForm.tpl');
 	}
 }

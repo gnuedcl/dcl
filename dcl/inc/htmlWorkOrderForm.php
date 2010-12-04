@@ -31,7 +31,7 @@ class htmlWorkOrderForm
 
 	function htmlWorkOrderForm()
 	{
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->eState = DCL_FORM_ADD;
 	}
 
@@ -368,6 +368,6 @@ class htmlWorkOrderForm
 			$this->oSmarty->assign('VAL_ORGNAME', '');
 		}
 
-		SmartyDisplay($this->oSmarty, 'htmlWorkOrderForm.tpl');
+		$this->oSmarty->Render('htmlWorkOrderForm.tpl');
 	}
 }

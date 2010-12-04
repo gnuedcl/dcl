@@ -235,7 +235,7 @@ class htmlEntitySource
 			return;
 		}
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		if ($isEdit)
 		{
@@ -252,6 +252,6 @@ class htmlEntitySource
 			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 		}
 
-		SmartyDisplay($t, 'htmlEntitySourceForm.tpl');
+		$t->Render('htmlEntitySourceForm.tpl');
 	}
 }

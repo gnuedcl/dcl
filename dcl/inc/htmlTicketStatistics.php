@@ -36,11 +36,11 @@ class htmlTicketStatistics
 		$objPersonnel = new htmlPersonnel();
 		$objProducts = new htmlProducts();
 		
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('CMB_PEOPLE', $objPersonnel->GetCombo(0, 'people', 'lastfirst', 8, false));
 		$t->assign('CMB_PRODUCTS', $objProducts->GetCombo(0, 'products', 'name', 0, 8, false));
 		
-		SmartyDisplay($t, 'htmlTicketStatisticsForm.tpl');
+		$t->Render('htmlTicketStatisticsForm.tpl');
 	}
 
 	function ShowUserVsProductStatus()

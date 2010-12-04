@@ -80,7 +80,7 @@ class htmlTicketSearches
 		$oDBP = new dbPersonnel();
 		$oDBP->Load($GLOBALS['DCLID']);
 		
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		if ($bView)
 			$t->assign('VAL_REPORTTITLE', $oView->title);
@@ -414,18 +414,18 @@ class htmlTicketSearches
 			$t->assign('VAL_SORT');
 		}
 
-		SmartyDisplay($t, 'htmlTicketSearch.tpl');
+		$t->Render('htmlTicketSearch.tpl');
 	}
 
 	function my()
 	{
 		global $dcl_info;
 		
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$obj = new htmlViews();
 		$t->assign('CMB_VIEWS', $obj->GetCombo(0, 'viewid', 0, true, 'tickets'));
 		
-		SmartyDisplay($t, 'htmlMyTicketSearches.tpl');
+		$t->Render('htmlMyTicketSearches.tpl');
 	}
 }

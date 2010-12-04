@@ -105,7 +105,7 @@ class htmlOrgProducts
 	{
 		global $dcl_info, $g_oSec;
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $oOrg->org_id))
 			return PrintPermissionDenied();
@@ -119,6 +119,6 @@ class htmlOrgProducts
 		$oSmarty->assign_by_ref('VAL_PRODUCTID', $aProductID);
 		$oSmarty->assign_by_ref('VAL_PRODUCTNAME', $aProductName);
 
-		SmartyDisplay($oSmarty, 'htmlOrgProducts.tpl');
+		$oSmarty->Render('htmlOrgProducts.tpl');
 	}
 }

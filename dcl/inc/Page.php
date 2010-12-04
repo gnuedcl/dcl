@@ -41,8 +41,8 @@ class Page
 		if (IsSet($_REQUEST['bNoHeader']))
 			return;
 
-		$t =& CreateSmarty();
-		SmartyDisplay($t, 'footer.tpl');
+		$t = new DCL_Smarty();
+		$t->Render('footer.tpl');
 	}
 }
 ?>

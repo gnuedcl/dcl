@@ -32,7 +32,7 @@ class htmlBuildManagerReleaseForm
 
 	function htmlBuildManagerReleaseForm()
 	{
-		$this->oSmarty =& CreateSmarty();
+		$this->oSmarty = new DCL_Smarty();
 		$this->eState = DCL_FORM_ADD;
 	}
 	
@@ -88,7 +88,6 @@ class htmlBuildManagerReleaseForm
 		$this->oSmarty->assign('VAL_DATEELEMENT','product_version_target_date');
 		$this->oSmarty->assign('VAL_WHICH', $GLOBALS['which']);
 		
-		SmartyDisplay($this->oSmarty, 'htmlBuildManagerReleaseForm.tpl');
-		
+		$this->oSmarty->Render('htmlBuildManagerReleaseForm.tpl');
 	}
 }

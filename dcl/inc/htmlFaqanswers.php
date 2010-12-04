@@ -34,7 +34,7 @@ class htmlFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 			
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);
 		
 		if ($isEdit)
@@ -55,7 +55,7 @@ class htmlFaqanswers
 			$t->assign('VAL_QUESTIONID', $id);
 		}
 
-		SmartyDisplay($t, 'htmlFaqanswersForm.tpl');
+		$t->Render('htmlFaqanswersForm.tpl');
 	}
 }
 ?>

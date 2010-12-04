@@ -87,7 +87,7 @@ class htmlAgg
 	{
 		global $dcl_info;
 
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->assign('TXT_AGGREGATE', 'Aggregate');
 		$t->assign('TXT_BY', STR_CMMN_BY);
 		$t->assign('TXT_FORDATES', 'For Dates');
@@ -127,7 +127,7 @@ class htmlAgg
 			$t->assign('VAL_CHKLIMIT', '');
 		}
 
-		SmartyDisplay($t, 'htmlAggNav.tpl');
+		$t->Render('htmlAggNav.tpl');
 	}
 
 	function ShowReport()

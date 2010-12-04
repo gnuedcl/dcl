@@ -54,7 +54,7 @@ class htmlOrgDetail
 			return;
 		}
 
-		$t = &CreateSmarty();
+		$t = new DCL_Smarty();
 		$t->register_object('Org', $oOrg);
 
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
@@ -249,6 +249,6 @@ class htmlOrgDetail
 		$t->assign_by_ref('WorkOrders', $aWO);
 		$oWO->FreeResult();
 
-		SmartyDisplay($t, 'htmlOrgDetail.tpl');
+		$t->Render('htmlOrgDetail.tpl');
 	}
 }

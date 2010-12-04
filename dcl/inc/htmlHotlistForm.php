@@ -188,7 +188,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$Template = CreateSmarty();
+		$Template = new DCL_Smarty();
 
 		if ($isEdit)
 		{
@@ -206,6 +206,6 @@ class htmlHotlistForm
 			$Template->assign('VAL_ACTIVE', 'Y');
 		}
 
-		SmartyDisplay($Template, 'htmlHotlistForm.tpl');
+		$Template->Render('htmlHotlistForm.tpl');
 	}
 }

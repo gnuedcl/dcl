@@ -35,7 +35,7 @@ class htmlProjectsform
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			return PrintPermissionDenied();
 
-		$t = CreateSmarty();
+		$t = new DCL_Smarty();
 
 		$objPrj = new htmlProjects();
 		$objHTMLPersonnel = new htmlPersonnel();
@@ -72,6 +72,6 @@ class htmlProjectsform
 			$t->assign('JS_TEMPLATE', $objXMLProject->comboJS);
 		}
 
-		SmartyDisplay($t, 'htmlProjectsForm.tpl');
+		$t->Render('htmlProjectsForm.tpl');
 	}
 }

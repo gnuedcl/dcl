@@ -33,7 +33,7 @@ class htmlConfig
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			return PrintPermissionDenied();
 			
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		// System setup
 		$t->assign('CMB_DATEFORMAT', $this->GetDateCombo('DCL_DATE_FORMAT', $dcl_info['DCL_DATE_FORMAT']));
@@ -127,7 +127,7 @@ class htmlConfig
 		$t->assign('VAL_SCCSENABLED', $dcl_info['DCL_SCCS_ENABLED']);
 		$t->assign('VAL_BUILDMANAGERENABLED', $dcl_info['DCL_BUILD_MANAGER_ENABLED']);
 
-		SmartyDisplay($t, 'htmlConfig.tpl');
+		$t->Render('htmlConfig.tpl');
 	}
 
 	function _GetCombo($sName, $aOptions, $sDefault)

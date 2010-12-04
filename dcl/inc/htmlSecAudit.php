@@ -42,7 +42,7 @@ class htmlSecAudit
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
 			return;
 			
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		$oSelect = new htmlSelect();
 		
 		$t->assign('CMB_USERS', $objPersonnel->GetCombo(0, 'responsible', 'lastfirst', 0, false));
@@ -59,7 +59,7 @@ class htmlSecAudit
 		else
 			$t->assign('VAL_ENDDATE', '');
 
-		SmartyDisplay($t, 'htmlSecAuditBrowse.tpl');
+		$t->Render('htmlSecAuditBrowse.tpl');
 	}
 	
 	function Render($reportArray = NULL, $begindate, $enddate, $respname)
@@ -67,8 +67,6 @@ class htmlSecAudit
 	
 		if (!isset($reportArray) || !is_array($reportArray))
 			return false;
-			
-			
 			
 		$oTable = new htmlTable();
 		
@@ -84,7 +82,5 @@ class htmlSecAudit
 		$oTable->render();
 			
 		return true;
-		
-	
 	}
 }

@@ -164,7 +164,7 @@ class htmlContactPhone
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oPhoneType = new htmlPhoneType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
@@ -191,6 +191,6 @@ class htmlContactPhone
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactPhone.submitAdd');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlPhoneForm.tpl');
+		$oSmarty->Render('htmlPhoneForm.tpl');
 	}
 }

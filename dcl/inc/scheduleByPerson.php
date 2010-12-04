@@ -129,10 +129,10 @@ class scheduleByPerson
 		commonHeader();
 
 		$objPersonnel = new htmlPersonnel();
-		$t =& CreateSmarty();
+		$t = new DCL_Smarty();
 		
 		$t->assign('CMB_PERSON', $objPersonnel->GetCombo($GLOBALS['DCLID'], 'personID', 'lastfirst'));
 
-		SmartyDisplay($t, 'htmlScheduleByPerson.tpl');
+		$t->Render('htmlScheduleByPerson.tpl');
 	}
 }

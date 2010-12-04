@@ -193,7 +193,7 @@ class htmlContactLicenses
 			return;
 		}
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oEmailType = new htmlEmailType();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
@@ -224,6 +224,6 @@ class htmlContactLicenses
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactLicenses.submitAdd');
 		}
 
-		SmartyDisplay($oSmarty, 'htmlLicenseForm.tpl');
+		$oSmarty->Render('htmlLicenseForm.tpl');
 	}
 }

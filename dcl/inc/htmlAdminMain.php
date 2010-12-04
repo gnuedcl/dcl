@@ -33,12 +33,12 @@ class htmlAdminMain
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			return PrintPermissionDenied();
 
-		$oSmarty =& CreateSmarty();
+		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('TXT_SETUPDESC', STR_ADMIN_SETUPDESC);
 		$oSmarty->assign('TXT_SETUPTITLE', STR_ADMIN_SETUPTITLE);
 		$oSmarty->assign('VAL_OPTIONS', $this->GetOptions());
 
-		SmartyDisplay($oSmarty, 'htmlAdminMain.tpl');
+		$oSmarty->Render('htmlAdminMain.tpl');
 	}
 	
 	function GetOptions()
