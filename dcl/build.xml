@@ -30,4 +30,13 @@
 		<exec command="tar czvf ${pkgname}.tar.gz ${builddir}" dir="${builddir}"/>
 		<move file="${builddir}/${pkgname}.tar.gz" todir="${distdir}" />
     </target>
+
+	<target name="lint">
+        <phplint>
+            <fileset dir=".">
+                <include name="*.php" />
+                <include name="**/*.php" />
+            </fileset>
+        </phplint>
+	</target>
 </project>
