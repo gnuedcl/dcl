@@ -39,11 +39,11 @@
 			{if is_array($menuItem[0])}
 			<ul>
 				{foreach from=$menuItem[0] key=subLabel item=subMenuItem}
-				<li><a href="{if substr($subMenuItem[0], 0, 7) != 'http://'}{$URL_MAIN_PHP}?menuAction={/if}{$subMenuItem[0]|escape}"{if substr($subMenuItem[0], 0, 7) == 'http://'} target="_blank"{/if}>{$subLabel}</a></li>
+				<li><a href="{if substr($subMenuItem[0], 0, 7) != 'http://' && substr($menuItem[0], 0, strlen(DCL_WWW_ROOT)) != DCL_WWW_ROOT}{$URL_MAIN_PHP}?menuAction={/if}{$subMenuItem[0]|escape}"{if substr($subMenuItem[0], 0, 7) == 'http://'} target="_blank"{/if}>{$subLabel}</a></li>
 				{/foreach}
 			</ul>
 			{else}{if !$smarty.foreach.mainMenuItems.first}</li>{/if}
-			<li><a href="{if substr($menuItem[0], 0, 7) != 'http://'}{$URL_MAIN_PHP}?menuAction={/if}{$menuItem[0]|escape}"{if substr($menuItem[0], 0, 7) == 'http://'} target="_blank"{/if}>{$label}</a>
+			<li><a href="{if substr($menuItem[0], 0, 7) != 'http://' && substr($menuItem[0], 0, strlen(DCL_WWW_ROOT)) != DCL_WWW_ROOT}{$URL_MAIN_PHP}?menuAction={/if}{$menuItem[0]|escape}"{if substr($menuItem[0], 0, 7) == 'http://'} target="_blank"{/if}>{$label}</a>
 			{/if}
 		{/if}
 	{/foreach}
