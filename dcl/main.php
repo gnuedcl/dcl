@@ -24,7 +24,7 @@
 
 include_once('login.php');
 
-$g_oPage =& GetPageObject();
+$g_oPage = new Page();
 $g_oPage->StartPage();
 
 if (IsSet($menuAction) && $menuAction != 'clearScreen')

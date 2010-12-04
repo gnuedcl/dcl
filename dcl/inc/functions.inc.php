@@ -375,16 +375,6 @@ function &CreateViewObject($sType = '')
 	return $oRetVal;
 }
 
-function GetAuthenticator()
-{
-	return new boAuthenticate();
-}
-
-function GetPageObject()
-{
-	return new Page();
-}
-
 function GetPluginDir()
 {
 	global $dcl_info;

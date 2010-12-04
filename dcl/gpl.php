@@ -26,7 +26,7 @@ include_once('login.php');
 
 $g_oSec = new boSecurity();
 
-$g_oPage = GetPageObject();
+$g_oPage = new Page();
 $g_oPage->StartPage();
 
 commonHeader();

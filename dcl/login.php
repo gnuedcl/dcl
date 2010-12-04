@@ -133,7 +133,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 	}
 	else
 	{
-		$obj = GetAuthenticator();
+		$obj = new boAuthenticate();
 		$aAuthInfo = array();
 		if ($obj->IsValidLogin($aAuthInfo))
 		{		

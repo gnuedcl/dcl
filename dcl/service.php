@@ -32,7 +32,7 @@ if (isset($_SERVER['PHP_AUTH_USER']))
 	$_REQUEST['UID'] = $_SERVER['PHP_AUTH_USER'];
 	$_REQUEST['PWD'] = $_SERVER['PHP_AUTH_PW'];
 	
-	$oAuth = GetAuthenticator();
+	$oAuth = new boAuthenticate();
 	$aAuthInfo = array();
 	if ($oAuth->IsValidLogin($aAuthInfo))
 	{
