@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boAddrType extends boAdminObject
 {
 	function boAddrType()

@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boNoteType extends boAdminObject
 {
 	function boNoteType()

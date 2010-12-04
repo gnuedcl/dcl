@@ -22,7 +22,6 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-import('htmlMessage');
 class htmlMessageInfo extends htmlMessage
 {
 	function htmlMessageInfo()

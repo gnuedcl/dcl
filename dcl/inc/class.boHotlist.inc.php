@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boHotlist extends boAdminObject
 {
 	function boHotlist()

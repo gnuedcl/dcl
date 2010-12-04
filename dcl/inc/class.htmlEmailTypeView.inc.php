@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlEmailTypeView extends htmlView
 {
 	function htmlEmailTypeView()

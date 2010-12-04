@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boOrgNote extends boAdminObject
 {
 	function boOrgNote()

@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boEntitySource extends boAdminObject
 {
 	function boEntitySource()

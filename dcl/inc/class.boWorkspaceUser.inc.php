@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boWorkspaceUser extends boAdminObject
 {
 	function boWorkspaceUser()

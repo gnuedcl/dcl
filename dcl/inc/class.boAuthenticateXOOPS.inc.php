@@ -22,7 +22,6 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-import('boAuthenticate');
 class boAuthenticateXOOPS extends boAuthenticate
 {
 	var $_sqlFallback;

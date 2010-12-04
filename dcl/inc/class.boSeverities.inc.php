@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('bo');
-import('boAdminObject');
 class boSeverities extends boAdminObject
 {
 	function boSeverities()

@@ -22,8 +22,6 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-import_vendor('pChart/pData.class');
-import_vendor('pChart/pChart.class');
 class DCL_Chart
 {
 	var $Data;

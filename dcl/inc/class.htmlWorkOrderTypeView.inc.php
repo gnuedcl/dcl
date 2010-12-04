@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlWorkOrderTypeView extends htmlView
 {
 	function htmlWorkOrderTypeView()

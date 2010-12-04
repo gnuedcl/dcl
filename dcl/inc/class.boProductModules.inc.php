@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('bo');
-import('boAdminObject');
 class boProductModules extends boAdminObject
 {
 	var $oDB;

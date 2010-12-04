@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('bo');
-import('boAdminObject');
 class boPriorities extends boAdminObject
 {
 	function boPriorities()

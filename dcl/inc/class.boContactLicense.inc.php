@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boContactLicense extends boAdminObject
 {
 	function boContactLicense()

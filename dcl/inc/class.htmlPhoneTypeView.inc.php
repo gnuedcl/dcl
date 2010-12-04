@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlPhoneTypeView extends htmlView
 {
 	function htmlPhoneTypeView()

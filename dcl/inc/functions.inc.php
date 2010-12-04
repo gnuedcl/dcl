@@ -127,6 +127,44 @@ define('SMARTY_DIR', DCL_ROOT . 'inc/');
 // Others
 define('DCL_NOW', 'now()');
 
+function __autoload($className)
+{
+	if (file_exists(DCL_ROOT . 'inc/class.' . $className . '.inc.php'))
+	{
+		require_once(DCL_ROOT . 'inc/class.' . $className . '.inc.php');
+		return;
+	}
+
+	if (substr($className, 0, 11) === 'DCL_Plugin_')
+	{
+		$pluginParts = explode('_', $className);
+		if (count($pluginParts) > 3)
+		{
+			$classPath = GetPluginDir() . strtolower($pluginParts[2]) . '/DCL_Plugin_' . $pluginParts[2] . '_' . $pluginParts[3] . '.php';
+			if (file_exists($classPath))
+			{
+				require_once($classPath);
+			}
+		}
+
+		return;
+	}
+
+	if ($className === 'pData')
+	{
+		require_once(DCL_ROOT . 'vendor/pChart/pData.class');
+		return;
+	}
+
+	if ($className === 'pChart')
+	{
+		require_once(DCL_ROOT . 'vendor/pChart/pChart.class');
+		return;
+	}
+
+	trigger_error('Class not found: ' . $className, E_USER_ERROR);
+}
+
 function menuLink($target = '', $params = '')
 {
 	global $phpgw;
@@ -245,7 +283,6 @@ function Invoke($sClassMethod)
 	}
 
 	list($class, $method) = explode(".", $sClassMethod);
-	import($class);
 	if (!class_exists($class))
 	{
 		trigger_error('Invoke could not find class: ' . $class, E_USER_ERROR);
@@ -269,17 +306,8 @@ function InvokePlugin($sPluginName, &$aParams = null, $method = 'Invoke')
 	
 	if (!class_exists($class))
 	{
-		if (!import_plugin($type, $name))
-		{
-			// If we can't import it, no plugin has been set up
-			return;
-		}
-	
-		if (!class_exists($class))
-		{
-			trigger_error('InvokePlugin could not find plugin class: ' . $class, E_USER_ERROR);
-			return;
-		}
+		// If we can't import it, no plugin has been set up
+		return;
 	}
 	
 	$obj = new $class;
@@ -325,42 +353,6 @@ function EvaluateReturnTo()
 	return false;
 }
 
-function import($className)
-{
-	if (!file_exists(DCL_ROOT . 'inc/class.' . $className . '.inc.php'))
-	{
-		trigger_error('Class not found: ' . $className, E_USER_ERROR);
-		return;
-	}
-	
-	include_once(DCL_ROOT . 'inc/class.' . $className . '.inc.php');
-}
-
-function import_plugin($sPluginType, $sPluginName)
-{
-	$sFullPath = GetPluginDir() . strtolower($sPluginType) . '/DCL_Plugin_' . $sPluginType . '_' . $sPluginName . '.php';
-	if (!file_exists($sFullPath))
-	{
-		return false;
-	}
-	
-	include_once($sFullPath);
-	
-	return true;
-}
-
-function import_vendor($sFile)
-{
-	$sFile = DCL_ROOT . 'vendor/' . $sFile;
-	if (!file_exists($sFile))
-	{
-		trigger_error('Vendor file not found: ' . $sFile);
-		return;
-	}
-	
-	include_once($sFile);
-}
-
 function &CreateViewObject($sType = '')
 {
 	$oRetVal = null;
@@ -388,8 +380,6 @@ if (!function_exists('CreateObject'))
 	function &CreateObject($className)
 	{
 		$className = substr($className, 4);
-
-		import($className);
 
 		$obj = new $className;
 
@@ -724,8 +714,6 @@ function buildMenuArray()
 			DCL_MENU_LICENSEINFO => array('gpl.php', true),
 			DCL_MENU_VERSIONINFO => array('htmlVersion.DisplayVersionInfo', true)
 		);
-	
-	//$DCL_MENU[DCL_MENU_LOGOFF] = array('logout.php', true);
 }
 
 function commonHeader($formValidateSrc = '', $onLoad = '')
@@ -887,21 +875,18 @@ function PrintPermissionDenied()
 
 function ShowInfo($sMessage, $sFile, $iLine, $aBacktrace)
 {
-	import('htmlMessageInfo');
 	$o = htmlMessageInfo::GetInstance();
 	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
 }
 
 function ShowWarning($sMessage, $sFile, $iLine, $aBacktrace)
 {
-	import('htmlMessageWarning');
 	$o = htmlMessageWarning::GetInstance();
 	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
 }
 
 function ShowError($sMessage, $sFile, $iLine, $aBacktrace)
 {
-	import('htmlMessageError');
 	$o = htmlMessageError::GetInstance();
 	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
 }

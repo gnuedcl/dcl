@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlContactTypeView extends htmlView
 {
 	function htmlContactTypeView()

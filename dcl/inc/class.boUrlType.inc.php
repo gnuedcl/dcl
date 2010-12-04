@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boUrlType extends boAdminObject
 {
 	function boUrlType()

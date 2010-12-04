@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boOrgTypeXref extends boAdminObject
 {
 	function boOrgTypeXref()

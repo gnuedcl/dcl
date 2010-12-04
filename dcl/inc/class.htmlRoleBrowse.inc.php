@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('vw');
-import('htmlView');
 
 class htmlRoleBrowse extends htmlView
 {

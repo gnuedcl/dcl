@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boRole extends boAdminObject
 {
 	function boRole()

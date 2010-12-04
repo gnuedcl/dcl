@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlOrgTypeView extends htmlView
 {
 	function htmlOrgTypeView()

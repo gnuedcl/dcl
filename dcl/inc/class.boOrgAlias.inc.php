@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boOrgAlias extends boAdminObject
 {
 	function boOrgAlias()

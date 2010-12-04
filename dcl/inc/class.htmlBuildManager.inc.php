@@ -25,7 +25,6 @@
 LoadStringResource('bm');
 LoadStringResource('prod');
 LoadStringResource('wo');
-//import('htmlView');
 
 class htmlBuildManager 
 {

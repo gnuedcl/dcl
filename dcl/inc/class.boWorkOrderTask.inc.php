@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boWorkOrderTask extends boAdminObject
 {
 	function boWorkOrderTask()

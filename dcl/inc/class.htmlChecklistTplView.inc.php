@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlChecklistTplView extends htmlView
 {
 	function htmlChecklistTplView()

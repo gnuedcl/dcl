@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlAddrTypeView extends htmlView
 {
 	function htmlAddrTypeView()

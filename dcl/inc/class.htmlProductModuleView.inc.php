@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlProductModuleView extends htmlView
 {
 	function htmlProductModuleView()

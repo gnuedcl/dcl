@@ -24,7 +24,6 @@
 
 LoadStringResource('bo');
 
-import('boAdminObject');
 class boContactPhone extends boAdminObject
 {
 	function boContactPhone()

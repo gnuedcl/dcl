@@ -23,7 +23,6 @@
  */
 
 LoadStringResource('chk');
-import('htmlView');
 class htmlNoteTypeView extends htmlView
 {
 	function htmlNoteTypeView()
