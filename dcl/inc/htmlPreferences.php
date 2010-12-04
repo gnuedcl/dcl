@@ -122,28 +122,6 @@ class htmlPreferences
 			$g_oSession->Edit();
 		}
 
-		// Template change?
-		$sNewTpl = $o->preferences_data['DCL_PREF_TEMPLATE_SET'];
-		if ($sNewTpl != $sOldTpl)
-		{
-			// Do we need to break out of frames?
-			$menuAction = 'menuAction=htmlPreferences.modify';
-			$sNewIsFramed = file_exists(DCL_ROOT . 'templates/' . $sNewTpl . '/frameset.php');
-			$sOldIsFramed = file_exists(DCL_ROOT . 'templates/' . $sOldTpl . '/frameset.php');
-
-			if ($sOldIsFramed)
-			{
-				if ($sNewIsFramed)
-					RefreshTop(menuLink(DCL_WWW_ROOT . 'templates/' . $sNewTpl . '/frameset.php', $menuAction));
-				else
-					RefreshTop(menuLink('', $menuAction));
-			}
-			else if ($sNewIsFramed)
-			{
-				RefreshTop(menuLink(DCL_WWW_ROOT . 'templates/' . $sNewTpl . '/frameset.php', $menuAction));
-			}
-		}
-
 		$this->modify();
 	}
 }

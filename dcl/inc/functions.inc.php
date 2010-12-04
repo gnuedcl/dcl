@@ -429,14 +429,6 @@ function CreateTemplate($arrTemplate)
 	return $Template;
 }
 
-function RefreshTop($sRefreshTo)
-{
-	$t = CreateTemplate(array('hForm' => 'refreshTop.tpl'));
-	$t->set_var('LNK_REFRESH', $sRefreshTo);
-	$t->pparse('out', 'hForm');
-	exit();
-}
-
 function GetHiddenVar($var, $val)
 {
 	return '<input type="hidden" name="' . $var . '" value="' . $val . '">';
