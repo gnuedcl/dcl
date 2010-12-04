@@ -137,7 +137,7 @@ function __autoload($className)
 
 	if (substr($className, 0, 11) === 'DCL_Plugin_')
 	{
-		$pluginParts = explode('_', $className);
+		$pluginParts = explode('_', $className, 4);
 		if (count($pluginParts) > 3)
 		{
 			$classPath = GetPluginDir() . strtolower($pluginParts[2]) . '/DCL_Plugin_' . $pluginParts[2] . '_' . $pluginParts[3] . '.php';
