@@ -172,7 +172,7 @@ class htmlContactAddress
 		}
 
 		$oSmarty = new DCL_Smarty();
-		$oAddrType = new htmlAddrType();
+		$oAddrType = new AddressTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
 
@@ -193,14 +193,14 @@ class htmlContactAddress
 			$oSmarty->assign('VAL_ZIP', $obj->zip);
 			$oSmarty->assign('VAL_COUNTRY', $obj->country);
 			$oSmarty->assign('VAL_PREFERRED', $obj->preferred);
-			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->GetCombo($obj->addr_type_id));
+			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->Select($obj->addr_type_id));
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Contact Address');
 		}
 		else
 		{
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Contact Address');
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactAddress.submitAdd');
-			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->GetCombo());
+			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->Select());
 		}
 
 		$oSmarty->Render('htmlAddrForm.tpl');

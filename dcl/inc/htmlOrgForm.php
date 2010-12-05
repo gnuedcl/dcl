@@ -309,8 +309,8 @@ class htmlOrgForm
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Organization');
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgForm.submitAdd');
 
-			$oAddrType = new htmlAddrType();
-			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->GetCombo());
+			$oAddrType = new AddressTypeHtmlHelper();
+			$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->Select());
 
 			$oEmailType = new htmlEmailType();
 			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->GetCombo());
