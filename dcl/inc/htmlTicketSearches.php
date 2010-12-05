@@ -74,7 +74,6 @@ class htmlTicketSearches
 		$objPriorities = new htmlPriorities();
 		$objSeverities = new htmlSeverities();
 		$objStatuses = new htmlStatuses();
-		$objDepartment = new htmlDepartments();
 		$objModules = new htmlProductModules();
 
 		$oDBP = new dbPersonnel();

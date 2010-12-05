@@ -404,7 +404,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oDepartment == null)
-			$this->oDepartment = new dbDepartments();
+			$this->oDepartment = new DepartmentModel();
 
 		if ($this->oDepartment->Load($id) == -1)
 			return $this->TriggerError("Could not find department ID $id");

@@ -1,6 +1,6 @@
 <?php
 	define('STR_DEPT_SELECTONE', "A Selectionner");
-	define('STR_DEPT_TABLETITLE', "DÃ?Â©partements - TriÃ?Â©s Par %s");
+	define('STR_DEPT_TABLETITLE', "DÃ?Â©partements");
 	define('STR_DEPT_NODEPTS', "Pas de dÃ?Â©partements trouvÃ?Â©s Ã?Â  afficher!  Vous n\'avez peut-Ã?Âªtre pas encore de dÃ?Â©partements dans votre systÃ?Â¨me!");
 	define('STR_DEPT_ID', "ID");
 	define('STR_DEPT_ACTIVEABB', "A");

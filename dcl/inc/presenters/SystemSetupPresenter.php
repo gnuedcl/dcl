@@ -69,7 +69,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_CONFIGDESC,
 				'note' =>  STR_ADMIN_CONFIGNOTE
 			),
-			'boDepartments.showall' => array(
+			'Department.Index' => array(
 				'action' =>  STR_ADMIN_DEPARTMENTS,
 				'description' =>  STR_ADMIN_DEPARTMENTSDESC,
 				'note' =>  STR_ADMIN_DEPARTMENTSNOTE

@@ -5142,14 +5142,13 @@
 			<xlt lang="sv">VÃƒÂ¤lj en</xlt>
 		</phrase>
 		<phrase name="STR_DEPT_TABLETITLE">
-			<xlt lang="de">Abteilungen - sortiert nach %s</xlt>
-			<xlt lang="en">Departments - Ordered By %s</xlt>
-			<xlt lang="es">Departamentos - Ordenados por %s</xlt>
-			<xlt lang="fr">DÃƒÂ©partements - TriÃƒÂ©s Par %s</xlt>
-			<xlt lang="it">Divisioni - Ordinate per %s</xlt>
-			<xlt lang="ru">ÃƒÂ°Ãƒï¿½Ãƒâ€žÃƒâ€™Ãƒï¿½ÃƒÅ¡Ãƒâ€žÃƒâ€¦ÃƒÅ’Ãƒâ€¦ÃƒÅ½Ãƒâ€°Ãƒâ€¦ - Ãƒâ€œÃƒï¿½Ãƒâ€™Ãƒâ€�Ãƒâ€°Ãƒâ€™Ãƒï¿½Ãƒâ€”Ãƒâ€¹Ãƒï¿½ Ãƒï¿½Ãƒï¿½ %s</xlt>
-			<xlt lang="sl">Oddelki - razvrÃ‚Â¹ÃƒÂ¨eni po %s</xlt>
-			<xlt lang="sv">Avdelningar - ordnade efter %s</xlt>
+			<xlt lang="de">Abteilungen</xlt>
+			<xlt lang="en">Departments</xlt>
+			<xlt lang="es">Departamentos</xlt>
+			<xlt lang="fr">DÃƒÂ©partements</xlt>
+			<xlt lang="it">Divisioni</xlt>
+			<xlt lang="sl">Oddelki</xlt>
+			<xlt lang="sv">Avdelningar</xlt>
 		</phrase>
 		<phrase name="STR_DEPT_NODEPTS">
 			<xlt lang="de">Es wurden keine Abteilungen gefunden!</xlt>

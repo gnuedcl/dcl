@@ -81,7 +81,6 @@ class htmlWOSearches
 		$objJS->DisplayAttributeScript();
 
 		$objPersonnel = new htmlPersonnel();
-		$objDepartment = new htmlDepartments();
 		$objProducts = new htmlProducts();
 		$objPriorities = new htmlPriorities();
 		$objSeverities = new htmlSeverities();

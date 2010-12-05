@@ -1,6 +1,6 @@
 <?php
 	define('STR_DEPT_SELECTONE', "Select One");
-	define('STR_DEPT_TABLETITLE', "Departments - Ordered By %s");
+	define('STR_DEPT_TABLETITLE', "Departments");
 	define('STR_DEPT_NODEPTS', "Departments could not be found for display!  You may not have any departments in your system yet!");
 	define('STR_DEPT_ID', "ID");
 	define('STR_DEPT_ACTIVEABB', "A");

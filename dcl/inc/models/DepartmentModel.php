@@ -23,9 +23,9 @@
  */
 
 LoadStringResource('db');
-class dbDepartments extends dclDB
+class DepartmentModel extends dclDB
 {
-	function dbDepartments()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'departments';
@@ -38,14 +38,13 @@ class dbDepartments extends dclDB
 		parent::Clear();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('id' => $this->id));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('id' => $id));
 	}
 }
-?>

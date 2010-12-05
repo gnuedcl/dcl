@@ -1,6 +1,6 @@
 <?php
 	define('STR_DEPT_SELECTONE', "Auswahl");
-	define('STR_DEPT_TABLETITLE', "Abteilungen - sortiert nach %s");
+	define('STR_DEPT_TABLETITLE', "Abteilungen");
 	define('STR_DEPT_NODEPTS', "Es wurden keine Abteilungen gefunden!");
 	define('STR_DEPT_ID', "ID");
 	define('STR_DEPT_ACTIVEABB', "A");

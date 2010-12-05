@@ -1,6 +1,6 @@
 <?php
 	define('STR_DEPT_SELECTONE', "VÃ?Â¤lj en");
-	define('STR_DEPT_TABLETITLE', "Avdelningar - ordnade efter %s");
+	define('STR_DEPT_TABLETITLE', "Avdelningar");
 	define('STR_DEPT_NODEPTS', "Ingen avdelning kunde hittas!  MÃ?Â¶jligen finns inga avdelningar konfigurerade - kontakta systemadministratÃ?Â¶ren.");
 	define('STR_DEPT_ID', "ID");
 	define('STR_DEPT_ACTIVEABB', "A");

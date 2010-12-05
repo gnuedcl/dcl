@@ -1,6 +1,6 @@
 <?php
 	define('STR_DEPT_SELECTONE', "Seleziona un elemento");
-	define('STR_DEPT_TABLETITLE', "Divisioni - Ordinate per %s");
+	define('STR_DEPT_TABLETITLE', "Divisioni");
 	define('STR_DEPT_NODEPTS', "Le divisioni non possono essere visualizzate! Molto probabilmente nel database non sono presenti Divisioni!");
 	define('STR_DEPT_ID', "ID");
 	define('STR_DEPT_ACTIVEABB', "A");

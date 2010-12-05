@@ -59,7 +59,6 @@ class htmlPersonnelForm
 		$Template->assign('IS_EDIT', $isEdit);
 
 		$oUserRole = new dbUserRole();
-		$oDept = new htmlDepartments();
 		if ($isEdit)
 		{
 			$Template->assign('VAL_PERSONNELID', $obj->id);

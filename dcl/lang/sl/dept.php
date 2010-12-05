@@ -1,6 +1,6 @@
 <?php
 	define('STR_DEPT_SELECTONE', "Izberi");
-	define('STR_DEPT_TABLETITLE', "Oddelki - razvrÃ?Â¹Ã?Â¨eni po %s");
+	define('STR_DEPT_TABLETITLE', "Oddelki");
 	define('STR_DEPT_NODEPTS', "Nisem naÃ?Â¹el oddelkov za prikaz.");
 	define('STR_DEPT_ID', "ID");
 	define('STR_DEPT_ACTIVEABB', "A");
