@@ -32,9 +32,9 @@ if (isset($_SERVER['PHP_AUTH_USER']))
 	$_REQUEST['UID'] = $_SERVER['PHP_AUTH_USER'];
 	$_REQUEST['PWD'] = $_SERVER['PHP_AUTH_PW'];
 	
-	$oAuth = new boAuthenticate();
-	$aAuthInfo = array();
-	if ($oAuth->IsValidLogin($aAuthInfo))
+	$model = new AuthenticateSqlModel();
+	$authInfo = array();
+	if ($model->IsValidLogin($authInfo))
 	{
 		if (isset($_POST['menuAction']))
 		{
@@ -59,4 +59,3 @@ header('HTTP/1.1 401 Unauthorized');
 echo 'Unauthorized.';
 
 exit;
-?>

@@ -133,9 +133,9 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 	}
 	else
 	{
-		$obj = new boAuthenticate();
-		$aAuthInfo = array();
-		if ($obj->IsValidLogin($aAuthInfo))
+		$authenticateModel = new AuthenticateSqlModel();
+		$authInfo = array();
+		if ($authenticateModel->IsValidLogin($authInfo))
 		{		
 			$oConfig = new dbConfig();
 			$dcl_info = array();
@@ -145,29 +145,29 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			if (!$g_oSession->conn)
 				Refresh('logout.php?cd=3');
 
-			$g_oSession->personnel_id = $aAuthInfo['id'];
+			$g_oSession->personnel_id = $authInfo['id'];
 			$g_oSession->Add();
 
 			$oPreferences = new dbPreferences();
-			$oPreferences->Load($aAuthInfo['id']);
+			$oPreferences->Load($authInfo['id']);
 
 			// Save the user ID and copy it to global space so Security object can use the info
-			$g_oSession->Register('DCLID', $aAuthInfo['id']);
-			$GLOBALS['DCLID'] = $aAuthInfo['id'];
+			$g_oSession->Register('DCLID', $authInfo['id']);
+			$GLOBALS['DCLID'] = $authInfo['id'];
 
-			$g_oSession->Register('DCLNAME', trim($aAuthInfo['short']));
-			$g_oSession->Register('USEREMAIL', $aAuthInfo['email']);
-			$g_oSession->Register('contact_id', $aAuthInfo['contact_id']);
+			$g_oSession->Register('DCLNAME', trim($authInfo['short']));
+			$g_oSession->Register('USEREMAIL', $authInfo['email']);
+			$g_oSession->Register('contact_id', $authInfo['contact_id']);
 			$g_oSession->Register('dcl_info', $dcl_info);
 			$g_oSession->Register('dcl_preferences', $oPreferences->preferences_data);
 
 			// If we have org restrictions, cache the affiliated orgs for this contact record
-			if ($aAuthInfo['contact_id'] != null && $aAuthInfo['contact_id'] > 0)
+			if ($authInfo['contact_id'] != null && $authInfo['contact_id'] > 0)
 			{
 				if ($g_oSec->IsOrgUser())
 				{
 					$oContact = new dbContact();
-					$aOrgs = $oContact->GetOrgArray($aAuthInfo['contact_id']);
+					$aOrgs = $oContact->GetOrgArray($authInfo['contact_id']);
 					$g_oSession->Register('member_of_orgs', join(',', $aOrgs));
 					
 					// Also grab the filtered product list for the orgs

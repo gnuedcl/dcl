@@ -22,48 +22,48 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class boAuthenticate
+class AuthenticateSqlModel
 {
-	var $_uid;
-	var $_pwd;
-	var $_sql;
-	var $_oDB;
+	private $uid;
+	private $pwd;
+	private $sql;
+	private $model;
 
-	function boAuthenticate()
+	public function __construct()
 	{
-		$this->_oDB = new dbPersonnel();
-		$this->_oDB->cacheEnabled = false;
+		$this->model = new dbPersonnel();
+		$this->model->cacheEnabled = false;
 
-		$this->_SetCredentials();
-		$this->_SetQuery();
+		$this->SetCredentials();
+		$this->SetQuery();
 	}
 
-	function _SetCredentials()
+	private function SetCredentials()
 	{
-		$this->_uid = IsSet($_REQUEST['UID']) ? $_REQUEST['UID'] : '';
-		$this->_pwd = IsSet($_REQUEST['PWD']) ? $_REQUEST['PWD'] : '';
+		$this->uid = IsSet($_REQUEST['UID']) ? $_REQUEST['UID'] : '';
+		$this->pwd = IsSet($_REQUEST['PWD']) ? $_REQUEST['PWD'] : '';
 	}
 
-	function _SetQuery()
+	private function SetQuery()
 	{
-		$this->_sql = sprintf("SELECT p.id, p.contact_id, p.short, e.email_addr FROM personnel p LEFT JOIN dcl_contact_email e ON p.contact_id = e.contact_id AND e.preferred = 'Y' WHERE p.short=%s AND p.pwd=%s AND p.active='Y'", $this->_oDB->Quote($this->_uid), $this->_oDB->Quote(md5($this->_pwd)));
+		$this->sql = sprintf("SELECT p.id, p.contact_id, p.short, e.email_addr FROM personnel p LEFT JOIN dcl_contact_email e ON p.contact_id = e.contact_id AND e.preferred = 'Y' WHERE p.short=%s AND p.pwd=%s AND p.active='Y'", $this->model->Quote($this->uid), $this->model->Quote(md5($this->pwd)));
 	}
 
-	function IsValidLogin(&$aAuthInfo)
+	public function IsValidLogin(&$authInfo)
 	{
 		// DCL authentication
-		if (!$this->_oDB->conn)
+		if (!$this->model->conn)
 			Refresh('index.php?cd=3');
 
-		if ($this->_oDB->Query($this->_sql) != -1)
+		if ($this->model->Query($this->sql) != -1)
 		{
-			if ($this->_oDB->next_record())
+			if ($this->model->next_record())
 			{
-				$aAuthInfo = array(
-						'id' => $this->_oDB->f(0),
-						'contact_id' => $this->_oDB->f(1),
-						'short' => $this->_oDB->f(2),
-						'email' => $this->_oDB->f(3)
+				$authInfo = array(
+						'id' => $this->model->f(0),
+						'contact_id' => $this->model->f(1),
+						'short' => $this->model->f(2),
+						'email' => $this->model->f(3)
 					);
 
 				return true;

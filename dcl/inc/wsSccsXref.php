@@ -47,11 +47,11 @@ class wsSccsXref
 	
 	function getUserID()
 	{
-		$oAuth = new boAuthenticate();
-		$aAuthInfo = array();
-		if ($oAuth->IsValidLogin($aAuthInfo))
+		$model = new AuthenticateSqlModel();
+		$authInfo = array();
+		if ($model->IsValidLogin($authInfo))
 		{
-			echo '<?xml version="1.0" encoding="UTF-8"?><dataset><personnel><id>' . $aAuthInfo['id'] . '</id></personnel></dataset>';
+			echo '<?xml version="1.0" encoding="UTF-8"?><dataset><personnel><id>' . $authInfo['id'] . '</id></personnel></dataset>';
 			exit;
 		}
 		
