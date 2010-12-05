@@ -138,7 +138,8 @@ function __autoload($className)
 	$areas = array('Controller' => 'controllers',
 					'Model' => 'models',
 					'Presenter' => 'presenters',
-					'Exception' => 'exceptions');
+					'Exception' => 'exceptions',
+					'Helper' => 'helpers');
 
 	foreach ($areas as $suffix => $directory)
 	{

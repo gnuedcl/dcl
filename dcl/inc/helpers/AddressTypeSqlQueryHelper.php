@@ -22,27 +22,11 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('actn');
-class ActionEditPresenter
+class AddressTypeSqlQueryHelper extends AbstractSqlQueryHelper
 {
-	public function Render(ActionModel $model)
+	public function __construct()
 	{
-		global $g_oSec;
-
-		commonHeader();
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
-			return PrintPermissionDenied();
-
-		$t = new DCL_Smarty();
-
-		$t->assign('TXT_FUNCTION', STR_ACTN_EDIT);
-		$t->assign('menuAction', 'Action.Update');
-		$t->assign('id', $model->id);
-		$t->assign('CMB_ACTIVE', GetYesNoCombo($model->active, 'active', 0, false));
-		$t->assign('VAL_SHORT', $model->short);
-		$t->assign('VAL_NAME', $model->name);
-
-		$t->Render('htmlActionsForm.tpl');
+		parent::__construct();
+		$this->table = 'dcl_addr_type';
 	}
 }

@@ -22,122 +22,91 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-
 LoadStringResource('bo');
 
-class ActionController
+class AddressTypeController extends AbstractController
 {
+	public function __construct()
+	{
+		parent::__construct();
+		
+		$this->model = new AddressTypeModel();
+		$this->sKeyField = 'addr_type_id';
+		$this->Entity = DCL_ENTITY_ADDRTYPE;
+	}
+
 	public function Index()
 	{
-		$presenter = new ActionPresenter();
+		$presenter = new AddressTypePresenter();
 		$presenter->Index();
 	}
 
 	public function Create()
 	{
-		$presenter = new ActionPresenter();
+		$presenter = new AddressTypePresenter();
 		$presenter->Create();
 	}
 
 	public function Insert()
 	{
-		global $g_oSec;
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
-		{
-			throw new Exception(STR_CMMN_PERMISSIONDENIED);
-		}
+		parent::Insert($_POST);
 
-		$model = new ActionModel();
-		$model->InitFrom_POST();
-		$model->Add();
-
-		SetRedirectMessage('Success', 'Action added successfully.');
-		RedirectToAction('Action', 'Index');
+		SetRedirectMessage('Success', 'Address type added successfully.');
+		RedirectToAction('AddressType', 'Index');
 	}
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @DCL_Sanitize::ToInt($_REQUEST['addr_type_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 
-		$model = new ActionModel();
+		$model = new AddressTypeModel();
 		if ($model->Load($id) == -1)
 		{
 			throw new InvalidEntityException();
 		}
 
-		$presenter = new ActionPresenter();
+		$presenter = new AddressTypePresenter();
 		$presenter->Edit($model);
 	}
 
 	public function Update()
 	{
-		global $g_oSec;
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_MODIFY))
-		{
-			throw new PermissionDeniedException();
-		}
+		parent::Update($_POST);
 
-		$model = new ActionModel();
-		$model->InitFrom_Post();
-		$model->Edit();
-		
-		SetRedirectMessage('Success', 'Action updated successfully.');
-		RedirectToAction('Action', 'Index');
+		SetRedirectMessage('Success', 'Address type updated successfully.');
+		RedirectToAction('AddressType', 'Index');
 	}
 
 	public function Delete()
 	{
-		$model = new ActionModel();
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
-		
+
+		$model = new AddressTypeModel();
 		if ($model->Load($id) == -1)
 		{
 			throw new InvalidEntityException();
 		}
 
-		$presenter = new ActionPresenter();
+		$presenter = new AddressTypePresenter();
 		$presenter->Delete($model);
 	}
 
 	public function Destroy()
 	{
-		global $g_oSec;
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_DELETE))
-		{
-			throw new PermissionDeniedException();
-		}
-
-		$model = new ActionModel();
-		if (($id = @DCL_Sanitize::ToInt($_POST['id'])) === null)
+		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
-		
-		if ($model->Load($id) == -1)
-		{
-			throw new InvalidEntityException();
-		}
 
-		if (!$model->HasFKRef($id))
-		{
-			$model->Delete();
-			SetRedirectMessage('Success', 'Action was deleted successfully.');
-		}
-		else
-		{
-			$model->SetActive($id, false);
-			SetRedirectMessage('Success', 'Action was deactivated because other items reference it.');
-		}
+		parent::Destroy(array('addr_type_id' => $id));
 
-		RedirectToAction('Action', 'Index');
+		SetRedirectMessage('Success', 'Address type was deleted successfully.');
+		RedirectToAction('AddressType', 'Index');
 	}
 }

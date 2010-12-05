@@ -22,24 +22,22 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('actn');
-class ActionCreatePresenter
+class PersonnelSqlQueryHelper extends AbstractSqlQueryHelper
 {
-	public function Render()
+	public function __construct()
 	{
-		global $dcl_info, $g_oSec;
+		parent::__construct();
+		$this->table = 'personnel';
+	}
 
-		commonHeader();
+	protected function AppendJoin($table, $joinType)
+	{
+		if (!IsSet($this->joins[$table]))
+		{
+			if ($table == 'dcl_contact_email' && !isset($this->joins['dcl_contact']))
+				$this->joins['dcl_contact'] = 2;
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
-			return PrintPermissionDenied();
-
-		$t = new DCL_Smarty();
-
-		$t->assign('TXT_FUNCTION', STR_ACTN_ADD);
-		$t->assign('menuAction', 'Action.Insert');
-		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
-
-		$t->Render('htmlActionsForm.tpl');
+			$this->joins[$table] = $joinType;
+		}
 	}
 }

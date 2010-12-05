@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,16 +22,24 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('db');
-class dbAddrType extends dclDB
+class ProductSqlQueryHelper extends AbstractSqlQueryHelper
 {
-	function dbAddrType()
+	public function __construct()
 	{
-		parent::dclDB();
-		$this->TableName = 'dcl_addr_type';
-		LoadSchema($this->TableName);
-		
-		parent::Clear();
+		parent::__construct();
+		$this->table = 'products';
+	}
+
+	protected function GetWhereSqlForPublicUser()
+	{
+		global $g_oSec;
+
+		// Add public restriction
+		if ($g_oSec->IsPublicUser())
+		{
+			return " AND products.is_public = 'Y'";
+		}
+
+		return '';
 	}
 }
-?>

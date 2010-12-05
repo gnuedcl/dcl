@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,16 +22,25 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
-
-class boAddrType extends boAdminObject
+class ProductBuildSqlQueryHelper extends AbstractSqlQueryHelper
 {
-	function boAddrType()
+	public function __construct()
 	{
-		parent::boAdminObject();
-		
-		$this->oDB = new dbAddrType();
-		$this->sKeyField = 'addr_type_id';
-		$this->Entity = DCL_ENTITY_ADDRTYPE;
+		parent::__construct();
+		$this->table = 'dcl_product_build';
+	}
+
+	protected function AppendJoin($table, $joinType)
+	{
+		if (!IsSet($this->joins[$table]))
+		{
+			if ($table == 'workorders')
+			{
+				$this->joins['dcl_product_version'] = 1;
+				$this->joins['dcl_product_version_item'] = 1;
+			}
+
+			$this->joins[$table] = $joinType;
+		}
 	}
 }

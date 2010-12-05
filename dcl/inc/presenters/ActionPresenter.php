@@ -23,16 +23,16 @@
  */
 
 LoadStringResource('actn');
-class ActionIndexPresenter
+class ActionPresenter
 {
-	public function Render()
+	public function Index()
 	{
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$model = new ActionModel();
 		$model->Query("SELECT id,active,short,name FROM actions ORDER BY name");
@@ -75,5 +75,55 @@ class ActionIndexPresenter
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
 		$oTable->render();
+	}
+
+	public function Create()
+	{
+		global $dcl_info, $g_oSec;
+
+		commonHeader();
+
+		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
+			throw new PermissionDeniedException();
+
+		$t = new DCL_Smarty();
+
+		$t->assign('TXT_FUNCTION', STR_ACTN_ADD);
+		$t->assign('menuAction', 'Action.Insert');
+		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
+
+		$t->Render('htmlActionsForm.tpl');
+	}
+
+	public function Edit(ActionModel $model)
+	{
+		global $g_oSec;
+
+		commonHeader();
+
+		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
+			throw new PermissionDeniedException();
+
+		$t = new DCL_Smarty();
+
+		$t->assign('TXT_FUNCTION', STR_ACTN_EDIT);
+		$t->assign('menuAction', 'Action.Update');
+		$t->assign('id', $model->id);
+		$t->assign('CMB_ACTIVE', GetYesNoCombo($model->active, 'active', 0, false));
+		$t->assign('VAL_SHORT', $model->short);
+		$t->assign('VAL_NAME', $model->name);
+
+		$t->Render('htmlActionsForm.tpl');
+	}
+
+	public function Delete(ActionModel $model)
+	{
+		global $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_DELETE))
+			throw new PermissionDeniedException();
+
+		ShowDeleteYesNo('Action', 'Action.Destroy', $model->id, $model->name);
 	}
 }

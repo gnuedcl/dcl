@@ -114,7 +114,7 @@ class htmlAdminMain
 				'description' =>  STR_ADMIN_ENTITYSOURCESDESC,
 				'note' =>  STR_ADMIN_ENTITYSOURCESNOTE
 			),
-			'htmlAddrType.showall' => array(
+			'AddressType.Index' => array(
 				'action' =>  STR_ADMIN_ADDRESSTYPES,
 				'description' =>  STR_ADMIN_ADDRESSTYPESDESC,
 				'note' =>  STR_ADMIN_ADDRESSTYPESNOTE
