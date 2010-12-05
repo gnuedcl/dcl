@@ -160,7 +160,7 @@
 <table style="width: 100%;" cellspacing="0">
 	<tr>
 		<th class="formTitle">Browse Users</th>
-		<th class="formLinks">{if $PERM_ADD}<a href="{$URL_MAIN_PHP}?menuAction=htmlPersonnelForm.add">{$smarty.const.STR_CMMN_NEW}</a>{if $PERM_SETUP}&nbsp;|&nbsp;{/if}{else if !$PERM_SETUP}&nbsp;{/if}{if $PERM_SETUP}<a href="{$URL_MAIN_PHP}?menuAction=boAdmin.showSystemConfig">{$smarty.const.DCL_MENU_SYSTEMSETUP}</a>{/if}</th>
+		<th class="formLinks">{if $PERM_ADD}<a href="{$URL_MAIN_PHP}?menuAction=htmlPersonnelForm.add">{$smarty.const.STR_CMMN_NEW}</a>{if $PERM_SETUP}&nbsp;|&nbsp;{/if}{else if !$PERM_SETUP}&nbsp;{/if}{if $PERM_SETUP}<a href="{$URL_MAIN_PHP}?menuAction=SystemSetup.Index">{$smarty.const.DCL_MENU_SYSTEMSETUP}</a>{/if}</th>
 	</tr>
 	<tr>
 		<td class="formContainer" colspan="2">

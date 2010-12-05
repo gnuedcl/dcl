@@ -24,17 +24,11 @@
 
 LoadStringResource('bo');
 
-class boAdmin
+class SystemSetupController
 {
-	function ShowSystemConfig()
+	function Index()
 	{
-		global $g_oSec;
-		
-		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
-
-		$obj = new htmlAdminMain();
-		$obj->Show();
+		$presenter = new SystemSetupPresenter();
+		$presenter->Index();
 	}
 }

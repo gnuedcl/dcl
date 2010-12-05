@@ -139,7 +139,7 @@ class DCLNavBar
 	
 			if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			{
-				$aItems[] = array(DCL_MENU_SYSTEMSETUP, 'boAdmin.ShowSystemConfig', '');
+				$aItems[] = array(DCL_MENU_SYSTEMSETUP, 'SystemSetup.Index', '');
 			}
 			
 			$this->t->assign('VAL_TITLE', DCL_MENU_ADMIN);

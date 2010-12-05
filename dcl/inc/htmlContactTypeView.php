@@ -51,7 +51,7 @@ class htmlContactTypeView extends htmlView
 			$aLinks[STR_CMMN_NEW] = menuLink('', 'menuAction=htmlContactType.add');
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-			$aLinks[DCL_MENU_SYSTEMSETUP] = menuLink('', 'menuAction=boAdmin.ShowSystemConfig');
+			$aLinks[DCL_MENU_SYSTEMSETUP] = menuLink('', 'menuAction=SystemSetup.Index');
 
 		$this->_SetVar('hActionLinkSetLinks', '');
 		$bFirst = true;

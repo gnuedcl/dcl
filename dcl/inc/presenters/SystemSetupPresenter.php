@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,15 +23,15 @@
  */
 
 LoadStringResource('admin');
-
-class htmlAdminMain
+class SystemSetupPresenter
 {
-	function Show()
+	public function Index()
 	{
 		global $dcl_info, $g_oSec;
 
+		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('TXT_SETUPDESC', STR_ADMIN_SETUPDESC);
@@ -40,8 +40,8 @@ class htmlAdminMain
 
 		$oSmarty->Render('htmlAdminMain.tpl');
 	}
-	
-	function GetOptions()
+
+	private function GetOptions()
 	{
 		return array(
 			'htmlRole.show' => array(
@@ -139,6 +139,6 @@ class htmlAdminMain
 				'description' =>  STR_ADMIN_URLTYPESDESC,
 				'note' =>  STR_ADMIN_URLTYPESNOTE
 			)
-		);	
+		);
 	}
 }

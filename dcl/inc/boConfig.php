@@ -42,9 +42,8 @@ class boConfig
 	{
 		global $dcl_info, $g_oSec;
 
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$aCheckboxes = array('DCL_AUTO_DATE', 'DCL_PROJECT_XML_TEMPLATES', 'DCL_SMTP_ENABLED',
 							'DCL_GATEWAY_TICKET_ENABLED', 'DCL_GATEWAY_TICKET_AUTORESPOND',
@@ -94,9 +93,15 @@ class boConfig
 		}
 
 		if ($bHasUpdates)
+		{
 			$oConfigTemp->UpdateTimeStamp();
+			SetRedirectMessage('Success', 'Configuration updated successfully.');
+		}
+		else
+		{
+			SetRedirectMessage('Info', 'No configuration changes detected.');
+		}
 
-		$obj = new htmlAdminMain();
-		$obj->Show();
+		RedirectToAction('SystemSetup', 'Index');
 	}
 }

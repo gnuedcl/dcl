@@ -135,7 +135,7 @@ class htmlProducts
 		$oTable->addToolbar(menuLink('', 'menuAction=htmlProductDashboard.ShowAll'), 'Dashboard');
 			
 		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-			$oTable->addToolbar(menuLink('', 'menuAction=boAdmin.ShowSystemConfig'), DCL_MENU_SYSTEMSETUP);
+			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
 
 		for ($i = 0; $i < count($allRecs); $i++)
 		{

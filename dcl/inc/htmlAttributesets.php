@@ -84,7 +84,7 @@ class htmlAttributesets
 			$oTable->addToolbar(menuLink('', 'menuAction=boAttributesets.add'), STR_CMMN_NEW);
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-			$oTable->addToolbar(menuLink('', 'menuAction=boAdmin.ShowSystemConfig'), DCL_MENU_SYSTEMSETUP);
+			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
 
 		if (count($allRecs) > 0)
 		{

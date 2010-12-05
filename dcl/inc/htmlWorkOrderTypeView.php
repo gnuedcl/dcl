@@ -50,7 +50,7 @@ class htmlWorkOrderTypeView extends htmlView
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_ADD))
 			$aLinks[STR_CMMN_NEW] = menuLink('', 'menuAction=htmlWorkOrderType.add');
 
-		$aLinks[DCL_MENU_SYSTEMSETUP] = menuLink('', 'menuAction=boAdmin.ShowSystemConfig');
+		$aLinks[DCL_MENU_SYSTEMSETUP] = menuLink('', 'menuAction=SystemSetup.Index');
 
 		$this->_SetVar('hActionLinkSetLinks', '');
 		$bFirst = true;

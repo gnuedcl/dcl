@@ -80,7 +80,7 @@ class htmlPhoneType
 			$oTable->addToolbar(menuLink('', 'menuAction=htmlPhoneType.add'), STR_CMMN_NEW);
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-			$oTable->addToolbar(menuLink('', 'menuAction=boAdmin.ShowSystemConfig'), DCL_MENU_SYSTEMSETUP);
+			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
 
 		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_PHONETYPE => array($g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
 		{
