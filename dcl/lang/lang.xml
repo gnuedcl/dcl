@@ -4979,14 +4979,13 @@
 			<xlt lang="sv">VÃƒÂ¤lj en</xlt>
 		</phrase>
 		<phrase name="STR_ACTN_TABLETITLE">
-			<xlt lang="de">Aktionen - sortiert nach %s</xlt>
-			<xlt lang="en">Actions - Ordered By %s</xlt>
-			<xlt lang="es">Acciones - Ordenadas por %s</xlt>
-			<xlt lang="fr">Actions - TriÃƒÂ©es par %s</xlt>
-			<xlt lang="it">Azioni- Ordinate per %s</xlt>
-			<xlt lang="ru">ÃƒÂ¤Ãƒâ€¦ÃƒÅ Ãƒâ€œÃƒâ€�Ãƒâ€”Ãƒâ€°Ãƒâ€˜ - Ãƒâ€œÃƒï¿½Ãƒâ€™Ãƒâ€�Ãƒâ€°Ãƒâ€™Ãƒï¿½Ãƒâ€”Ãƒâ€¹Ãƒï¿½ Ãƒï¿½Ãƒï¿½ %s</xlt>
-			<xlt lang="sl">Akcije - razvrÃ‚Â¹ÃƒÂ¨ene po %s</xlt>
-			<xlt lang="sv">Aktiviteter - ordnade efter %s</xlt>
+			<xlt lang="de">Aktionen</xlt>
+			<xlt lang="en">Actions</xlt>
+			<xlt lang="es">Acciones</xlt>
+			<xlt lang="fr">Actions</xlt>
+			<xlt lang="it">Azioni</xlt>
+			<xlt lang="sl">Akcije</xlt>
+			<xlt lang="sv">Aktiviteter</xlt>
 		</phrase>
 		<phrase name="STR_ACTN_NOACTIONS">
 			<xlt lang="de">Es wurden keine Aktionen gefunden !</xlt>

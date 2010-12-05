@@ -135,6 +135,20 @@ function __autoload($className)
 		return;
 	}
 
+	$areas = array('Controller' => 'controllers',
+					'Model' => 'models',
+					'Presenter' => 'presenters',
+					'Exception' => 'exceptions');
+
+	foreach ($areas as $suffix => $directory)
+	{
+		if (substr($className, -strlen($suffix)) == $suffix && file_exists(DCL_ROOT . 'inc/' . $directory . '/' . $className . '.php'))
+		{
+			require_once(DCL_ROOT . 'inc/' . $directory . '/' . $className . '.php');
+			return;
+		}
+	}
+
 	if (substr($className, 0, 11) === 'DCL_Plugin_')
 	{
 		$pluginParts = explode('_', $className, 4);
@@ -167,14 +181,10 @@ function __autoload($className)
 		require_once(DCL_ROOT . 'vendor/pChart/pChart.class');
 		return;
 	}
-
-	trigger_error('Class not found: ' . $className, E_USER_ERROR);
 }
 
 function menuLink($target = '', $params = '')
 {
-	global $phpgw;
-
 	if ($target == '')
 		$target = DCL_WWW_ROOT . 'main.php';
 
@@ -187,6 +197,26 @@ function menuLink($target = '', $params = '')
 		$sRet .= '?' . $params;
 
 	return $sRet;
+}
+
+function UrlAction($controller, $action, $params = '')
+{
+	return DCL_WWW_ROOT . 'main.php?menuAction=' . $controller . '.' . $action . ($params != '' ? '&' : '') . $params;
+}
+
+function SetRedirectMessage($title, $text)
+{
+	global $g_oSession;
+	
+	$g_oSession->Register('REDIRECT_TITLE', $title);
+	$g_oSession->Register('REDIRECT_TEXT', $text);
+	$g_oSession->Edit();
+}
+
+function RedirectToAction($controller, $action, $params = '')
+{
+	header('Location: ' . UrlAction($controller, $action, $params));
+	exit;
 }
 
 function UseHttps()
@@ -291,8 +321,12 @@ function Invoke($sClassMethod)
 	list($class, $method) = explode(".", $sClassMethod);
 	if (!class_exists($class))
 	{
-		trigger_error('Invoke could not find class: ' . $class, E_USER_ERROR);
-		return;
+		$class .= 'Controller';
+		if (!class_exists($class))
+		{
+			trigger_error('Invoke could not find class: ' . $class, E_USER_ERROR);
+			return;
+		}
 	}
 
 	$obj = new $class();
@@ -613,7 +647,7 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 	header('Expires: Fri, 11 Oct 1991 17:01:00 GMT');
 	header('Cache-Control: no-cache, must-revalidate');
 
-	global $phpgw, $dcl_info, $dcl_domain, $dcl_domain_info;
+	global $g_oSession, $dcl_info, $dcl_domain, $dcl_domain_info;
 	define('HTML_HEADER_GENERATED', 1);
 	
 	$bHideMenu = (isset($_REQUEST['hideMenu']) && $_REQUEST['hideMenu'] == 'true');
@@ -637,6 +671,16 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 	{
 		include(DCL_ROOT . 'templates/' . $sTemplateSet . '/menu.php');
 		renderDCLMenu();
+	}
+
+	if ($g_oSession->IsRegistered('REDIRECT_TEXT'))
+	{
+		$presenter = new RedirectMessagePresenter();
+		$presenter->Render();
+		
+		$g_oSession->Unregister('REDIRECT_TITLE');
+		$g_oSession->Unregister('REDIRECT_TEXT');
+		$g_oSession->Edit();
 	}
 }
 

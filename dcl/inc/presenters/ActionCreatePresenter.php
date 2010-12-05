@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,30 +22,24 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('db');
-class dbActions extends dclDB
+LoadStringResource('actn');
+class ActionCreatePresenter
 {
-	function dbActions()
+	public function Render()
 	{
-		parent::dclDB();
-		$this->TableName = 'actions';
-		$this->cacheEnabled = true;
-		
-		LoadSchema($this->TableName);
+		global $dcl_info, $g_oSec;
 
-		$this->foreignKeys = array('timecards' => 'action');
-		
-		parent::Clear();
-	}
+		commonHeader();
 
-	function Delete()
-	{
-		return parent::Delete(array('id' => $this->id));
-	}
+		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
+			return PrintPermissionDenied();
 
-	function Load($id)
-	{
-		return parent::Load(array('id' => $id));
+		$t = new DCL_Smarty();
+
+		$t->assign('TXT_FUNCTION', STR_ACTN_ADD);
+		$t->assign('menuAction', 'Action.Insert');
+		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
+
+		$t->Render('htmlActionsForm.tpl');
 	}
 }
-?>

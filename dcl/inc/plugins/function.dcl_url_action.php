@@ -22,36 +22,22 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once('login.php');
-
-$g_oPage = new Page();
-$g_oPage->StartPage();
-
-if (IsSet($menuAction) && $menuAction != 'clearScreen')
+function smarty_function_dcl_url_action($params, &$smarty)
 {
-	if ($g_oSec->ValidateMenuAction() == true)
+	if (!isset($params['controller']))
 	{
-		try
-		{
-			Invoke($menuAction);
-		}
-		catch (Exception $ex)
-		{
-			commonHeader();
-			var_dump($ex);
-			ShowError('Exception: ' . $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTraceAsString());
-		}
+		$smarty->trigger_error('dcl_config: missing parameter controller');
+		return;
 	}
-	else
-	{
-		commonHeader();
-		PrintPermissionDenied();
-	}
-}
-else
-{
-	commonHeader();
-	trigger_error('Method not supplied.', E_USER_ERROR);
-}
 
-$g_oPage->EndPage();
+	if (!isset($params['action']))
+	{
+		$smarty->trigger_error('dcl_config: missing parameter action');
+		return;
+	}
+
+	if (!isset($params['params']))
+		$params['params'] = '';
+
+	return UrlAction($params['controller'], $params['action'], $params['params']);
+}

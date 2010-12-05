@@ -89,7 +89,7 @@ class htmlAdminMain
 				'description' =>  STR_ADMIN_USERSDESC,
 				'note' =>  STR_ADMIN_USERSNOTE
 			),
-			'boActions.showall' => array(
+			'Action.Index' => array(
 				'action' =>  STR_ADMIN_ACTIONS,
 				'description' =>  STR_ADMIN_ACTIONSDESC,
 				'note' =>  STR_ADMIN_ACTIONSNOTE
@@ -142,4 +142,3 @@ class htmlAdminMain
 		);	
 	}
 }
-?>

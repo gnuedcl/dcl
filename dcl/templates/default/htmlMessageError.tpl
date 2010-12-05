@@ -26,7 +26,7 @@ function toggleBacktrace(sUUID)
 <div class="dcl_message_error">
 	<span>{$MESSAGE->sTitle|escape}{if count($MESSAGE->aBacktrace) > 0}&nbsp;&nbsp;[ <a href="#" onclick="toggleBacktrace('{$MESSAGE->sUUID}');">{$smarty.const.STR_CMMN_BACKTRACE}&nbsp;<span id="spn{$MESSAGE->sUUID}">&gt;&gt;</span></a> ]{/if}:</span>
 	{$MESSAGE->sMessage|escape}
-	{if count($MESSAGE->aBacktrace) > 0}
+	{if is_array($MESSAGE->aBacktrace) && count($MESSAGE->aBacktrace) > 0}
 	<div id="div{$MESSAGE->sUUID}" style="display: none;">
 	{section name=message loop=$MESSAGE->aBacktrace}
 	{if !$smarty.section.message.first}
@@ -35,5 +35,6 @@ function toggleBacktrace(sUUID)
 	{/if}
 	{/section}
 	</div>
+	{elseif $MESSAGE->aBacktrace != ''}<div id="div{$MESSAGE->sUUID}" style="display: none;">{$MESSAGE->aBacktrace}</div>
 	{/if}
 </div>

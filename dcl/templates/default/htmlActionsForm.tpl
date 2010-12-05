@@ -47,7 +47,7 @@ function validateAndSubmitForm(form)
 	<fieldset>
 		<div class="submit">
 			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=htmlActions.PrintAll';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			<input type="button" onclick="location.href = '{dcl_url_action controller=Action action=Index}';" value="{$smarty.const.STR_CMMN_CANCEL}">
 		</div>
 	</fieldset>
 </form>

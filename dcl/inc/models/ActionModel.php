@@ -22,36 +22,34 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once('login.php');
-
-$g_oPage = new Page();
-$g_oPage->StartPage();
-
-if (IsSet($menuAction) && $menuAction != 'clearScreen')
+LoadStringResource('db');
+class ActionModel extends dclDB
 {
-	if ($g_oSec->ValidateMenuAction() == true)
+	function __construct()
 	{
-		try
-		{
-			Invoke($menuAction);
-		}
-		catch (Exception $ex)
-		{
-			commonHeader();
-			var_dump($ex);
-			ShowError('Exception: ' . $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTraceAsString());
-		}
+		parent::dclDB();
+		$this->TableName = 'actions';
+		$this->cacheEnabled = true;
+		
+		LoadSchema($this->TableName);
+
+		$this->foreignKeys = array('timecards' => 'action');
+		
+		parent::Clear();
 	}
-	else
+
+	function Delete()
 	{
-		commonHeader();
-		PrintPermissionDenied();
+		return parent::Delete(array('id' => $this->id));
+	}
+
+	function Load($id)
+	{
+		return parent::Load(array('id' => $id));
+	}
+
+	public function SetActive($id, $active)
+	{
+		return parent::SetActive(array('id' => $id), $active);
 	}
 }
-else
-{
-	commonHeader();
-	trigger_error('Method not supplied.', E_USER_ERROR);
-}
-
-$g_oPage->EndPage();

@@ -1,6 +1,6 @@
 <?php
 	define('STR_ACTN_SELECTONE', "VÃ?Â¤lj en");
-	define('STR_ACTN_TABLETITLE', "Aktiviteter - ordnade efter %s");
+	define('STR_ACTN_TABLETITLE', "Aktiviteter");
 	define('STR_ACTN_NOACTIONS', "Inga aktiviteter hittades!");
 	define('STR_ACTN_ID', "ID");
 	define('STR_ACTN_ACTIVEABB', "A");

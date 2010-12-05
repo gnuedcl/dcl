@@ -1,10 +1,12 @@
 <!-- $Id$ -->
 <link rel="stylesheet" type="text/css" href="{$DIR_JS}/superfish/css/superfish.css" media="screen">
+<link rel="stylesheet" type="text/css" href="{$DIR_JS}/gritter/css/jquery.gritter.css" media="screen">
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/jquery-1.4.2.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/jquery.bgiframe.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/hoverIntent.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/superfish.js"></script>
 <script language="JavaScript" type="text/javascript" src="{$DIR_JS}/supersubs.js"></script>
+<script language="JavaScript" type="text/javascript" src="{$DIR_JS}/gritter/jquery.gritter.min.js"></script>
 <div id="header">
 	<div id="headerleft"><div id="apptitle">{dcl_config name='DCL_APP_NAME'|escape}</div></div>
 	<div id="headerright">
@@ -55,6 +57,10 @@
 //<![CDATA[{literal}
 $(document).ready(function() {
 	$(".sf-menu").supersubs().superfish();
+	var $notification = $("div.dcl-notification");
+	if ($notification.length > 0) {
+		$.gritter.add({title: $notification.attr("title"), text: $notification.text()});
+	}
 {/literal}{if $PERM_WORKSPACE}{literal}$("#workspace_id").change(function() { location.href = "{/literal}{$URL_MAIN_PHP}{literal}?menuAction=htmlWorkspaceForm.changeWorkspace&workspace_id=" + $(this).val(); });{/literal}{/if}{literal}
 });
 {/literal}//]]>

@@ -12,6 +12,11 @@ div#left ul
 	padding: 0px;
 }
 
+div.dcl-notification
+{
+	display: none;
+}
+
 div.sf-menu-container
 {
 	height: 28px;

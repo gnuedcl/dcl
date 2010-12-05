@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,36 +22,15 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once('login.php');
-
-$g_oPage = new Page();
-$g_oPage->StartPage();
-
-if (IsSet($menuAction) && $menuAction != 'clearScreen')
+class RedirectMessagePresenter
 {
-	if ($g_oSec->ValidateMenuAction() == true)
+	public function Render()
 	{
-		try
-		{
-			Invoke($menuAction);
-		}
-		catch (Exception $ex)
-		{
-			commonHeader();
-			var_dump($ex);
-			ShowError('Exception: ' . $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTraceAsString());
-		}
-	}
-	else
-	{
-		commonHeader();
-		PrintPermissionDenied();
+		global $g_oSession;
+		
+		$t = new DCL_Smarty();
+		$t->assign('RedirectTitle', $g_oSession->Value('REDIRECT_TITLE'));
+		$t->assign('RedirectText', $g_oSession->Value('REDIRECT_TEXT'));
+		$t->Render('RedirectMessage.tpl');
 	}
 }
-else
-{
-	commonHeader();
-	trigger_error('Method not supplied.', E_USER_ERROR);
-}
-
-$g_oPage->EndPage();

@@ -1,6 +1,6 @@
 <?php
 	define('STR_ACTN_SELECTONE', "Select One");
-	define('STR_ACTN_TABLETITLE', "Actions - Ordered By %s");
+	define('STR_ACTN_TABLETITLE', "Actions");
 	define('STR_ACTN_NOACTIONS', "Actions could not be found for display!  You may not have any actions in your system yet!");
 	define('STR_ACTN_ID', "ID");
 	define('STR_ACTN_ACTIVEABB', "A");

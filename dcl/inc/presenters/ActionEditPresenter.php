@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,36 +22,27 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once('login.php');
-
-$g_oPage = new Page();
-$g_oPage->StartPage();
-
-if (IsSet($menuAction) && $menuAction != 'clearScreen')
+LoadStringResource('actn');
+class ActionEditPresenter
 {
-	if ($g_oSec->ValidateMenuAction() == true)
+	public function Render(ActionModel $model)
 	{
-		try
-		{
-			Invoke($menuAction);
-		}
-		catch (Exception $ex)
-		{
-			commonHeader();
-			var_dump($ex);
-			ShowError('Exception: ' . $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTraceAsString());
-		}
-	}
-	else
-	{
+		global $g_oSec;
+
 		commonHeader();
-		PrintPermissionDenied();
+
+		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
+			return PrintPermissionDenied();
+
+		$t = new DCL_Smarty();
+
+		$t->assign('TXT_FUNCTION', STR_ACTN_EDIT);
+		$t->assign('menuAction', 'Action.Update');
+		$t->assign('id', $model->id);
+		$t->assign('CMB_ACTIVE', GetYesNoCombo($model->active, 'active', 0, false));
+		$t->assign('VAL_SHORT', $model->short);
+		$t->assign('VAL_NAME', $model->name);
+
+		$t->Render('htmlActionsForm.tpl');
 	}
 }
-else
-{
-	commonHeader();
-	trigger_error('Method not supplied.', E_USER_ERROR);
-}
-
-$g_oPage->EndPage();

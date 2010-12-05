@@ -1,6 +1,6 @@
 <?php
 	define('STR_ACTN_SELECTONE', "A sÃ?Â©lectionner");
-	define('STR_ACTN_TABLETITLE', "Actions - TriÃ?Â©es par %s");
+	define('STR_ACTN_TABLETITLE', "Actions");
 	define('STR_ACTN_NOACTIONS', "Pas d\'actions trouvÃ?Â©es Ã?Â  afficher !  Vous n\'avez peut-Ã?Âªtre pas encore d\'actions dÃ?Â©finies dans le systÃ?Â¨me!");
 	define('STR_ACTN_ID', "ID");
 	define('STR_ACTN_ACTIVEABB', "A");

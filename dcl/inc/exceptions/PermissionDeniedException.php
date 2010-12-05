@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,36 +22,13 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once('login.php');
-
-$g_oPage = new Page();
-$g_oPage->StartPage();
-
-if (IsSet($menuAction) && $menuAction != 'clearScreen')
+class PermissionDeniedException extends Exception
 {
-	if ($g_oSec->ValidateMenuAction() == true)
+	public function __construct($message = null, $code = 0)
 	{
-		try
-		{
-			Invoke($menuAction);
-		}
-		catch (Exception $ex)
-		{
-			commonHeader();
-			var_dump($ex);
-			ShowError('Exception: ' . $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTraceAsString());
-		}
-	}
-	else
-	{
-		commonHeader();
-		PrintPermissionDenied();
+		if ($message === null)
+			$message = STR_CMMN_PERMISSIONDENIED;
+
+		parent::__construct($message, $code);
 	}
 }
-else
-{
-	commonHeader();
-	trigger_error('Method not supplied.', E_USER_ERROR);
-}
-
-$g_oPage->EndPage();

@@ -1,6 +1,6 @@
 <?php
 	define('STR_ACTN_SELECTONE', "Izberi");
-	define('STR_ACTN_TABLETITLE', "Akcije - razvrÃ?Â¹Ã?Â¨ene po %s");
+	define('STR_ACTN_TABLETITLE', "Akcije");
 	define('STR_ACTN_NOACTIONS', "Ni najti akcij za prikaz!  Morda Ã?Â¹e nimaÃ?Â¹ definiranih akcije na sistemu!");
 	define('STR_ACTN_ID', "ID");
 	define('STR_ACTN_ACTIVEABB', "A");

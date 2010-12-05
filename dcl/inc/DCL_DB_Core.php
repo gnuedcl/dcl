@@ -993,7 +993,7 @@ class DCL_DB_Core
 			}
 		}
 
-		$sql = sprintf('UPDATE %s SET %s = %s WHERE %s', $this->TableName, $sFieldName, $isActive, $sPK);
+		$sql = sprintf("UPDATE %s SET %s = '%s' WHERE %s", $this->TableName, $sField, $isActive, $sPK);
 
 		return $this->Execute($sql);
 	}
