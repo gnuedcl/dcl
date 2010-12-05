@@ -362,7 +362,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oAction == null)
-			$this->oAction = new dbActions();
+			$this->oAction = new ActionModel();
 
 		if ($this->oAction->Load($id) == -1)
 			return $this->TriggerError("Could not find action ID $id");

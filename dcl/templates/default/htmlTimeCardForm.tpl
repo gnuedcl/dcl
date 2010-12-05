@@ -81,7 +81,7 @@ function validateAndSubmitForm(form)
 		</div>
 		<div class="required">
 			<label for="action">{$smarty.const.STR_TC_ACTION}:</label>
-			{$CMB_ACTION}
+			{dcl_select_action name="action" active=$IS_EDIT setid=$VAL_SETID}
 			<span>Select the description that best describes the action taken.</span>
 		</div>
 		<div class="required">

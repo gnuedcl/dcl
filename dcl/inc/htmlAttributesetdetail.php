@@ -43,7 +43,7 @@ class htmlAttributesetdetail
 		$t->assign('VAL_ATTRIBUTESETNAME', $obj->name);
 		$t->Render('htmlAttributesetdetail.tpl');
 
-		$objA = new dbActions();
+		$objA = new ActionModel();
 		$theAttributes = array('actions', 'priorities', 'severities', 'statuses');
 		$aTitles = array('actions' => STR_ATTR_ACTIONS, 'priorities' => STR_ATTR_PRIORITIES, 'severities' => STR_ATTR_SEVERITIES, 'statuses' => STR_ATTR_STATUSES);
 

@@ -86,7 +86,7 @@ class htmlTimeCards
 		{
 			$objPersonnel = new dbPersonnel();
 			$objStatus = new dbStatuses();
-			$objAction = new dbActions();
+			$objAction = new ActionModel();
 
 			$oMeta =& new DCL_MetadataDisplay();
 

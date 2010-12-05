@@ -44,7 +44,6 @@ class htmlTimeCardForm
 			return PrintPermissionDenied();
 
 		$objStatuses = new htmlStatuses();
-		$objActions = new htmlActions();
 		$objPersonnel = new htmlPersonnel();
 
 		$oSmarty = new DCL_Smarty();
@@ -84,6 +83,8 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_ISVERSIONED', $oProduct->is_versioned == 'Y');
 		}
 
+		$oSmarty->assign('VAL_SETID', $setid);
+		
 		if ($isEdit)
 		{
 			$oSmarty->assign('VAL_ID', $obj->id);
@@ -93,12 +94,10 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_DESCRIPTION', $obj->description);
 			$oSmarty->assign('VAL_ISPUBLIC', $obj->is_public);
 			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo($obj->status, 'status', 'name', 0, false, $setid));
-			$oSmarty->assign('CMB_ACTION', $objActions->GetCombo($obj->action, 'action', 'name', 0, false, $setid));
 		}
 		else
 		{
 			$oSmarty->assign('VAL_ACTIONON', date($dcl_info['DCL_DATE_FORMAT']));
-			$oSmarty->assign('CMB_ACTION', $objActions->GetCombo(0, 'action', 'name', 0, true, $setid));
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN))
 			{
