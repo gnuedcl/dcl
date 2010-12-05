@@ -157,6 +157,6 @@ class htmlTimeCardForm
 		if (isset($_REQUEST['project']))
 			$oSmarty->assign('VAL_PROJECT', $_REQUEST['project']);
 
-		return $t->ToString('htmlTimeCardForm.tpl');
+		return $oSmarty->ToString('htmlTimeCardForm.tpl');
 	}
 }
