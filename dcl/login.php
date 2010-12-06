@@ -30,7 +30,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 	if (!defined('__DCL_CONFIG_INCLUDED__'))
 		include_once('inc/config.php');
 
-	$bNoHeader = (IsSet($menuAction) && ($menuAction == 'htmlTicketDetail.Download' || $menuAction == 'htmlWorkOrderDetail.Download' || $menuAction == 'boGraph.Show'));
+	$bNoHeader = (IsSet($menuAction) && ($menuAction == 'htmlTicketDetail.Download' || $menuAction == 'htmlWorkOrderDetail.Download' || $menuAction == 'LineGraphImageHelper.Show'));
 
 	if (!defined('DCL_ENTITY_GLOBAL'))
 		include_once(DCL_ROOT . 'inc/functions.inc.php');

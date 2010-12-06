@@ -440,7 +440,7 @@ class boTickets
 			return;
 		}
 
-		$objG = new boGraph();
+		$objG = new LineGraphImageHelper();
 		$obj = new dbTickets();
 		$beginDate = new DCLTimestamp;
 		$endDate = new DCLTimestamp;
@@ -517,7 +517,7 @@ class boTickets
 		$objG->colors = array('red', 'blue');
 
 		print('<center>');
-		echo '<img border="0" src="', menuLink('', 'menuAction=boGraph.Show&' . $objG->ToURL()), '">';
+		echo '<img border="0" src="', menuLink('', 'menuAction=LineGraphImageHelper.Show&' . $objG->ToURL()), '">';
 		print('</center>');
 	}
 

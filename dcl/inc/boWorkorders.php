@@ -883,7 +883,7 @@ class boWorkorders
 		if (($iProduct = @DCL_Sanitize::ToInt($_REQUEST['product'])) === null)
 		    $iProduct = 0;
 		
-		$objG = new boGraph();
+		$objG = new LineGraphImageHelper();
 		$obj = new dbWorkorders();
 		
 		$beginDate = new DCLTimestamp();
@@ -969,7 +969,7 @@ class boWorkorders
 
 
 		print('<center>');
-		echo '<img border="0" src="', menuLink('', 'menuAction=boGraph.Show&' . $objG->ToURL()), '">';
+		echo '<img border="0" src="', menuLink('', 'menuAction=LineGraphImageHelper.Show&' . $objG->ToURL()), '">';
 		print('</center>');
 	}
 

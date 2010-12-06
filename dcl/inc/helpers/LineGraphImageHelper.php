@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,25 +22,25 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class boGraph
+class LineGraphImageHelper
 {
-	var $title;
-	var $caption_x;
-	var $caption_y;
-	var $lines_x;
-	var $lines_y;
-	var $line_captions_x;
-	var $data;
-	var $colors;
-	var $color_legend;
-	var $graph_width;
-	var $graph_height;
-	var $margin_top;
-	var $margin_left;
-	var $margin_bottom;
-	var $margin_right;
+	public $title;
+	public $caption_x;
+	public $caption_y;
+	public $lines_x;
+	public $lines_y;
+	public $line_captions_x;
+	public $data;
+	public $colors;
+	public $color_legend;
+	public $graph_width;
+	public $graph_height;
+	public $margin_top;
+	public $margin_left;
+	public $margin_bottom;
+	public $margin_right;
 	
-	function boGraph()
+	public function __construct()
 	{
 		$this->title = '';
 		$this->caption_x = '';
@@ -59,23 +59,13 @@ class boGraph
 		$this->margin_right = 20;
 	}
 	
-	function Open()
-	{
-		print('<script language="JavaScript">');
-		print('window.open(\'main.php?menuAction=boGraph.Show&');
-		if (ereg('MSIE', $_SERVER['HTTP_USER_AGENT']))
-			print('DCLINFO=' . $GLOBALS['DCLINFO'] . '&');
-		print($this->ToURL() . '\', \'graph\', \'width=' . ($this->graph_width + 20) . ',height=' . ($this->graph_height + 20) . ',resizable=yes,scrollbars=yes\');');
-		print('</script>');
-	}
-	
-	function Show()
+	public function Show()
 	{
 		$this->FromURL();
 		$this->Render();
 	}
 	
-	function FromURL()
+	public function FromURL()
 	{
 		$this->title = $_REQUEST['title'];
 		$this->caption_x = $_REQUEST['caption_x'];
@@ -99,7 +89,7 @@ class boGraph
 		$this->margin_right = $_REQUEST['margin_right'];
 	}
 	
-	function ToURL()
+	public function ToURL()
 	{
 		$url = 'title=' . rawurlencode($this->title) . '&';
 		$url .= 'caption_x=' . rawurlencode($this->caption_x) . '&';
@@ -128,7 +118,7 @@ class boGraph
 		return $url;
 	}
 	
-	function Render()
+	public function Render()
 	{
 		$oChart = new DCL_Chart();
 		$oChart->Init($this->graph_width, $this->graph_height);
@@ -145,13 +135,28 @@ class boGraph
 		
 		$oChart->Chart->setGraphArea($this->margin_left, $this->margin_top, $this->graph_width - $this->margin_right, $this->graph_height - $this->margin_bottom);
 		$oChart->Chart->drawGraphArea(255, 255, 255, true);
-		$oChart->Chart->drawScale($oChart->Data->GetData(), $oChart->Data->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, true, 0, 2);
+
+		$data = $oChart->Data->GetData();
+		$hasValues = false;
+		foreach ($data as $serie)
+		{
+			if ($serie['Serie1'] > 0 || $serie['Serie2'] > 0)
+			{
+				$hasValues = true;
+				break;
+			}
+		}
+
+		if (!$hasValues)
+			$oChart->Chart->setFixedScale(0, 100);
+		
+		$oChart->Chart->drawScale($data, $oChart->Data->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, true, 0, 2);
 		$oChart->Chart->drawGrid(4, true, 230, 230, 230, 50);
 		
 		$oChart->Data->removeSerie('Serie3');
 
-		$oChart->Chart->drawLineGraph($oChart->Data->GetData(), $oChart->Data->GetDataDescription());
-		$oChart->Chart->drawPlotGraph($oChart->Data->GetData(), $oChart->Data->GetDataDescription(), 3, 2, 255, 255, 255);
+		$oChart->Chart->drawLineGraph($data, $oChart->Data->GetDataDescription());
+		$oChart->Chart->drawPlotGraph($data, $oChart->Data->GetDataDescription(), 3, 2, 255, 255, 255);
 		
 		$oChart->Chart->drawLegend(5, 35, $oChart->Data->GetDataDescription(), 255, 255, 255);
 		$oChart->Chart->drawTitle($this->margin_left, $this->margin_top - 4, $this->title, 50, 50, 50, $this->graph_width - $this->margin_right);

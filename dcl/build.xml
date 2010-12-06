@@ -10,10 +10,21 @@
         <include name="**" />
     </fileset>
 
+    <fileset dir="../.." id="configfile">
+        <include name="config.php" />
+    </fileset>
+
     <target name="deploy" description="Deploy files to server location">
-		<echo>Deploying files to server location...</echo>
+		<echo>Deploying files to deployment directory...</echo>
         <copy todir="${deploydir}">
             <fileset refid="allfiles" />
+        </copy>
+    </target>
+
+    <target name="copyconfig" description="Copy config.php file to deployment directory">
+		<echo>Copying config to deployment directory...</echo>
+        <copy todir="${deploydir}/inc">
+            <fileset refid="configfile" />
         </copy>
     </target>
 
@@ -22,7 +33,7 @@
         <delete dir="${deploydir}" />
     </target>
 
-    <target name="cleandeploy" depends="cleandeploydir,deploy" description="Completely refreshes the deployment directory">
+    <target name="cleandeploy" depends="cleandeploydir,deploy,copyconfig" description="Completely refreshes the deployment directory">
     </target>
 
 	<target name="dist">
