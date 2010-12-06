@@ -111,7 +111,7 @@ class htmlPersonnelSelector
 		$filterID = '';
 		if (isset($_REQUEST['filterID']))
 		{
-			if (ereg('^[0-9]+([,][0-9]+)*$', $_REQUEST['filterID']))
+			if (preg_match('/^[0-9]+([,][0-9]+)*$/', $_REQUEST['filterID']))
 				$filterID = explode(',', $_REQUEST['filterID']);
 		}
 

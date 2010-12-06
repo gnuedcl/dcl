@@ -864,7 +864,7 @@ abstract class AbstractSqlQueryHelper
 				if (strpos($field, '.') < 1)
 					$field = $this->table . '.' . $field;
 
-				if ($this->table == 'workorders' && eregi('^.*\.jcn', $field))
+				if ($this->table == 'workorders' && preg_match('/^.*\.jcn/i', $field))
 				{
 					if ($bFirst == false)
 						$sql .= ' AND ';
@@ -902,7 +902,7 @@ abstract class AbstractSqlQueryHelper
 					$sql .= $sJCNSEQSQL;
 					$sql .= ')';
 				}
-				else if (eregi('^.*\.product', $field))
+				else if (preg_match('/^.*\.product/i', $field))
 				{
 					if ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace())
 					{
@@ -914,27 +914,27 @@ abstract class AbstractSqlQueryHelper
 					$bProductFilter = true;
 					$productSQL = $this->GetWhereSqlForField($field, $values);
 				}
-				else if (eregi('^.*\.module_id', $field))
+				else if (preg_match('/^.*\.module_id/i', $field))
 				{
 					$moduleSQL = $this->GetWhereSqlForField($field, $values);
 				}
-				else if (eregi('^.*\.department', $field))
+				else if (preg_match('/^.*\.department/i', $field))
 				{
 					$deptSQL = $this->GetWhereSqlForField($field, $values);
 				}
-				else if (eregi('^.*\.responsible', $field))
+				else if (preg_match('/^.*\.responsible/i', $field))
 				{
 					$responsibleSQL = $this->GetWhereSqlForField($field, $values);
 				}
-				else if (eregi('^.*\.create[d]?by', $field))
+				else if (preg_match('/^.*\.create[d]?by/i', $field))
 				{
 					$createbySQL = $this->GetWhereSqlForField($field, $values);
 				}
-				else if (eregi('^.*\.closedby', $field))
+				else if (preg_match('/^.*\.closedby/i', $field))
 				{
 					$closedbySQL = $this->GetWhereSqlForField($field, $values);
 				}
-				else if (eregi('^.*\.tag_desc', $field))
+				else if (preg_match('/^.*\.tag_desc/i', $field))
 				{
 					$iEntity = null;
 					if ($this->table == 'workorders')
@@ -975,7 +975,7 @@ abstract class AbstractSqlQueryHelper
 						}
 					}
 				}
-				else if (eregi('^.*\.hotlist_tag', $field))
+				else if (preg_match('/^.*\.hotlist_tag/i', $field))
 				{
 					$iEntity = null;
 					if ($this->table == 'workorders')
@@ -1024,7 +1024,7 @@ abstract class AbstractSqlQueryHelper
 						!in_array('dcl_org.name', $this->order) &&
 						!in_array('dcl_org.name', $this->groups) &&
 						!in_array('dcl_org.name', $this->columns) &&
-						eregi('^.*\.account', $field))
+						preg_match('/^.*\.account/i', $field))
 				{
 					// Multi-account filter only does subselect - not MySQL compatible yet
 					if ($bFirst == false)
@@ -1052,7 +1052,7 @@ abstract class AbstractSqlQueryHelper
 					$sql .= " AND (workorders.seq in (select seq from dcl_wo_account where workorders.jcn = wo_id And account_id in (" . $this->GetCSLFromArray($values) . "))";
 					$sql .= '))';
 				}
-				else if (eregi('^.*\.account', $field) || eregi('^.*\.account_id', $field) || eregi('^.*\.org_id', $field))
+				else if (preg_match('/^.*\.account/i', $field) || preg_match('/^.*\.account_id/i', $field) || preg_match('/^.*\.org_id/i', $field))
 				{
 					if ($bFirst == false)
 						$sql .= ' AND ';

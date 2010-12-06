@@ -100,7 +100,7 @@ class xmlProjects
 				$this->objWO->Clear();
 				foreach ($attrs as $key => $val)
 				{
-					if (ereg('^[@](.*)', $val))
+					if (preg_match('/^[@](.*)/', $val))
 					{
 						$val = substr($val, 1);
 						$found = false;
@@ -119,7 +119,7 @@ class xmlProjects
 					}
 					if (strtolower($key) == 'deadlineon')
 					{
-						if (ereg('([+-])([0-9]*)([dh])', $val, $deadline))
+						if (preg_match('/([+-])([0-9]*)([dh])/', $val, $deadline))
 						{
 							$pm = $deadline[1];
 							$units = $deadline[2];
@@ -299,7 +299,7 @@ class xmlProjects
 		$hDir = opendir($dcl_info['DCL_FILE_PATH'] . '/prj/');
 		while ($fileName = readdir($hDir))
 		{
-			if (ereg('(.*)(\.xml)$', $fileName))
+			if (preg_match('/(.*)(\.xml)$/', $fileName))
 			{
 				if ($fp = fopen($dcl_info['DCL_FILE_PATH'] . '/prj/' . $fileName, 'r'))
 				{

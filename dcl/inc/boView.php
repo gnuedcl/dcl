@@ -935,7 +935,7 @@ class boView
 				if (strpos($field, '.') < 1)
 					$field = $this->table . '.' . $field;
 
-				if ($this->table == 'workorders' && eregi('^.*\.jcn', $field))
+				if ($this->table == 'workorders' && preg_match('/^.*\.jcn/i', $field))
 				{
 					if ($bFirst == false)
 						$sql .= ' AND ';
@@ -973,7 +973,7 @@ class boView
 					$sql .= $sJCNSEQSQL;
 					$sql .= ')';
 				}
-				else if (eregi('^.*\.product', $field))
+				else if (preg_match('/^.*\.product/i', $field))
 				{
 					if ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace())
 					{
@@ -988,42 +988,42 @@ class boView
 					else
 						$productSQL = "($field in (" . $this->GetCSLFromArray($values) . '))';
 				}
-				else if (eregi('^.*\.module_id', $field))
+				else if (preg_match('/^.*\.module_id/i', $field))
 				{
 					if (count($values) == 1)
 						$moduleSQL = "($field=" . $this->GetCSLFromArray($values) . ')';
 					else
 						$moduleSQL = "($field in (" . $this->GetCSLFromArray($values) . '))';
 				}
-				else if (eregi('^.*\.department', $field))
+				else if (preg_match('/^.*\.department/i', $field))
 				{
 					if (count($values) == 1)
 						$deptSQL = "($field=" . $this->GetCSLFromArray($values) . ')';
 					else
 						$deptSQL = "($field in (" . $this->GetCSLFromArray($values) . '))';
 				}
-				else if (eregi('^.*\.responsible', $field))
+				else if (preg_match('/^.*\.responsible/i', $field))
 				{
 					if (count($values) == 1)
 						$responsibleSQL = "($field=" . $this->GetCSLFromArray($values) . ')';
 					else
 						$responsibleSQL = "($field in (" . $this->GetCSLFromArray($values) . '))';
 				}
-				else if (eregi('^.*\.create[d]?by', $field))
+				else if (preg_match('/^.*\.create[d]?by/i', $field))
 				{
 					if (count($values) == 1)
 						$createbySQL = "($field=" . $this->GetCSLFromArray($values) . ')';
 					else
 						$createbySQL = "($field in (" . $this->GetCSLFromArray($values) . '))';
 				}
-				else if (eregi('^.*\.closedby', $field))
+				else if (preg_match('/^.*\.closedby/i', $field))
 				{
 					if (count($values) == 1)
 						$closedbySQL = "($field=" . $this->GetCSLFromArray($values) . ')';
 					else
 						$closedbySQL = "($field in (" . $this->GetCSLFromArray($values) . '))';
 				}
-				else if (eregi('^.*\.tag_desc', $field))
+				else if (preg_match('/^.*\.tag_desc/i', $field))
 				{
 					$iEntity = null;
 					if ($this->table == 'workorders')
@@ -1064,7 +1064,7 @@ class boView
 						}
 					}
 				}
-				else if (eregi('^.*\.hotlist_tag', $field))
+				else if (preg_match('/^.*\.hotlist_tag/i', $field))
 				{
 					$iEntity = null;
 					if ($this->table == 'workorders')
@@ -1113,7 +1113,7 @@ class boView
 						!in_array('dcl_org.name', $this->order) &&
 						!in_array('dcl_org.name', $this->groups) &&
 						!in_array('dcl_org.name', $this->columns) &&
-						eregi('^.*\.account', $field))
+						preg_match('/^.*\.account/i', $field))
 				{
 					// Multi-account filter only does subselect - not MySQL compatible yet
 					if ($bFirst == false)
@@ -1141,7 +1141,7 @@ class boView
 					$sql .= " AND (workorders.seq in (select seq from dcl_wo_account where workorders.jcn = wo_id And account_id in (" . $this->GetCSLFromArray($values) . "))";
 					$sql .= '))';
 				}
-				else if (eregi('^.*\.account', $field) || eregi('^.*\.account_id', $field) || eregi('^.*\.org_id', $field))
+				else if (preg_match('/^.*\.account/i', $field) || preg_match('/^.*\.account_id/i', $field) || preg_match('/^.*\.org_id/i', $field))
 				{
 					if ($bFirst == false)
 						$sql .= ' AND ';

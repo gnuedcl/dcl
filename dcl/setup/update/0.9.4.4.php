@@ -1345,7 +1345,7 @@ function dcl_upgrade0_9_4_4()
 			$sPhoneNum = trim($oDB->f(1));
 			$sName = trim($oDB->f(2));
 	
-			$sPhoneNumOnly = ereg_replace('[^0-9]', '', $sPhoneNum);
+			$sPhoneNumOnly = preg_replace('/[^0-9]/', '', $sPhoneNum);
 			$sLastName = '';
 			$sFirstName = '';
 	

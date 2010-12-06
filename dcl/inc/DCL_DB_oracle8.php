@@ -326,13 +326,13 @@ class dclDB extends DCL_DB_Core
 	{
 		global $dcl_info;
 
-		$eregStr = str_replace('m', '([0-9]{2})', $dcl_info['DCL_DATE_FORMAT']);
-		$eregStr = str_replace('d', '([0-9]{2})', $eregStr);
-		$eregStr = str_replace('Y', '([0-9]{4})', $eregStr);
-		if(ereg('^' . $eregStr . ' ([0-9]{2}).([0-9]{2}).([0-9]{2})$', $thisDate))
+		$regexStr = str_replace('m', '([0-9]{2})', $dcl_info['DCL_DATE_FORMAT']);
+		$regexStr = str_replace('d', '([0-9]{2})', $regexStr);
+		$regexStr = str_replace('Y', '([0-9]{4})', $regexStr);
+		if(preg_match('#^' . $regexStr . ' ([0-9]{2}).([0-9]{2}).([0-9]{2})$#', $thisDate))
 			return "to_date('" . $this->ArrangeTimeStampForInsert($thisDate) . "', 'YYYY-MM-DD 24HH:MI:SS')";
-		else
-			return "to_date('" . $this->ArrangeDateForInsert($thisDate) . "', 'YYYY-MM-DD')";
+
+		return "to_date('" . $this->ArrangeDateForInsert($thisDate) . "', 'YYYY-MM-DD')";
 	}
 
 	function GetUpperSQL($text)

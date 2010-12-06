@@ -329,7 +329,7 @@ class htmlWiki
 			}
 
 			// __text__ for title bar
-			$line = ereg_replace("^(_){2}(.*)(_){2}", "<div style=\"font-weight: bold; width: 100%; background-color: #aaaaaa;\"> \\2 </div>", $line);
+			$line = preg_replace("/^(_){2}(.*)(_){2}/", "<div style=\"font-weight: bold; width: 100%; background-color: #aaaaaa;\"> \\2 </div>", $line);
 
 			// ''' bold '''
 			$line=preg_replace("/'''([^']*)'''/","<b>\\1</b>",$line);
@@ -344,54 +344,50 @@ class htmlWiki
 			$line=preg_replace("/(?: |^)_([^ _]+)_/","<sub>\\1</sub>",$line);
 
 			// ` text ` for monospace
-			$line = ereg_replace("\`(('?[^\`])*)\`", "<tt>\\1</tt>", $line);
+			$line = preg_replace("/\`(('?[^\`])*)\`/", "<tt>\\1</tt>", $line);
 
 			// {{{ text }}} also for monospace
-			$line = ereg_replace("\{\{\{(.*)\}\}\}", "<tt>\\1</tt>", $line);
+			$line = preg_replace("/\{\{\{(.*)\}\}\}/", "<tt>\\1</tt>", $line);
 
 			// ===== text ===== for h5
-			$line = ereg_replace("^=====(.*)=====", "<h5 class=\"wiki\">\\1</h5>", $line);
+			$line = preg_replace("/^=====(.*)=====/", "<h5 class=\"wiki\">\\1</h5>", $line);
 
 			// ==== text ==== for h4
-			$line = ereg_replace("^====(.*)====", "<h4 class=\"wiki\">\\1</h4>", $line);
+			$line = preg_replace("/^====(.*)====/", "<h4 class=\"wiki\">\\1</h4>", $line);
 
 			// === text === for h3
-			$line = ereg_replace("^===(.*)===", "<h3 class=\"wiki\">\\1</h3>", $line);
+			$line = preg_replace("/^===(.*)===/", "<h3 class=\"wiki\">\\1</h3>", $line);
 
 			// == text == for h2
-			$line = ereg_replace("^==(.*)==", "<h2 class=\"wiki\">\\1</h2>", $line);
+			$line = preg_replace("/^==(.*)==/", "<h2 class=\"wiki\">\\1</h2>", $line);
 
 			// = text = for h1
-			$line = ereg_replace("^=(.*)=", "<h1 class=\"wiki\">\\1</h1>", $line);
+			$line = preg_replace("/^=(.*)=/", "<h1 class=\"wiki\">\\1</h1>", $line);
 
 			// TwoWords crammed together for internal links
+			$twoWordsPattern = "/([\s;<>'\(]|^)(([A-Z][a-z]+){2,})([\s.,!?&<>\)]|$)/";
 			if ($type == DCL_ENTITY_GLOBAL)
 			{
-				$line = ereg_replace("([[:space:];<>'\(]|^)(([A-Z][a-z������������]+){2,})([[:space:].,!?&<>\)]|$)",
-								"\\1<a class=\"wiki\" href=\"".menuLink()."?menuAction=htmlWiki.show&type=".$type."&name=\\2\">\\2</a>\\4", $line);
+				$line = preg_replace($twoWordsPattern, "\\1<a class=\"wiki\" href=\"".menuLink()."?menuAction=htmlWiki.show&type=".$type."&name=\\2\">\\2</a>\\4", $line);
 			}
 			else if ($type == DCL_ENTITY_WORKORDER)
 			{
-				$line = ereg_replace("([[:space:];<>'\(]|^)(([A-Z][a-z������������]+){2,})([[:space:].,!?&<>\)]|$)",
-								"\\1<a class=\"wiki\" href=\"".menuLink()."?menuAction=htmlWiki.show&type=$type&id=$id&id2=$id2&name=\\2\">\\2</a>\\4", $line);
+				$line = preg_replace($twoWordsPattern, "\\1<a class=\"wiki\" href=\"".menuLink()."?menuAction=htmlWiki.show&type=$type&id=$id&id2=$id2&name=\\2\">\\2</a>\\4", $line);
 			}
 			else
 			{
-				$line = ereg_replace("([[:space:];<>'\(]|^)(([A-Z][a-z������������]+){2,})([[:space:].,!?&<>\)]|$)",
-								"\\1<a class=\"wiki\" href=\"".menuLink()."?menuAction=htmlWiki.show&type=$type&id=$id&name=\\2\">\\2</a>\\4", $line);
+				$line = preg_replace($twoWordsPattern, "\\1<a class=\"wiki\" href=\"".menuLink()."?menuAction=htmlWiki.show&type=$type&id=$id&name=\\2\">\\2</a>\\4", $line);
 			}
 
 			// xxx://target for any link ex. ftp:// http://
-			$line = eregi_replace("([[:space:];<>\(]|^)([[:alnum:]]+)://([^[:space:]]*)([[:alnum:]#?/=])([[:space:].,&<>\)]|$)",
+			$line = preg_replace("/([\s;<>\(]|^)([a-z0-9]+):\/\/([^[:space:]]*)([[:alnum:]#?\/=])([[:space:].,&<>\)]|$)/i",
 								"\\1<a class=\"wiki\" href=\"\\2://\\3\\4\" target=\"_blank\">\\2://\\3\\4</a>\\5", $line);
 
 			// name@domain for email
-			$line = eregi_replace("([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)",
-								"<a class=\"wiki\" href=\"mailto:\\1\">\\1</a>", $line);
+			$line = preg_replace("/([_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)+)/i", "<a class=\"wiki\" href=\"mailto:\\1\">\\1</a>", $line);
 
 			// [http://link] for images
-			$line = ereg_replace("\[http://([^[:space:]]*)([[:alnum:]#?/&=])\]",
-								"<img src=\"http://\\1\\2\" alt=\"http://\\1\\2\">", $line);
+			$line = preg_replace("/\[http:\/\/([^[:space:]]*)([[:alnum:]#?\/&=])\]/i", "<img src=\"http://\\1\\2\" alt=\"http://\\1\\2\">", $line);
 
 			// New syntax for wiki pages ((name|desc)) Where desc can be anything
 			$line = preg_replace("/\(\((([A-Z][a-z������������]+){2,})\|([^\~]+)\)\)/","<a class=\"wiki\" title='$3' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$3</a>",$line);
@@ -406,13 +402,13 @@ class htmlWiki
 			$line = preg_replace("/___([^\=]+)___/","<span style='text-decoration:underline;'>$1</span>",$line);
 
 			// fixes Ampersand Problem
-			$line = ereg_replace("&(amp;)+", "&", $line);
+			$line = preg_replace("/&(amp;)+/", "&", $line);
 
 			// %% TwoWords %% Wiki Name with no link created.
-			$line = ereg_replace("%%(([A-Z][a-z������������]+){2,})%%", "\\1", $line);
+			$line = preg_replace("/%%(([A-Z][a-z]+){2,})%%/", "\\1", $line);
 
 			// --- or more dashes makes a horizontal bar
-			$line = ereg_replace("^---(-)*", "<hr size=\"1\" />", $line);
+			$line = preg_replace("/^---(-)*/", "<hr size=\"1\" />", $line);
 
 			// bullet
 			if (preg_match("/^(\s*)/", $line, $match))
@@ -586,7 +582,7 @@ class htmlWiki
 		{
 			$ddate = date("d M Y - H:i"); // Replace <d> tag with current date
 			$o->page_text = str_replace("<d>", $ddate, $text);
-			$o->page_text = ereg_replace("&(amp;)+", "&", $text);
+			$o->page_text = preg_replace("/&(amp;)+/", "&", $text);
 			$o->page_ip = $g_oSession->Value('DCLNAME') . ' [' . $this->getlongip() . ']';
 
 			$o->Edit();

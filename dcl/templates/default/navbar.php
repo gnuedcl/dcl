@@ -203,7 +203,7 @@ class DCLNavBar
 
 		$bSearchBox = ($this->_class == 'htmlSearchBox' &&
 				$_REQUEST['which'] == 'workorders' &&
-				ereg('^([0-9]+)[-]([0-9]*)$', $_REQUEST['search_text'], $reg)
+				preg_match('/^([0-9]+)[-]([0-9]*)$/', $_REQUEST['search_text'], $reg)
 			);
 
 		if ($bSearchBox)
@@ -243,7 +243,7 @@ class DCLNavBar
 
 		$bSearchBox = ($this->_class == 'htmlSearchBox' &&
 				$_REQUEST['which'] == 'tickets' &&
-				ereg('^([0-9]+)$', $_REQUEST['search_text'], $reg)
+				preg_match('/^([0-9]+)$/', $_REQUEST['search_text'], $reg)
 			);
 
 		if ($bSearchBox)

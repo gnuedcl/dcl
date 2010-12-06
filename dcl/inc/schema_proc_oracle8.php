@@ -301,7 +301,7 @@ class schema_proc_oracle8
 			$sdc->next_record();
 			if ($sdc->f(0))
 			{
-				if (ereg('nextval',$sdc->f(0)))
+				if (preg_match('/nextval/',$sdc->f(0)))
 				{
 					$default = '';
 					$nullcomma = '';
@@ -317,7 +317,7 @@ class schema_proc_oracle8
 				$default = '';
 				$nullcomma = '';
 			}
-			$default = ereg_replace("''","'",$default);
+			$default = preg_replace("/''/","'",$default);
 
 			$this->sCol[] = "\t\t\t\t'" . $colname . "' => array(" . $type . ',' . $null . $nullcomma . $default . '),' . "\n";
 		}

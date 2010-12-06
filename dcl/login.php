@@ -71,13 +71,13 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 		if (DCL_COOKIE_METHOD == 'php')
 		{
 			$httpDomain = '';
-			if (ereg('^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$', $HTTP_HOST))
+			if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $HTTP_HOST))
 			{
 				$httpDomain = $HTTP_HOST;
 			}
-			else if (ereg('.*\..*$', $HTTP_HOST))
+			else if (preg_match('/.*\..*$/', $HTTP_HOST))
 			{
-				$httpDomain = eregi_replace('^www\.', '', $HTTP_HOST);
+				$httpDomain = preg_replace('/^www\./i', '', $HTTP_HOST);
 				$httpDomain = '.' . $httpDomain;
 			}
 

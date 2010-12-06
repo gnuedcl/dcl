@@ -26,7 +26,7 @@ class DCL_Sanitize
 {
 	function ToInt($vValue)
 	{
-		if (ereg('^[0-9]+$', $vValue))
+		if (preg_match('/^[0-9]+$/', $vValue))
 			return (int)$vValue;
 			
 		return null;
@@ -34,7 +34,7 @@ class DCL_Sanitize
 	
 	function ToSignedInt($vValue)
 	{
-		if (ereg('^[-]?[0-9]+$', $vValue))
+		if (preg_match('/^[-]?[0-9]+$/', $vValue))
 			return (int)$vValue;
 			
 		return null;
@@ -67,7 +67,7 @@ class DCL_Sanitize
 	
 	function ToDecimal($vValue)
 	{
-		if (ereg('^([0-9]*[\.][0-9]+)|([0-9]+[\.]?[0-9]*)$', $vValue))
+		if (preg_match('/^([0-9]*[\.][0-9]+)|([0-9]+[\.]?[0-9]*)$/', $vValue))
 			return (float)$vValue;
 			
 		return null;
@@ -130,18 +130,18 @@ class DCL_Sanitize
 	function IsValidFileName($sFileName)
 	{
 		// no file system separators in file names
-		return !ereg("[/\\]", $sFileName);
+		return !preg_match("#[/\\]#", $sFileName);
 	}
 	
 	function IsValidPathName($sPathName)
 	{
 		// just make sure we don't have dir traversal
-		return !ereg("[\.\.]", $sPathName);
+		return !preg_match("/[\.\.]/", $sPathName);
 	}
 	
 	function IsValidFieldName($sFieldName)
 	{
-		return ereg("^[A-Za-z_][A-Za-z0-9_]+([\.][A-Za-z0-9_]+)?$", $sFieldName);
+		return preg_match("/^[a-z_][a-z0-9_]+([\.][a-z0-9_]+)?$/i", $sFieldName);
 	}
 }
 ?>

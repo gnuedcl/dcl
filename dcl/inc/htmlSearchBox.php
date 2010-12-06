@@ -45,11 +45,11 @@ class htmlSearchBox
 			case 'workorders':
 			case 'openworkorders':
 		        $this->oView->table = 'workorders';
-			    if (ereg('^([0-9]+[-]?[0-9]*)+([,][0-9]+[-]?[0-9]*)+$', $search_text))
+			    if (preg_match('/^([0-9]+[-]?[0-9]*)+([,][0-9]+[-]?[0-9]*)+$/', $search_text))
 					$this->findWorkOrders($search_text);
-				else if (ereg('^([0-9]+)[-]?([0-9]*)$', $search_text, $reg))
+				else if (preg_match('/^([0-9]+)[-]?([0-9]*)$/', $search_text, $reg))
 					$this->findWorkOrders($search_text);
-				else if (ereg('^([0-9]+)$', $search_text, $reg))
+				else if (preg_match('/^([0-9]+)$/', $search_text, $reg))
 					$this->findWorkOrders($search_text);
 				else
 					$this->searchWorkOrders($search_text);
@@ -57,7 +57,7 @@ class htmlSearchBox
 			case 'dcl_projects':
 			case 'opendcl_projects':
 		        $this->oView->table = 'dcl_projects';
-			    if (ereg('^([0-9]+)$', $search_text, $reg))
+			    if (preg_match('/^([0-9]+)$/', $search_text, $reg))
 					$this->findProject($reg[1], 0);
 				else
 					$this->searchProjects($search_text);
@@ -65,7 +65,7 @@ class htmlSearchBox
 			case 'tickets':
 			case 'opentickets':
 		        $this->oView->table = 'tickets';
-			    if (ereg('^([0-9]+)$', $search_text, $reg))
+			    if (preg_match('/^([0-9]+)$/', $search_text, $reg))
 					$this->findTicket($reg[1], 0);
 				else
 					$this->searchTickets($search_text);

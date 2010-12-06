@@ -91,7 +91,7 @@ if (function_exists('date_default_timezone_set'))
 $reg = array();
 if (IsSet($_REQUEST['DCLINFO']) && !IsSet($_REQUEST['UID']))
 {
-	if (ereg('([[:alnum:]]{32})/(.+)', $_REQUEST['DCLINFO'], $reg))
+	if (preg_match('/^([a-z0-9]{32})\/(.+)$/i', $_REQUEST['DCLINFO'], $reg))
 		$dcl_domain = $reg[2];
 }
 elseif (IsSet($_REQUEST['UID']) && IsSet($_REQUEST['DOMAIN']))

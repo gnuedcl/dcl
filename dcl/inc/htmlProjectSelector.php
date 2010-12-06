@@ -98,7 +98,7 @@ class htmlProjectSelector
 		$filterID = '';
 		if (isset($_REQUEST['filterSearch']))
 		{
-			if (ereg('^[0-9]+([,][0-9]+)*$', $_REQUEST['filterSearch']))
+			if (preg_match('/^[0-9]+([,][0-9]+)*$/', $_REQUEST['filterSearch']))
 				$filterID = explode(',', $_REQUEST['filterSearch']);
 			else
 				$filterSearch = $_REQUEST['filterSearch'];

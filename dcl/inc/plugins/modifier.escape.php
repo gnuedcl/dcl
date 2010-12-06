@@ -29,12 +29,12 @@ function smarty_modifier_escape($string, $esc_type = 'html')
 
 		case 'link':
 			$sText = nl2br(htmlspecialchars($string));
-			$sRetVal = eregi_replace('(http|ftp|telnet|irc|https)://[^<>[:space:]]+[[:alnum:]/]', '<a target="_blank" href="\0">\0</a>', $sText);
+			$sRetVal = preg_replace('#(http|ftp|telnet|irc|https)://[^<>[:space:]]+[[:alnum:]/]#i', '<a target="_blank" href="\0">\0</a>', $sText);
 
 			// Pseudo stuff
-			$sRetVal = eregi_replace('dcl://workorders/([0-9]+)[-]([0-9]+)', '<a href="' . menuLink() . '?menuAction=boWorkorders.viewjcn&jcn=\1&seq=\2">\0</a>', $sRetVal);
-			$sRetVal = eregi_replace('dcl://tickets/([0-9]+)', '<a href="' . menuLink() . '?menuAction=boTickets.view&ticketid=\1">\0</a>', $sRetVal);
-			$sRetVal = eregi_replace('dcl://projects/([0-9]+)', '<a href="' . menuLink() . '?menuAction=boProjects.viewproject&wostatus=0&project=\1">\0</a>', $sRetVal);
+			$sRetVal = preg_replace('#dcl://workorders/([0-9]+)[-]([0-9]+)#i', '<a href="' . menuLink() . '?menuAction=boWorkorders.viewjcn&jcn=\1&seq=\2">\0</a>', $sRetVal);
+			$sRetVal = preg_replace('#dcl://tickets/([0-9]+)#i', '<a href="' . menuLink() . '?menuAction=boTickets.view&ticketid=\1">\0</a>', $sRetVal);
+			$sRetVal = preg_replace('#dcl://projects/([0-9]+)#i', '<a href="' . menuLink() . '?menuAction=boProjects.viewproject&wostatus=0&project=\1">\0</a>', $sRetVal);
 
 			return $sRetVal;
 
