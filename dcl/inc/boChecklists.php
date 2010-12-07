@@ -57,7 +57,7 @@ class boChecklists
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 					
 		$filterStatus = @DCL_Sanitize::ToInt($_REQUEST['filterStatus']);
 		$filterType = @DCL_Sanitize::ToInt($_REQUEST['filterType']);
@@ -137,7 +137,7 @@ class boChecklists
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
@@ -200,7 +200,7 @@ class boChecklists
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
@@ -264,7 +264,7 @@ class boChecklists
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
@@ -287,7 +287,7 @@ class boChecklists
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
@@ -323,7 +323,7 @@ class boChecklists
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
@@ -342,7 +342,7 @@ class boChecklists
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{

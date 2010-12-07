@@ -67,7 +67,7 @@ class boBuildManager
 		commonHeader();
 		
 		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		$oDB = new dbProductVersion();
 		$oDB->InitFrom_POST();
@@ -82,10 +82,10 @@ class boBuildManager
 	{
 		commonHeader();
 		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		if (($product_version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		$oDB = new dbProductVersion();
 		$oDB->InitFrom_POST();
@@ -256,7 +256,7 @@ class boBuildManager
 		
 		commonHeader();
 		if (!$GLOBALS['g_oSec']->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEWFILE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 	
 		$obj = new htmlBuildManager();
 		switch ($GLOBALS['from'])

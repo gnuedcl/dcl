@@ -64,7 +64,7 @@ class htmlStatuses
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objDBStatus = new dbStatuses();
 		$objDBStatus->Query("SELECT a.id,a.active,a.short,a.name,b.dcl_status_type_name FROM statuses a,dcl_status_type b WHERE b.dcl_status_type_id=a.dcl_status_type ORDER BY a.$orderBy");
@@ -120,7 +120,7 @@ class htmlStatuses
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 

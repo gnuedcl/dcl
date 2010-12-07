@@ -47,7 +47,7 @@ class htmlOrgBrowse
 		}
 
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_ORG => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oView = &$oView;
 		
@@ -141,7 +141,7 @@ class htmlOrgBrowse
 
 		commonHeader();
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_ORG => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->SetFromURL();
@@ -209,7 +209,7 @@ class htmlOrgBrowse
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->table = 'dcl_org';

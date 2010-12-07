@@ -37,7 +37,7 @@ class htmlContactLicenses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -48,7 +48,7 @@ class htmlContactLicenses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_license_id'])) === null)
 		{
@@ -69,7 +69,7 @@ class htmlContactLicenses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 	}
 
 	function submitAdd()
@@ -89,7 +89,7 @@ class htmlContactLicenses
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 
@@ -127,7 +127,7 @@ class htmlContactLicenses
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 
@@ -155,7 +155,7 @@ class htmlContactLicenses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_license_id'])) === null)
 		{
@@ -185,7 +185,7 @@ class htmlContactLicenses
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 		{

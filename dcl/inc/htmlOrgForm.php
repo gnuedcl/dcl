@@ -37,7 +37,7 @@ class htmlOrgForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$this->ShowEntryForm();
 	}
@@ -48,7 +48,7 @@ class htmlOrgForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 		{
@@ -69,7 +69,7 @@ class htmlOrgForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 		{
@@ -89,7 +89,7 @@ class htmlOrgForm
 		// We actually have to potentially add several things here for a new org
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 
@@ -218,7 +218,7 @@ class htmlOrgForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boOrg();
 		CleanArray($_REQUEST);
@@ -244,7 +244,7 @@ class htmlOrgForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -270,12 +270,12 @@ class htmlOrgForm
 		if (!$isEdit)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 		}
 		else
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 		}
 
 		$oSmarty = new DCL_Smarty();

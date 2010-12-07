@@ -37,7 +37,7 @@ class htmlOrgAddress
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -48,7 +48,7 @@ class htmlOrgAddress
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_addr_id'])) === null)
 		{
@@ -69,7 +69,7 @@ class htmlOrgAddress
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 	}
 
 	function submitAdd()
@@ -78,7 +78,7 @@ class htmlOrgAddress
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null ||
 		    ($addr_type_id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id'])) === null
@@ -115,7 +115,7 @@ class htmlOrgAddress
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 
@@ -131,7 +131,7 @@ class htmlOrgAddress
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_addr_id'])) === null)
 		{
@@ -161,7 +161,7 @@ class htmlOrgAddress
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 		{

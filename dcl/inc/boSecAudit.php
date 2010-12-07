@@ -39,7 +39,7 @@ class boSecAudit
 			commonHeader();
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$obj = new htmlSecAudit();
 		$obj->Show();
@@ -52,7 +52,7 @@ class boSecAudit
 		commonHeader();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$begindate = @DCL_Sanitize::ToDateTime($_REQUEST['begindate'] . ' 00:00:00.00');
 		$enddate = @DCL_Sanitize::ToDateTime($_REQUEST['enddate'] . ' 23:59:59.99');

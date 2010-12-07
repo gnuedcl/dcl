@@ -40,7 +40,7 @@ class htmlContactForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -58,7 +58,7 @@ class htmlContactForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbContact();
 		if ($obj->Load($id) == -1)
@@ -79,7 +79,7 @@ class htmlContactForm
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbContact();
 		if ($obj->Load($id) == -1)
@@ -95,7 +95,7 @@ class htmlContactForm
 		// We actually have to potentially add several things here for a new contact
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 
@@ -230,7 +230,7 @@ class htmlContactForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boContact();
 		CleanArray($_REQUEST);
@@ -264,7 +264,7 @@ class htmlContactForm
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boContact();
 		CleanArray($_REQUEST);
@@ -296,7 +296,7 @@ class htmlContactForm
 		if (!$isEdit)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_ADD))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 
 			if (!isset($_REQUEST['return_to']))
 				$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactBrowse.show&filterActive=Y'));
@@ -313,7 +313,7 @@ class htmlContactForm
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $obj->contact_id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (!isset($_REQUEST['return_to']))
 			$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $obj->contact_id));

@@ -32,7 +32,7 @@ class boPersonnel
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlPersonnel();
 		$obj->ShowEntryForm();
@@ -44,7 +44,7 @@ class boPersonnel
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbPersonnel();
 		$obj->InitFromGlobals();
@@ -80,7 +80,7 @@ class boPersonnel
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -102,7 +102,7 @@ class boPersonnel
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbPersonnel();
 		$obj->InitFromGlobals();
@@ -139,7 +139,7 @@ class boPersonnel
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -160,7 +160,7 @@ class boPersonnel
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -191,7 +191,7 @@ class boPersonnel
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objPersonnel = new htmlPersonnel();
 		$objPersonnel->DisplayPasswdForm();
@@ -213,7 +213,7 @@ class boPersonnel
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD) || (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD) && $GLOBALS['DCLID'] != $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if ($_REQUEST['confirm'] != $_REQUEST['new'] || $_REQUEST['new'] == '')
 		{
@@ -238,7 +238,7 @@ class boPersonnel
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlPersonnelBrowse();
 		$obj->show();

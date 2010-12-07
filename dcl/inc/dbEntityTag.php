@@ -288,8 +288,7 @@ class dbEntityTag extends dclDB
 
 		if ($sSQL == '')
 		{
-			PrintPermissionDenied();
-			return;
+			throw new PermissionDeniedException();
 		}
 
 		return $this->Query($sSQL . ' ORDER BY 1, 2, 3');

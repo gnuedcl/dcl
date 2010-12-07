@@ -32,7 +32,7 @@ class boFaq
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlFaq();
 		$obj->DisplayForm();
@@ -46,7 +46,7 @@ class boFaq
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbFaq();
 		$obj->InitFromGlobals();
@@ -64,7 +64,7 @@ class boFaq
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
@@ -86,7 +86,7 @@ class boFaq
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbFaq();
 		$obj->InitFromGlobals();
@@ -111,7 +111,7 @@ class boFaq
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE, $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbFaq();
 		if ($obj->Load($iID) == -1)
@@ -132,7 +132,7 @@ class boFaq
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE, $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbFaq();
 		if ($obj->Load($iID) == -1)
@@ -150,7 +150,7 @@ class boFaq
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
@@ -172,7 +172,7 @@ class boFaq
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objH = new htmlFaq();
 		$objH->ShowAll();

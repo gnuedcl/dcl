@@ -245,7 +245,7 @@ class xmlProjects
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->xmlParser = xml_parser_create();
 		xml_set_object($this->xmlParser, $this);

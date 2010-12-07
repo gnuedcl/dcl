@@ -37,7 +37,7 @@ class htmlRoleForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -55,7 +55,7 @@ class htmlRoleForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbRole();
 		$obj->role_id = $id;
@@ -74,7 +74,7 @@ class htmlRoleForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbRole();
 		if ($obj->Load($id) == -1)
@@ -95,7 +95,7 @@ class htmlRoleForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbRole();
 		if ($obj->Load($id) == -1)
@@ -110,7 +110,7 @@ class htmlRoleForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boRole();
 		CleanArray($_REQUEST);
@@ -137,7 +137,7 @@ class htmlRoleForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boRole();
 		CleanArray($_REQUEST);
@@ -165,7 +165,7 @@ class htmlRoleForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boRole();
 		$obj->delete(array('role_id' => $id));
@@ -180,7 +180,7 @@ class htmlRoleForm
 
 		$isEdit = is_object($obj) && !$bCopy;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$Template = new DCL_Smarty();
 		$Template->assign('VAL_FORMACTION', menuLink());

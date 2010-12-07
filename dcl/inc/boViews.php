@@ -31,7 +31,7 @@ class boViews
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlViews();
 		$obj->ShowEntryForm();
@@ -45,7 +45,7 @@ class boViews
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objDB = new dbViews();
 		$objDB->InitFromGlobals();
@@ -79,13 +79,13 @@ class boViews
 		{
 			// Users can delete their own saved searches
 			if ($obj->whoid != $GLOBALS['DCLID'])
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 		}
 
 		if ($obj->whoid == $GLOBALS['DCLID'] || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
 			ShowDeleteYesNo(STR_CMMN_VIEW, 'boViews.dbdelete', $obj->viewid, $obj->name, false);
 		else
-			PrintPermissionDenied();
+			throw new PermissionDeniedException();
 	}
 
 	function dbdelete()
@@ -107,7 +107,7 @@ class boViews
 		{
 			// Users can delete their own saved searches
 			if ($obj->whoid != $GLOBALS['DCLID'])
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 		}
 			
 		if ($obj->whoid == $GLOBALS['DCLID'] || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
@@ -116,7 +116,7 @@ class boViews
 			print(STR_BO_DELETED);
 		}
 		else
-			PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objHTML = new htmlViews();
 		$objHTML->PrintAll();
@@ -136,7 +136,7 @@ class boViews
 			return;
 
 		if ($objDB->ispublic == 'N' && $objDB->whoid != $GLOBALS['DCLID'])
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objView = new boView();
 		$objView->SetFromURLString($objDB->viewurl);

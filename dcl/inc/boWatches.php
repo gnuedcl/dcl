@@ -142,7 +142,7 @@ class boWatches
 			return;
 			
 		if ($obj->whoid != $GLOBALS['DCLID'])
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$objHTML = new htmlWatches();
 		$objHTML->ShowEntryForm($obj, $this->getWatchDescription($obj));
@@ -163,7 +163,7 @@ class boWatches
 			return;
 			
 		if ($obj->whoid != $GLOBALS['DCLID'])
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj->InitFromGlobals();
 		$obj->Edit();
@@ -186,7 +186,7 @@ class boWatches
 			return;
 			
 		if ($obj->whoid != $GLOBALS['DCLID'])
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		ShowDeleteYesNo('Watch', 'boWatches.dbdelete', $obj->watchid, $this->getWatchDescription($obj));
 	}

@@ -107,7 +107,7 @@ class imgOrganization
 		global $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetOrganizationCount() == -1)
@@ -121,7 +121,7 @@ class imgOrganization
 		global $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetOrganizationCountTicket() == -1)
@@ -141,7 +141,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetStatusCount($id) == -1)
@@ -161,7 +161,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetDepartmentCount($id) == -1)
@@ -181,7 +181,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetSeverityCount($id) == -1)
@@ -201,7 +201,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetPriorityCount($id) == -1)
@@ -221,7 +221,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetModuleCount($id) == -1)
@@ -241,7 +241,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetTypeCount($id) == -1)
@@ -261,7 +261,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetStatusCountTicket($id) == -1)
@@ -281,7 +281,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetTypeCountTicket($id) == -1)
@@ -301,7 +301,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetPriorityCountTicket($id) == -1)
@@ -321,7 +321,7 @@ class imgOrganization
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbOrg();
 		if ($oDB->GetModuleCountTicket($id) == -1)

@@ -39,7 +39,7 @@ class htmlWorkOrderTask
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
@@ -68,7 +68,7 @@ class htmlWorkOrderTask
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbWorkOrderTask();
 		if ($obj->Load($wo_task_id) == -1)
@@ -89,7 +89,7 @@ class htmlWorkOrderTask
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbWorkOrderTask();
 		if ($obj->Load($wo_task_id) == -1)
@@ -116,7 +116,7 @@ class htmlWorkOrderTask
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
 		$oTasks = new dbWorkOrderTask();
@@ -133,7 +133,7 @@ class htmlWorkOrderTask
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['wo_id'])) === null)
@@ -177,7 +177,7 @@ class htmlWorkOrderTask
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
@@ -199,7 +199,7 @@ class htmlWorkOrderTask
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
@@ -223,7 +223,7 @@ class htmlWorkOrderTask
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
@@ -248,7 +248,7 @@ class htmlWorkOrderTask
 
 		// this is done as a XMLHTTP request
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['wo_id'])) === null)
 		{
@@ -281,7 +281,7 @@ class htmlWorkOrderTask
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);

@@ -44,7 +44,7 @@ class htmlOrgProducts
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oOrg = new dbOrg();
 		if ($oOrg->Load($id) == -1)
@@ -89,7 +89,7 @@ class htmlOrgProducts
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 
@@ -108,7 +108,7 @@ class htmlOrgProducts
 		$oSmarty = new DCL_Smarty();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $oOrg->org_id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oSmarty->assign('TXT_TITLE', 'Edit Organization Products');
 		$oSmarty->assign('VAL_MENUACTION', 'htmlOrgProducts.submitModify');

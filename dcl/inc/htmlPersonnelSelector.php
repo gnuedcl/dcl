@@ -42,7 +42,7 @@ class htmlPersonnelSelector
 		global $g_oSec;
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true')
 			$this->oSmarty->assign('VAL_MULTIPLE', 'true');
@@ -60,7 +60,7 @@ class htmlPersonnelSelector
 		global $g_oSec;
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true')
 			$this->oSmarty->assign('VAL_MULTIPLE', 'true');
@@ -94,7 +94,7 @@ class htmlPersonnelSelector
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$filterActive = '';
 		if (IsSet($_REQUEST['filterActive']))

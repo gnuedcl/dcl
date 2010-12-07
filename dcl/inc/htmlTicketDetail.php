@@ -37,7 +37,7 @@ class htmlTicketDetail
 		}
 
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW, $obj->ticketid), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT, $obj->ticketid), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED, $obj->ticketid)))))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
 
@@ -132,7 +132,7 @@ class htmlTicketDetail
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boFile();
 		$o->iType = DCL_ENTITY_TICKET;

@@ -43,13 +43,13 @@ class htmlBuildManagerReleaseForm
 		commonHeader();	
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($product_id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		if (($version_id = DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		$oProduct = new dbProducts();
 		$oProduct->Load($product_id);

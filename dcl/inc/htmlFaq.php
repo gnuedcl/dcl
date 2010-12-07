@@ -32,7 +32,7 @@ class htmlFaq
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
 
@@ -61,7 +61,7 @@ class htmlFaq
 	{
 		global $dcl_info, $g_oSec;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbFaq();
 		$query = "SELECT faqid,active,name,createby,createon,modifyby,modifyon FROM faq ORDER BY $orderBy";
@@ -122,7 +122,7 @@ class htmlFaq
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $obj->faqid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('VAL_NAME', $obj->name);

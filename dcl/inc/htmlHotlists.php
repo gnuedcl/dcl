@@ -47,8 +47,7 @@ class htmlHotlists
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) && !$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 		{
-			PrintPermissionDenied();
-			return;
+			throw new PermissionDeniedException();
 		}
 		
 		$oDB = new dbHotlist();
@@ -78,8 +77,7 @@ class htmlHotlists
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) && !$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 		{
-			PrintPermissionDenied();
-			return;
+			throw new PermissionDeniedException();
 		}
 		
 		if (!isset($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')
@@ -132,15 +130,15 @@ class htmlHotlists
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$hotlistId = @DCL_Sanitize::ToInt($_REQUEST['hotlist_id']);
 		if ($hotlistId === null || $hotlistId < 1)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$dbHotlist = new dbHotlist();
 		if ($dbHotlist->Load($hotlistId) === -1)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$db = new dbEntityHotlist();
 		$rs = $db->listById($hotlistId);
@@ -164,15 +162,15 @@ class htmlHotlists
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$hotlistId = @DCL_Sanitize::ToInt($_POST['hotlist_id']);
 		if ($hotlistId === null || $hotlistId < 1)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$dbHotlist = new dbHotlist();
 		if ($dbHotlist->Load($hotlistId) === -1)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$aEntities = array();
 		foreach ($_REQUEST['item'] as $entity)

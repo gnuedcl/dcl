@@ -39,7 +39,7 @@ class htmlNoteTypeView extends htmlView
 		if ($g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_VIEW))
 			parent::Render($oView);
 		else
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 	}
 	
 	function _SetActionFormOptions()

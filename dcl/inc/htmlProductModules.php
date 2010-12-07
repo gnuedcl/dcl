@@ -67,7 +67,7 @@ class htmlProductModules
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
 		{
@@ -137,7 +137,7 @@ class htmlProductModules
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -148,7 +148,7 @@ class htmlProductModules
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_module_id'])) === null)
 		{
@@ -169,7 +169,7 @@ class htmlProductModules
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_module_id'])) === null)
 		{
@@ -190,7 +190,7 @@ class htmlProductModules
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boProductModules();
 		CleanArray($_REQUEST);
@@ -204,7 +204,7 @@ class htmlProductModules
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boProductModules();
 		CleanArray($_REQUEST);
@@ -219,7 +219,7 @@ class htmlProductModules
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -244,7 +244,7 @@ class htmlProductModules
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		if ($isEdit)
 		{

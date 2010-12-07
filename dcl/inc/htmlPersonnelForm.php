@@ -53,7 +53,7 @@ class htmlPersonnelForm
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$Template = new DCL_Smarty();
 		$Template->assign('IS_EDIT', $isEdit);

@@ -38,7 +38,7 @@ class htmlWOSearches
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbViews();
 		if ($oDB->Load($id) != -1)
@@ -55,7 +55,7 @@ class htmlWOSearches
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->SetFromURL();
@@ -68,7 +68,7 @@ class htmlWOSearches
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$bView = is_object($oView);
 		

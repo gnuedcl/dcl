@@ -45,7 +45,7 @@ class boTicketresolutions
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION, $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objTicket = new dbTickets();
 		if ($objTicket->Load($iID) == -1)
@@ -70,7 +70,7 @@ class boTicketresolutions
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION, $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oDB->InitFromGlobals();
 		$this->oDB->loggedby = $GLOBALS['DCLID'];
@@ -161,7 +161,7 @@ class boTicketresolutions
 			return;
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY, $this->oDB->ticketid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$iOrigStatus = $this->oDB->status;
 		$this->oDB->InitFromArray($aSource);
@@ -214,7 +214,7 @@ class boTicketresolutions
 		commonHeader();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_DELETE, $aSource['ticketid']))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oDB->InitFromArray($aSource);
 		

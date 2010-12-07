@@ -47,7 +47,7 @@ class htmlHotlistBrowse
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oView = &$oView;
 		
@@ -184,7 +184,7 @@ class htmlHotlistBrowse
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->SetFromURL();
@@ -252,7 +252,7 @@ class htmlHotlistBrowse
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->table = 'dcl_hotlist';

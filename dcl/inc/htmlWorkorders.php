@@ -32,7 +32,7 @@ class htmlWorkorders
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$bIsBatch = IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0;
 
@@ -124,7 +124,7 @@ class htmlWorkorders
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $jcn, $seq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
@@ -139,7 +139,7 @@ class htmlWorkorders
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $jcn, $seq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$Template = CreateTemplate(array('hForm' => 'htmlWorkOrderDelAttachment.tpl'));
 		$Template->set_var('TXT_TITLE', STR_WO_DELETEATTACHMENTTITLE);
@@ -160,7 +160,7 @@ class htmlWorkorders
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
@@ -197,7 +197,7 @@ class htmlWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
 		$oNotification = new boWatches();
@@ -215,7 +215,7 @@ class htmlWorkorders
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($jcn = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
 			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
@@ -259,7 +259,7 @@ class htmlWorkorders
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($jcn = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
 			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
@@ -393,7 +393,7 @@ class htmlWorkorders
 									array('perm' => DCL_PERM_VIEW, 'id1' => 0, 'id2' => 0),
 									array('perm' => DCL_PERM_VIEWACCOUNT, 'id1' => 0, 'id2' => 0),
 									array('perm' => DCL_PERM_VIEWSUBMITTED, 'id1' => 0, 'id2' => 0)))))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		if ((IsSet($_REQUEST['btnNav']) || IsSet($_REQUEST['jumptopage'])) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))

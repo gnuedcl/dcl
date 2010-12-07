@@ -91,7 +91,7 @@ class htmlProducts
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$filterLead = @DCL_Sanitize::ToInt($_REQUEST['filterLead']);
 
@@ -163,7 +163,7 @@ class htmlProducts
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -174,7 +174,7 @@ class htmlProducts
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oProduct = new boProducts();
 		CleanArray($_REQUEST);
@@ -196,7 +196,7 @@ class htmlProducts
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProducts();
 		if ($obj->Load($id) == -1)
@@ -217,7 +217,7 @@ class htmlProducts
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oProduct = new boProducts();
 		CleanArray($_REQUEST);
@@ -239,7 +239,7 @@ class htmlProducts
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProducts();
 		if ($obj->Load($id) == -1)
@@ -260,7 +260,7 @@ class htmlProducts
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oProduct = new boProducts();
 		$oProduct->delete($id);
@@ -276,7 +276,7 @@ class htmlProducts
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD, $isEdit ? (int)$obj->id : 0))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 				

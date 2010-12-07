@@ -34,9 +34,9 @@ class htmlWorkOrderDetail
 			return trigger_error(sprintf(STR_WO_BADJCNSEQERR, 'ShowWorkOrderDetail'));
 
 		if (!$forDelete && !$g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW, $jcn, $seq), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT, $jcn, $seq), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED, $jcn, $seq)))))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		else if ($forDelete && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $jcn, $seq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objWorkOrder = new dbWorkorders();
 		if ($objWorkOrder->Load($jcn, $seq) == -1)
@@ -189,7 +189,7 @@ class htmlWorkOrderDetail
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boFile();
 		$o->iType = DCL_ENTITY_WORKORDER;

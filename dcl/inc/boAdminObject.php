@@ -63,7 +63,7 @@ class boAdminObject
 	{
 		global $g_oSec;
 		if (!$g_oSec->HasPerm($this->Entity, $this->PermAdd))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oDB->InitFromArray($aSource);
 		
@@ -92,7 +92,7 @@ class boAdminObject
 	{
 		global $g_oSec;
 		if (!$g_oSec->HasPerm($this->Entity, $this->PermModify))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oDB->InitFromArray($aSource);
 		if ($this->sModifiedDateField != '')
@@ -111,7 +111,7 @@ class boAdminObject
 	{
 		global $g_oSec;
 		if (!$g_oSec->HasPerm($this->Entity, $this->PermDelete))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if ($this->oDB->HasFKRef($aSource[$this->sKeyField]))
 			return $this->oDB->SetActive(array($this->sKeyField => $aSource[$this->sKeyField]), false);

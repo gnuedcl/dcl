@@ -49,7 +49,7 @@ class htmlProjectsBrowse
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oView = &$oView;
 		
@@ -133,7 +133,7 @@ class htmlProjectsBrowse
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->SetFromURL();

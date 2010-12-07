@@ -61,8 +61,7 @@ class htmlWindowList
 					$this->ListFromDb('dcl_wo_account', 'name', 'wo_id = ' . $wo_id . ' And seq = ' . $seq, 'name');
 					break;
 				default:
-					PrintPermissionDenied();
-					return "";
+					throw new PermissionDeniedException();
 			}
 		}
 		else
@@ -78,8 +77,7 @@ class htmlWindowList
 					$this->ListFromDb('dcl_wo_account', 'name', 'wo_id = ' . $wo_id . ' And seq = ' . $seq, 'name');
 					break;
 				default:
-					PrintPermissionDenied();
-					return "";
+					throw new PermissionDeniedException();
 			}
 
 			return $this->t->parse('out', 'hForm');

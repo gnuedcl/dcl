@@ -43,7 +43,7 @@ class boWorkspaceProduct extends boAdminObject
 		global $g_oSec;
 
 		if (!$g_oSec->HasPerm($this->Entity, DCL_PERM_ADD) && !$g_oSec->HasPerm($this->Entity, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$this->oDB->InitFromArray($aSource);
 		if ($this->oDB->Add() == -1)

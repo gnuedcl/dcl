@@ -46,7 +46,7 @@ class boOrg extends boAdminObject
 	{
 		global $g_oSec;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
 		parent::modify($aSource);
@@ -70,7 +70,7 @@ class boOrg extends boAdminObject
 	{
 		global $g_oSec;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = @DCL_Sanitize::ToInt($aSource['org_id'])) === null)
 		{

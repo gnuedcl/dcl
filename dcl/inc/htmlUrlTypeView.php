@@ -38,7 +38,7 @@ class htmlUrlTypeView extends htmlView
 		if ($g_oSec->HasPerm(DCL_ENTITY_URLTYPE, DCL_PERM_VIEW))
 			parent::Render($oView);
 		else
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 	}
 
 	function _SetActionFormOptions()

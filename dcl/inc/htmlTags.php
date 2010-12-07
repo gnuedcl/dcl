@@ -47,8 +47,7 @@ class htmlTags
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) && !$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 		{
-			PrintPermissionDenied();
-			return;
+			throw new PermissionDeniedException();
 		}
 		
 		$oDB = new dbTag();
@@ -78,8 +77,7 @@ class htmlTags
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) && !$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 		{
-			PrintPermissionDenied();
-			return;
+			throw new PermissionDeniedException();
 		}
 		
 		if (!isset($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')

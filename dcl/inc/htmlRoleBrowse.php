@@ -52,7 +52,7 @@ class htmlRoleBrowse extends htmlView
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oView = &$oView;
 
@@ -102,7 +102,7 @@ class htmlRoleBrowse extends htmlView
 		commonHeader();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->SetFromURL();

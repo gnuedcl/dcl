@@ -37,7 +37,7 @@ class htmlWorkspaceForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -55,7 +55,7 @@ class htmlWorkspaceForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbWorkspace();
 		$obj->workspace_id = $id;
@@ -74,7 +74,7 @@ class htmlWorkspaceForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbWorkspace();
 		if ($obj->Load($id) == -1)
@@ -95,7 +95,7 @@ class htmlWorkspaceForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbWorkspace();
 		if ($obj->Load($id) == -1)
@@ -110,7 +110,7 @@ class htmlWorkspaceForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boWorkspace();
 		CleanArray($_REQUEST);
@@ -140,7 +140,7 @@ class htmlWorkspaceForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boWorkspace();
 		CleanArray($_REQUEST);
@@ -171,7 +171,7 @@ class htmlWorkspaceForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boWorkspace();
 		$obj->delete(array('workspace_id' => $id));
@@ -189,7 +189,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 		{
 			ob_end_flush();
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		}
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
@@ -247,7 +247,7 @@ class htmlWorkspaceForm
 
 		$isEdit = is_object($obj) && !$bCopy;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$Template = new DCL_Smarty();
 

@@ -34,7 +34,7 @@ class htmlPreferences
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 		
@@ -72,7 +72,7 @@ class htmlPreferences
 		global $g_oSession, $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$bHasChanges = false;
 		$o = new dbPreferences();

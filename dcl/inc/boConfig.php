@@ -32,7 +32,7 @@ class boConfig
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlConfig();
 		$obj->Show();

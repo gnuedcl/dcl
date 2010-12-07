@@ -33,7 +33,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlTicketForm();
 		$obj->Show();
@@ -45,7 +45,7 @@ class boTickets
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbTickets();
 		$obj->InitFromGlobals();
@@ -154,7 +154,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -176,7 +176,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -204,7 +204,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -311,7 +311,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -338,7 +338,7 @@ class boTickets
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -387,7 +387,7 @@ class boTickets
 
 		commonHeader();
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW, $ticketid), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT, $ticketid), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED, $ticketid)))))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -527,7 +527,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -552,7 +552,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -605,7 +605,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ATTACHFILE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -630,7 +630,7 @@ class boTickets
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ATTACHFILE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -643,7 +643,7 @@ class boTickets
 			return;
 
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boFile();
 		$o->iType = DCL_ENTITY_TICKET;
@@ -663,7 +663,7 @@ class boTickets
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REMOVEFILE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
@@ -694,7 +694,7 @@ class boTickets
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REMOVEFILE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{

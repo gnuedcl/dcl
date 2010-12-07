@@ -29,7 +29,7 @@ class htmlContact
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		commonHeader();
 
@@ -102,7 +102,7 @@ class htmlContact
 		
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED)))))
 		{
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		}
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
@@ -166,7 +166,7 @@ class htmlContact
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oMeta = new DCL_MetadataDisplay();
 		$oSmarty = new DCL_Smarty();
@@ -222,7 +222,7 @@ class htmlContact
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		foreach ($aMergeContacts as $key => $value)
 		{

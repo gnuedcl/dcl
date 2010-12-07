@@ -142,7 +142,7 @@ class htmlWiki
 		$id2 = @DCL_Sanitize::ToInt($_REQUEST['id2']);
 
 		if ($dcl_info['DCL_WIKI_ENABLED'] != 'Y' || !$g_oSec->HasPerm($type, DCL_PERM_VIEWWIKI))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (!isset($name) || $name == '')
 			$name = 'FrontPage';

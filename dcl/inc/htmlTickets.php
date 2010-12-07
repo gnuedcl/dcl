@@ -31,7 +31,7 @@ class htmlTickets
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN, $obj->ticketid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objProduct = new dbProducts();
 		$objHTMLPersonnel = new htmlPersonnel();
@@ -57,7 +57,7 @@ class htmlTickets
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ATTACHFILE, $obj->ticketid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 
@@ -73,7 +73,7 @@ class htmlTickets
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REMOVEFILE, $ticketid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 		$t->assign('VAL_FILENAME', $filename);
@@ -139,7 +139,7 @@ class htmlTickets
 
 		commonHeader();
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		if ((IsSet($_REQUEST['btnNav']) || IsSet($_REQUEST['jumptopage'])) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))

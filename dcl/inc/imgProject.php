@@ -113,7 +113,7 @@ class imgProject
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oDB = new dbProjectmap();
 		if ($oDB->GetStatusCount($id) == -1)
@@ -133,7 +133,7 @@ class imgProject
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oDB = new dbProjectmap();
 		if ($oDB->GetDepartmentCount($id) == -1)
@@ -153,7 +153,7 @@ class imgProject
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oDB = new dbProjectmap();
 		if ($oDB->GetSeverityCount($id) == -1)
@@ -173,7 +173,7 @@ class imgProject
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oDB = new dbProjectmap();
 		if ($oDB->GetPriorityCount($id) == -1)
@@ -193,7 +193,7 @@ class imgProject
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oDB = new dbProjectmap();
 		if ($oDB->GetModuleCount($id) == -1)
@@ -213,7 +213,7 @@ class imgProject
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oDB = new dbProjectmap();
 		if ($oDB->GetTypeCount($id) == -1)

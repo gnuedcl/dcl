@@ -32,7 +32,7 @@ class htmlFaqquestions
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQQUESTION, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);
@@ -79,7 +79,7 @@ class htmlFaqquestions
 		    return;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $objFaq->faqid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 		

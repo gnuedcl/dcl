@@ -43,7 +43,7 @@ class htmlProductDashboard
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oSmarty->Render('htmlProductDashboardAll.tpl');
 	}
@@ -70,7 +70,7 @@ class htmlProductDashboard
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $productid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oProduct = new dbProducts();
 		if ($this->oProduct->Load($productid) == -1)

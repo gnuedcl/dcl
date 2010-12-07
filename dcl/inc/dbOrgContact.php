@@ -37,7 +37,7 @@ class dbOrgContact extends dclDB
 	function updateOrgs($contact_id, &$aOrgID)
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$aOrgID = DCL_Sanitize::ToIntArray($aOrgID);
 		if ($aOrgID === null || count($aOrgID) == 0)

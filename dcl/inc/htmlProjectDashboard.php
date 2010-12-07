@@ -48,7 +48,7 @@ class htmlProjectDashboard
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oProject = new dbProjects();
 		if ($this->oProject->Load($projectid) == -1)

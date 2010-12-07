@@ -45,7 +45,7 @@ class htmlOrgDetail
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oOrg = new dbOrg();
 		if ($oOrg->Load($id) == -1)

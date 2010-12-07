@@ -32,7 +32,7 @@ class htmlFaqanswers
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$t = new DCL_Smarty();
 		$t->assign('IS_EDIT', $isEdit);

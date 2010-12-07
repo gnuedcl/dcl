@@ -61,7 +61,7 @@ class htmlEntitySource
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boView();
 		$o->table = 'dcl_entity_source';
@@ -120,7 +120,7 @@ class htmlEntitySource
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 		print('<p>');
@@ -133,7 +133,7 @@ class htmlEntitySource
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['entity_source_id'])) === null)
 		{
@@ -154,7 +154,7 @@ class htmlEntitySource
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['entity_source_id'])) === null)
 		{
@@ -175,7 +175,7 @@ class htmlEntitySource
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boEntitySource();
 		CleanArray($_REQUEST);
@@ -189,7 +189,7 @@ class htmlEntitySource
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boEntitySource();
 		CleanArray($_REQUEST);
@@ -204,7 +204,7 @@ class htmlEntitySource
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -227,7 +227,7 @@ class htmlEntitySource
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if ($isEdit && ($id = DCL_Sanitize::ToInt($_REQUEST['entity_source_id'])) === null)
 		{

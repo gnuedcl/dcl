@@ -71,7 +71,7 @@ class htmlPersonnel
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		$oSmarty = new DCL_Smarty();
 		

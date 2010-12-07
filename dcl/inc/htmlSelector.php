@@ -58,8 +58,7 @@ class htmlSelector
 				$this->SetOptionsFromDb('dcl_org', 'org_id', 'name', "active='Y'", 'name');
 				break;
 			default:
-				PrintPermissionDenied();
-				return "";
+				throw new PermissionDeniedException();
 		}
 
 		return $this->t->parse('out', 'hForm');

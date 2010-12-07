@@ -57,7 +57,7 @@ class boChecklistTpl
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->table = 'dcl_chklst_tpl';
@@ -158,7 +158,7 @@ class boChecklistTpl
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$obj = new htmlChklstTpl();
 		$obj->add();
@@ -170,7 +170,7 @@ class boChecklistTpl
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$sFileName = DCL_Sanitize::ToFileName('userfile');
 		if ($sFileName !== null)
@@ -216,7 +216,7 @@ class boChecklistTpl
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlChklstTpl();
 		$obj->modify();
@@ -228,7 +228,7 @@ class boChecklistTpl
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
@@ -297,7 +297,7 @@ class boChecklistTpl
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
@@ -316,7 +316,7 @@ class boChecklistTpl
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
@@ -353,7 +353,7 @@ class boChecklistTpl
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{

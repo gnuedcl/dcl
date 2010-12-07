@@ -47,7 +47,7 @@ class htmlContactBrowse
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oView = &$oView;
 		
@@ -179,7 +179,7 @@ class htmlContactBrowse
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 		$oView = new boView();
@@ -277,7 +277,7 @@ class htmlContactBrowse
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 		$oDB = new dclDB;

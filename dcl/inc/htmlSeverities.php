@@ -62,7 +62,7 @@ class htmlSeverities
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objDBSeverity = new dbSeverities();
 		$objDBSeverity->Query("SELECT id,active,short,name,weight FROM severities ORDER BY $orderBy");
@@ -114,7 +114,7 @@ class htmlSeverities
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 

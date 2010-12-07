@@ -44,7 +44,7 @@ class htmlContactOrgs
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oContact = new dbContact();
 		if ($oContact->Load($id) == -1)
@@ -89,7 +89,7 @@ class htmlContactOrgs
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 
@@ -108,7 +108,7 @@ class htmlContactOrgs
 		$oSmarty = new DCL_Smarty();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $oContact->contact_id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oSmarty->assign('TXT_TITLE', 'Edit Contact Organizations');
 		$oSmarty->assign('VAL_MENUACTION', 'htmlContactOrgs.submitModify');

@@ -31,7 +31,7 @@ class htmlSession
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_DELETE) || $_REQUEST['session_id'] == $g_oSession->dcl_session_id)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boSession();
 		$o->Kill($_REQUEST);
@@ -46,7 +46,7 @@ class htmlSession
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->table = 'dcl_session';
@@ -101,7 +101,7 @@ class htmlSession
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		echo '<pre>';
 		print_r($g_oSession->session_data);

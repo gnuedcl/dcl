@@ -36,7 +36,7 @@ class htmlProjectTimeline
 		commonHeader();
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
-		    return PrintPermissionDenied();
+		    throw new PermissionDeniedException();
 		    
 		$oMeta = new DCL_MetadataDisplay();
 		$t = new DCL_Smarty();
@@ -55,13 +55,13 @@ class htmlProjectTimeline
         commonHeader();
         
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
-		    return PrintPermissionDenied();
+		    throw new PermissionDeniedException();
 
 		if (($days = DCL_Sanitize::ToInt($_REQUEST['days'])) === null)
-		    return PrintPermissionDenied();
+		    throw new PermissionDeniedException();
 
 		if (($endon = DCL_Sanitize::ToDate($_REQUEST['endon'])) === null)
-		    return PrintPermissionDenied();
+		    throw new PermissionDeniedException();
 		    
 		$oDate = new DCLDate;
 		$oDate->SetFromDisplay($endon);

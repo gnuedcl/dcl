@@ -72,7 +72,7 @@ class htmlOrg
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oView = new boView();
 		$oView->startrow = 0;

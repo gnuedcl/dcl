@@ -57,7 +57,7 @@ class htmlChangeLog
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$sMethod = explode('.', $_REQUEST['menuAction']);
 		$sMethod = $sMethod[1];
@@ -98,7 +98,7 @@ class htmlChangeLog
 	  
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null)
 		{
@@ -139,7 +139,7 @@ class htmlChangeLog
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null ||
 		    ($sccs_id = DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null
@@ -186,7 +186,7 @@ class htmlChangeLog
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null ||
 		    ($sccs_id = DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null
@@ -235,7 +235,7 @@ class htmlChangeLog
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null ||
 		    ($sccs_id = DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null ||

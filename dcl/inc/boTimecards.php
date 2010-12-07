@@ -32,7 +32,7 @@ class boTimecards
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($jcn = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
@@ -68,7 +68,7 @@ class boTimecards
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objTimecard = new dbTimeCards();
 		$objWorkorder = new dbWorkorders();
@@ -216,7 +216,7 @@ class boTimecards
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
@@ -263,8 +263,7 @@ class boTimecards
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 		{
-			PrintPermissionDenied();
-			return EvaluateReturnTo();
+			throw new PermissionDeniedException();
 		}
 
 		$objTimecard = new dbTimeCards();
@@ -362,7 +361,7 @@ class boTimecards
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -384,7 +383,7 @@ class boTimecards
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objTC = new dbTimeCards();
 		$objOldTC = new dbTimeCards();
@@ -399,7 +398,7 @@ class boTimecards
 			return;
 
 		if ($g_oSec->IsPublicUser() && $objOldTC->is_public == 'N')
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		// If the hours change, we'll need to adjust the workorder
 		$hoursDiff = $objTC->hours - $objOldTC->hours;
@@ -486,7 +485,7 @@ class boTimecards
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objTC = new dbTimeCards();
 		if ($objTC->Load($iID) == -1)
@@ -513,7 +512,7 @@ class boTimecards
 			return;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objWO = new dbWorkorders();
 		if ($objWO->Load($objTC->jcn, $objTC->seq) == -1)

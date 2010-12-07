@@ -37,7 +37,7 @@ class htmlHotlistForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -55,7 +55,7 @@ class htmlHotlistForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbHotlist();
 		$obj->hotlist_id = $id;
@@ -74,7 +74,7 @@ class htmlHotlistForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbHotlist();
 		if ($obj->Load($id) == -1)
@@ -95,7 +95,7 @@ class htmlHotlistForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbHotlist();
 		if ($obj->Load($id) == -1)
@@ -110,7 +110,7 @@ class htmlHotlistForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boHotlist();
 		CleanArray($_REQUEST);
@@ -140,7 +140,7 @@ class htmlHotlistForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boHotlist();
 		CleanArray($_REQUEST);
@@ -171,7 +171,7 @@ class htmlHotlistForm
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boHotlist();
 		$obj->delete(array('hotlist_id' => $id));
@@ -186,7 +186,7 @@ class htmlHotlistForm
 
 		$isEdit = is_object($obj) && !$bCopy;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$Template = new DCL_Smarty();
 

@@ -51,7 +51,7 @@ class htmlProductDetail
 
 		$id = (int)$id;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->id = $id;
 		$this->sView = $which;

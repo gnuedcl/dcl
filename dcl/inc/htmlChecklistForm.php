@@ -316,7 +316,7 @@ class htmlChecklistForm
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$this->xml = new xmlDoc();
 		$this->xml->ParseFile($file);

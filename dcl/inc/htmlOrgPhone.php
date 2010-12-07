@@ -37,7 +37,7 @@ class htmlOrgPhone
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 	}
@@ -48,7 +48,7 @@ class htmlOrgPhone
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_phone_id'])) === null)
 		{
@@ -69,7 +69,7 @@ class htmlOrgPhone
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 	}
 
 	function submitAdd()
@@ -78,7 +78,7 @@ class htmlOrgPhone
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) == null ||
 		    ($phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) == null
@@ -110,7 +110,7 @@ class htmlOrgPhone
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 
@@ -126,7 +126,7 @@ class htmlOrgPhone
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_phone_id'])) === null)
 		{
@@ -156,7 +156,7 @@ class htmlOrgPhone
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 		{

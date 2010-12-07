@@ -39,9 +39,9 @@ class htmlTimeCardForm
 		$isEdit = is_object($obj) && !$isBatch; // Don't allow batch updates for now...
 
 		if ($isEdit && !$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		else if (!$isEdit && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objStatuses = new htmlStatuses();
 		$objPersonnel = new htmlPersonnel();

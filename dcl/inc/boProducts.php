@@ -39,7 +39,7 @@ class boProducts extends boAdminObject
 		global $g_oSec;
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProducts();
 		$obj->InitFromArray($aSource);
@@ -51,7 +51,7 @@ class boProducts extends boAdminObject
 		global $g_oSec;
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_MODIFY, (int)$aSource['id']))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProducts();
 		$obj->InitFromArray($aSource);
@@ -63,7 +63,7 @@ class boProducts extends boAdminObject
 		global $g_oSec;
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE, (int)$id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = @DCL_Sanitize::ToInt($id)) === null)
 		{
@@ -97,7 +97,7 @@ class boProducts extends boAdminObject
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$which = isset($_REQUEST['which']) ? $_REQUEST['which'] : '';
 		if ($which != 'workorders' && $which != 'tickets' && $which != 'modules' && $which != 'release' && $which != 'build')

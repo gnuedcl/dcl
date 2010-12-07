@@ -31,7 +31,7 @@ class htmlProjectmap
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objProject = new htmlProjects();
 		
@@ -51,7 +51,7 @@ class htmlProjectmap
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->_display($jcn, $seq, 'boProjects.dbaddtoproject', STR_PM_ADDTOPRJ);
 	}
@@ -63,7 +63,7 @@ class htmlProjectmap
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->_display($jcn, $seq, 'htmlProjectmap.submitMove', 'Move Work Order to Another Project');
 	}
@@ -74,7 +74,7 @@ class htmlProjectmap
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
@@ -84,7 +84,7 @@ class htmlProjectmap
 			$obj->ShowBatchWO();
 		}
 		else
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 	}
 
 	function submitMove()
@@ -94,7 +94,7 @@ class htmlProjectmap
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
 		$o = new boProjects();
@@ -121,7 +121,7 @@ class htmlProjectmap
 			$woresponsible = 0;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boProjects();
 		$o->batchMove($_REQUEST);

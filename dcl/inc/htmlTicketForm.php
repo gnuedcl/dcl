@@ -32,7 +32,7 @@ class htmlTicketForm
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD, $isEdit ? $obj->ticketid : 0))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
 		$objJS = new jsAttributesets();

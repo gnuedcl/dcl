@@ -43,7 +43,7 @@ class htmlProjectSelector
 		global $g_oSec;
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		if (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true')
 			$this->oSmarty->assign('VAL_MULTIPLE', 'true');
@@ -61,7 +61,7 @@ class htmlProjectSelector
 		global $g_oSec;
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true')
 			$this->oSmarty->assign('VAL_MULTIPLE', 'true');
@@ -84,7 +84,7 @@ class htmlProjectSelector
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$filterStatus = @DCL_Sanitize::ToSignedInt($_REQUEST['filterStatus']);
 		if ($filterStatus === null)

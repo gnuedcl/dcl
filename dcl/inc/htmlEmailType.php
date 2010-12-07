@@ -56,7 +56,7 @@ class htmlEmailType
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boView();
 		$o->table = 'dcl_email_type';
@@ -114,7 +114,7 @@ class htmlEmailType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 		print('<p>');
@@ -127,7 +127,7 @@ class htmlEmailType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) === null)
 		{
@@ -148,7 +148,7 @@ class htmlEmailType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) === null)
 		{
@@ -169,7 +169,7 @@ class htmlEmailType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boEmailType();
 		CleanArray($_REQUEST);
@@ -186,7 +186,7 @@ class htmlEmailType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boEmailType();
 		CleanArray($_REQUEST);
@@ -201,7 +201,7 @@ class htmlEmailType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boEmailType();
 		CleanArray($_REQUEST);
@@ -224,7 +224,7 @@ class htmlEmailType
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$t = new DCL_Smarty();
 

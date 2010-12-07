@@ -45,7 +45,7 @@ class htmlAudit
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null ||
 		    ($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)

@@ -786,13 +786,6 @@ function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOptio
 	return $str;
 }
 
-function PrintPermissionDenied()
-{
-	trigger_error(STR_CMMN_PERMISSIONDENIED, E_USER_ERROR);
-
-	return -1;
-}
-
 function ShowInfo($sMessage, $sFile, $iLine, $aBacktrace)
 {
 	$o = htmlMessageInfo::GetInstance();

@@ -135,9 +135,7 @@ class dbTickets extends dclDB
 			$bIsPublic = false;
 			if (($g_oSec->IsPublicUser() || $g_oSec->IsOrgUser()) && !$this->CanView($this, $GLOBALS['DCLID'], $bIsPublic))
 			{
-				$oRetVal = -1;
-				$this->Clear();
-				PrintPermissionDenied();
+				throw new PermissionDeniedException();
 			}
 		}
 		

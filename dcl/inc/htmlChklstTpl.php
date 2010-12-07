@@ -46,7 +46,7 @@ class htmlChklstTpl
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_MODIFY, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new dbChklstTpl();
 		if ($o->Load($id) == -1)
@@ -69,7 +69,7 @@ class htmlChklstTpl
 		
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$t = new DCL_Smarty();
 		

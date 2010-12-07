@@ -78,7 +78,7 @@ class boRole extends boAdminObject
 	{
 		global $g_oSec;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$oDB = new dbRolePerm();
 		$oDB->DeleteRole($aSource['role_id']);

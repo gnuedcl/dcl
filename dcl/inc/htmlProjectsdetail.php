@@ -48,7 +48,7 @@ class htmlProjectsdetail
 		$bIsGrouping = ($_REQUEST['wogroupby'] != 'none');
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oProject = new dbProjects();
 		if ($this->oProject->Load($projectid) == -1)
@@ -313,7 +313,7 @@ class htmlProjectsdetail
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProjects();
 		if ($obj->Load($projectid) == -1)
@@ -445,7 +445,7 @@ class htmlProjectsdetail
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		// TODO: Security check
 		$o = new boFile();

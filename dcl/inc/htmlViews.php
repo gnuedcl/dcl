@@ -73,7 +73,7 @@ class htmlViews
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if ($g_oSession->IsInWorkspace())
 		{
@@ -134,7 +134,7 @@ class htmlViews
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$Template = CreateTemplate(array('hForm' => 'htmlViewForm.tpl'));
 

@@ -56,7 +56,7 @@ class htmlPhoneType
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boView();
 		$o->table = 'dcl_phone_type';
@@ -114,7 +114,7 @@ class htmlPhoneType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 		print('<p>');
@@ -127,7 +127,7 @@ class htmlPhoneType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) === null)
 		{
@@ -148,7 +148,7 @@ class htmlPhoneType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) === null)
 		{
@@ -169,7 +169,7 @@ class htmlPhoneType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boPhoneType();
 		CleanArray($_REQUEST);
@@ -186,7 +186,7 @@ class htmlPhoneType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boPhoneType();
 		CleanArray($_REQUEST);
@@ -201,7 +201,7 @@ class htmlPhoneType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -224,7 +224,7 @@ class htmlPhoneType
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 

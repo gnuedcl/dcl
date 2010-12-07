@@ -188,8 +188,7 @@ class dbEntityHotlist extends dclDB
 		
 		if ($g_oSec->IsPublicUser())
 		{
-			PrintPermissionDenied();
-			return -1;
+			throw new PermissionDeniedException();
 		}
 		
 		$oDB = new dbHotlist();
@@ -209,15 +208,14 @@ class dbEntityHotlist extends dclDB
 		
 		if ($g_oSec->IsPublicUser() || $sID == '-1')
 		{
-			PrintPermissionDenied();
-			return -1;
+			throw new PermissionDeniedException();
 		}
 		
 		$aHotlists = @DCL_Sanitize::ToIntArray($sID);
 		$iHotlistCount = count($aHotlists);
 		if ($iHotlistCount === 0)
 		{
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		}
 		
 		$sID = join(',', $aHotlists);
@@ -422,8 +420,7 @@ class dbEntityHotlist extends dclDB
 
 		if ($sSQL == '')
 		{
-			PrintPermissionDenied();
-			return -1;
+			throw new PermissionDeniedException();
 		}
 
 		return $this->Query($sSQL . ' ORDER BY 11, 1, 2, 3');

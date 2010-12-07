@@ -44,7 +44,7 @@ if (IsSet($menuAction) && $menuAction != 'clearScreen')
 	else
 	{
 		commonHeader();
-		PrintPermissionDenied();
+		trigger_error('The request was invalid.', E_USER_ERROR);
 	}
 }
 else

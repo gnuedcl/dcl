@@ -33,7 +33,7 @@ class boProjects
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlProjectsform();
 		$obj->Show();
@@ -45,7 +45,7 @@ class boProjects
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objProject = new dbProjects();
 		if ($objProject->Exists($_REQUEST['name']))
@@ -93,7 +93,7 @@ class boProjects
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($jcn = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
@@ -128,7 +128,7 @@ class boProjects
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objPM = new dbProjectmap();
 		$objPM->InitFromGlobals();
@@ -160,7 +160,7 @@ class boProjects
 		if ($project > 0)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $project))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 
 			$obj = new htmlProjectsdetail();
 			$wostatus = 0;
@@ -190,7 +190,7 @@ class boProjects
 		if ($project > 0)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $project))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 
 			$obj = new htmlProjectsdetail();
 			$wostatus = 0;
@@ -218,7 +218,7 @@ class boProjects
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProjects();
 		if ($obj->Load($projectid) == -1)
@@ -240,7 +240,7 @@ class boProjects
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProjects();
 		if ($obj->Load($projectid) != -1)
@@ -305,7 +305,7 @@ class boProjects
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProjects();
 		if ($obj->Load($projectid) == -1)
@@ -326,7 +326,7 @@ class boProjects
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbProjects();
 		$obj->projectid = $projectid;
@@ -365,7 +365,7 @@ class boProjects
 			if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVETASK, $obj->projectid))
 				$this->dbunmap($jcn, $seq);
 			else
-				PrintPermissionDenied();
+				throw new PermissionDeniedException();
 
 			$objPrj = new htmlProjectsdetail();
 			$objPrj->Show($projectid, 0, 0);
@@ -373,7 +373,7 @@ class boProjects
 		else
 		{
 			// shouldn't get here
-			PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		}
 	}
 
@@ -423,7 +423,7 @@ class boProjects
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlProjects();
 		$obj->ShowUploadFileForm($projectid);
@@ -441,7 +441,7 @@ class boProjects
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null)
 		{
@@ -475,7 +475,7 @@ class boProjects
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
 		{
@@ -499,7 +499,7 @@ class boProjects
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE, $projectid))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
 		{
@@ -556,7 +556,7 @@ class boProjects
 			return;
 
 		if (!is_object($obj))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objPersonnel = new dbPersonnel();
 		if ($objPersonnel->Load($obj->reportto) == -1)

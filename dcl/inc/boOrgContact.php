@@ -43,7 +43,7 @@ class boOrgContact extends boAdminObject
 		global $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD) && !$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_ADD) && !$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY) && !$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$this->oDB->InitFromArray($aSource);
 		if ($this->oDB->Add() == -1)

@@ -37,7 +37,7 @@ class dbOrgProduct extends dclDB
 	function updateProducts($org_id, &$aProductID)
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$aProductID = DCL_Sanitize::ToIntArray($aProductID);
 		if ($aProductID === null || count($aProductID) == 0)

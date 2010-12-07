@@ -31,7 +31,7 @@ class boLookup
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlLookup();
 		$obj->Show();
@@ -43,7 +43,7 @@ class boLookup
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbLookup();
 		$obj->InitFromGlobals();
@@ -59,7 +59,7 @@ class boLookup
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -87,7 +87,7 @@ class boLookup
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbLookup();
 		$obj->InitFromGlobals();
@@ -103,7 +103,7 @@ class boLookup
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -124,7 +124,7 @@ class boLookup
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -157,7 +157,7 @@ class boLookup
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlLookup();
 		$obj->showall();
@@ -169,7 +169,7 @@ class boLookup
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_LOOKUP, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlLookup();
 	}

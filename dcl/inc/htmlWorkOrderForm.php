@@ -52,16 +52,16 @@ class htmlWorkOrderForm
 		if ($isEdit)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $oSource->jcn, $oSource->seq))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 		}
 		else if ($isTicket)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO, $oSource->ticketid))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 		}
 		else if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
 		{
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		}
 
 		$objJS = new jsAttributesets();

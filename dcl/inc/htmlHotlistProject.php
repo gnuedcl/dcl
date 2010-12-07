@@ -53,7 +53,7 @@ class htmlHotlistProject
 		if ($id > 0)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 
 			$status = 0;
 			$responsible = 0;
@@ -78,7 +78,7 @@ class htmlHotlistProject
 		$bIsGrouping = ($_REQUEST['wogroupby'] != 'none');
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if ($this->hotlist->Load($id) == -1)
 		{

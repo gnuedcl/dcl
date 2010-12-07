@@ -32,7 +32,7 @@ class boFaqtopics
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
@@ -61,7 +61,7 @@ class boFaqtopics
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
@@ -93,7 +93,7 @@ class boFaqtopics
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['topicid'])) === null)
 		{
@@ -115,7 +115,7 @@ class boFaqtopics
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
@@ -153,7 +153,7 @@ class boFaqtopics
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbFaqtopics();
 		if ($obj->Load($iID) == -1)
@@ -174,7 +174,7 @@ class boFaqtopics
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbFaqtopics();
 		if ($obj->Load($iID) == -1)
@@ -199,7 +199,7 @@ class boFaqtopics
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['topicid'])) === null)
 		{

@@ -40,7 +40,7 @@ class htmlTicketResults
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oTable = new htmlTable();
 		

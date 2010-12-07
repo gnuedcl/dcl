@@ -33,7 +33,7 @@ class htmlWOStatistics
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		$objPersonnel = new htmlPersonnel();
 		$objProducts = new htmlProducts();
@@ -52,7 +52,7 @@ class htmlWOStatistics
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objProduct = new dbProducts();
 		$objPersonnel = new dbPersonnel();
@@ -315,7 +315,7 @@ class htmlWOStatistics
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$responsible = DCL_Sanitize::ToInt($_REQUEST['responsible']);
 		$product = DCL_Sanitize::ToInt($_REQUEST['product']);

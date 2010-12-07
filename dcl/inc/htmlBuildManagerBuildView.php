@@ -41,7 +41,7 @@ class htmlBuildManagerBuildView
 		commonHeader();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oDB = new dbBuildManager();
 		if ($oDB->query($oView->GetSQL()) == -1)

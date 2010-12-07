@@ -34,7 +34,7 @@ class htmlSecAudit
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		$objPersonnel = new htmlPersonnel();
 		

@@ -39,7 +39,7 @@ class boSeverities extends boAdminObject
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlSeverities();
 		$obj->PrintAll();
@@ -51,7 +51,7 @@ class boSeverities extends boAdminObject
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlSeverities();
 		$obj->ShowEntryForm();
@@ -63,7 +63,7 @@ class boSeverities extends boAdminObject
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oDB->InitFromGlobals();
 		$this->oDB->Add();
@@ -78,7 +78,7 @@ class boSeverities extends boAdminObject
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -99,7 +99,7 @@ class boSeverities extends boAdminObject
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oDB->InitFromGlobals();
 		$this->oDB->Edit();
@@ -113,7 +113,7 @@ class boSeverities extends boAdminObject
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -133,7 +133,7 @@ class boSeverities extends boAdminObject
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{

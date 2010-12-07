@@ -43,7 +43,7 @@ class htmlOrganizationDashboard
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oSmarty->Render('htmlOrganizationDashboardAll.tpl');
 	}
@@ -70,7 +70,7 @@ class htmlOrganizationDashboard
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $orgId))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->oOrg = new dbOrg();
 		if ($this->oOrg->Load($orgId) == -1)

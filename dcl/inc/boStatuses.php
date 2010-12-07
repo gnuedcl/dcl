@@ -32,7 +32,7 @@ class boStatuses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlStatuses();
 		$obj->PrintAll();
@@ -44,7 +44,7 @@ class boStatuses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlStatuses();
 		$obj->ShowEntryForm();
@@ -56,7 +56,7 @@ class boStatuses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbStatuses();
 		$obj->InitFromGlobals();
@@ -72,7 +72,7 @@ class boStatuses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -94,7 +94,7 @@ class boStatuses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new dbStatuses();
 		$obj->InitFromGlobals();
@@ -109,7 +109,7 @@ class boStatuses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
@@ -130,7 +130,7 @@ class boStatuses
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{

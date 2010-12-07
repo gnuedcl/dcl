@@ -40,7 +40,7 @@ class boWorkorders
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlWorkOrderForm();
 		$obj->Show();
@@ -52,7 +52,7 @@ class boWorkorders
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (!IsSet($_REQUEST['jcn']))
 		{
@@ -75,8 +75,7 @@ class boWorkorders
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
 		{
-			PrintPermissionDenied();
-			return;
+			throw new PermissionDeniedException();
 		}
 		
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
@@ -125,7 +124,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oWO = new dbWorkorders();
 		$oWO->Load($iID, $iSeq);
@@ -140,7 +139,7 @@ class boWorkorders
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objWorkorder = new dbWorkorders();
 
@@ -308,7 +307,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objWorkorder = new dbWorkorders();
 		if ($objWorkorder->Load($iID, $iSeq) == -1)
@@ -420,7 +419,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oWO = new dbWorkorders();
 		if ($oWO->Load($iID, $iSeq) == -1)
@@ -447,7 +446,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		// Remove from projects
 		$objPM = new boProjects();
@@ -517,7 +516,7 @@ class boWorkorders
 		if ($iSeq !== null && $iSeq > 0)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $iID, $iSeq))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 				
 			$obj = new htmlWorkOrderDetail();
 			$obj->Show($iID, $iSeq);
@@ -525,7 +524,7 @@ class boWorkorders
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $iID))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objView = new boView();
 		$objView->style = 'report';
@@ -587,7 +586,7 @@ class boWorkorders
 		$dateTo = DCL_Sanitize::ToDate($_REQUEST['dateTo']);
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objView = new boView();
 		$objView->table = 'workorders';
@@ -991,7 +990,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objWO = new htmlWorkorders();
 		$objWO->PrintReassignForm();
@@ -1023,7 +1022,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objWO = new dbWorkorders();
 		if ($objWO->Load($iID, $iSeq) == -1)
@@ -1076,7 +1075,7 @@ class boWorkorders
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objWO = new htmlWorkorders();
 		$objWO->PrintReassignForm();
@@ -1091,7 +1090,7 @@ class boWorkorders
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
@@ -1166,7 +1165,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new htmlWorkorders();
 		$obj->ShowUploadFileForm($iID, $iSeq);
@@ -1188,14 +1187,14 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		$oWO = new dbWorkorders();
 		if ($oWO->Load($iID, $iSeq) == -1)
 			return;
 
 		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boFile();
 		$o->iType = DCL_ENTITY_WORKORDER;
@@ -1224,7 +1223,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objH = new htmlWorkorders();
 		$objH->ShowDeleteAttachmentYesNo($iID, $iSeq, $_REQUEST['filename']);
@@ -1247,7 +1246,7 @@ class boWorkorders
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $iID, $iSeq))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$attachPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/wo/' . substr($iID, -1) . '/' . $iID . '/' . $iSeq . '/';
 		if (is_file($attachPath . $_REQUEST['filename']) && is_readable($attachPath . $_REQUEST['filename']))
@@ -1264,7 +1263,7 @@ class boWorkorders
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objHTMLWO = new htmlWorkorders();
 		$objHTMLWO->ShowCSVUploadDialog();
@@ -1321,10 +1320,10 @@ class boWorkorders
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($sTempFileName = DCL_Sanitize::ToFileName('userfile')) === null)
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 		
 		// Open the file as text - let PHP take care of line
 		// delimiter differences

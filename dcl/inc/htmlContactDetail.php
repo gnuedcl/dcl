@@ -46,7 +46,7 @@ class htmlContactDetail
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oContact = new dbContact();
 		if ($oContact->Load((int)$_REQUEST['contact_id']) == -1)

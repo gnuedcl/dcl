@@ -56,7 +56,7 @@ class htmlNoteType
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$o = new boView();
 		$o->table = 'dcl_note_type';
@@ -114,7 +114,7 @@ class htmlNoteType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->ShowEntryForm();
 		print('<p>');
@@ -127,7 +127,7 @@ class htmlNoteType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['note_type_id'])) === null)
 		{
@@ -148,7 +148,7 @@ class htmlNoteType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['note_type_id'])) === null)
 		{
@@ -169,7 +169,7 @@ class htmlNoteType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boNoteType();
 		CleanArray($_REQUEST);
@@ -186,7 +186,7 @@ class htmlNoteType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boNoteType();
 		CleanArray($_REQUEST);
@@ -201,7 +201,7 @@ class htmlNoteType
 		
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$obj = new boNoteType();
 		CleanArray($_REQUEST);
@@ -224,7 +224,7 @@ class htmlNoteType
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 

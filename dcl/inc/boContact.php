@@ -46,7 +46,7 @@ class boContact extends boAdminObject
 	{
 		global $g_oSec;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
 		parent::modify($aSource);
@@ -70,7 +70,7 @@ class boContact extends boAdminObject
 	{
 		global $g_oSec;
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = @DCL_Sanitize::ToInt($aSource['contact_id'])) === null)
 		{

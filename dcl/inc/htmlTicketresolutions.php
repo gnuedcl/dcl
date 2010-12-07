@@ -45,7 +45,7 @@ class htmlTicketresolutions
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oResolution = new dbTicketresolutions();
 		if ($oResolution->Load($id) == -1)
@@ -67,7 +67,7 @@ class htmlTicketresolutions
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oBO = new boTicketresolutions();
 		CleanArray($_REQUEST);
@@ -92,7 +92,7 @@ class htmlTicketresolutions
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$oResolution = new dbTicketresolutions();
 		if ($oResolution->Load($id) == -1)
@@ -114,7 +114,7 @@ class htmlTicketresolutions
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_DELETE))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['resid'])) === null)
 		{
@@ -153,12 +153,12 @@ class htmlTicketresolutions
 		if ($isEdit)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY, (int)$obj->resid))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 		}
 		else
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION, (int)$ticketid))
-				return PrintPermissionDenied();
+				throw new PermissionDeniedException();
 		}
 
 		$objT = new dbTickets();

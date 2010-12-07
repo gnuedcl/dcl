@@ -62,7 +62,7 @@ class htmlPriorities
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_VIEW))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$objDBPriority = new dbPriorities();
 		$objDBPriority->Query("SELECT id,active,short,name,weight FROM priorities ORDER BY $orderBy");
@@ -115,7 +115,7 @@ class htmlPriorities
 
 		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 

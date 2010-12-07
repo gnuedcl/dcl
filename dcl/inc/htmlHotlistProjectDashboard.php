@@ -48,7 +48,7 @@ class htmlHotlistProjectDashboard
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
-			return PrintPermissionDenied();
+			throw new PermissionDeniedException();
 
 		$this->hotlist = new dbHotlist();
 		if ($this->hotlist->Load($id) == -1)
