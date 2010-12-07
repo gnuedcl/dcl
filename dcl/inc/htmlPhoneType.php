@@ -131,8 +131,7 @@ class htmlPhoneType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbPhoneType();
@@ -152,8 +151,7 @@ class htmlPhoneType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbPhoneType();
@@ -205,8 +203,7 @@ class htmlPhoneType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boPhoneType();
@@ -232,8 +229,7 @@ class htmlPhoneType
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$t->assign('TXT_FUNCTION', 'Edit Phone Type');

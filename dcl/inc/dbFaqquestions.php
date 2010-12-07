@@ -52,8 +52,7 @@ class dbFaqquestions extends dclDB
 		if (($fromThisSeq = DCL_Sanitize::ToInt($fromThisSeq)) === null ||
 			($editID = DCL_Sanitize::ToInt($editID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 
 		$query = "SELECT questionid FROM faqquestions WHERE seq=$fromThisSeq and topicid=" . $this->topicid;
@@ -105,8 +104,7 @@ class dbFaqquestions extends dclDB
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$this->Clear();
@@ -129,8 +127,7 @@ class dbFaqquestions extends dclDB
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 
 		$oDB = new dclDB;

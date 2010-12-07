@@ -53,8 +53,7 @@ class htmlContactForm
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
@@ -74,8 +73,7 @@ class htmlContactForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE, $id))
@@ -225,8 +223,7 @@ class htmlContactForm
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
@@ -259,8 +256,7 @@ class htmlContactForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE, $id))

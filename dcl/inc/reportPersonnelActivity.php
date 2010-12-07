@@ -208,8 +208,7 @@ class reportPersonnelActivity
 			{
 				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$query .= ' where actionby=' . $responsible;
@@ -219,8 +218,7 @@ class reportPersonnelActivity
 			{
 				if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
@@ -255,8 +253,7 @@ class reportPersonnelActivity
 			{
 				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$query .= 'left join projectmap on timecards.jcn = projectmap.jcn and projectmap.seq in (timecards.seq, 0) ';
@@ -269,8 +266,7 @@ class reportPersonnelActivity
 			{
 				if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
@@ -290,8 +286,7 @@ class reportPersonnelActivity
 			{
 				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$query .= $objDB->JoinKeyword . ' actions on timecards.action = actions.id ';
@@ -303,8 +298,7 @@ class reportPersonnelActivity
 			{
 				if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
@@ -323,8 +317,7 @@ class reportPersonnelActivity
 			{
 				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$query .= $objDB->JoinKeyword . ' workorders on timecards.jcn = workorders.jcn and timecards.seq = workorders.seq ';
@@ -337,8 +330,7 @@ class reportPersonnelActivity
 			{
 				if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
@@ -368,8 +360,7 @@ class reportPersonnelActivity
 		{
 			if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 				
 			$sReportFor = $oMeta->GetPersonnel($responsible);
@@ -378,8 +369,7 @@ class reportPersonnelActivity
 		{
 			if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 				
 			$sReportFor = $oMeta->GetDepartment($department);
@@ -389,8 +379,7 @@ class reportPersonnelActivity
 			($enddate = DCL_Sanitize::ToDate($_REQUEST['enddate'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$oBeginDate = new DCLDate();
@@ -524,8 +513,7 @@ class reportPersonnelActivity
 		{
 			if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 				
 			$sReportFor = $oMeta->GetPersonnel($responsible);
@@ -534,8 +522,7 @@ class reportPersonnelActivity
 		{
 			if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 				
 			$sReportFor = $oMeta->GetDepartment($department);
@@ -545,8 +532,7 @@ class reportPersonnelActivity
 			($enddate = DCL_Sanitize::ToDate($_REQUEST['enddate'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($objDB->Query($query) != -1)

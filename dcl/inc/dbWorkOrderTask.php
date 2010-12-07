@@ -38,8 +38,7 @@ class dbWorkOrderTask extends dclDB
 	{
 		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
 		{
-			trigger_error('Data sanitize failed.', E_USER_ERROR);
-			return;
+			throw new InvalidDataException();
 		}
 		
 		return $this->Execute("DELETE FROM dcl_wo_task WHERE wo_id = $wo_id AND seq = $seq");
@@ -49,8 +48,7 @@ class dbWorkOrderTask extends dclDB
 	{
 		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
 		{
-			trigger_error('Data sanitize failed.', E_USER_ERROR);
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($bForDisplay)
@@ -75,8 +73,7 @@ class dbWorkOrderTask extends dclDB
 	{
 		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
 		{
-			trigger_error('Data sanitize failed.', E_USER_ERROR);
-			return;
+			throw new InvalidDataException();
 		}
 		
 		return $this->ExecuteScalar("SELECT COUNT(*) FROM dcl_wo_task WHERE wo_id = $wo_id AND seq = $seq AND task_complete = 'N'");
@@ -88,8 +85,7 @@ class dbWorkOrderTask extends dclDB
 		
 		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
 		{
-			trigger_error('Data sanitize failed.', E_USER_ERROR);
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->GetCountIncompleteTasksForWorkOrder($wo_id, $seq) > 0)

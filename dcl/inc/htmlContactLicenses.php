@@ -52,8 +52,7 @@ class htmlContactLicenses
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_license_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbContactLicense();
@@ -84,8 +83,7 @@ class htmlContactLicenses
 			($expires_on = DCL_Sanitize::ToDate($_REQUEST['expires_on'])) === null 
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
@@ -122,8 +120,7 @@ class htmlContactLicenses
 			($expires_on = DCL_Sanitize::ToDate($_REQUEST['expires_on'])) === null  
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
@@ -159,8 +156,7 @@ class htmlContactLicenses
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_license_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		CleanArray($_REQUEST);
@@ -189,8 +185,7 @@ class htmlContactLicenses
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oSmarty = new DCL_Smarty();

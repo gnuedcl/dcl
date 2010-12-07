@@ -52,8 +52,7 @@ class htmlContactEmail
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_email_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbContactEmail();
@@ -82,8 +81,7 @@ class htmlContactEmail
 			($email_type_id = DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
@@ -131,8 +129,7 @@ class htmlContactEmail
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_email_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		CleanArray($_REQUEST);
@@ -161,8 +158,7 @@ class htmlContactEmail
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oSmarty = new DCL_Smarty();

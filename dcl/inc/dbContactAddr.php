@@ -38,8 +38,7 @@ class dbContactAddr extends dclDB
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT a.contact_addr_id, a.contact_id, a.addr_type_id, a.add1, a.add2, a.city, a.state, a.zip, a.country, a.preferred, t.addr_type_name';

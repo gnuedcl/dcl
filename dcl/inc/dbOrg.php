@@ -38,8 +38,7 @@ class dbOrg extends dclDB
 	{
 		if (($aOrgID = DCL_Sanitize::ToIntArray($aOrgID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$aRetVal = array();

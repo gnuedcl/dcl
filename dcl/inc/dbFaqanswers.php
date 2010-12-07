@@ -61,8 +61,7 @@ class dbFaqanswers extends dclDB
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$this->Clear();
@@ -85,8 +84,7 @@ class dbFaqanswers extends dclDB
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 
 		$oDB = new dclDB;

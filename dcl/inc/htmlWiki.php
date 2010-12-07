@@ -58,8 +58,7 @@ class htmlWiki
 			
 		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if ($type == DCL_ENTITY_GLOBAL)
@@ -67,8 +66,7 @@ class htmlWiki
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 
@@ -93,8 +91,7 @@ class htmlWiki
 			case DCL_ENTITY_WORKORDER:
 				if (($id2 = DCL_Sanitize::ToInt($_REQUEST['id2'])) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$o = new dbWorkorders();
@@ -123,14 +120,12 @@ class htmlWiki
 
 		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null && $type != DCL_ENTITY_GLOBAL)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($type == DCL_ENTITY_GLOBAL)
@@ -273,14 +268,12 @@ class htmlWiki
 	{
 		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if ($type != DCL_ENTITY_GLOBAL && ($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($type == DCL_ENTITY_WORKORDER)
@@ -516,8 +509,7 @@ class htmlWiki
 	{
 		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$id = @DCL_Sanitize::ToInt($_REQUEST['id']);
@@ -566,8 +558,7 @@ class htmlWiki
 			($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$name = GPCStripSlashes($_REQUEST['name']);

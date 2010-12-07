@@ -67,8 +67,7 @@ class boViews
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbViews();
@@ -95,8 +94,7 @@ class boViews
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbViews();
@@ -127,8 +125,7 @@ class boViews
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['viewid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objDB = new dbViews();

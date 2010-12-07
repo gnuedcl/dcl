@@ -38,8 +38,7 @@ class dbOrgEmail extends dclDB
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT e.org_email_id, e.org_id, e.email_type_id, e.email_addr, e.preferred, t.email_type_name';
@@ -52,8 +51,7 @@ class dbOrgEmail extends dclDB
 	{
 		if (($iOrgID = DCL_Sanitize::ToInt($iOrgID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->Query("SELECT et.email_type_name, e.email_addr FROM dcl_org_email e, dcl_email_type et WHERE e.email_type_id = et.email_type_id AND e.org_id = $iOrgID AND e.preferred = 'Y'") != -1)

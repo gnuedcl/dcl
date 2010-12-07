@@ -31,8 +31,7 @@ class htmlChangeLog
 	{
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$this->oDB = new dclDB;
@@ -52,8 +51,7 @@ class htmlChangeLog
 		
 		if (($id = @DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
@@ -69,8 +67,7 @@ class htmlChangeLog
 		{
 			if (($sccs_id = @DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 
 			$oRepository = new dbSccsXref();
@@ -102,8 +99,7 @@ class htmlChangeLog
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$this->oDB->query(sprintf('select r.dcl_sccs_id, r.sccs_descr, count(*) from dcl_sccs_xref c join dcl_sccs r on c.dcl_sccs_id = r.dcl_sccs_id and c.personnel_id = %d group by r.dcl_sccs_id, r.sccs_descr order by r.sccs_descr', $id));
@@ -145,8 +141,7 @@ class htmlChangeLog
 		    ($sccs_id = DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oPersonnel = new dbPersonnel();
@@ -192,8 +187,7 @@ class htmlChangeLog
 		    ($sccs_id = DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$sccs_project_path = $_REQUEST['sccs_project_path'];
@@ -242,8 +236,7 @@ class htmlChangeLog
 		    !DCL_Sanitize::IsValidFileName($_REQUEST['sccs_file_name'])
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$sccs_project_path = $_REQUEST['sccs_project_path'];

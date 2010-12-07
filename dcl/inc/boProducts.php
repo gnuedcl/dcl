@@ -67,8 +67,7 @@ class boProducts extends boAdminObject
 
 		if (($id = @DCL_Sanitize::ToInt($id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$oDB = new dbProducts();
@@ -92,8 +91,7 @@ class boProducts extends boAdminObject
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $iID))
@@ -147,14 +145,12 @@ class boProducts extends boAdminObject
 	{
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($iVerID = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$_REQUEST['which'] = 'build';

@@ -207,8 +207,7 @@ class htmlBuildManager
 			($product_version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null ||
 			($buildid = @DCL_Sanitize::ToInt($_REQUEST['buildid'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 
 		$oDbProduct = new dbProducts();

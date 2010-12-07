@@ -76,8 +76,7 @@ class scheduleByPerson
 		
 		if (($personID = DCL_Sanitize::ToInt($_REQUEST['personID'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$dbWO = new dbWorkorders();

@@ -31,8 +31,7 @@ class boBuildManager
 		commonHeader();
 		if (($id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
 		{
-		    trigger_error('Data sanitize failed.', E_USER_ERROR);
-		    return;
+		    throw new InvalidDataException();
 		}
 		
 		$obj = new dbBuildManager();
@@ -194,8 +193,7 @@ class boBuildManager
 			case 'version':
 			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
 			    {
-			        trigger_error('Data sanitize failed.', E_USER_ERROR);
-			        return;
+			        throw new InvalidDataException();
 			    }
 			    
 				$objView = new boView();
@@ -216,14 +214,12 @@ class boBuildManager
 			case 'build':
 			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
 			    {
-			        trigger_error('Data sanitize failed.', E_USER_ERROR);
-			        return;
+			        throw new InvalidDataException();
 			    }
 			    
 			    if (($product_build_id = @DCL_Sanitize::ToInt($_REQUEST['product_build_id'])) === null)
 			    {
-			        trigger_error('Data sanitize failed.', E_USER_ERROR);
-			        return;
+			        throw new InvalidDataException();
 			    }
 			    
 			    $objView = new boView();
@@ -264,14 +260,12 @@ class boBuildManager
 			case 'version':	
 			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
 			    {
-			        trigger_error('Data sanitize failed.', E_USER_ERROR);
-			        return;
+			        throw new InvalidDataException();
 			    }
 			    
 			    if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
 			    {
-			        trigger_error('Data sanitize failed.', E_USER_ERROR);
-			        return;
+			        throw new InvalidDataException();
 			    }
 			    
 			    $objView = new boView();

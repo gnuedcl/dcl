@@ -40,8 +40,7 @@ class htmlTicketresolutions
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY))
@@ -87,8 +86,7 @@ class htmlTicketresolutions
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['resid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_DELETE))
@@ -118,8 +116,7 @@ class htmlTicketresolutions
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['resid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$oResolution = new dbTicketresolutions();

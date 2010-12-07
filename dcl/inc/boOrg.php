@@ -74,8 +74,7 @@ class boOrg extends boAdminObject
 
 		if (($id = @DCL_Sanitize::ToInt($aSource['org_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}		
 		
 		if (!$this->oDB->HasFKRef($id))
@@ -96,8 +95,7 @@ class boOrg extends boAdminObject
 	{
 		if (($id = @DCL_Sanitize::ToIntArray($id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$sSQL = 'SELECT org_id, name FROM dcl_org WHERE org_id IN (' . join(',', $id) . ') ORDER BY name';
@@ -109,14 +107,12 @@ class boOrg extends boAdminObject
 	{
 		if (($jcn = @DCL_Sanitize::ToInt($jcn)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($seq = @DCL_Sanitize::ToInt($seq)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$sSQL = "SELECT o.org_id, o.name FROM dcl_org o, dcl_wo_account w WHERE o.org_id = w.account_id AND w.wo_id = $jcn AND w.seq = $seq ORDER BY o.name";
@@ -128,8 +124,7 @@ class boOrg extends boAdminObject
 	{
 		if (($ticketid = @DCL_Sanitize::ToInt($ticketid)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$sSQL = "SELECT o.org_id, o.name FROM dcl_org o, tickets t WHERE o.org_id = t.account AND t.ticketid = $ticketid ORDER BY o.name";

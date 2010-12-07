@@ -60,8 +60,7 @@ class boWorkorders
 		}
 		else if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new htmlWorkOrderForm();
@@ -80,14 +79,12 @@ class boWorkorders
 		
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$bSequence = isset($_REQUEST['copyseq']) && $_REQUEST['copyseq'] == 'true';
@@ -113,14 +110,12 @@ class boWorkorders
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
@@ -149,8 +144,7 @@ class boWorkorders
 		{
 			if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 			
 			$objWorkorder->Query('SELECT jcn FROM workorders where jcn=' . $iID);
@@ -296,14 +290,12 @@ class boWorkorders
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
@@ -408,14 +400,12 @@ class boWorkorders
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $iID, $iSeq))
@@ -435,14 +425,12 @@ class boWorkorders
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $iID, $iSeq))
@@ -508,8 +496,7 @@ class boWorkorders
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq']);
@@ -874,8 +861,7 @@ class boWorkorders
 			($dateFrom = @DCL_Sanitize::ToDate($_REQUEST['dateFrom'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$iProduct = 0;
@@ -979,14 +965,12 @@ class boWorkorders
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN, $iID, $iSeq))
@@ -1017,8 +1001,7 @@ class boWorkorders
 				($estendon = @DCL_Sanitize::ToDate($_REQUEST['estendon'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN, $iID, $iSeq))
@@ -1100,8 +1083,7 @@ class boWorkorders
 
 			if (($iResponsible = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 
 			if (($iPriority = @DCL_Sanitize::ToInt($_REQUEST['priority'])) === null)
@@ -1116,8 +1098,7 @@ class boWorkorders
 				if (($jcn = DCL_Sanitize::ToInt($jcn)) === null ||
 					($seq = DCL_Sanitize::ToInt($seq)) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 
 				if ($objWO->Load($jcn, $seq) == -1)
@@ -1160,8 +1141,7 @@ class boWorkorders
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
 			($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $iID, $iSeq))
@@ -1182,8 +1162,7 @@ class boWorkorders
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
 			($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $iID, $iSeq))
@@ -1218,8 +1197,7 @@ class boWorkorders
 			($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null ||
 			!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $iID, $iSeq))
@@ -1241,8 +1219,7 @@ class boWorkorders
 			($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null ||
 			!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $iID, $iSeq))
@@ -1530,8 +1507,7 @@ class boWorkorders
 				if (($jcn = DCL_Sanitize::ToInt($jcn)) === null ||
 					($seq = DCL_Sanitize::ToInt($seq)) === null)
 				{
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 
 				if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))

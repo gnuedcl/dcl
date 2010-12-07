@@ -38,8 +38,7 @@ class dbOrgAlias extends dclDB
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT ' . $this->SelectAllColumns() . ' FROM ' . $this->TableName . ' WHERE org_id = ' . $org_id;

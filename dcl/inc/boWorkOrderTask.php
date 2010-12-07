@@ -54,8 +54,7 @@ class boWorkOrderTask extends boAdminObject
 	{
 		if (($wo_task_id = DCL_Sanitize::ToInt($aSource['wo_task_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.', E_USER_ERROR);
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->oDB->Load($wo_task_id) == -1)
@@ -87,8 +86,7 @@ class boWorkOrderTask extends boAdminObject
 	{
 		if (($wo_task_id = DCL_Sanitize::ToInt($aSource['wo_task_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.', E_USER_ERROR);
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->oDB->Load($wo_task_id) == -1)
@@ -110,8 +108,7 @@ class boWorkOrderTask extends boAdminObject
 	{
 		if (($wo_task_id = DCL_Sanitize::ToInt($aSource['wo_task_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.', E_USER_ERROR);
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->oDB->Load($wo_task_id) == -1)

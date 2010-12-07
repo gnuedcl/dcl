@@ -127,8 +127,7 @@ class htmlTicketDetail
 			!DCL_Sanitize::IsValidFileName($_REQUEST['filename'])
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW, $id))

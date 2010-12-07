@@ -43,14 +43,12 @@ class htmlWorkOrderTask
 
 		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$this->ShowEntryForm();
@@ -63,8 +61,7 @@ class htmlWorkOrderTask
 		commonHeader();
 		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
@@ -84,8 +81,7 @@ class htmlWorkOrderTask
 		commonHeader();
 		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
@@ -105,14 +101,12 @@ class htmlWorkOrderTask
 		commonHeader();
 		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
@@ -138,14 +132,12 @@ class htmlWorkOrderTask
 		CleanArray($_REQUEST);
 		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['wo_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boWorkOrderTask();
@@ -181,8 +173,7 @@ class htmlWorkOrderTask
 
 		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new boWorkOrderTask();
@@ -203,8 +194,7 @@ class htmlWorkOrderTask
 
 		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$task_complete = @DCL_Sanitize::ToYN($_REQUEST['task_complete']);
@@ -228,8 +218,7 @@ class htmlWorkOrderTask
 		CleanArray($_REQUEST);
 		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boWorkOrderTask();
@@ -252,14 +241,12 @@ class htmlWorkOrderTask
 
 		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['wo_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$aTaskList = @DCL_Sanitize::ToIntArray($_REQUEST['task']);
@@ -298,14 +285,12 @@ class htmlWorkOrderTask
 		{
 			if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 			
 			if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 
 			$t->assign('URL_BACK', menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $wo_id . '&seq=' . $seq));

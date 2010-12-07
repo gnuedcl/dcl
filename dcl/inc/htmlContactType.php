@@ -131,8 +131,7 @@ class htmlContactType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbContactType();
@@ -152,8 +151,7 @@ class htmlContactType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbContactType();
@@ -206,8 +204,7 @@ class htmlContactType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boContactType();
@@ -231,8 +228,7 @@ class htmlContactType
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_type_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$t->assign('TXT_FUNCTION', 'Edit Contact Type');

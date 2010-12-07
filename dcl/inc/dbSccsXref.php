@@ -40,8 +40,7 @@ class dbSccsXref extends dclDB
 			($id1 = DCL_Sanitize::ToInt($id1)) === null ||
 			($id2 = DCL_Sanitize::ToInt($id2)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$this->Clear();

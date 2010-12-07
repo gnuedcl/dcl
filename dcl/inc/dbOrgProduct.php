@@ -53,8 +53,7 @@ class dbOrgProduct extends dclDB
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT p.id, op.org_id, p.name';

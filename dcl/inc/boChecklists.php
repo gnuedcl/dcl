@@ -141,8 +141,7 @@ class boChecklists
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$o = new dbChklstTpl();
@@ -204,8 +203,7 @@ class boChecklists
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$tpl = new boChecklistTpl();
@@ -268,8 +266,7 @@ class boChecklists
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$this->showform($iID);
@@ -291,8 +288,7 @@ class boChecklists
 			
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$oCL = new htmlChecklistForm();
@@ -327,8 +323,7 @@ class boChecklists
 			
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$o = new dbChklst();
@@ -346,8 +341,7 @@ class boChecklists
 			
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$o = new dbChklst();
@@ -366,8 +360,7 @@ class boChecklists
 		
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$this->showform($iID, true);

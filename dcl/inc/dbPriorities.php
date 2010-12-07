@@ -55,8 +55,7 @@ class dbPriorities extends dclDB
 		if (($fromThisWeight = DCL_Sanitize::ToInt($fromThisWeight)) === null ||
 			($editID = DCL_Sanitize::ToInt($editID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$query = "SELECT id FROM priorities WHERE weight=$fromThisWeight";

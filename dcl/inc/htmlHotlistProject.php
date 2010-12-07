@@ -46,8 +46,7 @@ class htmlHotlistProject
 
 		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if ($id > 0)

@@ -71,8 +71,7 @@ class htmlProductModules
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oProduct = new dbProducts();
@@ -152,8 +151,7 @@ class htmlProductModules
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_module_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbProductModules();
@@ -173,8 +171,7 @@ class htmlProductModules
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_module_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbProductModules();
@@ -223,8 +220,7 @@ class htmlProductModules
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boProductModules();
@@ -250,16 +246,14 @@ class htmlProductModules
 		{
 			if (($product_module_id = DCL_Sanitize::ToInt($_REQUEST['product_module_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		}
 		else
 		{
 			if (($product_id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		}
 

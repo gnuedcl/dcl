@@ -36,14 +36,12 @@ class boTimecards
 
 		if (($jcn = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($seq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new htmlTimeCardForm();
@@ -365,8 +363,7 @@ class boTimecards
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objTC = new dbTimeCards();
@@ -480,8 +477,7 @@ class boTimecards
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
@@ -503,8 +499,7 @@ class boTimecards
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objTC = new dbTimeCards();

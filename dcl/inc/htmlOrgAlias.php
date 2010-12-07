@@ -52,8 +52,7 @@ class htmlOrgAlias
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_alias_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbOrgAlias();
@@ -82,8 +81,7 @@ class htmlOrgAlias
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		CleanArray($_REQUEST);
@@ -126,8 +124,7 @@ class htmlOrgAlias
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_alias_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$aKey = array('org_alias_id' => $id);
@@ -154,8 +151,7 @@ class htmlOrgAlias
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oSmarty = new DCL_Smarty();

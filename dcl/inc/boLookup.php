@@ -63,8 +63,7 @@ class boLookup
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$oDB = new dbLookup();
@@ -107,8 +106,7 @@ class boLookup
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbLookup();
@@ -128,8 +126,7 @@ class boLookup
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbLookup();

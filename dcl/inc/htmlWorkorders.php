@@ -50,8 +50,7 @@ class htmlWorkorders
 				($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
 				)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 			
 			if ($objWO->Load($jcn, $seq) == -1)
@@ -192,8 +191,7 @@ class htmlWorkorders
 			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))
@@ -221,8 +219,7 @@ class htmlWorkorders
 			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$o = new dbSccsXref();
@@ -265,8 +262,7 @@ class htmlWorkorders
 			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$o = new dbSccsXref();

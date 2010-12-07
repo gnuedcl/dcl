@@ -47,8 +47,7 @@ class htmlFaqanswers
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['questionid'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 
 			$t->assign('VAL_ANSWERTEXT', '');

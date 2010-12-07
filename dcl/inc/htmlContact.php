@@ -62,8 +62,7 @@ class htmlContact
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$oMeta = new DCL_MetadataDisplay();
@@ -107,8 +106,7 @@ class htmlContact
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oMeta = new DCL_MetadataDisplay();
@@ -161,8 +159,7 @@ class htmlContact
 		commonHeader();
 		if (($contact_id = DCL_Sanitize::ToIntArray($_REQUEST['contact_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
@@ -217,8 +214,7 @@ class htmlContact
 			($aMergeContacts = DCL_Sanitize::ToIntArray($_REQUEST['merge_contact_id'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))

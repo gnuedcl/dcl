@@ -38,8 +38,7 @@ class dbContactPhone extends dclDB
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT p.contact_phone_id, p.contact_id, p.phone_type_id, p.phone_number, p.preferred, t.phone_type_name';
@@ -52,8 +51,7 @@ class dbContactPhone extends dclDB
 	{
 		if (($iContactID = DCL_Sanitize::ToInt($iContactID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return false;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->Query("SELECT pt.phone_type_name, p.phone_number FROM dcl_contact_phone p, dcl_phone_type pt WHERE p.phone_type_id = pt.phone_type_id AND p.contact_id = $iContactID AND preferred = 'Y'") != -1)

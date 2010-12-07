@@ -41,8 +41,7 @@ class dbTimeCards extends dclDB
 		{
 			if ($_REQUEST['menuAction'] !== 'boTimecards.dbbatchadd')
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		}
 

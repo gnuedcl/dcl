@@ -38,8 +38,7 @@ class dbOrgType extends dclDB
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT u.org_type_id, u.org_id, t.org_type_name';

@@ -49,8 +49,7 @@ class htmlFaqtopics
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$t->assign('TXT_TITLE', STR_FAQ_ADDFAQTOPIC);

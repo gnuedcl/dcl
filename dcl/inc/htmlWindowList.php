@@ -41,8 +41,7 @@ class htmlWindowList
 			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($part == 'top')
@@ -127,8 +126,7 @@ class htmlWindowList
 			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$this->t = CreateTemplate(array('hForm' => 'htmlWindowListFrame.tpl'));

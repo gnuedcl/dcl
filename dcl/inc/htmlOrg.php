@@ -103,8 +103,7 @@ class htmlOrg
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$oMeta = new DCL_MetadataDisplay();
@@ -141,8 +140,7 @@ class htmlOrg
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oMeta = new DCL_MetadataDisplay();

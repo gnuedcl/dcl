@@ -36,8 +36,7 @@ class boFaqanswers
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['questionid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objF = new dbFaqquestions();
@@ -65,8 +64,7 @@ class boFaqanswers
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['questionid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objF = new dbFaqquestions();
@@ -98,8 +96,7 @@ class boFaqanswers
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['answerid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbFaqanswers();
@@ -120,8 +117,7 @@ class boFaqanswers
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['questionid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objF = new dbFaqquestions();
@@ -148,8 +144,7 @@ class boFaqanswers
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['answerid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $iID))
@@ -169,8 +164,7 @@ class boFaqanswers
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['answerid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $iID))

@@ -41,8 +41,7 @@ class htmlChklstTpl
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_MODIFY, $id))

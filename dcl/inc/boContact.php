@@ -74,8 +74,7 @@ class boContact extends boAdminObject
 
 		if (($id = @DCL_Sanitize::ToInt($aSource['contact_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}		
 		
 		if (!$this->oDB->HasFKRef($id))

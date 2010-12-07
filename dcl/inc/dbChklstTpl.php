@@ -50,8 +50,7 @@ class dbChklstTpl extends dclDB
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) == NULL)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		return $this->ExecuteScalar('select count(*) from dcl_chklst where dcl_chklst_tpl_id = ' . $id) > 0;

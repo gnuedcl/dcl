@@ -99,8 +99,7 @@ class dbPersonnel extends dclDB
 
 		if (($userID = DCL_Sanitize::ToInt($userID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		if ($GLOBALS['DCLID'] > 1 && !$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD))

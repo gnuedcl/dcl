@@ -131,8 +131,7 @@ class htmlUrlType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['url_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbUrlType();
@@ -152,8 +151,7 @@ class htmlUrlType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['url_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbUrlType();
@@ -206,8 +204,7 @@ class htmlUrlType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boUrlType();
@@ -231,8 +228,7 @@ class htmlUrlType
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['url_type_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$t->assign('TXT_FUNCTION', 'Edit URL Type');

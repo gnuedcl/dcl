@@ -48,8 +48,7 @@ class htmlFaqquestions
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['topicid'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 
 			$t->assign('VAL_SEQ', '');

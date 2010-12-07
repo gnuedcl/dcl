@@ -82,8 +82,7 @@ class boPriorities extends boAdminObject
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->oDB->Load($iID) == -1)
@@ -117,8 +116,7 @@ class boPriorities extends boAdminObject
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->oDB->Load($iID) == -1)
@@ -137,8 +135,7 @@ class boPriorities extends boAdminObject
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		parent::delete(array('id' => $iID));

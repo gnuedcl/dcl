@@ -38,8 +38,7 @@ class dbOrgAddr extends dclDB
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT a.org_addr_id, a.org_id, a.addr_type_id, a.add1, a.add2, a.city, a.state, a.zip, a.country, a.preferred, t.addr_type_name';
@@ -52,8 +51,7 @@ class dbOrgAddr extends dclDB
 	{
 		if (($iOrgID = DCL_Sanitize::ToInt($iOrgID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT a.org_addr_id, a.org_id, a.addr_type_id, a.add1, a.add2, a.city, a.state, a.zip, a.country, a.preferred, t.addr_type_name';

@@ -52,8 +52,7 @@ class htmlOrgEmail
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_email_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbOrgEmail();
@@ -84,8 +83,7 @@ class htmlOrgEmail
 		    ($email_type_id = DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		CleanArray($_REQUEST);
@@ -130,8 +128,7 @@ class htmlOrgEmail
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_email_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		CleanArray($_REQUEST);
@@ -160,8 +157,7 @@ class htmlOrgEmail
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oSmarty = new DCL_Smarty();

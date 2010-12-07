@@ -97,14 +97,12 @@ class boProjects
 
 		if (($jcn = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($seq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objPM = new dbProjectmap();
@@ -153,8 +151,7 @@ class boProjects
 
 		if (($project = @DCL_Sanitize::ToInt($_REQUEST['project'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($project > 0)
@@ -183,8 +180,7 @@ class boProjects
 		commonHeader();
 		if (($project = @DCL_Sanitize::ToInt($_REQUEST['project'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($project > 0)
@@ -213,8 +209,7 @@ class boProjects
 		commonHeader();
 		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $projectid))
@@ -235,8 +230,7 @@ class boProjects
 		commonHeader();
 		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $projectid))
@@ -249,8 +243,7 @@ class boProjects
 			    ($parentprojectid = @DCL_Sanitize::ToInt($_REQUEST['parentprojectid'])) === null
 				)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$oStatus = new dbStatuses();
@@ -300,8 +293,7 @@ class boProjects
 		commonHeader();
 		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $projectid))
@@ -321,8 +313,7 @@ class boProjects
 		commonHeader();
 		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $projectid))
@@ -349,14 +340,12 @@ class boProjects
 
 		if (($jcn = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($seq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbProjectmap();
@@ -418,8 +407,7 @@ class boProjects
 		commonHeader();
 		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE, $projectid))
@@ -436,8 +424,7 @@ class boProjects
 		commonHeader();
 		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE, $projectid))
@@ -470,8 +457,7 @@ class boProjects
 		commonHeader();
 		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE, $projectid))
@@ -494,8 +480,7 @@ class boProjects
 		commonHeader();
 		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE, $projectid))

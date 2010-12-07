@@ -38,8 +38,7 @@ class dbContactLicense extends dclDB
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT l.contact_license_id, l.contact_id, l.product_id, l.product_version, l.license_id, l.registered_on, l.expires_on, l.license_notes, p.name';

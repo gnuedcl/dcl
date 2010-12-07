@@ -108,8 +108,7 @@ class htmlProjectmap
 		commonHeader();
 		if (($projectid = DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$wostatus = @DCL_Sanitize::ToInt($_REQUEST['wostatus']);

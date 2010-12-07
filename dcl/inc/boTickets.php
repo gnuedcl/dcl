@@ -158,8 +158,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$oTicket = new dbTickets();
@@ -180,8 +179,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbTickets();
@@ -208,8 +206,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbTickets();
@@ -231,8 +228,7 @@ class boTickets
 			
 			if (($iID = @DCL_Sanitize::ToInt($_REQUEST[$sField])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			if ($obj->$sField != $iID)
@@ -276,8 +272,7 @@ class boTickets
 		{
 			if (($iID = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			if ($obj->responsible != $iID)
@@ -315,8 +310,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbTickets();
@@ -342,8 +336,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbTickets();
@@ -391,8 +384,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objTicket = new dbTickets();
@@ -450,8 +442,7 @@ class boTickets
 			($dateFrom = @DCL_Sanitize::ToDate($_REQUEST['dateFrom'])) === null
 			)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$endDate->SetFromDisplay($dateFrom . ' 23:59:59');
@@ -531,8 +522,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objTicket = new dbTickets();
@@ -556,26 +546,22 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($responsible = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($priority = @DCL_Sanitize::ToInt($_REQUEST['priority'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (($type = @DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbTickets();
@@ -609,8 +595,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objTicket = new dbTickets();
@@ -634,8 +619,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objTicket = new dbTickets();
@@ -667,8 +651,7 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objTicket = new dbTickets();
@@ -677,8 +660,7 @@ class boTickets
 			
 		if (!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new htmlTickets();
@@ -698,14 +680,12 @@ class boTickets
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$objTicket = new dbTickets();

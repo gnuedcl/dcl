@@ -52,8 +52,7 @@ class htmlContactPhone
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_phone_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbContactPhone();
@@ -84,8 +83,7 @@ class htmlContactPhone
 		    ($phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) === null
 		    )
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		CleanArray($_REQUEST);
@@ -130,8 +128,7 @@ class htmlContactPhone
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_phone_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		CleanArray($_REQUEST);
@@ -160,8 +157,7 @@ class htmlContactPhone
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oSmarty = new DCL_Smarty();

@@ -40,8 +40,7 @@ class boTicketresolutions
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION, $iID))
@@ -65,8 +64,7 @@ class boTicketresolutions
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION, $iID))

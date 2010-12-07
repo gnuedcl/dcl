@@ -50,8 +50,7 @@ class htmlRoleForm
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['role_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_ADD))
@@ -69,8 +68,7 @@ class htmlRoleForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['role_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_MODIFY))
@@ -90,8 +88,7 @@ class htmlRoleForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['role_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))
@@ -132,8 +129,7 @@ class htmlRoleForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['role_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_MODIFY))
@@ -160,8 +156,7 @@ class htmlRoleForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))

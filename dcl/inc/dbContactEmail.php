@@ -38,8 +38,7 @@ class dbContactEmail extends dclDB
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT e.contact_email_id, e.contact_id, e.email_type_id, e.email_addr, e.preferred, t.email_type_name';
@@ -52,8 +51,7 @@ class dbContactEmail extends dclDB
 	{
 		if (($iContactID = DCL_Sanitize::ToInt($iContactID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 	    if ($this->Query("SELECT et.email_type_name, e.email_addr FROM dcl_contact_email e, dcl_email_type et WHERE e.email_type_id = et.email_type_id AND e.contact_id = $iContactID AND e.preferred = 'Y'") != -1)
@@ -68,8 +66,7 @@ class dbContactEmail extends dclDB
 	{
 		if (($iUserID = DCL_Sanitize::ToInt($iUserID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 	    if ($this->Query("SELECT et.email_type_name, e.email_addr FROM dcl_contact_email e, dcl_email_type et, personnel p WHERE p.contact_id = e.contact_id AND e.email_type_id = et.email_type_id AND p.id = $iUserID AND e.preferred = 'Y'") != -1)

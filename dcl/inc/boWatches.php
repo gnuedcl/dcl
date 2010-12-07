@@ -69,8 +69,7 @@ class boWatches
 		{
 			if (($iTypeID = @DCL_Sanitize::ToInt($_REQUEST['typeid'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		}
 		else
@@ -80,15 +79,13 @@ class boWatches
 
 		if (($iWhatID1 = @DCL_Sanitize::ToInt($_REQUEST['whatid1'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$iWhatID2 = null;
 		if ($typeid == 3 && ($iWhatID2 = @DCL_Sanitize::ToInt($_REQUEST['whatid2'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbWatches();
@@ -133,8 +130,7 @@ class boWatches
 		
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['watchid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbWatches();
@@ -154,8 +150,7 @@ class boWatches
 		
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['watchid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbWatches();
@@ -177,8 +172,7 @@ class boWatches
 		
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['watchid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbWatches();
@@ -197,8 +191,7 @@ class boWatches
 		
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbWatches();

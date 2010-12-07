@@ -127,8 +127,7 @@ class htmlOrgType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbOrgType();
@@ -148,8 +147,7 @@ class htmlOrgType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbOrgType();
@@ -201,8 +199,7 @@ class htmlOrgType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boOrgType();
@@ -226,8 +223,7 @@ class htmlOrgType
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['org_type_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$t->assign('TXT_FUNCTION', 'Edit Organization Type');

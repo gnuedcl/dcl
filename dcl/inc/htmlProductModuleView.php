@@ -45,8 +45,7 @@ class htmlProductModuleView extends htmlView
 		
 		if (($product_id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_ADD))

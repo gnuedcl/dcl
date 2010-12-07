@@ -136,8 +136,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -156,8 +155,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -176,8 +174,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -196,8 +193,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -216,8 +212,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -236,8 +231,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -256,8 +250,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -276,8 +269,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -296,8 +288,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))
@@ -316,8 +307,7 @@ class imgProduct
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			print 'Data sanitize failed.';
-			exit;
+			throw new InvalidDataException();
 		}
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $id))

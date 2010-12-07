@@ -40,8 +40,7 @@ class htmlOrgDetail
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))

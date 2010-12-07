@@ -50,8 +50,7 @@ class htmlWorkspaceForm
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_ADD))
@@ -69,8 +68,7 @@ class htmlWorkspaceForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_MODIFY))
@@ -90,8 +88,7 @@ class htmlWorkspaceForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_DELETE))
@@ -135,8 +132,7 @@ class htmlWorkspaceForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_MODIFY))
@@ -166,8 +162,7 @@ class htmlWorkspaceForm
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_DELETE))
@@ -195,8 +190,7 @@ class htmlWorkspaceForm
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
 		{
 			ob_end_flush();
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if ($id > 0)

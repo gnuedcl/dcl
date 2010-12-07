@@ -161,8 +161,7 @@ class htmlWatches
 				($whatid1 = DCL_Sanitize::ToInt($_REQUEST['whatid1'])) === null
 				)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 			
 			if (!isset($_REQUEST['whatid2']) || ($whatid2 = DCL_Sanitize::ToInt($_REQUEST['whatid2'])) === null)

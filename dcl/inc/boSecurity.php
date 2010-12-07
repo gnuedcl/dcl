@@ -54,8 +54,7 @@ class boSecurity
 		// Checks the current user for specific role - should only be used by custom plugins
 		if (($role_id = DCL_Sanitize::ToInt($role_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return false;
+			throw new InvalidDataException();
 		}
 		
 		$oDB = new dbUserRole();

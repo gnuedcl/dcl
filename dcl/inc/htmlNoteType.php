@@ -131,8 +131,7 @@ class htmlNoteType
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['note_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbNoteType();
@@ -152,8 +151,7 @@ class htmlNoteType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['note_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbNoteType();
@@ -208,8 +206,7 @@ class htmlNoteType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$aKey = array('note_type_id' => $id);
@@ -232,8 +229,7 @@ class htmlNoteType
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['note_type_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$t->assign('TXT_FUNCTION', 'Edit Note Type');

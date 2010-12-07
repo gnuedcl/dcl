@@ -132,8 +132,7 @@ class htmlWorkOrderType
 		commonHeader();
 		if (($wo_type_id = DCL_Sanitize::ToInt($_REQUEST['wo_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_MODIFY))
@@ -153,8 +152,7 @@ class htmlWorkOrderType
 		commonHeader();
 		if (($wo_type_id = DCL_Sanitize::ToInt($_REQUEST['wo_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_DELETE))
@@ -206,8 +204,7 @@ class htmlWorkOrderType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boWorkOrderType();
@@ -232,8 +229,7 @@ class htmlWorkOrderType
 		{
 			if (($wo_type_id = DCL_Sanitize::ToInt($_REQUEST['wo_type_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$t->assign('VAL_WO_TYPE_ID', $wo_type_id);

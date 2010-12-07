@@ -50,8 +50,7 @@ class htmlAudit
 		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null ||
 		    ($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$oSmarty = new DCL_Smarty();
@@ -62,8 +61,7 @@ class htmlAudit
 			case DCL_ENTITY_WORKORDER:
 			    if (($id2 = DCL_Sanitize::ToInt($_REQUEST['id2'])) === null)
 			    {
-					trigger_error('Data sanitize failed.');
-					return;
+					throw new InvalidDataException();
 				}
 				
 				$this->aAudit = $oAudit->LoadDiff('dbWorkorders', array('jcn' => $id, 'seq' => $id2));

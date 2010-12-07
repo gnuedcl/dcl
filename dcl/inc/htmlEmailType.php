@@ -131,8 +131,7 @@ class htmlEmailType
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbEmailType();
@@ -152,8 +151,7 @@ class htmlEmailType
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbEmailType();
@@ -208,8 +206,7 @@ class htmlEmailType
 		
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$aKey = array('email_type_id' => $id);
@@ -232,8 +229,7 @@ class htmlEmailType
 		{
 			if (($id = DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) === null)
 			{
-				trigger_error('Data sanitize failed.');
-				return;
+				throw new InvalidDataException();
 			}
 		
 			$t->assign('TXT_FUNCTION', 'Edit Email Type');

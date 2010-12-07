@@ -36,8 +36,7 @@ class boFaqtopics
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objF = new dbFaq();
@@ -65,8 +64,7 @@ class boFaqtopics
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objF = new dbFaq();
@@ -97,8 +95,7 @@ class boFaqtopics
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['topicid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbFaqtopics();
@@ -119,8 +116,7 @@ class boFaqtopics
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$objF = new dbFaq();
@@ -148,8 +144,7 @@ class boFaqtopics
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $iID))
@@ -169,8 +164,7 @@ class boFaqtopics
 		commonHeader();
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $iID))
@@ -203,8 +197,7 @@ class boFaqtopics
 
 		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['topicid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new dbFaqtopics();

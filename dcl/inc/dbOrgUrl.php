@@ -38,8 +38,7 @@ class dbOrgUrl extends dclDB
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT u.org_url_id, u.org_id, u.url_type_id, u.url_addr, u.preferred, t.url_type_name';
@@ -52,8 +51,7 @@ class dbOrgUrl extends dclDB
 	{
 		if (($iOrgID = DCL_Sanitize::ToInt($iOrgID)) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return -1;
+			throw new InvalidDataException();
 		}
 		
 		if ($this->Query("SELECT ut.url_type_name, u.url_addr FROM dcl_org_url u, dcl_url_type ut WHERE u.url_type_id = ut.url_type_id AND u.org_id = $iOrgID AND preferred = 'Y'") != -1)

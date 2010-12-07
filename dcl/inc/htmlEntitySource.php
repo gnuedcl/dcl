@@ -137,8 +137,7 @@ class htmlEntitySource
 			
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['entity_source_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbEntitySource();
@@ -158,8 +157,7 @@ class htmlEntitySource
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['entity_source_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$obj = new dbEntitySource();
@@ -208,8 +206,7 @@ class htmlEntitySource
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$obj = new boEntitySource();
@@ -231,8 +228,7 @@ class htmlEntitySource
 			
 		if ($isEdit && ($id = DCL_Sanitize::ToInt($_REQUEST['entity_source_id'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 
 		$t = new DCL_Smarty();

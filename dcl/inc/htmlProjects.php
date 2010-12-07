@@ -160,8 +160,7 @@ class htmlProjects
 
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
