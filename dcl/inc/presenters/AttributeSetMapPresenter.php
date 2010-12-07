@@ -96,7 +96,7 @@ class AttributeSetMapPresenter
 			case 2:
 				$typeText = STR_ATTR_PRIORITIES;
 				$table = 'priorities';
-				$model = new dbPriorities();
+				$model = new PriorityModel();
 				break;
 			case 3:
 				$typeText = STR_ATTR_SEVERITIES;

@@ -81,7 +81,6 @@ class htmlWOSearches
 
 		$objPersonnel = new htmlPersonnel();
 		$objProducts = new htmlProducts();
-		$objPriorities = new htmlPriorities();
 		$objSeverities = new htmlSeverities();
 		$objStatuses = new htmlStatuses();
 		$objProjects = new htmlProjects();

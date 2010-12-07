@@ -1,6 +1,6 @@
 <?php
 	define('STR_PRIO_SELECTONE', "Seleccione uno");
-	define('STR_PRIO_TABLETITLE', "Prioridades - Ordenados por %s");
+	define('STR_PRIO_TABLETITLE', "Prioridades");
 	define('STR_PRIO_NOPRIOS', "Las prioridades no fuerosn encontradas para mostrar!  No debe tener prioridades en su sistema actual!");
 	define('STR_PRIO_ID', "ID");
 	define('STR_PRIO_ACTIVEABB', "A");

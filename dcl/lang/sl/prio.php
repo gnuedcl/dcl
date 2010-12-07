@@ -1,6 +1,6 @@
 <?php
 	define('STR_PRIO_SELECTONE', "Izberi");
-	define('STR_PRIO_TABLETITLE', "Prioritete - razvrÃ?Â¹Ã?Â¨ene po %s");
+	define('STR_PRIO_TABLETITLE', "Prioritete");
 	define('STR_PRIO_NOPRIOS', "Ne najdem prioritet za prikaz!");
 	define('STR_PRIO_ID', "ID");
 	define('STR_PRIO_ACTIVEABB', "A");

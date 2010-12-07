@@ -109,8 +109,6 @@ abstract class AbstractController
 		{
 			throw new Exception('Update item failed.');
 		}
-
-		return 1;
 	}
 
 	public function Destroy(array $aSource)
@@ -120,9 +118,9 @@ abstract class AbstractController
 			throw new PermissionDeniedException();
 
 		if ($this->model->HasFKRef($aSource[$this->sKeyField]))
-			return $this->model->SetActive(array($this->sKeyField => $aSource[$this->sKeyField]), false);
+			return $this->model->SetActive($aSource, false);
 
-		return $this->model->Delete(array($this->sKeyField => $aSource[$this->sKeyField]));
+		return $this->model->Delete($aSource);
 	}
 
 	public function Exists($aSource)

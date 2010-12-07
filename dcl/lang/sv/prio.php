@@ -1,6 +1,6 @@
 <?php
 	define('STR_PRIO_SELECTONE', "VÃ?Â¤lj en");
-	define('STR_PRIO_TABLETITLE', "Prioritet - ordnat efter %s");
+	define('STR_PRIO_TABLETITLE', "Prioritet");
 	define('STR_PRIO_NOPRIOS', "Inga prioriteter kundes hittas!");
 	define('STR_PRIO_ID', "ID");
 	define('STR_PRIO_ACTIVEABB', "A");

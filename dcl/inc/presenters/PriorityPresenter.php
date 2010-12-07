@@ -24,52 +24,22 @@
 
 LoadStringResource('prio');
 
-class htmlPriorities
+class PriorityPresenter
 {
-	function GetCombo($default = 0, $cbName = 'priority', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0)
-	{
-		$query = "SELECT a.id,a.$longShort FROM priorities a";
-
-		if ($setid > 0)
-		{
-			$query .= ",attributesetsmap b WHERE a.id=b.keyid AND b.typeid=2 AND b.setid=$setid";
-
-			if ($activeOnly)
-				$query .= ' AND a.active=\'Y\'';
-
-			$query .= ' ORDER BY b.weight';
-		}
-		else
-		{
-			if ($activeOnly)
-				$query .= ' WHERE a.active=\'Y\'';
-
-			$query .= ' ORDER BY a.name';
-		}
-
-		$oSelect = new htmlSelect();
-		$oSelect->vDefault = $default;
-		$oSelect->sName = $cbName;
-		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
-		$oSelect->SetFromQuery($query);
-
-		return $oSelect->GetHTML();
-	}
-
-	function PrintAll($orderBy = 'name')
+	public function Index()
 	{
 		global $dcl_info, $g_oSec;
 
+		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$objDBPriority = new dbPriorities();
-		$objDBPriority->Query("SELECT id,active,short,name,weight FROM priorities ORDER BY $orderBy");
-		$allRecs = $objDBPriority->FetchAllRows();
+		$model = new PriorityModel();
+		$model->Query("SELECT id,active,short,name,weight FROM priorities ORDER BY name");
+		$allRecs = $model->FetchAllRows();
 
 		$oTable = new htmlTable();
-		$oTable->setCaption(sprintf(STR_PRIO_TABLETITLE, $orderBy));
+		$oTable->setCaption(STR_PRIO_TABLETITLE);
 		$oTable->addColumn(STR_PRIO_ID, 'numeric');
 		$oTable->addColumn(STR_PRIO_ACTIVE, 'string');
 		$oTable->addColumn(STR_PRIO_SHORT, 'string');
@@ -77,7 +47,7 @@ class htmlPriorities
 		$oTable->addColumn(STR_PRIO_WEIGHT, 'numeric');
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_ADD))
-			$oTable->addToolbar(menuLink('', 'menuAction=boPriorities.add'), STR_CMMN_NEW);
+			$oTable->addToolbar(menuLink('', 'menuAction=Priority.Create'), STR_CMMN_NEW);
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
@@ -90,14 +60,14 @@ class htmlPriorities
 			{
 				$options = '';
 				if ($g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_MODIFY))
-					$options = '<a href="' . menuLink('', 'menuAction=boPriorities.modify&id=' . $allRecs[$i][0]) . '">' . htmlentities(STR_CMMN_EDIT) . '</a>';
+					$options = '<a href="' . menuLink('', 'menuAction=Priority.Edit&id=' . $allRecs[$i][0]) . '">' . htmlentities(STR_CMMN_EDIT) . '</a>';
 
 				if ($g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_DELETE))
 				{
 					if ($options != '')
 						$options .= '&nbsp;|&nbsp;';
 
-					$options .= '<a href="' . menuLink('', 'menuAction=boPriorities.delete&id=' . $allRecs[$i][0]) . '">' . htmlentities(STR_CMMN_DELETE) . '</a>';
+					$options .= '<a href="' . menuLink('', 'menuAction=Priority.Delete&id=' . $allRecs[$i][0]) . '">' . htmlentities(STR_CMMN_DELETE) . '</a>';
 				}
 
 				$allRecs[$i][] = $options;
@@ -109,33 +79,52 @@ class htmlPriorities
 		$oTable->render();
 	}
 
-	function ShowEntryForm($obj = '')
+	public function Create()
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
-		$isEdit = is_object($obj);
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 
-		if ($isEdit)
-		{
-			$t->assign('TXT_FUNCTION', STR_PRIO_EDIT);
-			$t->assign('menuAction', 'boPriorities.dbmodify');
-			$t->assign('id', $obj->id);
-			$t->assign('CMB_ACTIVE', GetYesNoCombo($obj->active, 'active', 0, false));
-			$t->assign('VAL_SHORT', $obj->short);
-			$t->assign('VAL_NAME', $obj->name);
-			$t->assign('VAL_WEIGHT', $obj->weight);
-		}
-		else
-		{
-			$t->assign('TXT_FUNCTION', STR_PRIO_ADD);
-			$t->assign('menuAction', 'boPriorities.dbadd');
-			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
-		}
+		$t->assign('TXT_FUNCTION', STR_PRIO_ADD);
+		$t->assign('menuAction', 'Priority.Insert');
+		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 
 		$t->Render('htmlPrioritiesForm.tpl');
+	}
+
+	public function Edit(PriorityModel $model)
+	{
+		global $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_MODIFY))
+			throw new PermissionDeniedException();
+
+		$t = new DCL_Smarty();
+
+		$t->assign('TXT_FUNCTION', STR_PRIO_EDIT);
+		$t->assign('menuAction', 'Priority.Update');
+		$t->assign('id', $model->id);
+		$t->assign('CMB_ACTIVE', GetYesNoCombo($model->active, 'active', 0, false));
+		$t->assign('VAL_SHORT', $model->short);
+		$t->assign('VAL_NAME', $model->name);
+		$t->assign('VAL_WEIGHT', $model->weight);
+
+		$t->Render('htmlPrioritiesForm.tpl');
+	}
+
+	public function Delete(PriorityModel $model)
+	{
+		global $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_DELETE))
+			throw new PermissionDeniedException();
+
+		ShowDeleteYesNo('Priority', 'Priority.Destroy', $model->id, $model->name);
 	}
 }

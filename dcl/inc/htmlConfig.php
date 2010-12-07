@@ -249,8 +249,8 @@ class htmlConfig
 
 	function GetPriorityCombo($sName, $sDefault)
 	{
-		$o = new htmlPriorities();
-		return $o->GetCombo(intval($sDefault), $sName);
+		$o = new PriorityHtmlHelper();
+		return $o->Select(intval($sDefault), $sName);
 	}
 
 	function GetSeverityCombo($sName, $sDefault)

@@ -49,7 +49,7 @@ class SystemSetupPresenter
 				'description' => STR_ADMIN_SECURITYDESC,
 				'note' => STR_ADMIN_SECURITYNOTE
 			),
-			'boPriorities.showall' => array(
+			'Priority.Index' => array(
 				'action' => STR_ADMIN_PRIORITIES,
 				'description' =>  STR_ADMIN_PRIORITIESDESC,
 				'note' =>  STR_ADMIN_PRIORITIESNOTE

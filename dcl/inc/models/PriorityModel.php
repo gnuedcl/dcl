@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbPriorities extends dclDB
+class PriorityModel extends dclDB
 {
-	function dbPriorities()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'priorities';
@@ -38,19 +36,19 @@ class dbPriorities extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		$this->AdjustWeights($this->weight);
 		return parent::Add();
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		$this->AdjustWeights($this->weight, $this->id);
 		return parent::Edit();
 	}
 
-	function AdjustWeights($fromThisWeight, $editID = 0)
+	private function AdjustWeights($fromThisWeight, $editID = 0)
 	{
 		if (($fromThisWeight = DCL_Sanitize::ToInt($fromThisWeight)) === null ||
 			($editID = DCL_Sanitize::ToInt($editID)) === null)
@@ -73,9 +71,8 @@ class dbPriorities extends dclDB
 		}
 	}
 
-	function Delete()
+	public function Delete(array $aSource)
 	{
-		return parent::Delete(array('id' => $this->id));
+		return parent::Delete($aSource);
 	}
 }
-?>

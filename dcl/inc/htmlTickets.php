@@ -35,7 +35,7 @@ class htmlTickets
 
 		$objProduct = new dbProducts();
 		$objHTMLPersonnel = new htmlPersonnel();
-		$objHTMLPriorities = new htmlPriorities();
+		$objHTMLPriorities = new PriorityHtmlHelper();
 		$objHTMLSeverities = new htmlSeverities();
 
 		$objProduct->Query('SELECT tcksetid FROM products WHERE id=' . $obj->product);
@@ -46,7 +46,7 @@ class htmlTickets
 		$t->assign('TXT_TITLE', sprintf(STR_TCK_REASSIGNTICKET, $obj->ticketid));
 		$t->assign('VAL_TICKETID', $obj->ticketid);
 		$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->GetCombo($obj->responsible, 'responsible', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
-		$t->assign('CMB_PRIORITY', $objHTMLPriorities->GetCombo($obj->priority, 'priority', 'name', 0, false, $setid));
+		$t->assign('CMB_PRIORITY', $objHTMLPriorities->Select($obj->priority, 'priority', 'name', 0, false, $setid));
 		$t->assign('CMB_TYPE', $objHTMLSeverities->GetCombo($obj->type, 'type', 'name', 0, false, $setid));
 		
 		$t->Render('htmlTicketReassignForm.tpl');

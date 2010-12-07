@@ -39,7 +39,7 @@ class htmlWorkorders
 		$objWO = new dbWorkorders();
 		$objProduct = new dbProducts();
 		$objHTMLPersonnel = new htmlPersonnel();
-		$objHTMLPriorities = new htmlPriorities();
+		$objHTMLPriorities = new PriorityHtmlHelper();
 		$objHTMLSeverities = new htmlSeverities();
 
 		$t = new DCL_Smarty();
@@ -74,7 +74,7 @@ class htmlWorkorders
 			$t->assign('TXT_TITLE', STR_PRJ_BATCHASSIGN);
 
 			$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
-			$t->assign('CMB_PRIORITY', $objHTMLPriorities->GetCombo(0, 'priority', 'name', 0, false));
+			$t->assign('CMB_PRIORITY', $objHTMLPriorities->Select(0, 'priority', 'name', 0, false));
 			$t->assign('CMB_SEVERITY', $objHTMLSeverities->GetCombo(0, 'severity', 'name', 0, false));
 
 			$oView = new boView();
@@ -96,7 +96,7 @@ class htmlWorkorders
 			$t->assign('VAL_ETCHOURS', $objWO->etchours);
 
 			$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->GetCombo($objWO->responsible, 'responsible', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
-			$t->assign('CMB_PRIORITY', $objHTMLPriorities->GetCombo($objWO->priority, 'priority', 'name', 0, false, $setid));
+			$t->assign('CMB_PRIORITY', $objHTMLPriorities->Select($objWO->priority, 'priority', 'name', 0, false, $setid));
 			$t->assign('CMB_SEVERITY', $objHTMLSeverities->GetCombo($objWO->severity, 'severity', 'name', 0, false, $setid));
 		}
 

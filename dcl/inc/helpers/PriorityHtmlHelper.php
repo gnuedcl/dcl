@@ -20,43 +20,38 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('attr');
+LoadStringResource('prio');
 
-class AttributeSetHtmlHelper
+class PriorityHtmlHelper
 {
-	public function Select($default = 0, $cbName = 'setid', $longShort = 'name', $size = 0, $activeOnly = true)
+	public function Select($default = 0, $cbName = 'priority', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0)
 	{
-		$obj = new AttributeSetModel();
-		$obj->cacheEnabled = false;
+		$query = "SELECT a.id,a.$longShort FROM priorities a";
 
-		$query = 'SELECT id,name FROM attributesets ';
-
-		if ($activeOnly)
-			$query .= 'WHERE active=\'Y\' ';
-
-		$query .= "ORDER BY $longShort";
-		$obj->Query($query);
-
-		$str = "<select name=\"$cbName";
-		if ($size > 0)
-			$str .= '[]" multiple size="' . $size;
-
-		$str .= '">';
-		if ($size == 0)
-			$str .= sprintf('<option value="0">%s</option>', STR_ATTR_SELECTONE);
-
-		while ($obj->next_record())
+		if ($setid > 0)
 		{
-			$id = $obj->f(0);
-			$text = $obj->f(1);
-			$str .= '<option value="'. $id . '"';
-			if ($id == $default)
-				$str .= ' selected';
-			$str .= '>' . $text . '</option>';
+			$query .= ",attributesetsmap b WHERE a.id=b.keyid AND b.typeid=2 AND b.setid=$setid";
+
+			if ($activeOnly)
+				$query .= ' AND a.active=\'Y\'';
+
+			$query .= ' ORDER BY b.weight';
+		}
+		else
+		{
+			if ($activeOnly)
+				$query .= ' WHERE a.active=\'Y\'';
+
+			$query .= ' ORDER BY a.name';
 		}
 
-		$str .= '</select>';
+		$oSelect = new htmlSelect();
+		$oSelect->vDefault = $default;
+		$oSelect->sName = $cbName;
+		$oSelect->iSize = $size;
+		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$oSelect->SetFromQuery($query);
 
-		return $str;
+		return $oSelect->GetHTML();
 	}
 }

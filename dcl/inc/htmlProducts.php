@@ -301,8 +301,8 @@ class htmlProducts
 			$t->assign('VAL_NAME', $obj->name);
 			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->GetCombo($obj->reportto, 'reportto'));
 			$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->GetCombo($obj->ticketsto, 'ticketsto'));
-			$t->assign('CMB_WOATTRIBUTESET', $objHA->GetCombo($obj->wosetid, 'wosetid'));
-			$t->assign('CMB_TCKATTRIBUTESET', $objHA->GetCombo($obj->tcksetid, 'tcksetid'));
+			$t->assign('CMB_WOATTRIBUTESET', $objHA->Select($obj->wosetid, 'wosetid'));
+			$t->assign('CMB_TCKATTRIBUTESET', $objHA->Select($obj->tcksetid, 'tcksetid'));
 		}
 		else
 		{
@@ -312,8 +312,8 @@ class htmlProducts
 			$t->assign('CMB_ISPUBLIC', GetYesNoCombo('N', 'is_public', 0, false));
 			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'reportto'));
 			$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'ticketsto'));
-			$t->assign('CMB_WOATTRIBUTESET', $objHA->GetCombo(0, 'wosetid'));
-			$t->assign('CMB_TCKATTRIBUTESET', $objHA->GetCombo(0, 'tcksetid'));
+			$t->assign('CMB_WOATTRIBUTESET', $objHA->Select(0, 'wosetid'));
+			$t->assign('CMB_TCKATTRIBUTESET', $objHA->Select(0, 'tcksetid'));
 		}
 
 		$t->Render('htmlProductsForm.tpl');

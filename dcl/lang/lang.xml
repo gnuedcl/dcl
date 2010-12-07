@@ -7100,14 +7100,13 @@
 			<xlt lang="sv">VÃƒÂ¤lj en</xlt>
 		</phrase>
 		<phrase name="STR_PRIO_TABLETITLE">
-			<xlt lang="de">PrioritÃƒÂ¤ten - sortiert nach %s</xlt>
-			<xlt lang="en">Priorities - Ordered By %s</xlt>
-			<xlt lang="es">Prioridades - Ordenados por %s</xlt>
-			<xlt lang="fr">PrioritÃƒÂ©s - TriÃƒÂ©es par %s</xlt>
-			<xlt lang="it">Priorita'- Ordinate per %s</xlt>
-			<xlt lang="ru">ÃƒÂ°Ãƒâ€™Ãƒâ€°Ãƒï¿½Ãƒâ€™Ãƒâ€°Ãƒâ€�Ãƒâ€¦Ãƒâ€�Ãƒâ„¢ - Ãƒâ€œÃƒï¿½Ãƒâ€™Ãƒâ€�Ãƒâ€°Ãƒâ€™Ãƒï¿½Ãƒâ€”Ãƒï¿½ÃƒÅ½ÃƒÅ½Ãƒâ„¢Ãƒâ€¦ Ãƒï¿½Ãƒï¿½ %s</xlt>
-			<xlt lang="sl">Prioritete - razvrÃ‚Â¹ÃƒÂ¨ene po %s</xlt>
-			<xlt lang="sv">Prioritet - ordnat efter %s</xlt>
+			<xlt lang="de">PrioritÃƒÂ¤ten</xlt>
+			<xlt lang="en">Priorities</xlt>
+			<xlt lang="es">Prioridades</xlt>
+			<xlt lang="fr">PrioritÃƒÂ©s</xlt>
+			<xlt lang="it">Priorita'</xlt>
+			<xlt lang="sl">Prioritete</xlt>
+			<xlt lang="sv">Prioritet</xlt>
 		</phrase>
 		<phrase name="STR_PRIO_NOPRIOS">
 			<xlt lang="de">Es konnten keine PrioritÃƒÂ¤ten gefunden werden!</xlt>

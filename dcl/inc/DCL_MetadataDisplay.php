@@ -139,7 +139,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oPriority == null)
-			$this->oPriority = new dbPriorities();
+			$this->oPriority = new PriorityModel();
 
 		if ($this->oPriority->Load($id, false) == -1)
 			return $this->TriggerError("Could not find priority ID $id");
