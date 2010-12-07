@@ -34,7 +34,6 @@ class imgOrganization
 		header('Expires: Thu, 11 Mar 1993 08:00:00 GMT');
 
 		$this->iMaxSliceIndex = 11;
-		$this->img = new DCL_Chart();
 		$this->aAddlColors = array(
 			array(94, 48, 0),
 			array(201, 34, 0),
@@ -80,7 +79,7 @@ class imgOrganization
 
 		$iWidth = 460;
 		$iHeight = count($aCount) > 9 ? 220 : 200;
-		$this->img->Init($iWidth, $iHeight);
+		$this->img = new DCL_Chart($iWidth, $iHeight);
 
 		$this->img->Data->AddPoint($aCount, 'Count');
 		$this->img->Data->AddPoint($aItem, 'Item');

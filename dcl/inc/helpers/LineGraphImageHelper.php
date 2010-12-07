@@ -120,8 +120,7 @@ class LineGraphImageHelper
 	
 	public function Render()
 	{
-		$oChart = new DCL_Chart();
-		$oChart->Init($this->graph_width, $this->graph_height);
+		$oChart = new DCL_Chart($this->graph_width, $this->graph_height);
 		
 		$oChart->Data->AddPoint($this->data[0], 'Serie1');
 		$oChart->Data->AddPoint($this->data[1], 'Serie2');
