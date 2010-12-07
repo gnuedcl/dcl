@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,35 +22,32 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once('login.php');
+LoadStringResource('db');
 
-$g_oPage = new Page();
-$g_oPage->StartPage();
-
-if (IsSet($menuAction) && $menuAction != 'clearScreen')
+class AttributeSetModel extends dclDB
 {
-	if ($g_oSec->ValidateMenuAction() == true)
+	public function __construct()
 	{
-		try
-		{
-			Invoke($menuAction);
-		}
-		catch (Exception $ex)
-		{
-			commonHeader();
-			ShowError('Exception: ' . $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTraceAsString());
-		}
+		parent::dclDB();
+		$this->TableName = 'attributesets';
+		$this->cacheEnabled = true;
+		
+		LoadSchema($this->TableName);
+
+		$this->foreignKeys = array(
+				'attributesetsmap' => 'setid',
+				'products' => array('wosetid' , 'tcksetid'));
+		
+		parent::Clear();
 	}
-	else
+
+	function Delete()
 	{
-		commonHeader();
-		PrintPermissionDenied();
+		return parent::Delete(array('id' => $this->id));
+	}
+
+	function Load($id)
+	{
+		return parent::Load(array('id' => $id));
 	}
 }
-else
-{
-	commonHeader();
-	trigger_error('Method not supplied.', E_USER_ERROR);
-}
-
-$g_oPage->EndPage();

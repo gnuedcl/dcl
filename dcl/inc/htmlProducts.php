@@ -294,7 +294,7 @@ class htmlProducts
 
 		// Data
 		$objHTMLPersonnel = new htmlPersonnel();
-		$objHA = new htmlAttributesets();
+		$objHA = new AttributeSetHtmlHelper();
 		if ($isEdit)
 		{
 			$t->assign('CMB_ACTIVE', GetYesNoCombo($obj->active, 'active', 0, false));

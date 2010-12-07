@@ -174,7 +174,7 @@ function removeAll(f) {
 }
 {/literal}</script>
 <form class="styled" name="mapping" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="boAttributesets.dbmap">
+	<input type="hidden" name="menuAction" value="AttributeSetMap.Update">
 	<input type="hidden" name="setid" value="{$VAL_SETID}">
 	<input type="hidden" name="typeid" value="{$VAL_TYPEID}">
 	<input type="hidden" name="keyidset" value="">
@@ -182,7 +182,7 @@ function removeAll(f) {
 		<legend>{$smarty.const.STR_ATTR_EDITATTRIBUTESET} [{$VAL_NAME}] {$smarty.const.STR_ATTR_TYPE} [{$VAL_TYPE}]</legend>
 		<div class="input">
 			<label for="src">{$smarty.const.STR_ATTR_AVAILABLEVALUES}</label>
-			<select multiple size="8" name="src">
+			<select multiple size="20" name="src">
 			{$OPT_AVAILABLE}
 			</select>
 		</div>
@@ -194,7 +194,7 @@ function removeAll(f) {
 		</div>
 		<div class="input">
 			<label for="used">{$smarty.const.STR_ATTR_USEDVALUES}</label>
-			<select multiple size="8" name="used">
+			<select multiple size="20" name="used">
 			{$OPT_SELECTED}
 			</select>
 		</div>
@@ -208,7 +208,7 @@ function removeAll(f) {
 	<fieldset>
 		<div class="submit">
 			<input type="button" onclick="submitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=boAttributesets.view&id={$VAL_SETID}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=AttributeSetMap.Index&id={$VAL_SETID}';" value="{$smarty.const.STR_CMMN_CANCEL}">
 		</div>
 	</fieldset>
 </form>

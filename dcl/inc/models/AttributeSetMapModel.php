@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,9 +22,9 @@
 
 LoadStringResource('db');
 
-class dbAttributesetsmap extends dclDB
+class AttributeSetMapModel extends dclDB
 {
-	function dbAttributesetsmap()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'attributesetsmap';
@@ -36,23 +34,22 @@ class dbAttributesetsmap extends dclDB
 		parent::Clear();
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		// Do nothing
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('setid' => $this->setid, 'typeid' => $this->typeid, 'keyid' => $this->keyid));
 	}
 	
-	function DeleteBySetType($iSetID, $iTypeID)
+	public function DeleteBySetType($iSetID, $iTypeID)
 	{
 		if (($iSetID = DCL_Sanitize::ToInt($iSetID)) == NULL ||
 			($iTypeID = DCL_Sanitize::ToInt($iTypeID)) == NULL)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$sSQL = 'DELETE FROM attributesetsmap WHERE setid = ';
@@ -63,13 +60,12 @@ class dbAttributesetsmap extends dclDB
 		return $this->Execute($sSQL);
 	}
 
-	function LoadMapForType($setid, $typeid)
+	public function LoadMapForType($setid, $typeid)
 	{
 		if (($setid = DCL_Sanitize::ToInt($setid)) == NULL ||
 			($typeid = DCL_Sanitize::ToInt($typeid)) == NULL)
 		{
-			trigger_error('Data sanitize failed.');
-			return;
+			throw new InvalidDataException();
 		}
 		
 		$this->Clear();
@@ -80,4 +76,3 @@ class dbAttributesetsmap extends dclDB
 		return 1;
 	}
 }
-?>

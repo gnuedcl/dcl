@@ -94,7 +94,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_ACTIONSDESC,
 				'note' =>  STR_ADMIN_ACTIONSNOTE
 			),
-			'boAttributesets.showall' => array(
+			'AttributeSet.Index' => array(
 				'action' =>  STR_ADMIN_ATTRIBUTESETS,
 				'description' =>  STR_ADMIN_ATTRIBUTESETSDESC,
 				'note' =>  STR_ADMIN_ATTRIBUTESETSNOTE

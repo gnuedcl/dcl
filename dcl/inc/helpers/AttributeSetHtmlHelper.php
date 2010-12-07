@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,33 +20,43 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('db');
+LoadStringResource('attr');
 
-class dbAttributesets extends dclDB
+class AttributeSetHtmlHelper
 {
-	function dbAttributesets()
+	function GetCombo($default = 0, $cbName = 'setid', $longShort = 'name', $size = 0, $activeOnly = true)
 	{
-		parent::dclDB();
-		$this->TableName = 'attributesets';
-		$this->cacheEnabled = true;
-		
-		LoadSchema($this->TableName);
+		$obj = new AttributeSetModel();
+		$obj->cacheEnabled = false;
 
-		$this->foreignKeys = array(
-				'attributesetsmap' => 'setid',
-				'products' => array('wosetid' , 'tcksetid'));
-		
-		parent::Clear();
-	}
+		$query = 'SELECT id,name FROM attributesets ';
 
-	function Delete()
-	{
-		return parent::Delete(array('id' => $this->id));
-	}
+		if ($activeOnly)
+			$query .= 'WHERE active=\'Y\' ';
 
-	function Load($id)
-	{
-		return parent::Load(array('id' => $id));
+		$query .= "ORDER BY $longShort";
+		$obj->Query($query);
+
+		$str = "<select name=\"$cbName";
+		if ($size > 0)
+			$str .= '[]" multiple size="' . $size;
+
+		$str .= '">';
+		if ($size == 0)
+			$str .= sprintf('<option value="0">%s</option>', STR_ATTR_SELECTONE);
+
+		while ($obj->next_record())
+		{
+			$id = $obj->f(0);
+			$text = $obj->f(1);
+			$str .= '<option value="'. $id . '"';
+			if ($id == $default)
+				$str .= ' selected';
+			$str .= '>' . $text . '</option>';
+		}
+
+		$str .= '</select>';
+
+		return $str;
 	}
 }
-?>
