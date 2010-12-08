@@ -1,6 +1,6 @@
 <?php
 	define('STR_STAT_SELECTONE', "Select One");
-	define('STR_STAT_TABLETITLE', "Statuses - Ordered By %s");
+	define('STR_STAT_TABLETITLE', "Statuses");
 	define('STR_STAT_NOSTATS', "Statuses could not be found for display!  You may not have any statuses in your system yet!");
 	define('STR_STAT_ID', "ID");
 	define('STR_STAT_ACTIVEABB', "A");

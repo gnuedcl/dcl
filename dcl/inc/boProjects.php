@@ -246,7 +246,7 @@ class boProjects
 				throw new InvalidDataException();
 			}
 		
-			$oStatus = new dbStatuses();
+			$oStatus = new StatusModel();
 			if ($oStatus->GetStatusType($status) == 2 && $oStatus->GetStatusType($obj->status) != 2)
 			{
 				// moving to closed

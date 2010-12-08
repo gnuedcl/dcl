@@ -1,6 +1,6 @@
 <?php
 	define('STR_STAT_SELECTONE', "Izberi");
-	define('STR_STAT_TABLETITLE', "Statusi - razvrÃ?Â¹Ã?Â¨eni po %s");
+	define('STR_STAT_TABLETITLE', "Statusi");
 	define('STR_STAT_NOSTATS', "Ne najdem statusa za prikaz!");
 	define('STR_STAT_ID', "ID");
 	define('STR_STAT_ACTIVEABB', "A");

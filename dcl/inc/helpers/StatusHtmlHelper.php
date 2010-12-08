@@ -20,35 +20,48 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class SeverityHtmlHelper
+class StatusHtmlHelper
 {
-	function Select($default = 0, $cbName = 'severity', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0)
+	public function Select($default = 0, $cbName = 'status', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0, $zeroOption = '_SELECT_ONE_')
 	{
-		$query = "SELECT a.id,a.$longShort FROM severities a";
+		$query = "SELECT a.id,a.$longShort FROM statuses a ";
 
 		if ($setid > 0)
 		{
-			$query .= ",attributesetsmap b WHERE a.id=b.keyid AND b.typeid=3 AND b.setid=$setid";
-
+			$query .= ",attributesetsmap b WHERE a.id=b.keyid AND b.typeid=4 AND b.setid=$setid ";
 			if ($activeOnly)
-				$query .= ' AND a.active=\'Y\'';
-
-			$query .= ' ORDER BY b.weight';
+				$query .= ' AND a.active=\'Y\' ';
 		}
 		else
 		{
 			if ($activeOnly)
-				$query .= ' WHERE a.active=\'Y\'';
-
-			$query .= ' ORDER BY a.name';
+				$query .= 'WHERE a.active=\'Y\' ';
 		}
+
+		$query .= "ORDER BY $longShort";
 
 		$oSelect = new htmlSelect();
 		$oSelect->vDefault = $default;
 		$oSelect->sName = $cbName;
 		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+
+		if ($zeroOption == '_SELECT_ONE_')
+			$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		else
+			$oSelect->sZeroOption = $zeroOption;
+
 		$oSelect->SetFromQuery($query);
+
+		return $oSelect->GetHTML();
+	}
+
+	public function SelectType($default = 0)
+	{
+		$oSelect = new htmlSelect();
+		$oSelect->SetOptionsFromDb('dcl_status_type', 'dcl_status_type_id', 'dcl_status_type_name', '', $order = 'dcl_status_type_id');
+		$oSelect->vDefault = $default;
+		$oSelect->sName = 'dcl_status_type';
+		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
 
 		return $oSelect->GetHTML();
 	}

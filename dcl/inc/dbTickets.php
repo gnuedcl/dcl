@@ -42,7 +42,7 @@ class dbTickets extends dclDB
 
 	function Add()
 	{
-		$oStatus = new dbStatuses();
+		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($this->status) == 2)
 		{
 		    if ($this->closedon === null)
@@ -71,7 +71,7 @@ class dbTickets extends dclDB
 
 	function Edit()
 	{
-		$oStatus = new dbStatuses();
+		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($this->status) == 2)
 		{
 			$this->closedon = DCL_NOW;

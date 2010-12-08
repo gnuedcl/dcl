@@ -1,6 +1,6 @@
 <?php
 	define('STR_STAT_SELECTONE', "Seleziona un elemento");
-	define('STR_STAT_TABLETITLE', "Status- Ordinati per %s");
+	define('STR_STAT_TABLETITLE', "Status");
 	define('STR_STAT_NOSTATS', "Statuses could not be found for display!  You may not have any statuses in your system yet!");
 	define('STR_STAT_ID', "ID");
 	define('STR_STAT_ACTIVEABB', "A");

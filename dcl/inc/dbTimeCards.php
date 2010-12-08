@@ -90,7 +90,7 @@ class dbTimeCards extends dclDB
 		{
 			$objWO->status = $this->status;
 			$objWO->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
-			$oStatus = new dbStatuses();
+			$oStatus = new StatusModel();
 			if ($oStatus->GetStatusType($this->status) == 2 && $oStatus->GetStatusType($currstatus) != 2)
 			{
 				$objWO->closedby = $this->actionby;
@@ -111,7 +111,7 @@ class dbTimeCards extends dclDB
 			$objWO->fixed_version_id = $fixed_version_id;
 			
 		// ensure the etc hours do not get anything but zero when closed
-		$oStatus = new dbStatuses();
+		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($objWO->status) == 2)
 			$objWO->etchours = 0.0;
 		if ($justStarted == 1)

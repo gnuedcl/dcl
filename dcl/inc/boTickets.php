@@ -68,7 +68,7 @@ class boTickets
 		if (IsSet($_REQUEST['resolution']) && $_REQUEST['resolution'] != '')
 			$obj->lastactionon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 
-		$oStatus = new dbStatuses();
+		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($obj->status) == 2)
 		{
 			$obj->closedby = $GLOBALS['DCLID'];

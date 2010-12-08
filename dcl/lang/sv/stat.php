@@ -1,6 +1,6 @@
 <?php
 	define('STR_STAT_SELECTONE', "VÃ?Â¤lj en");
-	define('STR_STAT_TABLETITLE', "Status - ordnat efter %s");
+	define('STR_STAT_TABLETITLE', "Status");
 	define('STR_STAT_NOSTATS', "Ingen status kunde hittas! MÃ?Â¶jligen finns inga Ã?Â¤nnu konfigurerade - kontakta systemadministratÃ?Â¶ren.");
 	define('STR_STAT_ID', "ID");
 	define('STR_STAT_ACTIVEABB', "A");

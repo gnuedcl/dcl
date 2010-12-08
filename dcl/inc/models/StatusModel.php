@@ -23,9 +23,9 @@
  */
 
 LoadStringResource('db');
-class dbStatuses extends dclDB
+class StatusModel extends dclDB
 {
-	function dbStatuses()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'statuses';
@@ -41,11 +41,6 @@ class dbStatuses extends dclDB
 				'ticketresolutions' => 'status');
 		
 		parent::Clear();
-	}
-
-	function Delete()
-	{
-		return parent::Delete(array('id' => $this->id));
 	}
 
 	function GetStatusType($id)

@@ -494,7 +494,7 @@ class reportPersonnelActivity
 	{
 		$bExport = (IsSet($_REQUEST['export']) && $_REQUEST['export'] == '1');
 
-		$objS = new dbStatuses();
+		$objS = new StatusModel();
 		$objPr = new PriorityModel();
 		$objSe = new SeverityModel();
 		$objW = new dbWorkorders();

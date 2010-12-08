@@ -106,7 +106,7 @@ class AttributeSetMapPresenter
 			case 4:
 				$typeText = STR_ATTR_STATUSES;
 				$table = 'statuses';
-				$model = new dbStatuses();
+				$model = new StatusModel();
 				break;
 			default:
 		}

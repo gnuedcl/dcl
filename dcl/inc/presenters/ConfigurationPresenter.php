@@ -244,8 +244,8 @@ class ConfigurationPresenter
 
 	private function GetStatusCombo($sName, $sDefault)
 	{
-		$o = new htmlStatuses();
-		return $o->GetCombo(intval($sDefault), $sName);
+		$o = new StatusHtmlHelper();
+		return $o->Select(intval($sDefault), $sName);
 	}
 
 	private function GetPriorityCombo($sName, $sDefault)

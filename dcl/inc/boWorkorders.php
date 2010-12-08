@@ -1027,7 +1027,7 @@ class boWorkorders
 			$objWO->estendon = $estendon;
 			$objWO->esthours = $fEstHours;
 
-			$oStatus = new dbStatuses();
+			$oStatus = new StatusModel();
 			if ($oStatus->GetStatusType($objWO->status) != 2)
 			{
 				$objWO->etchours = $fEtcHours;

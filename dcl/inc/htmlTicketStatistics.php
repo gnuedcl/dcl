@@ -52,7 +52,7 @@ class htmlTicketStatistics
 		global $products, $people, $begindate, $enddate, $activity, $byaccount;
 
 		$objProduct = new dbProducts();
-		$objStatuses = new dbStatuses();
+		$objStatuses = new StatusModel();
 		$objTickets = new dbTickets();
 
 		$doingActivity = (IsSet($activity) && ($activity == '1'));

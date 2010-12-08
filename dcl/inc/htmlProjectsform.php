@@ -39,14 +39,14 @@ class htmlProjectsform
 
 		$objPrj = new htmlProjects();
 		$objHTMLPersonnel = new htmlPersonnel();
-		$oStatus = new htmlStatuses();
+		$oStatus = new StatusHtmlHelper();
 		if ($isEdit)
 		{
 			$t->assign('VAL_PROJECTID', $obj->projectid);
 			$t->assign('VAL_NAME', $obj->name);
 			$t->assign('CMB_PARENTPRJ', $objPrj->GetCombo($obj->parentprojectid, 'parentprojectid', 0, 0, $obj->projectid));
 			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->GetCombo($obj->reportto, 'reportto'));
-			$t->assign('CMB_STATUS', $oStatus->GetCombo($obj->status));
+			$t->assign('CMB_STATUS', $oStatus->Select($obj->status));
 			$t->assign('VAL_PROJECTDEADLINE', $obj->projectdeadline);
 			$t->assign('VAL_DESCRIPTION', $obj->description);
 		}
@@ -55,7 +55,7 @@ class htmlProjectsform
 			$t->assign('VAL_NAME', '');
 			$t->assign('CMB_PARENTPRJ', $objPrj->GetCombo(0, 'parentprojectid'));
 			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'reportto'));
-			$t->assign('CMB_STATUS', $oStatus->GetCombo(1));
+			$t->assign('CMB_STATUS', $oStatus->Select(1));
 			$t->assign('VAL_PROJECTDEADLINE', '');
 			$t->assign('VAL_DESCRIPTION', '');
 		}

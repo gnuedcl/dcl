@@ -5576,14 +5576,13 @@
 			<xlt lang="sv">VÃƒÂ¤lj en</xlt>
 		</phrase>
 		<phrase name="STR_STAT_TABLETITLE">
-			<xlt lang="de">Status - Sortiert nach %s</xlt>
-			<xlt lang="en">Statuses - Ordered By %s</xlt>
-			<xlt lang="es">Stados - Ordenados Por %s</xlt>
-			<xlt lang="fr">Statuts - TriÃƒÂ©s Par %s</xlt>
-			<xlt lang="it">Status- Ordinati per %s</xlt>
-			<xlt lang="ru">ÃƒÂ³Ãƒâ€�Ãƒï¿½Ãƒâ€�Ãƒâ€¢Ãƒâ€œ - Ãƒâ€œÃƒï¿½Ãƒâ€™Ãƒâ€�Ãƒâ€°Ãƒâ€™Ãƒï¿½Ãƒâ€”Ãƒâ€¹Ãƒï¿½ Ãƒï¿½Ãƒï¿½ %s</xlt>
-			<xlt lang="sl">Statusi - razvrÃ‚Â¹ÃƒÂ¨eni po %s</xlt>
-			<xlt lang="sv">Status - ordnat efter %s</xlt>
+			<xlt lang="de">Status</xlt>
+			<xlt lang="en">Statuses</xlt>
+			<xlt lang="es">Stados</xlt>
+			<xlt lang="fr">Statuts</xlt>
+			<xlt lang="it">Status</xlt>
+			<xlt lang="sl">Statusi</xlt>
+			<xlt lang="sv">Status</xlt>
 		</phrase>
 		<phrase name="STR_STAT_NOSTATS">
 			<xlt lang="de">Es konnte keine Statusdefinition gefunden werden!</xlt>

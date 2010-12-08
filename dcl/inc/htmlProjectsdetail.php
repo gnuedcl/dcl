@@ -332,11 +332,11 @@ class htmlProjectsdetail
 		echo GetHiddenVar('project', $projectid);
 		echo GetHiddenVar('menuAction', 'boProjects.showtree');
 
-		$objStat = new htmlStatuses();
+		$objStat = new StatusHtmlHelper();
 		$objPersonnel = new htmlPersonnel();
 
 		echo '<b>', STR_PRJ_FILTERWOBYSTATUS, ':</b>';
-		echo $objStat->GetCombo($wostatus, 'wostatus');
+		echo $objStat->Select($wostatus, 'wostatus');
 
 		echo '&nbsp;&nbsp;<b>', STR_PRJ_FILTERWOBYRESPONSIBLE, ':</b>';
 		echo $objPersonnel->GetCombo($woresponsible, 'woresponsible', 'short', 0, false, $dcl_info['DCL_HAVE_WO']);

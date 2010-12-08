@@ -70,7 +70,7 @@ class boTimecards
 
 		$objTimecard = new dbTimeCards();
 		$objWorkorder = new dbWorkorders();
-		$oStatus = new dbStatuses();
+		$oStatus = new StatusModel();
 
 		$objTimecard->InitFromGlobals();
 		$objTimecard->actionby = $GLOBALS['DCLID'];
@@ -325,7 +325,7 @@ class boTimecards
 				if ($status != $objTimecard->status)
 				{
 					$notify .= ',3';
-					$oStatus = new dbStatuses();
+					$oStatus = new StatusModel();
 					if ($oStatus->GetStatusType($objTimecard->status) == 2)
 					{
 						$notify .= ',2';
@@ -425,7 +425,7 @@ class boTimecards
 					$objWO->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 					$woChanged = true;
 					
-					$oStatus = new dbStatuses();
+					$oStatus = new StatusModel();
 					if ($oStatus->GetStatusType($objTC->status) == 2)
 					{
 						$objWO->closedby = $objTC->actionby;
@@ -528,7 +528,7 @@ class boTimecards
 				if ($objQueryTC->status != $objWO->status)
 				{
 					$objWO->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
-					$oStatus = new dbStatuses();
+					$oStatus = new StatusModel();
 					if ($oStatus->GetStatusType($objQueryTC->status) == 2 && $oStatus->GetStatusType($objWO->status) != 2)
 					{
 						$objWO->closedby = $objQueryTC->actionby;

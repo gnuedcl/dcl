@@ -85,7 +85,7 @@ class htmlTimeCards
 		if ($objTimeCard->GetTimeCards($jcn, $seq) != -1)
 		{
 			$objPersonnel = new dbPersonnel();
-			$objStatus = new dbStatuses();
+			$objStatus = new StatusModel();
 			$objAction = new ActionModel();
 
 			$oMeta =& new DCL_MetadataDisplay();

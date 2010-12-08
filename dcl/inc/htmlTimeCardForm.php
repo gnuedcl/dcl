@@ -43,7 +43,7 @@ class htmlTimeCardForm
 		else if (!$isEdit && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		$objStatuses = new htmlStatuses();
+		$objStatuses = new StatusHtmlHelper();
 		$objPersonnel = new htmlPersonnel();
 
 		$oSmarty = new DCL_Smarty();
@@ -60,7 +60,7 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_VIEWFORM', $oView->GetForm());
 
 			$oSmarty->assign('VAL_SELECTED', $selected);
-			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo(0, 'status', 'name', 0, true, $setid, '-- Do Not Change --'));
+			$oSmarty->assign('CMB_STATUS', $objStatuses->Select(0, 'status', 'name', 0, true, $setid, '-- Do Not Change --'));
 			$oSmarty->assign('VAL_WOETCHOURS', '0');
 			$oSmarty->assign('VAL_UPDATEWOETCHOURS', 'false');
 			$oSmarty->assign('VAL_ENABLEPUBLIC', 'N');
@@ -77,7 +77,7 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_PRODUCT', $oWO->product);
 			$oSmarty->assign('VAL_WOETCHOURS', $oWO->etchours);
 			$oSmarty->assign('VAL_UPDATEWOETCHOURS', 'true');
-			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo($oWO->status, 'status', 'name', 0, true, $setid));
+			$oSmarty->assign('CMB_STATUS', $objStatuses->Select($oWO->status, 'status', 'name', 0, true, $setid));
 			$oSmarty->assign('VAL_ISPUBLIC', $oWO->is_public);
 			$oSmarty->assign('VAL_ENABLEPUBLIC', $oWO->is_public);
 			$oSmarty->assign('VAL_ISVERSIONED', $oProduct->is_versioned == 'Y');
@@ -93,7 +93,7 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_SUMMARY', $obj->summary);
 			$oSmarty->assign('VAL_DESCRIPTION', $obj->description);
 			$oSmarty->assign('VAL_ISPUBLIC', $obj->is_public);
-			$oSmarty->assign('CMB_STATUS', $objStatuses->GetCombo($obj->status, 'status', 'name', 0, false, $setid));
+			$oSmarty->assign('CMB_STATUS', $objStatuses->Select($obj->status, 'status', 'name', 0, false, $setid));
 		}
 		else
 		{

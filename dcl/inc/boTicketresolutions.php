@@ -84,7 +84,7 @@ class boTicketresolutions
 		$notify = '4';
 		if ($this->oDB->status != $obj->status)
 		{
-			$oStatus = new dbStatuses();
+			$oStatus = new StatusModel();
 			$notify .= ',3';
 			$obj->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 			if ($oStatus->GetStatusType($this->oDB->status) == 2)
@@ -174,7 +174,7 @@ class boTicketresolutions
 		{
 			if ($this->oDB->status != $oTicket->status)
 			{
-				$oStatus = new dbStatuses();
+				$oStatus = new StatusModel();
 				$notify .= ',3';
 				$oTicket->statuson = DCL_NOW;
 				if ($oStatus->GetStatusType($this->oDB->status) == 2)
@@ -238,7 +238,7 @@ class boTicketresolutions
 				if ($oQueryTR->status != $oTicket->status)
 				{
 					$oTicket->statuson = DCL_NOW;
-					$oStatus = new dbStatuses();
+					$oStatus = new StatusModel();
 					if ($oStatus->GetStatusType($oQueryTR->status) == 2 && $oStatus->GetStatusType($oTicket->status) != 2)
 					{
 						$oTicket->closedby = $oQueryTR->loggedby;
@@ -282,7 +282,7 @@ class boTicketresolutions
 		if (!is_object($this->oDB) || $dcl_info['DCL_CQQ_PERCENT'] == 0)
 			return;
 
-		$oStatus = new dbStatuses();
+		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($this->oDB->status) != 2)
 			return;
 

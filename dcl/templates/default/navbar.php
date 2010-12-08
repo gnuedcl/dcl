@@ -135,7 +135,7 @@ class DCLNavBar
 		else if ($this->_isAdminGroup())
 		{
 			if ($g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_ADD))
-				$aItems[] = array(STR_CMMN_NEW, 'boStatuses.add', '');
+				$aItems[] = array(STR_CMMN_NEW, 'Status.Create', '');
 	
 			if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			{
@@ -223,7 +223,7 @@ class DCLNavBar
 
 	function _isAdminGroup()
 	{
-		return false;// (in_array($this->_class, array('boStatuses')));
+		return false;// (in_array($this->_class, array('StatusController')));
 	}
 
 	function _isTicketGroup()

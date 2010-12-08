@@ -160,7 +160,7 @@ class htmlTicketresolutions
 
 		$objT = new dbTickets();
 		$objProduct = new dbProducts();
-		$objStat = new htmlStatuses();
+		$objStat = new StatusHtmlHelper();
 
 		if ($objT->Load((int)$ticketid) == -1)
 			return;
@@ -176,7 +176,7 @@ class htmlTicketresolutions
 		if ($isEdit)
 		{
 			$t->assign('TXT_TITLE', sprintf(STR_TCK_EDITRESOLUTION, $obj->ticketid));
-			$t->assign('CMB_STATUS', $objStat->GetCombo($obj->status, 'status', 'name', 0, false, $setid));
+			$t->assign('CMB_STATUS', $objStat->Select($obj->status, 'status', 'name', 0, false, $setid));
 			$t->assign('VAL_ISPUBLIC', $obj->is_public);
 			$t->assign('VAL_RESOLUTION', $obj->resolution);
 			$t->assign('menuAction', 'htmlTicketresolutions.submitModify');
@@ -187,7 +187,7 @@ class htmlTicketresolutions
 		{
 			$t->assign('TXT_TITLE', sprintf(STR_TCK_ADDRESOLUTION, $ticketid));
 
-			$t->assign('CMB_STATUS', $objStat->GetCombo($objT->status, 'status', 'name', 0, false, $setid));
+			$t->assign('CMB_STATUS', $objStat->Select($objT->status, 'status', 'name', 0, false, $setid));
 			$t->assign('VAL_ISPUBLIC', 'Y');
 			$t->assign('VAL_RESOLUTION', '');
 			

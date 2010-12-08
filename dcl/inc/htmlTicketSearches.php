@@ -70,7 +70,7 @@ class htmlTicketSearches
 		$oSelect = new htmlSelect();
 		$objPersonnel = new htmlPersonnel();
 		$objProducts = new htmlProducts();
-		$objStatuses = new htmlStatuses();
+		$objStatuses = new StatusHtmlHelper();
 		$objModules = new htmlProductModules();
 
 		$oDBP = new dbPersonnel();
@@ -219,7 +219,7 @@ class htmlTicketSearches
 		$t->assign('VAL_SELECTPERSONNELKEY', $sPersonnelKey);
 		$t->assign('VAL_SELECTSTATUSKEY', $sStatusKey);
 		$t->assign('VAL_SELECTMODULEKEY', $sModuleKey);
-		$t->assign('CMB_STATUS', $objStatuses->GetCombo($aDefault['status'], 'status', 'name', 8));
+		$t->assign('CMB_STATUS', $objStatuses->Select($aDefault['status'], 'status', 'name', 8));
 		$t->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
 		if (!$g_oSec->IsPublicUser())
 		{

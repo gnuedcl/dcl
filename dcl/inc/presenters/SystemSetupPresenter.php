@@ -59,7 +59,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_SEVERITIESDESC,
 				'note' =>  STR_ADMIN_SEVERITIESNOTE
 			),
-			'boStatuses.showall' => array(
+			'Status.Index' => array(
 				'action' =>  STR_ADMIN_STATUSES,
 				'description' =>  STR_ADMIN_STATUSESDESC,
 				'note' =>  STR_ADMIN_STATUSESNOTE

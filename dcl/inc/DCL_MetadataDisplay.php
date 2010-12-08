@@ -97,7 +97,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oStatus == null)
-			$this->oStatus = new dbStatuses();
+			$this->oStatus = new StatusModel();
 
 		if ($this->oStatus->Load($id, false) == -1)
 			return $this->TriggerError("Could not find status ID $id");

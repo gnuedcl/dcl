@@ -81,7 +81,7 @@ class htmlWOSearches
 
 		$objPersonnel = new htmlPersonnel();
 		$objProducts = new htmlProducts();
-		$objStatuses = new htmlStatuses();
+		$objStatuses = new StatusHtmlHelper();
 		$objProjects = new htmlProjects();
 		$objModules = new htmlProductModules();
 		$objType = new htmlWorkOrderType();
@@ -244,7 +244,7 @@ class htmlWOSearches
 		$t->assign('VAL_SELECTSTATUSKEY', $sStatusKey);
 		$t->assign('VAL_SELECTMODULEKEY', $sModuleKey);
 
-		$t->assign('CMB_STATUSES', $objStatuses->GetCombo($aDefault['status'], 'status', 'name', 8));
+		$t->assign('CMB_STATUSES', $objStatuses->Select($aDefault['status'], 'status', 'name', 8));
 
 		$t->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
 		if (!$g_oSec->IsPublicUser())
