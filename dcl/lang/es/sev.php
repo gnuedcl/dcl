@@ -1,6 +1,6 @@
 <?php
 	define('STR_SEV_SELECTONE', "Seleccione Uno");
-	define('STR_SEV_TABLETITLE', "Severidades - Ordenadas por %s");
+	define('STR_SEV_TABLETITLE', "Severidades");
 	define('STR_SEV_NOSEVS', "No se pudo encontrar las severidades para mostrar!  No debe tenrer severidades en su sistema todavia!");
 	define('STR_SEV_ID', "ID");
 	define('STR_SEV_ACTIVEABB', "A");

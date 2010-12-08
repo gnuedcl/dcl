@@ -54,7 +54,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_PRIORITIESDESC,
 				'note' =>  STR_ADMIN_PRIORITIESNOTE
 			),
-			'boSeverities.showall' => array(
+			'Severity.Index' => array(
 				'action' =>  STR_ADMIN_SEVERITIES,
 				'description' =>  STR_ADMIN_SEVERITIESDESC,
 				'note' =>  STR_ADMIN_SEVERITIESNOTE

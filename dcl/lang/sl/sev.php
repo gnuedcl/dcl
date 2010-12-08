@@ -1,6 +1,6 @@
 <?php
 	define('STR_SEV_SELECTONE', "Izberi");
-	define('STR_SEV_TABLETITLE', "Severities - razvrÃ?Â¹Ã?Â¨ene po %s");
+	define('STR_SEV_TABLETITLE', "Severities");
 	define('STR_SEV_NOSEVS', "Ne najdem Severities za prikaz!");
 	define('STR_SEV_ID', "ID");
 	define('STR_SEV_ACTIVEABB', "A");

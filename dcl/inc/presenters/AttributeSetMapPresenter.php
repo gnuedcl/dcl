@@ -101,7 +101,7 @@ class AttributeSetMapPresenter
 			case 3:
 				$typeText = STR_ATTR_SEVERITIES;
 				$table = 'severities';
-				$model = new dbSeverities();
+				$model = new SeverityModel();
 				break;
 			case 4:
 				$typeText = STR_ATTR_STATUSES;

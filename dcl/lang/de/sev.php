@@ -1,6 +1,6 @@
 <?php
 	define('STR_SEV_SELECTONE', "Auswahl");
-	define('STR_SEV_TABLETITLE', "Schweregraden - sortiert nach %s");
+	define('STR_SEV_TABLETITLE', "Schweregraden");
 	define('STR_SEV_NOSEVS', "Es konnten keine Schweregraden gefunden werden!");
 	define('STR_SEV_ID', "ID");
 	define('STR_SEV_ACTIVEABB', "A");

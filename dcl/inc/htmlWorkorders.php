@@ -40,7 +40,7 @@ class htmlWorkorders
 		$objProduct = new dbProducts();
 		$objHTMLPersonnel = new htmlPersonnel();
 		$objHTMLPriorities = new PriorityHtmlHelper();
-		$objHTMLSeverities = new htmlSeverities();
+		$objHTMLSeverities = new SeverityHtmlHelper();
 
 		$t = new DCL_Smarty();
 		
@@ -75,7 +75,7 @@ class htmlWorkorders
 
 			$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
 			$t->assign('CMB_PRIORITY', $objHTMLPriorities->Select(0, 'priority', 'name', 0, false));
-			$t->assign('CMB_SEVERITY', $objHTMLSeverities->GetCombo(0, 'severity', 'name', 0, false));
+			$t->assign('CMB_SEVERITY', $objHTMLSeverities->Select(0, 'severity', 'name', 0, false));
 
 			$oView = new boView();
 			$oView->SetFromURL();
@@ -97,7 +97,7 @@ class htmlWorkorders
 
 			$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->GetCombo($objWO->responsible, 'responsible', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
 			$t->assign('CMB_PRIORITY', $objHTMLPriorities->Select($objWO->priority, 'priority', 'name', 0, false, $setid));
-			$t->assign('CMB_SEVERITY', $objHTMLSeverities->GetCombo($objWO->severity, 'severity', 'name', 0, false, $setid));
+			$t->assign('CMB_SEVERITY', $objHTMLSeverities->Select($objWO->severity, 'severity', 'name', 0, false, $setid));
 		}
 
 		if (IsSet($_REQUEST['return_to']))

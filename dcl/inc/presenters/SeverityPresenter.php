@@ -24,52 +24,22 @@
 
 LoadStringResource('sev');
 
-class htmlSeverities
+class SeverityPresenter
 {
-	function GetCombo($default = 0, $cbName = 'severity', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0)
+	public function Index()
 	{
-		$query = "SELECT a.id,a.$longShort FROM severities a";
+		global $g_oSec;
 
-		if ($setid > 0)
-		{
-			$query .= ",attributesetsmap b WHERE a.id=b.keyid AND b.typeid=3 AND b.setid=$setid";
-
-			if ($activeOnly)
-				$query .= ' AND a.active=\'Y\'';
-
-			$query .= ' ORDER BY b.weight';
-		}
-		else
-		{
-			if ($activeOnly)
-				$query .= ' WHERE a.active=\'Y\'';
-
-			$query .= ' ORDER BY a.name';
-		}
-
-		$oSelect = new htmlSelect();
-		$oSelect->vDefault = $default;
-		$oSelect->sName = $cbName;
-		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
-		$oSelect->SetFromQuery($query);
-
-		return $oSelect->GetHTML();
-	}
-
-	function PrintAll($orderBy = 'name')
-	{
-		global $dcl_info, $g_oSec;
-
+		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$objDBSeverity = new dbSeverities();
-		$objDBSeverity->Query("SELECT id,active,short,name,weight FROM severities ORDER BY $orderBy");
-		$allRecs = $objDBSeverity->FetchAllRows();
+		$model = new SeverityModel();
+		$model->Query("SELECT id,active,short,name,weight FROM severities ORDER BY name");
+		$allRecs = $model->FetchAllRows();
 
 		$oTable = new htmlTable();
-		$oTable->setCaption(sprintf(STR_SEV_TABLETITLE, $orderBy));
+		$oTable->setCaption(STR_SEV_TABLETITLE);
 		$oTable->addColumn(STR_SEV_ID, 'numeric');
 		$oTable->addColumn(STR_SEV_ACTIVE, 'string');
 		$oTable->addColumn(STR_SEV_SHORT, 'string');
@@ -77,7 +47,7 @@ class htmlSeverities
 		$oTable->addColumn(STR_SEV_WEIGHT, 'numeric');
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_ADD))
-			$oTable->addToolbar(menuLink('', 'menuAction=boSeverities.add'), STR_CMMN_NEW);
+			$oTable->addToolbar(menuLink('', 'menuAction=Severity.Create'), STR_CMMN_NEW);
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
@@ -89,14 +59,14 @@ class htmlSeverities
 			{
 				$options = '';
 				if ($g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_MODIFY))
-					$options = '<a href="' . menuLink('', 'menuAction=boSeverities.modify&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
+					$options = '<a href="' . menuLink('', 'menuAction=Severity.Edit&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
 
 				if ($g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_DELETE))
 				{
 					if ($options != '')
 						$options .= '&nbsp;|&nbsp;';
 
-					$options .= '<a href="' . menuLink('', 'menuAction=boSeverities.delete&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_DELETE . '</a>';
+					$options .= '<a href="' . menuLink('', 'menuAction=Severity.Delete&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_DELETE . '</a>';
 				}
 
 				$allRecs[$i][] = $options;
@@ -108,33 +78,52 @@ class htmlSeverities
 		$oTable->render();
 	}
 
-	function ShowEntryForm($obj = '')
+	public function Create()
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
-		$isEdit = is_object($obj);
-		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
 		$t = new DCL_Smarty();
 
-		if ($isEdit)
-		{
-			$t->assign('TXT_FUNCTION', STR_SEV_EDIT);
-			$t->assign('menuAction', 'boSeverities.dbmodify');
-			$t->assign('id', $obj->id);
-			$t->assign('CMB_ACTIVE', GetYesNoCombo($obj->active, 'active', 0, false));
-			$t->assign('VAL_SHORT', $obj->short);
-			$t->assign('VAL_NAME', $obj->name);
-			$t->assign('VAL_WEIGHT', $obj->weight);
-		}
-		else
-		{
-			$t->assign('TXT_FUNCTION', STR_SEV_ADD);
-			$t->assign('menuAction', 'boSeverities.dbadd');
-			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
-		}
+		$t->assign('TXT_FUNCTION', STR_SEV_ADD);
+		$t->assign('menuAction', 'Severity.Insert');
+		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 
 		$t->Render('htmlSeveritiesForm.tpl');
+	}
+
+	public function Edit(SeverityModel $model)
+	{
+		global $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_MODIFY))
+			throw new PermissionDeniedException();
+
+		$t = new DCL_Smarty();
+
+		$t->assign('TXT_FUNCTION', STR_SEV_EDIT);
+		$t->assign('menuAction', 'Severity.Update');
+		$t->assign('id', $model->id);
+		$t->assign('CMB_ACTIVE', GetYesNoCombo($model->active, 'active', 0, false));
+		$t->assign('VAL_SHORT', $model->short);
+		$t->assign('VAL_NAME', $model->name);
+		$t->assign('VAL_WEIGHT', $model->weight);
+
+		$t->Render('htmlSeveritiesForm.tpl');
+	}
+
+	public function Delete(SeverityModel $model)
+	{
+		global $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_DELETE))
+			throw new PermissionDeniedException();
+		
+		ShowDeleteYesNo('Severity', 'Severity.Destroy', $model->id, $model->name);
 	}
 }

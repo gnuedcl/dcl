@@ -1712,14 +1712,13 @@
 			<xlt lang="sv">VÃƒÂ¤lj en</xlt>
 		</phrase>
 		<phrase name="STR_SEV_TABLETITLE">
-			<xlt lang="de">Schweregraden - sortiert nach %s</xlt>
-			<xlt lang="en">Severities - Ordered By %s</xlt>
-			<xlt lang="es">Severidades - Ordenadas por %s</xlt>
-			<xlt lang="fr">SÃƒÂ©vÃƒÂ©ritÃƒÂ©s - TriÃƒÂ©es Par %s</xlt>
-			<xlt lang="it">Problematiche - Ordinate per %s</xlt>
-			<xlt lang="ru">ÃƒÂ³Ãƒâ€¦Ãƒâ€™ÃƒËœÃƒâ€¦ÃƒÅ¡ÃƒÅ½Ãƒï¿½Ãƒâ€œÃƒâ€�ÃƒËœ - Ãƒâ€œÃƒï¿½Ãƒâ€™Ãƒâ€�Ãƒâ€°Ãƒâ€™Ãƒï¿½Ãƒâ€”Ãƒï¿½ÃƒÅ½Ãƒï¿½ Ãƒï¿½Ãƒï¿½ %s</xlt>
-			<xlt lang="sl">Severities - razvrÃ‚Â¹ÃƒÂ¨ene po %s</xlt>
-			<xlt lang="sv">Kategorier - ordnade efter %s</xlt>
+			<xlt lang="de">Schweregraden</xlt>
+			<xlt lang="en">Severities</xlt>
+			<xlt lang="es">Severidades</xlt>
+			<xlt lang="fr">SÃƒÂ©vÃƒÂ©ritÃƒÂ©s</xlt>
+			<xlt lang="it">Problematiche</xlt>
+			<xlt lang="sl">Severities</xlt>
+			<xlt lang="sv">Kategorier</xlt>
 		</phrase>
 		<phrase name="STR_SEV_NOSEVS">
 			<xlt lang="de">Es konnten keine Schweregraden gefunden werden!</xlt>

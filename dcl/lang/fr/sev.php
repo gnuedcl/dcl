@@ -1,6 +1,6 @@
 <?php
 	define('STR_SEV_SELECTONE', "A SÃ?Â©lectionner");
-	define('STR_SEV_TABLETITLE', "SÃ?Â©vÃ?Â©ritÃ?Â©s - TriÃ?Â©es Par %s");
+	define('STR_SEV_TABLETITLE', "SÃ?Â©vÃ?Â©ritÃ?Â©s");
 	define('STR_SEV_NOSEVS', "Pas de sÃ?Â©vÃ?Â©ritÃ?Â©s trouver Ã?Â  afficher. Vous n\'avez peut-Ã?Âªtre pas encore de sÃ?Â©vÃ?Â©ritÃ?Â©s dÃ?Â©finies dans votre systÃ?Â¨me!");
 	define('STR_SEV_ID', "ID");
 	define('STR_SEV_ACTIVEABB', "A");

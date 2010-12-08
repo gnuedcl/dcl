@@ -125,7 +125,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oSeverity == null)
-			$this->oSeverity = new dbSeverities();
+			$this->oSeverity = new SeverityModel();
 
 		if ($this->oSeverity->Load($id, false) == -1)
 			return $this->TriggerError("Could not find severity ID $id");

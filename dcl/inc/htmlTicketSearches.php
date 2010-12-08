@@ -70,7 +70,6 @@ class htmlTicketSearches
 		$oSelect = new htmlSelect();
 		$objPersonnel = new htmlPersonnel();
 		$objProducts = new htmlProducts();
-		$objSeverities = new htmlSeverities();
 		$objStatuses = new htmlStatuses();
 		$objModules = new htmlProductModules();
 

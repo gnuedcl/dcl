@@ -1,6 +1,6 @@
 <?php
 	define('STR_SEV_SELECTONE', "Seleziona un Elemento");
-	define('STR_SEV_TABLETITLE', "Problematiche - Ordinate per %s");
+	define('STR_SEV_TABLETITLE', "Problematiche");
 	define('STR_SEV_NOSEVS', "Le problematiche non possono essere visualizzate! Molto probabilmente nell\'archivio non sono presenti problematiche!");
 	define('STR_SEV_ID', "ID");
 	define('STR_SEV_ACTIVEABB', "A");

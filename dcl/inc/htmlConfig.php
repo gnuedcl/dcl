@@ -255,8 +255,8 @@ class htmlConfig
 
 	function GetSeverityCombo($sName, $sDefault)
 	{
-		$o = new htmlSeverities();
-		return $o->GetCombo(intval($sDefault), $sName);
+		$o = new SeverityHtmlHelper();
+		return $o->Select(intval($sDefault), $sName);
 	}
 
 	function GetAccountCombo($sName, $sDefault)

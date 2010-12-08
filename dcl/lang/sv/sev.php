@@ -1,6 +1,6 @@
 <?php
 	define('STR_SEV_SELECTONE', "VÃ?Â¤lj en");
-	define('STR_SEV_TABLETITLE', "Kategorier - ordnade efter %s");
+	define('STR_SEV_TABLETITLE', "Kategorier");
 	define('STR_SEV_NOSEVS', "Inga kategorier kunde hittas! MÃ?Â¶ljligen finns inga konfigurerade Ã?Â¤nnu - kontakta systemadministratÃ?Â¶ren");
 	define('STR_SEV_ID', "ID");
 	define('STR_SEV_ACTIVEABB', "A");
