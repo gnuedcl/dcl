@@ -24,12 +24,13 @@
 
 LoadStringResource('cfg');
 
-class htmlConfig
+class ConfigurationPresenter
 {
-	function Show()
+	public function Edit()
 	{
 		global $dcl_info, $g_oSec;
 
+		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
@@ -130,7 +131,7 @@ class htmlConfig
 		$t->Render('htmlConfig.tpl');
 	}
 
-	function _GetCombo($sName, $aOptions, $sDefault)
+	private function Select($sName, $aOptions, $sDefault)
 	{
 		$retVal = '<select name="' . $sName . '">';
 
@@ -152,7 +153,7 @@ class htmlConfig
 		return $retVal;
 	}
 
-	function GetDateCombo($sName, $sDefault)
+	private function GetDateCombo($sName, $sDefault)
 	{
 		$aOptions = array(
 				'm/d/Y' => 'mm/dd/yyyy',
@@ -167,10 +168,10 @@ class htmlConfig
 				'Ymd' => 'yyyymmdd'
 			);
 
-		return $this->_GetCombo($sName, $aOptions, $sDefault);
+		return $this->Select($sName, $aOptions, $sDefault);
 	}
 
-	function GetTimestampCombo($sName, $sDefault)
+	private function GetTimestampCombo($sName, $sDefault)
 	{
 		$aOptions = array(
 				'm/d/Y H:i:s' => 'mm/dd/yyyy hh:mm:ss',
@@ -185,10 +186,10 @@ class htmlConfig
 				'YmdHis' => 'yyyymmddhhmmss'
 			);
 
-		return $this->_GetCombo($sName, $aOptions, $sDefault);
+		return $this->Select($sName, $aOptions, $sDefault);
 	}
 
-	function GetLangCombo($sName, $sDefault)
+	private function GetLangCombo($sName, $sDefault)
 	{
 		$aOptions = array(
 				'en' => 'English',
@@ -201,10 +202,10 @@ class htmlConfig
 				'sv' => 'Swedish'
 			);
 
-		return $this->_GetCombo($sName, $aOptions, $sDefault);
+		return $this->Select($sName, $aOptions, $sDefault);
 	}
 
-	function GetGraphicsCombo($sName, $sDefault)
+	private function GetGraphicsCombo($sName, $sDefault)
 	{
 		$aOptions = array(
 				'gif' => 'GIF&nbsp;&nbsp;',
@@ -212,10 +213,10 @@ class htmlConfig
 				'jpeg' => 'JPEG&nbsp;&nbsp;'
 			);
 
-		return $this->_GetCombo($sName, $aOptions, $sDefault);
+		return $this->Select($sName, $aOptions, $sDefault);
 	}
 
-	function GetTemplatesCombo($sName, $sDefault)
+	private function GetTemplatesCombo($sName, $sDefault)
 	{
 		$aOptions = array();
 		$sPath = './templates/';
@@ -229,37 +230,37 @@ class htmlConfig
 				closedir($hDir);
 		}
 
-		return $this->_GetCombo($sName, $aOptions, $sDefault);
+		return $this->Select($sName, $aOptions, $sDefault);
 	}
 
-	function GetSecurityCombo($sName, $sDefault)
+	private function GetSecurityCombo($sName, $sDefault)
 	{
 		$aOptions = array();
 		for ($i = 1; $i < 10; $i++)
 			$aOptions[strval($i)] = 'Level ' . $i;
 
-		return $this->_GetCombo($sName, $aOptions, $sDefault);
+		return $this->Select($sName, $aOptions, $sDefault);
 	}
 
-	function GetStatusCombo($sName, $sDefault)
+	private function GetStatusCombo($sName, $sDefault)
 	{
 		$o = new htmlStatuses();
 		return $o->GetCombo(intval($sDefault), $sName);
 	}
 
-	function GetPriorityCombo($sName, $sDefault)
+	private function GetPriorityCombo($sName, $sDefault)
 	{
 		$o = new PriorityHtmlHelper();
 		return $o->Select(intval($sDefault), $sName);
 	}
 
-	function GetSeverityCombo($sName, $sDefault)
+	private function GetSeverityCombo($sName, $sDefault)
 	{
 		$o = new SeverityHtmlHelper();
 		return $o->Select(intval($sDefault), $sName);
 	}
 
-	function GetAccountCombo($sName, $sDefault)
+	private function GetAccountCombo($sName, $sDefault)
 	{
 		$o = new dbOrg();
 		$aOptions = $o->GetOptions('org_id', 'name', 'active', $bActiveOnly = true);
@@ -270,26 +271,26 @@ class htmlConfig
 			$aSelect[$Org['org_id']] = $Org['name'];
 		}
 
-		return $this->_GetCombo($sName, $aSelect, (int)$sDefault);
+		return $this->Select($sName, $aSelect, (int)$sDefault);
 	}
 
-	function GetPersonnelCombo($sName, $sDefault)
+	private function GetPersonnelCombo($sName, $sDefault)
 	{
 		$o = new htmlPersonnel();
 		return $o->GetCombo(intval($sDefault), $sName);
 	}
 
-	function GetDisplayOrderCombo($sName, $sDefault)
+	private function GetDisplayOrderCombo($sName, $sDefault)
 	{
 		$aOptions = array(
 				'ASC' => 'Oldest First',
 				'DESC' => 'Newest First'
 			);
 
-		return $this->_GetCombo($sName, $aOptions, $sDefault);
+		return $this->Select($sName, $aOptions, $sDefault);
 	}
 
-	function GetPercentCombo($sName, $sDefault)
+	private function GetPercentCombo($sName, $sDefault)
 	{
 		$aOptions = array();
 		for ($i = 0; $i < 100; $i += 5)
@@ -297,6 +298,6 @@ class htmlConfig
 
 		$aOptions['101'] = '100%'; // PHP3 and 4 are off from each other in rand, so 101 covers both
 
-		return $this->_GetCombo($sName, $aOptions, $sDefault);
+		return $this->Select($sName, $aOptions, $sDefault);
 	}
 }

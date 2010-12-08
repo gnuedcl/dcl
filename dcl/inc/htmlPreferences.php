@@ -42,7 +42,7 @@ class htmlPreferences
 		$t->assign('VAL_CONTACTID', $g_oSession->Value('contact_id'));
 		
 		// Reuse methods from here for lang and template
-		$o = new htmlConfig();
+		$o = new ConfigurationHtmlHelper();
 		$t->assign('CMB_DEFAULTTEMPLATESET', $o->GetTemplatesCombo('DCL_PREF_TEMPLATE_SET', GetDefaultTemplateSet()));
 
 		$lang = $dcl_info['DCL_DEFAULT_LANGUAGE'];

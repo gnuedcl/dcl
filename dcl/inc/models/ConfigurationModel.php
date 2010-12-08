@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,9 +20,9 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class dbConfig extends dclDB
+class ConfigurationModel extends dclDB
 {
-	function dbConfig()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_config';
@@ -35,7 +33,7 @@ class dbConfig extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		$query  = 'INSERT INTO dcl_config ';
 		$query .= '(dcl_config_name, dcl_config_field, ' . $this->dcl_config_field;
@@ -51,7 +49,7 @@ class dbConfig extends dclDB
 		}
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		$query  = 'UPDATE dcl_config SET ' . $this->dcl_config_field . ' = ' . $this->FieldValueToSQL($this->dcl_config_field, $this->{$this->dcl_config_field});
 		$query .= ' WHERE dcl_config_name=' . $this->Quote($this->dcl_config_name);
@@ -59,7 +57,7 @@ class dbConfig extends dclDB
 		$this->Execute($query);
 	}
 
-	function UpdateTimeStamp()
+	public function UpdateTimeStamp()
 	{
 		$query = 'UPDATE dcl_config SET dcl_config_datetime = ' . $this->GetDateSQL();
 		$query .= " WHERE dcl_config_name = 'LAST_CONFIG_UPDATE'";
@@ -67,12 +65,12 @@ class dbConfig extends dclDB
 		return $this->Execute($query);
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('dcl_config_name' => $this->dcl_config_name));
 	}
 
-	function Load($sName = '')
+	public function Load($sName = '')
 	{
 		global $dcl_info, $dcl_domain, $dcl_domain_info;
 
@@ -107,7 +105,7 @@ class dbConfig extends dclDB
 		return 1;
 	}
 
-	function LoadForModify()
+	public function LoadForModify()
 	{
 		$sql = 'SELECT dcl_config_name, dcl_config_field, dcl_config_int,';
 		$sql .= 'dcl_config_double, dcl_config_date, ';
@@ -118,7 +116,7 @@ class dbConfig extends dclDB
 			return -1;
 	}
 
-	function Value($sName)
+	public function Value($sName)
 	{
 		global $dcl_info, $dcl_domain, $dcl_domain_info;
 
@@ -154,4 +152,3 @@ class dbConfig extends dclDB
 		return $retVal;
 	}
 }
-?>

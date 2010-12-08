@@ -8,7 +8,7 @@ function validateAndSubmit(f)
 {/literal}
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="boConfig.dbmodify">
+	<input type="hidden" name="menuAction" value="Configuration.Update">
 	<fieldset>
 		<legend>{$smarty.const.STR_CFG_SYSTEMTITLE}</legend>
 		<div class="required"><label for="DCL_DATE_FORMAT">{$smarty.const.STR_CFG_DATEFORMAT}:</label>{$CMB_DATEFORMAT}<span>{$smarty.const.STR_CFG_DATEFORMATHELP}</span></div>

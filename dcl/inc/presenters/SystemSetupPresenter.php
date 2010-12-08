@@ -64,7 +64,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_STATUSESDESC,
 				'note' =>  STR_ADMIN_STATUSESNOTE
 			),
-			'boConfig.modify' => array(
+			'Configuration.Edit' => array(
 				'action' =>  STR_ADMIN_CONFIG,
 				'description' =>  STR_ADMIN_CONFIGDESC,
 				'note' =>  STR_ADMIN_CONFIGNOTE

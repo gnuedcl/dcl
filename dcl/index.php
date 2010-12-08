@@ -28,7 +28,7 @@ if (!isset($dcl_info))
 {
 	// If we had a session, some of the config would be in it
 	// and would have been removed above.
-	$oConfig = new dbConfig();
+	$oConfig = new ConfigurationModel();
 	$dcl_info = array();
 	$oConfig->Load();
 }

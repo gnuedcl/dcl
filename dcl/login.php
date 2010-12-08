@@ -137,7 +137,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 		$authInfo = array();
 		if ($authenticateModel->IsValidLogin($authInfo))
 		{		
-			$oConfig = new dbConfig();
+			$oConfig = new ConfigurationModel();
 			$dcl_info = array();
 			$oConfig->Load();
 

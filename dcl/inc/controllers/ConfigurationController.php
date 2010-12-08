@@ -24,21 +24,15 @@
 
 LoadStringResource('bo');
 
-class boConfig
+class ConfigurationController
 {
-	function modify()
+	public function Edit()
 	{
-		global $g_oSec;
-		
-		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
-
-		$obj = new htmlConfig();
-		$obj->Show();
+		$presenter = new ConfigurationPresenter();
+		$presenter->Edit();
 	}
 
-	function dbmodify()
+	public function Update()
 	{
 		global $dcl_info, $g_oSec;
 
@@ -61,40 +55,40 @@ class boConfig
 		// the ones that have changed.
 		$bHasUpdates = false;
 
-		$oConfig = new dbConfig();
-		$oConfig->LoadForModify();
-		while ($oConfig->next_record())
+		$model = new ConfigurationModel();
+		$model->LoadForModify();
+		while ($model->next_record())
 		{
-			$oConfig->GetRow();
-			if (IsSet($_REQUEST[$oConfig->dcl_config_name]))
-				$_REQUEST[$oConfig->dcl_config_name] = $oConfig->GPCStripSlashes($_REQUEST[$oConfig->dcl_config_name]);
+			$model->GetRow();
+			if (IsSet($_REQUEST[$model->dcl_config_name]))
+				$_REQUEST[$model->dcl_config_name] = $model->GPCStripSlashes($_REQUEST[$model->dcl_config_name]);
 
 			// checkboxes need special handling
-			if (in_array($oConfig->dcl_config_name, $aCheckboxes))
+			if (in_array($model->dcl_config_name, $aCheckboxes))
 			{
-				$newVal = (IsSet($_REQUEST[$oConfig->dcl_config_name]) && $_REQUEST[$oConfig->dcl_config_name] == 'Y') ? 'Y' : 'N';
-				if ($newVal != $dcl_info[$oConfig->dcl_config_name])
+				$newVal = (IsSet($_REQUEST[$model->dcl_config_name]) && $_REQUEST[$model->dcl_config_name] == 'Y') ? 'Y' : 'N';
+				if ($newVal != $dcl_info[$model->dcl_config_name])
 				{
-					$oConfig->{$oConfig->dcl_config_field} = $newVal;
-					$oConfigTemp = $oConfig;
-					$oConfigTemp->Edit();
-					$dcl_info[$oConfig->dcl_config_name] = $newVal;
+					$model->{$model->dcl_config_field} = $newVal;
+					$modelTemp = $model;
+					$modelTemp->Edit();
+					$dcl_info[$model->dcl_config_name] = $newVal;
 					$bHasUpdates = true;
 				}
 			}
-			elseif (isset($_REQUEST[$oConfig->dcl_config_name]) && $dcl_info[$oConfig->dcl_config_name] != $_REQUEST[$oConfig->dcl_config_name])
+			elseif (isset($_REQUEST[$model->dcl_config_name]) && $dcl_info[$model->dcl_config_name] != $_REQUEST[$model->dcl_config_name])
 			{
-				$oConfig->{$oConfig->dcl_config_field} = $_REQUEST[$oConfig->dcl_config_name];
-				$oConfigTemp = $oConfig;
-				$oConfigTemp->Edit();
-				$dcl_info[$oConfig->dcl_config_name] = $_REQUEST[$oConfig->dcl_config_name];
+				$model->{$model->dcl_config_field} = $_REQUEST[$model->dcl_config_name];
+				$modelTemp = $model;
+				$modelTemp->Edit();
+				$dcl_info[$model->dcl_config_name] = $_REQUEST[$model->dcl_config_name];
 				$bHasUpdates = true;
 			}
 		}
 
 		if ($bHasUpdates)
 		{
-			$oConfigTemp->UpdateTimeStamp();
+			$modelTemp->UpdateTimeStamp();
 			SetRedirectMessage('Success', 'Configuration updated successfully.');
 		}
 		else
