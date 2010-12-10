@@ -35,7 +35,7 @@ class htmlTicketForm
 			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
-		$objJS = new jsAttributesets();
+		$objJS = new AttributeSetJsHelper();
 
 		if (!$isEdit)
 			$objJS->bActiveOnly = true;
@@ -43,7 +43,7 @@ class htmlTicketForm
 		$objJS->bPriorities = true;
 		$objJS->bSeverities = true;
 		$objJS->bModules = true;
-		$objJS->forWhat = 'tck';
+		$objJS->forWhat = DCL_ENTITY_TICKET;
 		$objJS->DisplayAttributeScript();
 
 		$oSmarty->assign('VAL_FORMACTION', menuLink());

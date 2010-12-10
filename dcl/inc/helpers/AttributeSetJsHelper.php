@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,22 +21,22 @@
  */
 
 // Generate JavaScript for attribute sets
-class jsAttributesets
+class AttributeSetJsHelper
 {
-	var $bActiveOnly;
-	var $bActions;
-	var $bPriorities;
-	var $bSeverities;
-	var $bStatuses;
-	var $bModules;
-	var $bStatusTypes;
-	var $bDepartments;
-	var $forWhat;
-	var $db;
-	var $arrSets;
-	var $bIsPublicUser;
+	public $bActiveOnly;
+	public $bActions;
+	public $bPriorities;
+	public $bSeverities;
+	public $bStatuses;
+	public $bModules;
+	public $bStatusTypes;
+	public $bDepartments;
+	public $forWhat;
+	public $db;
+	public $arrSets;
+	public $bIsPublicUser;
 
-	function jsAttributesets()
+	public function __construct()
 	{
 		global $g_oSec;
 
@@ -50,13 +48,13 @@ class jsAttributesets
 		$this->bModules = false;
 		$this->bStatusTypes = false;
 		$this->bDepartments = false;
-		$this->forWhat = 'wo'; // tck for tickets - change from calling function
+		$this->forWhat = DCL_ENTITY_WORKORDER;
 		$this->arrSets = array();
 
 		$this->bIsPublicUser = $g_oSec->IsPublicUser();
 	}
 
-	function _buildSelectArray($table)
+	private function BuildSelectArray($table)
 	{
 		switch($table)
 		{
@@ -88,7 +86,7 @@ class jsAttributesets
 		}
 	}
 
-	function _buildModuleArray()
+	private function BuildModuleArray()
 	{
 		$sql = 'SELECT m.product_module_id, m.product_id, m.module_name, m.active From dcl_product_module m';
 		if ($this->bIsPublicUser || $this->bActiveOnly)
@@ -123,7 +121,7 @@ class jsAttributesets
 		}
 	}
 
-	function _buildStatusTypeArray()
+	private function BuildStatusTypeArray()
 	{
 		$sql = 'SELECT dcl_status_type_id, dcl_status_type_name, id, name From dcl_status_type, statuses Where dcl_status_type_id = dcl_status_type';
 		if ($this->bActiveOnly)
@@ -150,7 +148,7 @@ class jsAttributesets
 		}
 	}
 
-	function _buildDepartmentArray()
+	private function BuildDepartmentArray()
 	{
 		$sql = 'SELECT a.id, a.name, b.id, b.short From departments a, personnel b Where a.id = b.department';
 		if ($this->bActiveOnly)
@@ -177,7 +175,7 @@ class jsAttributesets
 		}
 	}
 
-	function _buildMapArray($table)
+	private function BuildMapArray($table)
 	{
 		switch($table)
 		{
@@ -199,7 +197,10 @@ class jsAttributesets
 				break;
 		}
 
-		$field = $this->forWhat . 'setid';
+		if ($this->forWhat == DCL_ENTITY_TICKET)
+			$field = 'tcksetid';
+		else
+			$field = 'wosetid';
 
 		print("\nvar m$typeid=new Array();\n");
 
@@ -223,9 +224,13 @@ class jsAttributesets
 		}
 	}
 
-	function _buildProductSetArray()
+	private function BuildProductSetArray()
 	{
-		$field = $this->forWhat . 'setid';
+		if ($this->forWhat == DCL_ENTITY_TICKET)
+			$field = 'tcksetid';
+		else
+			$field = 'wosetid';
+
 		$query = "SELECT id,$field FROM products";
 		if ($this->bIsPublicUser || $this->bActiveOnly)
 		{
@@ -261,7 +266,7 @@ class jsAttributesets
 		}
 	}
 
-	function _buildChgFunction($table)
+	private function BuildChgFunction($table)
 	{
 		$err = '';
 		switch($table)
@@ -276,7 +281,7 @@ class jsAttributesets
 				break;
 			case 'severities':
 				$typeid = 3;
-				if ($this->forWhat == 'wo')
+				if ($this->forWhat == DCL_ENTITY_WORKORDER)
 					$ctrl = 'severity';
 				else
 					$ctrl = 'type';
@@ -310,7 +315,7 @@ class jsAttributesets
 
 	}
 
-	function _buildDependentList($func, $mainName, $dependentName, $arrayName)
+	private function BuildDependentList($func, $mainName, $dependentName, $arrayName)
 	{
 		$err = '';
 
@@ -365,22 +370,22 @@ class jsAttributesets
 		print("}\n");
 	}
 
-	function _buildChgModuleFunction()
+	private function BuildChgModuleFunction()
 	{
-		$this->_buildDependentList('chgModule', 'product', 'module_id', 'pm');
+		$this->BuildDependentList('chgModule', 'product', 'module_id', 'pm');
 	}
 
-	function _buildChgStatusTypeFunction()
+	private function BuildChgStatusTypeFunction()
 	{
-		$this->_buildDependentList('chgStatusType', 'dcl_status_type', 'status', 'st');
+		$this->BuildDependentList('chgStatusType', 'dcl_status_type', 'status', 'st');
 	}
 
-	function _buildChgDepartmentFunction()
+	private function BuildChgDepartmentFunction()
 	{
-		$this->_buildDependentList('chgDepartment', 'department', 'personnel', 'dpt');
+		$this->BuildDependentList('chgDepartment', 'department', 'personnel', 'dpt');
 	}
 
-	function DisplayAttributeScript()
+	public function DisplayAttributeScript()
 	{
 		if (!$this->bActions && !$this->bPriorities && !$this->bSeverities && !$this->bStatuses && !$this->bModules)
 			return;
@@ -392,30 +397,30 @@ class jsAttributesets
 		$calls = '';
 
 		// Must be called first to build unique array of sets
-		$this->_buildProductSetArray();
+		$this->BuildProductSetArray();
 
 		if ($this->bActions)
 		{
-			$this->_buildSelectArray('actions');
-			$this->_buildMapArray('actions');
-			$this->_buildChgFunction('actions');
+			$this->BuildSelectArray('actions');
+			$this->BuildMapArray('actions');
+			$this->BuildChgFunction('actions');
 			$calls .= " chgaction(f);\n";
 		}
 
 		if ($this->bPriorities)
 		{
-			$this->_buildSelectArray('priorities');
-			$this->_buildMapArray('priorities');
-			$this->_buildChgFunction('priorities');
+			$this->BuildSelectArray('priorities');
+			$this->BuildMapArray('priorities');
+			$this->BuildChgFunction('priorities');
 			$calls .= " chgpriority(f);\n";
 		}
 
 		if ($this->bSeverities)
 		{
-			$this->_buildSelectArray('severities');
-			$this->_buildMapArray('severities');
-			$this->_buildChgFunction('severities');
-			if ($this->forWhat == 'wo')
+			$this->BuildSelectArray('severities');
+			$this->BuildMapArray('severities');
+			$this->BuildChgFunction('severities');
+			if ($this->forWhat == DCL_ENTITY_WORKORDER)
 				$calls .= " chgseverity(f);\n";
 			else
 				$calls .= " chgtype(f);\n";
@@ -423,30 +428,30 @@ class jsAttributesets
 
 		if ($this->bStatuses)
 		{
-			$this->_buildSelectArray('statuses');
-			$this->_buildMapArray('statuses');
-			$this->_buildChgFunction('statuses');
+			$this->BuildSelectArray('statuses');
+			$this->BuildMapArray('statuses');
+			$this->BuildChgFunction('statuses');
 			$calls .= " chgstatus(f);\n";
 		}
 
 		if ($this->bModules)
 		{
-			$this->_buildModuleArray();
-			$this->_buildChgModuleFunction();
+			$this->BuildModuleArray();
+			$this->BuildChgModuleFunction();
 			$calls .= " chgModule(f);\n";
 		}
 
 		if ($this->bStatusTypes)
 		{
-			$this->_buildStatusTypeArray();
-			$this->_buildChgStatusTypeFunction();
+			$this->BuildStatusTypeArray();
+			$this->BuildChgStatusTypeFunction();
 			$calls .= " chgStatusType(f);\n";
 		}
 
 		if ($this->bDepartments)
 		{
-			$this->_buildDepartmentArray();
-			$this->_buildChgDepartmentFunction();
+			$this->BuildDepartmentArray();
+			$this->BuildChgDepartmentFunction();
 			$calls .= " chgDepartment(f);\n";
 		}
 

@@ -61,7 +61,7 @@ class htmlTicketSearches
 
 		$bView = is_object($oView);
 
-		$objJS = new jsAttributesets();
+		$objJS = new AttributeSetJsHelper();
 		$objJS->bModules = true;
 		$objJS->bStatusTypes = true;
 		$objJS->bDepartments = !$g_oSec->IsPublicUser();

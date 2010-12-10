@@ -73,7 +73,7 @@ class htmlWOSearches
 		
 		$aProtectedFields = array('notes', 'dcl_hotlist.hotlist_tag', 'is_public', 'timecards.actionby', 'timecards.summary');
 
-		$objJS = new jsAttributesets();
+		$objJS = new AttributeSetJsHelper();
 		$objJS->bModules = true;
 		$objJS->bStatusTypes = true;
 		$objJS->bDepartments = !$g_oSec->IsPublicUser();

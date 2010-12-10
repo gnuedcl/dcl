@@ -64,7 +64,7 @@ class htmlWorkOrderForm
 			throw new PermissionDeniedException();
 		}
 
-		$objJS = new jsAttributesets();
+		$objJS = new AttributeSetJsHelper();
 		if (!$isEdit)
 			$objJS->bActiveOnly = true;
 
