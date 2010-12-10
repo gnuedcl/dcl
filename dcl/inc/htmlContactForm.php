@@ -300,7 +300,7 @@ class htmlContactForm
 			if (isset($_REQUEST['hideMenu']))
 				$oSmarty->assign('hideMenu', $_REQUEST['hideMenu']);
 
-			$oContactType = new dbContactType();
+			$oContactType = new ContactTypeModel();
 			$oSmarty->assign('contactTypes', $oContactType->GetTypes());
 
 			$oSmarty->Render('htmlNewContactForm.tpl');
@@ -322,7 +322,7 @@ class htmlContactForm
 		$oSmarty->assign('VAL_MIDDLENAME', $obj->middle_name);
 		$oSmarty->assign('VAL_LASTNAME', $obj->last_name);
 
-		$oContactType = new dbContactType();
+		$oContactType = new ContactTypeModel();
 		$oSmarty->assign('contactTypes', $oContactType->GetTypes($obj->contact_id));
 
 		$oSmarty->Render('htmlContactForm.tpl');

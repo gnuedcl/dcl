@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,28 +22,11 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
-
-class boContactType extends boAdminObject
+class ContactTypeSqlQueryHelper extends AbstractSqlQueryHelper
 {
-	function boContactType()
+	public function __construct()
 	{
-		parent::boAdminObject();
-		
-		$this->oDB = new dbContactType();
-		$this->sKeyField = 'contact_type_id';
-		$this->Entity = DCL_ENTITY_CONTACTTYPE;
-	}
-	
-	function add($aSource)
-	{
-		$aSource['contact_type_is_main'] = @DCL_Sanitize::ToYN($aSource['contact_type_is_main']);
-		parent::add($aSource);
-	}
-	
-	function modify($aSource)
-	{
-		$aSource['contact_type_is_main'] = @DCL_Sanitize::ToYN($aSource['contact_type_is_main']);
-		parent::modify($aSource);
+		parent::__construct();
+		$this->table = 'dcl_contact_type';
 	}
 }

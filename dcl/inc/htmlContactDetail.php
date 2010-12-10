@@ -63,7 +63,7 @@ class htmlContactDetail
 		$t->assign('VAL_TODAY', mktime(0, 0, 0, date('m'), date('j'), date('Y')));
 
 		// Get types for this contact
-		$oContactType = new dbContactType();
+		$oContactType = new ContactTypeModel();
 		$oContactType->ListByContact($oContact->contact_id);
 		$aTypes = array();
 		while ($oContactType->next_record())

@@ -79,7 +79,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_ORGTYPESDESC,
 				'note' =>  STR_ADMIN_ORGTYPESNOTE
 			),
-			'htmlContactType.showall' => array(
+			'ContactType.Index' => array(
 				'action' =>  STR_ADMIN_CONTACTTYPES,
 				'description' =>  STR_ADMIN_CONTACTTYPESDESC,
 				'note' =>  STR_ADMIN_CONTACTTYPESNOTE

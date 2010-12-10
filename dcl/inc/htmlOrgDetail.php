@@ -149,7 +149,7 @@ class htmlOrgDetail
 		$oOrgContacts->ListMainContacts($oOrg->org_id);
 		$aContacts = array();
 		$oMetadata = new DCL_MetadataDisplay();
-		$oContactType = new dbContactType();
+		$oContactType = new ContactTypeModel();
 		while ($oOrgContacts->next_record())
 		{
 			$aContact = $oMetadata->GetContact($oOrgContacts->f('contact_id'));

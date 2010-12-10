@@ -23,9 +23,9 @@
  */
 
 LoadStringResource('db');
-class dbContactType extends dclDB
+class ContactTypeModel extends dclDB
 {
-	function dbContactType()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_contact_type';
@@ -34,7 +34,7 @@ class dbContactType extends dclDB
 		parent::Clear();
 	}
 	
-	function ListByContact($contact_id)
+	public function ListByContact($contact_id)
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 		{
@@ -48,7 +48,7 @@ class dbContactType extends dclDB
 		return $this->Query($sql);
 	}
 
-	function &GetTypes($contact_id = -1)
+	public function &GetTypes($contact_id = -1)
 	{
 		$sSQL = 'SELECT ct.contact_type_id, ct.contact_type_name, ctx.contact_id FROM dcl_contact_type ct ';
 		$sSQL .= "LEFT JOIN dcl_contact_type_xref ctx ON ct.contact_type_id = ctx.contact_type_id AND ctx.contact_id = $contact_id ";
