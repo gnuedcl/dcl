@@ -73,7 +73,7 @@ class htmlOrgDetail
 		$oOrgAlias->FreeResult();
 
 		// Get types for this org
-		$oOrgType = new dbOrgType();
+		$oOrgType = new OrganizationTypeModel();
 		$oOrgType->ListByOrg($oOrg->org_id);
 		$aTypes = array();
 		while ($oOrgType->next_record())

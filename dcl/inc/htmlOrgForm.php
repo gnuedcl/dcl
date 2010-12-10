@@ -297,7 +297,7 @@ class htmlOrgForm
 			$oSmarty->assign('VAL_ACTIVE', $obj->active);
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Organization');
 			
-			$oOrgType = new dbOrgType();
+			$oOrgType = new OrganizationTypeModel();
 			$oSmarty->assign('orgTypes', $oOrgType->GetTypes($obj->org_id));
 
 			$oSmarty->Render('htmlOrgForm.tpl');
@@ -319,7 +319,7 @@ class htmlOrgForm
 			$oUrlType = new htmlUrlType();
 			$oSmarty->assign('CMB_URLTYPE', $oUrlType->GetCombo());
 
-			$oOrgType = new dbOrgType();
+			$oOrgType = new OrganizationTypeModel();
 			$oSmarty->assign('orgTypes', $oOrgType->GetTypes());
 
 			$oSmarty->Render('htmlNewOrgForm.tpl');

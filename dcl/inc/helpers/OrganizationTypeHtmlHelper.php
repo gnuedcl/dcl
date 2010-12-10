@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,16 +20,21 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
-
-class boOrgType extends boAdminObject
+class OrganizationTypeHtmlHelper
 {
-	function boOrgType()
+	public function Select($default = 0, $cbName = 'org_type_id', $size = 0, $activeOnly = true)
 	{
-		parent::boAdminObject();
-		
-		$this->oDB = new dbOrgType();
-		$this->sKeyField = 'org_type_id';
-		$this->Entity = DCL_ENTITY_ORGTYPE;
+		$filter = '';
+		$table = 'dcl_org_type';
+		$order = 'org_type_name';
+
+		$obj = new htmlSelect();
+		$obj->SetOptionsFromDb($table, 'org_type_id', 'org_type_name', $filter, $order);
+		$obj->vDefault = $default;
+		$obj->sName = $cbName;
+		$obj->iSize = $size;
+		$obj->sZeroOption = STR_CMMN_SELECTONE;
+
+		return $obj->GetHTML();
 	}
 }

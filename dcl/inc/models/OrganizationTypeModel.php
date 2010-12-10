@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,14 +21,14 @@
  */
 
 LoadStringResource('db');
-class dbOrgType extends dclDB
+class OrganizationTypeModel extends dclDB
 {
-	function dbOrgType()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_org_type';
 		LoadSchema($this->TableName);
-		
+
 		parent::Clear();
 	}
 	
@@ -70,4 +68,3 @@ class dbOrgType extends dclDB
 		return $aRetVal;
 	}
 }
-?>

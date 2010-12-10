@@ -74,7 +74,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_DEPARTMENTSDESC,
 				'note' =>  STR_ADMIN_DEPARTMENTSNOTE
 			),
-			'htmlOrgType.showall' => array(
+			'OrganizationType.Index' => array(
 				'action' =>  STR_ADMIN_ORGTYPES,
 				'description' =>  STR_ADMIN_ORGTYPESDESC,
 				'note' =>  STR_ADMIN_ORGTYPESNOTE
