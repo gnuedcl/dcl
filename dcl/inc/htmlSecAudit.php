@@ -68,7 +68,7 @@ class htmlSecAudit
 		if (!isset($reportArray) || !is_array($reportArray))
 			return false;
 			
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		
 		$oTable->addColumn(STR_USR_LOGIN, 'string');
 		$oTable->addColumn(STR_SEC_ACTIONON, 'numeric');

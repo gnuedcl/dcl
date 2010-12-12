@@ -92,7 +92,7 @@ class htmlProductModules
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption('Modules for Product ' . $oProduct->name);
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_ACTIVE, 'string');

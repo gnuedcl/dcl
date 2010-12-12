@@ -52,7 +52,7 @@ class htmlBuildManagerShowWOView
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->addColumn(STR_WO_JCN, 'html');
 		$oTable->addColumn(STR_WO_SEQ, 'html');
 		$oTable->addColumn(STR_WO_SUMMARY, 'string');

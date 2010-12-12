@@ -231,7 +231,7 @@ class htmlWorkorders
 				$allRecs[] = array($o->f(0) . ': ' . $o->f(2), $o->f(1), $o->f(3), $o->f(4), $o->f(5), $o->FormatTimestampForDisplay($o->f(6)));
 			}
 
-			$oTable = new htmlTable();
+			$oTable = new TableHtmlHelper();
 			$oTable->setCaption("ChangeLog for Work Order $jcn-$seq");
 			$oTable->addColumn('Project', 'string');
 			$oTable->addColumn('Changed By', 'string');
@@ -274,7 +274,7 @@ class htmlWorkorders
 				$allRecs[] = array($o->f(0) . ': ' . $o->f(2), $o->f(1), $o->f(3), $o->f(4), $o->f(5), $o->FormatTimestampForDisplay($o->f(6)));
 			}
 
-			$oTable = new htmlTable();
+			$oTable = new TableHtmlHelper();
 			$oTable->setCaption("ChangeLog for Work Order $jcn-$seq");
 			$oTable->addColumn('Project', 'string');
 			$oTable->addColumn('Changed By', 'string');

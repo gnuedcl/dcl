@@ -42,7 +42,7 @@ class htmlTicketResults
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 			throw new PermissionDeniedException();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		
 		$oTable->assign('VAL_VIEWSETTINGS', $oView->GetForm());
 		$aProducts = IsSet($_REQUEST['product']) ? DCL_Sanitize::ToIntArray($_REQUEST['product']) : array();

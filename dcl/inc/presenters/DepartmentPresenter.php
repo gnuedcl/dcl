@@ -39,7 +39,7 @@ class DepartmentPresenter
 		$model->Query("SELECT id,active,short,name FROM departments ORDER BY name");
 		$allRecs = $model->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(STR_DEPT_TABLETITLE);
 		$oTable->addColumn(STR_DEPT_ID, 'numeric');
 		$oTable->addColumn(STR_DEPT_ACTIVE, 'string');

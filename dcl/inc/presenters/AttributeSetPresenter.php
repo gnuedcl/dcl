@@ -37,7 +37,7 @@ class AttributeSetPresenter
 		$model->Query("SELECT id,active,short,name FROM attributesets ORDER BY name");
 		$allRecs = $model->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(STR_ATTR_ATTRIBUTESETS);
 		$oTable->addColumn(STR_ATTR_ID, 'numeric');
 		$oTable->addColumn(STR_ATTR_ACTIVE, 'string');

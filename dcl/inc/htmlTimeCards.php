@@ -58,7 +58,7 @@ class htmlTimeCards
 		$query .= ')';
 		if ($objWO->Query($query) != -1)
 		{
-			$oTable = new htmlTable();
+			$oTable = new TableHtmlHelper();
 			$oTable->sCaption = 'Selected Work Orders';
 			$oTable->addColumn(STR_WO_JCN, 'numeric');
 			$oTable->addColumn(STR_WO_SEQ, 'numeric');

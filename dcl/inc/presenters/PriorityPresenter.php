@@ -38,7 +38,7 @@ class PriorityPresenter
 		$model->Query("SELECT id,active,short,name,weight FROM priorities ORDER BY name");
 		$allRecs = $model->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(STR_PRIO_TABLETITLE);
 		$oTable->addColumn(STR_PRIO_ID, 'numeric');
 		$oTable->addColumn(STR_PRIO_ACTIVE, 'string');

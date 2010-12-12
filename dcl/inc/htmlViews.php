@@ -85,7 +85,7 @@ class htmlViews
 		$objDB->Query('SELECT viewid,whoid,ispublic,name,tablename FROM views WHERE whoid=' . $GLOBALS['DCLID'] . " OR ispublic='Y' ORDER BY $orderBy");
 		$allRecs = $objDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(sprintf(STR_VW_TITLE, $orderBy));
 		$oTable->addColumn(STR_VW_ID, 'numeric');
 		$oTable->addColumn(STR_VW_OWNER, 'string');

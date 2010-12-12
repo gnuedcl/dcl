@@ -129,7 +129,7 @@ class htmlHotlistProjectTimeline
 		        $aResults[] = $aRecord;
 		    }
 		    
-    		$oTable = new htmlTable();
+    		$oTable = new TableHtmlHelper();
     		$oTable->setCaption('Hotlist Timeline');
     		$oTable->addColumn('Date', 'string');
     		$oTable->addColumn('Time', 'string');

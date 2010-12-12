@@ -57,7 +57,7 @@ class AttributeSetMapPresenter
 
 			if ($objA->Query($query) != -1)
 			{
-				$oTable = new htmlTable();
+				$oTable = new TableHtmlHelper();
 				$oTable->setCaption($aTitles[$theAttributes[$cnt]]);
 				$oTable->setInline(true);
 

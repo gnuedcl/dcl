@@ -123,7 +123,7 @@ class htmlWatches
 		}
 		while ($obj->next_record());
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(STR_WTCH_MYWTCH);
 		$oTable->setShowRownum(true);
 		$oTable->setData($aData);

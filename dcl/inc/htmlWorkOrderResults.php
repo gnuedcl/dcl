@@ -45,7 +45,7 @@ class htmlWorkOrderResults
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 			throw new PermissionDeniedException();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		
 		$bIsExplicitView = is_a($oView, 'boExplicitView');
 		if (!$bIsExplicitView)

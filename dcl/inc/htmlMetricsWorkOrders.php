@@ -148,7 +148,7 @@ class htmlMetricsWorkOrders
 		$oDB = new dclDB;
 		if ($oDB->query($sSQL) != -1)
 		{
-			$oTable = new htmlTable();
+			$oTable = new TableHtmlHelper();
 			$oTable->setInline(true);
 			$oTable->setCaption($sCaption);
 			$oTable->addColumn($sAggregateBy, 'html');

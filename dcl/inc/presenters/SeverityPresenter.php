@@ -38,7 +38,7 @@ class SeverityPresenter
 		$model->Query("SELECT id,active,short,name,weight FROM severities ORDER BY name");
 		$allRecs = $model->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(STR_SEV_TABLETITLE);
 		$oTable->addColumn(STR_SEV_ID, 'numeric');
 		$oTable->addColumn(STR_SEV_ACTIVE, 'string');

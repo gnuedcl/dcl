@@ -60,7 +60,7 @@ class htmlTicketBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$iEndOffset = 0;
 		for ($iColumn = count($oView->groups); $iColumn < $this->oDB->NumFields(); $iColumn++)
 		{

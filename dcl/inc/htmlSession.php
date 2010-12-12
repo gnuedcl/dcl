@@ -67,7 +67,7 @@ class htmlSession
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption($oView->title);
 		$oTable->addColumn('User', 'string');
 		$oTable->addColumn('Login Date', 'string');

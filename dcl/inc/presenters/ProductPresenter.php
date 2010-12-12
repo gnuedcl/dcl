@@ -57,7 +57,7 @@ class ProductPresenter
 		$objDBProduct->Query($query);
 		$allRecs = $objDBProduct->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption('Products');
 		$oTable->addColumn(STR_PROD_ID, 'numeric');
 		$oTable->addColumn(STR_PROD_ACTIVEABB, 'string');

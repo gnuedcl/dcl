@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,24 +20,24 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class htmlTable
+class TableHtmlHelper
 {
-	var $aData;
-	var $aToolbar;
-	var $aCols;
-	var $aFooter;
-	var $aGroups;
-	var $aCheckVals;
-	var $sCaption;
-	var $bShowRownum;
-	var $sTemplate;
-	var $bInline;
-	var $bShowChecks;
-	var $oSmarty;
-	var $sWidth;
-	var $bSpacer;
+	protected $aData;
+	protected $aToolbar;
+	protected $aCols;
+	protected $aFooter;
+	protected $aGroups;
+	protected $aCheckVals;
+	protected $sCaption;
+	protected $bShowRownum;
+	protected $sTemplate;
+	protected $bInline;
+	protected $bShowChecks;
+	protected $oSmarty;
+	protected $sWidth;
+	protected $bSpacer;
 	
-	function htmlTable()
+	public function __construct()
 	{
 		$this->oSmarty = new DCL_Smarty();
 		
@@ -58,77 +56,77 @@ class htmlTable
 		$this->bSpacer = false;
 	}
 	
-	function setData($aData)
+	public function setData($aData)
 	{
 		$this->aData = $aData;
 	}
 	
-	function setWidth($sWidth)
+	public function setWidth($sWidth)
 	{
 		$this->sWidth = $sWidth;
 	}
 	
-	function setSpacer($bSpacer)
+	public function setSpacer($bSpacer)
 	{
 		$this->bSpacer = $bSpacer;
 	}
 	
-	function addRow($aRow)
+	public function addRow($aRow)
 	{
 		array_push($this->aData, $aRow);
 	}
 	
-	function addColumn($sCol, $sType)
+	public function addColumn($sCol, $sType)
 	{
 		array_push($this->aCols, array('title' => $sCol, 'type' => $sType));
 	}
 	
-	function addGroup($iGroupColumn)
+	public function addGroup($iGroupColumn)
 	{
 		array_push($this->aGroups, $iGroupColumn);
 	}
 	
-	function setFooter($aFooter)
+	public function setFooter($aFooter)
 	{
 		$this->aFooter = $aFooter;
 	}
 	
-	function addFooter($sFooter)
+	public function addFooter($sFooter)
 	{
 		array_push($this->aFooter, $sFooter);
 	}
 	
-	function addToolbar($sLink, $sText)
+	public function addToolbar($sLink, $sText)
 	{
 		array_push($this->aToolbar, array('link' => $sLink, 'text' => $sText));
 	}
 	
-	function setCaption($sCaption)
+	public function setCaption($sCaption)
 	{
 		$this->sCaption = $sCaption;
 	}
 	
-	function setShowRownum($bShowRownum)
+	public function setShowRownum($bShowRownum)
 	{
 		$this->bShowRownum = (bool)$bShowRownum;
 	}
 	
-	function setShowChecks($bShowChecks)
+	public function setShowChecks($bShowChecks)
 	{
 		$this->bShowChecks = $bShowChecks;
 	}
 	
-	function setInline($bInline)
+	public function setInline($bInline)
 	{
 		$this->bInline = $bInline;
 	}
 	
-	function assign($sVar, $oValue)
+	public function assign($sVar, $oValue)
 	{
 		$this->oSmarty->assign($sVar, $oValue);
 	}
 	
-	function render()
+	public function render()
 	{
 		$this->oSmarty->assign('columns', $this->aCols);
 		$this->oSmarty->assign('footer', $this->aFooter);
@@ -146,4 +144,3 @@ class htmlTable
 		$this->oSmarty->Render($this->sTemplate);
 	}
 }
-?>

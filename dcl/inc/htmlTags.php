@@ -55,7 +55,7 @@ class htmlTags
 		
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption('Popular Tags');
 		$oTable->addColumn(STR_CMMN_TAGS, 'html');
 		$oTable->addColumn('Count', 'numeric');
@@ -88,7 +88,7 @@ class htmlTags
 		
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption('Browsing Tags');
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');

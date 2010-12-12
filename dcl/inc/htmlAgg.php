@@ -168,7 +168,7 @@ class htmlAgg
 		}
 		else
 		{
-			$oTable = new htmlTable();
+			$oTable = new TableHtmlHelper();
 			$oTable->addColumn('Open', 'html');
 			$oTable->addColumn('Completed', 'html');
 			$oTable->addColumn($this->_aTypeInfo[$this->group][$this->sub][1], 'string');

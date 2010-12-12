@@ -38,7 +38,7 @@ class StatusPresenter
 		$objDBStatus->Query("SELECT a.id,a.active,a.short,a.name,b.dcl_status_type_name FROM statuses a,dcl_status_type b WHERE b.dcl_status_type_id=a.dcl_status_type ORDER BY a.name");
 		$allRecs = $objDBStatus->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(STR_STAT_TABLETITLE);
 		$oTable->addColumn(STR_STAT_ID, 'numeric');
 		$oTable->addColumn(STR_STAT_ACTIVE, 'string');

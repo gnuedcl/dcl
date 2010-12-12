@@ -47,7 +47,7 @@ class htmlBuildManagerVersionView
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption($oView->title);
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_BM_RELEASE_ALIAS_TITLE, 'string');

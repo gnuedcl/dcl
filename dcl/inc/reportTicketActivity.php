@@ -114,7 +114,7 @@ class reportTicketActivity
 				}
 				while ($obj->next_record());
 
-				$oTable = new htmlTable();
+				$oTable = new TableHtmlHelper();
 				$oTable->addColumn(STR_TCK_PRODUCT, 'string');
 				$oTable->addColumn(STR_TCK_ACCOUNT, 'string');
 				$oTable->addColumn(STR_TCK_STATUS, 'string');

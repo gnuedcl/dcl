@@ -96,7 +96,7 @@ class htmlMyDCL
 			$objView->AddDef('filternot', 'responsible', $GLOBALS['DCLID']);
 		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'ticketid'));
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		foreach ($objView->columnhdrs as $sColumn)
 		{
 			if ($sColumn == STR_TCK_TICKET)
@@ -170,7 +170,7 @@ class htmlMyDCL
 			
 		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'deadlineon', 'eststarton', 'jcn', 'seq'));
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		foreach ($objView->columnhdrs as $sColumn)
 		{
 			if ($sColumn == STR_WO_JCN || $sColumn == STR_WO_SEQ)
@@ -227,7 +227,7 @@ class htmlMyDCL
 
 		$oView->AddDef('order', '', array('dcl_projects.name'));
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		foreach ($oView->columnhdrs as $sColumn)
 		{
 			if ($sColumn == STR_PRJ_NAME)

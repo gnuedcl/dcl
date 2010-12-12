@@ -111,7 +111,7 @@ class htmlChangeLog
 			$aDisplayRecords[$i] = array($this->GetLink('menuAction=htmlChangeLog.ShowProjectCommits&dcl_sccs_id=' . $aRecords[$i][0] . '&personnel_id=' . $id, $aRecords[$i][1]), $aRecords[$i][2]);
 		}
 		
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->addColumn('Repository', 'html');
 		$oTable->addColumn('Commits', 'numeric');
 		$oTable->setData($aDisplayRecords);
@@ -157,7 +157,7 @@ class htmlChangeLog
 			$aDisplayRecords[$i] = array($this->GetLink('menuAction=htmlChangeLog.ShowFileCommits&dcl_sccs_id=' . $sccs_id . '&personnel_id=' . $id . '&sccs_project_path=' . rawurlencode($aRecords[$i][0]), $aRecords[$i][0]), $aRecords[$i][1]);
 		}
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->addColumn('Project', 'html');
 		$oTable->addColumn('Commits', 'numeric');
 		$oTable->setData($aDisplayRecords);
@@ -205,7 +205,7 @@ class htmlChangeLog
 			$aDisplayRecords[$i] = array($this->GetLink('menuAction=htmlChangeLog.ShowVersionCommits&dcl_sccs_id=' . $dcl_sccs_id . '&personnel_id=' . $id . '&sccs_project_path=' . rawurlencode($sccs_project_path) . '&sccs_file_name=' . rawurlencode($aRecords[$i][0]), $aRecords[$i][0]), $aRecords[$i][1]);
 		}
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->addColumn('File', 'html');
 		$oTable->addColumn('Commits', 'numeric');
 		$oTable->setData($aDisplayRecords);
@@ -263,7 +263,7 @@ class htmlChangeLog
 				$aDisplayRecords[$i][3] = $this->GetLink('menuAction=boProjects.viewproject&project=' . $aRecords[$i][4], '[' . $aRecords[$i][4] . ']' . $oMeta->GetProject($aRecords[$i][4]));
 		}
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->addColumn('Version', 'string');
 		$oTable->addColumn('Commit On', 'string');
 		$oTable->addColumn('Comment', 'string');

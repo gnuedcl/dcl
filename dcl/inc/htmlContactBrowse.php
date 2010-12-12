@@ -58,7 +58,7 @@ class htmlContactBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		
 		$oMetadata = new DCL_MetadataDisplay();
 		$aContacts = array();

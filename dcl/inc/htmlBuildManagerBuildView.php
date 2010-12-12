@@ -49,7 +49,7 @@ class htmlBuildManagerBuildView
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn('Version ID', 'numeric');
 		$oTable->addColumn(STR_BM_RELEASEDATE_DESC, 'string');

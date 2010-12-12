@@ -68,7 +68,7 @@ class htmlFaq
 		$obj->Query($query);
 		$allRecs = $obj->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(sprintf(STR_FAQ_ORDEREDBY, $orderBy));
 		$oTable->addColumn(STR_FAQ_ID, 'numeric');
 		$oTable->addColumn(STR_FAQ_ACCT, 'string');

@@ -89,7 +89,7 @@ class boChecklistTpl
 			
 		$allRecs = $oDB->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(STR_CHK_INITIATEDCHECKLISTS);
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_ACTIVE, 'string');

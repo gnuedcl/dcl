@@ -38,7 +38,7 @@ class ActionPresenter
 		$model->Query("SELECT id,active,short,name FROM actions ORDER BY name");
 		$allRecs = $model->FetchAllRows();
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setCaption(sprintf(STR_ACTN_TABLETITLE, 'name'));
 		$oTable->addColumn(STR_ACTN_ID, 'numeric');
 		$oTable->addColumn(STR_ACTN_ACTIVEABB, 'string');

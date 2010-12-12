@@ -60,7 +60,7 @@ class htmlProjectsBrowse
 		if (!$this->_Execute())
 			return;
 
-		$oTable = new htmlTable();
+		$oTable = new TableHtmlHelper();
 		$oTable->setData($this->oDB->FetchAllRows());
 		
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)

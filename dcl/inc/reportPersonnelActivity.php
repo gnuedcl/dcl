@@ -452,7 +452,7 @@ class reportPersonnelActivity
 				}
 				else
 				{
-					$oTable = new htmlTable();
+					$oTable = new TableHtmlHelper();
 					$oTable->addColumn('', 'string');
 					foreach (array_keys($aDateArray) as $sDate)
 					{
@@ -869,7 +869,7 @@ class reportPersonnelActivity
 				}
 				else
 				{
-					$oTable = new htmlTable();
+					$oTable = new TableHtmlHelper();
 					$oTable->addFooter('Totals');
 	
 					if ($groupBy != '1')
