@@ -129,7 +129,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_PHONETYPESDESC,
 				'note' =>  STR_ADMIN_PHONETYPESNOTE
 			),
-			'htmlNoteType.showall' => array(
+			'NoteType.Index' => array(
 				'action' =>  STR_ADMIN_NOTETYPES,
 				'description' =>  STR_ADMIN_NOTETYPESDESC,
 				'note' =>  STR_ADMIN_NOTETYPESNOTE

@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbNoteType extends dclDB
+class NoteTypeModel extends dclDB
 {
-	function dbNoteType()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_note_type';
@@ -34,4 +32,3 @@ class dbNoteType extends dclDB
 		parent::Clear();
 	}
 }
-?>

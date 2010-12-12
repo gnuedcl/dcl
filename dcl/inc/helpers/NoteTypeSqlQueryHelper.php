@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,16 +20,11 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
-
-class boNoteType extends boAdminObject
+class NoteTypeSqlQueryHelper extends AbstractSqlQueryHelper
 {
-	function boNoteType()
+	public function __construct()
 	{
-		parent::boAdminObject();
-		
-		$this->oDB = new dbNoteType();
-		$this->sKeyField = 'note_type_id';
-		$this->Entity = DCL_ENTITY_NOTETYPE;
+		parent::__construct();
+		$this->table = 'dcl_note_type';
 	}
 }
