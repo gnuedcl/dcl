@@ -195,7 +195,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oWorkOrderType == null)
-			$this->oWorkOrderType = new dbWorkOrderType();
+			$this->oWorkOrderType = new WorkOrderTypeModel();
 
 		if ($this->oWorkOrderType->Load(array('wo_type_id' => $id)) == -1)
 			return $this->TriggerError("Could not find work order type ID $id");

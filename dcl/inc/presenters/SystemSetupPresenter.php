@@ -104,7 +104,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_PRODUCTSDESC,
 				'note' =>  STR_ADMIN_PRODUCTSNOTE
 			),
-			'htmlWorkOrderType.showall' => array(
+			'WorkOrderType.Index' => array(
 				'action' =>  STR_ADMIN_WORKORDERTYPES,
 				'description' =>  STR_ADMIN_WORKORDERTYPESDESC,
 				'note' =>  STR_ADMIN_WORKORDERTYPESNOTE

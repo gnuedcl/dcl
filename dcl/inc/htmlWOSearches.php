@@ -82,7 +82,6 @@ class htmlWOSearches
 		$objStatuses = new StatusHtmlHelper();
 		$objProjects = new htmlProjects();
 		$objModules = new htmlProductModules();
-		$objType = new htmlWorkOrderType();
 
 		$oDBP = new PersonnelModel();
 		$oDBP->Load($GLOBALS['DCLID']);

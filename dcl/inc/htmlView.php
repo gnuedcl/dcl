@@ -156,9 +156,13 @@ class htmlView
 		switch ($sTable)
 		{
 			case 'personnel':
+				$whatObject = 'PersonnelModel';
+				break;
 			case 'tickets':
+				$whatObject = 'dbTickets';
+				break;
 			case 'workorders':
-				$whatObject = 'db' . ucfirst($sTable);
+				$whatObject = 'dbWorkorders';
 				break;
 			case 'dcl_projects':
 				$whatObject = 'dbProjects';
@@ -173,7 +177,7 @@ class htmlView
 				$whatObject = 'dbProductModules';
 				break;
 			case 'dcl_wo_type':
-				$whatObject = 'dbWorkOrderType';
+				$whatObject = 'WorkOrderTypeModel';
 				break;
 			case 'dcl_session':
 				$whatObject = 'dbSession';

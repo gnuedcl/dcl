@@ -23,12 +23,12 @@ function validateAndSubmitForm(form){
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 {if $IS_EDIT}
-	<input type="hidden" name="menuAction" value="htmlWorkOrderType.submitModify">
+	<input type="hidden" name="menuAction" value="WorkOrderType.Update">
 	<input type="hidden" name="wo_type_id" value="{$VAL_WO_TYPE_ID}">
 	<fieldset>
 		<legend>{$smarty.const.STR_WO_EDITWORKORDERTYPE}</legend>
 {else}
-	<input type="hidden" name="menuAction" value="htmlWorkOrderType.submitAdd">
+	<input type="hidden" name="menuAction" value="WorkOrderType.Insert">
 	<fieldset>
 		<legend>{$smarty.const.STR_WO_ADDWORKORDERTYPE}</legend>
 {/if}

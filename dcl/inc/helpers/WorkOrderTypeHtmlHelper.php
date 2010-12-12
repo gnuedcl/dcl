@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,15 +20,27 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
+LoadStringResource('wo');
 
-class boWorkOrderType extends boAdminObject
+class WorkOrderTypeHtmlHelper
 {
-	function boWorkOrderType()
+	function Select($default = 0, $cbName = 'wo_type_id', $size = 0, $activeOnly = true)
 	{
-		$this->oDB = new dbWorkOrderType();
-		$this->sKeyField = 'wo_type_id';
-		$this->sDescField = 'type_name';
-		$this->Entity = DCL_ENTITY_WORKORDERTYPE;
+		$filter = '';
+		$table = 'dcl_wo_type';
+
+		if ($activeOnly)
+			$filter = "active='Y'";
+
+		$order = 'type_name';
+
+		$obj = new htmlSelect();
+		$obj->SetOptionsFromDb($table, 'wo_type_id', 'type_name', $filter, $order);
+		$obj->vDefault = $default;
+		$obj->sName = $cbName;
+		$obj->iSize = $size;
+		$obj->sZeroOption = STR_CMMN_SELECTONE;
+
+		return $obj->GetHTML();
 	}
 }

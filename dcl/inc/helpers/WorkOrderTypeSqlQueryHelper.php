@@ -3,7 +3,7 @@
  * $Id$
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,21 +22,11 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('db');
-
-class dbWorkOrderType extends dclDB
+class WorkOrderTypeSqlQueryHelper extends AbstractSqlQueryHelper
 {
-	function dbWorkOrderType()
+	public function __construct()
 	{
-		parent::dclDB();
-		$this->TableName = 'dcl_wo_type';
-		$this->cacheEnabled = true;
-		
-		LoadSchema($this->TableName);
-
-		$this->foreignKeys = array('workorders' => 'wo_type_id');
-		
-		parent::Clear();
+		parent::__construct();
+		$this->table = 'dcl_wo_type';
 	}
 }
-?>
