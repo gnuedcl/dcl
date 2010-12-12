@@ -20,11 +20,11 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class ContactTypeSqlQueryHelper extends AbstractSqlQueryHelper
+class EmailTypeSqlQueryHelper extends AbstractSqlQueryHelper
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->table = 'dcl_contact_type';
+		$this->table = 'dcl_email_type';
 	}
 }

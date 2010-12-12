@@ -162,7 +162,7 @@ class htmlContactEmail
 		}
 
 		$oSmarty = new DCL_Smarty();
-		$oEmailType = new htmlEmailType();
+		$oEmailType = new EmailTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
 
@@ -179,14 +179,14 @@ class htmlContactEmail
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactEmail.submitModify');
 			$oSmarty->assign('VAL_CONTACTEMAILID', $obj->contact_email_id);
 			$oSmarty->assign('VAL_EMAILADDR', $obj->email_addr);
-			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->GetCombo($obj->email_type_id));
+			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select($obj->email_type_id));
 			$oSmarty->assign('VAL_PREFERRED', $obj->preferred);
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Contact E-Mail');
 		}
 		else
 		{
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Contact E-Mail');
-			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->GetCombo());
+			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select());
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactEmail.submitAdd');
 		}
 

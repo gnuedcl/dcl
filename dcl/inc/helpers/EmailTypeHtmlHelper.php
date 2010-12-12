@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,16 +20,21 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
-
-class boEmailType extends boAdminObject
+class EmailTypeHtmlHelper
 {
-	function boEmailType()
+	public function Select($default = 0, $cbName = 'email_type_id', $size = 0, $activeOnly = true)
 	{
-		parent::boAdminObject();
-		
-		$this->oDB = new dbEmailType();
-		$this->sKeyField = 'email_type_id';
-		$this->Entity = DCL_ENTITY_EMAILTYPE;
+		$filter = '';
+		$table = 'dcl_email_type';
+		$order = 'email_type_name';
+
+		$obj = new htmlSelect();
+		$obj->SetOptionsFromDb($table, 'email_type_id', 'email_type_name', $filter, $order);
+		$obj->vDefault = $default;
+		$obj->sName = $cbName;
+		$obj->iSize = $size;
+		$obj->sZeroOption = STR_CMMN_SELECTONE;
+
+		return $obj->GetHTML();
 	}
 }

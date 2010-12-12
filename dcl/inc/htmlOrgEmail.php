@@ -161,7 +161,7 @@ class htmlOrgEmail
 		}
 
 		$oSmarty = new DCL_Smarty();
-		$oEmailType = new htmlEmailType();
+		$oEmailType = new EmailTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
@@ -175,13 +175,13 @@ class htmlOrgEmail
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgEmail.submitModify');
 			$oSmarty->assign('VAL_ORGEMAILID', $obj->org_email_id);
 			$oSmarty->assign('VAL_EMAILADDR', $obj->email_addr);
-			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->GetCombo($obj->email_type_id));
+			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select($obj->email_type_id));
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Organization E-Mail');
 		}
 		else
 		{
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Organization E-Mail');
-			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->GetCombo());
+			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select());
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgEmail.submitAdd');
 		}
 

@@ -119,7 +119,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_ADDRESSTYPESDESC,
 				'note' =>  STR_ADMIN_ADDRESSTYPESNOTE
 			),
-			'htmlEmailType.showall' => array(
+			'EmailType.Index' => array(
 				'action' =>  STR_ADMIN_EMAILTYPES,
 				'description' =>  STR_ADMIN_EMAILTYPESDESC,
 				'note' =>  STR_ADMIN_EMAILTYPESNOTE
