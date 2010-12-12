@@ -52,7 +52,7 @@ class htmlProductModuleView extends htmlView
 			$aLinks[STR_CMMN_NEW] = menuLink('', 'menuAction=htmlProductModules.add&product_id=' . $product_id);
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
-			$aLinks['Detail'] = menuLink('', 'menuAction=boProducts.view&id=' . $product_id);
+			$aLinks['Detail'] = menuLink('', 'menuAction=Product.Detail&id=' . $product_id);
 
 		$this->_SetVar('hActionLinkSetLinks', '');
 		$bFirst = true;

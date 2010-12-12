@@ -34,11 +34,11 @@ class htmlTicketStatistics
 		commonHeader();
 
 		$objPersonnel = new PersonnelHtmlHelper();
-		$objProducts = new htmlProducts();
+		$objProducts = new ProductHtmlHelper();
 		
 		$t = new DCL_Smarty();
 		$t->assign('CMB_PEOPLE', $objPersonnel->Select(0, 'people', 'lastfirst', 8, false));
-		$t->assign('CMB_PRODUCTS', $objProducts->GetCombo(0, 'products', 'name', 0, 8, false));
+		$t->assign('CMB_PRODUCTS', $objProducts->Select(0, 'products', 'name', 0, 8, false));
 		
 		$t->Render('htmlTicketStatisticsForm.tpl');
 	}
@@ -51,7 +51,7 @@ class htmlTicketStatistics
 
 		global $products, $people, $begindate, $enddate, $activity, $byaccount;
 
-		$objProduct = new dbProducts();
+		$objProduct = new ProductModel();
 		$objStatuses = new StatusModel();
 		$objTickets = new dbTickets();
 

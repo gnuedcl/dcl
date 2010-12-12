@@ -32,6 +32,8 @@ class TicketSqlQueryHelper extends AbstractSqlQueryHelper
 
 	protected function AppendJoins(&$arr)
 	{
+		global $g_oSec;
+		
 		parent::AppendJoins($arr);
 
 		if ($g_oSec->IsPublicUser() && !isset($this->joins['products']))

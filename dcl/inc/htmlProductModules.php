@@ -74,7 +74,7 @@ class htmlProductModules
 			throw new InvalidDataException();
 		}
 
-		$oProduct = new dbProducts();
+		$oProduct = new ProductModel();
 		if ($oProduct->Load($id) == -1)
 			return;
 
@@ -102,7 +102,7 @@ class htmlProductModules
 			$oTable->addToolbar(menuLink('', 'menuAction=htmlProductModules.add&product_id=' . $oProduct->id), STR_CMMN_NEW);
 			
 		if ($g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
-			$oTable->addToolbar(menuLink('', 'menuAction=boProducts.view&id=' . $oProduct->id), 'Detail');
+			$oTable->addToolbar(menuLink('', 'menuAction=Product.Detail&id=' . $oProduct->id), 'Detail');
 			
 		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_CONTACTTYPE => array($g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
 		{
@@ -257,7 +257,7 @@ class htmlProductModules
 			}
 		}
 
-		$oProduct = new dbProducts();
+		$oProduct = new ProductModel();
 		$iProductID = $isEdit ? $obj->product_id : $product_id;
 		if ($oProduct->Load($iProductID) == -1)
 		{

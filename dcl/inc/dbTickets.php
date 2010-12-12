@@ -183,7 +183,7 @@ class dbTickets extends dclDB
 					
 				if ($bCanReceive)
 				{
-					$oDBProduct = new dbProducts();
+					$oDBProduct = new ProductModel();
 					if ($oDBProduct->Load($obj->product) !== -1)
 					{
 						$bCanReceive = ($oDBProduct->is_public == 'Y');

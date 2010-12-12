@@ -70,7 +70,7 @@ class htmlTimeCardForm
 			$oWO = new dbWorkorders();
 			$oWO->Load($jcn, $seq);
 
-			$oProduct = new dbProducts();
+			$oProduct = new ProductModel();
 			$oProduct->Load($oWO->product);
 			$setid = $oProduct->wosetid;
 

@@ -49,7 +49,7 @@ function validateAndSubmitForm(form)
 	<fieldset>
 		<div class="submit">
 			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=boProducts.viewBuild&product_version_id={$VAL_VERSIONID}&product_id={$VAL_PRODUCTID}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=Product.DetailBuild&product_version_id={$VAL_VERSIONID}&product_id={$VAL_PRODUCTID}';" value="{$smarty.const.STR_CMMN_CANCEL}">
 		</div>
 	</fieldset>
 </form>

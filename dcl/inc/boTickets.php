@@ -56,7 +56,7 @@ class boTickets
 		// If not set, get the ticket lead for the product
 		if (!IsSet($_REQUEST['responsible']))
 		{
-			$objProduct = new dbProducts();
+			$objProduct = new ProductModel();
 			if ($objProduct->Load($obj->product) == -1)
 				return;
 				
@@ -259,7 +259,7 @@ class boTickets
 		$oldResponsible = $obj->responsible;
 		if (!IsSet($_REQUEST['responsible']))
 		{
-			$objProduct = new dbProducts();
+			$objProduct = new ProductModel();
 			$objProduct->Load($obj->product);
 			
 			if ($objProduct->ticketsto != $obj->responsible)
@@ -496,7 +496,7 @@ class boTickets
 		$objG->title = STR_BO_GRAPHTITLE;
 		if ($product_id > 0)
 		{
-			$oDB = new dbProducts();
+			$oDB = new ProductModel();
 			if ($oDB->Load($product_id) != -1)
 				$objG->title .= ' ' . $oDB->name;
 		}

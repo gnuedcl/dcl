@@ -101,7 +101,7 @@ class boTicketresolutions
 
 		if (IsSet($_REQUEST['escalate']) && $_REQUEST['escalate'] == '1')
 		{
-			$objP = new dbProducts();
+			$objP = new ProductModel();
 			$objP->Load($obj->product);
 			if ($obj->responsible != $objP->ticketsto)
 			{

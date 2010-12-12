@@ -107,7 +107,7 @@ class htmlBuildManager
 	{
 		global $dcl_info;
 
-		$oProduct = new dbProducts();
+		$oProduct = new ProductModel();
 		$oProduct->Load($_REQUEST['product_id']);
 		
 		$oSmarty = new DCL_Smarty();
@@ -123,7 +123,7 @@ class htmlBuildManager
 	{
 		global $dcl_info;
 
-		$oDbProduct = new dbProducts();
+		$oDbProduct = new ProductModel();
 		$oDbProduct->Load($_REQUEST['product_id']);
 		
 		$oVersion = new dbProductVersion();
@@ -151,7 +151,7 @@ class htmlBuildManager
 		includeCalendar();			
 		$Template = CreateTemplate(array('hForm' => 'htmlBuildManagerRelease.tpl'));
 
-		$oProduct = new dbProducts();
+		$oProduct = new ProductModel();
 		$oProduct->Connect();
 		$oProduct->Load($_REQUEST['product_id']);
 		
@@ -210,7 +210,7 @@ class htmlBuildManager
 				throw new InvalidDataException();
 			}
 
-		$oDbProduct = new dbProducts();
+		$oDbProduct = new ProductModel();
 		$oDbProduct->Load($product_id);
 		
 		$oVersion = new dbProductVersion();

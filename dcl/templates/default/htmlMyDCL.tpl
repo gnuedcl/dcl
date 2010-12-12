@@ -154,10 +154,10 @@ function validateView(f)
 		<tr><th class="sectionHeader">{$smarty.const.STR_PROD_MYPROD}</th></tr>
 {section loop=$VAL_PRODUCTS name=product}
 {cycle name=set6 assign=rowClass values="odd,even"}
-		<tr class="{$rowClass}"><td><a href="{$URL_MAIN_PHP}?menuAction=boProducts.view&id={$VAL_PRODUCTS[product].id}">{$VAL_PRODUCTS[product].name|escape}</a></td></tr>
+		<tr class="{$rowClass}"><td><a href="{$URL_MAIN_PHP}?menuAction=Product.Detail&id={$VAL_PRODUCTS[product].id}">{$VAL_PRODUCTS[product].name|escape}</a></td></tr>
 		{if $smarty.section.product.last}
 			{cycle name=set6 assign=rowClass values="odd,even"}
-		<tr class="{$rowClass}"><td style="text-align: right;"><a href="{$URL_MAIN_PHP}?menuAction=htmlProducts.PrintAll&filterLead={$VAL_ID}">{$smarty.const.STR_CMMN_VIEW}</a></td></tr>
+		<tr class="{$rowClass}"><td style="text-align: right;"><a href="{$URL_MAIN_PHP}?menuAction=Product.Index&filterLead={$VAL_ID}">{$smarty.const.STR_CMMN_VIEW}</a></td></tr>
 		{/if}
 {sectionelse}
 		<tr><td>{$smarty.const.STR_PROD_NOTLEAD}</td></tr>

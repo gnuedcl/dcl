@@ -61,9 +61,9 @@ class htmlBuildManagerShowWOView
 		$oTable->setCaption($oView->title);
 		
 		if (!$this->buildid)
-			$menuAction = 'menuAction=boproducts.viewRelease&id=' . $this->productid;
+			$menuAction = 'menuAction=Product.DetailRelease&id=' . $this->productid;
 		else
-			$menuAction = 'menuAction=boProducts.viewBuild&product_version_id=' . $this->versionid . '&product_id=' . $this->productid;		
+			$menuAction = 'menuAction=Product.DetailBuild&product_version_id=' . $this->versionid . '&product_id=' . $this->productid;
 		
 		$oTable->addToolbar(menuLink('', $menuAction), 'Back');
 

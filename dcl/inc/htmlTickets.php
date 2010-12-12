@@ -33,7 +33,7 @@ class htmlTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN, $obj->ticketid))
 			throw new PermissionDeniedException();
 
-		$objProduct = new dbProducts();
+		$objProduct = new ProductModel();
 		$objHTMLPersonnel = new PersonnelHtmlHelper();
 		$objHTMLPriorities = new PriorityHtmlHelper();
 		$objHTMLSeverities = new SeverityHtmlHelper();
@@ -92,8 +92,8 @@ class htmlTickets
 		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));
 
-		$o = new htmlProducts();
-		$t->assign('CMB_PRODUCTS', $o->GetCombo(0, 'product', 'name', 0, 0, false));
+		$o = new ProductHtmlHelper();
+		$t->assign('CMB_PRODUCTS', $o->Select(0, 'product', 'name', 0, 0, false));
 		
 		$t->Render('htmlTicketGraph.tpl');
 	}

@@ -26,9 +26,9 @@ abstract class AbstractSqlQueryHelper
 {
 	public $title;
 	protected $table;
-	protected $columns;
-	protected $columnhdrs;
-	protected $groups;
+	public $columns;
+	public $columnhdrs;
+	public $groups;
 	protected $order;
 	protected $filter;
 	protected $filternot;
@@ -39,7 +39,7 @@ abstract class AbstractSqlQueryHelper
 	protected $logiclike;
 	protected $joins;
 	protected $urlpieces;
-	protected $style;
+	public $style;
 	public $startrow;
 	public $numrows;
 	protected $m_oDB;

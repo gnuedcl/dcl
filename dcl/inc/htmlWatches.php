@@ -193,7 +193,7 @@ class htmlWatches
 				else
 					$which = 'tickets';
 
-				$link = menuLink('','menuAction=boProducts.view&id=' . $obj->whatid1. '&which=' .$which);
+				$link = menuLink('','menuAction=Product.Detail&id=' . $obj->whatid1. '&which=' .$which);
 
 				break;
 			case 2:

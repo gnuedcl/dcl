@@ -62,8 +62,8 @@ class htmlBuildManagerBuildView
 		$oTable->setCaption($oView->title . ': ' . $oProductVersion->product_version_text);
 		
 		$oTable->addToolbar(menuLink('', 'menuAction=boBuildManager.add&which=build&product_id=' . $this->productid . '&product_version_id=' . $this->product_version_id), STR_CMMN_NEW);
-		$oTable->addToolbar(menuLink('', 'menuAction=boProducts.viewRelease&id=' . $this->productid), $oMeta->GetProduct($this->productid));
-		$oTable->addToolbar(menuLink('', 'menuAction=boProducts.viewBuild&product_version_id=' . $this->product_version_id . '&product_id=' . $this->productid), STR_CMMN_REFRESH);
+		$oTable->addToolbar(menuLink('', 'menuAction=Product.DetailRelease&id=' . $this->productid), $oMeta->GetProduct($this->productid));
+		$oTable->addToolbar(menuLink('', 'menuAction=Product.DetailBuild&product_version_id=' . $this->product_version_id . '&product_id=' . $this->productid), STR_CMMN_REFRESH);
 
 		if (count($allRecs) > 0 && $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_ENTITY_ADMIN))
 		{

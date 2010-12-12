@@ -78,8 +78,8 @@ function validateAndSubmitForm(form)
 	<fieldset>
 		<div class="submit">
 			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			{if $id}<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=boProducts.view&id={$id}';" value="{$smarty.const.STR_CMMN_CANCEL}">
-			{else}<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=htmlProducts.PrintAll';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			{if $id}<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=Product.Detail&id={$id}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			{else}<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=Product.Index';" value="{$smarty.const.STR_CMMN_CANCEL}">
 			{/if}
 		</div>
 	</fieldset>

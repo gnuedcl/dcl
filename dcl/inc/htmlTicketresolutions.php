@@ -159,7 +159,7 @@ class htmlTicketresolutions
 		}
 
 		$objT = new dbTickets();
-		$objProduct = new dbProducts();
+		$objProduct = new ProductModel();
 		$objStat = new StatusHtmlHelper();
 
 		if ($objT->Load((int)$ticketid) == -1)

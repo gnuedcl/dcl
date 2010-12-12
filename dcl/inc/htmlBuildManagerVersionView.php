@@ -57,7 +57,7 @@ class htmlBuildManagerVersionView
 		$oTable->addColumn('Actual Date', 'date');
 		
 		if (IsSet($this->ModNav) && ($this->ModNav == 'WO' || $this->ModNav == 'showfiles'))
-			$oTable->addToolbar(menuLink('', 'menuAction=boProducts.viewRelease&id=' . $this->id), 'Back');
+			$oTable->addToolbar(menuLink('', 'menuAction=Product.DetailRelease&id=' . $this->id), 'Back');
 		else
 			$oTable->addToolbar(menuLink('', 'menuAction=boBuildManager.add&which=release&product_id=' . $this->productid . '&add=1'), STR_CMMN_NEW);
 
@@ -75,7 +75,7 @@ class htmlBuildManagerVersionView
 				{
 					$versionid = $allRecs[$i][0];
 					
-					$options = '<a href="' . menuLink('', 'menuAction=boProducts.viewBuild&product_version_id=' . $versionid . '&product_id=' . $this->productid) . '">' . STR_CMMN_VIEW . '</a>';
+					$options = '<a href="' . menuLink('', 'menuAction=Product.DetailBuild&product_version_id=' . $versionid . '&product_id=' . $this->productid) . '">' . STR_CMMN_VIEW . '</a>';
 					$options .= '&nbsp;|&nbsp;<a href="' . menuLink('', 'menuAction=htmlBuildManagerReleaseForm.Show&product_version_id=' . $versionid . '&product_id=' . $this->productid . '&which=release') . '">' . STR_CMMN_EDIT . '</a>';
 					$options .= '&nbsp;|&nbsp;<a href="' . menuLink('', 'menuAction=boBuildManager.ShowWorkOrders&product_version_id=' . $versionid . '&product_id=' . $this->productid . '&from=version') . '">' . STR_CMMN_SHOWVERSION . '</a>';
 					$options .= '&nbsp;|&nbsp;<a href="' . menuLink('', 'menuAction=boBuildManager.ShowFiles&product_version_id=' . $versionid . '&product_id=' . $this->productid . '&from=version') . '">' . STR_CMMN_SHOWFILES . '</a>';

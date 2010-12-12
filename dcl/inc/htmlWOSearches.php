@@ -79,7 +79,6 @@ class htmlWOSearches
 		$objJS->bDepartments = !$g_oSec->IsPublicUser();
 		$objJS->DisplayAttributeScript();
 
-		$objProducts = new htmlProducts();
 		$objStatuses = new StatusHtmlHelper();
 		$objProjects = new htmlProjects();
 		$objModules = new htmlProductModules();

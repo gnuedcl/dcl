@@ -60,7 +60,7 @@ class htmlTicketForm
 		$oMeta = new DCL_MetadataDisplay();
 		if ($isEdit)
 		{
-			$oProduct = new dbProducts();
+			$oProduct = new ProductModel();
 			$oProduct->Query('SELECT tcksetid FROM products WHERE id=' . $obj->product);
 			if ($oProduct->next_record())
 				$oSmarty->assign('VAL_SETID', $oProduct->f(0));

@@ -31,7 +31,7 @@ class htmlMetricsWorkOrders
 
 	function htmlMetricsWorkOrders()
 	{
-		$this->oProduct = new dbProducts();
+		$this->oProduct = new ProductModel();
 		$this->oProject = new dbProjects();
 		$this->aProjects = array();
 	}
@@ -43,12 +43,12 @@ class htmlMetricsWorkOrders
 		if ($needHdr == true)
 			commonHeader();
 
-		$oProducts = new htmlProducts();
+		$oProducts = new ProductHtmlHelper();
 		$oProjects = new htmlProjects();
 
 		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('VAL_FORMACTION', menuLink());
-		$oSmarty->assign('CMB_PRODUCTS', $oProducts->GetCombo(IsSet($_REQUEST['products']) ? DCL_Sanitize::ToInt($_REQUEST['products']) : 0, 'products', 'name', 0, 8, false));
+		$oSmarty->assign('CMB_PRODUCTS', $oProducts->Select(IsSet($_REQUEST['products']) ? DCL_Sanitize::ToInt($_REQUEST['products']) : 0, 'products', 'name', 0, 8, false));
 		$oSmarty->assign('CMB_PROJECTS', $oProjects->GetCombo(IsSet($_REQUEST['projects']) ? DCL_Sanitize::ToInt($_REQUEST['projects']) : 0, 'projects', 0, 8));
 		$oSmarty->assign('VAL_BEGINDATE', IsSet($_REQUEST['begindate']) ? DCL_Sanitize::ToDate($_REQUEST['begindate']) : '');
 		$oSmarty->assign('VAL_ENDDATE', IsSet($_REQUEST['enddate']) ? DCL_Sanitize::ToDate($_REQUEST['enddate']) : '');

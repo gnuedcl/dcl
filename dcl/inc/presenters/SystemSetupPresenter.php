@@ -99,7 +99,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_ATTRIBUTESETSDESC,
 				'note' =>  STR_ADMIN_ATTRIBUTESETSNOTE
 			),
-			'htmlProducts.PrintAll' => array(
+			'Product.Index' => array(
 				'action' =>  STR_ADMIN_PRODUCTS,
 				'description' =>  STR_ADMIN_PRODUCTSDESC,
 				'note' =>  STR_ADMIN_PRODUCTSNOTE

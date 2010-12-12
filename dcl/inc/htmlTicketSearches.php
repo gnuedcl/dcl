@@ -68,7 +68,6 @@ class htmlTicketSearches
 		$objJS->DisplayAttributeScript();
 
 		$oSelect = new htmlSelect();
-		$objProducts = new htmlProducts();
 		$objStatuses = new StatusHtmlHelper();
 		$objModules = new htmlProductModules();
 

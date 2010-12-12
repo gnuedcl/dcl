@@ -55,7 +55,7 @@ class dbWorkorders extends dclDB
 		{
 			if ($this->responsible == 0)
 			{
-				$objProduct = new dbProducts();
+				$objProduct = new ProductModel();
 				$objProduct->Load($this->product);
 				$this->responsible = $objProduct->reportto;
 				$this->status = $dcl_info['DCL_DEF_STATUS_UNASSIGN_WO'];
@@ -227,7 +227,7 @@ class dbWorkorders extends dclDB
 					
 				if ($bCanView)
 				{
-					$oDBProduct = new dbProducts();
+					$oDBProduct = new ProductModel();
 					if ($oDBProduct->Load($obj->product) !== -1)
 					{
 						$bCanView = ($oDBProduct->is_public == 'Y');

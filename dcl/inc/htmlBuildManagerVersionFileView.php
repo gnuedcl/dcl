@@ -73,7 +73,7 @@ class htmlBuildManagerVersionFileView extends htmlView
 		$this->_SetVar('hDetailColumnLinkSetLinks', '');
 		$this->_SetVar('LNK_COLUMNDISABLED', '');
 		
-		//$this->_AddDisplayOption(STR_CMMN_VIEW, menuLink('', 'menuAction=boProducts.viewBuild&product_version_id=' . $versionid . '&product_id=' . $this->productid), false);
+		//$this->_AddDisplayOption(STR_CMMN_VIEW, menuLink('', 'menuAction=Product.DetailBuild&product_version_id=' . $versionid . '&product_id=' . $this->productid), false);
 		//$this->_AddDisplayOption(STR_CMMN_EDIT, menuLink('', 'menuAction=htmlBuildManagerReleaseForm.Show&versionid=' . $versionid . '&product_id=' . $this->productid . '&which=release' ), true);
 		//$this->_AddDisplayOption(STR_CMMN_SHOWVERSION, menuLink('', 'menuAction=boBuildManager.ShowWorkOrders&versionid=' . $versionid . '&product_id=' . $this->productid . '&from=version'), true);
 		//$this->_AddDisplayOption(STR_CMMN_SHOWFILES, menuLink('', 'menuAction=boBuildManager.ShowFiles&versionid=' . $versionid . '&product_id=' . $this->productid. '&from=version'), true);

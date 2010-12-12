@@ -64,7 +64,7 @@ function validateAndSubmitForm(form)
 	<fieldset>
 		<div class="submit">
 			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE|escape}">
-			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=boProducts.viewRelease&id={$VAL_PRODUCTID}';" value="{$smarty.const.STR_CMMN_CANCEL|escape}">
+			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=Product.DetailRelease&id={$VAL_PRODUCTID}';" value="{$smarty.const.STR_CMMN_CANCEL|escape}">
 		</div>
 	</fieldset>
 </form>

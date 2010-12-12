@@ -37,7 +37,7 @@ class htmlWorkorders
 		$bIsBatch = IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0;
 
 		$objWO = new dbWorkorders();
-		$objProduct = new dbProducts();
+		$objProduct = new ProductModel();
 		$objHTMLPersonnel = new PersonnelHtmlHelper();
 		$objHTMLPriorities = new PriorityHtmlHelper();
 		$objHTMLSeverities = new SeverityHtmlHelper();
@@ -175,8 +175,8 @@ class htmlWorkorders
 		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));
 
-		$o = new htmlProducts();
-		$t->assign('CMB_PRODUCTS', $o->GetCombo(0, 'product', 'name', 0, 0, false));
+		$o = new ProductHtmlHelper();
+		$t->assign('CMB_PRODUCTS', $o->Select(0, 'product', 'name', 0, 0, false));
 		
 		$t->Render('htmlWorkOrderGraph.tpl');
 	}
@@ -297,7 +297,7 @@ class htmlWorkorders
 			$oWO->Load($jcn, $seq);
 			$oTable->assign('VAL_SUMMARY', $oWO->summary);
 
-			$oProd = new dbProducts();
+			$oProd = new ProductModel();
 			$oProd->Load($oWO->product);
 			$oTable->assign('VAL_PRODUCT', $oProd->name);
 			

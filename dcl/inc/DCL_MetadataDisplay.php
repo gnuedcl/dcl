@@ -153,7 +153,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oProduct == null)
-			$this->oProduct = new dbProducts();
+			$this->oProduct = new ProductModel();
 
 		if ($this->oProduct->Load($id, false) == -1)
 			return $this->TriggerError("Could not find product ID $id");

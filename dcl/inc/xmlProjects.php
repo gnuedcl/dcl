@@ -61,13 +61,13 @@ class xmlProjects
 		{
 			$valField = 'id';
 			$textField = 'short';
-			$objName = 'dbPersonnel';
+			$objName = 'PersonnelModel';
 		}
 		elseif ($source == 'products')
 		{
 			$valField = 'id';
 			$textField = 'name';
-			$objName = 'dbProducts';
+			$objName = 'ProductModel';
 		}
 
 		$query = sprintf('select %s,%s from %s order by %s', $valField, $textField, $table, $textField);
@@ -200,7 +200,7 @@ class xmlProjects
 				$this->objWO->etchours = $objWO->esthours;
 				if ($this->objWO->responsible == 0)
 				{
-					$objProduct = new dbProducts();
+					$objProduct = new ProductModel();
 					$objProduct->Load($this->objWO->product);
 					$this->objWO->responsible = $objProduct->reportto;
 				}

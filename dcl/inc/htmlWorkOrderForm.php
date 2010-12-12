@@ -136,7 +136,7 @@ class htmlWorkOrderForm
 		$oMeta = new DCL_MetadataDisplay();
 		if ($isEdit || $isTicket || $isCopy)
 		{
-			$oProduct = new dbProducts();
+			$oProduct = new ProductModel();
 			$oProduct->Query('SELECT wosetid FROM products WHERE id=' . ($isTicket ? $oSource->product : $oSource->product));
 			if ($oProduct->next_record())
 				$this->oSmarty->assign('VAL_SETID', $oProduct->f(0));

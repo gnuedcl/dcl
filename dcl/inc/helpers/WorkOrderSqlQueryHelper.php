@@ -52,6 +52,8 @@ class WorkOrderSqlQueryHelper extends AbstractSqlQueryHelper
 
 	protected function AppendJoins(&$arr)
 	{
+		global $g_oSec;
+		
 		parent::AppendJoins($arr);
 
 		if ($g_oSec->IsPublicUser() && !isset($this->joins['products']))
@@ -135,7 +137,7 @@ class WorkOrderSqlQueryHelper extends AbstractSqlQueryHelper
 
 	protected function GetWhereSqlForOneToManyColumns($sTagFilter, $sHotlistFilter)
 	{
-		global $g_oSession, $g_oSec;
+		global $g_oSession, $g_oSec, $dcl_info;
 		
 		$sql = '';
 

@@ -37,7 +37,7 @@ class jsonProduct
 		if ($product_id === null)
 			exit;
 		
-		$oDB = new dbProducts();
+		$oDB = new ProductModel();
 		$oDB->Load($product_id);
 
 		$bFirst = true;

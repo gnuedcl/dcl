@@ -60,7 +60,7 @@ class htmlOrgProducts
 		$aProducts = array();
 		$aProductsNames = array();
 		
-		$oProducts = new dbProducts();
+		$oProducts = new ProductModel();
 		if ($oProducts->Query($oViewProduct->GetSQL()) != -1)
 		{
 			while ($oProducts->next_record())

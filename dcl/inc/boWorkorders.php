@@ -941,7 +941,7 @@ class boWorkorders
 		$objG->title = STR_BO_WOGRAPHTITLE;
 		if ($iProduct > 0)
 		{
-			$oDB = new dbProducts();
+			$oDB = new ProductModel();
 			if ($oDB->Load($iProduct) != -1)
 				$objG->title .= ' ' . $oDB->name;
 		}

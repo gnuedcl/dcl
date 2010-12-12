@@ -81,7 +81,7 @@ class htmlWiki
 				break;
 			case DCL_ENTITY_PRODUCT:
 				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_PRODUCTWIKI, $oMeta->GetProduct($id)));
-				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=boProducts.view&id=' . $id));
+				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=Product.Detail&id=' . $id));
 				break;
 			case DCL_ENTITY_ORG:
 				$aOrg = $oMeta->GetOrganization($id);

@@ -42,7 +42,7 @@ class htmlProductDetail
 		$this->sView = 'summary';
 		$this->iVersion = 0;
 
-		$this->oProduct = new dbProducts();
+		$this->oProduct = new ProductModel();
 	}
 
 	function Show($id, $which = 'summary', $version = 0)

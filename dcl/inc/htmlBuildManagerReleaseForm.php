@@ -51,7 +51,7 @@ class htmlBuildManagerReleaseForm
 		if (($version_id = DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
 			throw new PermissionDeniedException();
 		
-		$oProduct = new dbProducts();
+		$oProduct = new ProductModel();
 		$oProduct->Load($product_id);
 		
 		$oPV = new dbProductVersion();
