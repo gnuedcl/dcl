@@ -36,8 +36,7 @@ class EntitySourcePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$o = new boView();
-		$o->table = 'dcl_entity_source';
+		$o = new EntitySourceSqlQueryHelper();
 		$o->title = sprintf('Entity Sources');
 		$o->AddDef('columns', '', array('entity_source_id', 'active', 'entity_source_name'));
 		$o->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME));
