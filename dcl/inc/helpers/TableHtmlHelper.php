@@ -30,7 +30,7 @@ class TableHtmlHelper
 	protected $aCheckVals;
 	protected $sCaption;
 	protected $bShowRownum;
-	protected $sTemplate;
+	public $sTemplate;
 	protected $bInline;
 	protected $bShowChecks;
 	protected $oSmarty;

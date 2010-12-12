@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,26 +20,26 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class boSMTP
+class Smtp
 {
-	var $oSocket;
-	var $to;
-	var $from;
-	var $cc;
-	var $bcc;
-	var $subject;
-	var $body;
-	var $headers;
-	var $isHtml;
-	var $isAuth;
-	var $authUser;
-	var $authPwd;
+	public $oSocket;
+	public $to;
+	public $from;
+	public $cc;
+	public $bcc;
+	public $subject;
+	public $body;
+	public $headers;
+	public $isHtml;
+	public $isAuth;
+	public $authUser;
+	public $authPwd;
 
-	function boSMTP()
+	public function __construct()
 	{
 		global $dcl_info, $dcl_domain;
 
-		$this->oSocket = new boSocket();
+		$this->oSocket = new Socket();
 		$this->oSocket->sHost = $dcl_info['DCL_SMTP_SERVER'];
 		$this->oSocket->iPort = $dcl_info['DCL_SMTP_PORT'];
 		$this->oSocket->iTimeout = $dcl_info['DCL_SMTP_TIMEOUT'];
@@ -68,12 +66,12 @@ class boSMTP
 		$this->headers = array('X-Mailer: Double Choco Latte/' . $dcl_info['DCL_VERSION'], 'Sender: noreply-dcl@' . $dcl_domain);
 	}
 
-	function AddHeader($sHeader)
+	public function AddHeader($sHeader)
 	{
 		$this->headers[] = $sHeader;
 	}
 
-	function Send()
+	public function Send()
 	{
 		if ($this->oSocket->Connect(true) == -1)
 			return false;
@@ -102,14 +100,14 @@ class boSMTP
 		return true;
 	}
 
-	function Ehlo()
+	public function Ehlo()
 	{
 		$cmd = 'EHLO dcl' . phpCrLf;
 		$this->oSocket->Write($cmd, true);
 		return ($this->GetResponseCode() == 250); // if failed, it will try HELO next
 	}
 
-	function Helo()
+	public function Helo()
 	{
 		$cmd = 'HELO dcl' . phpCrLf;
 		$this->oSocket->Write($cmd, true);
@@ -119,7 +117,7 @@ class boSMTP
 		return $this->SocketFail();
 	}
 
-	function AuthLogin()
+	public function AuthLogin()
 	{
 		$cmd = 'AUTH LOGIN' . phpCrLf;
 		$this->oSocket->Write($cmd, true);
@@ -139,7 +137,7 @@ class boSMTP
 		return true;
 	}
 
-	function MailFrom()
+	public function MailFrom()
 	{
 		global $dcl_info;
 		
@@ -154,7 +152,7 @@ class boSMTP
 		return $this->SocketFail();
 	}
 
-	function RcptTo()
+	public function RcptTo()
 	{
 		$bHasRcptTo = false;
 
@@ -189,7 +187,7 @@ class boSMTP
 		return $bHasRcptTo;
 	}
 
-	function Data()
+	public function Data()
 	{
 		$cmd = 'DATA' . phpCrLf;
 		$this->oSocket->Write($cmd, true);
@@ -228,7 +226,7 @@ class boSMTP
 		return $this->SocketFail();
 	}
 
-	function Quit()
+	public function Quit()
 	{
 		$cmd = 'QUIT' . phpCrLf;
 		$this->oSocket->Write($cmd, true);
@@ -238,12 +236,12 @@ class boSMTP
 		return $this->SocketFail();
 	}
 	
-	function GetResponseCode()
+	public function GetResponseCode()
 	{
 		return substr($this->oSocket->sResponse, 0, 4);
 	}
 
-	function SocketFail()
+	public function SocketFail()
 	{
 		trigger_error('<b>SMTP Error:</b> ' . $this->oSocket->sResponse);
 		$this->oSocket->Disconnect();

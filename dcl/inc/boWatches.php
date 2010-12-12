@@ -283,7 +283,7 @@ class boWatches
 		if (!is_object($obj) || $actions == '' || $dcl_info['DCL_SMTP_ENABLED'] != 'Y')
 			return;
 
-		$oMail = new boSMTP();
+		$oMail = new Smtp();
 		$oMail->isHtml = ($dcl_info['DCL_WO_NOTIFICATION_HTML'] == 'Y');
 
 		$objWtch = new dbWatches();
@@ -473,7 +473,7 @@ class boWatches
 		if ($dcl_info['DCL_SMTP_ENABLED'] != 'Y' || !is_object($obj))
 			return;
 
-		$oMail = new boSMTP();
+		$oMail = new Smtp();
 		$oMail->isHtml = ($dcl_info['DCL_TCK_NOTIFICATION_HTML'] == 'Y');
 
 		// Got the message constructed, so send it!

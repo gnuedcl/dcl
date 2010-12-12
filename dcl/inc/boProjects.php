@@ -558,7 +558,7 @@ class boProjects
 		$mailMsg .= STR_PRJ_DESCRIPTION . ': ' . $obj->description;
 		$mailMsg .= phpCrLf . phpCrLf . STR_PRJ_EMAILSIG;
 
-		$oMail = new boSMTP();
+		$oMail = new Smtp();
 		$oMail->to = $objPersonnel->email;
 		$oMail->from = $GLOBALS['USEREMAIL'];
 		$oMail->subject = sprintf(STR_PRJ_EMAILSUBJECT, $obj->name);

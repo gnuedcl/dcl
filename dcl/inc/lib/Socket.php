@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,19 +20,19 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class boSocket
+class Socket
 {
-	var $sHost;
-	var $iPort;
-	var $iTimeout;
-	var $iErr;
-	var $sErr;
-	var $sResponse;
-	var $sResponseMode;
-	var $hSocket;
-	var $bDebug;
+	public $sHost;
+	public $iPort;
+	public $iTimeout;
+	public $iErr;
+	public $sErr;
+	public $sResponse;
+	public $sResponseMode;
+	public $hSocket;
+	public $bDebug;
 
-	function boSocket()
+	public function __construct()
 	{
 		$this->sHost = '';
 		$this->iPort = 0;
@@ -47,7 +45,7 @@ class boSocket
 		$this->bDebug = false;
 	}
 
-	function Connect($bResponse = false)
+	public function Connect($bResponse = false)
 	{
 		$this->hSocket = fsockopen($this->sHost, $this->iPort, $this->iErr, $this->sErr, $this->iTimeout);
 		if (!$this->hSocket)
@@ -62,13 +60,13 @@ class boSocket
 		return 1;
 	}
 
-	function Disconnect()
+	public function Disconnect()
 	{
 		if ($this->hSocket)
 			fclose($this->hSocket);
 	}
 
-	function Write($sValue, $bResponse = false)
+	public function Write($sValue, $bResponse = false)
 	{
 		if ($this->bDebug)
 			echo '&gt;&gt;&gt; ', htmlspecialchars($sValue), '<br>';
@@ -78,7 +76,7 @@ class boSocket
 			$this->Read();
 	}
 
-	function Read()
+	public function Read()
 	{
 		if ($this->hSocket)
 		{
@@ -98,4 +96,3 @@ class boSocket
 		}
 	}
 }
-?>

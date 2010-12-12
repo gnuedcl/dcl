@@ -300,7 +300,7 @@ class boTicketresolutions
 			$t->assign('VAL_CLOSEDON', date('n/j/Y'));
 			$t->assign('contact', $aContact);
 
-			$oMail = new boSMTP();
+			$oMail = new Smtp();
 			$oMail->isHtml = true;
 			$oMail->to = $aContact['email'];
 			$oMail->from = $dcl_info['DCL_CQQ_FROM'];

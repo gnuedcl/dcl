@@ -135,6 +135,12 @@ function __autoload($className)
 		return;
 	}
 
+	if (file_exists(DCL_ROOT . 'inc/lib/' . $className . '.php'))
+	{
+		require_once(DCL_ROOT . 'inc/lib/' . $className . '.php');
+		return;
+	}
+
 	$areas = array('Controller' => 'controllers',
 					'Model' => 'models',
 					'Presenter' => 'presenters',
