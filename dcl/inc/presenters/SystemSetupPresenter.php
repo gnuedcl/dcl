@@ -134,7 +134,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_NOTETYPESDESC,
 				'note' =>  STR_ADMIN_NOTETYPESNOTE
 			),
-			'htmlUrlType.showall' => array(
+			'UrlType.Index' => array(
 				'action' =>  STR_ADMIN_URLTYPES,
 				'description' =>  STR_ADMIN_URLTYPESDESC,
 				'note' =>  STR_ADMIN_URLTYPESNOTE

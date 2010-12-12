@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,16 +20,24 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('db');
-class dbUrlType extends dclDB
+LoadStringResource('wo');
+LoadStringResource('cfg');
+
+class UrlTypeHtmlHelper
 {
-	function dbUrlType()
+	public function Select($default = 0, $cbName = 'url_type_id', $size = 0, $activeOnly = true)
 	{
-		parent::dclDB();
-		$this->TableName = 'dcl_url_type';
-		LoadSchema($this->TableName);
-		
-		parent::Clear();
+		$filter = '';
+		$table = 'dcl_url_type';
+		$order = 'url_type_name';
+
+		$obj = new htmlSelect();
+		$obj->SetOptionsFromDb($table, 'url_type_id', 'url_type_name', $filter, $order);
+		$obj->vDefault = $default;
+		$obj->sName = $cbName;
+		$obj->iSize = $size;
+		$obj->sZeroOption = STR_CMMN_SELECTONE;
+
+		return $obj->GetHTML();
 	}
 }
-?>

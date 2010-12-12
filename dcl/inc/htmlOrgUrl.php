@@ -161,7 +161,7 @@ class htmlOrgUrl
 		}
 		
 		$oSmarty = new DCL_Smarty();
-		$oUrlType = new htmlUrlType();
+		$oUrlType = new UrlTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
@@ -175,13 +175,13 @@ class htmlOrgUrl
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgUrl.submitModify');
 			$oSmarty->assign('VAL_ORGURLID', $obj->org_url_id);
 			$oSmarty->assign('VAL_URLADDR', $obj->url_addr);
-			$oSmarty->assign('CMB_URLTYPE', $oUrlType->GetCombo($obj->url_type_id));
+			$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select($obj->url_type_id));
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Organization URL');
 		}
 		else
 		{
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Organization URL');
-			$oSmarty->assign('CMB_URLTYPE', $oUrlType->GetCombo());
+			$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select());
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgUrl.submitAdd');
 		}
 

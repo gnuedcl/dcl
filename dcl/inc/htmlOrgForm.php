@@ -316,8 +316,8 @@ class htmlOrgForm
 			$oPhoneType = new PhoneTypeHtmlHelper();
 			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select());
 
-			$oUrlType = new htmlUrlType();
-			$oSmarty->assign('CMB_URLTYPE', $oUrlType->GetCombo());
+			$oUrlType = new UrlTypeHtmlHelper();
+			$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select());
 
 			$oOrgType = new OrganizationTypeModel();
 			$oSmarty->assign('orgTypes', $oOrgType->GetTypes());

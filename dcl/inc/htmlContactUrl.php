@@ -161,7 +161,7 @@ class htmlContactUrl
 		}
 
 		$oSmarty = new DCL_Smarty();
-		$oUrlType = new htmlUrlType();
+		$oUrlType = new UrlTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
 
@@ -179,13 +179,13 @@ class htmlContactUrl
 			$oSmarty->assign('VAL_CONTACTURLID', $obj->contact_url_id);
 			$oSmarty->assign('VAL_URLADDR', $obj->url_addr);
 			$oSmarty->assign('VAL_PREFERRED', $obj->preferred);
-			$oSmarty->assign('CMB_URLTYPE', $oUrlType->GetCombo($obj->url_type_id));
+			$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select($obj->url_type_id));
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Contact URL');
 		}
 		else
 		{
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Contact URL');
-			$oSmarty->assign('CMB_URLTYPE', $oUrlType->GetCombo());
+			$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select());
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactUrl.submitAdd');
 		}
 
