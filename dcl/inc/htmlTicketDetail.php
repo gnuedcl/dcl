@@ -80,7 +80,7 @@ class htmlTicketDetail
 
 		if ($obj->entity_source_id != '' && $obj->entity_source_id > 0)
 		{
-			$oSource = new dbEntitySource();
+			$oSource = new EntitySourceModel();
 			$oSource->Load($obj->entity_source_id);
 			$oSmarty->assign('VAL_SOURCE', $oSource->entity_source_name);
 		}

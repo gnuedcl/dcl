@@ -109,7 +109,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_WORKORDERTYPESDESC,
 				'note' =>  STR_ADMIN_WORKORDERTYPESNOTE
 			),
-			'htmlEntitySource.showall' => array(
+			'EntitySource.Index' => array(
 				'action' =>  STR_ADMIN_ENTITYSOURCES,
 				'description' =>  STR_ADMIN_ENTITYSOURCESDESC,
 				'note' =>  STR_ADMIN_ENTITYSOURCESNOTE

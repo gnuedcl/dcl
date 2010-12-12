@@ -223,7 +223,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oSource == null)
-			$this->oSource = new dbEntitySource();
+			$this->oSource = new EntitySourceModel();
 
 		if ($this->oSource->Load(array('entity_source_id' => $id)) == -1)
 			return $this->TriggerError("Could not find source ID $id");

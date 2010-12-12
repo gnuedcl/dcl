@@ -262,8 +262,8 @@ class htmlWOSearches
 		$oSelect->sName = 'account';
 		$t->assign('CMB_ACCOUNTS', $oSelect->GetHTML());
 
-		$oSource = new htmlEntitySource();
-		$t->assign('CMB_SOURCE', $oSource->GetCombo($aDefault['entity_source_id'], 'entity_source_id', 8, false));
+		$oSource = new EntitySourceHtmlHelper();
+		$t->assign('CMB_SOURCE', $oSource->Select($aDefault['entity_source_id'], 'entity_source_id', 8, false));
 
 		// Empty status is for selecting status type, then filtering status if desired
 		$oSelect->sName = 'status';
