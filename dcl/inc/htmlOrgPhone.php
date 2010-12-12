@@ -161,7 +161,7 @@ class htmlOrgPhone
 		}
 		
 		$oSmarty = new DCL_Smarty();
-		$oPhoneType = new htmlPhoneType();
+		$oPhoneType = new PhoneTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 
@@ -175,13 +175,13 @@ class htmlOrgPhone
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgPhone.submitModify');
 			$oSmarty->assign('VAL_ORGPHONEID', $obj->org_phone_id);
 			$oSmarty->assign('VAL_PHONENUMBER', $obj->phone_number);
-			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->GetCombo($obj->phone_type_id));
+			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select($obj->phone_type_id));
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Organization Phone Number');
 		}
 		else
 		{
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Organization Phone Number');
-			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->GetCombo());
+			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select());
 			$oSmarty->assign('VAL_MENUACTION', 'htmlOrgPhone.submitAdd');
 		}
 

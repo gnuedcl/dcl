@@ -124,7 +124,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_EMAILTYPESDESC,
 				'note' =>  STR_ADMIN_EMAILTYPESNOTE
 			),
-			'htmlPhoneType.showall' => array(
+			'PhoneType.Index' => array(
 				'action' =>  STR_ADMIN_PHONETYPES,
 				'description' =>  STR_ADMIN_PHONETYPESDESC,
 				'note' =>  STR_ADMIN_PHONETYPESNOTE

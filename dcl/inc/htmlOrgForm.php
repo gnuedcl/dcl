@@ -313,8 +313,8 @@ class htmlOrgForm
 			$oEmailType = new EmailTypeHtmlHelper();
 			$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select());
 
-			$oPhoneType = new htmlPhoneType();
-			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->GetCombo());
+			$oPhoneType = new PhoneTypeHtmlHelper();
+			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select());
 
 			$oUrlType = new htmlUrlType();
 			$oSmarty->assign('CMB_URLTYPE', $oUrlType->GetCombo());

@@ -161,7 +161,7 @@ class htmlContactPhone
 		}
 
 		$oSmarty = new DCL_Smarty();
-		$oPhoneType = new htmlPhoneType();
+		$oPhoneType = new PhoneTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $id));
 
@@ -177,13 +177,13 @@ class htmlContactPhone
 			$oSmarty->assign('VAL_CONTACTPHONEID', $obj->contact_phone_id);
 			$oSmarty->assign('VAL_PHONENUMBER', $obj->phone_number);
 			$oSmarty->assign('VAL_PREFERRED', $obj->preferred);
-			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->GetCombo($obj->phone_type_id));
+			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select($obj->phone_type_id));
 			$oSmarty->assign('TXT_FUNCTION', 'Edit Contact Phone Number');
 		}
 		else
 		{
 			$oSmarty->assign('TXT_FUNCTION', 'Add New Contact Phone Number');
-			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->GetCombo());
+			$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select());
 			$oSmarty->assign('VAL_MENUACTION', 'htmlContactPhone.submitAdd');
 		}
 
