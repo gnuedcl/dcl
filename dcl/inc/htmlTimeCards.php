@@ -84,7 +84,7 @@ class htmlTimeCards
 		$objTimeCard = new dbTimeCards();
 		if ($objTimeCard->GetTimeCards($jcn, $seq) != -1)
 		{
-			$objPersonnel = new dbPersonnel();
+			$objPersonnel = new PersonnelModel();
 			$objStatus = new StatusModel();
 			$objAction = new ActionModel();
 

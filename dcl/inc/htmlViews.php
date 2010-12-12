@@ -94,7 +94,7 @@ class htmlViews
 		$oTable->addColumn(STR_VW_TABLE, 'string');
 		$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
 
-		$objDBP = new dbPersonnel();
+		$objDBP = new PersonnelModel();
 
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
@@ -153,7 +153,7 @@ class htmlViews
 		// Add the URL pieces
 		$viewUrl = '';
 		$objView = new boView();
-		$o = new dbPersonnel();
+		$o = new PersonnelModel();
 		while (list($key, $val) = each($objView->urlpieces))
 		{
 			if (IsSet($_REQUEST[$val]))

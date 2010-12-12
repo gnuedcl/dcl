@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 {dcl_selector_init}
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="boPersonnel.dbpasswd">
+	<input type="hidden" name="menuAction" value="Personnel.UpdatePassword">
 	<fieldset>
 		<legend>{$smarty.const.STR_USR_CHGPWD}</legend>
 		<div>

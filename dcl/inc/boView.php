@@ -254,7 +254,7 @@ class boView
 
 		if (IsSet($_REQUEST['vti']))
 		{
-			$o = new dbPersonnel();
+			$o = new PersonnelModel();
 			$this->title = $o->GPCStripSlashes($_REQUEST['vti']);
 		}
 

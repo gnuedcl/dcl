@@ -34,10 +34,10 @@ class reportTicketActivity
 		if ($needHdr == true)
 			commonHeader();
 
-		$objPersonnel = new htmlPersonnel();
+		$objPersonnel = new PersonnelHtmlHelper();
 		
 		$t = new DCL_Smarty();
-		$t->assign('CMB_RESPONSIBLE', $objPersonnel->GetCombo($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, false));
+		$t->assign('CMB_RESPONSIBLE', $objPersonnel->Select($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, false));
 
 		if (IsSet($_REQUEST['begindate']) && ($beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate'])) !== null)
 			$t->assign('VAL_BEGINDATE', $begindate);

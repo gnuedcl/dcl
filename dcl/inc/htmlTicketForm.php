@@ -93,7 +93,7 @@ class htmlTicketForm
 			}
 			else
 			{
-				$oPersonnel = new dbPersonnel();
+				$oPersonnel = new PersonnelModel();
 				if ($oPersonnel->Load($obj->responsible) != -1)
 					$oSmarty->assign('VAL_RESPONSIBLENAME', $oPersonnel->short);
 				else

@@ -33,11 +33,11 @@ class htmlTicketStatistics
 
 		commonHeader();
 
-		$objPersonnel = new htmlPersonnel();
+		$objPersonnel = new PersonnelHtmlHelper();
 		$objProducts = new htmlProducts();
 		
 		$t = new DCL_Smarty();
-		$t->assign('CMB_PEOPLE', $objPersonnel->GetCombo(0, 'people', 'lastfirst', 8, false));
+		$t->assign('CMB_PEOPLE', $objPersonnel->Select(0, 'people', 'lastfirst', 8, false));
 		$t->assign('CMB_PRODUCTS', $objProducts->GetCombo(0, 'products', 'name', 0, 8, false));
 		
 		$t->Render('htmlTicketStatisticsForm.tpl');
@@ -69,7 +69,7 @@ class htmlTicketStatistics
 			$vsTable = 'personnel';
 			$vsDesc = 'short';
 			$vsField = 'responsible';
-			$objPersonnel = new dbPersonnel();
+			$objPersonnel = new PersonnelModel();
 		}
 
 		if (count($products) < 1)

@@ -69,7 +69,7 @@ class wsSccsXref
 		$sSQL .= ' AND ((ur.entity_type_id = rp.entity_id AND ur.entity_type_id = 0 AND ur.entity_id1 = 0 AND ur.entity_id2 = 0) OR';
 		$sSQL .= ' (rp.entity_id = 0 AND ur.entity_type_id = 0 AND ur.entity_id1 = 0 AND ur.entity_id2 = 0))';
 		
-		$oDB = new dbPersonnel();
+		$oDB = new PersonnelModel();
 		$oDB->Query($sSQL);
 		$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset>';
 

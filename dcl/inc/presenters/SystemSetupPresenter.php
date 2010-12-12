@@ -84,7 +84,7 @@ class SystemSetupPresenter
 				'description' =>  STR_ADMIN_CONTACTTYPESDESC,
 				'note' =>  STR_ADMIN_CONTACTTYPESNOTE
 			),
-			'boPersonnel.showall&filterActive=Y' => array(
+			'Personnel.Index&filterActive=Y' => array(
 				'action' =>  STR_ADMIN_USERS,
 				'description' =>  STR_ADMIN_USERSDESC,
 				'note' =>  STR_ADMIN_USERSNOTE

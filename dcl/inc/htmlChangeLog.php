@@ -36,7 +36,7 @@ class htmlChangeLog
 		
 		$this->oDB = new dclDB;
 
-		$this->oPersonnel = new dbPersonnel();
+		$this->oPersonnel = new PersonnelModel();
 		$this->oPersonnel->Load($id);
 	}
 
@@ -144,7 +144,7 @@ class htmlChangeLog
 			throw new InvalidDataException();
 		}
 
-		$oPersonnel = new dbPersonnel();
+		$oPersonnel = new PersonnelModel();
 		if ($oPersonnel->Load($id) == -1)
 		    return;
 
@@ -192,7 +192,7 @@ class htmlChangeLog
 
 		$sccs_project_path = $_REQUEST['sccs_project_path'];
 
-		$oPersonnel = new dbPersonnel();
+		$oPersonnel = new PersonnelModel();
 		if ($oPersonnel->Load($id) == -1)
 			return;
 
@@ -242,7 +242,7 @@ class htmlChangeLog
 		$sccs_project_path = $_REQUEST['sccs_project_path'];
 		$sccs_file_name = $_REQUEST['sccs_file_name'];
 
-		$oPersonnel = new dbPersonnel();
+		$oPersonnel = new PersonnelModel();
 		if ($oPersonnel->Load($id) == -1)
 			return;
 

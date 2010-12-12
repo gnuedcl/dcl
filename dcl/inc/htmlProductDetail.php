@@ -60,7 +60,7 @@ class htmlProductDetail
 		if ($this->oProduct->Load($id) == -1)
 		    return;
 
-		$objPers = new dbPersonnel();
+		$objPers = new PersonnelModel();
 
 		$this->t->assign('VAL_ID', $id);
 		$this->t->assign('VAL_NAME', $this->oProduct->name);

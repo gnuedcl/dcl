@@ -67,7 +67,7 @@ class boSecAudit
 			return;
 		}
 		
-		$objDBPer = new dbPersonnel();
+		$objDBPer = new PersonnelModel();
 		$objDBSA = new dbSecAudit();
 		
 

@@ -34,7 +34,7 @@ class htmlTickets
 			throw new PermissionDeniedException();
 
 		$objProduct = new dbProducts();
-		$objHTMLPersonnel = new htmlPersonnel();
+		$objHTMLPersonnel = new PersonnelHtmlHelper();
 		$objHTMLPriorities = new PriorityHtmlHelper();
 		$objHTMLSeverities = new SeverityHtmlHelper();
 
@@ -45,7 +45,7 @@ class htmlTickets
 		$t = new DCL_Smarty();
 		$t->assign('TXT_TITLE', sprintf(STR_TCK_REASSIGNTICKET, $obj->ticketid));
 		$t->assign('VAL_TICKETID', $obj->ticketid);
-		$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->GetCombo($obj->responsible, 'responsible', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
+		$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->Select($obj->responsible, 'responsible', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
 		$t->assign('CMB_PRIORITY', $objHTMLPriorities->Select($obj->priority, 'priority', 'name', 0, false, $setid));
 		$t->assign('CMB_TYPE', $objHTMLSeverities->Select($obj->type, 'type', 'name', 0, false, $setid));
 		

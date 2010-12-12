@@ -263,7 +263,7 @@ class htmlWorkOrderForm
 			}
 			else
 			{
-				$oPersonnel = new dbPersonnel();
+				$oPersonnel = new PersonnelModel();
 				if ($oPersonnel->Load($oSource->responsible) == -1)
 					$this->oSmarty->assign('VAL_RESPONSIBLENAME', $oPersonnel->short);
 				else

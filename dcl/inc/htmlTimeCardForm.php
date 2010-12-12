@@ -44,7 +44,7 @@ class htmlTimeCardForm
 			throw new PermissionDeniedException();
 
 		$objStatuses = new StatusHtmlHelper();
-		$objPersonnel = new htmlPersonnel();
+		$objPersonnel = new PersonnelHtmlHelper();
 
 		$oSmarty = new DCL_Smarty();
 
@@ -101,7 +101,7 @@ class htmlTimeCardForm
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN))
 			{
-				$oSmarty->assign('CMB_REASSIGN', $objPersonnel->GetCombo(0, 'reassign_to_id', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
+				$oSmarty->assign('CMB_REASSIGN', $objPersonnel->Select(0, 'reassign_to_id', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
 			}
 		}
 

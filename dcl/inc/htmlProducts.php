@@ -289,7 +289,7 @@ class htmlProducts
 		}
 
 		// Data
-		$objHTMLPersonnel = new htmlPersonnel();
+		$objHTMLPersonnel = new PersonnelHtmlHelper();
 		$objHA = new AttributeSetHtmlHelper();
 		if ($isEdit)
 		{
@@ -299,8 +299,8 @@ class htmlProducts
 			$t->assign('CMB_ISPUBLIC', GetYesNoCombo($obj->is_public, 'is_public', 0, false));
 			$t->assign('VAL_SHORT', $obj->short);
 			$t->assign('VAL_NAME', $obj->name);
-			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->GetCombo($obj->reportto, 'reportto'));
-			$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->GetCombo($obj->ticketsto, 'ticketsto'));
+			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->Select($obj->reportto, 'reportto'));
+			$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->Select($obj->ticketsto, 'ticketsto'));
 			$t->assign('CMB_WOATTRIBUTESET', $objHA->Select($obj->wosetid, 'wosetid'));
 			$t->assign('CMB_TCKATTRIBUTESET', $objHA->Select($obj->tcksetid, 'tcksetid'));
 		}
@@ -310,8 +310,8 @@ class htmlProducts
 			$t->assign('CMB_ISVERSIONED', GetYesNoCombo('Y', 'is_versioned', 0, false));
 			$t->assign('CMB_ISPROJECTREQUIRED', GetYesNoCombo('N', 'is_project_required', 0, false));
 			$t->assign('CMB_ISPUBLIC', GetYesNoCombo('N', 'is_public', 0, false));
-			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'reportto'));
-			$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->GetCombo($GLOBALS['DCLID'], 'ticketsto'));
+			$t->assign('CMB_REPORTTO', $objHTMLPersonnel->Select($GLOBALS['DCLID'], 'reportto'));
+			$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->Select($GLOBALS['DCLID'], 'ticketsto'));
 			$t->assign('CMB_WOATTRIBUTESET', $objHA->Select(0, 'wosetid'));
 			$t->assign('CMB_TCKATTRIBUTESET', $objHA->Select(0, 'tcksetid'));
 		}

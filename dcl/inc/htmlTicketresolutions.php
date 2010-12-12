@@ -198,8 +198,8 @@ class htmlTicketresolutions
 			$t->assign('PERM_ASSIGN',$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN));
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
 			{
-				$objPersonnel = new htmlPersonnel();
-				$t->assign('CMB_REASSIGN', $objPersonnel->GetCombo(0, 'reassign_to_id', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
+				$objPersonnel = new PersonnelHtmlHelper();
+				$t->assign('CMB_REASSIGN', $objPersonnel->Select(0, 'reassign_to_id', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
 			}
 
 			// Can modify tags right here if user can modify ticket

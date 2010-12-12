@@ -543,7 +543,7 @@ class boProjects
 		if (!is_object($obj))
 			throw new PermissionDeniedException();
 
-		$objPersonnel = new dbPersonnel();
+		$objPersonnel = new PersonnelModel();
 		if ($objPersonnel->Load($obj->reportto) == -1)
 			return;
 		

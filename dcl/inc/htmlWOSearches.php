@@ -79,14 +79,13 @@ class htmlWOSearches
 		$objJS->bDepartments = !$g_oSec->IsPublicUser();
 		$objJS->DisplayAttributeScript();
 
-		$objPersonnel = new htmlPersonnel();
 		$objProducts = new htmlProducts();
 		$objStatuses = new StatusHtmlHelper();
 		$objProjects = new htmlProjects();
 		$objModules = new htmlProductModules();
 		$objType = new htmlWorkOrderType();
 
-		$oDBP = new dbPersonnel();
+		$oDBP = new PersonnelModel();
 		$oDBP->Load($GLOBALS['DCLID']);
 		
 		$t = new DCL_Smarty();

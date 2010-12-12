@@ -83,7 +83,7 @@ class htmlFaq
 
 		if (count($allRecs) > 0)
 		{
-			$objP = new dbPersonnel();
+			$objP = new PersonnelModel();
 			$oTable->addColumn(STR_FAQ_OPTIONS, 'html');
 			for ($i = 0; $i < count($allRecs); $i++)
 			{

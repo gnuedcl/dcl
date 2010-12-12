@@ -34,7 +34,7 @@
 	function getFilter()
 	{
 {/literal}
-		var sURL = '{$URL_MAIN_PHP}?menuAction=htmlPersonnelBrowse.show';
+		var sURL = '{$URL_MAIN_PHP}?menuAction=Personnel.Index';
 {literal}
 		sURL += '&filterStartsWith=' + sStartsWith;
 		sURL += '&filterActive=' + sActiveFilter;
@@ -160,7 +160,7 @@
 <table style="width: 100%;" cellspacing="0">
 	<tr>
 		<th class="formTitle">Browse Users</th>
-		<th class="formLinks">{if $PERM_ADD}<a href="{$URL_MAIN_PHP}?menuAction=htmlPersonnelForm.add">{$smarty.const.STR_CMMN_NEW}</a>{if $PERM_SETUP}&nbsp;|&nbsp;{/if}{else if !$PERM_SETUP}&nbsp;{/if}{if $PERM_SETUP}<a href="{$URL_MAIN_PHP}?menuAction=SystemSetup.Index">{$smarty.const.DCL_MENU_SYSTEMSETUP}</a>{/if}</th>
+		<th class="formLinks">{if $PERM_ADD}<a href="{$URL_MAIN_PHP}?menuAction=Personnel.Create">{$smarty.const.STR_CMMN_NEW}</a>{if $PERM_SETUP}&nbsp;|&nbsp;{/if}{else if !$PERM_SETUP}&nbsp;{/if}{if $PERM_SETUP}<a href="{$URL_MAIN_PHP}?menuAction=SystemSetup.Index">{$smarty.const.DCL_MENU_SYSTEMSETUP}</a>{/if}</th>
 	</tr>
 	<tr>
 		<td class="formContainer" colspan="2">
@@ -208,7 +208,7 @@
 		<td>{if $VAL_USERS[user].email_addr != ""}{mailto address=$VAL_USERS[user].email_addr}{else}&nbsp;{/if}</td>
 		<td>{$VAL_USERS[user].url_addr|escape:link}</td>
 {if $PERM_MODIFY || $PERM_DELETE}
-		<td>{if $PERM_MODIFY}<a href="{$URL_MAIN_PHP}?menuAction=boPersonnel.modify&id={$VAL_USERS[user].id}">{$smarty.const.STR_CMMN_EDIT}</a>{if $PERM_DELETE}&nbsp;|&nbsp;{/if}{/if}{if $PERM_DELETE}<a href="{$URL_MAIN_PHP}?menuAction=boPersonnel.delete&id={$VAL_USERS[user].id}">{$smarty.const.STR_CMMN_DELETE}</a>{/if}</td>
+		<td>{if $PERM_MODIFY}<a href="{$URL_MAIN_PHP}?menuAction=Personnel.Edit&id={$VAL_USERS[user].id}">{$smarty.const.STR_CMMN_EDIT}</a>{if $PERM_DELETE}&nbsp;|&nbsp;{/if}{/if}{if $PERM_DELETE}<a href="{$URL_MAIN_PHP}?menuAction=Personnel.Delete&id={$VAL_USERS[user].id}">{$smarty.const.STR_CMMN_DELETE}</a>{/if}</td>
 {/if}
 		</tr>
 	{sectionelse}

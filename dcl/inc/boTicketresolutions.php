@@ -106,7 +106,7 @@ class boTicketresolutions
 			if ($obj->responsible != $objP->ticketsto)
 			{
 				$obj->responsible = $objP->ticketsto;
-				$objDP = new dbPersonnel();
+				$objDP = new PersonnelModel();
 				$objDP->Load($obj->responsible);
 				$this->oDB->resolution = '*** ' . STR_BO_ESCALATEDTO . ': ' . $objDP->short . ' ***' . phpCrLf . phpCrLf . $this->oDB->resolution;
 			}

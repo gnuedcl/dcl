@@ -68,12 +68,11 @@ class htmlTicketSearches
 		$objJS->DisplayAttributeScript();
 
 		$oSelect = new htmlSelect();
-		$objPersonnel = new htmlPersonnel();
 		$objProducts = new htmlProducts();
 		$objStatuses = new StatusHtmlHelper();
 		$objModules = new htmlProductModules();
 
-		$oDBP = new dbPersonnel();
+		$oDBP = new PersonnelModel();
 		$oDBP->Load($GLOBALS['DCLID']);
 		
 		$t = new DCL_Smarty();

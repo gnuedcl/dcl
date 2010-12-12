@@ -333,13 +333,13 @@ class htmlProjectsdetail
 		echo GetHiddenVar('menuAction', 'boProjects.showtree');
 
 		$objStat = new StatusHtmlHelper();
-		$objPersonnel = new htmlPersonnel();
+		$objPersonnel = new PersonnelHtmlHelper();
 
 		echo '<b>', STR_PRJ_FILTERWOBYSTATUS, ':</b>';
 		echo $objStat->Select($wostatus, 'wostatus');
 
 		echo '&nbsp;&nbsp;<b>', STR_PRJ_FILTERWOBYRESPONSIBLE, ':</b>';
-		echo $objPersonnel->GetCombo($woresponsible, 'woresponsible', 'short', 0, false, $dcl_info['DCL_HAVE_WO']);
+		echo $objPersonnel->Select($woresponsible, 'woresponsible', 'short', 0, false, $dcl_info['DCL_HAVE_WO']);
 
 		echo '<input type="submit" value="', STR_CMMN_FILTER, '"></form><p>';
 

@@ -276,8 +276,8 @@ class ConfigurationPresenter
 
 	private function GetPersonnelCombo($sName, $sDefault)
 	{
-		$o = new htmlPersonnel();
-		return $o->GetCombo(intval($sDefault), $sName);
+		$o = new PersonnelHtmlHelper();
+		return $o->Select(intval($sDefault), $sName);
 	}
 
 	private function GetDisplayOrderCombo($sName, $sDefault)

@@ -36,16 +36,16 @@ class htmlSecAudit
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 		
-		$objPersonnel = new htmlPersonnel();
+		$objPersonnel = new PersonnelHtmlHelper();
 		
-		$oDBPersonnel = new dbPersonnel();
+		$oDBPersonnel = new PersonnelModel();
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
 			return;
 			
 		$t = new DCL_Smarty();
 		$oSelect = new htmlSelect();
 		
-		$t->assign('CMB_USERS', $objPersonnel->GetCombo(0, 'responsible', 'lastfirst', 0, false));
+		$t->assign('CMB_USERS', $objPersonnel->Select(0, 'responsible', 'lastfirst', 0, false));
 		
 		$begindate = @DCL_Sanitize::ToDate($_REQUEST['begindate']);
 		if ($begindate !== null)

@@ -111,7 +111,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oPersonnel == null)
-			$this->oPersonnel = new dbPersonnel();
+			$this->oPersonnel = new PersonnelModel();
 
 		if ($this->oPersonnel->Load($id, false) == -1)
 			return $this->TriggerError("Could not find personnel ID $id");

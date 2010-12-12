@@ -31,7 +31,7 @@ class AuthenticateSqlModel
 
 	public function __construct()
 	{
-		$this->model = new dbPersonnel();
+		$this->model = new PersonnelModel();
 		$this->model->cacheEnabled = false;
 
 		$this->SetCredentials();

@@ -34,10 +34,10 @@ class reportPersonnelActivity
 		if ($needHdr == true)
 			commonHeader();
 
-		$objPersonnel = new htmlPersonnel();
+		$objPersonnel = new PersonnelHtmlHelper();
 		$oDept = new DepartmentHtmlHelper();
 
-		$oDBPersonnel = new dbPersonnel();
+		$oDBPersonnel = new PersonnelModel();
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
 			return;
 
@@ -56,7 +56,7 @@ class reportPersonnelActivity
 		else if ($g_oSession->IsRegistered('personnel_activity_responsible'))
 			$iUser = (int)$g_oSession->Value('personnel_activity_responsible');
 		
-		$t->assign('CMB_RESPONSIBLE', $objPersonnel->GetCombo($iUser, 'responsible', 'lastfirst', 0, false));
+		$t->assign('CMB_RESPONSIBLE', $objPersonnel->Select($iUser, 'responsible', 'lastfirst', 0, false));
 		$t->assign('CMB_DEPARTMENTS', $oDept->Select($iDept, 'department', 'name', 0, false, true));
 
 		// By department or responsible

@@ -47,7 +47,7 @@ function validateAndSubmitForm(form)
 {/literal}
 </script>
 <form class="styled" name="userInputForm" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="{if $IS_EDIT}boPersonnel.dbmodify{else}boPersonnel.dbadd{/if}">
+	<input type="hidden" name="menuAction" value="{if $IS_EDIT}Personnel.Update{else}Personnel.Insert{/if}">
 	{if $IS_EDIT}<input type="hidden" name="id" value="{$VAL_PERSONNELID}">{/if}
 	<fieldset>
 		<legend>{if $IS_EDIT}{$smarty.const.STR_USR_EDIT}{else}{$smarty.const.STR_USR_ADD}{/if}</legend>
@@ -95,7 +95,7 @@ function validateAndSubmitForm(form)
 	<fieldset>
 		<div class="submit">
 			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href='{$URL_MAIN_PHP}?menuAction=boPersonnel.showall&filterActive=Y';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			<input type="button" onclick="location.href='{$URL_MAIN_PHP}?menuAction=Personnel.Index&filterActive=Y';" value="{$smarty.const.STR_CMMN_CANCEL}">
 		</div>
 	</fieldset>
 </form>

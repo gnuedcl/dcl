@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,13 +20,11 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('usr');
-
-class htmlPersonnel
+class PersonnelHtmlHelper
 {
-	function GetCombo($default = 0, $cbName = 'responsible', $longShort = 'short', $size = 0, $activeOnly = true, $minsec = 0, $projectid = 0)
+	public function Select($default = 0, $cbName = 'responsible', $longShort = 'short', $size = 0, $activeOnly = true, $minsec = 0, $projectid = 0)
 	{
-		$objDBPersonnel = new dbPersonnel();
+		$objDBPersonnel = new PersonnelModel();
 		$objDBPersonnel->cacheEnabled = false;
 
 		if ($projectid > 0)
@@ -64,21 +60,5 @@ class htmlPersonnel
 			$oSelect->AddOption($objDBPersonnel->f(0), $objDBPersonnel->f(1));
 
 		return $oSelect->GetHTML();
-	}
-
-	function displayPasswdForm()
-	{
-		global $dcl_info, $g_oSec;
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD))
-			throw new PermissionDeniedException();
-		
-		$oSmarty = new DCL_Smarty();
-		
-		$oSmarty->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN));
-		$oSmarty->assign('VAL_USERID', $GLOBALS['DCLID']);
-		$oSmarty->assign('VAL_USERNAME', $GLOBALS['DCLNAME']);
-		
-		$oSmarty->Render('htmlPersonnelPasswdForm.tpl');
 	}
 }

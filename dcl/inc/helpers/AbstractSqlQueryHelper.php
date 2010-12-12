@@ -40,8 +40,8 @@ abstract class AbstractSqlQueryHelper
 	protected $joins;
 	protected $urlpieces;
 	protected $style;
-	protected $startrow;
-	protected $numrows;
+	public $startrow;
+	public $numrows;
 	protected $m_oDB;
 
 	public function __construct()
@@ -253,7 +253,7 @@ abstract class AbstractSqlQueryHelper
 
 		if (IsSet($_REQUEST['vti']))
 		{
-			$o = new dbPersonnel();
+			$o = new PersonnelModel();
 			$this->title = $o->GPCStripSlashes($_REQUEST['vti']);
 		}
 

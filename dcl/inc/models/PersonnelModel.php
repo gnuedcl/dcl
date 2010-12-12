@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbPersonnel extends dclDB
+class PersonnelModel extends dclDB
 {
-	function dbPersonnel()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'personnel';
@@ -50,7 +48,7 @@ class dbPersonnel extends dclDB
 		parent::Clear();
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		$query = 'UPDATE personnel SET ';
 		$query .= 'short=' . $this->FieldValueToSQL('short', $this->short) . ',';
@@ -63,17 +61,17 @@ class dbPersonnel extends dclDB
 		return $this->Execute($query);
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('id' => $this->id));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('id' => $id));
 	}
 	
-	function LoadByLogin($sLogin)
+	public function LoadByLogin($sLogin)
 	{
 		if ($this->Query('SELECT ' . $this->SelectAllColumns() . ' FROM ' . $this->TableName . ' WHERE ' . $this->GetUpperSQL('short') . ' = ' . $this->Quote(strtoupper($sLogin))) != -1)
 		{
@@ -84,7 +82,7 @@ class dbPersonnel extends dclDB
 		return -1;
 	}
 
-	function IsPasswordOK($userID, $password)
+	public function IsPasswordOK($userID, $password)
 	{
 		$this->Load($userID);
 		if (md5($password) == $this->pwd)
@@ -93,7 +91,7 @@ class dbPersonnel extends dclDB
 			return false;
 	}
 
-	function ChangePassword($userID, $oldPassword, $newPassword, $confirmPassword)
+	public function ChangePassword($userID, $oldPassword, $newPassword, $confirmPassword)
 	{
 		global $g_oSec;
 
@@ -107,8 +105,8 @@ class dbPersonnel extends dclDB
 			if ($this->IsPasswordOK($userID, $oldPassword) == false)
 			{
 				trigger_error(STR_DB_WRONGPWD, E_USER_ERROR);
-				$objPersonnel = new htmlPersonnel();
-				$objPersonnel->DisplayPasswdForm();
+				$presenter = new PersonnelPresenter();
+				$presenter->EditPassword();
 				return;
 			}
 		}
@@ -118,7 +116,7 @@ class dbPersonnel extends dclDB
 		trigger_error(STR_DB_PWDCHGSUCCESS, E_USER_NOTICE);
 	}
 
-	function Encrypt()
+	public function Encrypt()
 	{
 		$this->pwd = md5($this->pwd);
 	}

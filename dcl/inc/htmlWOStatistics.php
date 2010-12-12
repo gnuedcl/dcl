@@ -35,12 +35,12 @@ class htmlWOStatistics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		$objPersonnel = new htmlPersonnel();
+		$objPersonnel = new PersonnelHtmlHelper();
 		$objProducts = new htmlProducts();
 
 		$t = new DCL_Smarty();
 
-		$t->assign('CMB_PEOPLE', $objPersonnel->GetCombo(0, 'people', 'lastfirst', 8, false));
+		$t->assign('CMB_PEOPLE', $objPersonnel->Select(0, 'people', 'lastfirst', 8, false));
 		$t->assign('CMB_PRODUCTS', $objProducts->GetCombo(0, 'products', 'name', 0, 8, false));
 
 		$t->Render('htmlWOStatisticsForm.tpl');
@@ -55,7 +55,7 @@ class htmlWOStatistics
 			throw new PermissionDeniedException();
 
 		$objProduct = new dbProducts();
-		$objPersonnel = new dbPersonnel();
+		$objPersonnel = new PersonnelModel();
 		$objStatuses = new StatusModel();
 		$objWorkorders = new dbWorkorders();
 		
