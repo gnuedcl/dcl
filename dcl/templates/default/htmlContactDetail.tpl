@@ -1,36 +1,50 @@
 <!-- $Id$ -->
 <script language="JavaScript">
 {literal}
-	function deleteAddress(id)
-	{
-		if (confirm("Are you sure you want to delete this address?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactAddress.submitDelete&contact_id={Contact->contact_id}&contact_addr_id=" + id;
-{literal}
-	}
-	function deleteEmail(id)
-	{
+	$(document).ready(function() {
+		var urlMainPhp = {/literal}"{$URL_MAIN_PHP}"{literal};
+		var contactId = {/literal}{Contact->contact_id}{literal};
+		$(".dcl-delete-contact-address").click(function() {
+			if (confirm("Are you sure you want to delete this address?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {{/literal}menuAction: "ContactAddress.Destroy", contact_id: contactId, contact_addr_id: id{literal}},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "Address deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "Address was not deleted successfully."});
+					}
+				});
+			}
+		});
+	});
+	function deleteEmail(id) {
 		if (confirm("Are you sure you want to delete this e-mail?"))
 {/literal}
 			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactEmail.submitDelete&contact_id={Contact->contact_id}&contact_email_id=" + id;
 {literal}
 	}
-	function deleteLicense(id)
-	{
+	function deleteLicense(id) {
 		if (confirm("Are you sure you want to delete this product license?"))
 {/literal}
 			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactLicenses.submitDelete&contact_id={Contact->contact_id}&contact_license_id=" + id;
 {literal}
 	}
-	function deletePhone(id)
-	{
+	function deletePhone(id) {
 		if (confirm("Are you sure you want to delete this phone number?"))
 {/literal}
 			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactPhone.submitDelete&contact_id={Contact->contact_id}&contact_phone_id=" + id;
 {literal}
 	}
-	function deleteUrl(id)
-	{
+	function deleteUrl(id) {
 		if (confirm("Are you sure you want to delete this URL?"))
 {/literal}
 			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactUrl.submitDelete&contact_id={Contact->contact_id}&contact_url_id=" + id;
@@ -67,7 +81,7 @@ No contact types!
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_ADDR}Addresses</caption>
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlContactAddress.add&contact_id={Contact->contact_id}" class="adark">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactAddress.Create&contact_id={Contact->contact_id}" class="adark">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>
 	<tbody>
 		{section name=address loop=$ContactAddress}
@@ -87,9 +101,9 @@ No contact types!
 {strip}
 		<td class="options">
 		{if $PERM_MODIFY}
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlContactAddress.modify&contact_id={Contact->contact_id}&contact_addr_id={$ContactAddress[address].contact_addr_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=ContactAddress.Edit&contact_id={Contact->contact_id}&contact_addr_id={$ContactAddress[address].contact_addr_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deleteAddress({$ContactAddress[address].contact_addr_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-contact-address" data-id="{$ContactAddress[address].contact_addr_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 		</td>
 		</tr>

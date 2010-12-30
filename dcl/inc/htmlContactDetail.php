@@ -75,7 +75,7 @@ class htmlContactDetail
 		$oContactType->FreeResult();
 
 		// Get addresses
-		$oContactAddress = new dbContactAddr();
+		$oContactAddress = new ContactAddressModel();
 		$oContactAddress->ListByContact($oContact->contact_id);
 		$aAddresses = array();
 		while ($oContactAddress->next_record())

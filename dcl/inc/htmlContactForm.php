@@ -142,21 +142,19 @@ class htmlContactForm
 		$addr_type_id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id']);
 		if ($addr_type_id > 0)
 		{
-			$oContactAddr = new boContactAddr();
-			$oContactAddr->add(array(
-							'contact_id' => $iContactID,
-							'addr_type_id' => $addr_type_id,
-							'add1' => $_REQUEST['add1'],
-							'add2' => $_REQUEST['add2'],
-							'city' => $_REQUEST['city'],
-							'state' => $_REQUEST['state'],
-							'zip' => $_REQUEST['zip'],
-							'country' => $_REQUEST['country'],
-							'preferred' => 'Y',
-							'created_on' => DCL_NOW,
-							'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$contactAddressModel = new ContactAddressModel();
+			$contactAddressModel->contact_id = $iContactID;
+			$contactAddressModel->addr_type_id = $addr_type_id;
+			$contactAddressModel->add1 = $_REQUEST['add1'];
+			$contactAddressModel->add2 = $_REQUEST['add2'];
+			$contactAddressModel->city = $_REQUEST['city'];
+			$contactAddressModel->state = $_REQUEST['state'];
+			$contactAddressModel->zip = $_REQUEST['zip'];
+			$contactAddressModel->country = $_REQUEST['country'];
+			$contactAddressModel->preferred = 'Y';
+			$contactAddressModel->created_on = DCL_NOW;
+			$contactAddressModel->created_by = $GLOBALS['DCLID'];
+			$contactAddressModel->Add();
 		}
 
 		$phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id']);

@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbContactAddr extends dclDB
+class ContactAddressModel extends dclDB
 {
-	function dbContactAddr()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_contact_addr';
@@ -34,7 +32,7 @@ class dbContactAddr extends dclDB
 		parent::Clear();
 	}
 
-	function ListByContact($contact_id)
+	public function ListByContact($contact_id)
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 		{
@@ -47,4 +45,3 @@ class dbContactAddr extends dclDB
 		return $this->Query($sql);
 	}
 }
-?>

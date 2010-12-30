@@ -22,7 +22,7 @@
 
 class TableHtmlHelper
 {
-	protected $aData;
+	public $aData;
 	protected $aToolbar;
 	protected $aCols;
 	protected $aFooter;
