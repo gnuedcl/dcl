@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2010 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,15 +34,15 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 	$gravitarHash = '';
 	if (!isset($g_GravitarsByUserId) || !isset($g_GravitarsByUserId[$userId]))
 	{
-		$dbContactEmail = new dbContactEmail();
-		$emailResult = $dbContactEmail->GetPrimaryEmailByUserID($params['userId']);
+		$contactEmailModel = new ContactEmailModel();
+		$emailResult = $contactEmailModel->GetPrimaryEmailByUserID($params['userId']);
 		if ($emailResult === -1 || $emailResult === false)
 		{
 			$g_GravitarsByUserId[$userId] = null;
 			return;
 		}
 		
-		$gravitarHash = md5(strtolower($dbContactEmail->f('email_addr')));
+		$gravitarHash = md5(strtolower($contactEmailModel->f('email_addr')));
 		$g_GravitarsByUserId[$userId] = $gravitarHash;
 	}
 	else 

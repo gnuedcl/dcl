@@ -99,7 +99,7 @@ class htmlContactDetail
 		$oContactPhone->FreeResult();
 
 		// Get e-mail addresses
-		$oContactEmail = new dbContactEmail();
+		$oContactEmail = new ContactEmailModel();
 		$oContactEmail->ListByContact($oContact->contact_id);
 		$aEmails = array();
 		while ($oContactEmail->next_record())

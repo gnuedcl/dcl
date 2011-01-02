@@ -241,7 +241,7 @@ class DCL_MetadataDisplay
 		{
 			$this->oContact = new dbContact();
 			$this->oContactPhone = new dbContactPhone();
-			$this->oContactEmail = new dbContactEmail();
+			$this->oContactEmail = new ContactEmailModel();
 			$this->oContactUrl = new dbContactUrl();
 		}
 

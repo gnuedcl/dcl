@@ -22,14 +22,14 @@
 
 LoadStringResource('bo');
 
-class ContactAddressController extends AbstractController
+class ContactEmailController extends AbstractController
 {
 	public function __construct()
 	{
 		parent::__construct();
 
-		$this->model = new ContactAddressModel();
-		$this->sKeyField = 'contact_addr_id';
+		$this->model = new ContactEmailModel();
+		$this->sKeyField = 'contact_email_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
 		$this->PermAdd = DCL_PERM_MODIFY;
 		$this->PermDelete = DCL_PERM_MODIFY;
@@ -39,15 +39,15 @@ class ContactAddressController extends AbstractController
 		$this->sModifiedDateField = 'modified_on';
 		$this->sModifiedByField = 'modified_by';
 		
-		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by', 'contact_id');
+		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by');
 	}
 
 	public function Create()
 	{
-		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = @DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
-		$presenter = new ContactAddressPresenter();
+		$presenter = new ContactEmailPresenter();
 		$presenter->Create($contactId);
 	}
 
@@ -56,7 +56,7 @@ class ContactAddressController extends AbstractController
 		global $dcl_info, $g_oSec;
 
 		if (($id = DCL_Sanitize::ToInt($_POST['contact_id'])) === null ||
-			($addr_type_id = DCL_Sanitize::ToInt($_POST['addr_type_id'])) === null
+			($email_type_id = DCL_Sanitize::ToInt($_POST['email_type_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -69,36 +69,31 @@ class ContactAddressController extends AbstractController
 
 		parent::Insert(array(
 						'contact_id' => $id,
-						'addr_type_id' => $addr_type_id,
-						'add1' => $_POST['add1'],
-						'add2' => $_POST['add2'],
-						'city' => $_POST['city'],
-						'state' => $_POST['state'],
-						'zip' => $_POST['zip'],
-						'country' => $_POST['country'],
-						'preferred' => isset($_POST['preferred']) ? 'Y' : 'N',
+						'email_type_id' => $email_type_id,
+						'email_addr' => $_POST['email_addr'],
+						'preferred' => @DCL_Sanitize::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
 					);
 
-		SetRedirectMessage('Success', 'New address added successfully.');
+		SetRedirectMessage('Success', 'New email added successfully.');
 		RedirectToAction('htmlContactDetail', 'show', 'contact_id=' . $id);
 	}
 
 	public function Edit()
 	{
-		if (($contactAddrId = DCL_Sanitize::ToInt($_REQUEST['contact_addr_id'])) === null)
+		if (($contactEmailId = DCL_Sanitize::ToInt($_REQUEST['contact_email_id'])) === null)
 			throw new InvalidDataException();
 
 		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
-		$model = new ContactAddressModel();
-		if ($model->Load($contactAddrId) == -1)
+		$model = new ContactEmailModel();
+		if ($model->Load($contactEmailId) == -1)
 			throw new InvalidEntityException();
 
-		$presenter = new ContactAddressPresenter();
+		$presenter = new ContactEmailPresenter();
 		$presenter->Edit($model);
 	}
 
@@ -106,20 +101,17 @@ class ContactAddressController extends AbstractController
 	{
 		global $g_oSec;
 
-		if (($contactAddrId = DCL_Sanitize::ToInt($_POST['contact_addr_id'])) === null)
-			throw new InvalidDataException();
-
-		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
-			throw new InvalidDataException();
-
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		CleanArray($_POST);
+		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+			throw new InvalidDataException();
 
+		CleanArray($_POST);
+		$_POST['preferred'] = @DCL_Sanitize::ToYN($_POST['preferred']);
 		parent::Update($_POST);
 
-		SetRedirectMessage('Success', 'Address updated successfully.');
+		SetRedirectMessage('Success', 'Email updated successfully.');
 		RedirectToAction('htmlContactDetail', 'show', 'contact_id=' . $contactId);
 	}
 
@@ -133,10 +125,10 @@ class ContactAddressController extends AbstractController
 		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['contact_addr_id'])) === null)
+		if (($id = DCL_Sanitize::ToInt($_POST['contact_email_id'])) === null)
 			throw new InvalidDataException();
 
-		$aKey = array('contact_addr_id' => $id);
+		$aKey = array('contact_email_id' => $id);
 		parent::Destroy($aKey);
 	}
 }

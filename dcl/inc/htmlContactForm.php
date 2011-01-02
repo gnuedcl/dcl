@@ -175,16 +175,14 @@ class htmlContactForm
 		$email_type_id = DCL_Sanitize::ToInt($_REQUEST['email_type_id']);
 		if ($email_type_id > 0 && $_REQUEST['email_addr'] != '')
 		{
-			$oContactEmail = new boContactEmail();
-			$oContactEmail->add(array(
-								'contact_id' => $iContactID,
-								'email_type_id' => $email_type_id,
-								'email_addr' => $_REQUEST['email_addr'],
-								'preferred' => 'Y',
-								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$contactEmailModel = new ContactEmailModel();
+			$contactEmailModel->contact_id = $iContactID;
+			$contactEmailModel->email_type_id = $email_type_id;
+			$contactEmailModel->email_addr = $_POST['email_addr'];
+			$contactEmailModel->preferred = 'Y';
+			$contactEmailModel->created_on = DCL_NOW;
+			$contactEmailModel->created_by = $GLOBALS['DCLID'];
+			$contactEmailModel->Add();
 		}
 
 		$url_type_id = DCL_Sanitize::ToInt($_REQUEST['url_type_id']);

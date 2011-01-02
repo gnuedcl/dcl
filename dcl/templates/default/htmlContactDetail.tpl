@@ -25,13 +25,30 @@
 				});
 			}
 		});
+
+
+		$(".dcl-delete-contact-email").click(function() {
+			if (confirm("Are you sure you want to delete this email?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {{/literal}menuAction: "ContactEmail.Destroy", contact_id: contactId, contact_email_id: id{literal}},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "Email deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "Email was not deleted successfully."});
+					}
+				});
+			}
+		});
 	});
-	function deleteEmail(id) {
-		if (confirm("Are you sure you want to delete this e-mail?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactEmail.submitDelete&contact_id={Contact->contact_id}&contact_email_id=" + id;
-{literal}
-	}
 	function deleteLicense(id) {
 		if (confirm("Are you sure you want to delete this product license?"))
 {/literal}
@@ -138,7 +155,7 @@ No contact types!
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_EMAILADDRESSES}E-Mail Addresses</caption>
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlContactEmail.add&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactEmail.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>
 	<tbody>
 {section name=email loop=$ContactEmail}
@@ -149,9 +166,9 @@ No contact types!
 		<td class="options">
 {strip}
 		{if $PERM_MODIFY}
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlContactEmail.modify&contact_id={Contact->contact_id}&contact_email_id={$ContactEmail[email].contact_email_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=ContactEmail.Edit&contact_id={Contact->contact_id}&contact_email_id={$ContactEmail[email].contact_email_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deleteEmail({$ContactEmail[email].contact_email_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-contact-email" data-id="{$ContactEmail[email].contact_email_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 {/strip}
 		</td>
