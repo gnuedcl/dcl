@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbContactPhone extends dclDB
+class ContactPhoneModel extends dclDB
 {
-	function dbContactPhone()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_contact_phone';
@@ -34,27 +32,27 @@ class dbContactPhone extends dclDB
 		parent::Clear();
 	}
 
-	function ListByContact($contact_id)
+	function ListByContact($contactId)
 	{
-		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
+		if (($contactId = DCL_Sanitize::ToInt($contactId)) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
 		$sql = 'SELECT p.contact_phone_id, p.contact_id, p.phone_type_id, p.phone_number, p.preferred, t.phone_type_name';
-		$sql .= ' FROM ' . $this->TableName . ' p, dcl_phone_type t WHERE p.contact_id = ' . $contact_id . ' AND t.phone_type_id = p.phone_type_id';
+		$sql .= ' FROM ' . $this->TableName . ' p, dcl_phone_type t WHERE p.contact_id = ' . $contactId . ' AND t.phone_type_id = p.phone_type_id';
 		$sql .= ' ORDER BY t.phone_type_name';
 		return $this->Query($sql);
 	}
 
-	function GetPrimaryPhone($iContactID)
+	function GetPrimaryPhone($contactId)
 	{
-		if (($iContactID = DCL_Sanitize::ToInt($iContactID)) === null)
+		if (($contactId = DCL_Sanitize::ToInt($contactId)) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if ($this->Query("SELECT pt.phone_type_name, p.phone_number FROM dcl_contact_phone p, dcl_phone_type pt WHERE p.phone_type_id = pt.phone_type_id AND p.contact_id = $iContactID AND preferred = 'Y'") != -1)
+		if ($this->Query("SELECT pt.phone_type_name, p.phone_number FROM dcl_contact_phone p, dcl_phone_type pt WHERE p.phone_type_id = pt.phone_type_id AND p.contact_id = $contactId AND preferred = 'Y'") != -1)
 		{
 			return $this->next_record();
 		}
@@ -75,4 +73,3 @@ class dbContactPhone extends dclDB
         return null;
 	}
 }
-?>

@@ -87,7 +87,7 @@ class htmlContactDetail
 		$oContactAddress->FreeResult();
 
 		// Get phone numbers
-		$oContactPhone = new dbContactPhone();
+		$oContactPhone = new ContactPhoneModel();
 		$oContactPhone->ListByContact($oContact->contact_id);
 		$aPhoneNumbers = array();
 		while ($oContactPhone->next_record())

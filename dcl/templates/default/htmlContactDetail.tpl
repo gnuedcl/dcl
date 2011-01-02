@@ -11,7 +11,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {{/literal}menuAction: "ContactAddress.Destroy", contact_id: contactId, contact_addr_id: id{literal}},
+					data: {menuAction: "ContactAddress.Destroy", contact_id: contactId, contact_addr_id: id},
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -33,7 +33,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {{/literal}menuAction: "ContactEmail.Destroy", contact_id: contactId, contact_email_id: id{literal}},
+					data: {menuAction: "ContactEmail.Destroy", contact_id: contactId, contact_email_id: id},
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -56,7 +56,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {{/literal}menuAction: "ContactLicense.Destroy", contact_id: contactId, contact_license_id: id{literal}},
+					data: {menuAction: "ContactLicense.Destroy", contact_id: contactId, contact_license_id: id},
 					success: function() {
 						$row.remove();
 						$notesRow.remove();
@@ -71,13 +71,29 @@
 				});
 			}
 		});
+
+		$(".dcl-delete-contact-phone").click(function() {
+			if (confirm("Are you sure you want to delete this phone number?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {menuAction: "ContactPhone.Destroy", contact_id: contactId, contact_phone_id: id},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "Phone number deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "Phone number was not deleted successfully."});
+					}
+				});
+			}
+		});
 	});
-	function deletePhone(id) {
-		if (confirm("Are you sure you want to delete this phone number?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactPhone.submitDelete&contact_id={Contact->contact_id}&contact_phone_id=" + id;
-{literal}
-	}
 	function deleteUrl(id) {
 		if (confirm("Are you sure you want to delete this URL?"))
 {/literal}
@@ -148,7 +164,7 @@ No contact types!
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_PHONENUMBERS}Phone Numbers</caption>
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlContactPhone.add&contact_id={Contact->contact_id}" class="adark">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactPhone.Create&contact_id={Contact->contact_id}" class="adark">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>
 	<tbody>
 {section name=phone loop=$ContactPhone}
@@ -159,9 +175,9 @@ No contact types!
 		<td class="options">
 {strip}
 		{if $PERM_MODIFY}
-			<a class="adark" href="{$URL_MAIN_PHP}?menuAction=htmlContactPhone.modify&contact_id={Contact->contact_id}&contact_phone_id={$ContactPhone[phone].contact_phone_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=ContactPhone.Edit&contact_id={Contact->contact_id}&contact_phone_id={$ContactPhone[phone].contact_phone_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a class="adark" href="javascript:;" onclick="deletePhone({$ContactPhone[phone].contact_phone_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-contact-phone" data-id="{$ContactPhone[phone].contact_phone_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 {/strip}
 		</td>

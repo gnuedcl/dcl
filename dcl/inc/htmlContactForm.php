@@ -160,16 +160,14 @@ class htmlContactForm
 		$phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id']);
 		if ($phone_type_id > 0 && $_REQUEST['phone_number'] != '')
 		{
-			$oContactPhone = new boContactPhone();
-			$oContactPhone->add(array(
-								'contact_id' => $iContactID,
-								'phone_type_id' => $phone_type_id,
-								'phone_number' => $_REQUEST['phone_number'],
-								'preferred' => 'Y',
-								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$contactPhoneModel = new ContactPhoneModel();
+			$contactPhoneModel->contact_id = $iContactID;
+			$contactEmailModel->phone_type_id = $phone_type_id;
+			$contactEmailModel->phone_number = $_POST['phone_number'];
+			$contactEmailModel->preferred = 'Y';
+			$contactEmailModel->created_on = DCL_NOW;
+			$contactEmailModel->created_by = $GLOBALS['DCLID'];
+			$contactEmailModel->Add();
 		}
 
 		$email_type_id = DCL_Sanitize::ToInt($_REQUEST['email_type_id']);
