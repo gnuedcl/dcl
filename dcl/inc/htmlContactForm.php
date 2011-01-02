@@ -186,16 +186,14 @@ class htmlContactForm
 		$url_type_id = DCL_Sanitize::ToInt($_REQUEST['url_type_id']);
 		if ($_POST['url_type_id'] > 0 && $_REQUEST['url_addr'] != '')
 		{
-			$oContactUrl = new boContactUrl();
-			$oContactUrl->add(array(
-								'contact_id' => $iContactID,
-								'url_type_id' => $url_type_id,
-								'url_addr' => $_REQUEST['url_addr'],
-								'preferred' => 'Y',
-								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$contactUrlModel = new ContactUrlModel();
+			$contactEmailModel->contact_id = $iContactID;
+			$contactEmailModel->url_type_id = $url_type_id;
+			$contactEmailModel->url_addr = $_POST['url_addr'];
+			$contactEmailModel->preferred = 'Y';
+			$contactEmailModel->created_on = DCL_NOW;
+			$contactEmailModel->created_by = $GLOBALS['DCLID'];
+			$contactEmailModel->Add();
 		}
 
 		if (isset($_REQUEST['fromBrowse']) && $_REQUEST['fromBrowse'] == 'true')

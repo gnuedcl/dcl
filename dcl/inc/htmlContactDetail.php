@@ -125,7 +125,7 @@ class htmlContactDetail
 		$oContactLicenses->FreeResult();
 
 		// Get URLs
-		$oContactURL = new dbContactUrl();
+		$oContactURL = new ContactUrlModel();
 		$oContactURL->ListByContact($oContact->contact_id);
 		$aURL = array();
 		while ($oContactURL->next_record())

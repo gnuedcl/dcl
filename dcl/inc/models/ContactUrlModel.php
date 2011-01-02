@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbContactUrl extends dclDB
+class ContactUrlModel extends dclDB
 {
-	function dbContactUrl()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_contact_url';
@@ -62,4 +60,3 @@ class dbContactUrl extends dclDB
 		return false;
 	}
 }
-?>

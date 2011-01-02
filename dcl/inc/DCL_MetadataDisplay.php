@@ -242,7 +242,7 @@ class DCL_MetadataDisplay
 			$this->oContact = new dbContact();
 			$this->oContactPhone = new ContactPhoneModel();
 			$this->oContactEmail = new ContactEmailModel();
-			$this->oContactUrl = new dbContactUrl();
+			$this->oContactUrl = new ContactUrlModel();
 		}
 
 		if ($this->oContact->Load($id) != -1)

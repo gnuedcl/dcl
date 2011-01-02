@@ -93,13 +93,29 @@
 				});
 			}
 		});
+
+		$(".dcl-delete-contact-url").click(function() {
+			if (confirm("Are you sure you want to delete this URL?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {menuAction: "ContactUrl.Destroy", contact_id: contactId, contact_url_id: id},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "URL deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "URL was not deleted successfully."});
+					}
+				});
+			}
+		});
 	});
-	function deleteUrl(id) {
-		if (confirm("Are you sure you want to delete this URL?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactUrl.submitDelete&contact_id={Contact->contact_id}&contact_url_id=" + id;
-{literal}
-	}
 {/literal}
 </script>
 <table width="100%" class="dcl_results">
@@ -212,7 +228,7 @@ No contact types!
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_URL}URLs</caption>
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlContactUrl.add&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactUrl.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>
 	<tbody>
 {section name=url loop=$ContactURL}
@@ -223,9 +239,9 @@ No contact types!
 		<td class="options">
 {strip}
 		{if $PERM_MODIFY}
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlContactUrl.modify&contact_id={Contact->contact_id}&contact_url_id={$ContactURL[url].contact_url_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=ContactUrl.Edit&contact_id={Contact->contact_id}&contact_url_id={$ContactURL[url].contact_url_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deleteUrl({$ContactURL[url].contact_url_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-contact-url" data-id="{$ContactURL[url].contact_url_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 {/strip}
 		</td>
