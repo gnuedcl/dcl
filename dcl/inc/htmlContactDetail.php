@@ -111,7 +111,7 @@ class htmlContactDetail
 		$oContactEmail->FreeResult();
 
 		// Get e-mail addresses
-		$oContactLicenses = new dbContactLicense();
+		$oContactLicenses = new ContactLicenseModel();
 		$oContactLicenses->ListByContact($oContact->contact_id);
 		$aLicenses = array();
 		while ($oContactLicenses->next_record())

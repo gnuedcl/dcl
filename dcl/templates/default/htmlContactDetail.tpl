@@ -26,7 +26,6 @@
 			}
 		});
 
-
 		$(".dcl-delete-contact-email").click(function() {
 			if (confirm("Are you sure you want to delete this email?")) {
 				var id = $(this).attr("data-id");
@@ -48,13 +47,31 @@
 				});
 			}
 		});
+
+		$(".dcl-delete-contact-license").click(function() {
+			if (confirm("Are you sure you want to delete this license?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				var $notesRow = $row.next().find("td.notes").parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {{/literal}menuAction: "ContactLicense.Destroy", contact_id: contactId, contact_license_id: id{literal}},
+					success: function() {
+						$row.remove();
+						$notesRow.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "License deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "License was not deleted successfully."});
+					}
+				});
+			}
+		});
 	});
-	function deleteLicense(id) {
-		if (confirm("Are you sure you want to delete this product license?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactLicenses.submitDelete&contact_id={Contact->contact_id}&contact_license_id=" + id;
-{literal}
-	}
 	function deletePhone(id) {
 		if (confirm("Are you sure you want to delete this phone number?"))
 {/literal}
@@ -228,7 +245,7 @@ No contact types!
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_PRODUCTLICENSES}Product Licenses</caption>
 	<thead>
-		{if $PERM_MODIFY}<tr class="toolbar"><th colspan="{if $PERM_MODIFY}6{else}5{/if}"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlContactLicenses.add&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
+		{if $PERM_MODIFY}<tr class="toolbar"><th colspan="{if $PERM_MODIFY}6{else}5{/if}"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactLicense.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
 		<tr><th>Product</th><th>Version</th><th>License #</th><th>Registered On</th><th>Expires On</th>{if $PERM_MODIFY}<th>Options</th>{/if}</tr>
 	</thead>
 	<tbody>
@@ -243,9 +260,9 @@ No contact types!
 {strip}
 		{if $PERM_MODIFY}
 		<td class="options">
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlContactLicenses.modify&contact_id={Contact->contact_id}&contact_license_id={$ContactLicense[license].contact_license_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=ContactLicense.Edit&contact_id={Contact->contact_id}&contact_license_id={$ContactLicense[license].contact_license_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deleteLicense({$ContactLicense[license].contact_license_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-contact-license" data-id="{$ContactLicense[license].contact_license_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		</td>
 		{/if}
 {/strip}
