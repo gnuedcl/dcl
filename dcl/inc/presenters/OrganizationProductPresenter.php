@@ -22,40 +22,26 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class htmlOrgProducts
+class OrganizationProductPresenter
 {
-	var $public;
-
-	function htmlOrgProducts()
-	{
-		$this->public = array('modify', 'submitModify');
-	}
-
-	function modify()
+	public function Edit($orgId)
 	{
 		global $g_oSec;
 		
 		commonHeader();
-		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $id))
+		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $orgId))
 			throw new PermissionDeniedException();
 
 		$oOrg = new dbOrg();
-		if ($oOrg->Load($id) == -1)
+		if ($oOrg->Load($orgId) == -1)
 		    return;
 		    
-		// Get orgs for this contact
-		$oViewProduct = new boView();
-		$oViewProduct->table = 'products';
+		// Get products for this organization
+		$oViewProduct = new ProductSqlQueryHelper();
 		$oViewProduct->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_NAME));
 		$oViewProduct->AddDef('columns', '', array('id', 'name'));
 		$oViewProduct->AddDef('order', '', array('name'));
-		$oViewProduct->AddDef('filter', 'dcl_org_product_xref.org_id', $id);
+		$oViewProduct->AddDef('filter', 'dcl_org_product_xref.org_id', $orgId);
 
 		$aProducts = array();
 		$aProductsNames = array();
@@ -72,50 +58,19 @@ class htmlOrgProducts
 			$oProducts->FreeResult();
 		}
 
-		$this->ShowEntryForm($oOrg, $aProducts, $aProductsNames);
-	}
-
-	function submitModify()
-	{
-		global $g_oSec;
-		
-		commonHeader();
-		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $id))
-			throw new PermissionDeniedException();
-
-		CleanArray($_REQUEST);
-
-		$aProducts = @DCL_Sanitize::ToIntArray($_REQUEST['product_id']);
-		$oDbProduct = new dbOrgProduct();
-		$oDbProduct->updateProducts($id, $aProducts);
-
-		$oOrgDetail = new htmlOrgDetail();
-		$oOrgDetail->show();
-	}
-
-	function ShowEntryForm(&$oOrg, &$aProductID, &$aProductName)
-	{
-		global $dcl_info, $g_oSec;
-
 		$oSmarty = new DCL_Smarty();
-		
+
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $oOrg->org_id))
 			throw new PermissionDeniedException();
-			
+
 		$oSmarty->assign('TXT_TITLE', 'Edit Organization Products');
-		$oSmarty->assign('VAL_MENUACTION', 'htmlOrgProducts.submitModify');
+		$oSmarty->assign('VAL_MENUACTION', 'OrganizationProduct.Update');
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);
-		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $oOrg->org_id));			
+		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $oOrg->org_id));
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 
-		$oSmarty->assign_by_ref('VAL_PRODUCTID', $aProductID);
-		$oSmarty->assign_by_ref('VAL_PRODUCTNAME', $aProductName);
+		$oSmarty->assign_by_ref('VAL_PRODUCTID', $aProducts);
+		$oSmarty->assign_by_ref('VAL_PRODUCTNAME', $aProductsNames);
 
 		$oSmarty->Render('htmlOrgProducts.tpl');
 	}

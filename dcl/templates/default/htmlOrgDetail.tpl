@@ -169,7 +169,7 @@ No organization types!
 </table>
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CMMN_PRODUCTS}Products</caption>
-	{if $PERM_MODIFY}<thead><tr class="toolbar"><th colspan="2"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgProducts.modify&org_id={Org->org_id}">{$smarty.const.STR_CMMN_EDIT}</a></li></ul></th></tr></thead>{/if}
+	{if $PERM_MODIFY}<thead><tr class="toolbar"><th colspan="2"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationProduct.Edit&org_id={Org->org_id}">{$smarty.const.STR_CMMN_EDIT}</a></li></ul></th></tr></thead>{/if}
 	<tbody>
 {section name=productitem loop=$OrgProduct}
 {cycle values="odd,even" assign="rowClass"}

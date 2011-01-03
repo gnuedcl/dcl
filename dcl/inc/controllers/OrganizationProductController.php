@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,13 +22,13 @@
 
 LoadStringResource('bo');
 
-class boOrgProduct extends boAdminObject
+class OrganizationProductController extends AbstractController
 {
-	function boOrgProduct()
+	public function __construct()
 	{
-		parent::boAdminObject();
+		parent::__construct();
 		
-		$this->oDB = new dbOrgProduct();
+		$this->model = new OrganizationProductModel();
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->sKeyField = '';
 		
@@ -38,36 +36,32 @@ class boOrgProduct extends boAdminObject
 		$this->sCreatedByField = 'created_by';
 	}
 	
-	function add($aSource)
+	public function Edit()
+	{
+		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+			throw new InvalidDataException();
+
+		$presenter = new OrganizationProductPresenter();
+		$presenter->Edit($orgId);
+	}
+
+	public function Update()
 	{
 		global $g_oSec;
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD) && !$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
+		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+			throw new InvalidDataException();
+
+		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $id))
 			throw new PermissionDeniedException();
-			
-		$this->oDB->InitFromArray($aSource);
-		if ($this->oDB->Add() == -1)
-			return -1;
-			
-		if (isset($this->sKeyField) && $this->sKeyField != '')
-			return $this->oDB->{$this->sKeyField};
-		
-		return 1;
-	}
-	
-	function modify(&$aSource)
-	{
-		trigger_error('boOrgProduct::modify unsupported');
-	}
-	
-	function delete(&$aSource)
-	{
-		trigger_error('boOrgProduct::delete unsupported');
-	}
-	
-	function deleteByProduct($product_id)
-	{
-		if (($product_id = DCL_Sanitize::ToInt($product_id)) !== null)
-			$this->oDB->Execute("DELETE FROM dcl_org_product_xref WHERE product_id = $product_id");
+
+		CleanArray($_POST);
+
+		$aProducts = @DCL_Sanitize::ToIntArray($_POST['product_id']);
+		$organizationProductModel = new OrganizationProductModel();
+		$organizationProductModel->UpdateProducts($id, $aProducts);
+
+		SetRedirectMessage('Success', 'Products updated successfully.');
+		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $id);
 	}
 }

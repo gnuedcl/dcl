@@ -85,7 +85,7 @@ class htmlOrgDetail
 		$oOrgType->FreeResult();
 
 		// Get products for this org
-		$oOrgProduct = new dbOrgProduct();
+		$oOrgProduct = new OrganizationProductModel();
 		$oOrgProduct->ListByOrg($oOrg->org_id);
 		$aProducts = array();
 		while ($oOrgProduct->next_record())

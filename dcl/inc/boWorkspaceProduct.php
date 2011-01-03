@@ -65,12 +65,6 @@ class boWorkspaceProduct extends boAdminObject
 		trigger_error('boWorkspaceProduct::delete unsupported');
 	}
 	
-	function deleteByProduct($product_id)
-	{
-		if (($product_id = DCL_Sanitize::ToInt($product_id)) !== null)
-			$this->oDB->Execute("DELETE FROM dcl_workspace_product WHERE product_id = $product_id");
-	}
-	
 	function deleteByWorkspace($workspace_id)
 	{
 		if (($workspace_id = DCL_Sanitize::ToInt($workspace_id)) !== null)

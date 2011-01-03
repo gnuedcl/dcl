@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbOrgProduct extends dclDB
+class OrganizationProductModel extends dclDB
 {
-	function dbOrgProduct()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_org_product_xref';
@@ -34,7 +32,7 @@ class dbOrgProduct extends dclDB
 		parent::Clear();
 	}
 	
-	function updateProducts($org_id, &$aProductID)
+	public function UpdateProducts($org_id, &$aProductID)
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 			throw new PermissionDeniedException();
@@ -49,7 +47,7 @@ class dbOrgProduct extends dclDB
 		$this->Execute("INSERT INTO dcl_org_product_xref (org_id, product_id) SELECT $org_id, id FROM products WHERE id IN ($sProductID) AND id NOT IN (SELECT product_id FROM dcl_org_product_xref WHERE org_id = $org_id)");
 	}
 	
-	function ListByOrg($org_id)
+	public function ListByOrg($org_id)
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
@@ -63,4 +61,3 @@ class dbOrgProduct extends dclDB
 		return $this->Query($sql);
 	}
 }
-?>
