@@ -118,11 +118,12 @@ class htmlContactForm
 		$aContactTypes = @DCL_Sanitize::ToIntArray($_REQUEST['contact_type_id']);
 		if ($aContactTypes !== null)
 		{
-			$oContactTypeXref = new boContactTypeXref();
-			$oContactTypeXref->PermAdd = DCL_PERM_ADD;
+			$oContactTypeXref = new ContactTypeXrefModel();
+			$oContactTypeXref->contact_id = $iContactID;
 			foreach ($aContactTypes as $iTypeID)
 			{
-				$oContactTypeXref->add(array('contact_id' => $iContactID, 'contact_type_id' => $iTypeID));
+				$oContactTypeXref->contact_type_id = $iTypeID;
+				$oContactTypeXref->Add();
 			}
 		}
 

@@ -58,11 +58,15 @@ class boContact extends boAdminObject
 
 		$this->oDB->Execute($sql);
 		
-		$oContactTypeXref = new boContactTypeXref();
+		$oContactTypeXref = new ContactTypeXrefModel();
+		$oContactTypeXref->contact_id = $aSource['contact_id'];
 		foreach ($aSource['contact_type_id'] as $contact_type_id)
 		{
-			if (!$oContactTypeXref->exists(array('contact_id' => $aSource['contact_id'], 'contact_type_id' => $contact_type_id)))
-				$oContactTypeXref->Add(array('contact_id' => $aSource['contact_id'], 'contact_type_id' => $contact_type_id));
+			if (!$oContactTypeXref->Exists(array('contact_id' => $aSource['contact_id'], 'contact_type_id' => $contact_type_id)))
+			{
+				$oContactTypeXref->contact_type_id = $contact_type_id;
+				$oContactTypeXref->Add();
+			}
 		}
 	}
 	

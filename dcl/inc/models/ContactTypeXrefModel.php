@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,16 +20,15 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
-
-class boContactTypeXref extends boAdminObject
+LoadStringResource('db');
+class ContactTypeXrefModel extends dclDB
 {
-	function boContactTypeXref()
+	public function __construct()
 	{
-		parent::boAdminObject();
+		parent::dclDB();
+		$this->TableName = 'dcl_contact_type_xref';
+		LoadSchema($this->TableName);
 		
-		$this->oDB = new dbContactTypeXref();
-		$this->sKeyField = '';
-		$this->Entity = DCL_ENTITY_CONTACT;
+		parent::Clear();
 	}
 }
