@@ -118,8 +118,6 @@ class htmlOrgForm
 			}
 		}
 
-		// All of these are info in other tables, but they use the permissions of the org entity
-		// So, we need to temporarily set the PermAdd to DCL_PERM_ADD so these will succeed.
 		if ($_POST['alias'] != '')
 		{
 			$organizationAliasModel = new OrganizationAliasModel();
@@ -164,7 +162,7 @@ class htmlOrgForm
 		$email_type_id = DCL_Sanitize::ToInt($_POST['email_type_id']);
 		if ($_POST['email_type_id'] > 0 && $_POST['email_addr'] != '')
 		{
-			$organizationEmailModel = new OrganizationAddressModel();
+			$organizationEmailModel = new OrganizationEmailModel();
 			$organizationEmailModel->org_id = $oOrgID;
 			$organizationEmailModel->email_type_id = $email_type_id;
 			$organizationEmailModel->email_addr = $_POST['email_addr'];
@@ -174,20 +172,17 @@ class htmlOrgForm
 			$organizationEmailModel->Add();
 		}
 
-		$url_type_id = DCL_Sanitize::ToInt($_REQUEST['url_type_id']);
+		$url_type_id = DCL_Sanitize::ToInt($_POST['url_type_id']);
 		if ($_POST['url_type_id'] > 0 && $_POST['url_addr'] != '')
 		{
-			$oOrgUrl = new boOrgUrl();
-			$oOrgUrl->PermAdd = DCL_PERM_ADD;
-			$oOrgUrl->add(array(
-								'org_id' => $oOrgID,
-								'url_type_id' => $url_type_id,
-								'url_addr' => $_REQUEST['url_addr'],
-								'preferred' => 'Y',
-								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$organizationUrlModel = new OrganizationUrlModel();
+			$organizationUrlModel->org_id = $oOrgID;
+			$organizationUrlModel->url_type_id = $url_type_id;
+			$organizationUrlModel->url_addr = $_POST['url_addr'];
+			$organizationUrlModel->preferred = 'Y';
+			$organizationUrlModel->created_on = DCL_NOW;
+			$organizationUrlModel->created_by = $GLOBALS['DCLID'];
+			$organizationUrlModel->Add();
 		}
 
 		if (EvaluateReturnTo())

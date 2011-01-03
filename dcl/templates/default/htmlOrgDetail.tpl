@@ -90,15 +90,29 @@
 				});
 			}
 		});
+
+		$(".dcl-delete-org-url").click(function() {
+			if (confirm("Are you sure you want to delete this URL?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {menuAction: "OrganizationUrl.Destroy", org_id: orgId, org_url_id: id},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "URL deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "URL was not deleted successfully."});
+					}
+				});
+			}
+		});
 	});
-	
-	function deleteUrl(id)
-	{
-		if (confirm("Are you sure you want to delete this URL?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlOrgUrl.submitDelete&org_id={Org->org_id}&org_url_id=" + id;
-{literal}
-	}
 {/literal}
 </script>
 <table width="100%" class="dcl_results">
@@ -246,7 +260,7 @@ No organization types!
 </table>
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_URL}URLs</caption>
-	<thead><tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgUrl.add&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>
+	<thead><tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationUrl.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>
 	<tbody>
 {section name=url loop=$OrgURL}
 		{cycle values="odd,even" assign="rowClass"}
@@ -256,9 +270,9 @@ No organization types!
 		<td class="options">
 {strip}
 		{if $PERM_MODIFY}
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgUrl.modify&org_id={Org->org_id}&org_url_id={$OrgURL[url].org_url_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=OrganizationUrl.Edit&org_id={Org->org_id}&org_url_id={$OrgURL[url].org_url_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deleteUrl({$OrgURL[url].org_url_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-org-url" data-id="{$OrgURL[url].org_url_id}"">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 {/strip}
 		</td>

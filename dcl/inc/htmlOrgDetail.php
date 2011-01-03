@@ -133,7 +133,7 @@ class htmlOrgDetail
 		$oOrgEmail->FreeResult();
 
 		// Get URLs
-		$oOrgURL = new dbOrgUrl();
+		$oOrgURL = new OrganizationUrlModel();
 		$oOrgURL->ListByOrg($oOrg->org_id);
 		$aURL = array();
 		while ($oOrgURL->next_record())
