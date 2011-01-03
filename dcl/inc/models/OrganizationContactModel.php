@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbOrgContact extends dclDB
+class OrganizationContactModel extends dclDB
 {
-	function dbOrgContact()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_org_contact';
@@ -34,7 +32,7 @@ class dbOrgContact extends dclDB
 		parent::Clear();
 	}
 	
-	function updateOrgs($contact_id, &$aOrgID)
+	public function updateOrgs($contact_id, &$aOrgID)
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 			throw new PermissionDeniedException();
@@ -49,4 +47,3 @@ class dbOrgContact extends dclDB
 		$this->Execute("INSERT INTO dcl_org_contact (org_id, contact_id, created_on, created_by) SELECT org_id, $contact_id, " . $this->GetDateSQL() . ", " . $GLOBALS['DCLID'] . " FROM dcl_org WHERE org_id IN ($sOrgID) AND org_id NOT IN (SELECT org_id FROM dcl_org_contact WHERE contact_id = $contact_id)");
 	}
 }
-?>

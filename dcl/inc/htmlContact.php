@@ -234,8 +234,8 @@ class htmlContact
 			// Merge orgs
 			$sSQL = 'SELECT org_id FROM dcl_org_contact WHERE contact_id IN (' . $sMergeContacts . ')';
 			
-			$oDB = new dbOrgContact();
-			$oDB2 = new dbOrgContact();
+			$oDB = new OrganizationContactModel();
+			$oDB2 = new OrganizationContactModel();
 			
 			$oDB->BeginTransaction();
 			if ($oDB->Query($sSQL) == -1)

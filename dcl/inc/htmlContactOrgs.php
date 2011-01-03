@@ -92,7 +92,7 @@ class htmlContactOrgs
 		CleanArray($_REQUEST);
 
 		$aOrgs = @DCL_Sanitize::ToIntArray($_REQUEST['org_id']);
-		$oDbContact = new dbOrgContact();
+		$oDbContact = new OrganizationContactModel();
 		$oDbContact->updateOrgs($id, $aOrgs);
 
 		$oContact = new htmlContactDetail();

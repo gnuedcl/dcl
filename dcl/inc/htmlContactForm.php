@@ -127,17 +127,15 @@ class htmlContactForm
 			}
 		}
 
-		$org_id = DCL_Sanitize::ToInt($_REQUEST['org_id']);
+		$org_id = DCL_Sanitize::ToInt($_POST['org_id']);
 		if ($org_id > 0)
 		{
-			$oOrgContact = new boOrgContact();
-			$oOrgContact->add(array(
-								'org_id' => $org_id,
-								'contact_id' => $iContactID,
-								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$organizationContactModel = new OrganizationContactModel();
+			$organizationContactModel->org_id = $org_id;
+			$organizationContactModel->contact_id = $iContactID;
+			$organizationContactModel->created_on = DCL_NOW;
+			$organizationContactModel->created_by = $GLOBALS['DCLID'];
+			$organizationContactModel->Add();
 		}
 
 		$addr_type_id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id']);
