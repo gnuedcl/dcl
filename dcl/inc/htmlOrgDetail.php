@@ -61,7 +61,7 @@ class htmlOrgDetail
 		$t->assign('PERM_VIEW', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW));
 
 		// Get aliases for this org
-		$oOrgAlias = new dbOrgAlias();
+		$oOrgAlias = new OrganizationAliasModel();
 		$oOrgAlias->ListByOrg($oOrg->org_id);
 		$aAliases = array();
 		while ($oOrgAlias->next_record())

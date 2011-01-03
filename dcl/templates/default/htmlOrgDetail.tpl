@@ -24,15 +24,30 @@
 				});
 			}
 		});
+
+		$(".dcl-delete-org-alias").click(function() {
+			if (confirm("Are you sure you want to delete this alias?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {menuAction: "OrganizationAlias.Destroy", org_id: orgId, org_alias_id: id},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "Alias deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "Alias was not deleted successfully."});
+					}
+				});
+			}
+		});
 	});
 	
-	function deleteAlias(id)
-	{
-		if (confirm("Are you sure you want to delete this alias?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlOrgAlias.submitDelete&org_id={Org->org_id}&org_alias_id=" + id;
-{literal}
-	}
 	function deleteEmail(id)
 	{
 		if (confirm("Are you sure you want to delete this e-mail?"))
@@ -89,7 +104,7 @@ No organization types!
 </table>
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_ALIASES}Aliases</caption>
-	<thead><tr class="toolbar"><th colspan="2"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgAlias.add&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>
+	<thead><tr class="toolbar"><th colspan="2"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationAlias.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>
 	<tbody>
 {section name=aliasitem loop=$OrgAlias}
 {cycle values="odd,even" assign="rowClass"}
@@ -98,9 +113,9 @@ No organization types!
 {strip}
 		<td class="options">
 		{if $PERM_MODIFY}
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgAlias.modify&org_id={Org->org_id}&org_alias_id={$OrgAlias[aliasitem].org_alias_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=OrganizationAlias.Edit&org_id={Org->org_id}&org_alias_id={$OrgAlias[aliasitem].org_alias_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deleteAlias({$OrgAlias[aliasitem].org_alias_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-org-alias" data-id="{$OrgAlias[aliasitem].org_alias_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 		</td>
 {/strip}

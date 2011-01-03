@@ -120,17 +120,14 @@ class htmlOrgForm
 
 		// All of these are info in other tables, but they use the permissions of the org entity
 		// So, we need to temporarily set the PermAdd to DCL_PERM_ADD so these will succeed.
-		if ($_REQUEST['alias'] != '')
+		if ($_POST['alias'] != '')
 		{
-			$oOrgAlias = new boOrgAlias();
-			$oOrgAlias->PermAdd = DCL_PERM_ADD;
-			$oOrgAlias->add(array(
-							'org_id' => $oOrgID,
-							'alias' => $_POST['alias'],
-							'created_on' => DCL_NOW,
-							'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$organizationAliasModel = new OrganizationAliasModel();
+			$organizationAliasModel->org_id = $oOrgID;
+			$organizationAliasModel->alias = $_POST['alias'];
+			$organizationAliasModel->created_on = DCL_NOW;
+			$organizationAliasModel->created_by = $GLOBALS['DCLID'];
+			$organizationAliasModel->Add();
 		}
 
 		$addr_type_id = DCL_Sanitize::ToInt($_POST['addr_type_id']);

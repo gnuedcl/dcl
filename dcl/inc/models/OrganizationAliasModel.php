@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,25 +20,26 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
-
-class boOrgAlias extends boAdminObject
+LoadStringResource('db');
+class OrganizationAliasModel extends dclDB
 {
-	function boOrgAlias()
+	public function __construct()
 	{
-		parent::boAdminObject();
-
-		$this->oDB = new dbOrgAlias();
-		$this->sKeyField = 'org_alias_id';
-		$this->Entity = DCL_ENTITY_ORG;
-		$this->PermAdd = DCL_PERM_MODIFY;
-		$this->PermDelete = DCL_PERM_MODIFY;
-
-		$this->sCreatedDateField = 'created_on';
-		$this->sCreatedByField = 'created_by';
-		$this->sModifiedDateField = 'modified_on';
-		$this->sModifiedByField = 'modified_by';
+		parent::dclDB();
+		$this->TableName = 'dcl_org_alias';
+		LoadSchema($this->TableName);
 		
-		$this->aIgnoreFieldsOnUpdate = array('created_on', 'created_by');
+		parent::Clear();
+	}
+	
+	public function ListByOrg($org_id)
+	{
+		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
+		{
+			throw new InvalidDataException();
+		}
+		
+		$sql = 'SELECT ' . $this->SelectAllColumns() . ' FROM ' . $this->TableName . ' WHERE org_id = ' . $org_id;
+		return $this->Query($sql);
 	}
 }
