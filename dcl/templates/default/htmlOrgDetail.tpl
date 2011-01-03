@@ -46,15 +46,30 @@
 				});
 			}
 		});
+
+		$(".dcl-delete-org-email").click(function() {
+			if (confirm("Are you sure you want to delete this email?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {menuAction: "OrganizationEmail.Destroy", org_id: orgId, org_email_id: id},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "Email deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "Email was not deleted successfully."});
+					}
+				});
+			}
+		});
 	});
 	
-	function deleteEmail(id)
-	{
-		if (confirm("Are you sure you want to delete this e-mail?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlOrgEmail.submitDelete&org_id={Org->org_id}&org_email_id=" + id;
-{literal}
-	}
 	function deletePhone(id)
 	{
 		if (confirm("Are you sure you want to delete this phone number?"))
@@ -194,7 +209,7 @@ No organization types!
 </table>
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_EMAILADDRESSES}E-Mail Addresses</caption>
-	<thead><tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgEmail.add&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>
+	<thead><tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationEmail.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>
 	<tbody>
 {section name=email loop=$OrgEmail}
 		{cycle values="odd,even" assign="rowClass"}
@@ -204,9 +219,9 @@ No organization types!
 		<td class="options">
 {strip}
 		{if $PERM_MODIFY}
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgEmail.modify&org_id={Org->org_id}&org_email_id={$OrgEmail[email].org_email_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=OrganizationEmail.Edit&org_id={Org->org_id}&org_email_id={$OrgEmail[email].org_email_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deleteEmail({$OrgEmail[email].org_email_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-org-email" data-id="{$OrgEmail[email].org_email_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 {/strip}
 		</td>

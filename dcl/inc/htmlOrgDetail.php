@@ -121,7 +121,7 @@ class htmlOrgDetail
 		$oOrgPhone->FreeResult();
 
 		// Get e-mail addresses
-		$oOrgEmail = new dbOrgEmail();
+		$oOrgEmail = new OrganizationEmailModel();
 		$oOrgEmail->ListByOrg($oOrg->org_id);
 		$aEmails = array();
 		while ($oOrgEmail->next_record())

@@ -164,20 +164,17 @@ class htmlOrgForm
 						);
 		}
 
-		$email_type_id = DCL_Sanitize::ToInt($_REQUEST['email_type_id']);
+		$email_type_id = DCL_Sanitize::ToInt($_POST['email_type_id']);
 		if ($_POST['email_type_id'] > 0 && $_POST['email_addr'] != '')
 		{
-			$oOrgEmail = new boOrgEmail();
-			$oOrgEmail->PermAdd = DCL_PERM_ADD;
-			$oOrgEmail->add(array(
-								'org_id' => $oOrgID,
-								'email_type_id' => $email_type_id,
-								'email_addr' => $_REQUEST['email_addr'],
-								'preferred' => 'Y',
-								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$organizationEmailModel = new OrganizationAddressModel();
+			$organizationEmailModel->org_id = $oOrgID;
+			$organizationEmailModel->email_type_id = $email_type_id;
+			$organizationEmailModel->email_addr = $_POST['email_addr'];
+			$organizationEmailModel->preferred = 'Y';
+			$organizationEmailModel->created_on = DCL_NOW;
+			$organizationEmailModel->created_by = $GLOBALS['DCLID'];
+			$organizationEmailModel->Add();
 		}
 
 		$url_type_id = DCL_Sanitize::ToInt($_REQUEST['url_type_id']);

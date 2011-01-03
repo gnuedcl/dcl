@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbOrgEmail extends dclDB
+class OrganizationEmailModel extends dclDB
 {
-	function dbOrgEmail()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_org_email';
@@ -34,7 +32,7 @@ class dbOrgEmail extends dclDB
 		parent::Clear();
 	}
 
-	function ListByOrg($org_id)
+	public function ListByOrg($org_id)
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
@@ -47,7 +45,7 @@ class dbOrgEmail extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetPrimaryEmail($iOrgID)
+	public function GetPrimaryEmail($iOrgID)
 	{
 		if (($iOrgID = DCL_Sanitize::ToInt($iOrgID)) === null)
 		{
@@ -62,4 +60,3 @@ class dbOrgEmail extends dclDB
 		return false;
 	}
 }
-?>
