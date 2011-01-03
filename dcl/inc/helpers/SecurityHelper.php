@@ -22,7 +22,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class boSecurity
+class SecurityHelper
 {
 	function ValidateMenuAction()
 	{

@@ -24,7 +24,7 @@
 
 include_once('login.php');
 
-$g_oSec = new boSecurity();
+$g_oSec = new SecurityHelper();
 
 $g_oPage = new Page();
 $g_oPage->StartPage();

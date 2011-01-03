@@ -35,7 +35,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 	if (!defined('DCL_ENTITY_GLOBAL'))
 		include_once(DCL_ROOT . 'inc/functions.inc.php');
 
-	$g_oSec = new boSecurity();
+	$g_oSec = new SecurityHelper();
 
 	function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 	{
