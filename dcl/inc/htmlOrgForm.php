@@ -148,20 +148,17 @@ class htmlOrgForm
 			$organizationAddressModel->Add();
 		}
 
-		$phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id']);
+		$phone_type_id = DCL_Sanitize::ToInt($_POST['phone_type_id']);
 		if ($_POST['phone_type_id'] > 0 && $_POST['phone_number'] != '')
 		{
-			$oOrgPhone = new boOrgPhone();
-			$oOrgPhone->PermAdd = DCL_PERM_ADD;
-			$oOrgPhone->add(array(
-								'org_id' => $oOrgID,
-								'phone_type_id' => $phone_type_id,
-								'phone_number' => $_REQUEST['phone_number'],
-								'preferred' => 'Y',
-								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$organizationPhoneModel = new OrganizationPhoneModel();
+			$organizationPhoneModel->org_id = $oOrgID;
+			$organizationPhoneModel->phone_type_id = $phone_type_id;
+			$organizationPhoneModel->phone_number = $_POST['phone_number'];
+			$organizationPhoneModel->preferred = 'Y';
+			$organizationPhoneModel->created_on = DCL_NOW;
+			$organizationPhoneModel->created_by = $GLOBALS['DCLID'];
+			$organizationPhoneModel->Add();
 		}
 
 		$email_type_id = DCL_Sanitize::ToInt($_POST['email_type_id']);

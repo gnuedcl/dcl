@@ -68,15 +68,30 @@
 				});
 			}
 		});
+
+		$(".dcl-delete-org-phone").click(function() {
+			if (confirm("Are you sure you want to delete this phone number?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {menuAction: "OrganizationPhone.Destroy", org_id: orgId, org_phone_id: id},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "Phone number deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "Phone number was not deleted successfully."});
+					}
+				});
+			}
+		});
 	});
 	
-	function deletePhone(id)
-	{
-		if (confirm("Are you sure you want to delete this phone number?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlOrgPhone.submitDelete&org_id={Org->org_id}&org_phone_id=" + id;
-{literal}
-	}
 	function deleteUrl(id)
 	{
 		if (confirm("Are you sure you want to delete this URL?"))
@@ -185,7 +200,7 @@ No organization types!
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_PHONENUMBERS}Phone Numbers</caption>
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgPhone.add&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationPhone.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>
 	<tbody>
 {assign var="rowClass" value=""}
@@ -197,9 +212,9 @@ No organization types!
 		<td class="options">
 {strip}
 		{if $PERM_MODIFY}
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgPhone.modify&org_id={Org->org_id}&org_phone_id={$OrgPhone[phone].org_phone_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=OrganizationPhone.Edit&org_id={Org->org_id}&org_phone_id={$OrgPhone[phone].org_phone_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deletePhone({$OrgPhone[phone].org_phone_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-org-phone" data-id="{$OrgPhone[phone].org_phone_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 {/strip}
 		</td>

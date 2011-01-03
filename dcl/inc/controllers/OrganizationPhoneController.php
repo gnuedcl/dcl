@@ -22,14 +22,14 @@
 
 LoadStringResource('bo');
 
-class OrganizationEmailController extends AbstractController
+class OrganizationPhoneController extends AbstractController
 {
 	public function __construct()
 	{
 		parent::__construct();
 
-		$this->model = new OrganizationEmailModel();
-		$this->sKeyField = 'org_email_id';
+		$this->model = new OrganizationPhoneModel();
+		$this->sKeyField = 'org_phone_id';
 		$this->Entity = DCL_ENTITY_ORG;
 		$this->PermAdd = DCL_PERM_MODIFY;
 		$this->PermDelete = DCL_PERM_MODIFY;
@@ -47,7 +47,7 @@ class OrganizationEmailController extends AbstractController
 		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
-		$presenter = new OrganizationEmailPresenter();
+		$presenter = new OrganizationPhonePresenter();
 		$presenter->Create($orgId);
 	}
 
@@ -56,7 +56,7 @@ class OrganizationEmailController extends AbstractController
 		global $dcl_info, $g_oSec;
 
 		if (($id = DCL_Sanitize::ToInt($_POST['org_id'])) === null ||
-			($email_type_id = DCL_Sanitize::ToInt($_POST['email_type_id'])) === null
+			($phone_type_id = DCL_Sanitize::ToInt($_POST['phone_type_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -69,31 +69,31 @@ class OrganizationEmailController extends AbstractController
 
 		parent::Insert(array(
 						'org_id' => $id,
-						'email_type_id' => $email_type_id,
-						'email_addr' => $_POST['email_addr'],
+						'phone_type_id' => $phone_type_id,
+						'phone_number' => $_POST['phone_number'],
 						'preferred' => @DCL_Sanitize::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
 					);
 
-		SetRedirectMessage('Success', 'New email added successfully.');
+		SetRedirectMessage('Success', 'New phone number added successfully.');
 		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $id);
 	}
 
 	public function Edit()
 	{
-		if (($orgEmailId = DCL_Sanitize::ToInt($_REQUEST['org_email_id'])) === null)
+		if (($orgPhoneId = DCL_Sanitize::ToInt($_REQUEST['org_phone_id'])) === null)
 			throw new InvalidDataException();
 
 		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
-		$model = new OrganizationEmailModel();
-		if ($model->Load($orgEmailId) == -1)
+		$model = new OrganizationPhoneModel();
+		if ($model->Load($orgPhoneId) == -1)
 			throw new InvalidEntityException();
 
-		$presenter = new OrganizationEmailPresenter();
+		$presenter = new OrganizationPhonePresenter();
 		$presenter->Edit($model);
 	}
 
@@ -101,7 +101,7 @@ class OrganizationEmailController extends AbstractController
 	{
 		global $g_oSec;
 
-		if (($orgEmailId = DCL_Sanitize::ToInt($_POST['org_email_id'])) === null)
+		if (($orgPhoneId = DCL_Sanitize::ToInt($_POST['org_phone_id'])) === null)
 			throw new InvalidDataException();
 
 		if (($orgId = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
@@ -114,7 +114,7 @@ class OrganizationEmailController extends AbstractController
 		$_POST['preferred'] = @DCL_Sanitize::ToYN($_POST['preferred']);
 		parent::Update($_POST);
 
-		SetRedirectMessage('Success', 'Email updated successfully.');
+		SetRedirectMessage('Success', 'Phone number updated successfully.');
 		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $orgId);
 	}
 
@@ -128,10 +128,10 @@ class OrganizationEmailController extends AbstractController
 		if (($orgId = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['org_email_id'])) === null)
+		if (($id = DCL_Sanitize::ToInt($_POST['org_phone_id'])) === null)
 			throw new InvalidDataException();
 
-		$aKey = array('org_email_id' => $id);
+		$aKey = array('org_phone_id' => $id);
 		parent::Destroy($aKey);
 	}
 }

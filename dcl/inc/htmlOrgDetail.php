@@ -109,7 +109,7 @@ class htmlOrgDetail
 		$oOrgAddress->FreeResult();
 
 		// Get phone numbers
-		$oOrgPhone = new dbOrgPhone();
+		$oOrgPhone = new OrganizationPhoneModel();
 		$oOrgPhone->ListByOrg($oOrg->org_id);
 		$aPhoneNumbers = array();
 		while ($oOrgPhone->next_record())
