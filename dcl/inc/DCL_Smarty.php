@@ -33,6 +33,9 @@ class DCL_Smarty extends Smarty
 		$this->assign('DIR_IMG', DCL_WWW_ROOT . "templates/$defaultTemplateSet/img/");
 		$this->assign('WWW_ROOT', DCL_WWW_ROOT);
 		$this->assign('URL_MAIN_PHP', menuLink());
+
+		// Add the DCL plugins (now maintained separate from Smarty plugins)
+		$this->plugins_dir = array(DCL_ROOT . 'vendor/Smarty/plugins', DCL_ROOT . 'inc/plugins');
 	}
 
 	function Render($templateFileName, $templateSet = '')

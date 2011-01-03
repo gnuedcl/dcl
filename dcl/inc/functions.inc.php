@@ -173,7 +173,7 @@ function __autoload($className)
 
 	if ($className == 'Smarty')
 	{
-		require_once(DCL_ROOT . 'inc/Smarty.class.php');
+		require_once(DCL_ROOT . 'vendor/Smarty/Smarty.class.php');
 		return;
 	}
 
