@@ -49,7 +49,7 @@ class OrganizationProductController extends AbstractController
 	{
 		global $g_oSec;
 
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($id = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $id))
