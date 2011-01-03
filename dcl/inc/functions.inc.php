@@ -122,7 +122,7 @@ define('DCL_BUILDMANAGER_APPLIED', 2);
 define('DCL_BUILDMANAGER_COMPLETE', 3);
 
 // Smarty settings
-define('SMARTY_DIR', DCL_ROOT . 'inc/');
+define('SMARTY_DIR', DCL_ROOT . 'vendor/Smarty/');
 
 // Others
 define('DCL_NOW', 'now()');
