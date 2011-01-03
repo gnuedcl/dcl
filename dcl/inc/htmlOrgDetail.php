@@ -97,7 +97,7 @@ class htmlOrgDetail
 		$oOrgProduct->FreeResult();
 
 		// Get addresses
-		$oOrgAddress = new dbOrgAddr();
+		$oOrgAddress = new OrganizationAddressModel();
 		$oOrgAddress->ListByOrg($oOrg->org_id);
 		$aAddresses = array();
 		while ($oOrgAddress->next_record())

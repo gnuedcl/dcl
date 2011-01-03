@@ -1,13 +1,31 @@
-<!-- $Id$ -->
 <script language="JavaScript">
 {literal}
-	function deleteAddress(id)
-	{
-		if (confirm("Are you sure you want to delete this address?"))
-{/literal}
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlOrgAddress.submitDelete&org_id={Org->org_id}&org_addr_id=" + id;
-{literal}
-	}
+	$(document).ready(function() {
+		var urlMainPhp = {/literal}"{$URL_MAIN_PHP}"{literal};
+		var orgId = {/literal}{Org->org_id}{literal};
+		$(".dcl-delete-org-address").click(function() {
+			if (confirm("Are you sure you want to delete this address?")) {
+				var id = $(this).attr("data-id");
+				var $row = $(this).parents("tr:first");
+				$.ajax({
+					type: "POST",
+					url: urlMainPhp,
+					data: {menuAction: "OrganizationAddress.Destroy", org_id: orgId, org_addr_id: id},
+					success: function() {
+						$row.remove();
+						$.gritter.add({
+							title: "Success",
+							text: "Address deleted successfully."
+						});
+					},
+					error: function() {
+						$.gritter.add({title: "Error", text: "Address was not deleted successfully."});
+					}
+				});
+			}
+		});
+	});
+	
 	function deleteAlias(id)
 	{
 		if (confirm("Are you sure you want to delete this alias?"))
@@ -35,30 +53,6 @@
 {/literal}
 			location.href = "{$URL_MAIN_PHP}?menuAction=htmlOrgUrl.submitDelete&org_id={Org->org_id}&org_url_id=" + id;
 {literal}
-	}
-	
-	function merge()
-	{
-		var f = document.forms["theForm"];
-		var sID = "";
-		var iCount = 0;
-		for (var i = 0; i < f.elements.length; i++)
-		{
-			if (f.elements[i].name == "contact_id[]" && f.elements[i].checked)
-			{
-				if (iCount > 0)
-					sID += ",";
-					
-				sID += f.elements[i].value;
-				iCount++;
-			}
-		}
-		{/literal}
-		if (iCount < 2)
-			alert("You must select 2 or more contacts to merge");
-		else
-			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContact.merge&contact_id=" + sID;
-		{literal}
 	}
 {/literal}
 </script>
@@ -127,7 +121,7 @@ No organization types!
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_ADDR}Addresses</caption>
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgAddress.add&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationAddress.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 	</thead>
 	<tbody>
 		{assign var="rowClass" value=""}
@@ -148,9 +142,9 @@ No organization types!
 {strip}
 		<td class="options">
 		{if $PERM_MODIFY}
-			<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgAddress.modify&org_id={Org->org_id}&org_addr_id={$OrgAddress[address].org_addr_id}">{$smarty.const.STR_CMMN_EDIT}</a>
+			<a href="{$URL_MAIN_PHP}?menuAction=OrganizationAddress.Edit&org_id={Org->org_id}&org_addr_id={$OrgAddress[address].org_addr_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" onclick="deleteAddress({$OrgAddress[address].org_addr_id});">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-org-address" data-id="{$OrgAddress[address].org_addr_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 		</td>
 		</tr>

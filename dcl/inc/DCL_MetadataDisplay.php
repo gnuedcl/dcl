@@ -292,7 +292,7 @@ class DCL_MetadataDisplay
 			$this->oOrgPhone = new dbOrgPhone();
 			$this->oOrgEmail = new dbOrgEmail();
 			$this->oOrgUrl = new dbOrgUrl();
-			$this->oOrgAddr = new dbOrgAddr();
+			$this->oOrgAddr = new OrganizationAddressModel();
 		}
 
 		if ($this->oOrg->Load($id) != -1)

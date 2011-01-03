@@ -133,25 +133,22 @@ class htmlOrgForm
 						);
 		}
 
-		$addr_type_id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id']);
+		$addr_type_id = DCL_Sanitize::ToInt($_POST['addr_type_id']);
 		if ($addr_type_id > 0)
 		{
-			$oOrgAddr = new boOrgAddr();
-			$oOrgAddr->PermAdd = DCL_PERM_ADD;
-			$oOrgAddr->add(array(
-							'org_id' => $oOrgID,
-							'addr_type_id' => $addr_type_id,
-							'add1' => $_REQUEST['add1'],
-							'add2' => $_REQUEST['add2'],
-							'city' => $_REQUEST['city'],
-							'state' => $_REQUEST['state'],
-							'zip' => $_REQUEST['zip'],
-							'country' => $_REQUEST['country'],
-							'preferred' => 'Y',
-							'created_on' => DCL_NOW,
-							'created_by' => $GLOBALS['DCLID']
-							)
-						);
+			$organizationAddressModel = new OrganizationAddressModel();
+			$organizationAddressModel->org_id = $oOrgID;
+			$organizationAddressModel->addr_type_id = $addr_type_id;
+			$organizationAddressModel->add1 = $_POST['add1'];
+			$organizationAddressModel->add2 = $_POST['add2'];
+			$organizationAddressModel->city = $_POST['city'];
+			$organizationAddressModel->state = $_POST['state'];
+			$organizationAddressModel->zip = $_POST['zip'];
+			$organizationAddressModel->country = $_POST['country'];
+			$organizationAddressModel->preferred = 'Y';
+			$organizationAddressModel->created_on = DCL_NOW;
+			$organizationAddressModel->created_by = $GLOBALS['DCLID'];
+			$organizationAddressModel->Add();
 		}
 
 		$phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id']);
