@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,21 +20,15 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('bo');
-
-class boOrgNote extends boAdminObject
+LoadStringResource('db');
+class OrganizationNoteModel extends dclDB
 {
-	function boOrgNote()
+	public function __construct()
 	{
-		parent::boAdminObject();
+		parent::dclDB();
+		$this->TableName = 'dcl_org_note';
+		LoadSchema($this->TableName);
 		
-		$this->oDB = new dbOrgNote();
-		$this->sKeyField = 'org_note_id';
-		$this->Entity = DCL_ENTITY_ORG;
-
-		$this->sCreatedDateField = 'created_on';
-		$this->sCreatedByField = 'created_by';
-		$this->sModifiedDateField = 'modified_on';
-		$this->sModifiedByField = 'modified_by';
+		parent::Clear();
 	}
 }
