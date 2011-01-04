@@ -26,7 +26,7 @@ ol li p { border: solid #cecece 1px; height: 60px; background-color: #ffffff; te
 	<h2>{counter}</h2>
 	<h3>{if $items[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}{$items[row][1]|escape}-{$items[row][2]|escape}
 		{elseif $items[row][0] == $smarty.const.DCL_ENTITY_TICKET}{$items[row][1]|escape}
-		{/if} ({$items[row][4]|escape})</h3>
+		{/if} ({$items[row][6]|escape})</h3>
 	<p>{$items[row][3]|escape}</p>
 </li>
 {/section}
