@@ -169,3 +169,11 @@ function validateAndSubmitForm(form)
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
+<script type="text/javascript">
+	//<![CDATA[{literal}
+	$(document).ready(function() {
+		$("textarea").BetterGrow();
+	});
+	//]]>{/literal}
+</script>
