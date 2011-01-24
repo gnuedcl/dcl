@@ -273,6 +273,74 @@ function UpdateOptions()
 		}
 
 		$("textarea").BetterGrow();
+
+		function split(val) {
+			return val.split(/,\s*/);
+		}
+
+		function extractLast( term ) {
+			return split( term ).pop();
+		}
+
+		$("input#tags")
+			.bind("keydown", function(event) {
+				if (event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active) {
+					event.preventDefault();
+				}
+			})
+			.autocomplete({
+				minLength: 2,
+				source: function( request, response ) {
+					$.getJSON("{/literal}{$URL_MAIN_PHP}{literal}?menuAction=Tag.Autocomplete", { term: extractLast(request.term) }, response);
+				},
+				search: function() {
+					var term = extractLast(this.value);
+					if (term.length < 2) {
+						return false;
+					}
+				},
+				focus: function() {
+					return false;
+				},
+				select: function(event, ui) {
+					var terms = split(this.value);
+					terms.pop();
+					terms.push(ui.item.value);
+					terms.push("");
+					this.value = terms.join(", ");
+					return false;
+				}
+			});
+
+		$("input#hotlist")
+			.bind("keydown", function(event) {
+				if (event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active) {
+					event.preventDefault();
+				}
+			})
+			.autocomplete({
+				minLength: 2,
+				source: function( request, response ) {
+					$.getJSON("{/literal}{$URL_MAIN_PHP}{literal}?menuAction=Hotlist.Autocomplete", { term: extractLast(request.term) }, response);
+				},
+				search: function() {
+					var term = extractLast(this.value);
+					if (term.length < 2) {
+						return false;
+					}
+				},
+				focus: function() {
+					return false;
+				},
+				select: function(event, ui) {
+					var terms = split(this.value);
+					terms.pop();
+					terms.push(ui.item.value);
+					terms.push("");
+					this.value = terms.join(", ");
+					return false;
+				}
+			});
 	});
 	//]]>{/literal}
 </script>

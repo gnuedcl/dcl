@@ -51,6 +51,13 @@ class dbTag extends dclDB
 		return null;
 	}
 
+	function filterList($filter)
+	{
+		$this->LimitQuery("SELECT tag_id, tag_desc FROM dcl_tag WHERE tag_desc LIKE " . $this->Quote('%' . $filter . '%') . " ORDER BY tag_desc", 0, 20);
+
+		return $this->FetchAllRows();
+	}
+
 	function getExistingIdsByName($sTags)
 	{
 		if ($sTags === null || trim($sTags) == '')

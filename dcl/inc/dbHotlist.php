@@ -39,6 +39,13 @@ class dbHotlist extends dclDB
 		return $this->Query("SELECT hotlist_id, hotlist_tag FROM dcl_hotlist WHERE active = 'Y' ORDER BY hotlist_tag");
 	}
 	
+	function filterList($filter)
+	{
+		$this->LimitQuery("SELECT hotlist_id, hotlist_tag FROM dcl_hotlist WHERE active = 'Y' AND hotlist_tag LIKE " . $this->Quote('%' . $filter . '%') . " ORDER BY hotlist_tag", 0, 20);
+
+		return $this->FetchAllRows();
+	}
+
 	function getIdByName($sTag)
 	{
 		$sTag = trim(strtolower($sTag));
