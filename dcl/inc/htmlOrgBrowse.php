@@ -143,7 +143,7 @@ class htmlOrgBrowse
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_ORG => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			throw new PermissionDeniedException();
 
-		$oView = new boView();
+		$oView = new OrganizationSqlQueryHelper();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -211,8 +211,7 @@ class htmlOrgBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$oView = new boView();
-		$oView->table = 'dcl_org';
+		$oView = new OrganizationSqlQueryHelper();
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME, 'Phone', 'Email', 'Internet'));
 		$oView->AddDef('columns', '', array('org_id', 'active', 'name', 'dcl_org_phone.phone_number', 'dcl_org_email.email_addr', 'dcl_org_url.url_addr'));
 		$oView->AddDef('order', '', array('name'));

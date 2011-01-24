@@ -735,6 +735,11 @@ abstract class AbstractSqlQueryHelper
 		return '';
 	}
 
+	protected function GetWhereSqlForOrganizationUser($bOrgFilter, &$bDoneDidWhere)
+	{
+		return '';
+	}
+
 	protected function GetWhereSqlForField($field, $values)
 	{
 		if (count($values) == 1)
@@ -1267,6 +1272,7 @@ abstract class AbstractSqlQueryHelper
 
 		$sql .= $this->GetWhereSqlForOneToManyColumns($sTagFilter, $sHotlistFilter);
 		$sql .= $this->GetWhereSqlForPublicUser();
+		$sql .= $this->GetWhereSqlForOrganizationUser($bOrgFilter, $bDoneDidWhere);
 		$sql .= $this->GetWhereSqlForOrgWorkspace($bOrgFilter, $bProductFilter, $bDoneDidWhere);
 
 		if (!$bCount && (count($this->order) > 0 || count($this->groups) > 0))

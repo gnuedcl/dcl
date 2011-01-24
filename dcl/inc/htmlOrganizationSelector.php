@@ -33,7 +33,7 @@ class htmlOrganizationSelector
 	{
 		$this->bMultiSelect = false;
 		$this->oSmarty = new DCL_Smarty();
-		$this->oView = new boView();
+		$this->oView = new OrganizationSqlQueryHelper();
 		$this->oDB = new dclDB;
 	}
 
@@ -124,7 +124,6 @@ class htmlOrganizationSelector
 				$this->oView->startrow = 0;
 		}
 
-		$this->oView->table = 'dcl_org';
 		$this->oView->AddDef('columnhdrs', '', $aColumnHeaders);
 		$this->oView->AddDef('columns', '', $aColumns);
 		$this->oView->AddDef('order', '', array('name'));

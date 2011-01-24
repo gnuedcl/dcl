@@ -35,7 +35,7 @@ class htmlOrgDetail
 
 	function show()
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info, $g_oSec, $g_oSession;
 
 		commonHeader();
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
@@ -44,6 +44,9 @@ class htmlOrgDetail
 		}
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
+			throw new PermissionDeniedException();
+
+		if ($g_oSec->IsOrgUser() && !in_array($id, split(',', $g_oSession->Value('member_of_orgs'))))
 			throw new PermissionDeniedException();
 
 		$oOrg = new dbOrg();
@@ -59,6 +62,13 @@ class htmlOrgDetail
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE));
 		$t->assign('PERM_VIEW', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW));
+		$t->assign('PERM_WIKI', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEWWIKI));
+
+		$t->assign('PERM_VIEW_CONTACT', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW));
+		$t->assign('PERM_VIEW_WORKORDER', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW));
+		$t->assign('PERM_VIEW_TICKET', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW));
+		$t->assign('PERM_ADD_WORKORDER', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD));
+		$t->assign('PERM_ADD_TICKET', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD));
 
 		// Get aliases for this org
 		$oOrgAlias = new OrganizationAliasModel();

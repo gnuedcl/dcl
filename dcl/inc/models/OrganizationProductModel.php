@@ -49,6 +49,8 @@ class OrganizationProductModel extends dclDB
 	
 	public function ListByOrg($org_id)
 	{
+		global $g_oSec;
+
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 		{
 			throw new InvalidDataException();
@@ -56,6 +58,9 @@ class OrganizationProductModel extends dclDB
 		
 		$sql = 'SELECT p.id, op.org_id, p.name';
 		$sql .= ' FROM dcl_org_product_xref op, products p WHERE op.org_id = ' . $org_id . ' AND p.id = op.product_id';
+		if ($g_oSec->IsPublicUser())
+			$sql .= " AND p.is_public = 'Y'";
+
 		$sql .= ' ORDER BY p.name';
 		
 		return $this->Query($sql);
