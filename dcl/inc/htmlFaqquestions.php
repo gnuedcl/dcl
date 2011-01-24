@@ -73,7 +73,7 @@ class htmlFaqquestions
 		if ($objFaqT->Load($obj->topicid) == -1)
 		    return;
 
-		$objFaq = new dbFaq();
+		$objFaq = new FaqModel();
 		if ($objFaq->Load($objFaqT->faqid) == -1)
 		    return;
 

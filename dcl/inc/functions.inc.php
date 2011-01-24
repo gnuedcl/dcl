@@ -637,7 +637,7 @@ function buildMenuArray()
 	InvokePlugin('UI.Menu', $DCL_MENU);
 
 	$DCL_MENU[DCL_MENU_HELP] = array(
-			DCL_MENU_FAQS => array('boFaq.ShowAll', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW)),
+			DCL_MENU_FAQS => array('Faq.Index', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW)),
 			DCL_MENU_DCLHOMEPAGE => array('http://dcl.sourceforge.net/index.php', true),
 			'GNU Enterprise' => array('http://www.gnuenterprise.org/index.php', true),
 			DCL_MENU_LICENSEINFO => array(DCL_WWW_ROOT . 'gpl.php', true),

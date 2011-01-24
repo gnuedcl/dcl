@@ -12,7 +12,7 @@
 	define('STR_FAQ_MODIFIEDON', "Modifierad den");
 	define('STR_FAQ_MODIFIEDBY', "Modifierad av");
 	define('STR_FAQ_OPTIONS', "InstÃ?Â¤llningar");
-	define('STR_FAQ_ORDEREDBY', "FAQ ordnade efter %s");
+	define('STR_FAQ_ORDEREDBY', "FAQ");
 	define('STR_FAQ_NOTFOUND', "Ingen FAQ hittade i DCL!");
 	define('STR_FAQ_NOOBJECT', "Ett FAQ-objekt skickades inte till ShowFAQ!");
 	define('STR_FAQ_FAQNAME', "FAQ: %s");

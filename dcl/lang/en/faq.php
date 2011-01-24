@@ -12,7 +12,7 @@
 	define('STR_FAQ_MODIFIEDON', "Modified On");
 	define('STR_FAQ_MODIFIEDBY', "Modified By");
 	define('STR_FAQ_OPTIONS', "Options");
-	define('STR_FAQ_ORDEREDBY', "FAQs Ordered by %s");
+	define('STR_FAQ_ORDEREDBY', "FAQs");
 	define('STR_FAQ_NOTFOUND', "No FAQs found in DCL!");
 	define('STR_FAQ_NOOBJECT', "A FAQ object was not passed to ShowFAQ!");
 	define('STR_FAQ_FAQNAME', "FAQ: %s");

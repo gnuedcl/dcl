@@ -12,7 +12,7 @@
 	define('STR_FAQ_MODIFIEDON', "Spremenjen");
 	define('STR_FAQ_MODIFIEDBY', "Spremenil");
 	define('STR_FAQ_OPTIONS', "MoÃ?Â¾nosti");
-	define('STR_FAQ_ORDEREDBY', "FAQi razvrÃ?Â¹Ã?Â¨eni po %s");
+	define('STR_FAQ_ORDEREDBY', "FAQi");
 	define('STR_FAQ_NOTFOUND', "Ni nobenega FAQ v DCL!");
 	define('STR_FAQ_NOOBJECT', "A FAQ object was not passed to ShowFAQ!");
 	define('STR_FAQ_FAQNAME', "FAQ: %s");

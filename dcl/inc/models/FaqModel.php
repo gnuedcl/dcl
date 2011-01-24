@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbFaq extends dclDB
+class FaqModel extends dclDB
 {
-	function dbFaq()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'faq';
@@ -36,7 +34,7 @@ class dbFaq extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		$this->active = 'Y';
 		$this->createby = $GLOBALS['DCLID'];
@@ -44,14 +42,14 @@ class dbFaq extends dclDB
 		return parent::Add();
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		$this->modifyby = $GLOBALS['DCLID'];
 		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		$oDB = new dbFaqtopics();
 		$oDB->DeleteByFaq($this->faqid);
@@ -59,7 +57,7 @@ class dbFaq extends dclDB
 		return parent::Delete(array('faqid' => $this->faqid));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('faqid' => $id));
 	}

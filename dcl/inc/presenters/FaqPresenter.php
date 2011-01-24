@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,52 +22,22 @@
 
 LoadStringResource('faq');
 
-class htmlFaq
+class FaqPresenter
 {
-	function DisplayForm($obj = '')
+	public function Index()
 	{
 		global $dcl_info, $g_oSec;
-
-		$isEdit = is_object($obj);
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
-			throw new PermissionDeniedException();
-
-		$oSmarty = new DCL_Smarty();
-
-		$oSmarty->assign('IS_EDIT', $isEdit);
-
-		if ($isEdit)
-		{
-			$oSmarty->assign('VAL_MENUACTION', 'boFaq.dbmodify');
-			$oSmarty->assign('VAL_NAME', $obj->name);
-			$oSmarty->assign('VAL_DESCRIPTION', $obj->description);
-			$oSmarty->assign('VAL_FAQID', $obj->faqid);
-			$oSmarty->assign('VAL_ACTIVE', $obj->active);
-		}
-		else
-		{
-			$oSmarty->assign('VAL_MENUACTION', 'boFaq.dbadd');
-			$oSmarty->assign('VAL_ACTIVE', 'Y');
-		}
-
-		$oSmarty->Render('htmlFaqForm.tpl');
-	}
-
-	function ExecuteSearch($searchFld, $searchText) {}
-
-	function ShowAll($orderBy = 'name')
-	{
-		global $dcl_info, $g_oSec;
+		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$obj = new dbFaq();
-		$query = "SELECT faqid,active,name,createby,createon,modifyby,modifyon FROM faq ORDER BY $orderBy";
+		$obj = new FaqModel();
+		$query = "SELECT faqid,active,name,createby,createon,modifyby,modifyon FROM faq ORDER BY name";
 		$obj->Query($query);
 		$allRecs = $obj->FetchAllRows();
 
 		$oTable = new TableHtmlHelper();
-		$oTable->setCaption(sprintf(STR_FAQ_ORDEREDBY, $orderBy));
+		$oTable->setCaption(STR_FAQ_ORDEREDBY);
 		$oTable->addColumn(STR_FAQ_ID, 'numeric');
 		$oTable->addColumn(STR_FAQ_ACCT, 'string');
 		$oTable->addColumn(STR_FAQ_NAME, 'string');
@@ -79,7 +47,7 @@ class htmlFaq
 		$oTable->addColumn(STR_FAQ_MODIFIEDON, 'string');
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_ADD))
-			$oTable->addToolbar(menuLink('', 'menuAction=boFaq.add'), STR_CMMN_NEW);
+			$oTable->addToolbar(menuLink('', 'menuAction=Faq.Create'), STR_CMMN_NEW);
 
 		if (count($allRecs) > 0)
 		{
@@ -96,11 +64,11 @@ class htmlFaq
 				$allRecs[$i][4] = $obj->FormatTimestampForDisplay($allRecs[$i][4]);
 				$allRecs[$i][6] = $obj->FormatTimestampForDisplay($allRecs[$i][6]);
 
-				$options = '<a href="' . menuLink('', 'menuAction=boFaq.view&faqid=' . $allRecs[$i][0]) . '">' . STR_CMMN_VIEW . '</a>';
+				$options = '<a href="' . menuLink('', 'menuAction=Faq.Detail&faqid=' . $allRecs[$i][0]) . '">' . STR_CMMN_VIEW . '</a>';
 				if ($g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY))
-					$options .= '&nbsp;|&nbsp;<a href="' . menuLink('', 'menuAction=boFaq.modify&faqid=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
+					$options .= '&nbsp;|&nbsp;<a href="' . menuLink('', 'menuAction=Faq.Edit&faqid=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
 				if ($g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE))
-					$options .= '&nbsp;|&nbsp;<a href="' . menuLink('', 'menuAction=boFaq.delete&faqid=' . $allRecs[$i][0]) . '">' . STR_CMMN_DELETE . '</a>';
+					$options .= '&nbsp;|&nbsp;<a href="' . menuLink('', 'menuAction=Faq.Delete&faqid=' . $allRecs[$i][0]) . '">' . STR_CMMN_DELETE . '</a>';
 
 				$allRecs[$i][] = $options;
 			}
@@ -111,29 +79,72 @@ class htmlFaq
 		$oTable->render();
 	}
 
-	function ShowFaq($obj)
+	public function Create()
 	{
 		global $dcl_info, $g_oSec;
 
-		if (!is_object($obj))
-		{
-			trigger_error(STR_FAQ_NOOBJECT);
-			return;
-		}
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $obj->faqid))
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
-		$oSmarty->assign('VAL_NAME', $obj->name);
-		$oSmarty->assign('VAL_DESCRIPTION', $obj->description);
-		$oSmarty->assign('PERM_ADDTOPIC', $g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD, $obj->faqid));
-		$oSmarty->assign('VAL_FAQID', $obj->faqid);
+
+		$oSmarty->assign('IS_EDIT', false);
+		$oSmarty->assign('VAL_MENUACTION', 'Faq.Insert');
+		$oSmarty->assign('VAL_ACTIVE', 'Y');
+
+		$oSmarty->Render('htmlFaqForm.tpl');
+	}
+
+	public function Edit(FaqModel $model)
+	{
+		global $dcl_info, $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY))
+			throw new PermissionDeniedException();
+
+		$oSmarty = new DCL_Smarty();
+
+		$oSmarty->assign('IS_EDIT', true);
+		$oSmarty->assign('VAL_MENUACTION', 'Faq.Update');
+		$oSmarty->assign('VAL_NAME', $model->name);
+		$oSmarty->assign('VAL_DESCRIPTION', $model->description);
+		$oSmarty->assign('VAL_FAQID', $model->faqid);
+		$oSmarty->assign('VAL_ACTIVE', $model->active);
+
+		$oSmarty->Render('htmlFaqForm.tpl');
+	}
+
+	public function Delete(FaqModel $model)
+	{
+		global $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE, $model->faqid))
+			throw new PermissionDeniedException();
+
+		ShowDeleteYesNo(STR_FAQ_FAQ, 'Faq.Destroy', $model->faqid, $model->name, false, 'faqid');
+	}
+
+	public function Detail(FaqModel $model)
+	{
+		global $dcl_info, $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $model->faqid))
+			throw new PermissionDeniedException();
+
+		$oSmarty = new DCL_Smarty();
+		$oSmarty->assign('VAL_NAME', $model->name);
+		$oSmarty->assign('VAL_DESCRIPTION', $model->description);
+		$oSmarty->assign('PERM_ADDTOPIC', $g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD, $model->faqid));
+		$oSmarty->assign('VAL_FAQID', $model->faqid);
 		$oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY));
 		$oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE));
 
 		$objF = new dbFaqtopics();
-		$objF->LoadByFaqID($obj->faqid);
+		$objF->LoadByFaqID($model->faqid);
 		$oSmarty->assign_by_ref('VAL_TOPICS', $objF->ResultToArray());
 
 		$oSmarty->Render('htmlFaqDetail.tpl');

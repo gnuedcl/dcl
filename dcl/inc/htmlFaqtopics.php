@@ -75,7 +75,7 @@ class htmlFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $obj->faqid))
 			throw new PermissionDeniedException();
 
-		$objFaq = new dbFaq();
+		$objFaq = new FaqModel();
 		if ($objFaq->Load($obj->faqid) == -1)
 		{
 		    return;

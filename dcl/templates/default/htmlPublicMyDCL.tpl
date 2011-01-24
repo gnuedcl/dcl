@@ -12,7 +12,7 @@
 	</tr>
 	{/if}
 	{if $PERM_FAQ}
-	<tr><td><a href="{$URL_MENULINK}?menuAction=boFaq.showAll">FAQs</a></td>
+	<tr><td><a href="{$URL_MENULINK}?menuAction=Faq.Index">FAQs</a></td>
 		<td>Browse the knowledge base of frequently asked questions</td>
 	</tr>
 	{/if}

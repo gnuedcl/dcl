@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 <center>
 <table border="0" cellspacing="0" style="width: 80%;">
-	<tr><th class="detailTitle"><a href="{$URL_MAIN_PHP}?menuAction=boFaq.view&faqid={$VAL_FAQID}">{$VAL_FAQNAME|escape}</a> : {$VAL_TOPICNAME}</th>
+	<tr><th class="detailTitle"><a href="{$URL_MAIN_PHP}?menuAction=Faq.Detail&faqid={$VAL_FAQID}">{$VAL_FAQNAME|escape}</a> : {$VAL_TOPICNAME}</th>
 		<th class="detailLinks">{if $PERM_ADDQUESTION}<a class="adark" href="{$URL_MENULINK}?menuAction=boFaqquestions.add&topicid={$VAL_TOPICID}">{$smarty.const.STR_CMMN_NEW}</a>{else}&nbsp;{/if}</th>
 	</tr>
 	<tr><td colspan="2">{$VAL_DESCRIPTION|escape|nl2br}</td></tr>

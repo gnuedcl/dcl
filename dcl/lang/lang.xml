@@ -1953,14 +1953,14 @@
 			<xlt lang="sv">InstÃƒÂ¤llningar</xlt>
 		</phrase>
 		<phrase name="STR_FAQ_ORDEREDBY">
-			<xlt lang="de">FAQs sortiert nach %s</xlt>
-			<xlt lang="en">FAQs Ordered by %s</xlt>
-			<xlt lang="es">FAQs Ordenadas por %s</xlt>
-			<xlt lang="fr">FAQs ordonnÃƒÂ©es par %s</xlt>
-			<xlt lang="it">FAQ ordinate per  %s</xlt>
-			<xlt lang="ru">FAQs Ãƒâ€œÃƒï¿½Ãƒâ€™Ãƒâ€�Ãƒâ€°Ãƒâ€™Ãƒï¿½Ãƒâ€”Ãƒï¿½ÃƒÅ½ Ãƒï¿½Ãƒï¿½ %s</xlt>
-			<xlt lang="sl">FAQi razvrÃ‚Â¹ÃƒÂ¨eni po %s</xlt>
-			<xlt lang="sv">FAQ ordnade efter %s</xlt>
+			<xlt lang="de">FAQs</xlt>
+			<xlt lang="en">FAQs</xlt>
+			<xlt lang="es">FAQs</xlt>
+			<xlt lang="fr">FAQs</xlt>
+			<xlt lang="it">FAQ</xlt>
+			<xlt lang="ru">FAQs</xlt>
+			<xlt lang="sl">FAQi</xlt>
+			<xlt lang="sv">FAQ</xlt>
 		</phrase>
 		<phrase name="STR_FAQ_NOTFOUND">
 			<xlt lang="de">Es wurden keine FAQs im System gefunden!</xlt>
