@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,15 +22,15 @@
 
 LoadStringResource('db');
 
-class dbTickets extends dclDB
+class TicketsModel extends dclDB
 {
 	// Pseudo-field to display hh:mm:ss
 	var $hoursText;
 	var $aContactOrgs;
 
-	function dbTickets()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'tickets';
 		LoadSchema($this->TableName);
 		$this->AuditEnabled = true;
@@ -40,7 +38,7 @@ class dbTickets extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($this->status) == 2)
@@ -69,7 +67,7 @@ class dbTickets extends dclDB
 		return $this->Load($this->ticketid);
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($this->status) == 2)
@@ -92,7 +90,7 @@ class dbTickets extends dclDB
 		$this->hoursText = $this->GetHoursText();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		$this->BeginTransaction();
 
@@ -106,7 +104,7 @@ class dbTickets extends dclDB
 		return $this->EndTransaction();
 	}
 
-	function GetHoursText()
+	public function GetHoursText()
 	{
 		// Set hoursText
 		if ($this->res > 0 && count($this->Record) > 0)
@@ -125,7 +123,7 @@ class dbTickets extends dclDB
 		return sprintf('%01d:%02d:%02d', $hh, $mm, $ss);
 	}
 
-	function Load($ticketid)
+	public function Load($ticketid)
 	{
 		global $g_oSec;
 		
@@ -142,7 +140,7 @@ class dbTickets extends dclDB
 		return $oRetVal;
 	}
 
-	function LoadDatesByRange($beginDate, $endDate, $product_id = 0)
+	public function LoadDatesByRange($beginDate, $endDate, $product_id = 0)
 	{
 		$query = 'SELECT ';
 		$query .= $this->ConvertTimestamp('createdon', 'createdon');
@@ -160,12 +158,12 @@ class dbTickets extends dclDB
 			return -1;
 	}
 	
-	function IsLastResolution($iTicketID, $iResolutionID)
+	public function IsLastResolution($iTicketID, $iResolutionID)
 	{
 		return ($this->ExecuteScalar("SELECT COUNT(*) FROM ticketresolutions WHERE ticketid = $iTicketID AND resid > $iResolutionID") == 0);
 	}
 
-	function CanView(&$obj, $iPersonnelID, &$bIsPublic)
+	public function CanView(&$obj, $iPersonnelID, &$bIsPublic)
 	{
 		global $dcl_info, $g_oSession, $g_oSec;
 		

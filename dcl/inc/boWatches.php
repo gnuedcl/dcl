@@ -214,7 +214,7 @@ class boWatches
 			$this->oMeta = new DCL_MetadataDisplay();
 
 		$objW = new dbWorkorders();
-		$objT = new dbTickets();
+		$objT = new TicketsModel();
 
 		$summary = '';
 		switch ($obj->typeid)

@@ -226,7 +226,7 @@ class htmlSearchBox
 	{
 		commonHeader();
 
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		if ($obj->Load($ticketid) != -1)
 		{
 			$objHT = new htmlTicketDetail();

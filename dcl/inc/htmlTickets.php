@@ -108,7 +108,7 @@ class htmlTickets
 	{
 		global $dcl_info, $g_oSec;
 
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 
 		$objView = new boView();
 		$objView->title = $title;

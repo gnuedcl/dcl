@@ -258,7 +258,7 @@ class boWorkorders
 				$oTR->is_public = $objWorkorder->is_public;
 				$oTR->resolution = sprintf('Copied to dcl://workorders/%d-%d', $objWorkorder->jcn, $objWorkorder->seq);
 	
-				$oTck = new dbTickets();
+				$oTck = new TicketsModel();
 				$oTck->Load($oTR->ticketid);
 				$oTck->lastactionon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 				$oTR->status = $oTck->status;

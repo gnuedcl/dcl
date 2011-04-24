@@ -47,7 +47,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		$obj->InitFromGlobals();
 		$obj->createdby = $GLOBALS['DCLID'];
 		$obj->createdon = DCL_NOW;
@@ -161,7 +161,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$oTicket = new dbTickets();
+		$oTicket = new TicketsModel();
 		if ($oTicket->Load($iID) == -1)
 			return;
 
@@ -182,7 +182,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -209,7 +209,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -313,7 +313,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -339,7 +339,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -387,7 +387,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$objTicket = new dbTickets();
+		$objTicket = new TicketsModel();
 		if ($objTicket->Load($iID) != -1)
 		{
 			$objHT = new htmlTicketDetail();
@@ -433,7 +433,7 @@ class boTickets
 		}
 
 		$objG = new LineGraphImageHelper();
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		$beginDate = new DCLTimestamp;
 		$endDate = new DCLTimestamp;
 		$testDate = new DCLTimestamp;
@@ -525,7 +525,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$objTicket = new dbTickets();
+		$objTicket = new TicketsModel();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
@@ -564,7 +564,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 		
@@ -598,7 +598,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$objTicket = new dbTickets();
+		$objTicket = new TicketsModel();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
@@ -622,7 +622,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$objTicket = new dbTickets();
+		$objTicket = new TicketsModel();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
@@ -654,7 +654,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 		
-		$objTicket = new dbTickets();
+		$objTicket = new TicketsModel();
 		if ($objTicket->Load($iID) == -1)
 			return;
 			
@@ -688,7 +688,7 @@ class boTickets
 			throw new InvalidDataException();
 		}
 
-		$objTicket = new dbTickets();
+		$objTicket = new TicketsModel();
 		if ($objTicket->Load($iID) == -1)
 			return;
 

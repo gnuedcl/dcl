@@ -53,7 +53,7 @@ class htmlTicketStatistics
 
 		$objProduct = new ProductModel();
 		$objStatuses = new StatusModel();
-		$objTickets = new dbTickets();
+		$objTickets = new TicketsModel();
 
 		$doingActivity = (IsSet($activity) && ($activity == '1'));
 		$doingAccounts = (IsSet($byaccount) && ($byaccount == '1'));

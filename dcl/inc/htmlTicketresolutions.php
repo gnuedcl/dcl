@@ -50,7 +50,7 @@ class htmlTicketresolutions
 		if ($oResolution->Load($id) == -1)
 			return;
 			
-		$oTicket = new dbTickets();
+		$oTicket = new TicketsModel();
 		if ($oTicket->Load($oResolution->ticketid) == -1)
 		{
 			return -1;
@@ -72,7 +72,7 @@ class htmlTicketresolutions
 		CleanArray($_REQUEST);
 		$oBO->modify($_REQUEST);
 
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		$obj->Load($oBO->oDB->ticketid);
 
 		$objH = new htmlTicketDetail();
@@ -96,7 +96,7 @@ class htmlTicketresolutions
 		if ($oResolution->Load($id) == -1)
 			return;
 			
-		$oTicket = new dbTickets();
+		$oTicket = new TicketsModel();
 		if ($oTicket->Load($oResolution->ticketid) == -1)
 		{
 			return -1;
@@ -132,7 +132,7 @@ class htmlTicketresolutions
 		if (EvaluateReturnTo())
 			return;
 
-		$oTicket = new dbTickets();
+		$oTicket = new TicketsModel();
 		if ($oTicket->Load($iTicketID) == -1)
 		{
 			return -1;
@@ -158,7 +158,7 @@ class htmlTicketresolutions
 				throw new PermissionDeniedException();
 		}
 
-		$objT = new dbTickets();
+		$objT = new TicketsModel();
 		$objProduct = new ProductModel();
 		$objStat = new StatusHtmlHelper();
 

@@ -68,7 +68,7 @@ class reportTicketActivity
 
 		$oMeta = new DCL_MetadataDisplay();
 
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		$objT = new TicketResolutionsModel();
 
 		$sColumns = $obj->SelectAllColumns('a.');

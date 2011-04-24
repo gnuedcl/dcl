@@ -100,7 +100,7 @@ class htmlWiki
 				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $id . '&seq=' . $id2));
 				break;
 			case DCL_ENTITY_TICKET:
-				$o = new dbTickets();
+				$o = new TicketsModel();
 				$o->Load($id);
 				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_TICKETWIKI, $id, $o->summary));
 				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=boTickets.view&ticketid=' . $id));

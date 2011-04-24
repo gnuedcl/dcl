@@ -184,7 +184,7 @@ class htmlContactDetail
 		$oViewTicket->AddDef('order', '', array('createdon DESC'));
 		$oViewTicket->numrows = 10;
 		
-		$oTickets = new dbTickets();
+		$oTickets = new TicketsModel();
 		$oTickets->LimitQuery($oViewTicket->GetSQL(), 0, $oViewTicket->numrows);
 		$aTickets = array();
 		while ($oTickets->next_record())

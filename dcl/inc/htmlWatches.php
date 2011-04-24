@@ -34,7 +34,7 @@ class htmlWatches
 	{
 		$this->oMeta = new DCL_MetadataDisplay();
 		$this->objW = new dbWorkorders();
-		$this->objT = new dbTickets();
+		$this->objT = new TicketsModel();
 	}
 
 	function GetCombo($default = 1, $id = 'actions')

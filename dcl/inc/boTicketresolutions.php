@@ -46,7 +46,7 @@ class boTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION, $iID))
 			throw new PermissionDeniedException();
 
-		$objTicket = new dbTickets();
+		$objTicket = new TicketsModel();
 		if ($objTicket->Load($iID) == -1)
 			return;
 
@@ -75,7 +75,7 @@ class boTicketresolutions
 		$this->oDB->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 		$this->oDB->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
 
-		$obj = new dbTickets();
+		$obj = new TicketsModel();
 		if ($obj->Load($this->oDB->ticketid) == -1)
 			return;
 
@@ -165,7 +165,7 @@ class boTicketresolutions
 		$this->oDB->InitFromArray($aSource);
 		$this->oDB->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
 
-		$oTicket = new dbTickets();
+		$oTicket = new TicketsModel();
 		$oTicket->Load($this->oDB->ticketid);
 		$oTicket->lastactionon = DCL_NOW;
 
@@ -216,7 +216,7 @@ class boTicketresolutions
 
 		$this->oDB->InitFromArray($aSource);
 		
-		$oTicket = new dbTickets();
+		$oTicket = new TicketsModel();
 		$oTicket->Load($this->oDB->ticketid);
 		$oTicket->lastactionon = DCL_NOW;
 

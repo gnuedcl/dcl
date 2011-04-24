@@ -85,7 +85,7 @@ class htmlAudit
 				$this->aAuditWorkOrder = $oProject->AuditProjectList($id);
 				break;
 			case DCL_ENTITY_TICKET:
-				$this->aAudit = $oAudit->LoadDiff('dbTickets', array('ticketid' => $id));
+				$this->aAudit = $oAudit->LoadDiff('TicketsModel', array('ticketid' => $id));
 				$oSmarty->assign('VAL_ID', $id);
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetTicket($id));
 				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boTickets.view&ticketid=$id"));

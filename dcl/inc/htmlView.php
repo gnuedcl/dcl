@@ -159,7 +159,7 @@ class htmlView
 				$whatObject = 'PersonnelModel';
 				break;
 			case 'tickets':
-				$whatObject = 'dbTickets';
+				$whatObject = 'TicketsModel';
 				break;
 			case 'workorders':
 				$whatObject = 'dbWorkorders';

@@ -26,13 +26,13 @@ LoadStringResource('tck');
 
 class htmlTicketDetail
 {
-	function Show($obj, $editResID = 0, $forDelete = false)
+	function Show(TicketsModel $obj, $editResID = 0, $forDelete = false)
 	{
 		global $dcl_info, $g_oSec;
 
-		if (!is_object($obj) || !is_a($obj, 'dbTickets'))
+		if ($obj == null)
 		{
-			trigger_error('A dbTickets object was not passed to htmlTicketDetail::Show()!');
+			trigger_error('A TicketsModel object was not passed to htmlTicketDetail::Show()!');
 			return;
 		}
 

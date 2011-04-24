@@ -390,7 +390,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oTicket == null)
-			$this->oTicket = new dbTickets();
+			$this->oTicket = new TicketsModel();
 
 		if ($this->oTicket->Load($id) == -1)
 			return $this->TriggerError("Could not find ticket ID $id");

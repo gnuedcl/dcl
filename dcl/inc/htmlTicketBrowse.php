@@ -35,7 +35,7 @@ class htmlTicketBrowse
 		$this->sPagingMenuAction = 'htmlTicketBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = new dbTickets();
+		$this->oDB = new TicketsModel();
 	}
 
 	function Render(&$oView)
