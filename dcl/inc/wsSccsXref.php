@@ -87,7 +87,7 @@ class wsSccsXref
 			wsSccsXref::returnEmptyResponse();
 		}
 		
-		$oDB = new dbSccs();
+		$oDB = new SccsModel();
 		if ($oDB->Load($id) != -1)
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset>';
@@ -103,7 +103,7 @@ class wsSccsXref
 	
 	function getRepositoryByPath()
 	{
-		$oDB = new dbSccs();
+		$oDB = new SccsModel();
 		$sPath = $oDB->GPCStripSlashes($_POST['sccs_repository']);
 		if ($oDB->LoadByPath($sPath) != -1)
 		{
@@ -120,7 +120,7 @@ class wsSccsXref
 	
 	function addRepository()
 	{
-		$oDB = new dbSccs();
+		$oDB = new SccsModel();
 		$oDB->InitFrom_POST();
 		$oDB->Add();
 	}
