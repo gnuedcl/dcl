@@ -29,7 +29,7 @@ class TagController extends AbstractController
 {
 	public function Autocomplete()
 	{
-		$model = new dbTag();
+		$model = new TagModel();
 		$matchArray = $model->filterList($_REQUEST['term']);
 
 		$matches = array();

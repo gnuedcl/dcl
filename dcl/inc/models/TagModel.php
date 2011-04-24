@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbTag extends dclDB
+class TagModel extends dclDB
 {
-	function dbTag()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_tag';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 	
-	function getIdByName($sTag)
+	public function getIdByName($sTag)
 	{
 		$sTag = trim(strtolower($sTag));
 		$iID = $this->ExecuteScalar('SELECT tag_id FROM dcl_tag WHERE tag_desc = ' . $this->Quote($sTag));
@@ -51,14 +49,14 @@ class dbTag extends dclDB
 		return null;
 	}
 
-	function filterList($filter)
+	public function filterList($filter)
 	{
 		$this->LimitQuery("SELECT tag_id, tag_desc FROM dcl_tag WHERE tag_desc LIKE " . $this->Quote('%' . $filter . '%') . " ORDER BY tag_desc", 0, 20);
 
 		return $this->FetchAllRows();
 	}
 
-	function getExistingIdsByName($sTags)
+	public function getExistingIdsByName($sTags)
 	{
 		if ($sTags === null || trim($sTags) == '')
 			return '-1';
@@ -99,10 +97,9 @@ class dbTag extends dclDB
 		return $sID;
 	}
 	
-	function listByPopular()
+	public function listByPopular()
 	{
 		$sSQL = 'SELECT dcl_tag.tag_desc, COUNT(*) FROM dcl_tag JOIN dcl_entity_tag ON dcl_tag.tag_id = dcl_entity_tag.tag_id GROUP BY dcl_tag.tag_desc ORDER BY 2 DESC';
 		return $this->LimitQuery($sSQL, 0, 50);
 	}
 }
-?>

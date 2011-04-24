@@ -1040,7 +1040,7 @@ class boView
 	
 						$bFirst = false;
 
-						$oTag = new dbTag();
+						$oTag = new TagModel();
 						$sTagFilter = $oTag->getExistingIdsByName($this->GetCSLFromArray($values));
 						if (!in_array('dcl_tag.tag_desc', $this->order) &&
 							!in_array('dcl_tag.tag_desc', $this->groups) &&

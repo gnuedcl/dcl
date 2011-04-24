@@ -59,7 +59,7 @@ class EntityTagModel extends dclDB
 			return;
 		}
 		
-		$oTag = new dbTag();
+		$oTag = new TagModel();
 		$aTags = split(',', $sTags);
 		$aTagID = array();
 		foreach ($aTags as $sTag)
@@ -135,7 +135,7 @@ class EntityTagModel extends dclDB
 	{
 		global $g_oSec, $g_oSession;
 		
-		$oDB = new dbTag();
+		$oDB = new TagModel();
 		$sID = $oDB->getExistingIdsByName(trim($sTags));
 		if ($sID == '-1')
 		{

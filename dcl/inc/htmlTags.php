@@ -50,7 +50,7 @@ class htmlTags
 			throw new PermissionDeniedException();
 		}
 		
-		$oDB = new dbTag();
+		$oDB = new TagModel();
 		$oDB->listByPopular();
 		
 		$allRecs = $oDB->FetchAllRows();
