@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbFaqquestions extends dclDB
+class FaqQuestionsModel extends dclDB
 {
-	function dbFaqquestions()
+	public function __construct()
 	{
 		parent::dclDB();
 		$this->TableName = 'faqquestions';
@@ -36,7 +34,7 @@ class dbFaqquestions extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		if ($this->AdjustSeq($this->seq) == -1)
 		{
@@ -47,7 +45,7 @@ class dbFaqquestions extends dclDB
 		return parent::Add();
 	}
 
-	function AdjustSeq($fromThisSeq, $editID = 0)
+	public function AdjustSeq($fromThisSeq, $editID = 0)
 	{
 		if (($fromThisSeq = DCL_Sanitize::ToInt($fromThisSeq)) === null ||
 			($editID = DCL_Sanitize::ToInt($editID)) === null)
@@ -72,7 +70,7 @@ class dbFaqquestions extends dclDB
 		}
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		if ($this->AdjustSeq($this->seq, $this->questionid) == -1)
 		{
@@ -84,7 +82,7 @@ class dbFaqquestions extends dclDB
 		return parent::Edit(array('createby', 'createon'));
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		$o = new FaqAnswersModel();
 		if ($o->DeleteByQuestion($this->questionid) == -1)
@@ -95,12 +93,12 @@ class dbFaqquestions extends dclDB
 		return parent::Delete(array('questionid' => $this->questionid));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('questionid' => $id));
 	}
 
-	function LoadByFaqTopicID($id, $orderby = 'seq')
+	public function LoadByFaqTopicID($id, $orderby = 'seq')
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) === null)
 		{
@@ -123,7 +121,7 @@ class dbFaqquestions extends dclDB
 		return 1;
 	}
 		
-	function DeleteByTopic($id)
+	public function DeleteByTopic($id)
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) === null)
 		{

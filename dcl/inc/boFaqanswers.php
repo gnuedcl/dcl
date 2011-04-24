@@ -39,7 +39,7 @@ class boFaqanswers
 			throw new InvalidDataException();
 		}
 		
-		$objF = new dbFaqquestions();
+		$objF = new FaqQuestionsModel();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADQUESTION, $iID);
@@ -67,7 +67,7 @@ class boFaqanswers
 			throw new InvalidDataException();
 		}
 		
-		$objF = new dbFaqquestions();
+		$objF = new FaqQuestionsModel();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADQUESTION, $iID);
@@ -120,7 +120,7 @@ class boFaqanswers
 			throw new InvalidDataException();
 		}
 		
-		$objF = new dbFaqquestions();
+		$objF = new FaqQuestionsModel();
 		if ($objF->Load($iID) == -1)
 		{
 			return;
@@ -177,7 +177,7 @@ class boFaqanswers
 		$iQuestionID = $obj->questionid;
 		$obj->Delete($iID);
 		
-		$objQ = new dbFaqquestions();
+		$objQ = new FaqQuestionsModel();
 		if ($objQ->Load($iQuestionID) == -1)
 		{
 			return -1;

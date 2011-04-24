@@ -80,7 +80,7 @@ class dbFaqtopics extends dclDB
 
 	function Delete()
 	{
-		$o = new dbFaqquestions();
+		$o = new FaqQuestionsModel();
 		if ($o->DeleteByTopic($this->topicid) == -1)
 		{
 			return -1;

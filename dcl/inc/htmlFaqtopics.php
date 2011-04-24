@@ -91,7 +91,7 @@ class htmlFaqtopics
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE));
 
-		$objF = new dbFaqquestions();
+		$objF = new FaqQuestionsModel();
 		if ($objF->LoadByFaqTopicID($obj->topicid) == -1)
 		{
 			return;
