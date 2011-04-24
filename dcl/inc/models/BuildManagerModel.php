@@ -48,7 +48,7 @@ class BuildManagerModel extends dclDB
 		//Getting Buildid from session, then create Build Item DB Object
 		$aReleaseID = &$g_oSession->Value('releaseid');
 		$aBuildID = &$g_oSession->Value('buildid');
-		$oBuildItem = new dbProductBuildItem();
+		$oBuildItem = new ProductBuildItemModel();
 		
 		$this->oDbProductBuildException->DeleteBySession($g_oSession->dcl_session_id, (int)$g_oSession->Value('buildid'));
 					
