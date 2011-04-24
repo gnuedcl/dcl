@@ -88,7 +88,7 @@ class boWatches
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbWatches();
+		$obj = new WatchesModel();
 		$query = sprintf('SELECT * FROM watches WHERE typeid=%d AND whoid=%d AND whatid1=%d', $iTypeID, $GLOBALS['DCLID'], $iWhatID1);
 		if ($iWhatID2 !== null)
 			$query .= sprintf(' AND whatid2=%d', $iWhatID2);
@@ -116,7 +116,7 @@ class boWatches
 	{
 		commonHeader();
 		
-		$obj = new dbWatches();
+		$obj = new WatchesModel();
 		$obj->InitFromGlobals();
 		$obj->Add();
 
@@ -133,7 +133,7 @@ class boWatches
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbWatches();
+		$obj = new WatchesModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -153,7 +153,7 @@ class boWatches
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbWatches();
+		$obj = new WatchesModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -175,7 +175,7 @@ class boWatches
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbWatches();
+		$obj = new WatchesModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -194,7 +194,7 @@ class boWatches
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbWatches();
+		$obj = new WatchesModel();
 		if ($obj->Load($iID) != -1)
 		{
 			$obj->Delete();
@@ -286,7 +286,7 @@ class boWatches
 		$oMail = new Smtp();
 		$oMail->isHtml = ($dcl_info['DCL_WO_NOTIFICATION_HTML'] == 'Y');
 
-		$objWtch = new dbWatches();
+		$objWtch = new WatchesModel();
 		$query = "select distinct email_addr, whoid from personnel " . $objWtch->JoinKeyword . " dcl_contact_email ON personnel.contact_id=dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y' ";
 		$query .= $objWtch->JoinKeyword . ' watches ON id=whoid ';
 		$query .= 'LEFT JOIN dcl_wo_account ON typeid = 6 AND wo_id = ' . $obj->jcn;
@@ -477,7 +477,7 @@ class boWatches
 		$oMail->isHtml = ($dcl_info['DCL_TCK_NOTIFICATION_HTML'] == 'Y');
 
 		// Got the message constructed, so send it!
-		$objWtch = new dbWatches();
+		$objWtch = new WatchesModel();
 		$query = "select distinct email_addr, whoid from personnel " . $objWtch->JoinKeyword . " dcl_contact_email ON personnel.contact_id=dcl_contact_email.contact_id AND dcl_contact_email.preferred = 'Y' ";
 		$query .= $objWtch->JoinKeyword . ' watches ON id=whoid ';
 		$query .= "where id = whoid AND actions in ($actions) and (";

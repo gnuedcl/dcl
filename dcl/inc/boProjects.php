@@ -324,7 +324,7 @@ class boProjects
 		$obj->Delete();
 
 		// Wipe out any watches anyone may have had
-		$oWatch = new dbWatches();
+		$oWatch = new WatchesModel();
 		$oWatch->DeleteByObjectID(2, $obj->projectid);
 
 		// Browse around some more

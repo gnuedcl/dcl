@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,14 +23,14 @@
 LoadStringResource('db');
 LoadStringResource('wtch');
 
-class dbWatches extends dclDB
+class WatchesModel extends dclDB
 {
 	var $arrTypeid;
 	var $arrActions;
 
-	function dbWatches()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'watches';
 		LoadSchema($this->TableName);
 
@@ -56,20 +54,19 @@ class dbWatches extends dclDB
 		parent::Clear();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('watchid' => $this->watchid));
 	}
 
-	function DeleteByObjectID($type, $key1, $key2 = 0)
+	public function DeleteByObjectID($type, $key1, $key2 = 0)
 	{
 		$query = "DELETE FROM watches WHERE typeid=$type AND whatid1=$key1 AND whatid2=$key2";
 		return $this->Execute($query);
 	}
 
-	function SetActive($active)
+	public function SetActive($active)
 	{
 		return 0;
 	}
 }
-?>

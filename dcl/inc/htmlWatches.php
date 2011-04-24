@@ -39,7 +39,7 @@ class htmlWatches
 
 	function GetCombo($default = 1, $id = 'actions')
 	{
-		$obj = new dbWatches();
+		$obj = new WatchesModel();
 
 		$retVal = "<select id=\"$id\" name=\"$id\">";
 		while (list($key, $val) = each($obj->arrActions))
@@ -88,7 +88,7 @@ class htmlWatches
 	{
 		global $dcl_info;
 		
-		$obj = new dbWatches();
+		$obj = new WatchesModel();
 
 		$obj->Query(sprintf('SELECT * FROM watches WHERE whoid=%d ORDER BY typeid,watchid', $GLOBALS['DCLID']));
 		$bGotSome = true;
@@ -167,7 +167,7 @@ class htmlWatches
 			if (!isset($_REQUEST['whatid2']) || ($whatid2 = DCL_Sanitize::ToInt($_REQUEST['whatid2'])) === null)
 				$whatid2 = 0;
 			
-			$objW = new dbWatches();
+			$objW = new WatchesModel();
 			$t->assign('TXT_TITLE', sprintf(STR_WTCH_ADD, $objW->arrTypeid[$typeid]));
 			$t->assign('VAL_DESC', $this->GetObjectDescription($typeid, $whatid1, $whatid2));
 			$t->assign('VAL_TYPEID', $typeid);
