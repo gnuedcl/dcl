@@ -24,14 +24,14 @@
 
 LoadStringResource('db');
 LoadStringResource('prod');
-class dbBuildManager extends dclDB
+class BuildManagerModel extends dclDB
 {
 	// Instance of dbProductBuildException
 	var $oDbProductBuildException;
 
-	function dbBuildManager()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		
 		$this->TableName = 'dcl_product_build_sccs';
 		LoadSchema($this->TableName);
@@ -41,7 +41,7 @@ class dbBuildManager extends dclDB
 		parent::Clear();
 	}
 
-	function CheckBM($selected)
+	public function CheckBM($selected)
 	{
 		global $dcl_info, $g_oSession;
 	
@@ -106,7 +106,7 @@ class dbBuildManager extends dclDB
 		$this->Complete();
 	}
 	
-	function GetInfoFromSCCS($pulldate=0,$jcn,$seq,$where=0)
+	public function GetInfoFromSCCS($pulldate = 0, $jcn, $seq, $where = 0)
 	{		
 		global $dcl_info, $g_oSession;
 
@@ -151,7 +151,7 @@ class dbBuildManager extends dclDB
 		}
 	}
 	
-	function ErrorLog($entity_type, $id, $id2)
+	public function ErrorLog($entity_type, $id, $id2)
 	{
 		global $g_oSession;
 		
@@ -175,7 +175,7 @@ class dbBuildManager extends dclDB
 	}
 	
 	
-	function CheckBuildManagerProduct($productid)
+	public function CheckBuildManagerProduct($productid)
 	{	
 		$sql = "SELECT is_versioned from products where id=$productid";
 		$this->Query($sql);
@@ -183,7 +183,7 @@ class dbBuildManager extends dclDB
 			return ($this->next_record() && strtoupper($this->f(0)) == 'Y');
 	}
 	
-	function CheckWorkOrderProduct($jcn, $seq)
+	public function CheckWorkOrderProduct($jcn, $seq)
 	{
 		$sql = "SELECT product FROM workorders WHERE jcn=$jcn AND seq=$seq";
 		$this->Query($sql);
@@ -192,7 +192,7 @@ class dbBuildManager extends dclDB
 		
 	}
 	
-	function InsertBM($sccsid, $jcn, $seq, $init = 0)
+	public function InsertBM($sccsid, $jcn, $seq, $init = 0)
 	{	
 		global $g_oSession;
 		
@@ -226,7 +226,7 @@ class dbBuildManager extends dclDB
 		}
 	}
 	
-	function CheckVersionStatus($jcn, $seq, $productid)
+	public function CheckVersionStatus($jcn, $seq, $productid)
 	{
 		//Checks the version item table for the DCL# and if the DCL# is found the release id
 		//amd version status id	is passed to UpdateVersionStatus function.  Otherwise, no
@@ -247,7 +247,7 @@ class dbBuildManager extends dclDB
 		}		
 	}
 	
-	function UpdateVersionStatus($releaseid,$status, $jcn, $seq)
+	public function UpdateVersionStatus($releaseid,$status, $jcn, $seq)
 	{
 		//Update the version Item table, if the DCL number is found.
 		//If the version status id is greater than 2 and set the status id
@@ -266,7 +266,7 @@ class dbBuildManager extends dclDB
 		}
 	}
 	
-	function UpdateBMXref($jcn, $seq, $init=0)
+	public function UpdateBMXref($jcn, $seq, $init=0)
 	{
 		global $dcl_info, $g_oSession;
 		
@@ -282,7 +282,7 @@ class dbBuildManager extends dclDB
 		}
 	}
 	
-	function Complete()
+	public function Complete()
 	{
 		global $dcl_info, $g_oSession;
 
@@ -301,7 +301,7 @@ class dbBuildManager extends dclDB
 		$this->DeleteSession();
 	}
 	
-	function DeleteSession()
+	public function DeleteSession()
 	{
 		global $g_oSec, $dcl_info, $g_oSession;	
 		

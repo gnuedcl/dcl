@@ -43,7 +43,7 @@ class htmlBuildManagerBuildView
 		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$oDB = new dbBuildManager();
+		$oDB = new BuildManagerModel();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			

@@ -34,7 +34,7 @@ class boBuildManager
 		    throw new InvalidDataException();
 		}
 		
-		$obj = new dbBuildManager();
+		$obj = new BuildManagerModel();
 		
 		$query = "SELECT * FROM dcl_product_version where product_version_id = $id";
 		$obj->Query($query);
@@ -178,7 +178,7 @@ class boBuildManager
 		$g_oSession->Register('env', $env);
 		$g_oSession->Edit();
 		
-		$obj = new dbBuildManager();
+		$obj = new BuildManagerModel();
 		$obj->Connect();
 		$obj->CheckBM($selected);		
 	}
