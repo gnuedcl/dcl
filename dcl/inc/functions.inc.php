@@ -305,7 +305,7 @@ function Invoke($sClassMethod)
 	
 	if ($dcl_info['DCL_SEC_AUDIT_ENABLED']=='Y' && $dcl_info['DCL_SEC_AUDIT_LOGIN_ONLY'] == 'N')
 	{
-		$oSecAuditDB = new dbSecAudit();
+		$oSecAuditDB = new SecurityAuditModel();
 		$paramArray = array('ticketid' => null, 'jcn' => null, 'seq' => null, 'begindate' => null, 'enddate' => null, 'project' => null, 'org_id' => null, 'contact_id' => null, 'id' => null);
 
 		$values = '';

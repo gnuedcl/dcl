@@ -184,7 +184,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			
 			if ($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
 			{
-				$oSecAuditDB = new dbSecAudit();
+				$oSecAuditDB = new SecurityAuditModel();
 				$oSecAuditDB->Add('login');
 			}
 
