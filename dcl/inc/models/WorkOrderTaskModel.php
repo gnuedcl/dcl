@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbWorkOrderTask extends dclDB
+class WorkOrderTaskModel extends dclDB
 {
-	function dbWorkOrderTask()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_wo_task';
 		LoadSchema($this->TableName);
 
 		parent::Clear();
 	}
 	
-	function DeleteByWorkOrder($wo_id, $seq)
+	public function DeleteByWorkOrder($wo_id, $seq)
 	{
 		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
 		{
@@ -44,7 +42,7 @@ class dbWorkOrderTask extends dclDB
 		return $this->Execute("DELETE FROM dcl_wo_task WHERE wo_id = $wo_id AND seq = $seq");
 	}
 	
-	function GetTasksForWorkOrder($wo_id, $seq, $bForDisplay = true)
+	public function GetTasksForWorkOrder($wo_id, $seq, $bForDisplay = true)
 	{
 		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
 		{
@@ -69,7 +67,7 @@ class dbWorkOrderTask extends dclDB
 		return $aRetVal;
 	}
 	
-	function GetCountIncompleteTasksForWorkOrder($wo_id, $seq)
+	public function GetCountIncompleteTasksForWorkOrder($wo_id, $seq)
 	{
 		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
 		{
@@ -79,7 +77,7 @@ class dbWorkOrderTask extends dclDB
 		return $this->ExecuteScalar("SELECT COUNT(*) FROM dcl_wo_task WHERE wo_id = $wo_id AND seq = $seq AND task_complete = 'N'");
 	}
 	
-	function CloseAllIncompleteTasksForWorkOrder($wo_id, $seq)
+	public function CloseAllIncompleteTasksForWorkOrder($wo_id, $seq)
 	{
 		global $DCLID;
 		
@@ -97,4 +95,3 @@ class dbWorkOrderTask extends dclDB
 		return false;
 	}
 }
-?>

@@ -67,7 +67,7 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		$obj = new dbWorkOrderTask();
+		$obj = new WorkOrderTaskModel();
 		if ($obj->Load($wo_task_id) == -1)
 			return;
 			
@@ -87,7 +87,7 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		$obj = new dbWorkOrderTask();
+		$obj = new WorkOrderTaskModel();
 		if ($obj->Load($wo_task_id) == -1)
 			return;
 			
@@ -113,7 +113,7 @@ class htmlWorkOrderTask
 			throw new PermissionDeniedException();
 
 		$oSmarty = new DCL_Smarty();
-		$oTasks = new dbWorkOrderTask();
+		$oTasks = new WorkOrderTaskModel();
 		$oSmarty->assign('VAL_TASKS', $oTasks->GetTasksForWorkOrder($wo_id, $seq, false));
 		$oSmarty->assign('VAL_JCN', $wo_id);
 		$oSmarty->assign('VAL_SEQ', $seq);
@@ -250,7 +250,7 @@ class htmlWorkOrderTask
 		}
 
 		$aTaskList = @DCL_Sanitize::ToIntArray($_REQUEST['task']);
-		$oDB = new dbWorkOrderTask();
+		$oDB = new WorkOrderTaskModel();
 		$iOrder = 1;
 		for ($i = 0; $i < count($aTaskList); $i++)
 		{

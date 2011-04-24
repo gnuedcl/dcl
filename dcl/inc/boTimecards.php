@@ -53,7 +53,7 @@ class boTimecards
 	
 	function closeIncompleteTasks($wo_id, $seq)
 	{
-		$oTasks = new dbWorkOrderTask();
+		$oTasks = new WorkOrderTaskModel();
 		if ($oTasks->CloseAllIncompleteTasksForWorkOrder($wo_id, $seq))
 		{
 			trigger_error('Remaining incomplete tasks have been marked as closed by you.', E_USER_WARNING);

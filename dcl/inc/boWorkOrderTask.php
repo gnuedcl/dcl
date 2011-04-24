@@ -30,7 +30,7 @@ class boWorkOrderTask extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB = new dbWorkOrderTask();
+		$this->oDB = new WorkOrderTaskModel();
 		$this->sKeyField = 'wo_task_id';
 		$this->Entity = DCL_ENTITY_WORKORDER;
 		$this->PermAdd = DCL_PERM_ACTION;

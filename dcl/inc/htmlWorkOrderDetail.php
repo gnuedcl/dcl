@@ -108,7 +108,7 @@ class htmlWorkOrderDetail
 		$oSmarty->assign('VAL_EDITTCID', $editTimeCardID);
 		$oSmarty->assign('VAL_FORDELETE', $forDelete);
 		
-		$oTasks = new dbWorkOrderTask();
+		$oTasks = new WorkOrderTaskModel();
 		$oSmarty->assign('VAL_TASKS', $oTasks->GetTasksForWorkOrder($objWorkOrder->jcn, $objWorkOrder->seq));
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWFILE))

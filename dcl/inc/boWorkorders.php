@@ -472,7 +472,7 @@ class boWorkorders
 		}
 		
 		// Remove tasks
-		$oTasks = new dbWorkOrderTask();
+		$oTasks = new WorkOrderTaskModel();
 		$oTasks->DeleteByWorkOrder($iID, $iSeq);
 		
 		// Remove tags
