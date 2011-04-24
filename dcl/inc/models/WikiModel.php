@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,18 +20,18 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class dbWiki extends dclDB
+class WikiModel extends dclDB
 {
-	function dbWiki()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_wiki';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		$query  = 'INSERT INTO ' . $this->TableName . " (dcl_entity_type_id, dcl_entity_id, dcl_entity_id2, page_name, page_text, page_date, page_ip) Values (";
 		$query .= $this->dcl_entity_type_id . ',';
@@ -52,7 +50,7 @@ class dbWiki extends dclDB
 		return parent::Add();
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		if ($this->dcl_entity_type_id == DCL_ENTITY_GLOBAL)
 		{
@@ -69,7 +67,7 @@ class dbWiki extends dclDB
 		return parent::Edit();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		$query = 'delete from ' . $this->TableName . " where page_name='";
 		$query .= $this->DBAddSlashes($this->page_name);
@@ -87,7 +85,7 @@ class dbWiki extends dclDB
 		$this->Execute($query);
 	}
 
-	function Load($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0, $sName = 'FrontPage')
+	public function Load($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0, $sName = 'FrontPage')
 	{
 		if ($iType != DCL_ENTITY_WORKORDER)
 			$iID2 = 0;
@@ -95,7 +93,7 @@ class dbWiki extends dclDB
 		return parent::Load(array('dcl_entity_type_id' => $iType, 'dcl_entity_id' => $iID, 'dcl_entity_id2' => $iID2, 'page_name' => $sName));
 	}
 
-	function Exists($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0, $sName = 'FrontPage')
+	public function Exists($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0, $sName = 'FrontPage')
 	{
 		if ($iType != DCL_ENTITY_WORKORDER)
 			$iID2 = 0;
@@ -103,7 +101,7 @@ class dbWiki extends dclDB
 		return parent::Exists(array('dcl_entity_type_id' => $iType, 'dcl_entity_id' => $iID, 'dcl_entity_id2' => $iID2, 'page_name' => $sName));
 	}
 
-	function ListRecentChanges($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0)
+	public function ListRecentChanges($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0)
 	{
 		$query = sprintf('SELECT page_name, %s, page_ip FROM %s Where dcl_entity_type_id = %d',
 							$this->ConvertTimestamp('page_date', 'page_date'), $this->TableName, $iType);
@@ -118,4 +116,3 @@ class dbWiki extends dclDB
 		return $this->Query($query);
 	}
 }
-?>

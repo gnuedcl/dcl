@@ -145,7 +145,7 @@ class htmlWiki
 		if (in_array($name, $this->aLockedPages))
 			unset($editmode);
 
-		$obj = new dbWiki();
+		$obj = new WikiModel();
 		if ((!$obj->Exists($type, $id, $id2, $name) || $obj->Load($type, $id, $id2, $name) == -1) && $name != 'RecentChanges')
 			$obj = $this->quickwiki($type, $id, $id2, $name);
 
@@ -522,7 +522,7 @@ class htmlWiki
 
 		$theList = array();
 
-		$obj = new dbWiki();
+		$obj = new WikiModel();
 		$obj->ListRecentChanges($type, $id, $id2);
 
 		$count = 0;
@@ -568,7 +568,7 @@ class htmlWiki
 		if ($type != DCL_ENTITY_WORKORDER)
 			$id2 = 0;
 		
-		$o = new dbWiki();
+		$o = new WikiModel();
 		if ($o->Load($type, $id, $id2, $name) != -1)
 		{
 			$ddate = date("d M Y - H:i"); // Replace <d> tag with current date
@@ -586,7 +586,7 @@ class htmlWiki
 	{
 		global $g_oSession;
 		
-		$o = new dbWiki();
+		$o = new WikiModel();
 		$o->dcl_entity_type_id = $type;
 		$o->dcl_entity_id = $id;
 		$o->dcl_entity_id2 = $id2;
