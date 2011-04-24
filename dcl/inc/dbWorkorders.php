@@ -215,7 +215,7 @@ class dbWorkorders extends dclDB
 		
 		$bCanView = true;
 		$bIsPublic = false;
-		$oUR = new dbUserRole();
+		$oUR = new UserRoleModel();
 		$oUR->ListPermissions($iPersonnelID, DCL_ENTITY_WORKORDER, 0, 0, array(DCL_PERM_PUBLICONLY, DCL_PERM_VIEWACCOUNT));
 		while ($oUR->next_record() && $bCanView)
 		{

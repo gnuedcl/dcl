@@ -57,7 +57,7 @@ class SecurityHelper
 			throw new InvalidDataException();
 		}
 		
-		$oDB = new dbUserRole();
+		$oDB = new UserRoleModel();
 		return $oDB->HasSpecificRole($GLOBALS['DCLID'], $role_id);
 	}
 
@@ -150,7 +150,7 @@ class SecurityHelper
 		$sKey = $entity . '_' . $id1 . '_' . $id2;
 		$sGlobalKey = $entity . '_0_0';
 		$g_oSession->ValueRef('Permissions', $aPermissions);
-		$oDB = new dbUserRole();
+		$oDB = new UserRoleModel();
 
 		if (!is_array($aPermissions) || !isset($aPermissions[$sGlobalKey]))
 		{

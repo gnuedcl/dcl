@@ -59,7 +59,7 @@ class PersonnelController
 		if (count($aRoles) > 0)
 		{
 			// Set up global user roles
-			$oUserRole = new dbUserRole();
+			$oUserRole = new UserRoleModel();
 			$oUserRole->personnel_id = $model->id;
 			$oUserRole->entity_type_id = DCL_ENTITY_GLOBAL;
 			$oUserRole->entity_id1 = 0;
@@ -102,7 +102,7 @@ class PersonnelController
 
 		$model->Edit();
 
-		$oUserRole = new dbUserRole();
+		$oUserRole = new UserRoleModel();
 		$oUserRole->DeleteGlobalRolesNotIn($model->id);
 		
 		$aRoles = @DCL_Sanitize::ToIntArray($_REQUEST['roles']);

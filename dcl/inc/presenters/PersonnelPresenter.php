@@ -139,7 +139,7 @@ class PersonnelPresenter
 		$template->assign('VAL_DEPARTMENT', 0);
 		$template->assign('VAL_SHORT', '');
 
-		$oUserRole = new dbUserRole();
+		$oUserRole = new UserRoleModel();
 		$template->assign('Roles', $oUserRole->GetGlobalRoles());
 
 		$template->Render('htmlPersonnelForm.tpl');
@@ -162,7 +162,7 @@ class PersonnelPresenter
 		$template->assign('VAL_REPORTTO', $model->reportto);
 		$template->assign('VAL_DEPARTMENT', $model->department);
 
-		$oUserRole = new dbUserRole();
+		$oUserRole = new UserRoleModel();
 		$template->assign('Roles', $oUserRole->GetGlobalRoles($model->id));
 
 		$oMeta = new DCL_MetadataDisplay();
