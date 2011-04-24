@@ -171,7 +171,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 					$g_oSession->Register('member_of_orgs', join(',', $aOrgs));
 					
 					// Also grab the filtered product list for the orgs
-					$oOrg = new dbOrg();
+					$oOrg = new OrganizationModel();
 					$aProducts = $oOrg->GetProductArray($aOrgs);
 					if (count($aProducts) == 0)
 						$aProducts = array('-1');

@@ -28,7 +28,7 @@ class htmlOrg
 	{
 		global $g_oSec, $g_oSession;
 		
-		$oDB = new dbOrg();
+		$oDB = new OrganizationModel();
 		$oDB->cacheEnabled = false;
 
 		$orderBy = 'name';

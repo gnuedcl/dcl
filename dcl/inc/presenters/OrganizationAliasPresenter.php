@@ -33,7 +33,7 @@ class OrganizationAliasPresenter
 		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $orgId));
 
-		$oOrg = new dbOrg();
+		$oOrg = new OrganizationModel();
 		$oOrg->Load($orgId);
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);
@@ -55,7 +55,7 @@ class OrganizationAliasPresenter
 		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $model->org_id));
 
-		$oOrg = new dbOrg();
+		$oOrg = new OrganizationModel();
 		$oOrg->Load($model->org_id);
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);

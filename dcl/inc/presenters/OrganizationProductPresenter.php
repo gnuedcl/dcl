@@ -32,7 +32,7 @@ class OrganizationProductPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $orgId))
 			throw new PermissionDeniedException();
 
-		$oOrg = new dbOrg();
+		$oOrg = new OrganizationModel();
 		if ($oOrg->Load($orgId) == -1)
 		    return;
 		    

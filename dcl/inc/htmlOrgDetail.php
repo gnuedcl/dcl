@@ -49,7 +49,7 @@ class htmlOrgDetail
 		if ($g_oSec->IsOrgUser() && !in_array($id, split(',', $g_oSession->Value('member_of_orgs'))))
 			throw new PermissionDeniedException();
 
-		$oOrg = new dbOrg();
+		$oOrg = new OrganizationModel();
 		if ($oOrg->Load($id) == -1)
 		{
 			trigger_error('Could not load organization ID [' . $id . ']', E_USER_ERROR);
@@ -155,7 +155,7 @@ class htmlOrgDetail
 		$oOrgURL->FreeResult();
 		
 		// Get main contacts
-		$oOrgContacts = new dbOrg();
+		$oOrgContacts = new OrganizationModel();
 		$oOrgContacts->ListMainContacts($oOrg->org_id);
 		$aContacts = array();
 		$oMetadata = new DCL_MetadataDisplay();

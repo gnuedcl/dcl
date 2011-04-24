@@ -30,7 +30,7 @@ class boOrg extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB = new dbOrg();
+		$this->oDB = new OrganizationModel();
 		$this->sKeyField = 'org_id';
 		$this->Entity = DCL_ENTITY_ORG;
 

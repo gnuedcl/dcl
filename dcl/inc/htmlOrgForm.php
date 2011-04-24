@@ -55,7 +55,7 @@ class htmlOrgForm
 			throw new InvalidDataException();
 		}
 
-		$obj = new dbOrg();
+		$obj = new OrganizationModel();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -75,7 +75,7 @@ class htmlOrgForm
 			throw new InvalidDataException();
 		}
 
-		$obj = new dbOrg();
+		$obj = new OrganizationModel();
 		$obj->Load(array('org_id' => $id));
 		ShowDeleteYesNo('Organization', 'htmlOrgForm.submitDelete', $obj->org_id, $obj->name);
 	}

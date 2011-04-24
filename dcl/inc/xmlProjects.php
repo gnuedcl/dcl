@@ -54,7 +54,7 @@ class xmlProjects
 		{
 			$valField = 'org_id';
 			$textField = 'name';
-			$objName = 'dbOrg';
+			$objName = 'OrganizationModel';
 			$table = 'dcl_org';
 		}
 		elseif ($source == 'personnel')

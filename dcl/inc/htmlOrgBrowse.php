@@ -33,7 +33,7 @@ class htmlOrgBrowse
 		$this->sPagingMenuAction = 'htmlOrgBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = new dbOrg();
+		$this->oDB = new OrganizationModel();
 	}
 
 	function Render(&$oView)

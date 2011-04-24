@@ -60,7 +60,7 @@ class htmlContactOrgs
 		$aOrgs = array();
 		$aOrgNames = array();
 		
-		$oOrgs = new dbOrg();
+		$oOrgs = new OrganizationModel();
 		if ($oOrgs->Query($oViewOrg->GetSQL()) != -1)
 		{
 			while ($oOrgs->next_record())

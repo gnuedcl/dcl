@@ -62,7 +62,7 @@ class htmlTicketStatistics
 			$vsTable = 'dcl_org';
 			$vsDesc = 'name';
 			$vsField = 'account';
-			$objPersonnel = new dbOrg();
+			$objPersonnel = new OrganizationModel();
 		}
 		else
 		{

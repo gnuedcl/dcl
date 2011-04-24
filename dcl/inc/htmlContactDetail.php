@@ -145,7 +145,7 @@ class htmlContactDetail
 		$oViewOrg->AddDef('filter', 'dcl_org_contact.contact_id', $oContact->contact_id);
 		//$oViewContact->AddDef('filter', 'active', "'Y'");
 
-		$oOrgs = new dbOrg();
+		$oOrgs = new OrganizationModel();
 		if ($oOrgs->Query($oViewOrg->GetSQL()) != -1)
 		{
 			$aOrgs = array();

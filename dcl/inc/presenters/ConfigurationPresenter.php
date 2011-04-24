@@ -262,7 +262,7 @@ class ConfigurationPresenter
 
 	private function GetAccountCombo($sName, $sDefault)
 	{
-		$o = new dbOrg();
+		$o = new OrganizationModel();
 		$aOptions = $o->GetOptions('org_id', 'name', 'active', $bActiveOnly = true);
 
 		$aSelect = array();

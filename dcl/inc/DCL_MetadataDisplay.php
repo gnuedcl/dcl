@@ -288,7 +288,7 @@ class DCL_MetadataDisplay
 
 		if ($this->oOrg == null)
 		{
-			$this->oOrg = new dbOrg();
+			$this->oOrg = new OrganizationModel();
 			$this->oOrgPhone = new OrganizationPhoneModel();
 			$this->oOrgEmail = new OrganizationEmailModel();
 			$this->oOrgUrl = new OrganizationUrlModel();

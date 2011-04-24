@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbOrg extends dclDB
+class OrganizationModel extends dclDB
 {
-	function dbOrg()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_org';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 	
-	function GetProductArray($aOrgID)
+	public function GetProductArray($aOrgID)
 	{
 		if (($aOrgID = DCL_Sanitize::ToIntArray($aOrgID)) === null)
 		{
@@ -56,7 +54,7 @@ class dbOrg extends dclDB
 		return $aRetVal;
 	}
 	
-	function ListMainContacts($org_id)
+	public function ListMainContacts($org_id)
 	{
 		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
 			return;
@@ -73,7 +71,7 @@ class dbOrg extends dclDB
 		$this->Query($sSQL);
 	}
 
-	function GetOrganizationCount()
+	public function GetOrganizationCount()
 	{
 		global $g_oSession, $g_oSec;
 
@@ -87,7 +85,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetOrganizationCountTicket()
+	public function GetOrganizationCountTicket()
 	{
 		global $g_oSession, $g_oSec;
 
@@ -101,7 +99,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetStatusCount($id)
+	public function GetStatusCount($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -115,7 +113,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetSeverityCount($id)
+	public function GetSeverityCount($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -129,7 +127,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetPriorityCount($id)
+	public function GetPriorityCount($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -143,7 +141,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetDepartmentCount($id)
+	public function GetDepartmentCount($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -157,7 +155,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetModuleCount($id)
+	public function GetModuleCount($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -171,7 +169,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetTypeCount($id)
+	public function GetTypeCount($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -185,7 +183,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetStatusCountTicket($id)
+	public function GetStatusCountTicket($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -199,7 +197,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetTypeCountTicket($id)
+	public function GetTypeCountTicket($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -213,7 +211,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetPriorityCountTicket($id)
+	public function GetPriorityCountTicket($id)
 	{
 		global $g_oSession, $g_oSec;
 
@@ -227,7 +225,7 @@ class dbOrg extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetModuleCountTicket($id)
+	public function GetModuleCountTicket($id)
 	{
 		global $g_oSession, $g_oSec;
 

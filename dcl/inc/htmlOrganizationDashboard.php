@@ -71,7 +71,7 @@ class htmlOrganizationDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $orgId))
 			throw new PermissionDeniedException();
 
-		$this->oOrg = new dbOrg();
+		$this->oOrg = new OrganizationModel();
 		if ($this->oOrg->Load($orgId) == -1)
 		{
 			trigger_error('Could not find an organization with an id of ' . $orgId, E_USER_ERROR);
