@@ -296,7 +296,7 @@ class boWatches
 		
 		if ($obj->IsInAProject())
 		{
-			$oPM = new dbProjectmap();
+			$oPM = new ProjectMapModel();
 			$oPM->LoadByWO($obj->jcn, $obj->seq);
 			$query .= sprintf(' or (typeid=2 and whatid1=%d)', $oPM->projectid);
 		}

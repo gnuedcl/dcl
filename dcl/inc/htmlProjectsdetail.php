@@ -33,7 +33,7 @@ class htmlProjectsdetail
 
 	function htmlProjectsDetail()
 	{
-		$this->oPM = new dbProjectmap();
+		$this->oPM = new ProjectMapModel();
 		$this->oSmarty = new DCL_Smarty();
 		$this->oProject = null;
 	}
@@ -363,7 +363,7 @@ class htmlProjectsdetail
 
 	function DisplayChildProjects($childOfID, $wostatus, $woresponsible, $level = 0)
 	{
-		$oPM = new dbProjectmap();
+		$oPM = new ProjectMapModel();
 		$oPM->Query('SELECT projectid,name FROM dcl_projects WHERE parentprojectid=' . $childOfID);
 		$a = $oPM->FetchAllRows();
 		$oPM->FreeResult();

@@ -113,7 +113,7 @@ class imgProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbProjectmap();
+		$oDB = new ProjectMapModel();
 		if ($oDB->GetStatusCount($id) == -1)
 			exit;
 
@@ -132,7 +132,7 @@ class imgProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbProjectmap();
+		$oDB = new ProjectMapModel();
 		if ($oDB->GetDepartmentCount($id) == -1)
 			exit;
 
@@ -151,7 +151,7 @@ class imgProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbProjectmap();
+		$oDB = new ProjectMapModel();
 		if ($oDB->GetSeverityCount($id) == -1)
 			exit;
 
@@ -170,7 +170,7 @@ class imgProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbProjectmap();
+		$oDB = new ProjectMapModel();
 		if ($oDB->GetPriorityCount($id) == -1)
 			exit;
 
@@ -189,7 +189,7 @@ class imgProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbProjectmap();
+		$oDB = new ProjectMapModel();
 		if ($oDB->GetModuleCount($id) == -1)
 			exit;
 
@@ -208,7 +208,7 @@ class imgProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbProjectmap();
+		$oDB = new ProjectMapModel();
 		if ($oDB->GetTypeCount($id) == -1)
 			exit;
 

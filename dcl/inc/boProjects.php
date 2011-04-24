@@ -105,7 +105,7 @@ class boProjects
 			throw new InvalidDataException();
 		}
 		
-		$objPM = new dbProjectmap();
+		$objPM = new ProjectMapModel();
 		if ($objPM->LoadByWO($jcn, $seq) != -1)
 		{
 			// Mapped implicitly (seq = 0) or explicitly (seq > 0)
@@ -128,7 +128,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 			throw new PermissionDeniedException();
 
-		$objPM = new dbProjectmap();
+		$objPM = new ProjectMapModel();
 		$objPM->InitFromGlobals();
 		if (IsSet($_REQUEST['addall']) && $_REQUEST['addall'] == '1')
 		{
@@ -348,7 +348,7 @@ class boProjects
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbProjectmap();
+		$obj = new ProjectMapModel();
 		if ($obj->LoadByWO($jcn, $seq) != -1)
 		{
 			if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVETASK, $obj->projectid))
@@ -369,7 +369,7 @@ class boProjects
 	// Only intended to be called as a utility function - no UI output unless needed
 	function dbunmap($jcn, $seq, $unmapseqonly = false, $allforjcn = false)
 	{
-		$obj = new dbProjectmap();
+		$obj = new ProjectMapModel();
 		if ($obj->LoadByWOFilter($jcn, $seq, $unmapseqonly, $allforjcn) == -1)
 			return;
 
@@ -515,7 +515,7 @@ class boProjects
 		$oDB = new dclDB;
 		$oDB->BeginTransaction();
 
-		$objPM = new dbProjectmap();
+		$objPM = new ProjectMapModel();
 		$objPM->projectid = $aSource['projectid'];
 
 		foreach ($aSource['selected'] as $val)
@@ -572,7 +572,7 @@ class boProjects
 	{
 		$aProjects = array();
 
-		$objPM = new dbProjectmap();
+		$objPM = new ProjectMapModel();
 		if ($objPM->LoadByWO($jcn, $seq) != -1)
 		{
 			$objDBPrj = new dbProjects();

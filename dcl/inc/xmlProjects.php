@@ -277,7 +277,7 @@ class xmlProjects
 
 		xml_parser_free($this->xmlParser);
 
-		$objPM = new dbProjectmap();
+		$objPM = new ProjectMapModel();
 		$objPM->projectid = $projectid;
 		$objPM->jcn = $this->jcn;
 		$objPM->seq = 0;

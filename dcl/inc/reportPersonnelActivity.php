@@ -498,7 +498,7 @@ class reportPersonnelActivity
 		$objPr = new PriorityModel();
 		$objSe = new SeverityModel();
 		$objW = new dbWorkorders();
-		$oPM = new dbProjectmap();
+		$oPM = new ProjectMapModel();
 		$objDB = new dclDB;
 		
 		$aGroupOptions = array('1' => 'Project', '2' => 'Action', '3' => 'Date', '4' => 'Product', '5' => 'by');

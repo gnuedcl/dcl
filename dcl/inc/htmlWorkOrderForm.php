@@ -199,7 +199,7 @@ class htmlWorkOrderForm
 			$this->oSmarty->assign('VAL_ESTHOURS', '');
 
 			// If not editing, display project options (if any)
-			$objPM = new dbProjectmap();
+			$objPM = new ProjectMapModel();
 			if (($jcn > 0 && $objPM->LoadByWO($jcn, 0) != -1) || ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && IsSet($_REQUEST['projectid'])))
 			{
 				$oProject = new dbProjects();
@@ -216,7 +216,7 @@ class htmlWorkOrderForm
 		}
 		elseif ($isCopy)
 		{
-			$objPM = new dbProjectmap();
+			$objPM = new ProjectMapModel();
 			$bAllSequencesInSameProject = ($jcn > 0 && $objPM->LoadByWO($jcn, 0) != -1);
 			if ($bAllSequencesInSameProject || ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && IsSet($_REQUEST['projectid'])))
 			{

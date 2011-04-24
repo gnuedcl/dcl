@@ -166,7 +166,7 @@ class boTimecards
 		{
 			if (($iProjID = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
 			{
-				$oProjectMap = new dbProjectmap();
+				$oProjectMap = new ProjectMapModel();
 				if ($oProjectMap->LoadByWO($objWorkorder->jcn, $objWorkorder->seq) == -1 || $oProjectMap->projectid != $iProjID)
 				{
 					$oProject = new boProjects();

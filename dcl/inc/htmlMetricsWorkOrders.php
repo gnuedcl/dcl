@@ -80,7 +80,7 @@ class htmlMetricsWorkOrders
 		if (isset($_REQUEST['projects']))
 		{
 			$aProjects = DCL_Sanitize::ToIntArray($_REQUEST['projects']);
-			$oProjectMap = new dbProjectmap();
+			$oProjectMap = new ProjectMapModel();
 			if (isset($_REQUEST['childProjects']) && $_REQUEST['childProjects'] == '1')
 			{
 				$this->aProjects = array();

@@ -72,7 +72,7 @@ class htmlAudit
 				$oAccount = new dbWorkOrderAccount();
 				$this->aAuditAccount = $oAccount->AuditWorkOrderList($id, $id2);
 
-				$oProject = new dbProjectmap();
+				$oProject = new ProjectMapModel();
 				$this->aAuditProject = $oProject->AuditWorkOrderList($id, $id2);
 				break;
 			case DCL_ENTITY_PROJECT:
@@ -81,7 +81,7 @@ class htmlAudit
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetProject($id));
 				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boProjects.viewproject&wostatus=0&project=$id"));
 
-				$oProject = new dbProjectmap();
+				$oProject = new ProjectMapModel();
 				$this->aAuditWorkOrder = $oProject->AuditProjectList($id);
 				break;
 			case DCL_ENTITY_TICKET:

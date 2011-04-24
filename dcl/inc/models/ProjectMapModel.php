@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbProjectmap extends dclDB
+class ProjectMapModel extends dclDB
 {
-	function dbProjectmap()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'projectmap';
 		LoadSchema($this->TableName);
 		$this->AuditEnabled = true;
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		if (!$this->Exists(array('projectid' => $this->projectid, 'jcn' => $this->jcn, 'seq' => $this->seq)))
 		{
@@ -54,12 +52,12 @@ class dbProjectmap extends dclDB
 		}
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		// Do nothing
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		$sSQL = 'INSERT INTO projectmap_audit VALUES (' . $this->projectid . ', ' . $this->jcn . ', ' . $this->seq . ', ' . $this->GetDateSQL() . ', ' . $GLOBALS['DCLID'] . ', ' . DCL_EVENT_DELETE . ')';
 		$this->Execute($sSQL);
@@ -71,7 +69,7 @@ class dbProjectmap extends dclDB
 		$this->Execute($query);
 	}
 	
-	function AuditWorkOrderList($jcn, $seq)
+	public function AuditWorkOrderList($jcn, $seq)
 	{
 		$aRetVal = array();
 
@@ -88,7 +86,7 @@ class dbProjectmap extends dclDB
 		return $aRetVal;
 	}
 
-	function AuditProjectList($projectid)
+	public function AuditProjectList($projectid)
 	{
 		$aRetVal = array();
 
@@ -105,7 +103,7 @@ class dbProjectmap extends dclDB
 		return $aRetVal;
 	}
 
-	function Load($projectid)
+	public function Load($projectid)
 	{
 		$this->Clear();
 
@@ -121,7 +119,7 @@ class dbProjectmap extends dclDB
 		return $this->GetRow();
 	}
 	
-	function GetStatusCount($projectid)
+	public function GetStatusCount($projectid)
 	{
 		$sql = 'SELECT s.name, count(*) FROM statuses s, workorders w, projectmap p WHERE ';
 		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.status AND p.projectid=$projectid ";
@@ -130,7 +128,7 @@ class dbProjectmap extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetSeverityCount($projectid)
+	public function GetSeverityCount($projectid)
 	{
 		$sql = 'SELECT s.name, count(*) FROM severities s, workorders w, projectmap p WHERE ';
 		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.severity AND p.projectid=$projectid ";
@@ -139,7 +137,7 @@ class dbProjectmap extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetPriorityCount($projectid)
+	public function GetPriorityCount($projectid)
 	{
 		$sql = 'SELECT s.name, count(*) FROM priorities s, workorders w, projectmap p WHERE ';
 		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.priority AND p.projectid=$projectid ";
@@ -148,7 +146,7 @@ class dbProjectmap extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetDepartmentCount($projectid)
+	public function GetDepartmentCount($projectid)
 	{
 		$sql = 'SELECT d.name, count(*) FROM departments d, personnel u, workorders w, projectmap p WHERE ';
 		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND w.responsible = u.id AND d.id = u.department AND p.projectid=$projectid ";
@@ -157,7 +155,7 @@ class dbProjectmap extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetModuleCount($projectid)
+	public function GetModuleCount($projectid)
 	{
 		$sql = 'SELECT m.module_name, count(*) FROM dcl_product_module m, workorders w, projectmap p WHERE ';
 		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND m.product_module_id = w.module_id AND p.projectid=$projectid ";
@@ -166,7 +164,7 @@ class dbProjectmap extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetTypeCount($projectid)
+	public function GetTypeCount($projectid)
 	{
 		$sql = 'SELECT t.type_name, count(*) FROM dcl_wo_type t, workorders w, projectmap p WHERE ';
 		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND t.wo_type_id = w.wo_type_id AND p.projectid=$projectid ";
@@ -175,7 +173,7 @@ class dbProjectmap extends dclDB
 		return $this->Query($sql);
 	}
 
-	function LoadFilter($projectid, $status, $responsible)
+	public function LoadFilter($projectid, $status, $responsible)
 	{
 		$this->Clear();
 
@@ -195,7 +193,7 @@ class dbProjectmap extends dclDB
 		return 1;
 	}
 
-	function GetProjectParents($projectid, $includethis = false)
+	public function GetProjectParents($projectid, $includethis = false)
 	{
 		if ($includethis == false)
 		{
@@ -223,7 +221,7 @@ class dbProjectmap extends dclDB
 		return $projectids;
 	}
 
-	function GetProjectChildren($projectid, $includethis = false)
+	public function GetProjectChildren($projectid, $includethis = false)
 	{
 		if ($includethis == false)
 		{
@@ -251,7 +249,7 @@ class dbProjectmap extends dclDB
 		return $projectids;
 	}
 
-	function LoadProjects($projectids)
+	public function LoadProjects($projectids)
 	{
 		if ($projectids == '')
 			return -1;
@@ -268,19 +266,19 @@ class dbProjectmap extends dclDB
 		return 1;
 	}
 
-	function LoadChildren($projectid)
+	public function LoadChildren($projectid)
 	{
 		$projectids = $this->GetProjectChildren($projectid, true);
 		return $this->LoadProjects($projectids);
 	}
 
-	function LoadParents($projectid)
+	public function LoadParents($projectid)
 	{
 		$projectids = $this->GetProjectParents($projectid, true);
 		return $this->LoadProjects($projectids);
 	}
 
-	function LoadByWO($jcn, $seq)
+	public function LoadByWO($jcn, $seq)
 	{
 		$this->Clear();
 
@@ -294,7 +292,7 @@ class dbProjectmap extends dclDB
 		return $this->GetRow();
 	}
 
-	function LoadByWOFilter($jcn, $seq, $seqonly = false, $allforjcn = false)
+	public function LoadByWOFilter($jcn, $seq, $seqonly = false, $allforjcn = false)
 	{
 		$query = "SELECT projectid, jcn, seq FROM projectmap WHERE jcn=$jcn";
 		if ($allforjcn == false)
@@ -310,9 +308,8 @@ class dbProjectmap extends dclDB
 			return -1;
 	}
 	
-	function MapAllExcept($iProjectID, $iID, $iSeq)
+	public function MapAllExcept($iProjectID, $iID, $iSeq)
 	{
 		$this->Execute("INSERT INTO projectmap SELECT $iProjectID, jcn, seq FROM workorders WHERE jcn = $iID AND seq != $iSeq");
 	}
 }
-?>

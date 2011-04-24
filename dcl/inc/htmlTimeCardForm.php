@@ -121,7 +121,7 @@ class htmlTimeCardForm
 		{
 			$aOrgID = array();
 			$aOrgName = array();
-			$objPM = new dbProjectmap();
+			$objPM = new ProjectMapModel();
 			if ($objPM->LoadByWO($jcn, $seq) != -1)
 			{
 				$objDBPrj = new dbProjects();

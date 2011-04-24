@@ -92,7 +92,7 @@ class boWorkorders
 		$oWO = new dbWorkorders();
 		$oWO->Load($iID, $iSeq);
 		
-		$oProject = new dbProjectmap();
+		$oProject = new ProjectMapModel();
 		if ($oProject->LoadByWO($iID, $iSeq) != -1)
 			$_REQUEST['projectid'] = $oProject->projectid;
 			
@@ -215,7 +215,7 @@ class boWorkorders
 			{
 				if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK, $iProjID))
 				{
-					$objPM = new dbProjectmap();
+					$objPM = new ProjectMapModel();
 					$objPM->projectid = $iProjID;
 					$objPM->jcn = $objWorkorder->jcn;
 		
@@ -1334,7 +1334,7 @@ class boWorkorders
 		
 		$objWorkorder = new dbWorkorders();
 		$objTemp = new dbWorkorders();
-		$objProjectmap = new dbProjectmap();
+		$objProjectmap = new ProjectMapModel();
 		$objWtch = new boWatches();
 
 		while($data = fgetcsv($hFile, 1000))
