@@ -144,7 +144,7 @@ class boChecklists
 			throw new InvalidDataException();
 		}
 		
-		$o = new dbChklstTpl();
+		$o = new ChecklistTemplateModel();
 		if ($o->Load($iID) != -1)
 		{
 			$t = new DCL_Smarty();
@@ -212,7 +212,7 @@ class boChecklists
 		$oXML->ParseFile($tplFilePath);
 		$oXML->FindChildNode($oXML->root, 'CurrentState');
 
-		$oTpl = new dbChklstTpl();
+		$oTpl = new ChecklistTemplateModel();
 		if ($oTpl->Load($iID) == -1)
 			return;
 

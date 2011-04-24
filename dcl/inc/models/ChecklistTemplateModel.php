@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,11 +21,11 @@
  */
 
 LoadStringResource('db');
-class dbChklstTpl extends dclDB
+class ChecklistTemplateModel extends dclDB
 {
-	function dbChklstTpl()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_chklst_tpl';
 		LoadSchema($this->TableName);
 
@@ -36,17 +34,17 @@ class dbChklstTpl extends dclDB
 		parent::Clear();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('dcl_chklst_tpl_id' => $this->dcl_chklst_tpl_id));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('dcl_chklst_tpl_id' => $id));
 	}
 	
-	function HasChecklists($id)
+	public function HasChecklists($id)
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) == NULL)
 		{
@@ -56,4 +54,3 @@ class dbChklstTpl extends dclDB
 		return $this->ExecuteScalar('select count(*) from dcl_chklst where dcl_chklst_tpl_id = ' . $id) > 0;
 	}
 }
-?>

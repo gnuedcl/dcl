@@ -47,7 +47,7 @@ class htmlChklstTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_MODIFY, $id))
 			throw new PermissionDeniedException();
 
-		$o = new dbChklstTpl();
+		$o = new ChecklistTemplateModel();
 		if ($o->Load($id) == -1)
 		    return;
 

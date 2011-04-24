@@ -83,7 +83,7 @@ class boChecklistTpl
 		$oView->startrow = $startrow;
 		$oView->numrows = $numrows;
 
-		$oDB = new dbChklstTpl();
+		$oDB = new ChecklistTemplateModel();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
@@ -193,7 +193,7 @@ class boChecklistTpl
 				}
 
 				echo htmlspecialchars($sName);
-				$o = new dbChklstTpl();
+				$o = new ChecklistTemplateModel();
 				$o->dcl_chklst_tpl_name = $sName;
 				$o->Add();
 				if (IsSet($o->dcl_chklst_tpl_id))
@@ -235,7 +235,7 @@ class boChecklistTpl
 			throw new InvalidDataException();
 		}
 		
-		$o = new dbChklstTpl();
+		$o = new ChecklistTemplateModel();
 		if ($o->Load($iID) != -1)
 		{
 			$sFileName = @DCL_Sanitize::ToFileName('userfile');
@@ -303,7 +303,7 @@ class boChecklistTpl
 			throw new InvalidDataException();
 		}
 		
-		$o = new dbChklstTpl();
+		$o = new ChecklistTemplateModel();
 		if ($o->Load($iID) != -1)
 			ShowDeleteYesNo(STR_CHK_CHECKLISTTEMPLATE, 'boChecklistTpl.dbdelete', $o->dcl_chklst_tpl_id, $o->dcl_chklst_tpl_name, true, 'dcl_chklst_tpl_id');
 	}
@@ -321,7 +321,7 @@ class boChecklistTpl
 			throw new InvalidDataException();
 		}
 		
-		$o = new dbChklstTpl();
+		$o = new ChecklistTemplateModel();
 		if ($o->HasChecklists($iID))
 		{
 			// records? - deactivate it
