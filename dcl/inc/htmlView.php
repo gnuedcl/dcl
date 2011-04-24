@@ -168,10 +168,10 @@ class htmlView
 				$whatObject = 'dbProjects';
 				break;
 			case 'dcl_chklst':
-				$whatObject = 'dbChklst';
+				$whatObject = 'ChecklistModel';
 				break;
 			case 'dcl_chklst_tpl':
-				$whatObject = 'dbChklstTpl';
+				$whatObject = 'ChecklistTemplateModel';
 				break;
 			case 'dcl_product_module':
 				$whatObject = 'dbProductModules';
