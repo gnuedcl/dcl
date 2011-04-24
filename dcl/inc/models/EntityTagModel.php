@@ -23,9 +23,9 @@
 LoadStringResource('db');
 class EntityTagModel extends dclDB
 {
-	public function EntityTagModel()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_entity_tag';
 		LoadSchema($this->TableName);
 		
