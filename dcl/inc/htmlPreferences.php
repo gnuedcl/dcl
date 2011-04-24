@@ -46,7 +46,7 @@ class htmlPreferences
 		$t->assign('CMB_DEFAULTTEMPLATESET', $o->GetTemplatesCombo('DCL_PREF_TEMPLATE_SET', GetDefaultTemplateSet()));
 
 		$lang = $dcl_info['DCL_DEFAULT_LANGUAGE'];
-		$oPrefs = new dbPreferences();
+		$oPrefs = new PreferencesModel();
 		$oPrefs->preferences_data = $g_oSession->Value('dcl_preferences');
 		if (isset($oPrefs->preferences_data) && is_array($oPrefs->preferences_data))
 		{
@@ -75,7 +75,7 @@ class htmlPreferences
 			throw new PermissionDeniedException();
 			
 		$bHasChanges = false;
-		$o = new dbPreferences();
+		$o = new PreferencesModel();
 		$o->personnel_id = $GLOBALS['DCLID'];
 		$o->preferences_data = $g_oSession->Value('dcl_preferences');
 		if (!isset($o->preferences_data) || !is_array($o->preferences_data) || count($o->preferences_data) < 1)

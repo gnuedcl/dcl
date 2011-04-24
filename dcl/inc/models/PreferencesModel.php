@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,11 +21,11 @@
  */
 
 //LoadStringResource('db');
-class dbPreferences extends dclDB
+class PreferencesModel extends dclDB
 {
-	function dbPreferences()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_preferences';
 		$this->cacheEnabled = true;
 
@@ -38,7 +36,7 @@ class dbPreferences extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		$this->preferences_data = serialize($this->preferences_data);
 		$iRetVal = parent::Add();
@@ -47,7 +45,7 @@ class dbPreferences extends dclDB
 		return $iRetVal;
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		$this->preferences_data = serialize($this->preferences_data);
 		$iRetVal = parent::Edit();
@@ -56,12 +54,12 @@ class dbPreferences extends dclDB
 		return $iRetVal;
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('personnel_id' => $this->personnel_id));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		$iRetVal = parent::Load(array('personnel_id' => $id), false);
 		if ($iRetVal != -1 && is_string($this->preferences_data))
@@ -70,18 +68,18 @@ class dbPreferences extends dclDB
 		return $iRetVal;
 	}
 
-	function Register($sName, $sValue)
+	public function Register($sName, $sValue)
 	{
 		$this->preferences_data[$sName] = $sValue;
 	}
 
-	function Unregister($sName)
+	public function Unregister($sName)
 	{
 		if (isset($this->preferences_data[$sName]))
 			unset($this->preferences_data[$sName]);
 	}
 
-	function Value($sName)
+	public function Value($sName)
 	{
 		if (isset($this->preferences_data[$sName]))
 			return $this->preferences_data[$sName];
@@ -89,10 +87,9 @@ class dbPreferences extends dclDB
 		return null;
 	}
 
-	function Clear()
+	public function Clear()
 	{
 		parent::Clear();
 		$this->preferences_data = array();
 	}
 }
-?>

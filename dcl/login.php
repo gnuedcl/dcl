@@ -148,7 +148,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			$g_oSession->personnel_id = $authInfo['id'];
 			$g_oSession->Add();
 
-			$oPreferences = new dbPreferences();
+			$oPreferences = new PreferencesModel();
 			$oPreferences->Load($authInfo['id']);
 
 			// Save the user ID and copy it to global space so Security object can use the info

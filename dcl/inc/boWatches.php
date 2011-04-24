@@ -334,7 +334,7 @@ class boWatches
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createby, $bIsPublic))
 			{
-				$oPrefs = new dbPreferences();
+				$oPrefs = new PreferencesModel();
 				if ($oPrefs->Load($obj->createby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
 				{
 					if ($bIsPublic)
@@ -517,7 +517,7 @@ class boWatches
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createdby, $bIsPublic))
 			{
-				$oPrefs = new dbPreferences();
+				$oPrefs = new PreferencesModel();
 				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
 				{
 					if ($bIsPublic)

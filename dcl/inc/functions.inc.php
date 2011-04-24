@@ -269,7 +269,7 @@ function GetPrefLang()
 	$lang = '';
 	if (is_object($g_oSession))
 	{
-		$oPrefs = new dbPreferences();
+		$oPrefs = new PreferencesModel();
 		$oPrefs->preferences_data = $g_oSession->Value('dcl_preferences');
 
 		$lang = $oPrefs->Value('DCL_PREF_LANGUAGE');
@@ -444,7 +444,7 @@ function GetDefaultTemplateSet()
 
 	if (isset($g_oSession) || is_object($g_oSession))
 	{
-		$o = new dbPreferences();
+		$o = new PreferencesModel();
 		$o->preferences_data = $g_oSession->Value('dcl_preferences');
 
 		if (IsTemplateValid($o->Value('DCL_PREF_TEMPLATE_SET')))
