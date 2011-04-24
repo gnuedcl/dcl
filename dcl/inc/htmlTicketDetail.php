@@ -94,7 +94,7 @@ class htmlTicketDetail
 			$oSmarty->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_TICKET, $obj->ticketid));
 		}
 
-		$oTR = new dbTicketresolutions();
+		$oTR = new TicketResolutionsModel();
 		$oSmarty->assign('VAL_RESOLUTIONS', $oTR->GetResolutionsArray($obj->ticketid));
 
 		$oSmarty->assign('PERM_ACTION', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION));

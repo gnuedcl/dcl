@@ -250,7 +250,7 @@ class boWorkorders
 		{
 			if (($iTicketID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) !== null && $iTicketID > 0)
 			{
-				$oTR = new dbTicketresolutions();
+				$oTR = new TicketResolutionsModel();
 				$oTR->ticketid = $iTicketID;
 				$oTR->loggedby = $GLOBALS['DCLID'];
 				$oTR->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);

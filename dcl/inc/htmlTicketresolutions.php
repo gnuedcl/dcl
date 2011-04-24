@@ -46,7 +46,7 @@ class htmlTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$oResolution = new dbTicketresolutions();
+		$oResolution = new TicketResolutionsModel();
 		if ($oResolution->Load($id) == -1)
 			return;
 			
@@ -92,7 +92,7 @@ class htmlTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		$oResolution = new dbTicketresolutions();
+		$oResolution = new TicketResolutionsModel();
 		if ($oResolution->Load($id) == -1)
 			return;
 			
@@ -119,7 +119,7 @@ class htmlTicketresolutions
 			throw new InvalidDataException();
 		}
 		
-		$oResolution = new dbTicketresolutions();
+		$oResolution = new TicketResolutionsModel();
 		if ($oResolution->Load($id) == -1)
 			return;
 			

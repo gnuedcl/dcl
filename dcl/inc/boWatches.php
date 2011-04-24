@@ -457,7 +457,7 @@ class boWatches
 		$t = new DCL_Smarty();
 		$t->assign_by_ref('obj', $obj);
 		
-		$objTR = new dbTicketresolutions();
+		$objTR = new TicketResolutionsModel();
 		$t->assign('VAL_RESOLUTIONS', $objTR->GetResolutionsArray($obj->ticketid, $bIsPublic));
 		
 		if ($bIsPublic)

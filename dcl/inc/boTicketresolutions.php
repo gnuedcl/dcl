@@ -30,7 +30,7 @@ class boTicketresolutions
 	
 	function boTicketresolutions()
 	{
-		$this->oDB = new dbTicketresolutions();
+		$this->oDB = new TicketResolutionsModel();
 	}
 
 	function add()
@@ -223,7 +223,7 @@ class boTicketresolutions
 		// Get the next resolution issued after this one.  If not, assume
 		// that this resolution was the last one entered and affected the ticket
 		// status when input.
-		$oQueryTR = new dbTicketresolutions();
+		$oQueryTR = new TicketResolutionsModel();
 		if ($oQueryTR->Load($aSource['resid']) == -1)
 			return;
 			

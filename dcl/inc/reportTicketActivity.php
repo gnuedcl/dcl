@@ -69,7 +69,7 @@ class reportTicketActivity
 		$oMeta = new DCL_MetadataDisplay();
 
 		$obj = new dbTickets();
-		$objT = new dbTicketresolutions();
+		$objT = new TicketResolutionsModel();
 
 		$sColumns = $obj->SelectAllColumns('a.');
 		$query = 'select ' . $sColumns . ' from tickets a, ticketresolutions b where a.ticketid=b.ticketid and b.loggedby=' . $responsible;

@@ -111,7 +111,7 @@ class boTickets
 
 		if (IsSet($_REQUEST['resolution']) && $_REQUEST['resolution'] != '')
 		{
-			$objR = new dbTicketresolutions();
+			$objR = new TicketResolutionsModel();
 			$objR->InitFromGlobals();
 			$objR->loggedby = $GLOBALS['DCLID'];
 			$objR->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);

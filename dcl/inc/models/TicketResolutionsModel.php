@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,23 +22,23 @@
 
 LoadStringResource('db');
 
-class dbTicketresolutions extends dclDB
+class TicketResolutionsModel extends dclDB
 {
-	function dbTicketresolutions()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'ticketresolutions';
 		LoadSchema($this->TableName);
 
 		parent::Clear();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('resid' => $this->resid));
 	}
 
-	function GetHoursText($oStartedOn = null, $oLoggedOn = null)
+	public function GetHoursText($oStartedOn = null, $oLoggedOn = null)
 	{
 		$start = new DCLTimestamp;
 		if ($oStartedOn === null)
@@ -64,12 +62,12 @@ class dbTicketresolutions extends dclDB
 		return sprintf('%02d:%02d:%02d', $hh, $mm, $ss);
 	}
 
-	function Load($resid)
+	public function Load($resid)
 	{
 		return parent::Load(array('resid' => $resid));
 	}
 
-	function GetResolutions($ticketid)
+	public function GetResolutions($ticketid)
 	{
 		global $dcl_info, $g_oSec;
 
@@ -90,7 +88,7 @@ class dbTicketresolutions extends dclDB
 		return 1;
 	}
 
-	function GetResolutionsArray($ticketid)
+	public function GetResolutionsArray($ticketid)
 	{
 		if ($this->GetResolutions($ticketid) == -1)
 			return -1;
@@ -115,17 +113,17 @@ class dbTicketresolutions extends dclDB
 		return $aRetVal;
 	}
 	
-	function IsLastResolution($iTicketID, $iResID)
+	public function IsLastResolution($iTicketID, $iResID)
 	{
 		return ($this->ExecuteScalar("SELECT COUNT(*) FROM ticketresolutions WHERE resid > $iResID AND ticketid = $iTicketID") == 0);
 	}
 	
-	function GetNextResolutionID($iResID, $iTicketID)
+	public function GetNextResolutionID($iResID, $iTicketID)
 	{
 		return $this->ExecuteScalar("SELECT MIN(resid) FROM ticketresolutions WHERE resid > $iResID AND ticketid = $iTicketID");
 	}
 	
-	function GetPrevResolutionID($iResID, $iTicketID)
+	public function GetPrevResolutionID($iResID, $iTicketID)
 	{
 		return $this->ExecuteScalar("SELECT MAX(resid) FROM ticketresolutions WHERE resid < $iResID AND ticketid = $iTicketID");
 	}
