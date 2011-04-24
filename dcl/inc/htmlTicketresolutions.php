@@ -207,7 +207,7 @@ class htmlTicketresolutions
 			
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
 			{
-				$oTag = new dbEntityTag();
+				$oTag = new EntityTagModel();
 				$t->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $ticketid));
 			}
 		}

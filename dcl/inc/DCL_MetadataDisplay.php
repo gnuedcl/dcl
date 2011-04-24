@@ -421,7 +421,7 @@ class DCL_MetadataDisplay
 			return '';
 			
 		if ($this->oTag == null)
-			$this->oTag = new dbEntityTag();
+			$this->oTag = new EntityTagModel();
 			
 		return $this->oTag->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}

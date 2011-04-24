@@ -83,7 +83,7 @@ class htmlTags
 		if (!isset($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')
 			return $this->cloud();
 			
-		$oDB = new dbEntityTag();
+		$oDB = new EntityTagModel();
 		$oDB->listByTag($_REQUEST['tag']);
 		
 		$allRecs = $oDB->FetchAllRows();
@@ -94,7 +94,7 @@ class htmlTags
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
 		$oTable->addColumn(STR_CMMN_TAGS, 'string');
 		
-		$oTagDB = new dbEntityTag();
+		$oTagDB = new EntityTagModel();
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
 			$sTags = $oTagDB->getTagsForEntity($allRecs[$i][0], $allRecs[$i][1], $allRecs[$i][2]);

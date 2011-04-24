@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +21,9 @@
  */
 
 LoadStringResource('db');
-class dbEntityTag extends dclDB
+class EntityTagModel extends dclDB
 {
-	function dbEntityTag()
+	public function EntityTagModel()
 	{
 		parent::dclDB();
 		$this->TableName = 'dcl_entity_tag';
@@ -34,7 +32,7 @@ class dbEntityTag extends dclDB
 		parent::Clear();
 	}
 	
-	function deleteByEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	public function deleteByEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -46,7 +44,7 @@ class dbEntityTag extends dclDB
 			$this->Execute("DELETE FROM dcl_entity_tag WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id");
 	}
 	
-	function serialize($entity_id, $entity_key_id, $entity_key_id2, $sTags, $bAddOnly = false)
+	public function serialize($entity_id, $entity_key_id, $entity_key_id2, $sTags, $bAddOnly = false)
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -107,7 +105,7 @@ class dbEntityTag extends dclDB
 		}
 	}
 	
-	function getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	public function getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -133,7 +131,7 @@ class dbEntityTag extends dclDB
 		return $sTags;
 	}
 	
-	function listByTag($sTags)
+	public function listByTag($sTags)
 	{
 		global $g_oSec, $g_oSession;
 		

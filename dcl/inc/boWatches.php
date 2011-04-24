@@ -254,7 +254,7 @@ class boWatches
 		$t = new DCL_Smarty();
 		$t->assign_by_ref('obj', $obj);
 
-		$dbEntityTag = new dbEntityTag();
+		$dbEntityTag = new EntityTagModel();
 		$t->assign('VAL_TAGS', str_replace(',', ', ', $dbEntityTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $obj->jcn, $obj->seq)));
 
 		$dbEntityHotlist = new EntityHotlistModel();

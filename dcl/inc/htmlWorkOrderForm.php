@@ -168,7 +168,7 @@ class htmlWorkOrderForm
 				$this->oSmarty->assign('VAL_CONTACTS', $oSource->contact_id);
 			}
 			
-			$oTag = new dbEntityTag();
+			$oTag = new EntityTagModel();
 			if ($isTicket)
 				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $oSource->ticketid));
 			else

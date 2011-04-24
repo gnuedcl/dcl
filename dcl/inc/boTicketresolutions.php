@@ -122,7 +122,7 @@ class boTicketresolutions
 		
 		if (isset($_REQUEST['tags']) && $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
 		{
-			$oTag = new dbEntityTag();
+			$oTag = new EntityTagModel();
 			$oTag->serialize(DCL_ENTITY_TICKET, $iID, 0, $_REQUEST['tags']);
 		}
 

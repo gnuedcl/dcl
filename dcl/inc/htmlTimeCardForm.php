@@ -141,7 +141,7 @@ class htmlTimeCardForm
 				$aOrgName[] = $oOrgs->oDB->f(1);
 			}
 			
-			$oTag = new dbEntityTag();
+			$oTag = new EntityTagModel();
 			$oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $jcn, $seq));
 
 			$oHotlist = new EntityHotlistModel();

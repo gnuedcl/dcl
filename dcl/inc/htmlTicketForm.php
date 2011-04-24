@@ -112,7 +112,7 @@ class htmlTicketForm
 			$oSmarty->assign('VAL_TICKETID', $obj->ticketid);
 			$oSmarty->assign('VAL_STATUS', $obj->status);
 			
-			$oTag = new dbEntityTag();
+			$oTag = new EntityTagModel();
 			$oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_TICKET, $obj->ticketid));
 		}
 		else

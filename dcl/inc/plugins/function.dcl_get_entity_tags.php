@@ -44,7 +44,7 @@ function smarty_function_dcl_get_entity_tags($params, &$smarty)
 		return;
 	}
 	
-	$oEntityTag = new dbEntityTag();
+	$oEntityTag = new EntityTagModel();
 	$sValue = $oEntityTag->getTagsForEntity($params['entity'], $params['key_id'], $params['key_id2']);
 	if ($sValue == '')
 		return;

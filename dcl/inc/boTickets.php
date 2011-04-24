@@ -93,7 +93,7 @@ class boTickets
 		// Tags
 		if (isset($_REQUEST['tags']))
 		{
-			$oTag = new dbEntityTag();
+			$oTag = new EntityTagModel();
 			$oTag->serialize(DCL_ENTITY_TICKET, $obj->ticketid, 0, $_REQUEST['tags']);
 		}
 
@@ -284,7 +284,7 @@ class boTickets
 
 		if (isset($_REQUEST['tags']))
 		{
-			$oTag = new dbEntityTag();
+			$oTag = new EntityTagModel();
 			$oTag->serialize(DCL_ENTITY_TICKET, $obj->ticketid, 0, $_REQUEST['tags']);
 		}
 		
@@ -352,7 +352,7 @@ class boTickets
 		$obj->Delete();
 
 		// Remove tags
-		$oTag = new dbEntityTag();
+		$oTag = new EntityTagModel();
 		$oTag->deleteByEntity(DCL_ENTITY_TICKET, $iID, 0);
 
 		// Remove all attachments

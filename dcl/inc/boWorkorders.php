@@ -198,7 +198,7 @@ class boWorkorders
 		
 		if (isset($_REQUEST['tags']))
 		{
-			$oTag = new dbEntityTag();
+			$oTag = new EntityTagModel();
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
 		}
 
@@ -373,7 +373,7 @@ class boWorkorders
 
 		if (isset($_REQUEST['tags']))
 		{
-			$oTag = new dbEntityTag();
+			$oTag = new EntityTagModel();
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
 		}
 		
@@ -476,7 +476,7 @@ class boWorkorders
 		$oTasks->DeleteByWorkOrder($iID, $iSeq);
 		
 		// Remove tags
-		$oTag = new dbEntityTag();
+		$oTag = new EntityTagModel();
 		$oTag->deleteByEntity(DCL_ENTITY_WORKORDER, $iID, $iSeq);
 
 		// Remove from hotlists
