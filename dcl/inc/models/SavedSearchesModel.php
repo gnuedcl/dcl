@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,28 +22,28 @@
 
 LoadStringResource('db');
 
-class dbViews extends dclDB
+class SavedSearchesModel extends dclDB
 {
-	function dbViews()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'views';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('viewid' => $this->viewid));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('viewid' => $id));
 	}
 	
-	function ListByUser($user_id, $entity_id)
+	public function ListByUser($user_id, $entity_id)
 	{
 		$sTable = 'workorders';
 		if ($entity_id == DCL_ENTITY_TICKET)
@@ -54,4 +52,3 @@ class dbViews extends dclDB
 		return $this->Query('SELECT ' . $this->SelectAllColumns() . ' FROM ' . $this->TableName . ' WHERE whoid = ' . $user_id . " AND tablename = " . $this->Quote($sTable) . ' ORDER BY name'); 
 	}
 }
-?>

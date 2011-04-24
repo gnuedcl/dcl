@@ -39,7 +39,7 @@ class htmlWOSearches
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 			throw new PermissionDeniedException();
 
-		$oDB = new dbViews();
+		$oDB = new SavedSearchesModel();
 		if ($oDB->Load($id) != -1)
 		{
 			$oView = new boView();

@@ -519,7 +519,7 @@ function buildMenuArray()
 		$aViews = array();
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			$oDB = new dbViews();
+			$oDB = new SavedSearchesModel();
 			if ($oDB->ListByUser($GLOBALS['DCLID'], DCL_ENTITY_WORKORDER) !== -1)
 			{
 				while ($oDB->next_record())
@@ -558,7 +558,7 @@ function buildMenuArray()
 		$aViews = array();
 		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 		{
-			$oDB = new dbViews();
+			$oDB = new SavedSearchesModel();
 			if ($oDB->ListByUser($GLOBALS['DCLID'], DCL_ENTITY_TICKET) !== -1)
 			{
 				while ($oDB->next_record())

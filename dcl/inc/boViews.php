@@ -47,7 +47,7 @@ class boViews
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$objDB = new dbViews();
+		$objDB = new SavedSearchesModel();
 		$objDB->InitFromGlobals();
 
 		$objView = new boView();
@@ -70,7 +70,7 @@ class boViews
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbViews();
+		$obj = new SavedSearchesModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -97,7 +97,7 @@ class boViews
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbViews();
+		$obj = new SavedSearchesModel();
 		if ($obj->Load($iID) == -1)
 			return;
 
@@ -128,7 +128,7 @@ class boViews
 			throw new InvalidDataException();
 		}
 		
-		$objDB = new dbViews();
+		$objDB = new SavedSearchesModel();
 		if ($objDB->Load($iID) == -1)
 			return;
 

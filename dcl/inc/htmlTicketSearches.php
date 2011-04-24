@@ -35,7 +35,7 @@ class htmlTicketSearches
 			throw new InvalidDataException();
 		}
 		
-		$oDB = new dbViews();
+		$oDB = new SavedSearchesModel();
 		if ($oDB->Load($id) != -1)
 		{
 			$oView = new boView();
