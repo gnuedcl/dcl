@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,20 +21,20 @@
  */
 
 LoadStringResource('db');
-class dbWorkOrderAccount extends dclDB
+class WorkOrderOrganizationModel extends dclDB
 {
 	var $account_name; // not part of table, but useful for Load
 
-	function dbWorkOrderAccount()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_wo_account';
 		LoadSchema($this->TableName);
 		$this->AuditEnabled = true;
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		if (!$this->Exists(array('wo_id' => $this->wo_id, 'seq' => $this->seq, 'account_id' => $this->account_id)))
 		{
@@ -56,17 +54,17 @@ class dbWorkOrderAccount extends dclDB
 		}
 	}
 
-	function Edit()
+	public function Edit()
 	{
-		// Why???
+		// Do nothing
 	}
 
-	function Delete($wo_id, $seq, $account_id)
+	public function Delete($wo_id, $seq, $account_id)
 	{
 		parent::Delete(array('wo_id' => $wo_id, 'seq' => $seq, 'account_id' => $account_id));
 	}
 
-	function AuditWorkOrderList($jcn, $seq)
+	public function AuditWorkOrderList($jcn, $seq)
 	{
 		$aRetVal = array();
 
@@ -83,7 +81,7 @@ class dbWorkOrderAccount extends dclDB
 		return $aRetVal;
 	}
 
-	function DeleteByWorkOrder($wo_id, $seq, $account_id_keep = '')
+	public function DeleteByWorkOrder($wo_id, $seq, $account_id_keep = '')
 	{
 		$sWhere = "WHERE wo_id = $wo_id AND seq = $seq";
 		if ($account_id_keep != '')
@@ -94,7 +92,7 @@ class dbWorkOrderAccount extends dclDB
 		return $this->Execute("DELETE FROM dcl_wo_account $sWhere");
 	}
 
-	function GetRow()
+	public function GetRow()
 	{
 		if (!$this->res || count($this->Record) < 1)
 			return -1;
@@ -105,7 +103,7 @@ class dbWorkOrderAccount extends dclDB
 		$this->account_name = $this->f('name');
 	}
 
-	function Load($wo_id, $seq)
+	public function Load($wo_id, $seq)
 	{
 		$this->Clear();
 
@@ -120,4 +118,3 @@ class dbWorkOrderAccount extends dclDB
 		return $this->GetRow();
 	}
 }
-?>

@@ -69,7 +69,7 @@ class htmlAudit
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetWorkOrder($id, $id2));
 				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boWorkorders.viewjcn&jcn=$id&seq=$id2"));
 
-				$oAccount = new dbWorkOrderAccount();
+				$oAccount = new WorkOrderOrganizationModel();
 				$this->aAuditAccount = $oAccount->AuditWorkOrderList($id, $id2);
 
 				$oProject = new ProjectMapModel();

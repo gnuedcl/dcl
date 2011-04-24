@@ -169,7 +169,7 @@ class boWorkorders
 				$aAccounts = explode(',', $_REQUEST['secaccounts']);
 				if (count($aAccounts) > 0)
 				{
-					$oWOA = new dbWorkOrderAccount();
+					$oWOA = new WorkOrderOrganizationModel();
 					$oWOA->wo_id = $objWorkorder->jcn;
 					$oWOA->seq = $objWorkorder->seq;
 
@@ -188,7 +188,7 @@ class boWorkorders
 		{
 			if (($iOrgID = @DCL_Sanitize::ToInt($_REQUEST['secaccounts'])) !== null && $iOrgID > 0)
 			{
-				$oWOA = new dbWorkOrderAccount();
+				$oWOA = new WorkOrderOrganizationModel();
 				$oWOA->wo_id = $objWorkorder->jcn;
 				$oWOA->seq = $objWorkorder->seq;
 				$oWOA->account_id = $iOrgID;
@@ -341,7 +341,7 @@ class boWorkorders
 		if ($bModified)
 			$objWorkorder->Edit();
 
-		$oWOA = new dbWorkOrderAccount();
+		$oWOA = new WorkOrderOrganizationModel();
 		if (IsSet($_REQUEST['secaccounts']))
 		{
 			$aAccounts = @DCL_Sanitize::ToIntArray($_REQUEST['secaccounts']);
@@ -443,7 +443,7 @@ class boWorkorders
 		// Remove secondary accounts
 		if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y')
 		{
-			$oWOA = new dbWorkOrderAccount();
+			$oWOA = new WorkOrderOrganizationModel();
 			$oWOA->DeleteByWorkOrder($iID, $iSeq);
 		}
 
@@ -455,7 +455,7 @@ class boWorkorders
 		$obj->Delete();
 
 		// Remove account references
-		$oWOA = new dbWorkOrderAccount();
+		$oWOA = new WorkOrderOrganizationModel();
 		$oWOA->DeleteByWorkOrder($obj->jcn, $obj->seq);
 
 		// Remove all attachments

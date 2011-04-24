@@ -247,7 +247,7 @@ class dbWorkorders extends dclDB
 			{
 				if ($obj->jcn != $this->iWoid || $obj->seq != $this->iSeq)
 				{
-					$oWOA = new dbWorkOrderAccount();
+					$oWOA = new WorkOrderOrganizationModel();
 					if ($oWOA->Load($obj->jcn, $obj->seq) != -1)
 					{
 						$this->iWoid = $obj->jcn;

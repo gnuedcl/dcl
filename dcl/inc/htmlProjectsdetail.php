@@ -150,7 +150,7 @@ class htmlProjectsdetail
 				$aTasks = array();
 
 				$objHWO = new htmlWorkorders();
-				$objWOAcct = new dbWorkOrderAccount();
+				$objWOAcct = new WorkOrderOrganizationModel();
 				$oDate = new DCLDate;
 
 				for ($i = 0; $i < count($allRecs); $i++)

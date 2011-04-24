@@ -169,7 +169,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 				return;
 			}
 
-			$oAcct = new dbWorkOrderAccount();
+			$oAcct = new WorkOrderOrganizationModel();
 			$aOrgs = array();
 			if ($oAcct->Load($params['value'], $params['value2']) != -1)
 			{

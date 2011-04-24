@@ -132,7 +132,7 @@ class boTimecards
 		// * Organizations - only if multiple are allowed to improve workflow
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY) && $dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y')
 		{
-			$oWOA = new dbWorkOrderAccount();
+			$oWOA = new WorkOrderOrganizationModel();
 			if (IsSet($_REQUEST['secaccounts']))
 			{
 				$aAccounts = @DCL_Sanitize::ToIntArray($_REQUEST['secaccounts']);

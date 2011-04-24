@@ -123,7 +123,7 @@ class htmlWorkOrderDetail
 			$oSmarty->assign('VAL_PROJECTS', $oProjects->GetProjectPath($objWorkOrder->jcn, $objWorkOrder->seq));
 		}
 
-		$oAcct = new dbWorkOrderAccount();
+		$oAcct = new WorkOrderOrganizationModel();
 		if ($oAcct->Load($objWorkOrder->jcn, $objWorkOrder->seq) != -1)
 		{
 			$aOrgs = array();
