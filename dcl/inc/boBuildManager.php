@@ -101,7 +101,7 @@ class boBuildManager
 		
 		global $init;
 		
-		$oDB = new dbProductBuild();
+		$oDB = new ProductBuildModel();
 		$oDB->InitFrom_Post();
 		if ($init == 0)
 		{

@@ -210,7 +210,7 @@ class ProductController extends AbstractController
 		if ($model->Load($id) == -1)
 			throw new InvalidEntityException();
 
-		$buildModel = new dbProductBuild();
+		$buildModel = new ProductBuildModel();
 		if ($buildModel->Load($versionId) == -1)
 			throw new InvalidEntityException();
 

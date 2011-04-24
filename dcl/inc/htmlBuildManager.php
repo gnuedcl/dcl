@@ -68,7 +68,7 @@ class htmlBuildManager
 	
 	function GetBuildCombo($default = 0, $cbName = 'product_build_descr', $longShort = 'product_build_descr', $validate=0, $versionid,$size = 0, $activeOnly = true, $minsec = 0)
 	{
-		$objDBRDate = new dbProductBuild();
+		$objDBRDate = new ProductBuildModel();
 		$objDBRDate->Connect();
 
 		$whereClause = '';
@@ -216,7 +216,7 @@ class htmlBuildManager
 		$oVersion = new dbProductVersion();
 		$oVersion->Load(array('product_version_id' => $product_version_id));
 
-		$oPB = new dbProductBuild();
+		$oPB = new ProductBuildModel();
 		if ($oPB->Load(array('product_build_id' => $buildid)) == -1)
 		{
 			ShowError('Failed to load build ID ' . $buildid, 'Error');
@@ -239,7 +239,7 @@ class htmlBuildManager
 	{
 		commonHeader();
 
-		$oBuild = new dbProductBuild();
+		$oBuild = new ProductBuildModel();
 		$oBuild->Load(array('product_build_id' => $_REQUEST['product_build_id']));
 		
 		$oVersion = new dbProductVersion();

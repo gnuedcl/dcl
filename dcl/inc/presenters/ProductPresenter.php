@@ -313,7 +313,7 @@ class ProductPresenter
 		$objHV->Render($sqlHelper);
 	}
 
-	public function DetailBuild(ProductModel $model, dbProductBuild $productBuildModel)
+	public function DetailBuild(ProductModel $model, ProductBuildModel $productBuildModel)
 	{
 		global $g_oSec;
 
