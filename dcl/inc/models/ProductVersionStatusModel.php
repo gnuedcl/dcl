@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,20 +21,19 @@
  */
 
 LoadStringResource('db');
-class dbProductVersionStatus extends dclDB
+class ProductVersionStatusModel extends dclDB
 {
-	function dbProductVersionStatus()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_product_version_status';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 	
-	function Load($jcn, $seq)
+	public function Load($jcn, $seq)
 	{
 		return parent::Load(array('entity_id' => $jcn, 'entity_id2' => $seq));
 	}
 }
-?>
