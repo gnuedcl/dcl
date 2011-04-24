@@ -435,7 +435,7 @@ class DCL_MetadataDisplay
 			return '';
 			
 		if ($this->oHotlist == null)
-			$this->oHotlist = new dbEntityHotlist();
+			$this->oHotlist = new EntityHotlistModel();
 			
 		return $this->oHotlist->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
@@ -449,7 +449,7 @@ class DCL_MetadataDisplay
 			return array();
 
 		if ($this->oHotlist == null)
-			$this->oHotlist = new dbEntityHotlist();
+			$this->oHotlist = new EntityHotlistModel();
 
 		return $this->oHotlist->getTagsWithPriorityForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}

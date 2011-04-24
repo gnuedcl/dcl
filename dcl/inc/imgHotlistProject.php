@@ -113,7 +113,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbEntityHotlist();
+		$oDB = new EntityHotlistModel();
 		if ($oDB->GetStatusCount($id) == -1)
 			exit;
 
@@ -132,7 +132,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbEntityHotlist();
+		$oDB = new EntityHotlistModel();
 		if ($oDB->GetDepartmentCount($id) == -1)
 			exit;
 
@@ -151,7 +151,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbEntityHotlist();
+		$oDB = new EntityHotlistModel();
 		if ($oDB->GetSeverityCount($id) == -1)
 			exit;
 
@@ -170,7 +170,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbEntityHotlist();
+		$oDB = new EntityHotlistModel();
 		if ($oDB->GetPriorityCount($id) == -1)
 			exit;
 
@@ -189,7 +189,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbEntityHotlist();
+		$oDB = new EntityHotlistModel();
 		if ($oDB->GetModuleCount($id) == -1)
 			exit;
 
@@ -208,7 +208,7 @@ class imgHotlistProject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbEntityHotlist();
+		$oDB = new EntityHotlistModel();
 		if ($oDB->GetTypeCount($id) == -1)
 			exit;
 

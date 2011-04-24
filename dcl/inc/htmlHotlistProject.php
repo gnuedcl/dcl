@@ -34,7 +34,7 @@ class htmlHotlistProject
 	function htmlHotlistProject()
 	{
 		$this->hotlist = new dbHotlist();
-		$this->entityHotlist = new dbEntityHotlist();
+		$this->entityHotlist = new EntityHotlistModel();
 		$this->oSmarty = new DCL_Smarty();
 	}
 
@@ -237,7 +237,7 @@ class htmlHotlistProject
 			return;
 		}
 
-		$entityHotlist = new dbEntityHotlist();
+		$entityHotlist = new EntityHotlistModel();
 
 		$arrayStats = $entityHotlist->GetWorkOrderStatistics($this->hotlist->hotlist_id);
 		$this->oSmarty->assign('VAL_TOTALTASKS', $arrayStats['totaltasks']);

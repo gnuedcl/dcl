@@ -174,7 +174,7 @@ class htmlWorkOrderForm
 			else
 				$this->oSmarty->assign('VAL_TAGS', $oTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $oSource->jcn, $oSource->seq));
 			
-			$oHotlist = new dbEntityHotlist();
+			$oHotlist = new EntityHotlistModel();
 			if ($isTicket)
 				$this->oSmarty->assign('VAL_HOTLIST', $oHotlist->getTagsForEntity(DCL_ENTITY_TICKET, $oSource->ticketid));
 			else

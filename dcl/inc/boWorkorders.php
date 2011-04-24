@@ -204,7 +204,7 @@ class boWorkorders
 
 		if (isset($_REQUEST['hotlist']))
 		{
-			$oHotlist = new dbEntityHotlist();
+			$oHotlist = new EntityHotlistModel();
 			$oHotlist->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
 		}
 
@@ -379,7 +379,7 @@ class boWorkorders
 		
 		if (isset($_REQUEST['hotlist']))
 		{
-			$oHotlist = new dbEntityHotlist();
+			$oHotlist = new EntityHotlistModel();
 			$oHotlist->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
 		}
 
@@ -480,7 +480,7 @@ class boWorkorders
 		$oTag->deleteByEntity(DCL_ENTITY_WORKORDER, $iID, $iSeq);
 
 		// Remove from hotlists
-		$oHotlist = new dbEntityHotlist();
+		$oHotlist = new EntityHotlistModel();
 		$oHotlist->deleteByEntity(DCL_ENTITY_WORKORDER, $iID, $iSeq);
 
 		trigger_error(sprintf(STR_BO_WORKORDERDELETED, $iID, $iSeq), E_USER_NOTICE);

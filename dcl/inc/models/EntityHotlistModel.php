@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbEntityHotlist extends dclDB
+class EntityHotlistModel extends dclDB
 {
-	function dbEntityHotlist()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_entity_hotlist';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 	
-	function deleteByEntity($entity_id, $entity_key_id, $entity_key_id2 = 0, $except_hotlist_id = '-1')
+	public function deleteByEntity($entity_id, $entity_key_id, $entity_key_id2 = 0, $except_hotlist_id = '-1')
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -50,7 +48,7 @@ class dbEntityHotlist extends dclDB
 		$this->Execute("DELETE FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2 AND hotlist_id NOT IN ($except_hotlist_id)");
 	}
 	
-	function serialize($entity_id, $entity_key_id, $entity_key_id2, $sHotlists, $bAddOnly = false)
+	public function serialize($entity_id, $entity_key_id, $entity_key_id2, $sHotlists, $bAddOnly = false)
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -117,7 +115,7 @@ class dbEntityHotlist extends dclDB
 		}
 	}
 	
-	function getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	public function getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -143,7 +141,7 @@ class dbEntityHotlist extends dclDB
 		return $sHotlists;
 	}
 	
-	function getTagsWithPriorityForEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	public function getTagsWithPriorityForEntity($entity_id, $entity_key_id, $entity_key_id2 = 0)
 	{
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
@@ -166,7 +164,7 @@ class dbEntityHotlist extends dclDB
 		return $aHotlists;
 	}
 
-	function setPriority($hotlistId, $aEntities)
+	public function setPriority($hotlistId, $aEntities)
 	{
 		$count = 1;
 		foreach ($aEntities as $entity)
@@ -182,7 +180,7 @@ class dbEntityHotlist extends dclDB
 		}
 	}
 	
-	function listByTag($sHotlists)
+	public function listByTag($sHotlists)
 	{
 		global $g_oSec;
 		
@@ -202,7 +200,7 @@ class dbEntityHotlist extends dclDB
 		return $this->listById($sID);
 	}
 	
-	function listById($sID, $includeClosed = true)
+	public function listById($sID, $includeClosed = true)
 	{
 		global $g_oSec, $g_oSession;
 		
@@ -426,7 +424,7 @@ class dbEntityHotlist extends dclDB
 		return $this->Query($sSQL . ' ORDER BY 11, 1, 2, 3');
 	}
 	
-	function GetStatusCount($hotlist_id)
+	public function GetStatusCount($hotlist_id)
 	{
 		$sql = 'SELECT s.name, count(*) FROM statuses s, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
 		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND s.id = w.status AND h.hotlist_id = $hotlist_id";
@@ -435,7 +433,7 @@ class dbEntityHotlist extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetSeverityCount($hotlist_id)
+	public function GetSeverityCount($hotlist_id)
 	{
 		$sql = 'SELECT s.name, count(*) FROM severities s, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
 		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND s.id = w.severity AND h.hotlist_id = $hotlist_id";
@@ -444,7 +442,7 @@ class dbEntityHotlist extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetPriorityCount($hotlist_id)
+	public function GetPriorityCount($hotlist_id)
 	{
 		$sql = 'SELECT s.name, count(*) FROM priorities s, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
 		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND s.id = w.priority AND h.hotlist_id = $hotlist_id";
@@ -453,7 +451,7 @@ class dbEntityHotlist extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetDepartmentCount($hotlist_id)
+	public function GetDepartmentCount($hotlist_id)
 	{
 		$sql = 'SELECT d.name, count(*) FROM departments d, personnel u, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
 		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND w.responsible = u.id AND d.id = u.department AND h.hotlist_id = $hotlist_id";
@@ -462,7 +460,7 @@ class dbEntityHotlist extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetModuleCount($hotlist_id)
+	public function GetModuleCount($hotlist_id)
 	{
 		$sql = 'SELECT m.module_name, count(*) FROM dcl_product_module m, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
 		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND m.product_module_id = w.module_id AND h.hotlist_id = $hotlist_id";
@@ -471,7 +469,7 @@ class dbEntityHotlist extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetTypeCount($hotlist_id)
+	public function GetTypeCount($hotlist_id)
 	{
 		$sql = 'SELECT t.type_name, count(*) FROM dcl_wo_type t, workorders w, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
 		$sql .= " AND w.jcn = h.entity_key_id AND w.seq = h.entity_key_id2 AND t.wo_type_id = w.wo_type_id AND h.hotlist_id = $hotlist_id";
@@ -480,7 +478,7 @@ class dbEntityHotlist extends dclDB
 		return $this->Query($sql);
 	}
 
-	function GetWorkOrderStatistics($id)
+	public function GetWorkOrderStatistics($id)
 	{
 		$retval = array(
 				'totaltasks' => 0,

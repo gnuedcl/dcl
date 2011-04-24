@@ -44,7 +44,7 @@ function smarty_function_dcl_get_entity_hotlist($params, &$smarty)
 		return;
 	}
 
-	$oEntityHotlist = new dbEntityHotlist();
+	$oEntityHotlist = new EntityHotlistModel();
 	$aHotlists = $oEntityHotlist->getTagsWithPriorityForEntity($params['entity'], $params['key_id'], $params['key_id2']);
 	if (count($aHotlists) == 0)
 		return;

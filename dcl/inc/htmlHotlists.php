@@ -83,7 +83,7 @@ class htmlHotlists
 		if (!isset($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')
 			return $this->cloud();
 			
-		$oDB = new dbEntityHotlist();
+		$oDB = new EntityHotlistModel();
 		$oDB->listByTag($_REQUEST['tag']);
 		
 		$allRecs = $oDB->FetchAllRows();
@@ -100,7 +100,7 @@ class htmlHotlists
 		$oTable->addColumn('Priority', 'numeric');
 		$oTable->addColumn('Hotlists', 'string');
 
-		$oHotlistDB = new dbEntityHotlist();
+		$oHotlistDB = new EntityHotlistModel();
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
 			$sHotlists = $oHotlistDB->getTagsForEntity($allRecs[$i][0], $allRecs[$i][1], $allRecs[$i][2]);
@@ -140,7 +140,7 @@ class htmlHotlists
 		if ($dbHotlist->Load($hotlistId) === -1)
 			throw new PermissionDeniedException();
 			
-		$db = new dbEntityHotlist();
+		$db = new EntityHotlistModel();
 		$rs = $db->listById($hotlistId);
 		if ($rs === -1)
 		{
@@ -180,7 +180,7 @@ class htmlHotlists
 				$aEntities[] = $aEntity;
 		}
 			
-		$db = new dbEntityHotlist();
+		$db = new EntityHotlistModel();
 		$db->setPriority($hotlistId, $aEntities);
 	}
 }

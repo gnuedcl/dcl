@@ -257,7 +257,7 @@ class boWatches
 		$dbEntityTag = new dbEntityTag();
 		$t->assign('VAL_TAGS', str_replace(',', ', ', $dbEntityTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $obj->jcn, $obj->seq)));
 
-		$dbEntityHotlist = new dbEntityHotlist();
+		$dbEntityHotlist = new EntityHotlistModel();
 		$hotlistCollection = $dbEntityHotlist->getTagsWithPriorityForEntity(DCL_ENTITY_WORKORDER, $obj->jcn, $obj->seq);
 		$hotlists = '';
 

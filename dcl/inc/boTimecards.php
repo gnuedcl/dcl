@@ -125,7 +125,7 @@ class boTimecards
 		// * Hotlists
 		if (isset($_REQUEST['hotlist']) && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY))
 		{
-			$oTag = new dbEntityHotlist();
+			$oTag = new EntityHotlistModel();
 			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
 		}
 
@@ -290,7 +290,7 @@ class boTimecards
     		$bProcessTags = (isset($_REQUEST['tags']) && trim($_REQUEST['tags']) != '' && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY));
         	$oTag = new dbEntityTag();
     		$bProcessHotlist = (isset($_REQUEST['hotlist']) && trim($_REQUEST['hotlist']) != '' && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY));
-        	$oHotlist = new dbEntityHotlist();
+        	$oHotlist = new EntityHotlistModel();
         	foreach ($_REQUEST['selected'] as $key => $val)
 			{
 				list($objTimecard->jcn, $objTimecard->seq) = explode('.', $val);
