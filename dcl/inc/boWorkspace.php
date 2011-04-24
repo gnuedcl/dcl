@@ -49,7 +49,7 @@ class boWorkspace extends boAdminObject
 		
 		if ($this->oDB->workspace_id > 0)
 		{
-			$oWSP = new dbWorkspaceProduct();
+			$oWSP = new WorkspaceProductModel();
 			$oWSP->serialize($this->oDB->workspace_id, $aSource['products'], true);
 						
 			$oWSU = new dbWorkspaceUser();
@@ -62,7 +62,7 @@ class boWorkspace extends boAdminObject
 		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
 		parent::modify($aSource);
 
-		$oWSP = new dbWorkspaceProduct();
+		$oWSP = new WorkspaceProductModel();
 		$oWSP->serialize($aSource['workspace_id'], $aSource['products'], false);
 						
 		$oWSU = new dbWorkspaceUser();

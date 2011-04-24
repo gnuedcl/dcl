@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbWorkspaceProduct extends dclDB
+class WorkspaceProductModel extends dclDB
 {
-	function dbWorkspaceProduct()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_workspace_product';
 		LoadSchema($this->TableName);
 
 		parent::Clear();
 	}
 	
-	function serialize($workspace_id, $aProducts, $bAddOnly)
+	public function serialize($workspace_id, $aProducts, $bAddOnly)
 	{
 		if (!is_array($aProducts) || count($aProducts) < 1)
 		{
@@ -56,4 +54,3 @@ class dbWorkspaceProduct extends dclDB
 		}
 	}
 }
-?>
