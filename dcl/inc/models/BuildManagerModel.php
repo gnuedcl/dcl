@@ -201,7 +201,7 @@ class BuildManagerModel extends dclDB
 		
 		if ($sccsid == -1)
 		{
-			$oSccs = new dbSccsXref();
+			$oSccs = new SccsXrefModel();
 			$oSccs->Query(sprintf('SELECT dcl_sccs_xref_id FROM dcl_sccs_xref WHERE dcl_entity_type_id = %d AND dcl_entity_id = %d AND dcl_entity_id2 = %d',
 					DCL_ENTITY_WORKORDER,
 					$jcn,

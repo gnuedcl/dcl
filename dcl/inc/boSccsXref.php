@@ -28,7 +28,7 @@ class boSccsXref extends boAdminObject
 	{
 		parent::boAdminObject();
 
-		$this->oDB = new dbSccsXref();
+		$this->oDB = new SccsXrefModel();
 		$this->sKeyField = 'dcl_sccs_xref_id';
 		$this->Entity = DCL_ENTITY_CHANGELOG;
 	}

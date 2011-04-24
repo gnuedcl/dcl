@@ -70,7 +70,7 @@ class htmlChangeLog
 				throw new InvalidDataException();
 			}
 
-			$oRepository = new dbSccsXref();
+			$oRepository = new SccsXrefModel();
 			$sRepository = $oRepository->ExecuteScalar("select sccs_descr from dcl_sccs where dcl_sccs_id = $sccs_id");
 
 			array_push($aRetVal, array('link' => menuLink('', 'menuAction=htmlChangeLog.ShowProjectCommits&dcl_sccs_id=' . $sccs_id . '&personnel_id=' . $id), 'title' => $sRepository));

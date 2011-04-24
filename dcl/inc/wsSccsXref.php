@@ -184,7 +184,7 @@ class wsSccsXref
 			wsSccsXref::returnForbidden();
 		}
 		
-		$oDB = new dbSccsXref();
+		$oDB = new SccsXrefModel();
 		$oDB->InitFrom_POST();
 		$oDB->sccs_checkin_on = 'now()';
 		$oDB->Add();

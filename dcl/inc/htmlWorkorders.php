@@ -222,7 +222,7 @@ class htmlWorkorders
 			throw new InvalidDataException();
 		}
 
-		$o = new dbSccsXref();
+		$o = new SccsXrefModel();
 		if ($o->ListChangeLog(DCL_ENTITY_WORKORDER, $jcn, $seq) != -1)
 		{
 			$allRecs = array();
@@ -265,7 +265,7 @@ class htmlWorkorders
 			throw new InvalidDataException();
 		}
 
-		$o = new dbSccsXref();
+		$o = new SccsXrefModel();
 		if ($o->ListChangeLog(DCL_ENTITY_WORKORDER, $jcn, $seq) != -1)
 		{
 			$allRecs = array();

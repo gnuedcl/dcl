@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbSccsXref extends dclDB
+class SccsXrefModel extends dclDB
 {
-	function dbSccsXref()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_sccs_xref';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 
-	function ListChangeLog($type, $id1, $id2 = 0)
+	public function ListChangeLog($type, $id1, $id2 = 0)
 	{
 		if (($type = DCL_Sanitize::ToInt($type)) === null ||
 			($id1 = DCL_Sanitize::ToInt($id1)) === null ||
@@ -58,4 +56,3 @@ class dbSccsXref extends dclDB
 		return 1;
 	}
 }
-?>

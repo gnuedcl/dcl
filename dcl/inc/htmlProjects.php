@@ -166,7 +166,7 @@ class htmlProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 
-		$o = new dbSccsXref();
+		$o = new SccsXrefModel();
 		if ($o->ListChangeLog(DCL_ENTITY_PROJECT, $id) != -1)
 		{
 			$allRecs = array();
