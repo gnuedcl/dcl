@@ -92,7 +92,7 @@ class htmlFaqquestions
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY, $objFaq->faqid));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $objFaq->faqid));
 
-		$objF = new dbFaqanswers();
+		$objF = new FaqAnswersModel();
 		if ($objF->LoadByQuestionID($obj->questionid) == -1)
 		{
 		    return;

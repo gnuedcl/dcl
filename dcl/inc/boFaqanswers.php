@@ -74,7 +74,7 @@ class boFaqanswers
 			return;
 		}
 
-		$obj = new dbFaqanswers();
+		$obj = new FaqAnswersModel();
 		$obj->InitFromGlobals();
 		$obj->createby = $GLOBALS['DCLID'];
 		$obj->createon = DCL_NOW;
@@ -99,7 +99,7 @@ class boFaqanswers
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbFaqanswers();
+		$obj = new FaqAnswersModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -126,7 +126,7 @@ class boFaqanswers
 			return;
 		}
 
-		$obj = new dbFaqanswers();
+		$obj = new FaqAnswersModel();
 		$obj->InitFromGlobals();
 		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
 		$obj->modifyby = $GLOBALS['DCLID'];
@@ -150,7 +150,7 @@ class boFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $iID))
 			throw new PermissionDeniedException();
 
-		$obj = new dbFaqanswers();
+		$obj = new FaqAnswersModel();
 		if ($obj->Load($iID) == -1)
 			return;
 		
@@ -170,7 +170,7 @@ class boFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $iID))
 			throw new PermissionDeniedException();
 
-		$obj = new dbFaqanswers();
+		$obj = new FaqAnswersModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
