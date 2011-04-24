@@ -196,7 +196,7 @@ class BuildManagerModel extends dclDB
 	{	
 		global $g_oSession;
 		
-		$oBuildSccs = new dbProductBuildSccs();
+		$oBuildSccs = new ProductBuildSccsModel();
 		$oBuildSccs->product_build_id = $g_oSession->Value('buildid');
 		
 		if ($sccsid == -1)
