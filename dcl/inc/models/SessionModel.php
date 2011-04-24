@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,13 +21,13 @@
  */
 
 //LoadStringResource('db');
-class dbSession extends dclDB
+class SessionModel extends dclDB
 {
 	var $m_IsValidSession;
 
-	function dbSession()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_session';
 		LoadSchema($this->TableName);
 
@@ -39,7 +37,7 @@ class dbSession extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		global $dcl_info;
 
@@ -59,7 +57,7 @@ class dbSession extends dclDB
 		$this->m_IsValidSession = true;
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		$this->update_date = DCL_NOW;
 		$aSessionDataCopy = $this->session_data;
@@ -68,12 +66,12 @@ class dbSession extends dclDB
 		$this->session_data = $aSessionDataCopy;
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		parent::Delete(array('dcl_session_id' => $this->dcl_session_id));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		global $dcl_info, $dcl_domain, $dcl_domain_info;
 
@@ -140,23 +138,23 @@ class dbSession extends dclDB
 		return $this->m_IsValidSession;
 	}
 
-	function Register($sName, $sValue)
+	public function Register($sName, $sValue)
 	{
 		$this->session_data[$sName] = $sValue;
 	}
 
-	function Unregister($sName)
+	public function Unregister($sName)
 	{
 		if (isset($this->session_data[$sName]))
 			unset($this->session_data[$sName]);
 	}
 
-	function IsRegistered($sName)
+	public function IsRegistered($sName)
 	{
 		return isset($this->session_data[$sName]);
 	}
 
-	function Value($sName)
+	public function Value($sName)
 	{
 		if (isset($this->session_data[$sName]))
 			return $this->session_data[$sName];
@@ -164,7 +162,7 @@ class dbSession extends dclDB
 		return null;
 	}
 	
-	function ValueRef($sName, &$oRetVal)
+	public function ValueRef($sName, &$oRetVal)
 	{
 		if (isset($this->session_data[$sName]))
 		{
@@ -175,12 +173,12 @@ class dbSession extends dclDB
 		return null;
 	}
 
-	function GlobalValue($sName)
+	public function GlobalValue($sName)
 	{
 		$GLOBALS[$sName] = $this->Value($sName);
 	}
 
-	function Purge()
+	public function Purge()
 	{
 		global $dcl_info;
 
@@ -191,17 +189,17 @@ class dbSession extends dclDB
 		return $this->Execute($query);
 	}
 
-	function IsValidSession()
+	public function IsValidSession()
 	{
 		return $this->m_IsValidSession;
 	}
 	
-	function IsInWorkspace()
+	public function IsInWorkspace()
 	{
 		return $this->IsRegistered('workspace_products');
 	}
 	
-	function GetProductFilter()
+	public function GetProductFilter()
 	{
 		global $g_oSec;
 		
@@ -220,7 +218,7 @@ class dbSession extends dclDB
 		return $aProducts;
 	}
 
-	function Clear()
+	public function Clear()
 	{
 		parent::Clear();
 		$this->session_data = array();

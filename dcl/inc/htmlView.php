@@ -180,7 +180,7 @@ class htmlView
 				$whatObject = 'WorkOrderTypeModel';
 				break;
 			case 'dcl_session':
-				$whatObject = 'dbSession';
+				$whatObject = 'SessionModel';
 				break;
 			default:
 				trigger_error(sprintf(STR_VW_UNKNOWNTABLE, $sTable));

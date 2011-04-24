@@ -112,7 +112,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 
 	if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
 	{
-		$g_oSession = new dbSession();
+		$g_oSession = new SessionModel();
 		list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
 		if (strlen($dcl_session_id) != 32)
 			Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
@@ -141,7 +141,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			$dcl_info = array();
 			$oConfig->Load();
 
-			$g_oSession = new dbSession();
+			$g_oSession = new SessionModel();
 			if (!$g_oSession->conn)
 				Refresh('logout.php?cd=3');
 

@@ -26,7 +26,7 @@ class boSession
 {
 	function Kill(&$aSource)
 	{
-		$o = new dbSession();
+		$o = new SessionModel();
 		$o->dcl_session_id = $aSource['session_id'];
 		$o->Delete();
 	}

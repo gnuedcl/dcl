@@ -27,7 +27,7 @@ if (!defined('__DCL_CONFIG_INCLUDED__'))
 
 include_once(DCL_ROOT . 'inc/functions.inc.php');
 
-$g_oSession = new dbSession();
+$g_oSession = new SessionModel();
 list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
 if (strlen($dcl_session_id) == 32)
 {

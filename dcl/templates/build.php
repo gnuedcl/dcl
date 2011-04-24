@@ -36,7 +36,7 @@ require_once(DCL_ROOT . 'inc/functions.inc.php');
 require_once(SMARTY_DIR . 'Smarty.class.php');
 
 $g_oSec = new SecurityHelper();
-$g_oSession = new dbSession();
+$g_oSession = new SessionModel();
 $oSmarty = new Smarty();
 
 $aCompileDir = array('default');

@@ -61,7 +61,7 @@ class htmlSession
 				'Last Access',
 				'Session ID'));
 
-		$oDB = new dbSession();
+		$oDB = new SessionModel();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
