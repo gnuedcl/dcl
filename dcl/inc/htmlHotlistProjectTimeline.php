@@ -38,7 +38,7 @@ class htmlHotlistProjectTimeline
 		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
 		    throw new PermissionDeniedException();
 		    
-		$hotlist = new dbHotlist();
+		$hotlist = new HotlistModel();
 		$hotlist->Load($id);
 
 		$t = new DCL_Smarty();

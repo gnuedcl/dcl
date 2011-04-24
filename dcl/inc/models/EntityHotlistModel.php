@@ -63,7 +63,7 @@ class EntityHotlistModel extends dclDB
 			return;
 		}
 		
-		$oHotlist = new dbHotlist();
+		$oHotlist = new HotlistModel();
 		$aHotlists = split(',', $sHotlists);
 		$aHotlistID = array();
 		foreach ($aHotlists as $sHotlist)
@@ -189,7 +189,7 @@ class EntityHotlistModel extends dclDB
 			throw new PermissionDeniedException();
 		}
 		
-		$oDB = new dbHotlist();
+		$oDB = new HotlistModel();
 		$sID = $oDB->getExistingIdsByName(trim($sHotlists));
 		if ($sID == '-1')
 		{

@@ -29,7 +29,7 @@ class HotlistController extends AbstractController
 {
 	public function Autocomplete()
 	{
-		$model = new dbHotlist();
+		$model = new HotlistModel();
 		$matchArray = $model->filterList($_REQUEST['term']);
 
 		$matches = array();

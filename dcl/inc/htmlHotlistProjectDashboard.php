@@ -49,7 +49,7 @@ class htmlHotlistProjectDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 
-		$this->hotlist = new dbHotlist();
+		$this->hotlist = new HotlistModel();
 		if ($this->hotlist->Load($id) == -1)
 		{
 			trigger_error('Could not find a hotlist with an id of ' . $id, E_USER_ERROR);

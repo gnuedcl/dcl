@@ -997,7 +997,7 @@ abstract class AbstractSqlQueryHelper
 
 						$bFirst = false;
 
-						$oHotlist = new dbHotlist();
+						$oHotlist = new HotlistModel();
 						$sHotlistFilter = $oHotlist->getExistingIdsByName($this->GetCSLFromArray($values));
 						if (!in_array('dcl_hotlist.hotlist_tag', $this->order) &&
 							!in_array('dcl_hotlist.hotlist_tag', $this->groups) &&

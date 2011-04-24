@@ -56,7 +56,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$obj = new dbHotlist();
+		$obj = new HotlistModel();
 		$obj->hotlist_id = $id;
 		$this->ShowEntryForm($obj, true);
 	}
@@ -74,7 +74,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$obj = new dbHotlist();
+		$obj = new HotlistModel();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -94,7 +94,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		$obj = new dbHotlist();
+		$obj = new HotlistModel();
 		if ($obj->Load($id) == -1)
 			return;
 			

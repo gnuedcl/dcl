@@ -33,7 +33,7 @@ class htmlHotlistBrowse
 		$this->sPagingMenuAction = 'htmlHotlistBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = new dbHotlist();
+		$this->oDB = new HotlistModel();
 	}
 
 	function Render(&$oView)

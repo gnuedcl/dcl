@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,30 +21,30 @@
  */
 
 LoadStringResource('db');
-class dbHotlist extends dclDB
+class HotlistModel extends dclDB
 {
-	function dbHotlist()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_hotlist';
 		LoadSchema($this->TableName);
 
 		parent::Clear();
 	}
 	
-	function ListActive()
+	public function ListActive()
 	{
 		return $this->Query("SELECT hotlist_id, hotlist_tag FROM dcl_hotlist WHERE active = 'Y' ORDER BY hotlist_tag");
 	}
 	
-	function filterList($filter)
+	public function filterList($filter)
 	{
 		$this->LimitQuery("SELECT hotlist_id, hotlist_tag FROM dcl_hotlist WHERE active = 'Y' AND hotlist_tag LIKE " . $this->Quote('%' . $filter . '%') . " ORDER BY hotlist_tag", 0, 20);
 
 		return $this->FetchAllRows();
 	}
 
-	function getIdByName($sTag)
+	public function getIdByName($sTag)
 	{
 		$sTag = trim(strtolower($sTag));
 		$iID = $this->ExecuteScalar('SELECT hotlist_id FROM dcl_hotlist WHERE hotlist_tag = ' . $this->Quote($sTag));
@@ -68,7 +66,7 @@ class dbHotlist extends dclDB
 		return null;
 	}
 
-	function getExistingIdsByName($sTags)
+	public function getExistingIdsByName($sTags)
 	{
 		if ($sTags === null || trim($sTags) == '')
 			return '-1';
@@ -109,10 +107,9 @@ class dbHotlist extends dclDB
 		return $sID;
 	}
 	
-	function listByPopular()
+	public function listByPopular()
 	{
 		$sSQL = 'SELECT dcl_hotlist.hotlist_tag, COUNT(*) FROM dcl_hotlist JOIN dcl_entity_hotlist ON dcl_hotlist.hotlist_id = dcl_entity_hotlist.hotlist_id GROUP BY dcl_hotlist.hotlist_tag ORDER BY 2 DESC';
 		return $this->LimitQuery($sSQL, 0, 50);
 	}
 }
-?>

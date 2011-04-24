@@ -33,7 +33,7 @@ class htmlHotlistProject
 
 	function htmlHotlistProject()
 	{
-		$this->hotlist = new dbHotlist();
+		$this->hotlist = new HotlistModel();
 		$this->entityHotlist = new EntityHotlistModel();
 		$this->oSmarty = new DCL_Smarty();
 	}

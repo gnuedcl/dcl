@@ -50,7 +50,7 @@ class htmlHotlists
 			throw new PermissionDeniedException();
 		}
 		
-		$oDB = new dbHotlist();
+		$oDB = new HotlistModel();
 		$oDB->listByPopular();
 		
 		$allRecs = $oDB->FetchAllRows();
@@ -136,7 +136,7 @@ class htmlHotlists
 		if ($hotlistId === null || $hotlistId < 1)
 			throw new PermissionDeniedException();
 			
-		$dbHotlist = new dbHotlist();
+		$dbHotlist = new HotlistModel();
 		if ($dbHotlist->Load($hotlistId) === -1)
 			throw new PermissionDeniedException();
 			
@@ -168,7 +168,7 @@ class htmlHotlists
 		if ($hotlistId === null || $hotlistId < 1)
 			throw new PermissionDeniedException();
 			
-		$dbHotlist = new dbHotlist();
+		$dbHotlist = new HotlistModel();
 		if ($dbHotlist->Load($hotlistId) === -1)
 			throw new PermissionDeniedException();
 
