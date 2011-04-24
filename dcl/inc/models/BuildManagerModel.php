@@ -256,7 +256,7 @@ class BuildManagerModel extends dclDB
 
 		if ($status >= DCL_BUILDMANAGER_APPLIED)
 		{
-			$oVersionItem = new dbProductVersionItem();
+			$oVersionItem = new ProductVersionItemModel();
 			if ($oVersionItem->Load(array('product_version_id' => $releaseid,'entity_type_id' => DCL_ENTITY_WORKORDER, 'entity_id' => $jcn, 'entity_id2' => $seq)) != -1)			
 			{
 				$oVersionItem->version_status_id = DCL_BUILDMANAGER_SUBMIT;
@@ -272,7 +272,7 @@ class BuildManagerModel extends dclDB
 		
 		if ($init == 0)
 		{
-			$oVersionItem = new dbProductVersionItem();
+			$oVersionItem = new ProductVersionItemModel();
 			if ($oVersionItem->Load(array('product_version_id' => $g_oSession->Value('releaseid'), 'entity_type_id' => DCL_ENTITY_WORKORDER, 'entity_id' => $jcn, 'entity_id2' => $seq)) != -1)
 			{
 				$oVersionItem->version_status_id = DCL_BUILDMANAGER_APPLIED;
