@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,17 +21,17 @@
  */
 
 LoadStringResource('db');
-class dbWorkOrderTimesheet extends dclDB
+class WorkOrderTimesheetModel extends dclDB
 {
-	function dbWorkOrderTimesheet()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_wo_timesheet';
 		LoadSchema($this->TableName);
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		if (!$this->Exists(array('personnel_id' => $this->personnel_id, 'wo_id' => $this->wo_id, 'seq' => $this->seq)))
 		{
@@ -49,14 +47,13 @@ class dbWorkOrderTimesheet extends dclDB
 		}
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		// nothing to do here - the whole thing is the key!
 	}
 
-	function Delete($personnel_id, $wo_id, $seq)
+	public function Delete($personnel_id, $wo_id, $seq)
 	{
 		parent::Delete(array('personnel_id' => $personnel_id, 'wo_id' => $wo_id, 'seq' => $seq));
 	}
 }
-?>
