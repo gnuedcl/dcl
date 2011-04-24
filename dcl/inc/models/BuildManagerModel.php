@@ -36,7 +36,7 @@ class BuildManagerModel extends dclDB
 		$this->TableName = 'dcl_product_build_sccs';
 		LoadSchema($this->TableName);
 		
-		$this->oDbProductBuildException = new dbProductBuildException();
+		$this->oDbProductBuildException = new ProductBuildExceptionModel();
 		
 		parent::Clear();
 	}

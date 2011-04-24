@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbProductBuildException extends dclDB
+class ProductBuildExceptionModel extends dclDB
 {
-	function dbProductBuildException()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_product_build_except';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 	
-	function DeleteBySession($session_id, $product_build_id)
+	public function DeleteBySession($session_id, $product_build_id)
 	{
 		if (!is_string($session_id) || !is_int($product_build_id))
 		{
@@ -51,4 +49,3 @@ class dbProductBuildException extends dclDB
 		$this->Execute($sSQL);
 	}
 }
-?>
