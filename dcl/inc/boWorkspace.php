@@ -52,7 +52,7 @@ class boWorkspace extends boAdminObject
 			$oWSP = new WorkspaceProductModel();
 			$oWSP->serialize($this->oDB->workspace_id, $aSource['products'], true);
 						
-			$oWSU = new dbWorkspaceUser();
+			$oWSU = new WorkspaceUserModel();
 			$oWSU->serialize($this->oDB->workspace_id, $aSource['users'], true);
 		}
 	}
@@ -65,7 +65,7 @@ class boWorkspace extends boAdminObject
 		$oWSP = new WorkspaceProductModel();
 		$oWSP->serialize($aSource['workspace_id'], $aSource['products'], false);
 						
-		$oWSU = new dbWorkspaceUser();
+		$oWSU = new WorkspaceUserModel();
 		$oWSU->serialize($this->oDB->workspace_id, $aSource['users'], false);
 	}
 }

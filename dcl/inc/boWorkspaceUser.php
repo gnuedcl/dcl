@@ -30,7 +30,7 @@ class boWorkspaceUser extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB = new dbWorkspaceUser();
+		$this->oDB = new WorkspaceUserModel();
 		$this->Entity = DCL_ENTITY_WORKSPACE;
 		$this->sKeyField = '';
 		
