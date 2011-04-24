@@ -74,7 +74,7 @@ class boFaqtopics
 			return;
 		}
 
-		$obj = new dbFaqtopics();
+		$obj = new FaqTopicsModel();
 		$obj->InitFromGlobals();
 		$obj->createby = $GLOBALS['DCLID'];
 		$obj->createon = DCL_NOW;
@@ -98,7 +98,7 @@ class boFaqtopics
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbFaqtopics();
+		$obj = new FaqTopicsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -126,7 +126,7 @@ class boFaqtopics
 			return;
 		}
 
-		$obj = new dbFaqtopics();
+		$obj = new FaqTopicsModel();
 		$obj->InitFromGlobals();
 		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
 		$obj->modifyby = $GLOBALS['DCLID'];
@@ -150,7 +150,7 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $iID))
 			throw new PermissionDeniedException();
 
-		$obj = new dbFaqtopics();
+		$obj = new FaqTopicsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 		
@@ -170,7 +170,7 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $iID))
 			throw new PermissionDeniedException();
 
-		$obj = new dbFaqtopics();
+		$obj = new FaqTopicsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 			
@@ -200,7 +200,7 @@ class boFaqtopics
 			throw new InvalidDataException();
 		}
 		
-		$obj = new dbFaqtopics();
+		$obj = new FaqTopicsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 

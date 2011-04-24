@@ -69,7 +69,7 @@ class htmlFaqquestions
 			return;
 		}
 
-		$objFaqT = new dbFaqtopics();
+		$objFaqT = new FaqTopicsModel();
 		if ($objFaqT->Load($obj->topicid) == -1)
 		    return;
 

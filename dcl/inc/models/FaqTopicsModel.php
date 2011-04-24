@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,11 +21,11 @@
  */
 
 LoadStringResource('db');
-class dbFaqtopics extends dclDB
+class FaqTopicsModel extends dclDB
 {
-	function dbFaqtopics()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'faqtopics';
 		LoadSchema($this->TableName);
 
@@ -36,14 +34,14 @@ class dbFaqtopics extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		$this->AdjustSeq($this->seq);
 		$this->createon = DCL_NOW;
 		return parent::Add();
 	}
 
-	function AdjustSeq($fromThisSeq, $editID = 0)
+	public function AdjustSeq($fromThisSeq, $editID = 0)
 	{
 		if (($fromThisSeq = DCL_Sanitize::ToInt($fromThisSeq)) === null ||
 			($editID = DCL_Sanitize::ToInt($editID) === null))
@@ -66,7 +64,7 @@ class dbFaqtopics extends dclDB
 		}
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		if ($this->AdjustSeq($this->seq, $this->topicid) == -1)
 		{
@@ -78,7 +76,7 @@ class dbFaqtopics extends dclDB
 		return parent::Edit(array('createby', 'createon'));
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		$o = new FaqQuestionsModel();
 		if ($o->DeleteByTopic($this->topicid) == -1)
@@ -89,12 +87,12 @@ class dbFaqtopics extends dclDB
 		return parent::Delete(array('topicid' => $this->topicid));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('topicid' => $id));
 	}
 
-	function LoadByFaqID($id, $orderby = 'seq')
+	public function LoadByFaqID($id, $orderby = 'seq')
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) === null)
 		{
@@ -117,7 +115,7 @@ class dbFaqtopics extends dclDB
 		return 1;
 	}
 	
-	function DeleteByFaq($id)
+	public function DeleteByFaq($id)
 	{
 		if (($id = DCL_Sanitize::ToInt($id)) === null)
 		{

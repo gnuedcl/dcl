@@ -51,7 +51,7 @@ class FaqModel extends dclDB
 
 	public function Delete()
 	{
-		$oDB = new dbFaqtopics();
+		$oDB = new FaqTopicsModel();
 		$oDB->DeleteByFaq($this->faqid);
 		
 		return parent::Delete(array('faqid' => $this->faqid));

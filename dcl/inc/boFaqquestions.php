@@ -39,7 +39,7 @@ class boFaqquestions
 			throw new InvalidDataException();
 		}
 		
-		$objF = new dbFaqtopics();
+		$objF = new FaqTopicsModel();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADTOPIC, $iID);
@@ -67,7 +67,7 @@ class boFaqquestions
 			throw new InvalidDataException();
 		}
 		
-		$objF = new dbFaqtopics();
+		$objF = new FaqTopicsModel();
 		if ($objF->Load($iID) == -1)
 		{
 			printf(STR_BO_CANNOTLOADTOPIC, $iID);
@@ -119,7 +119,7 @@ class boFaqquestions
 			throw new InvalidDataException();
 		}
 		
-		$objF = new dbFaqtopics();
+		$objF = new FaqTopicsModel();
 		if ($objF->Load($iID) == -1)
 		{
 			return;
@@ -176,7 +176,7 @@ class boFaqquestions
 		$iTopicID = $obj->topicid;
 		$obj->Delete($iID);
 		
-		$objT = new dbFaqtopics();
+		$objT = new FaqTopicsModel();
 		if ($objT->Load($iTopicID) == -1)
 		{
 			return -1;

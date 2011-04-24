@@ -143,7 +143,7 @@ class FaqPresenter
 		$oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY));
 		$oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE));
 
-		$objF = new dbFaqtopics();
+		$objF = new FaqTopicsModel();
 		$objF->LoadByFaqID($model->faqid);
 		$oSmarty->assign_by_ref('VAL_TOPICS', $objF->ResultToArray());
 
