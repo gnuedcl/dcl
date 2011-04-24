@@ -166,7 +166,7 @@ if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
 			{
 				if ($g_oSec->IsOrgUser())
 				{
-					$oContact = new dbContact();
+					$oContact = new ContactModel();
 					$aOrgs = $oContact->GetOrgArray($authInfo['contact_id']);
 					$g_oSession->Register('member_of_orgs', join(',', $aOrgs));
 					

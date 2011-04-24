@@ -37,7 +37,7 @@ class ContactPhonePresenter
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $contactId));
 
-		$oContact = new dbContact();
+		$oContact = new ContactModel();
 		$oContact->Load($contactId);
 
 		$oSmarty->assign('VAL_FIRSTNAME', $oContact->first_name);
@@ -64,7 +64,7 @@ class ContactPhonePresenter
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $model->contact_id));
 
-		$oContact = new dbContact();
+		$oContact = new ContactModel();
 		$oContact->Load($model->contact_id);
 		
 		$oSmarty->assign('VAL_FIRSTNAME', $oContact->first_name);

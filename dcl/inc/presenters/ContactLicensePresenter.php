@@ -34,7 +34,7 @@ class ContactLicensePresenter
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $contactId));
 
-		$oContact = new dbContact();
+		$oContact = new ContactModel();
 		if ($oContact->Load($contactId) == -1)
 		    return;
 
@@ -58,7 +58,7 @@ class ContactLicensePresenter
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $model->contact_id));
 
-		$oContact = new dbContact();
+		$oContact = new ContactModel();
 		if ($oContact->Load($model->contact_id) == -1)
 		    return;
 

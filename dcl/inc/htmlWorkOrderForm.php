@@ -318,7 +318,7 @@ class htmlWorkOrderForm
 		$sAssignedContactID = @$this->oSmarty->get_template_vars('VAL_CONTACTID');
 		if ($sAssignedContactID != '')
 		{
-			$oContact = new dbContact();
+			$oContact = new ContactModel();
 			if ($oContact->Load(array('contact_id' => $sAssignedContactID)) != -1)
 				$this->oSmarty->assign('VAL_CONTACT', sprintf('%s, %s', $oContact->last_name, $oContact->first_name));
 		}

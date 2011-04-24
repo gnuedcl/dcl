@@ -83,7 +83,7 @@ class boTickets
 		{
 			$obj->contact_id = $g_oSession->Value('contact_id');
 			
-			$dbContact = new dbContact();
+			$dbContact = new ContactModel();
 			$aOrg = $dbContact->GetFirstOrg($obj->contact_id);
 			$obj->account = $aOrg['org_id'];
 		}

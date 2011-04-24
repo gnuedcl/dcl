@@ -81,7 +81,7 @@ class htmlTicketForm
 			$oSmarty->assign('VAL_CONTACTID', $obj->contact_id);
 			if ($obj->contact_id > 0)
 			{
-				$oContact = new dbContact();
+				$oContact = new ContactModel();
 				if ($oContact->Load(array('contact_id' => $obj->contact_id)) != -1)
 					$oSmarty->assign('VAL_CONTACTNAME', sprintf('%s %s', $oContact->first_name, $oContact->last_name));
 			}

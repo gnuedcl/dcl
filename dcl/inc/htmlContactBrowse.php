@@ -33,7 +33,7 @@ class htmlContactBrowse
 		$this->sPagingMenuAction = 'htmlContactBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = new dbContact();
+		$this->oDB = new ContactModel();
 	}
 
 	function Render(&$oView)

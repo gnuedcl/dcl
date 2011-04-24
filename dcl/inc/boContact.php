@@ -30,7 +30,7 @@ class boContact extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB = new dbContact();
+		$this->oDB = new ContactModel();
 		$this->sKeyField = 'contact_id';
 		$this->Entity = DCL_ENTITY_CONTACT;
 		

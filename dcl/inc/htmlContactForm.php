@@ -59,7 +59,7 @@ class htmlContactForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
 			throw new PermissionDeniedException();
 
-		$obj = new dbContact();
+		$obj = new ContactModel();
 		if ($obj->Load($id) == -1)
 		    return;
 		    
@@ -79,7 +79,7 @@ class htmlContactForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE, $id))
 			throw new PermissionDeniedException();
 
-		$obj = new dbContact();
+		$obj = new ContactModel();
 		if ($obj->Load($id) == -1)
 		    return;
 		    

@@ -47,7 +47,7 @@ class htmlContactDetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 
-		$oContact = new dbContact();
+		$oContact = new ContactModel();
 		if ($oContact->Load((int)$_REQUEST['contact_id']) == -1)
 		{
 			trigger_error('Could not load contact ID [' . $id . ']', E_USER_ERROR);

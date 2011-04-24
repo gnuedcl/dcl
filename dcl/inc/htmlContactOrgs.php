@@ -45,7 +45,7 @@ class htmlContactOrgs
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
 			throw new PermissionDeniedException();
 
-		$oContact = new dbContact();
+		$oContact = new ContactModel();
 		if ($oContact->Load($id) == -1)
 		    return;
 		    

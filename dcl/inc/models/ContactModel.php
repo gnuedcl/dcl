@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbContact extends dclDB
+class ContactModel extends dclDB
 {
-	function dbContact()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_contact';
 		LoadSchema($this->TableName);
 
 		parent::Clear();
 	}
 
-	function GetOrgArray($contact_id)
+	public function GetOrgArray($contact_id)
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 		{
@@ -53,7 +51,7 @@ class dbContact extends dclDB
 		return $aRetVal;
 	}
 	
-	function GetFirstOrg($contact_id)
+	public function GetFirstOrg($contact_id)
 	{
 		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
 		{
@@ -72,7 +70,7 @@ class dbContact extends dclDB
 		return $aRetVal;
 	}
 	
-	function GetContactByName($sFirstName, $sLastName)
+	public function GetContactByName($sFirstName, $sLastName)
 	{
 	    $sSQL = "SELECT contact_id FROM dcl_contact WHERE " . $this->GetUpperSQL('first_name') . " = " . $this->Quote(strtoupper($sFirstName)) . " AND " . $this->GetUpperSQL('last_name') . " = " . $this->Quote(strtoupper($sLastName)); 
         if ($this->Query($sSQL) != -1)
@@ -86,4 +84,3 @@ class dbContact extends dclDB
         return null;
 	}
 }
-?>
