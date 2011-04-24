@@ -56,7 +56,7 @@ class htmlBuildManagerBuildView
 		
 		$oMeta = new DCL_MetadataDisplay();
 		
-		$oProductVersion = new dbProductVersion();
+		$oProductVersion = new ProductVersionModel();
 		$oProductVersion->Load(array('product_version_id' => $this->product_version_id));
 
 		$oTable->setCaption($oView->title . ': ' . $oProductVersion->product_version_text);

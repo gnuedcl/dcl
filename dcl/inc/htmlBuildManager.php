@@ -30,7 +30,7 @@ class htmlBuildManager
 {
 	function GetCombo($default = 0, $cbName = 'product_version_descr', $longShort = 'product_version_descr', $validate=0, $productid,$size = 0, $activeOnly = true, $minsec = 0)
 	{
-		$objDBRDate = new dbProductVersion();
+		$objDBRDate = new ProductVersionModel();
 		$objDBRDate->Connect();
 
 		$whereClause = '';
@@ -126,7 +126,7 @@ class htmlBuildManager
 		$oDbProduct = new ProductModel();
 		$oDbProduct->Load($_REQUEST['product_id']);
 		
-		$oVersion = new dbProductVersion();
+		$oVersion = new ProductVersionModel();
 		$oVersion->Load(array('product_version_id' => $_REQUEST['product_version_id']));
 		
 		$oSmarty = new DCL_Smarty();
@@ -160,7 +160,7 @@ class htmlBuildManager
 		$Template->set_var('VAL_JSDATEFORMAT', GetJSDateFormat());
 		$Template->set_var('VAL_MENU', 'boBuildManager.modifySumbit');
 		
-		$oPV = new dbProductVersion();
+		$oPV = new ProductVersionModel();
 		if ($oPV->Load(array('product_version_id' => $versionid)) == -1)
 		{
 			ShowError('Failed to load version ID ' . $versionid, 'Error');
@@ -213,7 +213,7 @@ class htmlBuildManager
 		$oDbProduct = new ProductModel();
 		$oDbProduct->Load($product_id);
 		
-		$oVersion = new dbProductVersion();
+		$oVersion = new ProductVersionModel();
 		$oVersion->Load(array('product_version_id' => $product_version_id));
 
 		$oPB = new ProductBuildModel();
@@ -242,7 +242,7 @@ class htmlBuildManager
 		$oBuild = new ProductBuildModel();
 		$oBuild->Load(array('product_build_id' => $_REQUEST['product_build_id']));
 		
-		$oVersion = new dbProductVersion();
+		$oVersion = new ProductVersionModel();
 		$oVersion->Load(array('product_version_id' => $oBuild->product_version_id));
 		
 		$obj = new htmlProductDetail();
@@ -287,7 +287,7 @@ class htmlBuildManager
 			$g_oSession->Register('releaseid', $versionid);
 			$g_oSession->Edit();			
 			
-			$oPV = new dbProductVersion();
+			$oPV = new ProductVersionModel();
 			if ($oPV->Load(array('product_version_id' => $versionid)) == -1)
 			{
 				ShowError('Failed to load version ID ' . $versionid, 'Error');

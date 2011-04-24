@@ -167,7 +167,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oProductVersion == null)
-			$this->oProductVersion = new dbProductVersion();
+			$this->oProductVersion = new ProductVersionModel();
 
 		if ($this->oProductVersion->Load($id, false) == -1)
 			return $this->TriggerError("Could not find product version ID $id");

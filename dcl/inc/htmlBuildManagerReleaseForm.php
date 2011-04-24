@@ -54,7 +54,7 @@ class htmlBuildManagerReleaseForm
 		$oProduct = new ProductModel();
 		$oProduct->Load($product_id);
 		
-		$oPV = new dbProductVersion();
+		$oPV = new ProductVersionModel();
 		if ($oPV->Load(array('product_version_id' => $version_id)) == -1)
 		{
 			ShowError('Failed to load version ID ' . $version_id, 'Error');

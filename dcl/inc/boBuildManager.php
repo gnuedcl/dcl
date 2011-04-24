@@ -68,7 +68,7 @@ class boBuildManager
 		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
 			throw new PermissionDeniedException();
 		
-		$oDB = new dbProductVersion();
+		$oDB = new ProductVersionModel();
 		$oDB->InitFrom_POST();
 		$oDB->active = (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y' ? 'Y' : 'N');
 		$oDB->Add();
@@ -86,7 +86,7 @@ class boBuildManager
 		if (($product_version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
 			throw new PermissionDeniedException();
 		
-		$oDB = new dbProductVersion();
+		$oDB = new ProductVersionModel();
 		$oDB->InitFrom_POST();
 		$oDB->active = (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y' ? 'Y' : 'N');
 		$oDB->Edit();

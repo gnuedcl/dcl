@@ -37,7 +37,7 @@ class jsonProductVersion
 		if ($product_id === null)
 			exit;
 		
-		$oDB = new dbProductVersion();
+		$oDB = new ProductVersionModel();
 		$aOptions = $oDB->GetOptions('product_version_id', 'product_version_text', 'active', (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y'), '', "product_id=$product_id");
 
 		$bFirst = true;
