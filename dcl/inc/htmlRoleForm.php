@@ -56,7 +56,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$obj = new dbRole();
+		$obj = new RoleModel();
 		$obj->role_id = $id;
 		$this->ShowEntryForm($obj, true);
 	}
@@ -74,7 +74,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$obj = new dbRole();
+		$obj = new RoleModel();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -94,7 +94,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		$obj = new dbRole();
+		$obj = new RoleModel();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -180,7 +180,7 @@ class htmlRoleForm
 		$Template = new DCL_Smarty();
 		$Template->assign('VAL_FORMACTION', menuLink());
 
-		$oRole = new dbRole();
+		$oRole = new RoleModel();
 		if ($isEdit)
 		{
 			$Template->assign('menuAction', 'htmlRoleForm.submitModify');

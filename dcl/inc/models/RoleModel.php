@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,18 +21,18 @@
  */
 
 LoadStringResource('db');
-class dbRole extends dclDB
+class RoleModel extends dclDB
 {
-	function dbRole()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_role';
 		LoadSchema($this->TableName);
 
 		parent::Clear();
 	}
 
-	function &GetPermissions($role_id = -1)
+	public function &GetPermissions($role_id = -1)
 	{
 		$sSQL = 'SELECT e.entity_id, e.entity_desc, p.perm_id, p.perm_desc, rp.perm_id FROM dcl_entity e ';
 		$sSQL .= $this->JoinKeyword . ' dcl_entity_perm ep ON e.entity_id = ep.entity_id ';
@@ -62,4 +60,3 @@ class dbRole extends dclDB
 		return $aRetVal;
 	}
 }
-?>

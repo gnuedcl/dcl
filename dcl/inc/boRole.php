@@ -30,7 +30,7 @@ class boRole extends boAdminObject
 	{
 		parent::boAdminObject();
 		
-		$this->oDB = new dbRole();
+		$this->oDB = new RoleModel();
 		$this->sKeyField = 'role_id';
 		$this->Entity = DCL_ENTITY_ROLE;
 	}

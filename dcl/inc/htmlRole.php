@@ -26,7 +26,7 @@ class htmlRole
 {
 	function GetCombo($default = 0, $cbName = 'role_id', $size = 0, $activeOnly = true)
 	{
-		$oDB = new dbRole();
+		$oDB = new RoleModel();
 		$oDB->cacheEnabled = false;
 
 		$query = "SELECT role_id, role_desc FROM dcl_role ";
