@@ -111,7 +111,7 @@ class htmlWindowList
 		else
 			$sql .= ' Order By ' . $order;
 
-		$oDB = new dbWorkorders();
+		$oDB = new WorkOrderModel();
 		$oDB->Query($sql);
 		while ($oDB->next_record())
 		{

@@ -43,7 +43,7 @@ class TimeCardsModel extends dclDB
 			}
 		}
 
-		$objWO = new dbWorkorders();
+		$objWO = new WorkOrderModel();
 		if ($objWO->Load($this->jcn, $this->seq) == -1)
 		{
 			trigger_error(printf(STR_DB_WORKORDERLOADERR, $this->jcn, $this->seq));

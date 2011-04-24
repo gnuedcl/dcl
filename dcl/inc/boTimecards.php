@@ -69,7 +69,7 @@ class boTimecards
 			throw new PermissionDeniedException();
 
 		$objTimecard = new TimeCardsModel();
-		$objWorkorder = new dbWorkorders();
+		$objWorkorder = new WorkOrderModel();
 		$oStatus = new StatusModel();
 
 		$objTimecard->InitFromGlobals();
@@ -283,7 +283,7 @@ class boTimecards
 
 		$batchEtc = @DCL_Sanitize::ToDecimal($_REQUEST['etchours']);
 		
-		$objWorkorder = new dbWorkorders();
+		$objWorkorder = new WorkOrderModel();
 		$objWtch = new boWatches();
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
@@ -400,7 +400,7 @@ class boTimecards
 		// If the hours change, we'll need to adjust the workorder
 		$hoursDiff = $objTC->hours - $objOldTC->hours;
 
-		$objWO = new dbWorkorders();
+		$objWO = new WorkOrderModel();
 		if ($objWO->Load($objTC->jcn, $objTC->seq) == -1)
 			return;
 		
@@ -509,7 +509,7 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		$objWO = new dbWorkorders();
+		$objWO = new WorkOrderModel();
 		if ($objWO->Load($objTC->jcn, $objTC->seq) == -1)
 			return;
 

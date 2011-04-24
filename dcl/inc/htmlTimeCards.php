@@ -31,7 +31,7 @@ class htmlTimeCards
 	{
 		global $dcl_info;
 
-		$objWO = new dbWorkorders();
+		$objWO = new WorkOrderModel();
 		$query = 'select a.jcn, a.seq, b.short, c.name, e.name, a.summary from workorders a ' . $objWO->JoinKeyword . ' personnel b on a.responsible = b.id ';
 		$query .= $objWO->JoinKeyword . ' statuses c on a.status = c.id left join projectmap d on a.jcn = d.jcn and (a.seq = d.seq or d.seq = 0) ';
 		$query .= 'left join dcl_projects e on d.projectid = e.projectid ';

@@ -36,7 +36,7 @@ class htmlWorkorders
 
 		$bIsBatch = IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0;
 
-		$objWO = new dbWorkorders();
+		$objWO = new WorkOrderModel();
 		$objProduct = new ProductModel();
 		$objHTMLPersonnel = new PersonnelHtmlHelper();
 		$objHTMLPriorities = new PriorityHtmlHelper();
@@ -293,7 +293,7 @@ class htmlWorkorders
 			$oTable->assign('VAL_JCN', $jcn);
 			$oTable->assign('VAL_SEQ', $seq);
 
-			$oWO = new dbWorkorders();
+			$oWO = new WorkOrderModel();
 			$oWO->Load($jcn, $seq);
 			$oTable->assign('VAL_SUMMARY', $oWO->summary);
 

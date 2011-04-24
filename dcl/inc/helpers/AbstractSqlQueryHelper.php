@@ -1182,7 +1182,7 @@ abstract class AbstractSqlQueryHelper
 			}
 		}
 
-		$objWO = new dbWorkorders();
+		$objWO = new WorkOrderModel();
 
 		if (count($this->filterdate) > 0)
 		{

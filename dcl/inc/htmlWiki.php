@@ -94,7 +94,7 @@ class htmlWiki
 					throw new InvalidDataException();
 				}
 				
-				$o = new dbWorkorders();
+				$o = new WorkOrderModel();
 				$o->Load($id, $id2);
 				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_WOWIKI, $id, $id2, $o->summary));
 				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $id . '&seq=' . $id2));

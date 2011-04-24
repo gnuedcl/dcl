@@ -213,7 +213,7 @@ class boWatches
 		if ($this->oMeta == null)
 			$this->oMeta = new DCL_MetadataDisplay();
 
-		$objW = new dbWorkorders();
+		$objW = new WorkOrderModel();
 		$objT = new TicketsModel();
 
 		$summary = '';

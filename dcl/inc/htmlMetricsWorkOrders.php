@@ -253,7 +253,7 @@ class htmlMetricsWorkOrders
 		if (count($this->aProjects) > 0)
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
-		$oDB = new dbWorkorders();
+		$oDB = new WorkOrderModel();
 		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
 		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)
@@ -288,7 +288,7 @@ class htmlMetricsWorkOrders
 		if (count($this->aProjects) > 0)
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
-		$oDB = new dbWorkorders();
+		$oDB = new WorkOrderModel();
 		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
 		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)
@@ -323,7 +323,7 @@ class htmlMetricsWorkOrders
 		if (count($this->aProjects) > 0)
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
-		$oDB = new dbWorkorders();
+		$oDB = new WorkOrderModel();
 		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
 		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)

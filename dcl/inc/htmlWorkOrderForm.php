@@ -44,9 +44,9 @@ class htmlWorkOrderForm
 		$isCopy = false;
 		if (is_object($oSource))
 		{
-			$isEdit = is_a($oSource, 'dbWorkorders') && $oSource->jcn > 0;
+			$isEdit = is_a($oSource, 'WorkOrderModel') && $oSource->jcn > 0;
 			$isTicket = !$isEdit && is_a($oSource, 'TicketsModel');
-			$isCopy = !$isEdit && !$isTicket && is_a($oSource, 'dbWorkorders') && $oSource->jcn == 0;
+			$isCopy = !$isEdit && !$isTicket && is_a($oSource, 'WorkOrderModel') && $oSource->jcn == 0;
 		}
 		
 		if ($isEdit)

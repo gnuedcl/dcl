@@ -376,7 +376,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oWorkOrder == null)
-			$this->oWorkOrder = new dbWorkorders();
+			$this->oWorkOrder = new WorkOrderModel();
 
 		if ($this->oWorkOrder->Load($jcn, $seq) == -1)
 			return $this->TriggerError("Could not find workorder ID $jcn-$seq");

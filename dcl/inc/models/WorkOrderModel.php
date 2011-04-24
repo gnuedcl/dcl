@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,16 +21,16 @@
  */
 
 LoadStringResource('db');
-class dbWorkorders extends dclDB
+class WorkOrderModel extends dclDB
 {
 	var $aContactOrgs;
 	var $aOrgs;
 	var $iWoid;
 	var $iSeq;
 	
-	function dbWorkorders()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'workorders';
 		LoadSchema($this->TableName);
 		$this->AuditEnabled = true;
@@ -45,7 +43,7 @@ class dbWorkorders extends dclDB
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		global $dcl_info, $g_oSec;
 
@@ -109,7 +107,7 @@ class dbWorkorders extends dclDB
 		parent::Add();
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		if ($this->closedby < 1)
 		{
@@ -135,7 +133,7 @@ class dbWorkorders extends dclDB
 		parent::Edit();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		// Should have been unmapped from any projects in a bo
 
@@ -152,7 +150,7 @@ class dbWorkorders extends dclDB
 		$this->EndTransaction();
 	}
 
-	function Load($jcn, $seq)
+	public function Load($jcn, $seq)
 	{
 		global $g_oSec;
 
@@ -173,13 +171,13 @@ class dbWorkorders extends dclDB
 		return $oRetVal;
 	}
 
-	function LoadSequencesExcept($jcn, $seq)
+	public function LoadSequencesExcept($jcn, $seq)
 	{
 		if (!$this->Query("SELECT seq FROM workorders WHERE jcn=$jcn AND seq != $seq"))
 			return -1;
 	}
 
-	function IsInAProject()
+	public function IsInAProject()
 	{
 		$obj = new dclDB;
 		if ($obj->Query('SELECT count(*) FROM projectmap WHERE jcn=' . $this->jcn . ' and seq in (0,' . $this->seq . ')') == -1)
@@ -189,7 +187,7 @@ class dbWorkorders extends dclDB
 		return ($obj->f(0) > 0);
 	}
 
-	function NewID()
+	public function NewID()
 	{
 		$this->BeginTransaction();
 		$this->Insert('INSERT INTO dcl_wo_id (seq) VALUES (1)');
@@ -199,7 +197,7 @@ class dbWorkorders extends dclDB
 		return $wo_id;
 	}
 
-	function NewSequence($wo_id)
+	public function NewSequence($wo_id)
 	{
 		$this->BeginTransaction();
 		$this->Execute(sprintf('UPDATE dcl_wo_id SET seq = seq + 1 WHERE jcn = %d', $wo_id));
@@ -209,7 +207,7 @@ class dbWorkorders extends dclDB
 		return $seq;
 	}
 	
-	function CanView(&$obj, $iPersonnelID, &$bIsPublic)
+	public function CanView(&$obj, $iPersonnelID, &$bIsPublic)
 	{
 		global $dcl_info, $g_oSession, $g_oSec;
 		

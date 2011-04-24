@@ -64,7 +64,7 @@ class htmlAudit
 					throw new InvalidDataException();
 				}
 				
-				$this->aAudit = $oAudit->LoadDiff('dbWorkorders', array('jcn' => $id, 'seq' => $id2));
+				$this->aAudit = $oAudit->LoadDiff('WorkOrderModel', array('jcn' => $id, 'seq' => $id2));
 				$oSmarty->assign('VAL_ID', sprintf('%d-%d', $id, $id2));
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetWorkOrder($id, $id2));
 				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boWorkorders.viewjcn&jcn=$id&seq=$id2"));

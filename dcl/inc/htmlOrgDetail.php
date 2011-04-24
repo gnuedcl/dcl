@@ -239,7 +239,7 @@ class htmlOrgDetail
 		$oViewWO->AddDef('order', '', array('createdon DESC'));
 		$oViewWO->numrows = 10;
 		
-		$oWO = new dbWorkorders();
+		$oWO = new WorkOrderModel();
 		$oWO->LimitQuery($oViewWO->GetSQL(), 0, $oViewWO->numrows);
 		$aWO = array();
 		while ($oWO->next_record())

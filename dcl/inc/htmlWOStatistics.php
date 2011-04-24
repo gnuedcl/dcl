@@ -57,7 +57,7 @@ class htmlWOStatistics
 		$objProduct = new ProductModel();
 		$objPersonnel = new PersonnelModel();
 		$objStatuses = new StatusModel();
-		$objWorkorders = new dbWorkorders();
+		$objWorkorders = new WorkOrderModel();
 		
 		$products = @DCL_Sanitize::ToIntArray($_REQUEST['products']);
 		$people = @DCL_Sanitize::ToIntArray($_REQUEST['people']);

@@ -132,7 +132,7 @@ class wsSccsXref
 			wsSccsXref::returnEmptyResponse();
 		}
 		
-		$oDB = new dbWorkorders();
+		$oDB = new WorkOrderModel();
 		if ($oDB->Query("SELECT summary, description, status, responsible, product, etchours FROM workorders WHERE jcn = $iWOID AND seq = $iSeq") != -1 && $oDB->next_record())
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset><workorders>';

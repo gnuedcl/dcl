@@ -134,7 +134,7 @@ class htmlAgg
 	{
 		$this->Init();
 
-		$oDB = new dbWorkorders();
+		$oDB = new WorkOrderModel();
 		$oDB->Query($this->_GetSQL());
 		$aDetail = array();
 		$i = -1;

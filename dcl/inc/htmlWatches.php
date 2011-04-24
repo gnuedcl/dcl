@@ -33,7 +33,7 @@ class htmlWatches
 	function htmlWatches()
 	{
 		$this->oMeta = new DCL_MetadataDisplay();
-		$this->objW = new dbWorkorders();
+		$this->objW = new WorkOrderModel();
 		$this->objT = new TicketsModel();
 	}
 

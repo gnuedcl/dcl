@@ -79,7 +79,7 @@ class scheduleByPerson
 			throw new InvalidDataException();
 		}
 
-		$dbWO = new dbWorkorders();
+		$dbWO = new WorkOrderModel();
 		if ($beginDate == '')
 			$startDate = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 		else
@@ -103,7 +103,7 @@ class scheduleByPerson
 			$hoursLeftInDay = $hoursInDay;
 			do
 			{
-				$dbWork = new dbWorkorders();
+				$dbWork = new WorkOrderModel();
 				if ($dbWork->Load($dbWO->f('jcn'), $dbWO->f('seq')) != -1)
 				{
 					$etcHours = $dbWork->f('etchours');

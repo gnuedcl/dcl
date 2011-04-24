@@ -38,7 +38,7 @@ class htmlView
 
 	function htmlView()
 	{
-		$this->oDB = new dbWorkorders();
+		$this->oDB = new WorkOrderModel();
 
 		$this->bNeedsHeader = true;
 
@@ -162,7 +162,7 @@ class htmlView
 				$whatObject = 'TicketsModel';
 				break;
 			case 'workorders':
-				$whatObject = 'dbWorkorders';
+				$whatObject = 'WorkOrderModel';
 				break;
 			case 'dcl_projects':
 				$whatObject = 'ProjectsModel';

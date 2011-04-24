@@ -334,7 +334,7 @@ class htmlBuildManager
 		$Template->set_var('BTN_SUBMIT', STR_BM_SUBMIT);
 		$Template->pparse('out', 'hForm');
 		
-		$objWO = new dbWorkorders();
+		$objWO = new WorkOrderModel();
 		$objWO->Connect();
 		
 		while (list($key, $jcnseq) = each($selected))

@@ -34,7 +34,7 @@ class htmlWorkOrderBrowse
 		$this->sPagingMenuAction = 'htmlWorkOrderBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = new dbWorkorders();
+		$this->oDB = new WorkOrderModel();
 	}
 
 	function Render(&$oView)

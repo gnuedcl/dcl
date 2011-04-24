@@ -497,7 +497,7 @@ class reportPersonnelActivity
 		$objS = new StatusModel();
 		$objPr = new PriorityModel();
 		$objSe = new SeverityModel();
-		$objW = new dbWorkorders();
+		$objW = new WorkOrderModel();
 		$oPM = new ProjectMapModel();
 		$objDB = new dclDB;
 		

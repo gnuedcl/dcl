@@ -256,7 +256,7 @@ class xmlProjects
 		$this->oDate->SetFromDisplay($baseDate);
 		$this->lBaseDate = $this->oDate->time;
 
-		$this->objWO = new dbWorkorders();
+		$this->objWO = new WorkOrderModel();
 		$this->varArray = $vars;
 
 		$template .= '.xml';

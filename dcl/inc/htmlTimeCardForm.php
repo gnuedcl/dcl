@@ -67,7 +67,7 @@ class htmlTimeCardForm
 		}
 		else
 		{
-			$oWO = new dbWorkorders();
+			$oWO = new WorkOrderModel();
 			$oWO->Load($jcn, $seq);
 
 			$oProduct = new ProductModel();

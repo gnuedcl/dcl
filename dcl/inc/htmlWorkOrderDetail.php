@@ -38,7 +38,7 @@ class htmlWorkOrderDetail
 		else if ($forDelete && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $jcn, $seq))
 			throw new PermissionDeniedException();
 
-		$objWorkOrder = new dbWorkorders();
+		$objWorkOrder = new WorkOrderModel();
 		if ($objWorkOrder->Load($jcn, $seq) == -1)
 			return trigger_error(sprintf(STR_WO_NOTFOUNDERR, $jcn, $seq), E_USER_ERROR);
 

@@ -89,7 +89,7 @@ class boWorkorders
 		
 		$bSequence = isset($_REQUEST['copyseq']) && $_REQUEST['copyseq'] == 'true';
 		
-		$oWO = new dbWorkorders();
+		$oWO = new WorkOrderModel();
 		$oWO->Load($iID, $iSeq);
 		
 		$oProject = new ProjectMapModel();
@@ -121,7 +121,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
 			throw new PermissionDeniedException();
 
-		$oWO = new dbWorkorders();
+		$oWO = new WorkOrderModel();
 		$oWO->Load($iID, $iSeq);
 
 		$obj = new htmlWorkOrderForm();
@@ -136,7 +136,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$objWorkorder = new dbWorkorders();
+		$objWorkorder = new WorkOrderModel();
 
 		// If we're creating a seq, be sure the jcn exists
 		$iID = 0;
@@ -301,7 +301,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $iID, $iSeq))
 			throw new PermissionDeniedException();
 
-		$objWorkorder = new dbWorkorders();
+		$objWorkorder = new WorkOrderModel();
 		if ($objWorkorder->Load($iID, $iSeq) == -1)
 			return;
 
@@ -411,7 +411,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $iID, $iSeq))
 			throw new PermissionDeniedException();
 
-		$oWO = new dbWorkorders();
+		$oWO = new WorkOrderModel();
 		if ($oWO->Load($iID, $iSeq) == -1)
 			return;
 
@@ -448,7 +448,7 @@ class boWorkorders
 		}
 
 		// Remove the work order entry - also does time cards
-		$obj = new dbWorkorders();
+		$obj = new WorkOrderModel();
 		$obj->jcn = $iID;
 		$obj->seq = $iSeq;
 
@@ -869,7 +869,7 @@ class boWorkorders
 		    $iProduct = 0;
 		
 		$objG = new LineGraphImageHelper();
-		$obj = new dbWorkorders();
+		$obj = new WorkOrderModel();
 		
 		$beginDate = new DCLTimestamp();
 		$endDate = new DCLTimestamp();
@@ -1007,7 +1007,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN, $iID, $iSeq))
 			throw new PermissionDeniedException();
 
-		$objWO = new dbWorkorders();
+		$objWO = new WorkOrderModel();
 		if ($objWO->Load($iID, $iSeq) == -1)
 			return;
 		
@@ -1078,7 +1078,7 @@ class boWorkorders
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
 			$objWtch = new boWatches();
-			$objWO = new dbWorkorders();
+			$objWO = new WorkOrderModel();
 			$bNeedBreak = false;
 
 			if (($iResponsible = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
@@ -1168,7 +1168,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $iID, $iSeq))
 			throw new PermissionDeniedException();
 		
-		$oWO = new dbWorkorders();
+		$oWO = new WorkOrderModel();
 		if ($oWO->Load($iID, $iSeq) == -1)
 			return;
 
@@ -1332,8 +1332,8 @@ class boWorkorders
 				return -1;
 		}
 		
-		$objWorkorder = new dbWorkorders();
-		$objTemp = new dbWorkorders();
+		$objWorkorder = new WorkOrderModel();
+		$objTemp = new WorkOrderModel();
 		$objProjectmap = new ProjectMapModel();
 		$objWtch = new boWatches();
 
@@ -1478,7 +1478,7 @@ class boWorkorders
 		commonHeader();
 		
 		$obj = new htmlWorkorders();
-		$objDB = new dbWorkorders();
+		$objDB = new WorkOrderModel();
 		
 		if ($_REQUEST['which'] == 'responsible')
 			$obj->showmy($objDB, 'responsible', STR_WO_MYWO, STR_WO_NOOPEN, 0);
@@ -1495,7 +1495,7 @@ class boWorkorders
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
 			$obj = new htmlWorkOrderDetail();
-			$objWorkorder = new dbWorkorders();
+			$objWorkorder = new WorkOrderModel();
 			$bNeedBreak = false;
 			
 			foreach ($_REQUEST['selected'] as $val)
