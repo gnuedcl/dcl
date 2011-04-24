@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,23 +21,23 @@
  */
 
 LoadStringResource('db');
-class dbRolePerm extends dclDB
+class RolePermissionModel extends dclDB
 {
-	function dbRolePerm()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_role_perm';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 	
-	function Edit($aIgnoreFields = '')
+	public function Edit($aIgnoreFields = '')
 	{
 		// Do nothing since the whole record is the primary key
 	}
 
-	function DeleteRole($role_id)
+	public function DeleteRole($role_id)
 	{
 		$role_id = (int)$role_id;
 		$sSQL = "DELETE FROM dcl_role_perm WHERE role_id = $role_id";
@@ -47,4 +45,3 @@ class dbRolePerm extends dclDB
 		return $this->Execute($sSQL);
 	}
 }
-?>

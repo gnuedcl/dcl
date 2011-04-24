@@ -42,7 +42,7 @@ class boRole extends boAdminObject
 		
 		if (is_array($aSource['rolePerms']))
 		{
-			$oRolePerm = new dbRolePerm();
+			$oRolePerm = new RolePermissionModel();
 			foreach ($aSource['rolePerms'] as $entityPerm)
 			{
 				list($entity_id, $perm_id) = explode('_', $entityPerm);
@@ -57,7 +57,7 @@ class boRole extends boAdminObject
 		if (parent::modify($aSource) == -1)
 			return;
 		
-		$oRolePerm = new dbRolePerm();
+		$oRolePerm = new RolePermissionModel();
 		$oRolePerm->DeleteRole($this->oDB->role_id);
 		
 		if (is_array($aSource['rolePerms']))
@@ -80,7 +80,7 @@ class boRole extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 			
-		$oDB = new dbRolePerm();
+		$oDB = new RolePermissionModel();
 		$oDB->DeleteRole($aSource['role_id']);
 		
 		return parent::Delete($aSource);
