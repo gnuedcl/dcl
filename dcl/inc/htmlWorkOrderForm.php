@@ -202,7 +202,7 @@ class htmlWorkOrderForm
 			$objPM = new ProjectMapModel();
 			if (($jcn > 0 && $objPM->LoadByWO($jcn, 0) != -1) || ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && IsSet($_REQUEST['projectid'])))
 			{
-				$oProject = new dbProjects();
+				$oProject = new ProjectsModel();
 
 				if ($objPM->projectid > 0)
 					$oProject->Load($objPM->projectid);
@@ -220,7 +220,7 @@ class htmlWorkOrderForm
 			$bAllSequencesInSameProject = ($jcn > 0 && $objPM->LoadByWO($jcn, 0) != -1);
 			if ($bAllSequencesInSameProject || ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && IsSet($_REQUEST['projectid'])))
 			{
-				$oProject = new dbProjects();
+				$oProject = new ProjectsModel();
 
 				if ($objPM->projectid > 0)
 					$oProject->Load($objPM->projectid);

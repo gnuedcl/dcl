@@ -47,7 +47,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$objProject = new dbProjects();
+		$objProject = new ProjectsModel();
 		if ($objProject->Exists($_REQUEST['name']))
 		{
 			trigger_error(sprintf(STR_PRJ_ALREADYEXISTS, $_REQUEST['name']));
@@ -215,7 +215,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $projectid))
 			throw new PermissionDeniedException();
 
-		$obj = new dbProjects();
+		$obj = new ProjectsModel();
 		if ($obj->Load($projectid) == -1)
 			return;
 		
@@ -236,7 +236,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $projectid))
 			throw new PermissionDeniedException();
 
-		$obj = new dbProjects();
+		$obj = new ProjectsModel();
 		if ($obj->Load($projectid) != -1)
 		{
 			if (($status = @DCL_Sanitize::ToInt($_REQUEST['status'])) === null ||
@@ -299,7 +299,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $projectid))
 			throw new PermissionDeniedException();
 
-		$obj = new dbProjects();
+		$obj = new ProjectsModel();
 		if ($obj->Load($projectid) == -1)
 			return;
 			
@@ -319,7 +319,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $projectid))
 			throw new PermissionDeniedException();
 
-		$obj = new dbProjects();
+		$obj = new ProjectsModel();
 		$obj->projectid = $projectid;
 		$obj->Delete();
 
@@ -575,7 +575,7 @@ class boProjects
 		$objPM = new ProjectMapModel();
 		if ($objPM->LoadByWO($jcn, $seq) != -1)
 		{
-			$objDBPrj = new dbProjects();
+			$objDBPrj = new ProjectsModel();
 			$project_path = explode(',', $objDBPrj->GetProjectParents($objPM->projectid, true));
 			while (list($key, $project_id) = each($project_path))
 			{
@@ -594,7 +594,7 @@ class boProjects
 	{
 		$aProjects = array();
 
-		$objDBPrj = new dbProjects();
+		$objDBPrj = new ProjectsModel();
 		$sParentProjects = $objDBPrj->GetProjectParents($projectid);
 		if ($sParentProjects == '')
 			return null;

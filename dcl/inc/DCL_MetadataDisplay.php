@@ -181,7 +181,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oProject == null)
-			$this->oProject = new dbProjects();
+			$this->oProject = new ProjectsModel();
 
 		if ($this->oProject->Load($id, false) == -1)
 			return $this->TriggerError("Could not find project ID $id");

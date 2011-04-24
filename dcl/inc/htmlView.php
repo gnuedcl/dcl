@@ -165,7 +165,7 @@ class htmlView
 				$whatObject = 'dbWorkorders';
 				break;
 			case 'dcl_projects':
-				$whatObject = 'dbProjects';
+				$whatObject = 'ProjectsModel';
 				break;
 			case 'dcl_chklst':
 				$whatObject = 'ChecklistModel';

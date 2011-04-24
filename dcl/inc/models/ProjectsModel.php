@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,18 +22,18 @@
 
 LoadStringResource('db');
 
-class dbProjects extends dclDB
+class ProjectsModel extends dclDB
 {
-	function dbProjects()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_projects';
 		LoadSchema($this->TableName);
 		$this->AuditEnabled = true;
 		parent::Clear();
 	}
 
-	function Add()
+	public function Add()
 	{
 		global $dcl_info;
 
@@ -44,7 +42,7 @@ class dbProjects extends dclDB
 		return parent::Add();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		$query = 'DELETE FROM projectmap WHERE projectid=' . $this->projectid;
 		$this->Execute($query);
@@ -55,7 +53,7 @@ class dbProjects extends dclDB
 		return $this->Execute($query);
 	}
 
-	function ParentIsNotChild($projectid, $parentid)
+	public function ParentIsNotChild($projectid, $parentid)
 	{
 		$isNotChild = true;
 		$db = new dclDB;
@@ -76,7 +74,7 @@ class dbProjects extends dclDB
 		return $isNotChild;
 	}
 
-	function GetProjectParents($projectid, $includethis = false)
+	public function GetProjectParents($projectid, $includethis = false)
 	{
 		$obj = new dclDB;
 
@@ -106,7 +104,7 @@ class dbProjects extends dclDB
 	}
 
 
-	function GetProjectChildren($projectid, $includethis = false)
+	public function GetProjectChildren($projectid, $includethis = false)
 	{
 		$obj = new dclDB;
 
@@ -131,7 +129,7 @@ class dbProjects extends dclDB
 		return $projectids;
 	}
 
-	function GetProjectStatistics($projectid, $includeChildren = false, $includeParents = false)
+	public function GetProjectStatistics($projectid, $includeChildren = false, $includeParents = false)
 	{
 		$retval = array(
 				'totaltasks' => 0,
@@ -199,12 +197,12 @@ class dbProjects extends dclDB
 		return $retval;
 	}
 
-	function Load($projectid)
+	public function Load($projectid)
 	{
 		return parent::Load(array('projectid' => $projectid));
 	}
 
-	function Exists($sName)
+	public function Exists($sName)
 	{
 		$obj = new dclDB;
 		$obj->Query('SELECT count(*) FROM dcl_projects WHERE ' . $this->GetUpperSQL('name') . ' = ' . $this->Quote(strtoupper($sName)));
@@ -212,4 +210,3 @@ class dbProjects extends dclDB
 		return ($obj->f(0) > 0);
 	}
 }
-?>

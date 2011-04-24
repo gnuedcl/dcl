@@ -35,7 +35,7 @@ class htmlProjectsBrowse
 		$this->sPagingMenuAction = 'htmlProjectsBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = new dbProjects();
+		$this->oDB = new ProjectsModel();
 	}
 
 	function Render(&$oView)

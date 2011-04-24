@@ -76,7 +76,7 @@ class htmlAudit
 				$this->aAuditProject = $oProject->AuditWorkOrderList($id, $id2);
 				break;
 			case DCL_ENTITY_PROJECT:
-				$this->aAudit = $oAudit->LoadDiff('dbProjects', array('projectid' => $id));
+				$this->aAudit = $oAudit->LoadDiff('ProjectsModel', array('projectid' => $id));
 				$oSmarty->assign('VAL_ID', $id);
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetProject($id));
 				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boProjects.viewproject&wostatus=0&project=$id"));

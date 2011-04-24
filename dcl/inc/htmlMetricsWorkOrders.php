@@ -32,7 +32,7 @@ class htmlMetricsWorkOrders
 	function htmlMetricsWorkOrders()
 	{
 		$this->oProduct = new ProductModel();
-		$this->oProject = new dbProjects();
+		$this->oProject = new ProjectsModel();
 		$this->aProjects = array();
 	}
 

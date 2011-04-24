@@ -157,7 +157,7 @@ class wsSccsXref
 			wsSccsXref::returnEmptyResponse();
 		}
 		
-		$oDB = new dbProjects();
+		$oDB = new ProjectsModel();
 		if ($oDB->Query("SELECT name, description FROM dcl_projects WHERE projectid = $iProjectID") != -1 && $oDB->next_record())
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset><dcl_projects>';

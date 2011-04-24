@@ -50,7 +50,7 @@ class htmlProjectsdetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
 			throw new PermissionDeniedException();
 
-		$this->oProject = new dbProjects();
+		$this->oProject = new ProjectsModel();
 		if ($this->oProject->Load($projectid) == -1)
 		{
 			trigger_error('Could not find a project with an id of ' . $projectid, E_USER_ERROR);
@@ -224,7 +224,7 @@ class htmlProjectsdetail
 		$oDB->Query('SELECT projectid FROM dcl_projects WHERE parentprojectid = ' . $this->oProject->projectid . ' ORDER BY name');
 		if ($oDB->next_record())
 		{
-			$oProject = new dbProjects();
+			$oProject = new ProjectsModel();
 			$aProjects = array();
 			do
 			{
@@ -315,7 +315,7 @@ class htmlProjectsdetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
 			throw new PermissionDeniedException();
 
-		$obj = new dbProjects();
+		$obj = new ProjectsModel();
 		if ($obj->Load($projectid) == -1)
 			return;
 			
