@@ -54,7 +54,7 @@ class htmlAudit
 		}
 
 		$oSmarty = new DCL_Smarty();
-		$oAudit = new boAudit();
+		$oAudit = new AuditModel();
 
 		switch ($type)
 		{

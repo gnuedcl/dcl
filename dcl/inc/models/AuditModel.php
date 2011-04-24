@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
- * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,19 +20,13 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class boAudit
+class AuditModel
 {
-	var $oDB;
-	
-	function boAudit()
-	{
-	}
-	
 	function LoadDiff($class, $aID)
 	{
-		$this->oDB = new $class();
+		$model = new $class();
 		
-		$aAuditTrail = $this->oDB->AuditLoad($aID);
+		$aAuditTrail = $model->AuditLoad($aID);
 		$aDiff = array();
 		
 		// Diff returns something only if we have a trail
