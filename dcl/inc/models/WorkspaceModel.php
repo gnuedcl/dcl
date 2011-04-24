@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,29 +21,29 @@
  */
 
 LoadStringResource('db');
-class dbWorkspace extends dclDB
+class WorkspaceModel extends dclDB
 {
-	function dbWorkspace()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_workspace';
 		LoadSchema($this->TableName);
 
 		parent::Clear();
 	}
 	
-	function ListActive()
+	public function ListActive()
 	{
 		if ($this->Query("SELECT workspace_id, workspace_name FROM dcl_workspace WHERE active = 'Y' ORDER BY workspace_name") == -1)
 			return -1;
 	}
 	
-	function GetUsers($workspace_id)
+	public function GetUsers($workspace_id)
 	{
 		
 	}
 	
-	function GetProducts($workspace_id)
+	public function GetProducts($workspace_id)
 	{
 		$workspace_id = (int)$workspace_id;
 		if ($workspace_id > 0)
@@ -59,4 +57,3 @@ class dbWorkspace extends dclDB
 		return array();
 	}
 }
-?>

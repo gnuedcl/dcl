@@ -33,7 +33,7 @@ class htmlWorkspaceBrowse
 		$this->sPagingMenuAction = 'htmlWorkspaceBrowse.Page';
 		
 		$this->oView = null;
-		$this->oDB = new dbWorkspace();
+		$this->oDB = new WorkspaceModel();
 	}
 
 	function Render(&$oView)

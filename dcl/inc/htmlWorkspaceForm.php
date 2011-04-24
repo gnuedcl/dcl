@@ -56,7 +56,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$obj = new dbWorkspace();
+		$obj = new WorkspaceModel();
 		$obj->workspace_id = $id;
 		$this->ShowEntryForm($obj, true);
 	}
@@ -74,7 +74,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$obj = new dbWorkspace();
+		$obj = new WorkspaceModel();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -94,7 +94,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		$obj = new dbWorkspace();
+		$obj = new WorkspaceModel();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -195,7 +195,7 @@ class htmlWorkspaceForm
 		
 		if ($id > 0)
 		{
-			$oWS = new dbWorkspace();
+			$oWS = new WorkspaceModel();
 			$aProducts = $oWS->GetProducts($id);
 			
 			if (count($aProducts) == 0)
@@ -245,7 +245,7 @@ class htmlWorkspaceForm
 
 		$Template = new DCL_Smarty();
 
-		$oWS = new dbWorkspace();
+		$oWS = new WorkspaceModel();
 		$aProductID = array();
 		$aProductName = array();
 		if ($isEdit || $bCopy)
