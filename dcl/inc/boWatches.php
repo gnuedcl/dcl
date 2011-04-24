@@ -266,7 +266,7 @@ class boWatches
 
 		$t->assign('VAL_HOTLISTS', $hotlists);
 
-		$oTC = new dbTimeCards();
+		$oTC = new TimeCardsModel();
 		$t->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($obj->jcn, $obj->seq, $bIsPublic));
 		
 		if ($bIsPublic)

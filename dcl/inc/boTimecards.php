@@ -68,7 +68,7 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		$objTimecard = new dbTimeCards();
+		$objTimecard = new TimeCardsModel();
 		$objWorkorder = new dbWorkorders();
 		$oStatus = new StatusModel();
 
@@ -264,7 +264,7 @@ class boTimecards
 			throw new PermissionDeniedException();
 		}
 
-		$objTimecard = new dbTimeCards();
+		$objTimecard = new TimeCardsModel();
 		$objTimecard->InitFromGlobals();
 		$objTimecard->actionby = $GLOBALS['DCLID'];
 		if ($g_oSec->IsPublicUser())
@@ -366,7 +366,7 @@ class boTimecards
 			throw new InvalidDataException();
 		}
 		
-		$objTC = new dbTimeCards();
+		$objTC = new TimeCardsModel();
 		if ($objTC->Load($iID) == -1)
 			return;
 
@@ -382,8 +382,8 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$objTC = new dbTimeCards();
-		$objOldTC = new dbTimeCards();
+		$objTC = new TimeCardsModel();
+		$objOldTC = new TimeCardsModel();
 		$objTC->InitFromGlobals();
 
 		if ($g_oSec->IsPublicUser())
@@ -414,7 +414,7 @@ class boTimecards
 		{
 			$notify .= ',3';
 
-			$objQueryTC = new dbTimeCards();
+			$objQueryTC = new TimeCardsModel();
 			if ($objQueryTC->IsLastTimeCard($objTC->id, $objTC->jcn, $objTC->seq))
 			{
 				// We're the last one!  This does (of course) assume that time cards
@@ -483,7 +483,7 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		$objTC = new dbTimeCards();
+		$objTC = new TimeCardsModel();
 		if ($objTC->Load($iID) == -1)
 			return;
 
@@ -502,7 +502,7 @@ class boTimecards
 			throw new InvalidDataException();
 		}
 		
-		$objTC = new dbTimeCards();
+		$objTC = new TimeCardsModel();
 		if ($objTC->Load($iID) == -1)
 			return;
 
@@ -516,7 +516,7 @@ class boTimecards
 		// Get the next time card issued after this one.  If not, assume
 		// that this time card was the last one entered and affected the work order
 		// status when input.
-		$objQueryTC = new dbTimeCards();
+		$objQueryTC = new TimeCardsModel();
 		if (($iNextID = $objQueryTC->GetNextTimeCardID($objTC->id, $objTC->jcn, $objTC->seq)) === null)
 		{
 			// OK, we're the last time card input, therefore we control status.

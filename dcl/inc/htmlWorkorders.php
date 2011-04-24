@@ -311,7 +311,7 @@ class htmlWorkorders
 				$oTable->assign('VAL_VERSION', $oMeta->GetProductVersion($oWO->targeted_version_id));
 			}
 
-			$oTC = new dbTimeCards();
+			$oTC = new TimeCardsModel();
 			$oTC->LimitQuery("SELECT actionon FROM timecards WHERE status = 25 AND jcn = $jcn AND seq = $seq ORDER BY actionon DESC, id DESC", 0, 1);
 			if ($oTC->next_record())
 			{

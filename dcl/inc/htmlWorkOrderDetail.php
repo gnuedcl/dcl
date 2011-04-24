@@ -103,7 +103,7 @@ class htmlWorkOrderDetail
 		if ($forDelete && $editTimeCardID == 0)
 			$oSmarty->assign('IS_DELETE', true);
 
-		$oTC = new dbTimeCards();
+		$oTC = new TimeCardsModel();
 		$oSmarty->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($objWorkOrder->jcn, $objWorkOrder->seq));
 		$oSmarty->assign('VAL_EDITTCID', $editTimeCardID);
 		$oSmarty->assign('VAL_FORDELETE', $forDelete);

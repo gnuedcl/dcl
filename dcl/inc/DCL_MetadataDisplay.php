@@ -462,7 +462,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oTimeCard == null)
-			$this->oTimeCard = new dbTimeCards();
+			$this->oTimeCard = new TimeCardsModel();
 
 		if ($this->oTimeCard->LoadLast($jcn, $seq, $g_oSec->IsPublicUser()) == -1)
 			return null;

@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,18 +20,18 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class dbTimeCards extends dclDB
+class TimeCardsModel extends dclDB
 {
-	function dbTimeCards()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'timecards';
 		LoadSchema($this->TableName);
 
 		parent::Clear();
 	}
 
-	function Add($targeted_version_id = 0, $fixed_version_id = 0)
+	public function Add($targeted_version_id = 0, $fixed_version_id = 0)
 	{
 		global $dcl_info, $g_oSec;
 
@@ -123,7 +121,7 @@ class dbTimeCards extends dclDB
 		$this->EndTransaction();
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		// Does not update reassign information - that's historical!
 		$query = 'UPDATE timecards SET actionon=' . $this->DisplayToSQL($this->actionon);
@@ -135,17 +133,17 @@ class dbTimeCards extends dclDB
 		$this->Execute($query);
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('id' => $this->id));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('id' => $id));
 	}
 	
-	function LoadLast($jcn, $seq, $bIsPublic)
+	public function LoadLast($jcn, $seq, $bIsPublic)
 	{
 		$id = $this->ExecuteScalar("select max(id) from timecards where jcn = $jcn and seq = $seq" . ($bIsPublic ? " and is_public = 'Y'" : ''));
 		
@@ -155,7 +153,7 @@ class dbTimeCards extends dclDB
 		return -1;
 	}
 
-	function GetTimeCards($jcn, $seq, $bIsPublic = false)
+	public function GetTimeCards($jcn, $seq, $bIsPublic = false)
 	{
 		global $dcl_info, $g_oSec;
 
@@ -176,7 +174,7 @@ class dbTimeCards extends dclDB
 		return 1;
 	}
 
-	function GetTimeCardsArray($jcn, $seq, $bIsPublic = false)
+	public function GetTimeCardsArray($jcn, $seq, $bIsPublic = false)
 	{
 		if ($this->GetTimeCards($jcn, $seq, $bIsPublic) == -1)
 			return -1;
@@ -205,17 +203,17 @@ class dbTimeCards extends dclDB
 		return $aRetVal;
 	}
 	
-	function IsLastTimeCard($iID, $iSeq, $iTCID)
+	public function IsLastTimeCard($iID, $iSeq, $iTCID)
 	{
 		return ($this->ExecuteScalar("SELECT COUNT(*) FROM timecards WHERE id > $iTCID AND jcn = $iID AND seq = $iSeq") == 0);
 	}
 	
-	function GetNextTimeCardID($iID, $iSeq, $iTCID)
+	public function GetNextTimeCardID($iID, $iSeq, $iTCID)
 	{
 		return $this->ExecuteScalar("SELECT MIN(id) FROM timecards WHERE id > $iTCID AND jcn = $iID AND seq = $iSeq");
 	}
 	
-	function GetPrevTimeCardID($iID, $iSeq, $iTCID)
+	public function GetPrevTimeCardID($iID, $iSeq, $iTCID)
 	{
 		return $this->ExecuteScalar("SELECT MAX(id) FROM timecards WHERE id < $iTCID AND jcn = $iID AND seq = $iSeq");
 	}
