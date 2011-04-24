@@ -76,7 +76,7 @@ class boChecklists
 		if ($filterType !== null)
 			$oView->AddDef('filter', 'dcl_chklst_tpl_id', $filterType);
 
-		$oDB = new dbChklst();
+		$oDB = new ChecklistModel();
 		if ($oDB->query($oView->GetSQL()) == -1)
 			return;
 			
@@ -222,7 +222,7 @@ class boChecklists
 			return;
 		}
 
-		$o = new dbChklst();
+		$o = new ChecklistModel();
 		$o->dcl_chklst_tpl_id = $iID;
 		$o->dcl_chklst_summary = $o->GPCStripSlashes($_REQUEST['dcl_chklst_summary']);
 		$o->dcl_chklst_createby = $GLOBALS['DCLID'];
@@ -301,7 +301,7 @@ class boChecklists
 		$this->SetNodeValue($oCL->xml, 'CurrentState', $_REQUEST['dcl_chklst_status']);
 		$oCL->xml->ToFile($sFilePath);
 
-		$o = new dbChklst();
+		$o = new ChecklistModel();
 		if ($o->Load($iID) != -1)
 		{
 			$o->dcl_chklst_modifyby = $GLOBALS['DCLID'];
@@ -326,7 +326,7 @@ class boChecklists
 			throw new InvalidDataException();
 		}
 		
-		$o = new dbChklst();
+		$o = new ChecklistModel();
 		if ($o->Load($iID) != -1)
 			ShowDeleteYesNo('Checklist', 'boChecklists.dbdelete', $o->dcl_chklst_id, $o->dcl_chklst_summary, false, 'dcl_chklst_id');
 	}
@@ -344,7 +344,7 @@ class boChecklists
 			throw new InvalidDataException();
 		}
 		
-		$o = new dbChklst();
+		$o = new ChecklistModel();
 		$o->dcl_chklst_id = $iID;
 		$o->Delete();
 		$filePath = $this->GetChklstPath($iID);

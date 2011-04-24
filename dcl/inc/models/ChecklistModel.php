@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,25 +21,24 @@
  */
 
 LoadStringResource('db');
-class dbChklst extends dclDB
+class ChecklistModel extends dclDB
 {
-	function dbChklst()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_chklst';
 		LoadSchema($this->TableName);
 		
 		parent::Clear();
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		return parent::Delete(array('dcl_chklst_id' => $this->dcl_chklst_id));
 	}
 
-	function Load($id)
+	public function Load($id)
 	{
 		return parent::Load(array('dcl_chklst_id' => $id));
 	}
 }
-?>
