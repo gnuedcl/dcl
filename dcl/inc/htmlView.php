@@ -174,7 +174,7 @@ class htmlView
 				$whatObject = 'ChecklistTemplateModel';
 				break;
 			case 'dcl_product_module':
-				$whatObject = 'dbProductModules';
+				$whatObject = 'ProductModulesModel';
 				break;
 			case 'dcl_wo_type':
 				$whatObject = 'WorkOrderTypeModel';

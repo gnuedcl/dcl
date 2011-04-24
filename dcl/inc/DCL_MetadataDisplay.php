@@ -209,7 +209,7 @@ class DCL_MetadataDisplay
 			return '';
 
 		if ($this->oModule == null)
-			$this->oModule = new dbProductModules();
+			$this->oModule = new ProductModulesModel();
 
 		if ($this->oModule->Load($id, false) == -1)
 			return $this->TriggerError("Could not find module ID $id");

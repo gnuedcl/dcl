@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,11 +22,11 @@
 
 LoadStringResource('db');
 
-class dbProductModules extends dclDB
+class ProductModulesModel extends dclDB
 {
-	function dbProductModules()
+	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_product_module';
 		$this->cacheEnabled = true;
 		
@@ -44,4 +42,3 @@ class dbProductModules extends dclDB
 		return parent::Delete(array('product_module_id' => $this->product_module_id));
 	}
 }
-?>

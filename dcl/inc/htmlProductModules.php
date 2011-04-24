@@ -86,7 +86,7 @@ class htmlProductModules
 		$o->AddDef('order', '', $orderBy);
 		$o->AddDef('filter', 'product_id', $id);
 
-		$oDB = new dbProductModules();
+		$oDB = new ProductModulesModel();
 		if ($oDB->query($o->GetSQL()) == -1)
 			return;
 			
@@ -154,7 +154,7 @@ class htmlProductModules
 			throw new InvalidDataException();
 		}
 
-		$obj = new dbProductModules();
+		$obj = new ProductModulesModel();
 		if ($obj->Load($id) == -1)
 			return;
 			
@@ -174,7 +174,7 @@ class htmlProductModules
 			throw new InvalidDataException();
 		}
 
-		$obj = new dbProductModules();
+		$obj = new ProductModulesModel();
 		if ($obj->Load($id) == -1)
 			return;
 			
