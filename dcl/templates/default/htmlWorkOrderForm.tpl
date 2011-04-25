@@ -72,10 +72,16 @@ function IsProjectRequiredCallback(aItems)
 	if (typeof(aItems) != "object" || !aItems.data || !aItems.data.length)
 	{
 		productVersionRequired = false;
+		$("label[for=projectid]").parent().removeClass("required");
 		return;
 	}
 	
-	productVersionRequired = (aItems.data[0].is_project_required == "Y")
+	productVersionRequired = (aItems.data[0].is_project_required == "Y");
+	if (productVersionRequired) {
+		$("label[for=projectid]").parent().addClass("required");
+	} else {
+		$("label[for=projectid]").parent().removeClass("required");
+	}
 }
 
 function UpdateOptions()
@@ -96,7 +102,7 @@ function UpdateOptions()
 		return;
 {/literal}
 	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=jsonProductVersion.ListVersions{if !$IS_EDIT}&active=Y{/if}&product_id=" + oProduct.options[oProduct.selectedIndex].value, UpdateVersionsCallback);
-	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=jsonProduct.IsProjectRequired&product_id=" + oProduct.options[oProduct.selectedIndex].value, IsProjectRequiredCallback);
+	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.IsProjectRequired&product_id=" + oProduct.options[oProduct.selectedIndex].value, IsProjectRequiredCallback);
 {literal}
 }
 {/literal}

@@ -218,4 +218,23 @@ class ProductController extends AbstractController
 		$presenter->Detail($model);
 		$presenter->DetailBuild($model, $buildModel);
 	}
+	
+	public function IsProjectRequired()
+	{
+		header('Content-Type: application/json');
+		$product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id']);
+		if ($product_id === null)
+			exit;
+		
+		$model = new ProductModel();
+		$model->Load($product_id);
+
+		$bFirst = true;
+		echo '{';
+		echo '"totalRecords":1,';
+		echo '"data":[{"is_project_required":"' . $model->is_project_required . '"}]';
+		echo '}';
+
+		exit;
+	}
 }
