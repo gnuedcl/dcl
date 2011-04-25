@@ -101,7 +101,7 @@ function UpdateOptions()
 	if (oProduct == null || oProduct.selectedIndex == 0)
 		return;
 {/literal}
-	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=jsonProductVersion.ListVersions{if !$IS_EDIT}&active=Y{/if}&product_id=" + oProduct.options[oProduct.selectedIndex].value, UpdateVersionsCallback);
+	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.ListVersions{if !$IS_EDIT}&active=Y{/if}&product_id=" + oProduct.options[oProduct.selectedIndex].value, UpdateVersionsCallback);
 	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.IsProjectRequired&product_id=" + oProduct.options[oProduct.selectedIndex].value, IsProjectRequiredCallback);
 {literal}
 }

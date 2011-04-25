@@ -237,4 +237,35 @@ class ProductController extends AbstractController
 
 		exit;
 	}
+	
+	public function ListVersions()
+	{
+		header('Content-Type: application/json');
+		$product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id']);
+		if ($product_id === null)
+			exit;
+		
+		$oDB = new ProductVersionModel();
+		$aOptions = $oDB->GetOptions('product_version_id', 'product_version_text', 'active', (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y'), '', "product_id=$product_id");
+
+		$bFirst = true;
+		echo '{';
+		echo '"totalRecords":', count($aOptions), ',';
+		echo '"data":[';
+		for ($i = 0; $i < count($aOptions); $i++)
+		{
+			if ($i > 0)
+				echo ',';
+				
+			
+			echo '{';
+			echo '"id":', $aOptions[$i]['product_version_id'], ',';
+			echo '"text":"', str_replace('"', '\"', str_replace("\\", "\\\\", $aOptions[$i]['product_version_text'])), '"';
+			echo '}';
+		}
+		
+		echo ']}';
+
+		exit;
+	}
 }
