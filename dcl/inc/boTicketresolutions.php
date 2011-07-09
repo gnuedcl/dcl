@@ -286,7 +286,7 @@ class boTicketresolutions
 		if ($oStatus->GetStatusType($this->oDB->status) != 2)
 			return;
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$aContact = $oMeta->GetContact($oTicket->contact_id);
 		if (!IsSet($aContact['email']) || trim($aContact['email']) == '')
 			return;

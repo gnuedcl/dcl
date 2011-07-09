@@ -57,7 +57,7 @@ class htmlProjectsdetail
 			return;
 		}
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 
 		$this->oSmarty->assign('VAL_PROJECTID', $this->oProject->projectid);
 		$this->oSmarty->assign('VAL_REPORTTO', $oMeta->GetPersonnel($this->oProject->reportto));

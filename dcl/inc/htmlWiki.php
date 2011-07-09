@@ -70,7 +70,7 @@ class htmlWiki
 		}
 
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 
 		$sHTML = '';
 		switch ($type)

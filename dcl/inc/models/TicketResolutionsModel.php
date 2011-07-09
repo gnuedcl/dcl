@@ -97,7 +97,7 @@ class TicketResolutionsModel extends DbProvider
 
 		if (count($aRetVal) > 0)
 		{
-			$oMeta = new DCL_MetadataDisplay();
+			$oMeta = new DisplayHelper();
 			for ($i = 0; $i < count($aRetVal); $i++)
 			{
 				$aRetVal[$i]['time'] = $this->GetHoursText($aRetVal[$i]['startedon'], $aRetVal[$i]['loggedon']);

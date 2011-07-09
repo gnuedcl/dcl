@@ -355,7 +355,7 @@ class reportPersonnelActivity
 		$bExport = (IsSet($_REQUEST['export']) && $_REQUEST['export'] == '1');
 
 		$responsible = '';
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		if ($_REQUEST['bytype'] == '1')
 		{
 			if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
@@ -506,7 +506,7 @@ class reportPersonnelActivity
 		if (!array_key_exists($groupBy, $aGroupOptions))
 			$groupBy = '0';
 		
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$responsible = 0;
 		$department = 0;
 		if ($_REQUEST['bytype'] == '1')

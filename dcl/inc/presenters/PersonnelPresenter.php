@@ -165,7 +165,7 @@ class PersonnelPresenter
 		$oUserRole = new UserRoleModel();
 		$template->assign('Roles', $oUserRole->GetGlobalRoles($model->id));
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$aContact =& $oMeta->GetContact($model->contact_id);
 
 		$template->assign('VAL_CONTACTID', $model->contact_id);

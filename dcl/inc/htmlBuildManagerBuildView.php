@@ -54,7 +54,7 @@ class htmlBuildManagerBuildView
 		$oTable->addColumn('Version ID', 'numeric');
 		$oTable->addColumn(STR_BM_RELEASEDATE_DESC, 'string');
 		
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		
 		$oProductVersion = new ProductVersionModel();
 		$oProductVersion->Load(array('product_version_id' => $this->product_version_id));

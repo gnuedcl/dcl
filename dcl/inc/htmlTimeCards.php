@@ -88,7 +88,7 @@ class htmlTimeCards
 			$objStatus = new StatusModel();
 			$objAction = new ActionModel();
 
-			$oMeta =& new DCL_MetadataDisplay();
+			$oMeta =& new DisplayHelper();
 
 			$oSmarty = new DCL_Smarty();
 			$oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY));

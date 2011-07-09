@@ -57,7 +57,7 @@ class htmlTicketForm
 		$oSmarty->assign('VAL_DCLID', $GLOBALS['DCLID']);
 		$oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		if ($isEdit)
 		{
 			$oProduct = new ProductModel();

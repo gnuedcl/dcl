@@ -48,7 +48,7 @@ class htmlTicketDetail
 		$oSmarty->assign('VAL_WIKITYPE', DCL_ENTITY_TICKET);
 		$oSmarty->assign('VAL_WATCHTYPE', '5');
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$oSmarty->assign('VAL_CREATEDBY', $oMeta->GetPersonnel($obj->createdby));
 		$oSmarty->assign('VAL_CLOSEDBY', $oMeta->GetPersonnel($obj->closedby));
 		$oSmarty->assign('VAL_RESPONSIBLE', $oMeta->GetPersonnel($obj->responsible));

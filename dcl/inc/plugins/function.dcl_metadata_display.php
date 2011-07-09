@@ -39,7 +39,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 	}
 
 	if (!isset($g_oMetaData) || !is_a($g_oMetaData, 'DCL_Metadatadisplay'))
-		$g_oMetaData = new DCL_MetadataDisplay();
+		$g_oMetaData = new DisplayHelper();
 		
 	switch ($params['type'])
 	{

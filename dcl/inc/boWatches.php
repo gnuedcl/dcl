@@ -211,7 +211,7 @@ class boWatches
 			return '';
 
 		if ($this->oMeta == null)
-			$this->oMeta = new DCL_MetadataDisplay();
+			$this->oMeta = new DisplayHelper();
 
 		$objW = new WorkOrderModel();
 		$objT = new TicketsModel();
@@ -314,7 +314,7 @@ class boWatches
 			$mailFrom = '<' . $g_oSession->Value('USEREMAIL') . '>';
 
 		if ($this->oMeta == null)
-			$this->oMeta = new DCL_MetadataDisplay();
+			$this->oMeta = new DisplayHelper();
 			
 		$bIsPublic = false;
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
@@ -497,7 +497,7 @@ class boWatches
 			$mailFrom = '<' . $g_oSession->Value('USEREMAIL') . '>';
 
 		if ($this->oMeta == null)
-			$this->oMeta = new DCL_MetadataDisplay();
+			$this->oMeta = new DisplayHelper();
 			
 		$bIsPublic = false;
 		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')

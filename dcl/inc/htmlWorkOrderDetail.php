@@ -42,7 +42,7 @@ class htmlWorkOrderDetail
 		if ($objWorkOrder->Load($jcn, $seq) == -1)
 			return trigger_error(sprintf(STR_WO_NOTFOUNDERR, $jcn, $seq), E_USER_ERROR);
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$oSmarty = new DCL_Smarty();
 		
 		$oSmarty->assign('IS_PUBLIC', $g_oSec->IsPublicUser());

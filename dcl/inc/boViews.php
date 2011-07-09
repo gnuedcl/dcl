@@ -247,7 +247,7 @@ class boViews
 
 		// Output field headings
 		echo $record . phpCrLf;
-		$metadata = new DCL_MetadataDisplay();
+		$metadata = new DisplayHelper();
 		$workOrderOrg = new WorkOrderOrganizationModel();
 
 		// Now for the records

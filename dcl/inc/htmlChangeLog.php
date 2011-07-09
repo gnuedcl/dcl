@@ -256,7 +256,7 @@ class htmlChangeLog
 			$aDisplayRecords[$i][1] = $this->oDB->FormatTimestampForDisplay($aRecords[$i][1]);
 			$aDisplayRecords[$i][2] = $aRecords[$i][2];
 			
-			$oMeta = new DCL_MetadataDisplay();
+			$oMeta = new DisplayHelper();
 			if ($aRecords[$i][3] == DCL_ENTITY_WORKORDER)
 				$aDisplayRecords[$i][3] = $this->GetLink('menuAction=boWorkorders.viewjcn&jcn=' . $aRecords[$i][4] . '&seq=' . $aRecords[$i][5], '[' . $aRecords[$i][4] . '-' . $aRecords[$i][5] . ']' . $oMeta->GetWorkOrder($aRecords[$i][4], $aRecords[$i][5]));
 			else if ($aRecords[$i][3] == DCL_ENTITY_PROJECT)

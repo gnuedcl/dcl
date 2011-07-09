@@ -66,7 +66,7 @@ class reportTicketActivity
 			return;
 		}
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 
 		$obj = new TicketsModel();
 		$objT = new TicketResolutionsModel();

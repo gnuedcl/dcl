@@ -35,7 +35,7 @@ class htmlAudit
 		$this->aAudit = array();
 		$this->aAuditAccount = array();
 		$this->aAuditProject = array();
-		$this->oMeta = new DCL_MetadataDisplay();
+		$this->oMeta = new DisplayHelper();
 	}
 
 	function show()

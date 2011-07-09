@@ -158,7 +158,7 @@ class htmlOrgDetail
 		$oOrgContacts = new OrganizationModel();
 		$oOrgContacts->ListMainContacts($oOrg->org_id);
 		$aContacts = array();
-		$oMetadata = new DCL_MetadataDisplay();
+		$oMetadata = new DisplayHelper();
 		$oContactType = new ContactTypeModel();
 		while ($oOrgContacts->next_record())
 		{

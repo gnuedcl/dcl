@@ -85,7 +85,7 @@ class htmlHotlistProject
 			return;
 		}
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 
 		$this->oSmarty->assign('VAL_HOTLISTID', $id);
 		$this->oSmarty->assign('VAL_NAME', $this->hotlist->hotlist_tag);

@@ -183,7 +183,7 @@ class TimeCardsModel extends DbProvider
 
 		if (count($aRetVal) > 0)
 		{
-			$oMeta = new DCL_MetadataDisplay();
+			$oMeta = new DisplayHelper();
 			for ($i = 0; $i < count($aRetVal); $i++)
 			{
 				$aRetVal[$i]['actionon'] = $this->FormatDateForDisplay($aRetVal[$i]['actionon']);

@@ -133,7 +133,7 @@ class htmlWorkOrderForm
 		$this->oSmarty->assign('PERM_ISPUBLICUSER', $g_oSec->IsPublicUser());
 		$this->oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		if ($isEdit || $isTicket || $isCopy)
 		{
 			$oProduct = new ProductModel();

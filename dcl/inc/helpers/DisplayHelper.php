@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class DCL_MetadataDisplay
+class DisplayHelper
 {
 	var $oPersonnel;
 	var $oStatus;
@@ -51,7 +49,7 @@ class DCL_MetadataDisplay
 	var $oProductVersion;
 	var $oTimeCard;
 
-	function DCL_MetadataDisplay()
+	public function __construct()
 	{
 		$this->oPersonnel = null;
 		$this->oStatus = null;
@@ -80,18 +78,18 @@ class DCL_MetadataDisplay
 		$this->oTimeCard = null;
 	}
 
-	function IsValidID($id)
+	public function IsValidID($id)
 	{
 		return (isset($id) && $id !== null && $id != '' && is_numeric($id) && $id > 0);
 	}
 	
-	function TriggerError($sMessage)
+	public function TriggerError($sMessage)
 	{
 		trigger_error($sMessage, E_USER_ERROR);
 		return null;
 	}
 
-	function GetStatus($id)
+	public function GetStatus($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -105,7 +103,7 @@ class DCL_MetadataDisplay
 		return $this->oStatus->name;
 	}
 
-	function GetPersonnel($id)
+	public function GetPersonnel($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -119,7 +117,7 @@ class DCL_MetadataDisplay
 		return $this->oPersonnel->short;
 	}
 
-	function GetSeverity($id)
+	public function GetSeverity($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -133,7 +131,7 @@ class DCL_MetadataDisplay
 		return $this->oSeverity->name;
 	}
 
-	function GetPriority($id)
+	public function GetPriority($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -147,7 +145,7 @@ class DCL_MetadataDisplay
 		return $this->oPriority->name;
 	}
 
-	function GetProduct($id)
+	public function GetProduct($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -161,7 +159,7 @@ class DCL_MetadataDisplay
 		return $this->oProduct->name;
 	}
 
-	function GetProductVersion($id)
+	public function GetProductVersion($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -175,7 +173,7 @@ class DCL_MetadataDisplay
 		return $this->oProductVersion->product_version_text;
 	}
 
-	function GetProject($id)
+	public function GetProject($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -189,7 +187,7 @@ class DCL_MetadataDisplay
 		return $this->oProject->name;
 	}
 
-	function GetWorkOrderType($id)
+	public function GetWorkOrderType($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -203,7 +201,7 @@ class DCL_MetadataDisplay
 		return $this->oWorkOrderType->type_name;
 	}
 
-	function GetModule($id)
+	public function GetModule($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -217,7 +215,7 @@ class DCL_MetadataDisplay
 		return $this->oModule->module_name;
 	}
 
-	function GetSource($id)
+	public function GetSource($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -231,7 +229,7 @@ class DCL_MetadataDisplay
 		return $this->oSource->entity_source_name;
 	}
 
-	function &GetContact($id)
+	public function &GetContact($id)
 	{
 		$aRetVal = array('name' => '', 'phonetype' => '', 'phone' => '', 'emailtype' => '', 'email' => '', 'urltype' => '', 'url' => '', 'org_id' => '', 'org_name' => '');
 		if (!$this->IsValidID($id))
@@ -280,7 +278,7 @@ class DCL_MetadataDisplay
 		return $aRetVal;
 	}
 
-	function &GetOrganization($id)
+	public function &GetOrganization($id)
 	{
 		$aRetVal = array('name' => '', 'phonetype' => '', 'phone' => '', 'emailtype' => '', 'email' => '', 'urltype' => '', 'url' => '');
 		if (!$this->IsValidID($id))
@@ -356,7 +354,7 @@ class DCL_MetadataDisplay
 		return $aRetVal;
 	}
 
-	function GetAction($id)
+	public function GetAction($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -370,7 +368,7 @@ class DCL_MetadataDisplay
 		return $this->oAction->name;
 	}
 
-	function GetWorkOrder($jcn, $seq)
+	public function GetWorkOrder($jcn, $seq)
 	{
 		if (!$this->IsValidID($jcn) || !$this->IsValidID($seq))
 			return '';
@@ -384,7 +382,7 @@ class DCL_MetadataDisplay
 		return $this->oWorkOrder->summary;
 	}
 
-	function GetTicket($id)
+	public function GetTicket($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -398,7 +396,7 @@ class DCL_MetadataDisplay
 		return $this->oTicket->summary;
 	}
 	
-	function GetDepartment($id)
+	public function GetDepartment($id)
 	{
 		if (!$this->IsValidID($id))
 			return '';
@@ -412,7 +410,7 @@ class DCL_MetadataDisplay
 		return $this->oDepartment->name;
 	}
 	
-	function GetTags($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	public function GetTags($entity_id, $entity_key_id, $entity_key_id2 = 0)
 	{
 		if (!$this->IsValidID($entity_id) || !$this->IsValidID($entity_key_id))
 			return '';
@@ -426,7 +424,7 @@ class DCL_MetadataDisplay
 		return $this->oTag->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
 	
-	function GetHotlist($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	public function GetHotlist($entity_id, $entity_key_id, $entity_key_id2 = 0)
 	{
 		if (!$this->IsValidID($entity_id) || !$this->IsValidID($entity_key_id))
 			return '';
@@ -440,7 +438,7 @@ class DCL_MetadataDisplay
 		return $this->oHotlist->getTagsForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
 	
-	function GetHotlistWithPriority($entity_id, $entity_key_id, $entity_key_id2 = 0)
+	public function GetHotlistWithPriority($entity_id, $entity_key_id, $entity_key_id2 = 0)
 	{
 		if (!$this->IsValidID($entity_id) || !$this->IsValidID($entity_key_id))
 			return array();
@@ -454,7 +452,7 @@ class DCL_MetadataDisplay
 		return $this->oHotlist->getTagsWithPriorityForEntity($entity_id, $entity_key_id, $entity_key_id2);
 	}
 
-	function GetLastTimeCard($jcn, $seq)
+	public function GetLastTimeCard($jcn, $seq)
 	{
 		global $g_oSec;
 		

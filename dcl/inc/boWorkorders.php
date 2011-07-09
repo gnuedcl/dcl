@@ -1249,7 +1249,7 @@ class boWorkorders
 	function verifyID($field, $id)
 	{
 		if ($this->oMetaData === null)
-			$this->oMetaData = new DCL_MetadataDisplay();
+			$this->oMetaData = new DisplayHelper();
 
 		$oVal = null;
 		switch ($field)

@@ -38,7 +38,7 @@ class htmlProjectTimeline
 		if (($id = Filter::ToInt($_REQUEST['projectid'])) === null)
 		    throw new PermissionDeniedException();
 		    
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$t = new DCL_Smarty();
 		$t->assign('VAL_PROJECTNAME', $oMeta->GetProject($id));
 		$t->assign('VAL_PROJECTID', $id);

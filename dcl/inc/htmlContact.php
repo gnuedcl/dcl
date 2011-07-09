@@ -65,7 +65,7 @@ class htmlContact
 			throw new InvalidDataException();
 		}
 		
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$aContact = $oMeta->GetContact($id);
 		
 		$objView = new boView();
@@ -109,7 +109,7 @@ class htmlContact
 			throw new InvalidDataException();
 		}
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$aContact = $oMeta->GetContact($id);
 		
 		$objView = new boView();
@@ -165,7 +165,7 @@ class htmlContact
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$oSmarty = new DCL_Smarty();
 		if (count($contact_id) > 1)
 		{

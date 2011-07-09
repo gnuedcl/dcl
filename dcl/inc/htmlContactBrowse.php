@@ -60,7 +60,7 @@ class htmlContactBrowse
 
 		$oTable = new TableHtmlHelper();
 		
-		$oMetadata = new DCL_MetadataDisplay();
+		$oMetadata = new DisplayHelper();
 		$aContacts = array();
 		while ($this->oDB->next_record())
 		{

@@ -183,7 +183,7 @@ class htmlContactSelector
 
 		if ($this->oDB->LimitQuery($this->oView->GetSQL(), $this->oView->startrow, $this->oView->numrows) != -1)
 		{
-			$oMetadata = new DCL_MetadataDisplay();
+			$oMetadata = new DisplayHelper();
 			$aContacts = array();
 			while ($this->oDB->next_record())
 			{

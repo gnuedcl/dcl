@@ -106,7 +106,7 @@ class htmlOrg
 			throw new InvalidDataException();
 		}
 		
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$aOrg = $oMeta->GetOrganization($id);
 		
 		$objView = new boView();
@@ -143,7 +143,7 @@ class htmlOrg
 			throw new InvalidDataException();
 		}
 
-		$oMeta = new DCL_MetadataDisplay();
+		$oMeta = new DisplayHelper();
 		$aOrg = $oMeta->GetOrganization($id);
 		
 		$objView = new boView();

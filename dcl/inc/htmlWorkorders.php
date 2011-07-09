@@ -199,7 +199,7 @@ class htmlWorkorders
 
 		$oSmarty = new DCL_Smarty();
 		$oNotification = new boWatches();
-		$oNotification->oMeta = new DCL_MetadataDisplay();
+		$oNotification->oMeta = new DisplayHelper();
 		$oNotification->oMeta->GetWorkOrder($jcn, $seq);
 		
 		$oSmarty->assign('VAL_HTML', "<br/><br/>" . $oNotification->GetWorkOrderNotificationBody($oNotification->oMeta->oWorkOrder, true));
@@ -301,7 +301,7 @@ class htmlWorkorders
 			$oProd->Load($oWO->product);
 			$oTable->assign('VAL_PRODUCT', $oProd->name);
 			
-			$oMeta = new DCL_MetadataDisplay();
+			$oMeta = new DisplayHelper();
 			if ($oWO->fixed_version_id > 0)
 			{
 				$oTable->assign('VAL_VERSION', $oMeta->GetProductVersion($oWO->fixed_version_id));
