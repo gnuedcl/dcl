@@ -176,9 +176,9 @@ class boChecklists
 				else
 				{
 					$nextID = count($oNode->childNodes);
-					$oNode->childNodes[$nextID] = new xmlNode();
+					$oNode->childNodes[$nextID] = new XmlNodeHelper();
 					$oNode->childNodes[$nextID]->name = 'Values';
-					$oNode->childNodes[$nextID]->childNodes[0] = new xmlNode();
+					$oNode->childNodes[$nextID]->childNodes[0] = new XmlNodeHelper();
 					$oNode->childNodes[$nextID]->childNodes[0]->name = 'Value';
 					$oNode->childNodes[$nextID]->childNodes[0]->data = $sValue;
 				}
@@ -208,7 +208,7 @@ class boChecklists
 		
 		$tpl = new boChecklistTpl();
 		$tplFilePath = $tpl->GetTplPath($iID);
-		$oXML = new xmlDoc();
+		$oXML = new XmlDocumentHelper();
 		$oXML->ParseFile($tplFilePath);
 		$oXML->FindChildNode($oXML->root, 'CurrentState');
 
@@ -294,7 +294,7 @@ class boChecklists
 		$oCL = new htmlChecklistForm();
 		$sFilePath = $this->GetChklstPath($iID);
 
-		$oCL->xml = new xmlDoc();
+		$oCL->xml = new XmlDocumentHelper();
 		$oCL->xml->ParseFile($sFilePath);
 		$oCL->UpdateNodes($oCL->xml->root);
 		$this->AddChange($oCL->xml, $GLOBALS['DCLNAME'], date('Y-m-d'), $_REQUEST['dcl_chklst_state']);
@@ -372,12 +372,12 @@ class boChecklists
 		if ($oXML->currentNode != NULL)
 		{
 			$a = array('ChangeBy' => $sBy, 'ChangeOn' => $sOn, 'ChangeState' => $sState);
-			$o = new xmlNode();
+			$o = new XmlNodeHelper();
 			$o->name = 'Change';
 			$nextid = 0;
 			while (list($k, $v) = each($a))
 			{
-				$o->childNodes[$nextid] = new xmlNode();
+				$o->childNodes[$nextid] = new XmlNodeHelper();
 				$o->childNodes[$nextid]->name = $k;
 				$o->childNodes[$nextid]->data = $v;
 				$nextid++;

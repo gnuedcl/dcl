@@ -177,7 +177,7 @@ class boChecklistTpl
 		{
 			$sName = '';
 
-			$oXML = new xmlDoc();
+			$oXML = new XmlDocumentHelper();
 			$oXML->ParseFile($sFileName);
 			$oXML->FindChildNode($oXML->root, 'Name');
 			if ($oXML->currentNode != NULL)
@@ -243,7 +243,7 @@ class boChecklistTpl
 			{
 				$sName = '';
 
-				$oXML = new xmlDoc();
+				$oXML = new XmlDocumentHelper();
 				$oXML->ParseFile($sFileName);
 				$oXML->FindChildNode($oXML->root, 'Name');
 				if ($oXML->currentNode != NULL)

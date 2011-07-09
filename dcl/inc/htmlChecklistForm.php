@@ -318,7 +318,7 @@ class htmlChecklistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		$this->xml = new xmlDoc();
+		$this->xml = new XmlDocumentHelper();
 		$this->xml->ParseFile($file);
 
 		$t = new SmartyHelper();

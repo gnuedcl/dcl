@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class xmlNode
+class XmlNodeHelper
 {
 	var $name;
 	var $attributes;
@@ -30,7 +28,7 @@ class xmlNode
 	var $parentNode;
 	var $data;
 
-	function xmlNode()
+	public function __construct()
 	{
 		$this->name = '';
 		$this->data = '';
@@ -39,4 +37,3 @@ class xmlNode
 		$this->parentNode = NULL;
 	}
 }
-?>

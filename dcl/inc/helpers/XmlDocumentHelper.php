@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class xmlDoc
+class XmlDocumentHelper
 {
 	// PHP 4 required due to passing/setting objects by reference
 	// and use of xml_set_object
@@ -31,7 +29,7 @@ class xmlDoc
 	var $currentNode;
 	var $nodes;
 
-	function xmlDoc()
+	public function __construct()
 	{
 		$this->root = NULL;
 		$this->parser = NULL;
@@ -39,7 +37,7 @@ class xmlDoc
 		$this->nodes = array();
 	}
 
-	function ParseString($sXML)
+	public function ParseString($sXML)
 	{
 		$this->parser = xml_parser_create();
 		xml_set_object($this->parser, &$this);
@@ -61,7 +59,7 @@ class xmlDoc
 		xml_parser_free($this->parser);
 	}
 
-	function ParseFile($sFileName)
+	public function ParseFile($sFileName)
 	{
 		$this->parser = xml_parser_create();
 		xml_set_object($this->parser, &$this);
@@ -90,9 +88,9 @@ class xmlDoc
 		xml_parser_free($this->parser);
 	}
 
-	function AddChildNode(&$oParent, $sName, $aAttributes)
+	public function AddChildNode(&$oParent, $sName, $aAttributes)
 	{
-		$oNew = new xmlNode();
+		$oNew = new XmlNodeHelper();
 		$oNew->name = &$sName;
 		$oNew->attributes = &$aAttributes;
 		$oNew->parentNode = &$oParent;
@@ -100,7 +98,7 @@ class xmlDoc
 		$oParent->childNodes[$nodeIdx] = &$oNew;
 	}
 
-	function FindChildNode(&$oStart, $element)
+	public function FindChildNode(&$oStart, $element)
 	{
 		unset($this->currentNode);
 		$this->currentNode = NULL;
@@ -119,7 +117,7 @@ class xmlDoc
 		}
 	}
 
-	function ListNodes(&$oStart, $element, $attribute, $value)
+	public function ListNodes(&$oStart, $element, $attribute, $value)
 	{
 		if ($oStart->name == $element && IsSet($oStart->attributes[$attribute]) && ($oStart->attributes[$attribute] == $value || $value == "*"))
 			$this->nodes[] = &$oStart;
@@ -128,16 +126,16 @@ class xmlDoc
 			$this->ListNodes($oStart->childNodes[$i], $element, $attribute, $value);
 	}
 
-	function ClearList()
+	public function ClearList()
 	{
 		$this->nodes = array();
 	}
 
-	function StartElement($parser, $name, $attributes)
+	public function StartElement($parser, $name, $attributes)
 	{
 		if ($this->root == NULL)
 		{
-			$this->root = new xmlNode();
+			$this->root = new XmlNodeHelper();
 			$this->root->name = $name;
 			$this->root->attributes = $attributes;
 			$this->currentNode = &$this->root;
@@ -152,7 +150,7 @@ class xmlDoc
 		$this->currentNode = &$this->currentNode->childNodes[count($this->currentNode->childNodes) - 1];
 	}
 
-	function EndElement($parser, $name)
+	public function EndElement($parser, $name)
 	{
 		// Get rid of extra junk in data, if any
 		$this->currentNode->data = trim($this->currentNode->data);
@@ -169,12 +167,12 @@ class xmlDoc
 		$this->currentNode = NULL;
 	}
 
-	function DataElement($parser, $data)
+	public function DataElement($parser, $data)
 	{
 		$this->currentNode->data .= $data;
 	}
 
-	function RenderNode(&$oNode)
+	public function RenderNode(&$oNode)
 	{
 		// Opening tag
 		$sNode = '<' . $oNode->name;
@@ -201,14 +199,14 @@ class xmlDoc
 		return $sNode . '</' . $oNode->name . '>';
 	}
 
-	function ToXML()
+	public function ToXML()
 	{
 		$retVal = '<?xml version="1.0" ?>' . phpCrLf;
 
 		return $retVal . $this->RenderNode($this->root);
 	}
 
-	function ToFile($sFileName)
+	public function ToFile($sFileName)
 	{
 		if (!($fp = fopen($sFileName, 'w+')))
 		{
