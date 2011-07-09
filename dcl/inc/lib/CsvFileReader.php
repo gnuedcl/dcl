@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class DCL_CsvFileReader
+class CsvFileReader
 {
     var $sFileName = '';
     var $hFile = null;
@@ -33,7 +31,7 @@ class DCL_CsvFileReader
     var $sQualifier = '"';
     var $iMaxLineLength = 16384;
     
-    function DCL_CsvFileReader($sFileName = '', $bFirstLineHeader = false)
+    public function __construct($sFileName = '', $bFirstLineHeader = false)
     {
         $this->sFileName = $sFileName;
         $this->bFirstLineHeader = $bFirstLineHeader;
@@ -41,7 +39,7 @@ class DCL_CsvFileReader
         $this->aRecord = array();
     }
     
-    function Open()
+    public function Open()
     {
         $this->hFile = fopen($this->sFileName, 'r');
         $this->aRecord = array();
@@ -54,17 +52,17 @@ class DCL_CsvFileReader
         }
     }
     
-    function Close()
+    public function Close()
     {
         fclose($this->hFile);
     }
     
-    function Read()
+    public function Read()
     {
         return (($this->aRecord = fgetcsv($this->hFile, $this->iMaxLineLength, $this->sDelimiter, $this->sQualifier)) !== false);
     }
     
-    function Value($vColumn)
+    public function Value($vColumn)
     {
         if (is_int($vColumn))
             return trim($this->aRecord[$vColumn]);
@@ -72,5 +70,3 @@ class DCL_CsvFileReader
         return trim($this->aRecord[$this->aHeaderRecord[$vColumn]]);
     }
 }
-
-?>
