@@ -100,4 +100,4 @@ elseif (IsSet($_REQUEST['UID']) && IsSet($_REQUEST['DOMAIN']))
 }
 
 include_once(sprintf('%sinc/DCL_DB_%s.php', DCL_ROOT, $dcl_domain_info[$dcl_domain]['dbType']));
-include_once(sprintf('%sinc/DCL_Sanitize.php', DCL_ROOT));
+include_once(sprintf('%sinc/lib/Filter.php', DCL_ROOT));
