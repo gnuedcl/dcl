@@ -1148,7 +1148,7 @@ abstract class AbstractDbProvider
 	 */
 	public function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField){}
 
-	// FIXME: Move these to schema_proc
+	// FIXME: Move these to SchemaManager
 	/**
 	 * Determine if a server is available
 	 * @return boolean true if the server is available, otherwise false

@@ -374,7 +374,7 @@ case "createTables":
 	include_once "../inc/functions.inc.php";
 	include_once 'tables_current.inc.php';
 
-	$oProc = new schema_proc($dcl_domain_info[$dcl_domain]['dbType']);
+	$oProc = new SchemaManager($dcl_domain_info[$dcl_domain]['dbType']);
 	$oProc->m_odb = new DbProvider;
 
 	$content = '<div style="text-align: left; width: 50%; padding-left: 200px;">';
@@ -460,7 +460,7 @@ case 'updateTables':
 		}
 
 		$phpgw_setup = new DCLSetup();
-		$phpgw_setup->oProc = new schema_proc($dcl_domain_info[$dcl_domain]['dbType']);
+		$phpgw_setup->oProc = new SchemaManager($dcl_domain_info[$dcl_domain]['dbType']);
 		$phpgw_setup->oProc->m_odb = new DbProvider;
 		$phpgw_setup->oProc->m_aTables = $phpgw_baseline;
 

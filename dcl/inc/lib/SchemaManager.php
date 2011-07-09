@@ -14,7 +14,7 @@
 
   /* $Id$ */
 
-	class schema_proc
+	class SchemaManager
 	{
 		var $m_oTranslator;
 		var $m_oDeltaProc;
@@ -22,16 +22,16 @@
 		var $m_aTables;
 		var $m_bDeltaOnly;
 
-		function schema_proc($dbms)
+		public function __construct($dbms)
 		{
-			$schemaProcDbms = 'schema_proc_' . $dbms;
+			$schemaProcDbms = 'SchemaManager' . ucfirst($dbms);
 			$this->m_oTranslator = new $schemaProcDbms;
-			$this->m_oDeltaProc = new schema_proc_array();
+			$this->m_oDeltaProc = new SchemaManagerArray();
 			$this->m_aTables = array();
 			$this->m_bDeltaOnly = False; // Default to false here in case it's just a CreateTable script
 		}
 
-		function GenerateScripts($aTables, $bOutputHTML=False)
+		public function GenerateScripts($aTables, $bOutputHTML=False)
 		{
 			if (!is_array($aTables))
 			{
@@ -74,7 +74,7 @@
 			return True;
 		}
 
-		function ExecuteScripts($aTables, $bOutputHTML=False)
+		public function ExecuteScripts($aTables, $bOutputHTML=False)
 		{
 			if(!is_array($aTables) || !IsSet($this->m_odb))
 			{
@@ -109,7 +109,7 @@
 			return True;
 		}
 
-		function DropAllTables($aTables, $bOutputHTML=False)
+		public function DropAllTables($aTables, $bOutputHTML=False)
 		{
 			if(!is_array($aTables) || !isset($this->m_odb))
 			{
@@ -137,7 +137,7 @@
 			return True;
 		}
 
-		function DropPrimaryKey($sTableName)
+		public function DropPrimaryKey($sTableName)
 		{
 			$retVal = $this->m_oDeltaProc->DropPrimaryKey($this, $this->m_aTables, $sTableName);
 			if($this->m_bDeltaOnly)
@@ -148,7 +148,7 @@
 			return $retVal && $this->m_oTranslator->DropPrimaryKey($this, $this->m_aTables, $sTableName);
 		}
 
-		function CreatePrimaryKey($sTableName, $aFields)
+		public function CreatePrimaryKey($sTableName, $aFields)
 		{
 			$retVal = $this->m_oDeltaProc->CreatePrimaryKey($this, $this->m_aTables, $sTableName, $aFields);
 			if($this->m_bDeltaOnly)
@@ -159,7 +159,7 @@
 			return $retVal && $this->m_oTranslator->CreatePrimaryKey($this, $this->m_aTables, $sTableName, $aFields);
 		}
 
-		function DropTable($sTableName)
+		public function DropTable($sTableName)
 		{
 			$retVal = $this->m_oDeltaProc->DropTable($this, $this->m_aTables, $sTableName);
 			if($this->m_bDeltaOnly)
@@ -170,7 +170,7 @@
 			return $retVal && $this->m_oTranslator->DropTable($this, $this->m_aTables, $sTableName);
 		}
 
-		function DropColumn($sTableName, $aTableDef, $sColumnName, $bCopyData = true)
+		public function DropColumn($sTableName, $aTableDef, $sColumnName, $bCopyData = true)
 		{
 			$retVal = $this->m_oDeltaProc->DropColumn($this, $this->m_aTables, $sTableName, $aTableDef, $sColumnName, $bCopyData);
 			if($this->m_bDeltaOnly)
@@ -181,7 +181,7 @@
 			return $retVal && $this->m_oTranslator->DropColumn($this, $this->m_aTables, $sTableName, $aTableDef, $sColumnName, $bCopyData);
 		}
 
-		function RefreshTable($sTableName)
+		public function RefreshTable($sTableName)
 		{
 			// This function just refreshes a table, useful if base types and names don't change, but columns
 			// may be expanded.  It probably won't work if you're shrinking columns
@@ -194,7 +194,7 @@
 			return $this->m_oTranslator->RefreshTable($this, $sTableName, $this->m_aTables[$sTableName]);
 		}
 
-		function RenameTable($sOldTableName, $sNewTableName)
+		public function RenameTable($sOldTableName, $sNewTableName)
 		{
 			$retVal = $this->m_oDeltaProc->RenameTable($this, $this->m_aTables, $sOldTableName, $sNewTableName);
 			if($this->m_bDeltaOnly)
@@ -205,7 +205,7 @@
 			return $retVal && $this->m_oTranslator->RenameTable($this, $this->m_aTables, $sOldTableName, $sNewTableName);
 		}
 
-		function RenameColumn($sTableName, $sOldColumnName, $sNewColumnName, $bCopyData=True)
+		public function RenameColumn($sTableName, $sOldColumnName, $sNewColumnName, $bCopyData=True)
 		{
 			$retVal = $this->m_oDeltaProc->RenameColumn($this, $this->m_aTables, $sTableName, $sOldColumnName, $sNewColumnName, $bCopyData);
 			if($this->m_bDeltaOnly)
@@ -216,7 +216,7 @@
 			return $retVal && $this->m_oTranslator->RenameColumn($this, $this->m_aTables, $sTableName, $sOldColumnName, $sNewColumnName, $bCopyData);
 		}
 
-		function AlterColumn($sTableName, $sColumnName, $aColumnDef, $bCopyData=True)
+		public function AlterColumn($sTableName, $sColumnName, $aColumnDef, $bCopyData=True)
 		{
 			$retVal = $this->m_oDeltaProc->AlterColumn($this, $this->m_aTables, $sTableName, $sColumnName, $aColumnDef, $bCopyData);
 			if($this->m_bDeltaOnly)
@@ -227,7 +227,7 @@
 			return $retVal && $this->m_oTranslator->AlterColumn($this, $this->m_aTables, $sTableName, $sColumnName, $aColumnDef, $bCopyData);
 		}
 
-		function AddColumn($sTableName, $sColumnName, $aColumnDef)
+		public function AddColumn($sTableName, $sColumnName, $aColumnDef)
 		{
 			$retVal = $this->m_oDeltaProc->AddColumn($this, $this->m_aTables, $sTableName, $sColumnName, $aColumnDef);
 			if($this->m_bDeltaOnly)
@@ -238,7 +238,7 @@
 			return $retVal && $this->m_oTranslator->AddColumn($this, $this->m_aTables, $sTableName, $sColumnName, $aColumnDef);
 		}
 
-		function CreateTable($sTableName, $aTableDef)
+		public function CreateTable($sTableName, $aTableDef)
 		{
 			$retVal = $this->m_oDeltaProc->CreateTable($this, $this->m_aTables, $sTableName, $aTableDef);
 			if($this->m_bDeltaOnly)
@@ -249,7 +249,7 @@
 			return $retVal && $this->m_oTranslator->CreateTable($this, $this->m_aTables, $sTableName, $aTableDef);
 		}
 		
-		function CreateIndex($sTableName, $sIndexName, $aColumns)
+		public function CreateIndex($sTableName, $sIndexName, $aColumns)
 		{
 			$retVal = $this->m_oDeltaProc->CreateIndex($this, $this->m_aTables, $sTableName, $sIndexName, $aColumns);
 			if ($this->m_bDeltaOnly)
@@ -258,7 +258,7 @@
 			return $retVal && $this->m_oTranslator->CreateIndex($this, $this->m_aTables, $sTableName, $sIndexName, $aColumns);
 		}
 
-		function DropIndex($sTableName, $sIndexName)
+		public function DropIndex($sTableName, $sIndexName)
 		{
 			$retVal = $this->m_oDeltaProc->DropIndex($this, $this->m_aTables, $sTableName, $sIndexName);
 			if ($this->m_bDeltaOnly)
@@ -267,7 +267,7 @@
 			return $retVal && $this->m_oTranslator->DropIndex($this, $this->m_aTables, $sTableName, $sIndexName);
 		}
 
-		function f($value)
+		public function f($value)
 		{
 			if($this->m_bDeltaOnly)
 			{
@@ -278,7 +278,7 @@
 			return $this->m_odb->f($value);
 		}
 
-		function num_rows()
+		public function num_rows()
 		{
 			if($this->m_bDeltaOnly)
 			{
@@ -289,7 +289,7 @@
 			return $this->m_odb->num_rows();
 		}
 
-		function next_record()
+		public function next_record()
 		{
 			if($this->m_bDeltaOnly)
 			{
@@ -300,7 +300,7 @@
 			return $this->m_odb->next_record();
 		}
 
-		function query($sQuery, $line='', $file='')
+		public function query($sQuery, $line='', $file='')
 		{
 			if($this->m_bDeltaOnly)
 			{
@@ -311,7 +311,7 @@
 			return $this->m_odb->query($sQuery, $line, $file);
 		}
 
-		function execute($sQuery, $line='', $file='')
+		public function execute($sQuery, $line='', $file='')
 		{
 			if($this->m_bDeltaOnly)
 			{
@@ -322,7 +322,7 @@
 			return $this->m_odb->Execute($sQuery, $line, $file);
 		}
 
-		function _GetTableSQL($sTableName, $aTableDef, &$sTableSQL, &$sSequenceSQL)
+		public function _GetTableSQL($sTableName, $aTableDef, &$sTableSQL, &$sSequenceSQL)
 		{
 			global $DEBUG;
 
@@ -424,7 +424,7 @@
 		}
 
 		// Get field DDL
-		function _GetFieldSQL($aField, &$sFieldSQL)
+		public function _GetFieldSQL($aField, &$sFieldSQL)
 		{
 			global $DEBUG;
 			if($DEBUG) { echo'<br>_GetFieldSQL(): Incoming ARRAY: '; var_dump($aField); }
@@ -491,7 +491,7 @@
 			return false;
 		}
 
-		function _GetPK($aFields, &$sPKSQL)
+		public function _GetPK($aFields, &$sPKSQL)
 		{
 			$sPKSQL = '';
 			if(count($aFields) < 1)
@@ -515,7 +515,7 @@
 			return true;
 		}
 
-		function _GetUC($aFields, &$sUCSQL)
+		public function _GetUC($aFields, &$sUCSQL)
 		{
 			$sUCSQL = '';
 			if(count($aFields) < 1)
@@ -539,7 +539,7 @@
 			return true;
 		}
 
-		function UpdateSequence($sTableName, $sFieldName)
+		public function UpdateSequence($sTableName, $sFieldName)
 		{
 			if ($this->m_bDeltaOnly)
 				return true;

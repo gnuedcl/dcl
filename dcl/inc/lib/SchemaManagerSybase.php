@@ -22,7 +22,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class schema_proc_sybase
+class SchemaManagerSybase
 {
 	var $m_sStatementTerminator;
 	/* Following added to convert sql to array */
@@ -32,13 +32,13 @@ class schema_proc_sybase
 	var $ix = array();
 	var $uc = array();
 
-	function schema_proc_sybase()
+	public function __construct()
 	{
 		$this->m_sStatementTerminator = ';';
 	}
 
 	/* Return a type suitable for DDL */
-	function TranslateType($sType, $iPrecision = 0, $iScale = 0)
+	public function TranslateType($sType, $iPrecision = 0, $iScale = 0)
 	{
 		$sTranslated = '';
 		switch($sType)
@@ -112,7 +112,7 @@ class schema_proc_sybase
 		return $sTranslated;
 	}
 
-	function TranslateDefault($sDefault, $sType)
+	public function TranslateDefault($sDefault, $sType)
 	{
 		switch ($sDefault)
 		{
@@ -140,7 +140,7 @@ class schema_proc_sybase
 	}
 
 	// Inverse of above, convert sql column types to array info
-	function rTranslateType($sType, $iPrecision = 0, $iScale = 0)
+	public function rTranslateType($sType, $iPrecision = 0, $iScale = 0)
 	{
 		$sTranslated = '';
 		if ($sType == 'int' || $sType == 'tinyint' ||  $sType == 'smallint')
@@ -213,17 +213,17 @@ class schema_proc_sybase
 		return $sTranslated;
 	}
 
-	function GetPKSQL($sFields)
+	public function GetPKSQL($sFields)
 	{
 		return "PRIMARY KEY($sFields)";
 	}
 
-	function GetUCSQL($sFields)
+	public function GetUCSQL($sFields)
 	{
 		return "UNIQUE($sFields)";
 	}
 
-	function _GetColumns($oProc, $sTableName, &$sColumns, $sDropColumn = '')
+	public function _GetColumns($oProc, $sTableName, &$sColumns, $sDropColumn = '')
 	{
 		$sColumns = '';
 		$this->pk = array();
@@ -296,7 +296,7 @@ class schema_proc_sybase
 		return false;
 	}
 
-	function RefreshTable($oProc, $sTableName, &$aTableDef)
+	public function RefreshTable($oProc, $sTableName, &$aTableDef)
 	{
 		$sSequenceSQL = '';
 		$sTableSQL = '';
@@ -332,7 +332,7 @@ class schema_proc_sybase
 		return $bRetVal;
 	}
 
-	function _DropAllConstraints($oProc, &$aTables, $sTable)
+	public function _DropAllConstraints($oProc, &$aTables, $sTable)
 	{
 		// Drop all constraints in preparation for a table schema refresh
 		global $DEBUG;
@@ -349,7 +349,7 @@ class schema_proc_sybase
 		return true;
 	}
 
-	function DropPrimaryKey($oProc, &$aTables, $sTable)
+	public function DropPrimaryKey($oProc, &$aTables, $sTable)
 	{
 		global $DEBUG;
 		if ($DEBUG) { echo '<br>DropPrimaryKey ', $sTable; }
@@ -365,7 +365,7 @@ class schema_proc_sybase
 		return true;
 	}
 
-	function CreatePrimaryKey($oProc, &$aTables, $sTable, &$aFields)
+	public function CreatePrimaryKey($oProc, &$aTables, $sTable, &$aFields)
 	{
 		if (count($aFields) < 1)
 			return true;
@@ -373,12 +373,12 @@ class schema_proc_sybase
 		return !!($oProc->m_odb->query("ALTER TABLE $sTable ADD CONSTRAINT PRIMARY KEY (" . join(',', $aFields) . ')'));
 	}
 
-	function DropTable($oProc, &$aTables, $sTableName)
+	public function DropTable($oProc, &$aTables, $sTableName)
 	{
 		return !!($oProc->m_odb->query("DROP TABLE " . $sTableName));
 	}
 
-	function DropColumn($oProc, &$aTables, $sTableName, $aNewTableDef, $sColumnName, $bCopyData = true)
+	public function DropColumn($oProc, &$aTables, $sTableName, $aNewTableDef, $sColumnName, $bCopyData = true)
 	{
 		if (is_array($sColumnName))
 		{
@@ -396,12 +396,12 @@ class schema_proc_sybase
 		return !!($oProc->m_odb->query("ALTER TABLE $sTableName DROP COLUMN $sColumnName"));
 	}
 
-	function RenameTable($oProc, &$aTables, $sOldTableName, $sNewTableName)
+	public function RenameTable($oProc, &$aTables, $sOldTableName, $sNewTableName)
 	{
 		return !!($oProc->m_odb->query("EXEC sp_rename '$sOldTableName', '$sNewTableName'"));
 	}
 
-	function RenameColumn($oProc, &$aTables, $sTableName, $sOldColumnName, $sNewColumnName, $bCopyData = true)
+	public function RenameColumn($oProc, &$aTables, $sTableName, $sOldColumnName, $sNewColumnName, $bCopyData = true)
 	{
 		// This really needs testing - it can affect primary keys, and other table-related objects
 		// like sequences and such
@@ -414,7 +414,7 @@ class schema_proc_sybase
 		return false;
 	}
 
-	function AlterColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef, $bCopyData = true)
+	public function AlterColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef, $bCopyData = true)
 	{
 		global $DEBUG;
 		if ($DEBUG) { echo '<br>AlterColumn: calling _GetFieldSQL for ' . $sNewColumnName; }
@@ -426,7 +426,7 @@ class schema_proc_sybase
 		return false;
 	}
 
-	function AddColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef)
+	public function AddColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef)
 	{
 		$oProc->_GetFieldSQL($aColumnDef, $sFieldSQL);
 		$query = "ALTER TABLE $sTableName ADD $sColumnName $sFieldSQL";
@@ -434,13 +434,13 @@ class schema_proc_sybase
 		return !!($oProc->m_odb->query($query));
 	}
 
-	function GetSequenceSQL($sTableName, &$sSequenceSQL)
+	public function GetSequenceSQL($sTableName, &$sSequenceSQL)
 	{
 		$sSequenceSQL = '';
 		return true;
 	}
 
-	function CreateTable($oProc, &$aTables, $sTableName, $aTableDef)
+	public function CreateTable($oProc, &$aTables, $sTableName, $aTableDef)
 	{
 		if ($oProc->_GetTableSQL($sTableName, $aTableDef, $sTableSQL, $sSequenceSQL))
 		{
@@ -461,7 +461,7 @@ class schema_proc_sybase
 		return false;
 	}
 
-	function CreateIndexes($oProc, $sTableName, $aIndexDef)
+	public function CreateIndexes($oProc, $sTableName, $aIndexDef)
 	{
 		$retVal = true;
 		if (is_array($aIndexDef) && count($aIndexDef) > 0)
@@ -473,7 +473,7 @@ class schema_proc_sybase
 		return $retVal;
 	}
 
-	function CreateIndex($oProc, $aTables, $sTableName, $sIndexName, $aColumns)
+	public function CreateIndex($oProc, $aTables, $sTableName, $sIndexName, $aColumns)
 	{
 		$sColumns = join($aColumns, ',');
 		$sSQL = "CREATE INDEX $sIndexName ON $sTableName ($sColumns)";
@@ -481,14 +481,13 @@ class schema_proc_sybase
 		return ($oProc->m_odb->Query($sSQL) != -1);
 	}
 
-	function DropIndex($oProc, $aTables, $sTableName, $sIndexName)
+	public function DropIndex($oProc, $aTables, $sTableName, $sIndexName)
 	{
 		return ($oProc->m_odb->Query("DROP INDEX $sIndexName") != -1);
 	}
 
-	function UpdateSequence($oProc, $sTableName, $sSeqField)
+	public function UpdateSequence($oProc, $sTableName, $sSeqField)
 	{
 		return true;
 	}
 }
-?>

@@ -18,7 +18,7 @@
 
   /* $Id$ */
 
-	class schema_proc_pgsql
+	class SchemaManagerPgsql
 	{
 		var $m_sStatementTerminator;
 		/* Following added to convert sql to array */
@@ -28,13 +28,13 @@
 		var $ix = array();
 		var $uc = array();
 
-		function schema_proc_pgsql()
+		public function __construct()
 		{
 			$this->m_sStatementTerminator = ';';
 		}
 
 		/* Return a type suitable for DDL */
-		function TranslateType($sType, $iPrecision = 0, $iScale = 0)
+		public function TranslateType($sType, $iPrecision = 0, $iScale = 0)
 		{
 			switch($sType)
 			{
@@ -95,7 +95,7 @@
 			return $sTranslated;
 		}
 
-		function TranslateDefault($sDefault, $sType)
+		public function TranslateDefault($sDefault, $sType)
 		{
 			switch ($sDefault)
 			{
@@ -122,7 +122,7 @@
 		}
 
 		/* Inverse of above, convert sql column types to array info */
-		function rTranslateType($sType, $iPrecision = 0, $iScale = 0)
+		public function rTranslateType($sType, $iPrecision = 0, $iScale = 0)
 		{
 			$sTranslated = '';
 			switch($sType)
@@ -188,17 +188,17 @@
 			return $sTranslated;
 		}
 
-		function GetPKSQL($sFields)
+		public function GetPKSQL($sFields)
 		{
 			return "PRIMARY KEY($sFields)";
 		}
 
-		function GetUCSQL($sFields)
+		public function GetUCSQL($sFields)
 		{
 			return "UNIQUE($sFields)";
 		}
 
-		function _GetColumns($oProc, $sTableName, &$sColumns, $sDropColumn = '', $sAlteredColumn = '', $sAlteredColumnType = '')
+		public function _GetColumns($oProc, $sTableName, &$sColumns, $sDropColumn = '', $sAlteredColumn = '', $sAlteredColumnType = '')
 		{
 			$sdb = $oProc->m_odb;
 			$sdc = $oProc->m_odb;
@@ -364,7 +364,7 @@
 			return false;
 		}
 
-		function _CopyAlteredTable($oProc, &$aTables, $sSource, $sDest)
+		public function _CopyAlteredTable($oProc, &$aTables, $sSource, $sDest)
 		{
 			$oDB = $oProc->m_odb;
 			$oProc->m_odb->query("select * from $sSource");
@@ -413,7 +413,7 @@
 			return true;
 		}
 
-		function RefreshTable($oProc, $sTableName, &$aTableDef)
+		public function RefreshTable($oProc, $sTableName, &$aTableDef)
 		{
 			$sSequenceSQL = '';
 			$sTableSQL = '';
@@ -449,7 +449,7 @@
 			return $bRetVal;
 		}
 
-		function GetSequenceForTable($oProc,$table,&$sSequenceName)
+		public function GetSequenceForTable($oProc,$table,&$sSequenceName)
 		{
 			global $DEBUG;
 			if($DEBUG) { echo '<br>GetSequenceForTable: ' . $table; }
@@ -463,7 +463,7 @@
 			return True;
 		}
 
-		function GetSequenceFieldForTable($oProc,$table,&$sField)
+		public function GetSequenceFieldForTable($oProc,$table,&$sField)
 		{
 			global $DEBUG;
 			if($DEBUG) { echo "<br>GetSequenceFieldForTable: $table"; }
@@ -477,7 +477,7 @@
 			return True;
 		}
 
-		function _DropAllConstraints($oProc, &$aTables, $sTable)
+		public function _DropAllConstraints($oProc, &$aTables, $sTable)
 		{
 			// Drop all constraints in preparation for a table schema refresh
 			global $DEBUG;
@@ -500,7 +500,7 @@
 			return true;
 		}
 
-		function DropPrimaryKey($oProc, &$aTables, $sTable)
+		public function DropPrimaryKey($oProc, &$aTables, $sTable)
 		{
 			global $DEBUG;
 			if ($DEBUG) { echo '<br>DropPrimaryKey ', $sTable; }
@@ -520,7 +520,7 @@
 			return true;
 		}
 
-		function CreatePrimaryKey($oProc, &$aTables, $sTable, &$aFields)
+		public function CreatePrimaryKey($oProc, &$aTables, $sTable, &$aFields)
 		{
 			if (count($aFields) < 1)
 				return true;
@@ -528,7 +528,7 @@
 			return !!($oProc->m_odb->query("ALTER TABLE $sTable ADD PRIMARY KEY (" . join(',', $aFields) . ')'));
 		}
 
-		function DropSequenceForTable($oProc,$table)
+		public function DropSequenceForTable($oProc,$table)
 		{
 			global $DEBUG;
 			if($DEBUG) { echo '<br>DropSequenceForTable: ' . $table; }
@@ -541,12 +541,12 @@
 			return True;
 		}
 
-		function DropTable($oProc, &$aTables, $sTableName)
+		public function DropTable($oProc, &$aTables, $sTableName)
 		{
 			return $oProc->m_odb->query("DROP TABLE $sTableName") && $this->DropSequenceForTable($oProc, $sTableName);
 		}
 
-		function DropColumn($oProc, &$aTables, $sTableName, $aNewTableDef, $sColumnName, $bCopyData = true)
+		public function DropColumn($oProc, &$aTables, $sTableName, $aNewTableDef, $sColumnName, $bCopyData = true)
 		{
 			if ($bCopyData)
 			{
@@ -581,7 +581,7 @@
 			return ($bRet && $this->DropTable($oProc, $aTables, $sTableName . '_tmp'));
 		}
 
-		function RenameTable($oProc, &$aTables, $sOldTableName, $sNewTableName)
+		public function RenameTable($oProc, &$aTables, $sOldTableName, $sNewTableName)
 		{
 			global $DEBUG;
 			if ($DEBUG) { echo '<br>RenameTable(): Fetching old sequence for: ' . $sOldTableName; }
@@ -633,7 +633,7 @@
 			return !!($oProc->m_odb->query("ALTER TABLE $sOldTableName RENAME TO $sNewTableName"));
 		}
 
-		function RenameColumn($oProc, &$aTables, $sTableName, $sOldColumnName, $sNewColumnName, $bCopyData = true)
+		public function RenameColumn($oProc, &$aTables, $sTableName, $sOldColumnName, $sNewColumnName, $bCopyData = true)
 		{
 			/*
 			 This really needs testing - it can affect primary keys, and other table-related objects
@@ -659,7 +659,7 @@
 			return ($bRet && $this->DropTable($oProc, $aTables, $sTableName . "_tmp"));
 		}
 
-		function AlterColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef, $bCopyData = true)
+		public function AlterColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef, $bCopyData = true)
 		{
 			if ($bCopyData)
 			{
@@ -683,7 +683,7 @@
 			return ($bRet && $this->DropTable($oProc, $aTables, $sTableName . "_tmp"));
 		}
 
-		function AddColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef)
+		public function AddColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef)
 		{
 			if (isset($aColumnDef['default']))	// pgsql cant add a colum with a default
 			{
@@ -765,13 +765,13 @@
 			return $bRetVal;
 		}
 
-		function GetSequenceSQL($sTableName, &$sSequenceSQL)
+		public function GetSequenceSQL($sTableName, &$sSequenceSQL)
 		{
 			$sSequenceSQL = sprintf("CREATE SEQUENCE seq_%s", $sTableName);
 			return true;
 		}
 
-		function CreateTable($oProc, $aTables, $sTableName, $aTableDef, $bCreateSequence = true)
+		public function CreateTable($oProc, $aTables, $sTableName, $aTableDef, $bCreateSequence = true)
 		{
 			global $DEBUG;
 			if ($oProc->_GetTableSQL($sTableName, $aTableDef, $sTableSQL, $sSequenceSQL))
@@ -795,7 +795,7 @@
 			return false;
 		}
 		
-		function CreateIndexes($oProc, $sTableName, $aIndexDef)
+		public function CreateIndexes($oProc, $sTableName, $aIndexDef)
 		{
 			$retVal = true;
 			if (is_array($aIndexDef) && count($aIndexDef) > 0)
@@ -807,7 +807,7 @@
 			return $retVal;
 		}
 		
-		function CreateIndex($oProc, $aTables, $sTableName, $sIndexName, $aColumns)
+		public function CreateIndex($oProc, $aTables, $sTableName, $sIndexName, $aColumns)
 		{
 			$sColumns = join($aColumns, ',');
 			$sSQL = "CREATE INDEX $sIndexName ON $sTableName ($sColumns)";
@@ -815,14 +815,13 @@
 			return ($oProc->m_odb->Query($sSQL) != -1);
 		}
 
-		function DropIndex($oProc, $aTables, $sTableName, $sIndexName)
+		public function DropIndex($oProc, $aTables, $sTableName, $sIndexName)
 		{
 			return ($oProc->m_odb->Query("DROP INDEX $sIndexName") != -1);
 		}
 
-		function UpdateSequence($oProc, $sTableName, $sSeqField)
+		public function UpdateSequence($oProc, $sTableName, $sSeqField)
 		{
 			return $oProc->m_odb->query("SELECT setval('seq_$sTableName', MAX($sSeqField)) FROM $sTableName");
 		}
 	}
-?>

@@ -14,38 +14,38 @@
 
   /* $Id$ */
 
-	class schema_proc_array
+	class SchemaManagerArray
 	{
 		var $m_sStatementTerminator;
 
-		function schema_proc_array()
+		public function __construct()
 		{
 			$this->m_sStatementTerminator = ';';
 		}
 
 		/* Return a type suitable for DDL abstracted array */
-		function TranslateType($sType, $iPrecision = 0, $iScale = 0)
+		public function TranslateType($sType, $iPrecision = 0, $iScale = 0)
 		{
 			$sTranslated = $sType;
 			return $sTranslated;
 		}
 
-		function TranslateDefault($sDefault)
+		public function TranslateDefault($sDefault)
 		{
 			return $sDefault;
 		}
 
-		function GetPKSQL($sFields)
+		public function GetPKSQL($sFields)
 		{
 			return '';
 		}
 
-		function GetUCSQL($sFields)
+		public function GetUCSQL($sFields)
 		{
 			return '';
 		}
 
-		function _GetColumns($oProc, &$aTables, $sTableName, &$sColumns, $sDropColumn='')
+		public function _GetColumns($oProc, &$aTables, $sTableName, &$sColumns, $sDropColumn='')
 		{
 			$sColumns = '';
 			while(list($sName, $aJunk) = each($aTables[$sTableName]['fd']))
@@ -60,7 +60,7 @@
 			return True;
 		}
 
-		function DropPrimaryKey($oProc, &$aTables, $sTable)
+		public function DropPrimaryKey($oProc, &$aTables, $sTable)
 		{
 			if (isset($aTables[$sTable]))
 				$aTables[$sTable]['pk'] = array();
@@ -68,7 +68,7 @@
 			return true;
 		}
 
-		function CreatePrimaryKey($oProc, &$aTables, $sTable, &$aFields)
+		public function CreatePrimaryKey($oProc, &$aTables, $sTable, &$aFields)
 		{
 			if (!is_array($aFields) || !isset($aTables[$sTable]))
 				return false;
@@ -78,7 +78,7 @@
 			return true;
 		}
 
-		function DropTable($oProc, &$aTables, $sTableName)
+		public function DropTable($oProc, &$aTables, $sTableName)
 		{
 			if(isset($aTables[$sTableName]))
 			{
@@ -88,7 +88,7 @@
 			return True;
 		}
 
-		function DropColumn($oProc, &$aTables, $sTableName, $aNewTableDef, $sColumnName, $bCopyData=True)
+		public function DropColumn($oProc, &$aTables, $sTableName, $aNewTableDef, $sColumnName, $bCopyData=True)
 		{
 			if(isset($aTables[$sTableName]))
 			{
@@ -109,7 +109,7 @@
 			return True;
 		}
 
-		function RenameTable($oProc, &$aTables, $sOldTableName, $sNewTableName)
+		public function RenameTable($oProc, &$aTables, $sOldTableName, $sNewTableName)
 		{
 			$aNewTables = array();
 			while(list($sTableName, $aTableDef) = each($aTables))
@@ -129,7 +129,7 @@
 			return True;
 		}
 
-		function RenameColumn($oProc, &$aTables, $sTableName, $sOldColumnName, $sNewColumnName, $bCopyData=True)
+		public function RenameColumn($oProc, &$aTables, $sTableName, $sOldColumnName, $sNewColumnName, $bCopyData=True)
 		{
 			if (isset($aTables[$sTableName]))
 			{
@@ -171,7 +171,7 @@
 			return True;
 		}
 
-		function AlterColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef, $bCopyData=True)
+		public function AlterColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef, $bCopyData=True)
 		{
 			if(isset($aTables[$sTableName]))
 			{
@@ -184,7 +184,7 @@
 			return True;
 		}
 
-		function AddColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef)
+		public function AddColumn($oProc, &$aTables, $sTableName, $sColumnName, &$aColumnDef)
 		{
 			if(isset($aTables[$sTableName]))
 			{
@@ -197,7 +197,7 @@
 			return True;
 		}
 
-		function CreateTable($oProc, &$aTables, $sTableName, $aTableDef)
+		public function CreateTable($oProc, &$aTables, $sTableName, $aTableDef)
 		{
 			if(!isset($aTables[$sTableName]))
 			{
@@ -207,7 +207,7 @@
 			return True;
 		}
 		
-		function CreateIndex($oProc, &$aTables, $sTableName, $sIndexName, $aColumns)
+		public function CreateIndex($oProc, &$aTables, $sTableName, $sIndexName, $aColumns)
 		{
 			if (isset($aTables[$sTableName]))
 			{
@@ -217,7 +217,7 @@
 			return true;
 		}
 		
-		function DropIndex($oProc, &$aTables, $sTableName, $sIndexName)
+		public function DropIndex($oProc, &$aTables, $sTableName, $sIndexName)
 		{
 			if (isset($aTables[$sTableName]) && isset($aTables[$sTableName]['ix'][$sIndexName]))
 				unset($aTables[$sTableName]['ix'][$sIndexName]);
@@ -225,9 +225,8 @@
 			return true;
 		}
 
-		function UpdateSequence($oProc, $sTableName, $sSeqField)
+		public function UpdateSequence($oProc, $sTableName, $sSeqField)
 		{
 			return true;
 		}
 	}
-?>
