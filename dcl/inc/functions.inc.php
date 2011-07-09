@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -156,12 +154,12 @@ function __autoload($className)
 		}
 	}
 
-	if (substr($className, 0, 11) === 'DCL_Plugin_')
+	if (substr($className, 0, 11) === 'PluginHelper_')
 	{
 		$pluginParts = explode('_', $className, 4);
 		if (count($pluginParts) > 3)
 		{
-			$classPath = GetPluginDir() . strtolower($pluginParts[2]) . '/DCL_Plugin_' . $pluginParts[2] . '_' . $pluginParts[3] . '.php';
+			$classPath = GetPluginDir() . strtolower($pluginParts[2]) . '/PluginHelper_' . $pluginParts[2] . '_' . $pluginParts[3] . '.php';
 			if (file_exists($classPath))
 			{
 				require_once($classPath);
@@ -349,7 +347,7 @@ function Invoke($sClassMethod)
 function InvokePlugin($sPluginName, &$aParams = null, $method = 'Invoke')
 {	
 	list($type, $name) = explode(".", $sPluginName);
-	$class = 'DCL_Plugin_' . $type . '_' . $name;
+	$class = 'PluginHelper_' . $type . '_' . $name;
 	
 	if (!class_exists($class))
 	{

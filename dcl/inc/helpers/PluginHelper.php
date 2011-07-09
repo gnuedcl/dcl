@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,16 +20,15 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class DCL_Plugin
+class PluginHelper
 {
-	function DCL_Plugin()
+	public function __construct()
 	{
 		
 	}
 	
-	function ExecPlugin()
+	public function ExecPlugin()
 	{
 		@InvokePlugin($_REQUEST['plugin_name'], $_REQUEST['plugin_params'], $_REQUEST['plugin_method']);
 	}
 }
-?>
