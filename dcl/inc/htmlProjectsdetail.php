@@ -151,7 +151,7 @@ class htmlProjectsdetail
 
 				$objHWO = new htmlWorkorders();
 				$objWOAcct = new WorkOrderOrganizationModel();
-				$oDate = new DCLDate;
+				$oDate = new DateHelper;
 
 				for ($i = 0; $i < count($allRecs); $i++)
 				{

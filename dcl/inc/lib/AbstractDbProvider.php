@@ -20,8 +20,6 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once(DCL_ROOT . 'inc/DCL_DateTime.php');
-
 /**
  * API - All Classes Relating to DCL API
  * @package api
@@ -127,8 +125,8 @@ abstract class AbstractDbProvider
 	 */
 	public function __construct()
 	{
-		$this->objDate = new DCLDate;
-		$this->objTimestamp = new DCLTimestamp;
+		$this->objDate = new DateHelper;
+		$this->objTimestamp = new TimestampHelper;
 		$this->conn = 0;
 		$this->res = 0;
 		$this->oid = 0;

@@ -24,13 +24,13 @@
      * Select License Info from the Help menu to view the terms and conditions of this license.
      */
 
-class DCLTimestamp
+class TimestampHelper
 {
 	var $time;
 	var $dbFormat;
 	var $dbFormatEx;
 
-	function DCLTimestamp()
+	public function __construct()
 	{
 		global $dcl_info;
 
@@ -38,7 +38,7 @@ class DCLTimestamp
 		$this->SetDBFormat($dcl_info['DCL_TIMESTAMP_FORMAT_DB']);
 	}
 
-	function SetDBFormat($fmtString)
+	public function SetDBFormat($fmtString)
 	{
 		$this->dbFormat = $fmtString;
 		$this->dbFormatEx = str_replace('m', 'MM', $this->dbFormat);
@@ -50,7 +50,7 @@ class DCLTimestamp
 	}
 
 	// Returns the database representation of the timestamp
-	function ToDB() 
+	public function ToDB() 
 	{
 		if ($this->time > 0)
 			return date($this->dbFormat, $this->time);
@@ -59,7 +59,7 @@ class DCLTimestamp
 	}
 
 	// Returns the display representation of the timestamp
-	function ToDisplay() 
+	public function ToDisplay() 
 	{
 		global $dcl_info;
 
@@ -69,7 +69,7 @@ class DCLTimestamp
 		return null;
 	}
 	
-	function ToTimeOnly()
+	public function ToTimeOnly()
 	{
 		if ($this->time > 0)
 			return date('H:i', $this->time);
@@ -78,7 +78,7 @@ class DCLTimestamp
 	}
 
 	// return current timestamp in ANSI format
-	function ToANSI()
+	public function ToANSI()
 	{
 		if ($this->time > 0)
 			return date('Y-m-d H:i:s', $this->time);
@@ -87,7 +87,7 @@ class DCLTimestamp
 	}
 
 	// set current timestamp from ANSI formatted string
-	function SetFromANSI($s)
+	public function SetFromANSI($s)
 	{
 		$sANSI = 'YYYY-MM-DD HH:II:SS';
 		$this->time = mktime(
@@ -100,13 +100,13 @@ class DCLTimestamp
 	}
 
 	// Returns the timestamp as UNIX time
-	function ToInt() 
+	public function ToInt() 
 	{
 		return $this->time;
 	}
 
 	//sets the timestamp from database string
-	function SetFromDB($s) 
+	public function SetFromDB($s) 
 	{
 		$this->time = mktime(
 				substr($s, strpos($this->dbFormatEx, 'H'), 2),	// hour
@@ -120,7 +120,7 @@ class DCLTimestamp
 	// sets the timestamp from display/web string
 	// Date order is based on the date format string,
 	// single separators (any character goes!) are ignored
-	function SetFromDisplay($s) 
+	public function SetFromDisplay($s) 
 	{
 		global $dcl_info;
 
@@ -173,15 +173,15 @@ class DCLTimestamp
 	}
 
 	// sets the timestamp from UNIX time
-	function SetFromInt($timestamp) 
+	public function SetFromInt($timestamp) 
 	{
 		$this->time = $timestamp;
 	}
 }
 
-class DCLDate extends DCLTimestamp 
+class DateHelper extends TimestampHelper 
 {
-	function DCLDate()
+	public function __construct()
 	{
 		global $dcl_info;
 
@@ -189,7 +189,7 @@ class DCLDate extends DCLTimestamp
 		$this->SetDBFormat($dcl_info['DCL_DATE_FORMAT_DB']);
 	}
 
-	function ToDisplay() 
+	public function ToDisplay() 
 	{
 		global $dcl_info;
 		
@@ -199,7 +199,7 @@ class DCLDate extends DCLTimestamp
 		return null;
 	}
 
-	function ToDB() 
+	public function ToDB() 
 	{
 		if ($this->time > 0)
 			return date($this->dbFormat, $this->time);
@@ -208,7 +208,7 @@ class DCLDate extends DCLTimestamp
 	}
 
 	// return current timestamp in ANSI format
-	function ToANSI()
+	public function ToANSI()
 	{
 		if ($this->time > 0)
 			return date('Y-m-d', $this->time);
@@ -217,7 +217,7 @@ class DCLDate extends DCLTimestamp
 	}
 
 	// set current timestamp from ANSI formatted string
-	function SetFromANSI($s)
+	public function SetFromANSI($s)
 	{
 		$sANSI = 'YYYY-MM-DD';
 		$this->time = mktime(
@@ -229,7 +229,7 @@ class DCLDate extends DCLTimestamp
 				substr($s, strpos($this->dbFormatEx, 'Y'), 4));	// year
 	}
 
-	function SetFromDB($s) 
+	public function SetFromDB($s) 
 	{
 		$this->time = mktime(
 				0, 
@@ -240,4 +240,3 @@ class DCLDate extends DCLTimestamp
 				substr($s, strpos($this->dbFormatEx, 'Y'), 4));
 	}
 }
-?>

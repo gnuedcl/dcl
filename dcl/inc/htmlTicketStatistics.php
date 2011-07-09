@@ -161,8 +161,8 @@ class htmlTicketStatistics
 				$query .= '!= 2';
 		}
 
-		$objTimestamp = new DCLTimestamp;
-		$objNow = new DCLTimestamp;
+		$objTimestamp = new TimestampHelper;
+		$objNow = new TimestampHelper;
 
 		$objNow->SetFromDisplay($begindate . ' 00:00:00');
 

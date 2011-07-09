@@ -129,10 +129,10 @@ class boTicketresolutions
 		$this->oDB->BeginTransaction();
 		$this->oDB->Add();
 
-		$start = new DCLTimestamp;
+		$start = new TimestampHelper;
 		$start->SetFromDisplay($this->oDB->startedon);
 
-		$end = new DCLTimestamp;
+		$end = new TimestampHelper;
 		$end->SetFromDisplay($this->oDB->loggedon);
 
 		$obj->seconds += ($end->time - $start->time);

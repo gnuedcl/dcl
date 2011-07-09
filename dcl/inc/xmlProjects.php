@@ -44,7 +44,7 @@ class xmlProjects
 
 	function xmlProjects()
 	{
-		$this->oDate = new DCLDate;
+		$this->oDate = new DateHelper;
 	}
 
 	function getSource($source)

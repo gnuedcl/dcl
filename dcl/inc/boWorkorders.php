@@ -871,10 +871,10 @@ class boWorkorders
 		$objG = new LineGraphImageHelper();
 		$obj = new WorkOrderModel();
 		
-		$beginDate = new DCLTimestamp();
-		$endDate = new DCLTimestamp();
-		$testDate = new DCLDate();
-		$testTS = new DCLTimestamp();
+		$beginDate = new TimestampHelper();
+		$endDate = new TimestampHelper();
+		$testDate = new DateHelper();
+		$testTS = new TimestampHelper();
 
 		$endDate->SetFromDisplay($dateFrom . ' 23:59:59');
 		$beginDate->SetFromDisplay($dateFrom . ' 00:00:00');

@@ -119,10 +119,10 @@ class boTickets
 			$objR->is_public = ((isset($_REQUEST['is_public']) && $_REQUEST['is_public'] == 'Y') || $g_oSec->IsPublicUser() ? 'Y' : 'N');
 			$objR->Add();
 
-			$start = new DCLTimestamp;
+			$start = new TimestampHelper;
 			$start->SetFromDisplay($objR->startedon);
 
-			$end = new DCLTimestamp;
+			$end = new TimestampHelper;
 			$end->SetFromDisplay($objR->loggedon);
 
 			$obj->seconds += ($end->time - $start->time);
@@ -434,9 +434,9 @@ class boTickets
 
 		$objG = new LineGraphImageHelper();
 		$obj = new TicketsModel();
-		$beginDate = new DCLTimestamp;
-		$endDate = new DCLTimestamp;
-		$testDate = new DCLTimestamp;
+		$beginDate = new TimestampHelper;
+		$endDate = new TimestampHelper;
+		$testDate = new TimestampHelper;
 
 		if (($iDays = @Filter::ToInt($_REQUEST['days'])) === null ||
 			($dateFrom = @Filter::ToDate($_REQUEST['dateFrom'])) === null

@@ -40,13 +40,13 @@ class TicketResolutionsModel extends DbProvider
 
 	public function GetHoursText($oStartedOn = null, $oLoggedOn = null)
 	{
-		$start = new DCLTimestamp;
+		$start = new TimestampHelper;
 		if ($oStartedOn === null)
 			$start->SetFromDB($this->f('startedon'));
 		else
 			$start->SetFromDB($oStartedOn);
 
-		$end = new DCLTimestamp;
+		$end = new TimestampHelper;
 		if ($oLoggedOn === null)
 			$end->SetFromDB($this->f('loggedon'));
 		else

@@ -73,7 +73,7 @@ class Filter
 	
 	public function ToDate($vValue)
 	{
-		$oDate = new DCLDate;
+		$oDate = new DateHelper;
 		
 		// Set to 0 to invalidate by default.  If parsing doesn't succeed, it will remain 0
 		$oDate->time = 0;
@@ -84,7 +84,7 @@ class Filter
 	
 	public function ToDateTime($vValue)
 	{
-		$oDate = new DCLTimestamp;
+		$oDate = new TimestampHelper;
 
 		// Set to 0 to invalidate by default.  If parsing doesn't succeed, it will remain 0
 		$oDate->time = 0;

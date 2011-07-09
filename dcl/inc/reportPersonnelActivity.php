@@ -71,7 +71,7 @@ class reportPersonnelActivity
 		
 		$t->assign('CMB_BYTYPE', $oSelect->GetHTML());
 		
-		$oDate = new DCLDate();
+		$oDate = new DateHelper();
 		$oDate->time = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 		
 		$dtOneWeekAgo = $oDate->time - 7 * 86400;
@@ -382,9 +382,9 @@ class reportPersonnelActivity
 			throw new InvalidDataException();
 		}
 		
-		$oBeginDate = new DCLDate();
+		$oBeginDate = new DateHelper();
 		$oBeginDate->SetFromDisplay($begindate);
-		$oEndDate = new DCLDate();
+		$oEndDate = new DateHelper();
 		$oEndDate->SetFromDisplay($enddate);
 		
 		$aDateArray = array();
@@ -552,7 +552,7 @@ class reportPersonnelActivity
 				$totalAppliedHours = 0.0;
 				$totalEtcHours = 0.0;
 				$totalTimeHours = 0.0;
-				$oDate = new DCLDate;
+				$oDate = new DateHelper;
 				$aByDate = array();
 				do
 				{

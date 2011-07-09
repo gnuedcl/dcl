@@ -39,8 +39,8 @@ class htmlChecklistForm
 		$this->oProducts = NULL;
 		$this->oSelect = NULL;
 		$this->bFirstState = true;
-		$this->oDate = new DCLDate;
-		$this->oTimestamp = new DCLTimestamp;
+		$this->oDate = new DateHelper;
+		$this->oTimestamp = new TimestampHelper;
 	}
 
 	function GetNodeValue(&$node)

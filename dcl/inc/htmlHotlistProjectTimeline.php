@@ -65,7 +65,7 @@ class htmlHotlistProjectTimeline
 		if (($endon = Filter::ToDate($_REQUEST['endon'])) === null)
 		    throw new PermissionDeniedException();
 		    
-		$oDate = new DCLDate;
+		$oDate = new DateHelper;
 		$oDate->SetFromDisplay($endon);
 		$endon = $oDate->ToDB();
 		$oDate->time = mktime(0, 0, 0, date('m', $oDate->time), date('d', $oDate->time) - $days, date('Y', $oDate->time));
