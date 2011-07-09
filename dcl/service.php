@@ -40,7 +40,7 @@ if (isset($_SERVER['PHP_AUTH_USER']))
 		{
 			$menuAction = $_POST['menuAction'];
 			list($class, $method) = explode(".", $menuAction);
-			if ($class == 'wsSccsXref')
+			if ($class == 'SourceCodeControlService')
 			{
 				define('SERVICE_AUTH', 1);
 				Invoke($menuAction);

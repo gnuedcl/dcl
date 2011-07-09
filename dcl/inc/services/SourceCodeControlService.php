@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,9 +20,9 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class wsSccsXref
+class SourceCodeControlService
 {
-	function wsSccsXref()
+	public function __construct()
 	{
 		if (!defined('SERVICE_AUTH'))
 		{
@@ -33,19 +31,19 @@ class wsSccsXref
 		}
 	}
 	
-	function returnEmptyResponse()
+	public function returnEmptyResponse()
 	{
 		echo '<?xml version="1.0" encoding="UTF-8"?><dataset></dataset>';
 		exit;
 	}
 	
-	function returnForbidden()
+	public function returnForbidden()
 	{
 		header('HTTP/1.1 403 Forbidden');
 		exit;
 	}
 	
-	function getUserID()
+	public function getUserID()
 	{
 		$model = new AuthenticateSqlModel();
 		$authInfo = array();
@@ -55,14 +53,14 @@ class wsSccsXref
 			exit;
 		}
 		
-		wsSccsXref::returnEmptyResponse();
+		SourceCodeControlService::returnEmptyResponse();
 	}
 	
-	function getSccsSecurity()
+	public function getSccsSecurity()
 	{
 		if (($id = @Filter::ToInt($_REQUEST['personnel_id'])) === null)
 		{
-			wsSccsXref::returnEmptyResponse();
+			SourceCodeControlService::returnEmptyResponse();
 		}
 		
 		$sSQL = 'SELECT DISTINCT rp.perm_id FROM dcl_user_role ur, dcl_role_perm rp WHERE ur.role_id = rp.role_id AND personnel_id = ' . $id;
@@ -80,11 +78,11 @@ class wsSccsXref
 		exit;
 	}
 	
-	function getRepositoryByID()
+	public function getRepositoryByID()
 	{
 		if (($id = @Filter::ToInt($_REQUEST['dcl_sccs_id'])) === null)
 		{
-			wsSccsXref::returnEmptyResponse();
+			SourceCodeControlService::returnEmptyResponse();
 		}
 		
 		$oDB = new SccsModel();
@@ -98,10 +96,10 @@ class wsSccsXref
 			exit;
 		}
 
-		wsSccsXref::returnEmptyResponse();
+		SourceCodeControlService::returnEmptyResponse();
 	}
 	
-	function getRepositoryByPath()
+	public function getRepositoryByPath()
 	{
 		$oDB = new SccsModel();
 		$sPath = $oDB->GPCStripSlashes($_POST['sccs_repository']);
@@ -115,21 +113,21 @@ class wsSccsXref
 			exit;
 		}
 
-		wsSccsXref::returnEmptyResponse();
+		SourceCodeControlService::returnEmptyResponse();
 	}
 	
-	function addRepository()
+	public function addRepository()
 	{
 		$oDB = new SccsModel();
 		$oDB->InitFrom_POST();
 		$oDB->Add();
 	}
 	
-	function getWorkOrder()
+	public function getWorkOrder()
 	{
 		if (($iWOID = Filter::ToInt($_POST['woid'])) === null || ($iSeq = Filter::ToInt($_POST['seq'])) === null)
 		{
-			wsSccsXref::returnEmptyResponse();
+			SourceCodeControlService::returnEmptyResponse();
 		}
 		
 		$oDB = new WorkOrderModel();
@@ -147,14 +145,14 @@ class wsSccsXref
 			exit;
 		}
 		
-		wsSccsXref::returnEmptyResponse();
+		SourceCodeControlService::returnEmptyResponse();
 	}
 	
-	function getProject()
+	public function getProject()
 	{
 		if (($iProjectID = Filter::ToInt($_POST['projectid'])) === null)
 		{
-			wsSccsXref::returnEmptyResponse();
+			SourceCodeControlService::returnEmptyResponse();
 		}
 		
 		$oDB = new ProjectsModel();
@@ -168,10 +166,10 @@ class wsSccsXref
 			exit;
 		}
 		
-		wsSccsXref::returnEmptyResponse();
+		SourceCodeControlService::returnEmptyResponse();
 	}
 	
-	function checkin()
+	public function checkin()
 	{
 		$iEntityTypeID = Filter::ToInt($_POST['dcl_entity_type_id']);
 		$iEntityID = Filter::ToInt($_POST['dcl_entity_id']);
@@ -181,7 +179,7 @@ class wsSccsXref
 		
 		if ($iEntityTypeID === null || $iEntityID === null || $iEntityID2 === null || $iSccsID === null || $iUserID === null)
 		{
-			wsSccsXref::returnForbidden();
+			SourceCodeControlService::returnForbidden();
 		}
 		
 		$oDB = new SccsXrefModel();
