@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class OrganizationAliasModel extends dclDB
+class OrganizationAliasModel extends DbProvider
 {
 	public function __construct()
 	{

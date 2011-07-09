@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class EntityTagModel extends dclDB
+class EntityTagModel extends DbProvider
 {
 	public function __construct()
 	{

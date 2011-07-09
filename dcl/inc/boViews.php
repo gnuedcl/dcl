@@ -229,7 +229,7 @@ class boViews
 		// Make object, run query, and (for now) blindly dump data.  The first
 		// record will contain column headings.  Any tabs within data will be replaced
 		// by spaces since our fields our tab delimited.
-		$obj = new dclDB;
+		$obj = new DbProvider;
 		$obj->Query($objView->GetSQL());
 
 		$record = '';

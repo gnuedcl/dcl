@@ -23,7 +23,7 @@
  */
 
 LoadStringResource('db');
-class DepartmentModel extends dclDB
+class DepartmentModel extends DbProvider
 {
 	public function __construct()
 	{

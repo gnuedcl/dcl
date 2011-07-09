@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class PriorityModel extends dclDB
+class PriorityModel extends DbProvider
 {
 	public function __construct()
 	{

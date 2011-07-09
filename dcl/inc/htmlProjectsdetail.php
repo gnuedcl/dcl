@@ -220,7 +220,7 @@ class htmlProjectsdetail
 
 	function SetChildProjects()
 	{
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$oDB->Query('SELECT projectid FROM dcl_projects WHERE parentprojectid = ' . $this->oProject->projectid . ' ORDER BY name');
 		if ($oDB->next_record())
 		{
@@ -384,7 +384,7 @@ class htmlProjectsdetail
 	{
 		global $dcl_info;
 
-		$db = new dclDB;
+		$db = new DbProvider;
 		$sql = 'SELECT a.jcn,a.seq,c.short,d.name,a.summary FROM workorders a, projectmap b,personnel c,statuses d WHERE ';
 		$sql .= "a.jcn=b.jcn AND (b.seq=0 OR a.seq=b.seq) AND a.responsible=c.id AND a.status=d.id AND b.projectid=$projectid ";
 

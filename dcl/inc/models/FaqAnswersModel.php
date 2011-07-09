@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class FaqAnswersModel extends dclDB
+class FaqAnswersModel extends DbProvider
 {
 	public function __construct()
 	{
@@ -85,7 +85,7 @@ class FaqAnswersModel extends dclDB
 			throw new InvalidDataException();
 		}
 
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		if ($oDB->Query("SELECT answerid FROM faqanswers WHERE questionid = $id") == -1)
 		{
 			return -1;

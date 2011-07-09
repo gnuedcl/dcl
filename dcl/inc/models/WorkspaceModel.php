@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class WorkspaceModel extends dclDB
+class WorkspaceModel extends DbProvider
 {
 	public function __construct()
 	{
@@ -48,7 +48,7 @@ class WorkspaceModel extends dclDB
 		$workspace_id = (int)$workspace_id;
 		if ($workspace_id > 0)
 		{
-			$oDB = new dclDB;
+			$oDB = new DbProvider;
 			$oDB->Query("SELECT w.product_id, p.name FROM dcl_workspace_product w, products p WHERE w.product_id = p.id AND w.workspace_id = $workspace_id ORDER BY p.name");
 			
 			return $oDB->FetchAllRows();

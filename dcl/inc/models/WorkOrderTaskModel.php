@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class WorkOrderTaskModel extends dclDB
+class WorkOrderTaskModel extends DbProvider
 {
 	public function __construct()
 	{

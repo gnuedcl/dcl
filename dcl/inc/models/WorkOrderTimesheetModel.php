@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class WorkOrderTimesheetModel extends dclDB
+class WorkOrderTimesheetModel extends DbProvider
 {
 	public function __construct()
 	{

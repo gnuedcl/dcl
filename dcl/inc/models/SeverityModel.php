@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class SeverityModel extends dclDB
+class SeverityModel extends DbProvider
 {
 	public function __construct()
 	{

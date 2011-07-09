@@ -22,7 +22,7 @@
 
 LoadStringResource('db');
 
-class WorkOrderTypeModel extends dclDB
+class WorkOrderTypeModel extends DbProvider
 {
 	public function WorkOrderTypeModel()
 	{

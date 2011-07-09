@@ -99,7 +99,7 @@ class htmlProjectTimeline
 		
 		$sSQL .= ' ORDER BY 2 DESC';
 		
-		$oDB = new dclDB();
+		$oDB = new DbProvider();
 		if ($oDB->Query($sSQL) !== -1)
 		{
 		    $aResults = array();

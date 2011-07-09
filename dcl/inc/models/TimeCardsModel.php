@@ -20,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class TimeCardsModel extends dclDB
+class TimeCardsModel extends DbProvider
 {
 	public function __construct()
 	{

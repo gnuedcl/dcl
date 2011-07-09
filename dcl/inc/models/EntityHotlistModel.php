@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class EntityHotlistModel extends dclDB
+class EntityHotlistModel extends DbProvider
 {
 	public function __construct()
 	{
@@ -489,7 +489,7 @@ class EntityHotlistModel extends dclDB
 				'tasksclosed' => 0
 			);
 
-		$obj = new dclDB;
+		$obj = new DbProvider;
 
 		$sql = 'SELECT COUNT(*), SUM(esthours), SUM(totalhours), SUM(etchours) FROM workorders a, dcl_entity_hotlist h WHERE h.entity_id = ' . DCL_ENTITY_WORKORDER;
 		$sql .= " AND a.jcn = h.entity_key_id AND a.seq = h.entity_key_id2 AND h.hotlist_id = $id ";

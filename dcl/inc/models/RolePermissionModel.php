@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class RolePermissionModel extends dclDB
+class RolePermissionModel extends DbProvider
 {
 	public function __construct()
 	{

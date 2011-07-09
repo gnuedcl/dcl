@@ -73,7 +73,7 @@ class htmlSelector
 	{
 		if ($this->oDB == NULL)
 		{
-			$this->oDB = new dclDB;
+			$this->oDB = new DbProvider;
 		}
 
 		$sql = "select $keyField, $valField From $table";

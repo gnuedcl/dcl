@@ -23,7 +23,7 @@
  */
 
 LoadStringResource('db');
-class StatusModel extends dclDB
+class StatusModel extends DbProvider
 {
 	public function __construct()
 	{
@@ -45,7 +45,7 @@ class StatusModel extends dclDB
 
 	function GetStatusType($id)
 	{
-		$db = new dclDB;
+		$db = new DbProvider;
 		return $db->ExecuteScalar("select dcl_status_type from statuses where id=$id");
 	}
 }

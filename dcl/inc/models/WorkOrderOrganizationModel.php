@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class WorkOrderOrganizationModel extends dclDB
+class WorkOrderOrganizationModel extends DbProvider
 {
 	var $account_name; // not part of table, but useful for Load
 

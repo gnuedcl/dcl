@@ -730,7 +730,7 @@ class boTickets
 		$dateFrom = Filter::ToDate($_REQUEST['dateFrom']);
 		$dateTo = Filter::ToDate($_REQUEST['dateTo']);
 
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 
 		if (strlen($columnhdrs) > 0)
 			$columnhdrs = explode(',', $columnhdrs);

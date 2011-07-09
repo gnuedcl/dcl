@@ -23,7 +23,7 @@
  */
 
 LoadStringResource('db');
-class AddressTypeModel extends dclDB
+class AddressTypeModel extends DbProvider
 {
 	public function __construct()
 	{

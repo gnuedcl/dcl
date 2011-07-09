@@ -22,7 +22,7 @@
 
 LoadStringResource('db');
 
-class SavedSearchesModel extends dclDB
+class SavedSearchesModel extends DbProvider
 {
 	public function __construct()
 	{

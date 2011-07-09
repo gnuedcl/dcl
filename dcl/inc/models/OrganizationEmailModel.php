@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class OrganizationEmailModel extends dclDB
+class OrganizationEmailModel extends DbProvider
 {
 	public function __construct()
 	{

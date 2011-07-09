@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class ProductBuildSccsModel extends dclDB
+class ProductBuildSccsModel extends DbProvider
 {
 	public function __construct()
 	{

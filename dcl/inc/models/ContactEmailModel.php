@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class ContactEmailModel extends dclDB
+class ContactEmailModel extends DbProvider
 {
 	public function ContactEmailModel()
 	{

@@ -67,7 +67,7 @@ class PersonnelPresenter
 
 		$queryHelper = new PersonnelSqlQueryHelper();
 		$model = new PersonnelModel();
-		$model = new dclDB;
+		$model = new DbProvider;
 
 		$iPage = 1;
 		$queryHelper->startrow = 0;

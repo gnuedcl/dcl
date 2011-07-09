@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class WorkOrderModel extends dclDB
+class WorkOrderModel extends DbProvider
 {
 	var $aContactOrgs;
 	var $aOrgs;
@@ -179,7 +179,7 @@ class WorkOrderModel extends dclDB
 
 	public function IsInAProject()
 	{
-		$obj = new dclDB;
+		$obj = new DbProvider;
 		if ($obj->Query('SELECT count(*) FROM projectmap WHERE jcn=' . $this->jcn . ' and seq in (0,' . $this->seq . ')') == -1)
 			return false;
 
@@ -265,7 +265,7 @@ class WorkOrderModel extends dclDB
 				if (!$bCanView)
 					return false;
 					
-				$oDB = new dclDB;
+				$oDB = new DbProvider;
 				$sSQL = "SELECT OC.org_id FROM dcl_org_contact OC JOIN personnel P ON OC.contact_id = P.contact_id WHERE P.id = $iPersonnelID";
 				if ($oDB->Query($sSQL) != -1)
 				{

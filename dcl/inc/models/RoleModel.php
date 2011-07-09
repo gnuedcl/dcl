@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class RoleModel extends dclDB
+class RoleModel extends DbProvider
 {
 	public function __construct()
 	{

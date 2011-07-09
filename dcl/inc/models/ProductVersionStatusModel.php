@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class ProductVersionStatusModel extends dclDB
+class ProductVersionStatusModel extends DbProvider
 {
 	public function __construct()
 	{

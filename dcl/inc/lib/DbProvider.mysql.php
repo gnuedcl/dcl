@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,18 +20,16 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once(DCL_ROOT . 'inc/DCL_DB_Core.php');
-
-class dclDB extends DCL_DB_Core
+class DbProvider extends AbstractDbProvider
 {
-	function dclDB()
+	public function __construct()
 	{
-		parent::DCL_DB_Core();
+		parent::__construct();
 		$this->emptyTimestamp = "''";
 		$this->EscapeQuoteChar = "\\";
 	}
 
-	function mysql_die($error = '')
+	public function mysql_die($error = '')
 	{
 		if (empty($error))
 			trigger_error(mysql_error());
@@ -41,7 +37,7 @@ class dclDB extends DCL_DB_Core
 			trigger_error($error);
 	}
 
-	function Connect($conn = '')
+	public function Connect($conn = '')
 	{
 		global $dcl_domain_info, $dcl_domain;
 
@@ -68,7 +64,7 @@ class dclDB extends DCL_DB_Core
 		return $this->conn;
 	}
 
-	function CanConnectServer()
+	public function CanConnectServer()
 	{
 		global $dcl_domain_info, $dcl_domain;
 
@@ -89,7 +85,7 @@ class dclDB extends DCL_DB_Core
 		return $bConnect;
 	}
 
-	function CanConnectDatabase()
+	public function CanConnectDatabase()
 	{
 		global $dcl_domain_info, $dcl_domain;
 
@@ -111,7 +107,7 @@ class dclDB extends DCL_DB_Core
 		return false;
 	}
 
-	function CreateDatabase()
+	public function CreateDatabase()
 	{
 		global $dcl_domain_info, $dcl_domain;
 
@@ -127,9 +123,9 @@ class dclDB extends DCL_DB_Core
 		return (mysql_query($query, $conn) > 0);
 	}
 
-	function TableExists($sTableName)
+	public function TableExists($sTableName)
 	{
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$oDB->Connect();
 		$oDB->Query("show tables");
 		while ($oDB->next_record())
@@ -141,7 +137,7 @@ class dclDB extends DCL_DB_Core
 		return false;
 	}
 
-	function Query($query)
+	public function Query($query)
 	{
 		$this->res = 0;
 		$this->oid = 0;
@@ -166,7 +162,7 @@ class dclDB extends DCL_DB_Core
 			return -1;
 	}
 
-	function LimitQuery($query, $offset, $rows)
+	public function LimitQuery($query, $offset, $rows)
 	{
 		$this->res = 0;
 		$this->oid = 0;
@@ -191,7 +187,7 @@ class dclDB extends DCL_DB_Core
 			return -1;
 	}
 
-	function Execute($query)
+	public function Execute($query)
 	{
 		if ($this->conn)
 		{
@@ -203,7 +199,7 @@ class dclDB extends DCL_DB_Core
 	}
 
 	// Execute row returning query and return first row, first field
-	function ExecuteScalar($sql)
+	public function ExecuteScalar($sql)
 	{
 		$retVal = null;
 
@@ -222,7 +218,7 @@ class dclDB extends DCL_DB_Core
 		return $retVal;
 	}
 
-	function Insert($query)
+	public function Insert($query)
 	{
 		$this->res = 0;
 		$this->oid = 0;
@@ -247,7 +243,7 @@ class dclDB extends DCL_DB_Core
 		}
 	}
 
-	function FreeResult()
+	public function FreeResult()
 	{
 		$this->Record = array();
 		if ($this->res != 0)
@@ -256,28 +252,28 @@ class dclDB extends DCL_DB_Core
 		$this->res = 0;
 	}
 
-	function BeginTransaction()
+	public function BeginTransaction()
 	{
         // Might as well be sending this to /dev/null
 		//return $this->Execute("BEGIN");
 		return 1;
 	}
 
-	function EndTransaction()
+	public function EndTransaction()
 	{
         // Might as well be sending this to /dev/null
 		//return $this->Execute("COMMIT");
 		return 1;
 	}
 
-	function RollbackTransaction()
+	public function RollbackTransaction()
 	{
         // Might as well be sending this to /dev/null
 		//return $this->Execute("ROLLBACK");
 		return 1;
 	}
 
-	function NumFields()
+	public function NumFields()
 	{
 		if ($this->res)
 			return mysql_num_fields($this->res);
@@ -286,7 +282,7 @@ class dclDB extends DCL_DB_Core
 	}
 
 	// from phpGW/phpLib db classes - sort of
-	function next_record()
+	public function next_record()
 	{
 		// bump up if just ran query
 		if ($this->cur == -1)
@@ -309,7 +305,7 @@ class dclDB extends DCL_DB_Core
 		return $stat;
 	}
 
-	function GetFieldName($fieldIndex)
+	public function GetFieldName($fieldIndex)
 	{
 		// Seems the official call is mysql_field_name, but mysql_fieldname is for backward compatability
 		if ($this->res)
@@ -318,7 +314,7 @@ class dclDB extends DCL_DB_Core
 		return '';
 	}
 
-	function FetchAllRows()
+	public function FetchAllRows()
 	{
 		$retVal = array();
 		$i = 0;
@@ -338,22 +334,22 @@ class dclDB extends DCL_DB_Core
 		return $retVal;
 	}
 
-	function GetNewIDSQLForTable($tableName)
+	public function GetNewIDSQLForTable($tableName)
 	{
 		return '';
 	}
 
-	function GetDateSQL()
+	public function GetDateSQL()
 	{
 		return 'now()';
 	}
 
-	function GetLastInsertID($sTable)
+	public function GetLastInsertID($sTable)
 	{
 		return mysql_insert_id($this->conn);
 	}
 
-	function ConvertDate($sExpression, $sField)
+	public function ConvertDate($sExpression, $sField)
 	{
 		if ($sExpression == $sField)
 			return $sField;
@@ -361,7 +357,7 @@ class dclDB extends DCL_DB_Core
 		return "$sExpression AS $sField";
 	}
 
-	function ConvertTimestamp($sExpression, $sField)
+	public function ConvertTimestamp($sExpression, $sField)
 	{
 		if ($sExpression == $sField)
 			return $sField;
@@ -369,20 +365,20 @@ class dclDB extends DCL_DB_Core
 		return "$sExpression AS $sField";
 	}
 
-	function IsDate($vField)
+	public function IsDate($vField)
 	{
 		return ($this->res > 0 && mysql_field_type($this->res, $vField) == 'date');
 	}
 
-	function IsTimestamp($vField)
+	public function IsTimestamp($vField)
 	{
 		$sFieldType = mysql_field_type($this->res, $vField);
 		return ($this->res > 0 && ($sFieldType == 'timestamp' || $sFieldType == 'datetime'));
 	}
 
-	function FieldExists($sTable, $sField)
+	public function FieldExists($sTable, $sField)
 	{
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$oDB->Connect();
 		$oDB->Query("describe $sTable");
 		while ($oDB->next_record())
@@ -394,7 +390,7 @@ class dclDB extends DCL_DB_Core
 		return false;
 	}
 
-	function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField)
+	public function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField)
 	{
 		$sRetVal = "(unix_timestamp($sEndDateSQL) - unix_timestamp($sBeginDateSQL)) / 60";
 
@@ -404,4 +400,3 @@ class dclDB extends DCL_DB_Core
 		return "$sRetVal AS $sAsField";
 	}
 }
-?>

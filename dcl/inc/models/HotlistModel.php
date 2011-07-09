@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class HotlistModel extends dclDB
+class HotlistModel extends DbProvider
 {
 	public function __construct()
 	{

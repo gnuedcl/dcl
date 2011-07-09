@@ -145,7 +145,7 @@ class htmlMetricsWorkOrders
 	
 	function executeItem($sSQL, $sCaption, $sAggregateBy)
 	{
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		if ($oDB->query($sSQL) != -1)
 		{
 			$oTable = new TableHtmlHelper();

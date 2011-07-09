@@ -28,7 +28,7 @@ class htmlMetrics
 
 	function htmlMetrics()
 	{
-		$this->oDB = new dclDB;
+		$this->oDB = new DbProvider;
 	}
 
 	function show()

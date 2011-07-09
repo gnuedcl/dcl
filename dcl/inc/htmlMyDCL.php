@@ -114,7 +114,7 @@ class htmlMyDCL
 		else
 			$oTable->addToolbar(menuLink('', 'menuAction=htmlTickets.showSubmissions'), STR_CMMN_VIEWALL);
 		
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$oDB->LimitQuery($objView->GetSQL(), 0, 5);
 		$aData = $oDB->FetchAllRows();
 		for ($i = 0; $i < count($aData); $i++)
@@ -188,7 +188,7 @@ class htmlMyDCL
 		else
 			$oTable->addToolbar(menuLink('', 'menuAction=boWorkorders.showmy&which=createby'), STR_CMMN_VIEWALL);
 		
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$oDB->LimitQuery($objView->GetSQL(), 0, 5);
 		$aData = $oDB->FetchAllRows();
 		for ($i = 0; $i < count($aData); $i++)
@@ -241,7 +241,7 @@ class htmlMyDCL
 		$oTable->setWidth('100%');
 		$oTable->addToolbar(menuLink('', 'menuAction=htmlProjects.show&filterReportto=' . $GLOBALS['DCLID']), STR_CMMN_VIEWALL);
 
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$oDB->LimitQuery($oView->GetSQL(), 0, 5);
 		$aData = $oDB->FetchAllRows();
 		for ($i = 0; $i < count($aData); $i++)

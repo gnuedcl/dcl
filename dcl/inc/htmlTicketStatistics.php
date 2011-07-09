@@ -390,7 +390,7 @@ trigger_error($query);
 		commonHeader();
 
 		global $responsible, $product, $status, $begindate, $enddate;
-		$obj = new dclDB;
+		$obj = new DbProvider;
 
 		$objView = new boView();
 		$objView->table = 'tickets';

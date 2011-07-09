@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class OrganizationPhoneModel extends dclDB
+class OrganizationPhoneModel extends DbProvider
 {
 	public function __construct()
 	{

@@ -80,7 +80,7 @@ class htmlTicketResults
 			}
 		}
 
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 
 		$sSQL = $oView->GetSQL();
 		if ($oDB->Query($sSQL) == -1)

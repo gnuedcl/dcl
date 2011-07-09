@@ -175,7 +175,7 @@ class reportPersonnelActivity
 			return;
 		}
 
-		$objDB = new dclDB;
+		$objDB = new DbProvider;
 		
 		$sReportFor = '';
 		$sCols = 'timecards.jcn, timecards.seq, timecards.hours';
@@ -395,7 +395,7 @@ class reportPersonnelActivity
 		}
 		
 		$aReportArray = array();
-		$objDB = new dclDB();
+		$objDB = new DbProvider();
 		if ($objDB->Query($query) != -1)
 		{
 			if ($objDB->next_record())
@@ -499,7 +499,7 @@ class reportPersonnelActivity
 		$objSe = new SeverityModel();
 		$objW = new WorkOrderModel();
 		$oPM = new ProjectMapModel();
-		$objDB = new dclDB;
+		$objDB = new DbProvider;
 		
 		$aGroupOptions = array('1' => 'Project', '2' => 'Action', '3' => 'Date', '4' => 'Product', '5' => 'by');
 		$groupBy = $_REQUEST['groupby'];

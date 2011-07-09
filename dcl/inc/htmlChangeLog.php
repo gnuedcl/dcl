@@ -34,7 +34,7 @@ class htmlChangeLog
 			throw new InvalidDataException();
 		}
 		
-		$this->oDB = new dclDB;
+		$this->oDB = new DbProvider;
 
 		$this->oPersonnel = new PersonnelModel();
 		$this->oPersonnel->Load($id);

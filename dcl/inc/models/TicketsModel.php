@@ -22,7 +22,7 @@
 
 LoadStringResource('db');
 
-class TicketsModel extends dclDB
+class TicketsModel extends DbProvider
 {
 	// Pseudo-field to display hh:mm:ss
 	var $hoursText;
@@ -197,7 +197,7 @@ class TicketsModel extends dclDB
 				if (!isset($obj->account) || $obj->account === null || $obj->account < 1)
 					return false;
 					
-				$oDB = new dclDB;
+				$oDB = new DbProvider;
 				$sSQL = "SELECT OC.org_id FROM dcl_org_contact OC JOIN personnel P ON OC.contact_id = P.contact_id WHERE P.id = $iPersonnelID";
 				if ($oDB->Query($sSQL) != -1)
 				{

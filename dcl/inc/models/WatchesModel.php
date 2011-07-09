@@ -23,7 +23,7 @@
 LoadStringResource('db');
 LoadStringResource('wtch');
 
-class WatchesModel extends dclDB
+class WatchesModel extends DbProvider
 {
 	var $arrTypeid;
 	var $arrActions;

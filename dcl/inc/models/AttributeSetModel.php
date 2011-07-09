@@ -24,7 +24,7 @@
 
 LoadStringResource('db');
 
-class AttributeSetModel extends dclDB
+class AttributeSetModel extends DbProvider
 {
 	public function __construct()
 	{

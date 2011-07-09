@@ -1332,7 +1332,7 @@ function dcl_upgrade0_9_4_4()
 		$phpgw_setup->oProc->Query('insert into dcl_contact_cnv (entity_type_id, entity_id, entity_id2, contactname, contactphone, contactemail) select 3, ticketid, 0, contact, contactphone, contactemail from tickets');
 
 		// Scrub the data - very basic, nothing fancy
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$i = 0;
 		dcl_upgrade0_9_4_4_write_message('<br/>Scrubbing contact data (# = 1000): ');
 		$oDB->Query('SELECT cnv_id, contactphone, contactname FROM dcl_contact_cnv WHERE contactname IS NOT NULL ORDER BY cnv_id');

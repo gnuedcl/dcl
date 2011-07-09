@@ -323,7 +323,7 @@ class htmlWOStatistics
 		$begindate = Filter::ToDate($_REQUEST['begindate']);
 		$enddate = Filter::ToDate($_REQUEST['enddate']);
 		
-		$obj = new dclDB;
+		$obj = new DbProvider;
 
 		$objView = new boView();
 		$objView->style = 'report';

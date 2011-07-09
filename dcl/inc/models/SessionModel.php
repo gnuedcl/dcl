@@ -21,7 +21,7 @@
  */
 
 //LoadStringResource('db');
-class SessionModel extends dclDB
+class SessionModel extends DbProvider
 {
 	var $m_IsValidSession;
 

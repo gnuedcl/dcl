@@ -277,7 +277,7 @@ class htmlAgg
 			$dateFrom = Filter::ToDate($_REQUEST['dateFrom']);
 			$dateTo = Filter::ToDate($_REQUEST['dateTo']);
 
-			$oDB = new dclDB; // for sql side date formatting
+			$oDB = new DbProvider; // for sql side date formatting
 
 			$sql .= '((t.dcl_status_type_id = 1 and w.createdon between ' . $oDB->DisplayToSQL($dateFrom) . ' and ' . $oDB->DisplayToSQL($dateTo) . ') or ';
 			$sql .= '(t.dcl_status_type_id = 2 and w.closedon between ' . $oDB->DisplayToSQL($dateFrom) . ' and ' . $oDB->DisplayToSQL($dateTo) . ')) ';

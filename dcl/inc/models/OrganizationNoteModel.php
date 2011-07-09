@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class OrganizationNoteModel extends dclDB
+class OrganizationNoteModel extends DbProvider
 {
 	public function __construct()
 	{

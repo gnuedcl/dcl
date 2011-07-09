@@ -72,7 +72,7 @@ class boSecAudit
 		
 
 		
-		$objDB = new DCLDb;
+		$objDB = new DbProvider;
 		
 		$sCols = 'SA.id, '. $objDBSA->ConvertTimestamp('SA.actionon', 'actionon') . ', SA.actiontxt, SA.actionparam';
 		$sCols .= ', ' . $objDBPer->SelectAllColumns('Pers.');

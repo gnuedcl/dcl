@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class ChecklistModel extends dclDB
+class ChecklistModel extends DbProvider
 {
 	public function __construct()
 	{

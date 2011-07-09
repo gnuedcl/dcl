@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,18 +20,16 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once(DCL_ROOT . 'inc/DCL_DB_Core.php');
-
-class dclDB extends DCL_DB_Core
+class DbProvider extends AbstractDbProvider
 {
-	function dclDB()
+	public function __construct()
 	{
-		parent::DCL_DB_Core();
+		parent::__construct();
 		$this->JoinKeyword = 'JOIN';
 		$this->EscapeQuoteChar = "\\";
 	}
 
-	function ReportError($res = null, $retVal = -1)
+	public function ReportError($res = null, $retVal = -1)
 	{
 		$a = OCIError($res);
 		if ($a)
@@ -42,7 +38,7 @@ class dclDB extends DCL_DB_Core
 		return $retVal;
 	}
 
-	function Connect($conn = '')
+	public function Connect($conn = '')
 	{
 		global $dcl_domain_info, $dcl_domain;
 
@@ -67,7 +63,7 @@ class dclDB extends DCL_DB_Core
 		}
 	}
 
-	function Query($query)
+	public function Query($query)
 	{
 		$this->FreeResult();
 		$this->oid = 0;
@@ -98,7 +94,7 @@ class dclDB extends DCL_DB_Core
 			return -1;
 	}
 
-	function LimitQuery($query, $offset, $rows)
+	public function LimitQuery($query, $offset, $rows)
 	{
 		$this->FreeResult();
 		$this->oid = 0;
@@ -138,7 +134,7 @@ class dclDB extends DCL_DB_Core
 			return -1;
 	}
 
-	function Execute($query)
+	public function Execute($query)
 	{
 		if ($this->conn)
 		{
@@ -162,7 +158,7 @@ class dclDB extends DCL_DB_Core
 		return -1;
 	}
 
-	function ExecuteScalar($sql)
+	public function ExecuteScalar($sql)
 	{
 		$retVal = null;
 
@@ -189,12 +185,12 @@ class dclDB extends DCL_DB_Core
 		return $retVal;
 	}
 
-	function Insert($query)
+	public function Insert($query)
 	{
 		return $this->Query($query);
 	}
 
-	function FreeResult()
+	public function FreeResult()
 	{
 		$this->Record = array();
 		if ($this->res != 0)
@@ -203,22 +199,22 @@ class dclDB extends DCL_DB_Core
 		$this->res = 0;
 	}
 
-	function BeginTransaction()
+	public function BeginTransaction()
 	{
 		return $this->Execute('BEGIN');
 	}
 
-	function EndTransaction()
+	public function EndTransaction()
 	{
 		return $this->Execute('COMMIT');
 	}
 
-	function RollbackTransaction()
+	public function RollbackTransaction()
 	{
 		return $this->Execute('ROLLBACK');
 	}
 
-	function NumFields()
+	public function NumFields()
 	{
 		if ($this->res)
 			return OCINumCols($this->res);
@@ -226,7 +222,7 @@ class dclDB extends DCL_DB_Core
 			return -1;
 	}
 
-	function next_record()
+	public function next_record()
 	{
 		// bump up if just ran query
 		if ($this->cur == -1)
@@ -252,7 +248,7 @@ class dclDB extends DCL_DB_Core
 		return $stat;
 	}
 
-	function GetFieldName($fieldIndex)
+	public function GetFieldName($fieldIndex)
 	{
 		if ($this->res)
 			return strtolower(OCIColumnName($this->res, $fieldIndex));
@@ -260,7 +256,7 @@ class dclDB extends DCL_DB_Core
 		return '';
 	}
 
-	function IsFieldNull($thisField)
+	public function IsFieldNull($thisField)
 	{
 		if ($this->res)
 		{
@@ -273,7 +269,7 @@ class dclDB extends DCL_DB_Core
 			return -1;
 	}
 
-	function FetchAllRows()
+	public function FetchAllRows()
 	{
 		$retVal = array();
 		$i = 0;
@@ -287,7 +283,7 @@ class dclDB extends DCL_DB_Core
 		return $retVal;
 	}
 
-	function GetNewIDSQLForTable($tableName)
+	public function GetNewIDSQLForTable($tableName)
 	{
 		$seqName = '';
 		switch($tableName)
@@ -317,12 +313,12 @@ class dclDB extends DCL_DB_Core
 		return '';
 	}
 
-	function GetDateSQL()
+	public function GetDateSQL()
 	{
 		return 'sysdate';
 	}
 
-	function DisplayToSQL($thisDate)
+	public function DisplayToSQL($thisDate)
 	{
 		global $dcl_info;
 
@@ -335,12 +331,12 @@ class dclDB extends DCL_DB_Core
 		return "to_date('" . $this->ArrangeDateForInsert($thisDate) . "', 'YYYY-MM-DD')";
 	}
 
-	function GetUpperSQL($text)
+	public function GetUpperSQL($text)
 	{
 		return sprintf('upper(%s)', $text);
 	}
 
-	function GetLastInsertID($sTable)
+	public function GetLastInsertID($sTable)
 	{
 		if (!($res = OCIParse($this->conn, "select currval(seq_$sTable)")))
 		{
@@ -359,7 +355,7 @@ class dclDB extends DCL_DB_Core
 		return $this->ReportError($res);
 	}
 
-	function ConvertDate($sExpression, $sField)
+	public function ConvertDate($sExpression, $sField)
 	{
 		if ($sExpression == $sField)
 			return $sField;
@@ -367,7 +363,7 @@ class dclDB extends DCL_DB_Core
 		return "$sExpression AS $sField";
 	}
 
-	function ConvertTimestamp($sExpression, $sField)
+	public function ConvertTimestamp($sExpression, $sField)
 	{
 		if ($sExpression == $sField)
 			return $sField;
@@ -375,20 +371,20 @@ class dclDB extends DCL_DB_Core
 		return "$sExpression AS $sField";
 	}
 
-	function IsDate($vField)
+	public function IsDate($vField)
 	{
 		// FIXME
 		return ($this->res > 0 && pg_fieldtype($this->res, $vField) == 'date');
 	}
 
-	function IsTimestamp($vField)
+	public function IsTimestamp($vField)
 	{
 		// FIXME
 		// substr because it could be timestamp or timestamptz
 		return ($this->res > 0 && substr(pg_fieldtype($this->res, $vField), 0, 9) == 'timestamp');
 	}
 
-	function index_names()
+	public function index_names()
 	{
 		// FIXME
 		global $dcl_domain, $dcl_domain_info;
@@ -407,13 +403,13 @@ class dclDB extends DCL_DB_Core
 		return $return;
 	}
 
-	function FieldExists($sTable, $sField)
+	public function FieldExists($sTable, $sField)
 	{
 		// FIXME
 		return ($this->ExecuteScalar("select count(*) from pg_attribute a join pg_class b on a.attrelid = b.oid where b.relname = '$sTable' and a.attname = '$sField'") == 1);
 	}
 
-	function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField)
+	public function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField)
 	{
 		$sRetVal = "round(to_number($sEndDateSQL - $sBeginDateSQL) * 1440)";
 
@@ -423,4 +419,3 @@ class dclDB extends DCL_DB_Core
 		return "$sRetVal AS $sAsField";
 	}
 }
-?>

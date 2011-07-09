@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class WorkspaceProductModel extends dclDB
+class WorkspaceProductModel extends DbProvider
 {
 	public function __construct()
 	{

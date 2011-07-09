@@ -21,7 +21,7 @@
  */
 
 //LoadStringResource('db');
-class PreferencesModel extends dclDB
+class PreferencesModel extends DbProvider
 {
 	public function __construct()
 	{

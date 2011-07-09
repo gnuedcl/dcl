@@ -35,7 +35,7 @@ class htmlProjectSelector
 		$this->bMultiSelect = false;
 		$this->oSmarty = new DCL_Smarty();
 		$this->oView = new boView();
-		$this->oDB = new dclDB;
+		$this->oDB = new DbProvider;
 	}
 	
 	function show()

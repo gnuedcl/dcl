@@ -95,7 +95,7 @@ class htmlContactBrowse
 			}
 		}
 
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 
 		$sSQL = $this->oView->GetSQL(true);
 		if ($oDB->Query($sSQL) == -1)
@@ -280,7 +280,7 @@ class htmlContactBrowse
 			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$oView = new boView();
 		$oView->table = 'dcl_contact';
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_LASTNAME, STR_CMMN_FIRSTNAME, 'Organization', 'Phone', 'Email', 'Internet'));

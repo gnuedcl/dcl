@@ -302,7 +302,7 @@ case "initial":
 
 case "checkDB":
     include_once "../inc/config.php";
-    $oDB = new dclDB;
+    $oDB = new DbProvider;
     $title = _INSTALL_L104;
     $content = "<table align='center'><tr><td align='left'>\n";
 
@@ -356,7 +356,7 @@ case "checkDB":
 
 case "createDB":
     include_once "../inc/config.php";
-    $oDB = new dclDB;
+    $oDB = new DbProvider;
 
     if (!$oDB->CreateDatabase()){
         $content = "<p>"._INSTALL_L31."</p>";
@@ -375,7 +375,7 @@ case "createTables":
 	include_once 'tables_current.inc.php';
 
 	$oProc = new schema_proc($dcl_domain_info[$dcl_domain]['dbType']);
-	$oProc->m_odb = new dclDB;
+	$oProc->m_odb = new DbProvider;
 
 	$content = '<div style="text-align: left; width: 50%; padding-left: 200px;">';
 	ob_start();
@@ -409,7 +409,7 @@ case 'updateTables':
 	include_once 'class/setup.php';
 
 	// Get current version
-	$oDB = new dclDB;
+	$oDB = new DbProvider;
 	if ($oDB->TableExists('dcl_config'))
 	{
 		$dclVersion = $oDB->ExecuteScalar("SELECT dcl_config_varchar FROM dcl_config WHERE dcl_config_name = 'DCL_VERSION'");
@@ -461,7 +461,7 @@ case 'updateTables':
 
 		$phpgw_setup = new DCLSetup();
 		$phpgw_setup->oProc = new schema_proc($dcl_domain_info[$dcl_domain]['dbType']);
-		$phpgw_setup->oProc->m_odb = new dclDB;
+		$phpgw_setup->oProc->m_odb = new DbProvider;
 		$phpgw_setup->oProc->m_aTables = $phpgw_baseline;
 
 		$setup_info = array();
@@ -529,7 +529,7 @@ case "insertData":
 	include_once "../inc/functions.inc.php";
     include_once './default_records.inc.php';
     
-    $oDB = new dclDB;
+    $oDB = new DbProvider;
 	include_once 'setup.inc.php'; // gets current version
     $oDB->Execute("INSERT INTO dcl_config (dcl_config_name, dcl_config_field, dcl_config_varchar) VALUES ('DCL_VERSION', 'dcl_config_varchar', " . $oDB->Quote($setup_info['dcl']['version']) . ")");
 

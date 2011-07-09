@@ -24,7 +24,7 @@
 
 LoadStringResource('db');
 LoadStringResource('prod');
-class BuildManagerModel extends dclDB
+class BuildManagerModel extends DbProvider
 {
 	// Instance of dbProductBuildException
 	var $oDbProductBuildException;

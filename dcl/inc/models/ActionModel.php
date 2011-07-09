@@ -23,7 +23,7 @@
  */
 
 LoadStringResource('db');
-class ActionModel extends dclDB
+class ActionModel extends DbProvider
 {
 	function __construct()
 	{

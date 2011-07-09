@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class ProjectMapModel extends dclDB
+class ProjectMapModel extends DbProvider
 {
 	public function __construct()
 	{

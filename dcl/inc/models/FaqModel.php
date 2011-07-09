@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class FaqModel extends dclDB
+class FaqModel extends DbProvider
 {
 	public function __construct()
 	{

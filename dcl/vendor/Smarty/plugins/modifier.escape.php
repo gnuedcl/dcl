@@ -42,11 +42,11 @@ function smarty_modifier_escape($string, $esc_type = 'html')
             return urlencode($string);
             
         case 'date':
-            $o = new dclDB;
+            $o = new DbProvider;
             return $o->FormatDateForDisplay($string);
 
         case 'timestamp':
-            $o = new dclDB;
+            $o = new DbProvider;
             return $o->FormatTimeStampForDisplay($string);
 
         case 'rawurl':

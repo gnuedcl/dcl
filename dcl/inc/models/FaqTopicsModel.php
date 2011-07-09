@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class FaqTopicsModel extends dclDB
+class FaqTopicsModel extends DbProvider
 {
 	public function __construct()
 	{
@@ -122,7 +122,7 @@ class FaqTopicsModel extends dclDB
 			throw new InvalidDataException();
 		}
 
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		if ($oDB->Query("SELECT topicid FROM faqtopics WHERE faqid = $id") == -1)
 		{
 			return -1;

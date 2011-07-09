@@ -34,7 +34,7 @@ class htmlOrganizationSelector
 		$this->bMultiSelect = false;
 		$this->oSmarty = new DCL_Smarty();
 		$this->oView = new OrganizationSqlQueryHelper();
-		$this->oDB = new dclDB;
+		$this->oDB = new DbProvider;
 	}
 
 	function show()

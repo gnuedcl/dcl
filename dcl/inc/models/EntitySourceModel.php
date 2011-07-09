@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class EntitySourceModel extends dclDB
+class EntitySourceModel extends DbProvider
 {
 	public function __construct()
 	{

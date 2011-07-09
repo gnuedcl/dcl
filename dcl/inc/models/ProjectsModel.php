@@ -22,7 +22,7 @@
 
 LoadStringResource('db');
 
-class ProjectsModel extends dclDB
+class ProjectsModel extends DbProvider
 {
 	public function __construct()
 	{
@@ -56,7 +56,7 @@ class ProjectsModel extends dclDB
 	public function ParentIsNotChild($projectid, $parentid)
 	{
 		$isNotChild = true;
-		$db = new dclDB;
+		$db = new DbProvider;
 
 		if ($db->Query("SELECT projectid FROM dcl_projects WHERE parentprojectid=$projectid") != -1)
 		{
@@ -76,7 +76,7 @@ class ProjectsModel extends dclDB
 
 	public function GetProjectParents($projectid, $includethis = false)
 	{
-		$obj = new dclDB;
+		$obj = new DbProvider;
 
 		if ($includethis == false)
 			$projectids = '';
@@ -106,7 +106,7 @@ class ProjectsModel extends dclDB
 
 	public function GetProjectChildren($projectid, $includethis = false)
 	{
-		$obj = new dclDB;
+		$obj = new DbProvider;
 
 		if ($includethis == false)
 			$projectids = '';
@@ -140,7 +140,7 @@ class ProjectsModel extends dclDB
 				'tasksclosed' => 0
 			);
 
-		$obj = new dclDB;
+		$obj = new DbProvider;
 
 		$projectids = $projectid;
 
@@ -204,7 +204,7 @@ class ProjectsModel extends dclDB
 
 	public function Exists($sName)
 	{
-		$obj = new dclDB;
+		$obj = new DbProvider;
 		$obj->Query('SELECT count(*) FROM dcl_projects WHERE ' . $this->GetUpperSQL('name') . ' = ' . $this->Quote(strtoupper($sName)));
 		$obj->next_record();
 		return ($obj->f(0) > 0);

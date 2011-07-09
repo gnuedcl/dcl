@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class SccsXrefModel extends dclDB
+class SccsXrefModel extends DbProvider
 {
 	public function __construct()
 	{

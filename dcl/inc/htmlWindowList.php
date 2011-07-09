@@ -92,7 +92,7 @@ class htmlWindowList
 	{
 		if ($this->oDB == NULL)
 		{
-			$this->oDB = new dclDB;
+			$this->oDB = new DbProvider;
 		}
 
 		$sql = "select $valField From $table";

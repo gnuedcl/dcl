@@ -323,7 +323,7 @@ class htmlView
 		if (!$this->bShowPager)
 			return;
 
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 
 		$sSQL = $this->oView->GetSQL(true);
 		if ($oDB->Query($sSQL) == -1)

@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class UserRoleModel extends dclDB
+class UserRoleModel extends DbProvider
 {
 	public function __construct()
 	{

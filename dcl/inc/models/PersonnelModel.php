@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class PersonnelModel extends dclDB
+class PersonnelModel extends DbProvider
 {
 	public function __construct()
 	{

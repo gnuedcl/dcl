@@ -479,7 +479,7 @@ class boView
 						}
 							
 						if (!$this->m_oDB)
-							$this->m_oDB = new dclDB;
+							$this->m_oDB = new DbProvider;
 
 						LoadSchema($sRealTable);
 						if ($phpgw_baseline[$sRealTable]['fd'][$sField]['type'] == 'timestamp')
@@ -893,7 +893,7 @@ class boView
 			}
 
 			if (!$this->m_oDB)
-				$this->m_oDB = new dclDB;
+				$this->m_oDB = new DbProvider;
 
 			foreach ($this->joins as $table => $iJoinType)
 			{

@@ -21,7 +21,7 @@
  */
 
 LoadStringResource('db');
-class TagModel extends dclDB
+class TagModel extends DbProvider
 {
 	public function __construct()
 	{

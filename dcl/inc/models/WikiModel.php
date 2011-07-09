@@ -20,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class WikiModel extends dclDB
+class WikiModel extends DbProvider
 {
 	public function __construct()
 	{

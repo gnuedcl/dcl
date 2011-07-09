@@ -31,7 +31,7 @@ class DCLDataImport
 	{
 		$this->hFile = null;
 
-		$this->oDB = new dclDB;
+		$this->oDB = new DbProvider;
 		$this->oDB->Connect();
 
 		$GLOBALS['__import_content__'] = '';

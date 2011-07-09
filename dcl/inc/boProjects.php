@@ -512,7 +512,7 @@ class boProjects
 		if (!is_array($aSource) || !isset($aSource['selected']) || !is_array($aSource['selected']))
 			return;
 
-		$oDB = new dclDB;
+		$oDB = new DbProvider;
 		$oDB->BeginTransaction();
 
 		$objPM = new ProjectMapModel();

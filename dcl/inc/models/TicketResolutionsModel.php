@@ -22,7 +22,7 @@
 
 LoadStringResource('db');
 
-class TicketResolutionsModel extends dclDB
+class TicketResolutionsModel extends DbProvider
 {
 	public function __construct()
 	{

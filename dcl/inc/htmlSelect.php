@@ -114,7 +114,7 @@ class htmlSelect
 	{
 		if ($this->oDB == NULL)
 		{
-			$this->oDB = new dclDB;
+			$this->oDB = new DbProvider;
 		}
 
 		if ($this->oDB->Query($sql))

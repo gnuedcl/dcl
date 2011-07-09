@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -39,7 +37,7 @@ include_once(DCL_ROOT . 'inc/DCL_DateTime.php');
  * @copyright Copyright (C) 1999-2004 Free Software Foundation
  * @version $Id$
  */
-class DCL_DB_Core
+abstract class AbstractDbProvider
 {
 	/**
 	 * Connection ID
@@ -127,7 +125,7 @@ class DCL_DB_Core
 	/**
 	 * Constructor.  Initializes all members and calls Connect() in derived class
 	 */
-	function DCL_DB_Core()
+	public function __construct()
 	{
 		$this->objDate = new DCLDate;
 		$this->objTimestamp = new DCLTimestamp;
@@ -155,7 +153,7 @@ class DCL_DB_Core
 	 * Retrieve a field value from the current record
 	 * @param string|integer
 	 */
-	function f($sName)
+	public function f($sName)
 	{
 		return $this->Record[$sName];
 	}
@@ -165,7 +163,7 @@ class DCL_DB_Core
 	 * @param string|integer The field to test for the presence of NULL
 	 * @return boolean|integer -1 if no result set, true if the field is NULL or empty string, otherwise false
 	 */
-	function IsFieldNull($thisField)
+	public function IsFieldNull($thisField)
 	{
 		if ($this->res)
 		{
@@ -181,7 +179,7 @@ class DCL_DB_Core
 	/**
 	 * Initializes field member variables from $_POST super global array.  Used for copying form contents into class.
 	 */
-	function InitFrom_POST()
+	public function InitFrom_POST()
 	{
 		foreach ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'] as $sFieldName => $aFieldInfo)
 		{
@@ -194,7 +192,7 @@ class DCL_DB_Core
 	 * Initializes field member varialbes from provided array.  Used for copying array contents into class.
 	 * @param array The source array to copy values from.  Keys must match field member variable names.
 	 */
-	function InitFromArray($aSource)
+	public function InitFromArray($aSource)
 	{
 		foreach ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'] as $sFieldName => $aFieldInfo)
 		{
@@ -206,7 +204,7 @@ class DCL_DB_Core
 	/**
 	 * Initializes field member variables from $GLOBALS global array.  Used for copying form contents into class.
 	 */
-	function InitFromGlobals()
+	public function InitFromGlobals()
 	{
 		foreach ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'] as $sFieldName => $aFieldInfo)
 		{
@@ -223,7 +221,7 @@ class DCL_DB_Core
 	 * @return string The escaped string
 	 * @see DBAddSlashes()
 	 */
-	function db_addslashes($thisString)
+	public function db_addslashes($thisString)
 	{
 		return $this->DBAddSlashes($thisString);
 	}
@@ -234,7 +232,7 @@ class DCL_DB_Core
 	 * @return string The escaped string
 	 * @see db_addslashes()
 	 */
-	function DBAddSlashes($thisString)
+	public function DBAddSlashes($thisString)
 	{
 		if (!IsSet($thisString) || $thisString == '')
 			return '';
@@ -247,7 +245,7 @@ class DCL_DB_Core
 	 * @param string The string to unescape
 	 * @return string The unescaped string
 	 */
-	function GPCStripSlashes($thisString)
+	public function GPCStripSlashes($thisString)
 	{
 		if (get_magic_quotes_gpc() == 0)
 			return $thisString;
@@ -261,7 +259,7 @@ class DCL_DB_Core
 	 * @return integer -1 if caching disabled or the key is already set, otherwise 0
 	 * @see LoadCache()
 	 */
-	function CacheRow($key)
+	public function CacheRow($key)
 	{
 		if (!$this->cacheEnabled || IsSet($this->cache[$key]))
 			return -1;
@@ -281,7 +279,7 @@ class DCL_DB_Core
 	 * @return integer -1 if caching disabled or the key is not set, otherwise 0
 	 * @see CacheRow()
 	 */
-	function LoadCache($key)
+	public function LoadCache($key)
 	{
 		if (!$this->cacheEnabled || !IsSet($this->cache[$key]))
 			return -1;
@@ -302,7 +300,7 @@ class DCL_DB_Core
 	 * @see ArrangeTimeStampForInsert()
 	 * @see ArrangeDateForInsert()
 	 */
-	function DisplayToSQL($thisDate)
+	public function DisplayToSQL($thisDate)
 	{
 		global $dcl_info;
 
@@ -322,7 +320,7 @@ class DCL_DB_Core
 	 * @see ArrangeTimeStampForInsert()
 	 * @see DisplayToSQL()
 	 */
-	function ArrangeDateForInsert($thisDate)
+	public function ArrangeDateForInsert($thisDate)
 	{
 		$this->objDate->SetFromDisplay($thisDate);
 		return $this->objDate->ToDB();
@@ -335,7 +333,7 @@ class DCL_DB_Core
 	 * @see DisplayToSQL()
 	 * @see ArrangeDateForInsert()
 	 */
-	function ArrangeTimeStampForInsert($thisStamp)
+	public function ArrangeTimeStampForInsert($thisStamp)
 	{
 		$this->objTimestamp->SetFromDisplay($thisStamp);
 		return $this->objTimestamp->ToDB();
@@ -346,7 +344,7 @@ class DCL_DB_Core
 	 * @param string The date to format
 	 * @return string Reformatted date string according to user preference or empty string if not valid
 	 */
-	function FormatDateForDisplay($thisDate)
+	public function FormatDateForDisplay($thisDate)
 	{
 		if ($thisDate != '' || substr($thisDate, 0, 4) == '0000')
 		{
@@ -362,7 +360,7 @@ class DCL_DB_Core
 	 * @param string The date to format
 	 * @return string Reformatted date string according to user preference or empty string if not valid
 	 */
-	function FormatDateForQuarterDisplay($thisDate)
+	public function FormatDateForQuarterDisplay($thisDate)
 	{
 		if ($thisDate != '' || substr($thisDate, 0, 4) == '0000')
 		{
@@ -378,7 +376,7 @@ class DCL_DB_Core
 	 * @param string The timestamp to format
 	 * @return string Reformatted timestamp string according to user preference or empty string if not valid
 	 */
-	function FormatTimeStampForDisplay($thisStamp)
+	public function FormatTimeStampForDisplay($thisStamp)
 	{
 		if ($thisStamp != '' && substr($thisStamp, 0, 4) != '0000')
 		{
@@ -394,7 +392,7 @@ class DCL_DB_Core
 	 * @param string The text or field to upper case.  Literals should be enclosed in '' and escaped with {@link DBAddSlashes()}
 	 * @return string The necessary SQL to convert the text/field to upper case
 	 */
-	function GetUpperSQL($text)
+	public function GetUpperSQL($text)
 	{
 		return $text;
 	}
@@ -404,7 +402,7 @@ class DCL_DB_Core
 	 * @param string The expression to right trim.  Literals should be enclosed in '' and escaped with {@link DBAddSlashes()}
 	 * @return string The necessary SQL to right trim the field or text
 	 */
-	function GetRTrimSQL($text)
+	public function GetRTrimSQL($text)
 	{
 		return sprintf('rtrim(%s)', $text);
 	}
@@ -414,10 +412,10 @@ class DCL_DB_Core
 	 * @param integer The ID of the subject record
 	 * @return boolean true if the record has a reference in another table, otherwise false
 	 */
-	function HasFKRef($id)
+	public function HasFKRef($id)
 	{
 		$bHasRef = false;
-		$oKey = new dclDB;
+		$oKey = new DbProvider;
 		reset($this->foreignKeys);
 		while ((list($sTable, $sField) = each($this->foreignKeys)) && !$bHasRef)
 		{
@@ -444,7 +442,7 @@ class DCL_DB_Core
 	 * Writes an audit record before doing an update or delete operation
 	 * @param array an array of values representing the primary key of the record to audit
 	 */
-	function Audit($aID)
+	public function Audit($aID)
 	{
 		if (!$this->AuditEnabled)
 			return;
@@ -465,7 +463,7 @@ class DCL_DB_Core
 			$sVersionSQL = '(SELECT COALESCE(MAX(audit_version) + 1, 1) FROM ' . $this->TableName . '_audit WHERE ' . $sPK . ')';
 		else
 		{
-			$oDB = new dclDB;
+			$oDB = new DbProvider;
 			if ($oDB->Query('SELECT COALESCE(MAX(audit_version) + 1, 1) FROM ' . $this->TableName . '_audit WHERE ' . $sPK) != -1)
 			{
 				if ($oDB->next_record())
@@ -491,7 +489,7 @@ class DCL_DB_Core
 	 * @param array an array of values representing the primary key of the record to load the audit trail for
 	 * @return array 2 dimensional array representing the audit trail including the current version (if not deleted)
 	 */
-	function AuditLoad($aID)
+	public function AuditLoad($aID)
 	{
 		if (!$this->AuditEnabled)
 			return;
@@ -544,7 +542,7 @@ class DCL_DB_Core
 	 * Constructs and executes SQL to add a record to the table associated with this class.  Uses schema files for metadata.
 	 * @return integer -1 on failure
 	 */
-	function Add()
+	public function Add()
 	{
 		$sFieldList = '';
 		$sValueList = '';
@@ -588,7 +586,7 @@ class DCL_DB_Core
 	 * @param array fields to skip in set statement.  Will be ignored for primary key fields.
 	 * @return integer -1 on failure, otherwise 0
 	 */
-	function Edit($aIgnoreFields = '')
+	public function Edit($aIgnoreFields = '')
 	{
 		$sFd = '';
 		$sPK = '';
@@ -636,7 +634,7 @@ class DCL_DB_Core
 	 * @param array The ID of the record to delete formatted as array('field' => value[, 'field2' => value, ..., 'fieldn' => value)
 	 * @return integer -1 on failure, 0 on success
 	 */
-	function Delete($aID)
+	public function Delete($aID)
 	{
 		$sPK = '';
 		$aPK = array();
@@ -665,7 +663,7 @@ class DCL_DB_Core
 	 * @param array The ID of the record to check for, formatted as array('field' => value[, 'field2' => value, ..., 'fieldn' => value)
 	 * @return boolean true if the record exists, otherwise false
 	 */
-	function Exists($aID)
+	public function Exists($aID)
 	{
 		$sPK = '';
 		$bFirstPK = true;
@@ -689,7 +687,7 @@ class DCL_DB_Core
 	 * @param string The value to quote and escape
 	 * @return string NULL if the supplied value is NULL or empty, otherwise quoted/escaped string
 	 */
-	function Quote($sValue)
+	public function Quote($sValue)
 	{
 		if ($sValue == NULL || $sValue == '')
 			return 'NULL';
@@ -703,7 +701,7 @@ class DCL_DB_Core
 	 * @param string the value of this field
 	 * @return mixed NULL if the value is NULL or empty, otherwise proper SQL formatted value
 	 */
-	function FieldValueToSQL($sField, $sValue)
+	public function FieldValueToSQL($sField, $sValue)
 	{
 		$aField =& $GLOBALS['phpgw_baseline'][$this->TableName]['fd'][$sField];
 		if (is_null($sValue) || trim($sValue) === '')
@@ -742,7 +740,7 @@ class DCL_DB_Core
 	 * @param string the field to format
 	 * @return string the formatted SQL for the select clause
 	 */
-	function SelectField($sField, $sTablePrefix = '')
+	public function SelectField($sField, $sTablePrefix = '')
 	{
 		if ($sField == '' or $sField === null)
 			return '';
@@ -774,7 +772,7 @@ class DCL_DB_Core
 	 * @param string the value of this field
 	 * @return mixed the properly formatted value for display
 	 */
-	function FieldValueFromSQL($sField, $sValue)
+	public function FieldValueFromSQL($sField, $sValue)
 	{
 		if (!isset($GLOBALS['phpgw_baseline'][$this->TableName]['fd'][$sField]))
 		{
@@ -799,7 +797,7 @@ class DCL_DB_Core
 	/**
 	 * Wipes all field member variables according to the schema.  Numerics are set to 0 and dates/text fields are set to empty string.
 	 */
-	function Clear()
+	public function Clear()
 	{
 		foreach ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'] as $sFieldName => $aFieldInfo)
 		{
@@ -821,7 +819,7 @@ class DCL_DB_Core
 	/**
 	 * Retrieves the current record into the field member variables
 	 */
-	function GetRow()
+	public function GetRow()
 	{
 		if (count($this->Record) > 0)
 		{
@@ -843,7 +841,7 @@ class DCL_DB_Core
 	 @param boolean true to free the result before returning
 	 @return array All records from cursor position to EOF
 	 */
-	function ResultToArray($bFreeResult = true)
+	public function ResultToArray($bFreeResult = true)
 	{
 		$aRetVal = array();
 		while ($this->next_record())
@@ -855,7 +853,7 @@ class DCL_DB_Core
 		return $aRetVal;
 	}
 
-	function GetOptions($sFieldID, $sFieldDesc, $sFieldActive = '', $bActiveOnly = true, $sPublicField = '', $sFilter = '')
+	public function GetOptions($sFieldID, $sFieldDesc, $sFieldActive = '', $bActiveOnly = true, $sPublicField = '', $sFilter = '')
 	{
 		global $g_oSec;
 
@@ -893,7 +891,7 @@ class DCL_DB_Core
 	 * @param string The prefix to prepend to the field name, including the dot separator (i.e., "timecards.")
 	 * @return string SQL column list
 	 */
-	function SelectAllColumns($sTablePrefix = '')
+	public function SelectAllColumns($sTablePrefix = '')
 	{
 		$bFirstFd = true;
 		$sFd = '';
@@ -915,7 +913,7 @@ class DCL_DB_Core
 	 * @param boolean Specifies if an error should be triggered if the object is not found
 	 * @return mixed Hmmm..returns result of {@link GetRow()}, but GetRow() does not return anything
 	 */
-	function Load($id, $bTriggerErrorIfNotFound = true)
+	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		$this->Clear();
 
@@ -975,7 +973,7 @@ class DCL_DB_Core
 	 * @param string the name of the field in the table to toggle
 	 * @return -1 on error, 0 on success
 	 */
-	function SetActive($id, $active, $sField = 'active')
+	public function SetActive($id, $active, $sField = 'active')
 	{
 		$isActive = $active ? 'Y' : 'N';
 		$sPK = '';
@@ -1006,14 +1004,14 @@ class DCL_DB_Core
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	function Connect($conn = ''){}
+	public function Connect($conn = ''){}
 	/**
 	 * Execute a row-returning query against the database
 	 * @param string a valid SQL query to execute
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	function Query($query){}
+	public function Query($query){}
 	/**
 	 * Execute a row-returning query against the database and return a partial result based on offset and rows
 	 * @param string a valid SQL query to execute
@@ -1022,96 +1020,96 @@ class DCL_DB_Core
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	function LimitQuery($query, $offset, $rows){}
+	public function LimitQuery($query, $offset, $rows){}
 	/**
 	 * Execute a no row-returning query against the database
 	 * @param string a valid SQL query to execute
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	function Execute($query){}
+	public function Execute($query){}
 	/**
 	 * Execute a row-returning query against the database and return the value of the first field of the first row
 	 * @param string a valid SQL query to execute
 	 * @return mixed value of the first field of the first row
 	 * @abstract
 	 */
-	function ExecuteScalar($sql){}
+	public function ExecuteScalar($sql){}
 	/**
 	 * Execute an insert query against the database
 	 * @param string a valid SQL query to execute to insert a record
 	 * @return integer -1 on error, 0 on success, > 0 for sequence/identity/autonumber fields
 	 * @abstract
 	 */
-	function Insert($query){}
+	public function Insert($query){}
 	/**
 	 * Free the result resource held by {@link $res}
 	 * @abstract
 	 */
-	function FreeResult(){}
+	public function FreeResult(){}
 	/**
 	 * Start a SQL transaction
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	function BeginTransaction(){}
+	public function BeginTransaction(){}
 	/**
 	 * Commit a SQL transaction
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	function EndTransaction(){}
+	public function EndTransaction(){}
 	/**
 	 * Rollback a SQL transaction
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	function RollbackTransaction(){}
+	public function RollbackTransaction(){}
 	/**
 	 * Returns the number of fields in the current result set
 	 * @return integer number of fields in the result set
 	 * @abstract
 	 */
-	function NumFields(){}
+	public function NumFields(){}
 	/**
 	 * Retrieves the next record from the result set
 	 * @return boolean true if a record was retrieved, otherwise false
 	 * @abstract
 	 */
-	function next_record(){}
+	public function next_record(){}
 	/**
 	 * Gets the name of the field at the specified index
 	 * @param integer ordinal of the field to retrieve the field name for
 	 * @return string the name of the field
 	 * @abstract
 	 */
-	function GetFieldName($fieldIndex){}
+	public function GetFieldName($fieldIndex){}
 	/**
 	 * Returns an array containing all fields and all rows of the current result set
 	 * @return array A two dimensional array of all rows and columns.  Format: array[row][column]
 	 * @abstract
 	 */
-	function FetchAllRows(){}
+	public function FetchAllRows(){}
 	/**
 	 * Returns SQL for retrieving the next ID of a table
 	 * @param string the name of the table to retrieve the SQL for
 	 * @return string empty string for no special SQL, or nonempty string for special ID SQL
 	 * @abstract
 	 */
-	function GetNewIDSQLForTable($tableName){}
+	public function GetNewIDSQLForTable($tableName){}
 	/**
 	 * Returns a SQL command to get the current date/time
 	 * @return string SQL command to get the current date/time
 	 * @abstract
 	 */
-	function GetDateSQL(){}
+	public function GetDateSQL(){}
 	/**
 	 * Returns the last ID inserted into a table by this connection
 	 * @param string the name of the table to get the last inserted ID for
 	 * @return integer the last inserted ID for this table and connection
 	 * @abstract
 	 */
-	function GetLastInsertID($sTable){}
+	public function GetLastInsertID($sTable){}
 	/**
 	 * Convert the date to a predictable format
 	 * @param string expression to use for conversion
@@ -1119,7 +1117,7 @@ class DCL_DB_Core
 	 * @return string SQL fragment to convert the desired expression
 	 * @abstract
 	 */
-	function ConvertDate($sExpression, $sField){}
+	public function ConvertDate($sExpression, $sField){}
 	/**
 	 * Convert the timestamp to a predictable format
 	 * @param string expression to use for conversion
@@ -1127,21 +1125,21 @@ class DCL_DB_Core
 	 * @return string SQL fragment to convert the desired expression
 	 * @abstract
 	 */
-	function ConvertTimestamp($sExpression, $sField){}
+	public function ConvertTimestamp($sExpression, $sField){}
 	/**
 	 * Is this a date field?
 	 * @param string the field to check
 	 * @return boolean true if this is a date field, otherwise false
 	 * @abstract
 	 */
-	function IsDate($vField){}
+	public function IsDate($vField){}
 	/**
 	 * Is this a timestamp field?
 	 * @param string the field to check
 	 * @return boolean true if this is a timestamp field, otherwise false
 	 * @abstract
 	 */
-	function IsTimestamp($vField){}
+	public function IsTimestamp($vField){}
 	/**
 	 * Get the minutes elapsed between two timestamp espressions
 	 * @param string expression to use for beginning date/time
@@ -1150,7 +1148,7 @@ class DCL_DB_Core
 	 * @return string SQL fragment to calculate the time elapsed
 	 * @abstract
 	 */
-	function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField){}
+	public function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField){}
 
 	// FIXME: Move these to schema_proc
 	/**
@@ -1158,32 +1156,32 @@ class DCL_DB_Core
 	 * @return boolean true if the server is available, otherwise false
 	 * @abstract
 	 */
-	function CanConnectServer(){}
+	public function CanConnectServer(){}
 	/**
 	 * Determine if a database is available
 	 * @return boolean true if the database is available, otherwise false
 	 * @abstract
 	 */
-	function CanConnectDatabase(){}
+	public function CanConnectDatabase(){}
 	/**
 	 * Create a new database
 	 * @return ?
 	 * @abstract
 	 */
-	function CreateDatabase(){}
+	public function CreateDatabase(){}
 	/**
 	 * Determine if a table exists in the database
 	 * @param string the name of the table to check
 	 * @return boolean true if the table exists, otherwise false
 	 * @abstract
 	 */
-	function TableExists($sTableName){}
+	public function TableExists($sTableName){}
 	/**
 	 * Retrieve a list of index names
 	 * @return array an array of index names
 	 * @abstract
 	 */
-	function index_names(){}
+	public function index_names(){}
 	/**
 	 * Determine if a field exists in a table
 	 * @param string the name of the table to check
@@ -1191,6 +1189,5 @@ class DCL_DB_Core
 	 * @return boolean true if the field exists, otherwise false
 	 * @abstract
 	 */
-	function FieldExists($sTable, $sField){}
+	public function FieldExists($sTable, $sField){}
 }
-?>
