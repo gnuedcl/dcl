@@ -90,7 +90,7 @@ class EmailTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Add Email Type');
 		$t->assign('menuAction', 'EmailType.Insert');
@@ -106,7 +106,7 @@ class EmailTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_EMAILTYPE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Edit Email Type');
 		$t->assign('menuAction', 'EmailType.Update');

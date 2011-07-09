@@ -39,7 +39,7 @@ class TableHtmlHelper
 	
 	public function __construct()
 	{
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		
 		$this->aData = array();
 		$this->aToolbar = array();

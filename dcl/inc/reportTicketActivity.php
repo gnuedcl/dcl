@@ -36,7 +36,7 @@ class reportTicketActivity
 
 		$objPersonnel = new PersonnelHtmlHelper();
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('CMB_RESPONSIBLE', $objPersonnel->Select($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, false));
 
 		if (IsSet($_REQUEST['begindate']) && ($beginDate = Filter::ToDate($_REQUEST['begindate'])) !== null)

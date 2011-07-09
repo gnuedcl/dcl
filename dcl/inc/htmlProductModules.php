@@ -265,7 +265,7 @@ class htmlProductModules
 			return;
 		}
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('product_id', $iProductID);
 		
 		if ($isEdit)

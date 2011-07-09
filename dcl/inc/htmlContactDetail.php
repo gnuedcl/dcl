@@ -54,7 +54,7 @@ class htmlContactDetail
 			return;
 		}
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->register_object('Contact', $oContact);
 
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY));

@@ -90,7 +90,7 @@ class OrganizationTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORGTYPE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Add Organization Type');
 		$t->assign('menuAction', 'OrganizationType.Insert');
@@ -106,7 +106,7 @@ class OrganizationTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORGTYPE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Edit Organization Type');
 		$t->assign('menuAction', 'OrganizationType.Update');

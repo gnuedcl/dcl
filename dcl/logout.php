@@ -58,7 +58,7 @@ else
 
 function Refresh($toHere = 'index.php', $session_id = '', $domain = 'default')
 {
-	$oSmarty = new DCL_Smarty();
+	$oSmarty = new SmartyHelper();
 
 	if (isset($_REQUEST['refer_to']) && $_REQUEST['refer_to'] != '')
 	{

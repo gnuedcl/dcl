@@ -86,7 +86,7 @@ class htmlWOSearches
 		$oDBP = new PersonnelModel();
 		$oDBP->Load($GLOBALS['DCLID']);
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		
 		if ($bView)
 			$t->assign('VAL_REPORTTITLE', $oView->title);
@@ -480,7 +480,7 @@ class htmlWOSearches
 	{
 		global $dcl_info;
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$obj = new htmlViews();
 		$t->assign('CMB_VIEWS', $obj->GetCombo(0, 'viewid', 0, true, 'workorders'));

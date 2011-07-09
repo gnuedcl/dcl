@@ -268,7 +268,7 @@ class htmlContactForm
 		global $dcl_info, $g_oSec;
 
 		$isEdit = is_object($obj);
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		if (isset($_REQUEST['return_to']))
 		{
 			$oSmarty->assign('return_to', $_REQUEST['return_to']);

@@ -35,7 +35,7 @@ class htmlHotlistProject
 	{
 		$this->hotlist = new HotlistModel();
 		$this->entityHotlist = new EntityHotlistModel();
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 	}
 
 	function View()

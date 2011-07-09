@@ -33,7 +33,7 @@ class htmlProductDashboard
 
 	function htmlProductDashboard()
 	{
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		$this->oProduct = null;
 	}
 

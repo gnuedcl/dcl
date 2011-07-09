@@ -669,7 +669,7 @@ function commonHeader($formValidateSrc = '', $onLoad = '')
 		buildMenuArray();
 	}
 	
-	$t = new DCL_Smarty();
+	$t = new SmartyHelper();
 	$t->assign('VAL_TITLE', $title);
 	$t->Render('index.tpl');
 
@@ -739,7 +739,7 @@ function ShowDeleteYesNo($title, $action, $id, $name, $canBeDeactivated = true, 
 {
 	global $dcl_info;
 
-	$t = new DCL_Smarty();
+	$t = new SmartyHelper();
 
 	$t->assign('TXT_TITLE', sprintf(STR_CMMN_DELETEITEM, $title));
 	if ($canBeDeactivated)

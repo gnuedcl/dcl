@@ -39,7 +39,7 @@ class htmlProjectTimeline
 		    throw new PermissionDeniedException();
 		    
 		$oMeta = new DisplayHelper();
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('VAL_PROJECTNAME', $oMeta->GetProject($id));
 		$t->assign('VAL_PROJECTID', $id);
 		$t->assign('VAL_DAYS', 7);

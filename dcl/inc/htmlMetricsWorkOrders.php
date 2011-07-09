@@ -46,7 +46,7 @@ class htmlMetricsWorkOrders
 		$oProducts = new ProductHtmlHelper();
 		$oProjects = new htmlProjects();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		$oSmarty->assign('VAL_FORMACTION', menuLink());
 		$oSmarty->assign('CMB_PRODUCTS', $oProducts->Select(IsSet($_REQUEST['products']) ? Filter::ToInt($_REQUEST['products']) : 0, 'products', 'name', 0, 8, false));
 		$oSmarty->assign('CMB_PROJECTS', $oProjects->GetCombo(IsSet($_REQUEST['projects']) ? Filter::ToInt($_REQUEST['projects']) : 0, 'projects', 0, 8));

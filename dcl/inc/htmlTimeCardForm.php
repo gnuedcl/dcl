@@ -46,7 +46,7 @@ class htmlTimeCardForm
 		$objStatuses = new StatusHtmlHelper();
 		$objPersonnel = new PersonnelHtmlHelper();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 
 		$oSmarty->assign('IS_BATCH', $isBatch);
 		$oSmarty->assign('IS_EDIT', $isEdit);

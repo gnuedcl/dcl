@@ -30,7 +30,7 @@ class ContactEmailPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		$oEmailType = new EmailTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $contactId));
@@ -57,7 +57,7 @@ class ContactEmailPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		$oEmailType = new EmailTypeHtmlHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $model->contact_id));

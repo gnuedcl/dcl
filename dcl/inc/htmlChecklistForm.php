@@ -321,7 +321,7 @@ class htmlChecklistForm
 		$this->xml = new xmlDoc();
 		$this->xml->ParseFile($file);
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		
 		$t->assign_by_ref('root', $this->xml->root);
 

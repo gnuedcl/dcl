@@ -42,7 +42,7 @@ class htmlWorkorders
 		$objHTMLPriorities = new PriorityHtmlHelper();
 		$objHTMLSeverities = new SeverityHtmlHelper();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		
 		if (!$bIsBatch)
 		{
@@ -125,7 +125,7 @@ class htmlWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $jcn, $seq))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$t->assign('VAL_JCN', $jcn);
 		$t->assign('VAL_SEQ', $seq);
@@ -161,7 +161,7 @@ class htmlWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$t->Render('htmlWorkOrderCSVUpload.tpl');
 	}
@@ -170,7 +170,7 @@ class htmlWorkorders
 	{
 		global $dcl_info;
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));
@@ -197,7 +197,7 @@ class htmlWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))
 			throw new PermissionDeniedException();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		$oNotification = new boWatches();
 		$oNotification->oMeta = new DisplayHelper();
 		$oNotification->oMeta->GetWorkOrder($jcn, $seq);

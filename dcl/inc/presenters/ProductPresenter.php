@@ -108,7 +108,7 @@ class ProductPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('TXT_FUNCTION', STR_PROD_ADD);
 		$t->assign('menuAction', 'Product.Insert');
 
@@ -135,7 +135,7 @@ class ProductPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_MODIFY, $model->id))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_PROD_EDIT);
 		$t->assign('menuAction', 'Product.Update');
@@ -178,7 +178,7 @@ class ProductPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW, $model->id))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$personnelModel = new PersonnelModel();
 
 		$t->assign('VAL_ID', $model->id);

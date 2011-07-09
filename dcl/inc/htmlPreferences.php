@@ -36,7 +36,7 @@ class htmlPreferences
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		
 		$t->assign('PERM_MODIFYCONTACT', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY) || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN));
 		$t->assign('VAL_CONTACTID', $g_oSession->Value('contact_id'));

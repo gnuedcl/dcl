@@ -32,7 +32,7 @@ class htmlHotlistProjectDashboard
 
 	function htmlHotlistProjectDashboard()
 	{
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		$this->hotlist = null;
 	}
 

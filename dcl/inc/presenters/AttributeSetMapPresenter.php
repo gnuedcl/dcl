@@ -33,7 +33,7 @@ class AttributeSetMapPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('VAL_ATTRIBUTESETNAME', $model->name);
 		$t->Render('htmlAttributesetdetail.tpl');
 
@@ -144,7 +144,7 @@ class AttributeSetMapPresenter
 		foreach ($arrSelectedData as $key => $val)
 			$htmlSelected .= '<option value="' . $key . '">' . $val . '</option>';
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('IS_WEIGHTED', ($typeid == 2 || $typeid == 3));
 		$t->assign('VAL_NAME', $attrSetModel->name);
 		$t->assign('VAL_TYPE', $typeText);

@@ -94,7 +94,7 @@ class EntitySourcePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Add Entity Source');
 		$t->assign('menuAction', 'EntitySource.Insert');
@@ -111,7 +111,7 @@ class EntitySourcePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SOURCE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Edit Entity Source');
 		$t->assign('menuAction', 'EntitySource.Update');

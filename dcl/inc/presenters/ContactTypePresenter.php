@@ -91,7 +91,7 @@ class ContactTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Add Contact Type');
 		$t->assign('menuAction', 'ContactType.Insert');
@@ -107,7 +107,7 @@ class ContactTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Edit Contact Type');
 		$t->assign('menuAction', 'ContactType.Update');

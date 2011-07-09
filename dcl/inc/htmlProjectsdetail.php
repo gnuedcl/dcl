@@ -34,7 +34,7 @@ class htmlProjectsdetail
 	function htmlProjectsDetail()
 	{
 		$this->oPM = new ProjectMapModel();
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		$this->oProject = null;
 	}
 

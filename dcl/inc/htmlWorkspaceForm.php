@@ -243,7 +243,7 @@ class htmlWorkspaceForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$Template = new DCL_Smarty();
+		$Template = new SmartyHelper();
 
 		$oWS = new WorkspaceModel();
 		$aProductID = array();

@@ -87,7 +87,7 @@ class FaqPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 
 		$oSmarty->assign('IS_EDIT', false);
 		$oSmarty->assign('VAL_MENUACTION', 'Faq.Insert');
@@ -104,7 +104,7 @@ class FaqPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 
 		$oSmarty->assign('IS_EDIT', true);
 		$oSmarty->assign('VAL_MENUACTION', 'Faq.Update');
@@ -135,7 +135,7 @@ class FaqPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $model->faqid))
 			throw new PermissionDeniedException();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		$oSmarty->assign('VAL_NAME', $model->name);
 		$oSmarty->assign('VAL_DESCRIPTION', $model->description);
 		$oSmarty->assign('PERM_ADDTOPIC', $g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD, $model->faqid));

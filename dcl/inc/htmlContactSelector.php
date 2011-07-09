@@ -32,7 +32,7 @@ class htmlContactSelector
 	function htmlContactSelector()
 	{
 		$this->bMultiSelect = false;
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		$this->oView = new boView();
 		$this->oDB = new DbProvider;
 	}

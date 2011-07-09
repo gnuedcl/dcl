@@ -34,7 +34,7 @@ class htmlFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('IS_EDIT', $isEdit);
 
 		if ($isEdit)
@@ -81,7 +81,7 @@ class htmlFaqtopics
 		    return;
 		}
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('VAL_FAQID', $objFaq->faqid);
 		$t->assign('VAL_FAQNAME', $objFaq->name);
 		$t->assign('VAL_DESCRIPTION', $obj->description);

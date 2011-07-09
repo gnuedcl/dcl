@@ -28,7 +28,7 @@ class RedirectMessagePresenter
 	{
 		global $g_oSession;
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('RedirectTitle', $g_oSession->Value('REDIRECT_TITLE'));
 		$t->assign('RedirectText', $g_oSession->Value('REDIRECT_TEXT'));
 		$t->Render('RedirectMessage.tpl');

@@ -35,7 +35,7 @@ class htmlProjectmap
 
 		$objProject = new htmlProjects();
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		
 		$t->assign('TXT_FUNCTION', $sFunction);
         $t->assign('menuAction', $menuAction);

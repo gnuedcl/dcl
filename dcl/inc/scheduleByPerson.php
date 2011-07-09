@@ -128,7 +128,7 @@ class scheduleByPerson
 		commonHeader();
 
 		$objPersonnel = new PersonnelHtmlHelper();
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		
 		$t->assign('CMB_PERSON', $objPersonnel->Select($GLOBALS['DCLID'], 'personID', 'lastfirst'));
 

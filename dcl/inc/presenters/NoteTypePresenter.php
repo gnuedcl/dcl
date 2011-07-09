@@ -90,7 +90,7 @@ class NoteTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Add Note Type');
 		$t->assign('menuAction', 'NoteType.Insert');
@@ -106,7 +106,7 @@ class NoteTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Edit Note Type');
 		$t->assign('menuAction', 'NoteType.Update');

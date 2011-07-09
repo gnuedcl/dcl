@@ -90,7 +90,7 @@ class PhoneTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Add Phone Type');
 		$t->assign('menuAction', 'PhoneType.Insert');
@@ -106,7 +106,7 @@ class PhoneTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Edit Phone Type');
 		$t->assign('menuAction', 'PhoneType.Update');

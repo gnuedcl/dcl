@@ -56,7 +56,7 @@ class htmlOrgDetail
 			return;
 		}
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->register_object('Org', $oOrg);
 
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));

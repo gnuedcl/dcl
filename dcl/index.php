@@ -52,7 +52,7 @@ function GetDomainCombo()
 	return $retVal;
 }
 
-$t = new DCL_Smarty();
+$t = new SmartyHelper();
 
 if (IsSet($GLOBALS['cd']))
 {

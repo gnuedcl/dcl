@@ -183,7 +183,7 @@ class htmlHotlistForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$Template = new DCL_Smarty();
+		$Template = new SmartyHelper();
 
 		if ($isEdit)
 		{

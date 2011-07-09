@@ -79,7 +79,7 @@ class AttributeSetPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_ATTR_ADDATTRIBUTESET);
 		$t->assign('menuAction', 'AttributeSet.Insert');
@@ -96,7 +96,7 @@ class AttributeSetPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_ATTR_EDITATTRIBUTESET);
 		$t->assign('menuAction', 'AttributeSet.Update');

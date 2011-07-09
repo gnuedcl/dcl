@@ -87,7 +87,7 @@ class PriorityPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_PRIO_ADD);
 		$t->assign('menuAction', 'Priority.Insert');
@@ -104,7 +104,7 @@ class PriorityPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_PRIO_EDIT);
 		$t->assign('menuAction', 'Priority.Update');

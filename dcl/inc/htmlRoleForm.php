@@ -177,7 +177,7 @@ class htmlRoleForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ROLE, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$Template = new DCL_Smarty();
+		$Template = new SmartyHelper();
 		$Template->assign('VAL_FORMACTION', menuLink());
 
 		$oRole = new RoleModel();

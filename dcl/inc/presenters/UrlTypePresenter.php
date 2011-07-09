@@ -90,7 +90,7 @@ class UrlTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_URLTYPE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Add URL Type');
 		$t->assign('menuAction', 'UrlType.Insert');
@@ -106,7 +106,7 @@ class UrlTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_URLTYPE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', 'Edit URL Type');
 		$t->assign('menuAction', 'UrlType.Update');

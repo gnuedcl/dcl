@@ -34,7 +34,7 @@ class htmlFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('IS_EDIT', $isEdit);
 		
 		if ($isEdit)

@@ -30,7 +30,7 @@ function renderDCLMenu()
 	
 	include(DCL_ROOT . 'templates/' . $sTemplateSet . '/navbar.php');
 
-	$t = new DCL_Smarty();
+	$t = new SmartyHelper();
 
 	$t->assign('DIR_IMAGES', 'templates/' . $sTemplateSet . '/img');
 	$t->assign('DIR_CSS', 'templates/' . $sTemplateSet . '/css');

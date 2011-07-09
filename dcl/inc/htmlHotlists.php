@@ -148,7 +148,7 @@ class htmlHotlists
 			return -1;
 		}
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$items = $db->FetchAllRows();
 		$t->assign_by_ref('items', $items);
 		$t->assign('VAL_HOTLIST_ID', $hotlistId);

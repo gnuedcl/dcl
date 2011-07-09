@@ -34,7 +34,7 @@ class PersonnelPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$template = new DCL_Smarty();
+		$template = new SmartyHelper();
 		$template->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
 		$template->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_ADD));
 		$template->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_MODIFY));
@@ -131,7 +131,7 @@ class PersonnelPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$template = new DCL_Smarty();
+		$template = new SmartyHelper();
 
 		$template->assign('IS_EDIT', false);
 		$template->assign('VAL_ACTIVE', 'Y');
@@ -153,7 +153,7 @@ class PersonnelPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$template = new DCL_Smarty();
+		$template = new SmartyHelper();
 		
 		$template->assign('IS_EDIT', true);
 		$template->assign('VAL_PERSONNELID', $model->id);
@@ -193,7 +193,7 @@ class PersonnelPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD))
 			throw new PermissionDeniedException();
 		
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		
 		$oSmarty->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN));
 		$oSmarty->assign('VAL_USERID', $GLOBALS['DCLID']);

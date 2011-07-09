@@ -34,7 +34,7 @@ class ConfigurationPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		
 		// System setup
 		$t->assign('CMB_DATEFORMAT', $this->GetDateCombo('DCL_DATE_FORMAT', $dcl_info['DCL_DATE_FORMAT']));

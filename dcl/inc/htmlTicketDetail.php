@@ -39,7 +39,7 @@ class htmlTicketDetail
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW, $obj->ticketid), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT, $obj->ticketid), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED, $obj->ticketid)))))
 			throw new PermissionDeniedException();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 
 		$oSmarty->assign('IS_DELETE', $forDelete);
 		$oSmarty->assign('VAL_EDITRESID', $editResID);

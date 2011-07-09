@@ -30,7 +30,7 @@ class ContactLicensePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $contactId));
 
@@ -54,7 +54,7 @@ class ContactLicensePresenter
 		
 		commonHeader();
 		    
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlContactDetail.show&contact_id=' . $model->contact_id));
 

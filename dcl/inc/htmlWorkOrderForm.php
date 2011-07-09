@@ -31,7 +31,7 @@ class htmlWorkOrderForm
 
 	function htmlWorkOrderForm()
 	{
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		$this->eState = DCL_FORM_ADD;
 	}
 

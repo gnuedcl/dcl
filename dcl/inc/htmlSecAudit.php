@@ -42,7 +42,7 @@ class htmlSecAudit
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
 			return;
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$oSelect = new htmlSelect();
 		
 		$t->assign('CMB_USERS', $objPersonnel->Select(0, 'responsible', 'lastfirst', 0, false));

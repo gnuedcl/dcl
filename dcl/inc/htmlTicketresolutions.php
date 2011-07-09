@@ -169,7 +169,7 @@ class htmlTicketresolutions
 		$objProduct->next_record();
 		$setid = $objProduct->f(0);
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('IS_EDIT', $isEdit);
 		$t->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 

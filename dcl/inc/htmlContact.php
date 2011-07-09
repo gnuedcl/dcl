@@ -166,7 +166,7 @@ class htmlContact
 			throw new PermissionDeniedException();
 
 		$oMeta = new DisplayHelper();
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		if (count($contact_id) > 1)
 		{
 			$aContacts = $contact_id;

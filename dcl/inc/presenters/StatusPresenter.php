@@ -90,7 +90,7 @@ class StatusPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$statusHtmlHelper = new StatusHtmlHelper();
 
 		$t->assign('TXT_FUNCTION', STR_STAT_ADD);
@@ -110,7 +110,7 @@ class StatusPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$statusHtmlHelper = new StatusHtmlHelper();
 
 		$t->assign('TXT_FUNCTION', STR_STAT_EDIT);

@@ -53,7 +53,7 @@ class htmlAudit
 			throw new InvalidDataException();
 		}
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		$oAudit = new AuditModel();
 
 		switch ($type)

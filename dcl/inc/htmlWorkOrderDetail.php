@@ -43,7 +43,7 @@ class htmlWorkOrderDetail
 			return trigger_error(sprintf(STR_WO_NOTFOUNDERR, $jcn, $seq), E_USER_ERROR);
 
 		$oMeta = new DisplayHelper();
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		
 		$oSmarty->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
 

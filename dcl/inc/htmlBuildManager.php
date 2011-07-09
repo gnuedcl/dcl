@@ -110,7 +110,7 @@ class htmlBuildManager
 		$oProduct = new ProductModel();
 		$oProduct->Load($_REQUEST['product_id']);
 		
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 
 		$oSmarty->assign('menuAction', 'boBuildManager.addRelease');
 		$oSmarty->assign('VAL_PRODUCTID', $oProduct->id);
@@ -129,7 +129,7 @@ class htmlBuildManager
 		$oVersion = new ProductVersionModel();
 		$oVersion->Load(array('product_version_id' => $_REQUEST['product_version_id']));
 		
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		
 		$oSmarty->assign('VAL_PRODUCTID', $_REQUEST['product_id']);
 		$oSmarty->assign('VAL_VERSIONID', $_REQUEST['product_version_id']);
@@ -223,7 +223,7 @@ class htmlBuildManager
 			return;
 		}
 		
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		
 		$oSmarty->assign('VAL_PRODUCTID', $product_id);
 		$oSmarty->assign('VAL_VERSIONID', $product_version_id);
@@ -270,7 +270,7 @@ class htmlBuildManager
 		
 		global $dcl_info, $init, $g_oSession;	
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$init = @Filter::ToInt($_REQUEST['init']);
 		if ($init != 1)

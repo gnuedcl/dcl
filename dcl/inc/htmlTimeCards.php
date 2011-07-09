@@ -90,7 +90,7 @@ class htmlTimeCards
 
 			$oMeta =& new DisplayHelper();
 
-			$oSmarty = new DCL_Smarty();
+			$oSmarty = new SmartyHelper();
 			$oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY));
 			$oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE));
 			$oSmarty->assign('IS_DELETE', $forDelete);

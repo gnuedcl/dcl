@@ -251,7 +251,7 @@ class boWatches
 	{
 		global $dcl_info;
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign_by_ref('obj', $obj);
 
 		$dbEntityTag = new EntityTagModel();
@@ -454,7 +454,7 @@ class boWatches
 	{
 		global $dcl_info;
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign_by_ref('obj', $obj);
 		
 		$objTR = new TicketResolutionsModel();

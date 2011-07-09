@@ -86,7 +86,7 @@ class SeverityPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_SEV_ADD);
 		$t->assign('menuAction', 'Severity.Insert');
@@ -103,7 +103,7 @@ class SeverityPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_SEV_EDIT);
 		$t->assign('menuAction', 'Severity.Update');

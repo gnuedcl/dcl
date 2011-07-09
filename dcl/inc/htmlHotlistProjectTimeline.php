@@ -41,7 +41,7 @@ class htmlHotlistProjectTimeline
 		$hotlist = new HotlistModel();
 		$hotlist->Load($id);
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('VAL_HOTLISTNAME', $hotlist->hotlist_desc);
 		$t->assign('VAL_HOTLISTID', $id);
 		$t->assign('VAL_DAYS', 7);

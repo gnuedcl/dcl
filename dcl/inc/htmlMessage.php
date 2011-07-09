@@ -36,7 +36,7 @@ class htmlMessage
 	
 	function htmlMessage()
 	{
-		$this->t = new DCL_Smarty();
+		$this->t = new SmartyHelper();
 		$this->sTemplate = 'htmlMessageInfo.tpl';
 		
 		if (!defined('STR_CMMN_INFORMATION'))

@@ -42,7 +42,7 @@ class htmlTickets
 		$objProduct->next_record();
 		$setid = $objProduct->f(0);
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('TXT_TITLE', sprintf(STR_TCK_REASSIGNTICKET, $obj->ticketid));
 		$t->assign('VAL_TICKETID', $obj->ticketid);
 		$t->assign('CMB_RESPONSIBLE', $objHTMLPersonnel->Select($obj->responsible, 'responsible', 'lastfirst', 0, true, DCL_ENTITY_TICKET));
@@ -59,7 +59,7 @@ class htmlTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ATTACHFILE, $obj->ticketid))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$t->assign('VAL_TICKETID', $obj->ticketid);
@@ -75,7 +75,7 @@ class htmlTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REMOVEFILE, $ticketid))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('VAL_FILENAME', $filename);
 		$t->assign('VAL_TICKETID', $ticketid);
 		$t->assign('TXT_DELCONFIRM', sprintf(STR_TCK_CONFIRMDELATT, $filename));
@@ -87,7 +87,7 @@ class htmlTickets
 	{
 		global $dcl_info;
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));

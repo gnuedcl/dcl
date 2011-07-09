@@ -38,7 +38,7 @@ class htmlWOStatistics
 		$objPersonnel = new PersonnelHtmlHelper();
 		$objProducts = new ProductHtmlHelper();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('CMB_PEOPLE', $objPersonnel->Select(0, 'people', 'lastfirst', 8, false));
 		$t->assign('CMB_PRODUCTS', $objProducts->Select(0, 'products', 'name', 0, 8, false));

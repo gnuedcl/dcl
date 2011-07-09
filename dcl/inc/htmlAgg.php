@@ -87,7 +87,7 @@ class htmlAgg
 	{
 		global $dcl_info;
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('TXT_AGGREGATE', 'Aggregate');
 		$t->assign('TXT_BY', STR_CMMN_BY);
 		$t->assign('TXT_FORDATES', 'For Dates');

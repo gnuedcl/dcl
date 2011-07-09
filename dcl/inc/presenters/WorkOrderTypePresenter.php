@@ -90,7 +90,7 @@ class WorkOrderTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('IS_EDIT', false);
 		$t->assign('URL_BACK', menuLink('', 'menuAction=WorkOrderType.Index'));
 		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
@@ -107,7 +107,7 @@ class WorkOrderTypePresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('IS_EDIT', true);
 		$t->assign('VAL_WO_TYPE_ID', $model->wo_type_id);
 		$t->assign('URL_BACK', menuLink('', 'menuAction=WorkOrderType.Index'));

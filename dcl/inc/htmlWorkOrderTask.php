@@ -112,7 +112,7 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		$oTasks = new WorkOrderTaskModel();
 		$oSmarty->assign('VAL_TASKS', $oTasks->GetTasksForWorkOrder($wo_id, $seq, false));
 		$oSmarty->assign('VAL_JCN', $wo_id);
@@ -270,7 +270,7 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('IS_EDIT', $isEdit);
 
 		// Data

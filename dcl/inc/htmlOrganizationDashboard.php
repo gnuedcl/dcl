@@ -33,7 +33,7 @@ class htmlOrganizationDashboard
 
 	function htmlOrganizationDashboard()
 	{
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		$this->oOrg = null;
 	}
 

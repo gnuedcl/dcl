@@ -35,7 +35,7 @@ class htmlProjectsform
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$objPrj = new htmlProjects();
 		$objHTMLPersonnel = new PersonnelHtmlHelper();

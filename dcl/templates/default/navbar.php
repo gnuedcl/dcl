@@ -35,7 +35,7 @@ class DCLNavBar
 	{
 		global $dcl_info;
 
-		$this->t = new DCL_Smarty();
+		$this->t = new SmartyHelper();
 		if (IsSet($_REQUEST['menuAction']) && $_REQUEST['menuAction'] != 'clearScreen')
 			list($this->_class, $this->_method) = explode('.', $_REQUEST['menuAction']);
 	}

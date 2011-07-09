@@ -147,7 +147,7 @@ class boChecklists
 		$o = new ChecklistTemplateModel();
 		if ($o->Load($iID) != -1)
 		{
-			$t = new DCL_Smarty();
+			$t = new SmartyHelper();
 			$t->assign('VAL_TPLID', $iID);
 			$t->assign('dcl_chklst_tpl_id', $o->dcl_chklst_tpl_id);
 			$t->assign('VAL_TPLNAME', $o->dcl_chklst_tpl_name);

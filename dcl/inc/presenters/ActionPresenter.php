@@ -86,7 +86,7 @@ class ActionPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_ACTN_ADD);
 		$t->assign('menuAction', 'Action.Insert');
@@ -104,7 +104,7 @@ class ActionPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_ACTN_EDIT);
 		$t->assign('menuAction', 'Action.Update');

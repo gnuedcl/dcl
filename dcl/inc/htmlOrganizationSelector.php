@@ -32,7 +32,7 @@ class htmlOrganizationSelector
 	function htmlOrganizationSelector()
 	{
 		$this->bMultiSelect = false;
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		$this->oView = new OrganizationSqlQueryHelper();
 		$this->oDB = new DbProvider;
 	}

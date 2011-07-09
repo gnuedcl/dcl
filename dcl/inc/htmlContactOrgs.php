@@ -103,7 +103,7 @@ class htmlContactOrgs
 	{
 		global $dcl_info, $g_oSec;
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $oContact->contact_id))
 			throw new PermissionDeniedException();

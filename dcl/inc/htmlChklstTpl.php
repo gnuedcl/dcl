@@ -70,7 +70,7 @@ class htmlChklstTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 			
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		
 		if ($isEdit)
 		{

@@ -295,7 +295,7 @@ class boTicketresolutions
 		$pct = rand(1, 100);
 		if ($pct <= $dcl_info['DCL_CQQ_PERCENT'])
 		{
-			$t = new DCL_Smarty();
+			$t = new SmartyHelper();
 			$t->assign('VAL_TICKETID', $this->oDB->ticketid);
 			$t->assign('VAL_CLOSEDON', date('n/j/Y'));
 			$t->assign('contact', $aContact);

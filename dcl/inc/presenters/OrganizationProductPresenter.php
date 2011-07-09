@@ -58,7 +58,7 @@ class OrganizationProductPresenter
 			$oProducts->FreeResult();
 		}
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $oOrg->org_id))
 			throw new PermissionDeniedException();

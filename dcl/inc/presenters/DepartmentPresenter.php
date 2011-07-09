@@ -86,7 +86,7 @@ class DepartmentPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_DEPT_ADD);
 		$t->assign('menuAction', 'Department.Insert');
@@ -103,7 +103,7 @@ class DepartmentPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 
 		$t->assign('TXT_FUNCTION', STR_DEPT_EDIT);
 		$t->assign('menuAction', 'Department.Update');

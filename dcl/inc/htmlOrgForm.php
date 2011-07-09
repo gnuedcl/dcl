@@ -259,7 +259,7 @@ class htmlOrgForm
 				throw new PermissionDeniedException();
 		}
 
-		$oSmarty = new DCL_Smarty();
+		$oSmarty = new SmartyHelper();
 		
 		if (isset($_REQUEST['return_to']))
 		{

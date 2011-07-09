@@ -141,7 +141,7 @@ class htmlWatches
 
 		$isEdit = is_object($obj);
 		
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$t->assign('IS_EDIT', $isEdit);
 
 		if ($isEdit)

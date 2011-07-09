@@ -32,7 +32,7 @@ class htmlProjectDashboard
 
 	function htmlProjectDashboard()
 	{
-		$this->oSmarty = new DCL_Smarty();
+		$this->oSmarty = new SmartyHelper();
 		$this->oProject = null;
 	}
 

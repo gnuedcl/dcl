@@ -22,9 +22,9 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class DCL_Smarty extends Smarty
+class SmartyHelper extends Smarty
 {
-	function __construct()
+	public function __construct()
 	{
 		$defaultTemplateSet = GetDefaultTemplateSet();
 
@@ -38,13 +38,13 @@ class DCL_Smarty extends Smarty
 		$this->plugins_dir = array(DCL_ROOT . 'vendor/Smarty/plugins', DCL_ROOT . 'inc/plugins');
 	}
 
-	function Render($templateFileName, $templateSet = '')
+	public function Render($templateFileName, $templateSet = '')
 	{
 		$this->SmartyInit($templateFileName, $templateSet);
 		$this->display($templateFileName);
 	}
 
-	function ToString($templateFileName, $templateSet = '')
+	public function ToString($templateFileName, $templateSet = '')
 	{
 		$this->SmartyInit($templateFileName, $templateSet);
 		return $this->fetch($templateFileName);

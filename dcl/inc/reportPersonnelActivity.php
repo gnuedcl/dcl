@@ -41,7 +41,7 @@ class reportPersonnelActivity
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
 			return;
 
-		$t = new DCL_Smarty();
+		$t = new SmartyHelper();
 		$oSelect = new htmlSelect();
 		
 		$iDept = $oDBPersonnel->department;
