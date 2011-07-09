@@ -25,7 +25,7 @@ function validateAndSubmitForm(form)
 {/literal}
 </script>
 <form class="styled" name="FAQFORM" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="{if $IS_EDIT}boFaqanswers.dbmodify{else}boFaqanswers.dbadd{/if}">
+	<input type="hidden" name="menuAction" value="{if $IS_EDIT}FaqAnswer.Update{else}FaqAnswer.Insert{/if}">
 	{if $IS_EDIT}<input type="hidden" name="answerid" value="{$VAL_ANSWERID}">{/if}
 	<input type="hidden" name="questionid" value="{$VAL_QUESTIONID}">
 	<fieldset>

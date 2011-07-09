@@ -24,9 +24,9 @@
 
 LoadStringResource('bo');
 
-class boFaqanswers
+class FaqAnswerController
 {
-	function add()
+	function Create()
 	{
 		global $g_oSec;
 		
@@ -54,7 +54,7 @@ class boFaqanswers
 		$objH->ShowQuestion($objF);
 	}
 
-	function dbadd()
+	function Insert()
 	{
 		global $g_oSec;
 		
@@ -86,7 +86,7 @@ class boFaqanswers
 		$objH->ShowQuestion($objF);
 	}
 
-	function modify()
+	function Edit()
 	{
 		global $g_oSec;
 		
@@ -107,7 +107,7 @@ class boFaqanswers
 		$objH->DisplayForm($obj);
 	}
 
-	function dbmodify()
+	function Update()
 	{
 		global $g_oSec;
 		
@@ -137,7 +137,7 @@ class boFaqanswers
 		$objH->ShowQuestion($objF);
 	}
 
-	function delete()
+	function Delete()
 	{
 		global $g_oSec;
 		
@@ -154,10 +154,10 @@ class boFaqanswers
 		if ($obj->Load($iID) == -1)
 			return;
 		
-		ShowDeleteYesNo(STR_FAQ_ANSWER, 'boFaqanswers.dbdelete', $iID, $obj->answertext, false, 'answerid');
+		ShowDeleteYesNo(STR_FAQ_ANSWER, 'FaqAnswer.dbdelete', $iID, $obj->answertext, false, 'answerid');
 	}
 
-	function dbdelete()
+	function Destroy()
 	{
 		global $g_oSec;
 		
