@@ -209,7 +209,7 @@ class EntityHotlistModel extends dclDB
 			throw new PermissionDeniedException();
 		}
 		
-		$aHotlists = @DCL_Sanitize::ToIntArray($sID);
+		$aHotlists = @Filter::ToIntArray($sID);
 		$iHotlistCount = count($aHotlists);
 		if ($iHotlistCount === 0)
 		{

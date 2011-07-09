@@ -55,7 +55,7 @@ class PhoneTypeController extends AbstractController
 
 	public function Edit()
 	{
-		if (($phoneTypeId = @DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) == -1)
+		if (($phoneTypeId = @Filter::ToInt($_REQUEST['phone_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($phoneTypeId) == -1)
@@ -75,7 +75,7 @@ class PhoneTypeController extends AbstractController
 
 	public function Delete()
 	{
-		if (($phoneTypeId = @DCL_Sanitize::ToInt($_REQUEST['phone_type_id'])) == -1)
+		if (($phoneTypeId = @Filter::ToInt($_REQUEST['phone_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($phoneTypeId) == -1)
@@ -87,7 +87,7 @@ class PhoneTypeController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($phoneTypeId = @DCL_Sanitize::ToInt($_REQUEST['id'])) == -1)
+		if (($phoneTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
 		parent::Destroy(array('phone_type_id' => $phoneTypeId));

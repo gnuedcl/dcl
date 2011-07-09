@@ -58,7 +58,7 @@ class boWorkorders
 		{
 			$iID = 0;
 		}
-		else if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		else if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -77,12 +77,12 @@ class boWorkorders
 			throw new PermissionDeniedException();
 		}
 		
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -108,12 +108,12 @@ class boWorkorders
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -142,7 +142,7 @@ class boWorkorders
 		$iID = 0;
 		if (IsSet($_REQUEST['jcn']) && $_REQUEST['jcn'] != '')
 		{
-			if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+			if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -175,7 +175,7 @@ class boWorkorders
 
 					for ($i = 0; $i < count($aAccounts); $i++)
 					{
-						if (($iOrgID = DCL_Sanitize::ToInt($aAccounts[$i])) !== null && $iOrgID > 0)
+						if (($iOrgID = Filter::ToInt($aAccounts[$i])) !== null && $iOrgID > 0)
 						{
 							$oWOA->account_id = $iOrgID;
 							$oWOA->Add();
@@ -186,7 +186,7 @@ class boWorkorders
 		}
 		else if (IsSet($_REQUEST['secaccounts']))
 		{
-			if (($iOrgID = @DCL_Sanitize::ToInt($_REQUEST['secaccounts'])) !== null && $iOrgID > 0)
+			if (($iOrgID = @Filter::ToInt($_REQUEST['secaccounts'])) !== null && $iOrgID > 0)
 			{
 				$oWOA = new WorkOrderOrganizationModel();
 				$oWOA->wo_id = $objWorkorder->jcn;
@@ -211,7 +211,7 @@ class boWorkorders
 		// add to a project?
 		if (IsSet($_REQUEST['projectid']))
 		{
-			if (($iProjID = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
+			if (($iProjID = @Filter::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
 			{
 				if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK, $iProjID))
 				{
@@ -233,13 +233,13 @@ class boWorkorders
 		}
 
 		// upload a file attachment?
-		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null)
+		if (($sFileName = Filter::ToFileName('userfile')) !== null)
 		{
 			$o = new boFile();
 			$o->iType = DCL_ENTITY_WORKORDER;
 			$o->iKey1 = $objWorkorder->jcn;
 			$o->iKey2 = $objWorkorder->seq;
-			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+			$o->sFileName = Filter::ToActualFileName('userfile');
 			$o->sTempFileName = $sFileName;
 			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 			$o->Upload();
@@ -248,7 +248,7 @@ class boWorkorders
 		// copied from ticket?
 		if (IsSet($_REQUEST['ticketid']))
 		{
-			if (($iTicketID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) !== null && $iTicketID > 0)
+			if (($iTicketID = @Filter::ToInt($_REQUEST['ticketid'])) !== null && $iTicketID > 0)
 			{
 				$oTR = new TicketResolutionsModel();
 				$oTR->ticketid = $iTicketID;
@@ -288,12 +288,12 @@ class boWorkorders
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -327,9 +327,9 @@ class boWorkorders
 			if ($sType == 'text' || $sType == 'varchar' || $sType == 'char')
 				$sValue = $objWorkorder->GPCStripSlashes($sValue);
 			else if ($sType == 'int')
-				$sValue = DCL_Sanitize::ToInt($sValue);
+				$sValue = Filter::ToInt($sValue);
 			else if ($sType == 'float')
-				$sValue = DCL_Sanitize::ToDecimal($sValue);
+				$sValue = Filter::ToDecimal($sValue);
 
 			if ($objWorkorder->$sField != $sValue)
 			{
@@ -344,7 +344,7 @@ class boWorkorders
 		$oWOA = new WorkOrderOrganizationModel();
 		if (IsSet($_REQUEST['secaccounts']))
 		{
-			$aAccounts = @DCL_Sanitize::ToIntArray($_REQUEST['secaccounts']);
+			$aAccounts = @Filter::ToIntArray($_REQUEST['secaccounts']);
 			if ($aAccounts === null)
 				$aAccounts = array();
 				
@@ -398,12 +398,12 @@ class boWorkorders
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -423,12 +423,12 @@ class boWorkorders
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -494,12 +494,12 @@ class boWorkorders
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		$iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq']);
+		$iSeq = @Filter::ToInt($_REQUEST['seq']);
 		if ($iSeq !== null && $iSeq > 0)
 		{
 			if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $iID, $iSeq))
@@ -559,18 +559,18 @@ class boWorkorders
 		$order = $_REQUEST['order'];
 		$columnhdrs = $_REQUEST['columnhdrs'];
 
-		$account = @DCL_Sanitize::ToIntArray($_REQUEST['account']);
-		$entity_source_id = @DCL_Sanitize::ToIntArray($_REQUEST['entity_source_id']);
-		$severity = @DCL_Sanitize::ToIntArray($_REQUEST['severity']);
-		$priority = @DCL_Sanitize::ToIntArray($_REQUEST['priority']);
-		$dcl_status_type = @DCL_Sanitize::ToIntArray($_REQUEST['dcl_status_type']);
-		$product = @DCL_Sanitize::ToIntArray($_REQUEST['product']);
-		$department = @DCL_Sanitize::ToIntArray($_REQUEST['department']);
-		$project = @DCL_Sanitize::ToIntArray($_REQUEST['project']);
-		$wo_type_id = @DCL_Sanitize::ToIntArray($_REQUEST['wo_type_id']);
+		$account = @Filter::ToIntArray($_REQUEST['account']);
+		$entity_source_id = @Filter::ToIntArray($_REQUEST['entity_source_id']);
+		$severity = @Filter::ToIntArray($_REQUEST['severity']);
+		$priority = @Filter::ToIntArray($_REQUEST['priority']);
+		$dcl_status_type = @Filter::ToIntArray($_REQUEST['dcl_status_type']);
+		$product = @Filter::ToIntArray($_REQUEST['product']);
+		$department = @Filter::ToIntArray($_REQUEST['department']);
+		$project = @Filter::ToIntArray($_REQUEST['project']);
+		$wo_type_id = @Filter::ToIntArray($_REQUEST['wo_type_id']);
 
-		$dateFrom = DCL_Sanitize::ToDate($_REQUEST['dateFrom']);
-		$dateTo = DCL_Sanitize::ToDate($_REQUEST['dateTo']);
+		$dateFrom = Filter::ToDate($_REQUEST['dateFrom']);
+		$dateTo = Filter::ToDate($_REQUEST['dateTo']);
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 			throw new PermissionDeniedException();
@@ -635,7 +635,7 @@ class boWorkorders
 						}
 					}
 
-					$pers_sel = DCL_Sanitize::ToIntArray($pers_sel);
+					$pers_sel = Filter::ToIntArray($pers_sel);
 					if (count($pers_sel) > 0)
 						$objView->AddDef('filter', $field, $pers_sel);
 				}
@@ -706,7 +706,7 @@ class boWorkorders
 
 		$g_oSession->Edit();
 
-		if (($dcl_status_type = DCL_Sanitize::ToIntArray($dcl_status_type)) === null)
+		if (($dcl_status_type = Filter::ToIntArray($dcl_status_type)) === null)
 			$dcl_status_type = array();
 			
 		if (count($status) > 0)
@@ -718,7 +718,7 @@ class boWorkorders
 			foreach ($status as $encoded_status)
 			{
 				list($type_id, $status_id) = explode(',', $encoded_status);
-				if (($type_id = DCL_Sanitize::ToInt($type_id)) !== null && ($status_id = DCL_Sanitize::ToInt($status_id)) !== null)
+				if (($type_id = Filter::ToInt($type_id)) !== null && ($status_id = Filter::ToInt($status_id)) !== null)
 				{
 					$statuses[count($statuses)] = $status_id;
 					if (count($dcl_status_type) > 0 && in_array($type_id, $dcl_status_type))
@@ -857,15 +857,15 @@ class boWorkorders
 			return;
 		}
 
-		if (($iDays = @DCL_Sanitize::ToInt($_REQUEST['days'])) === null ||
-			($dateFrom = @DCL_Sanitize::ToDate($_REQUEST['dateFrom'])) === null
+		if (($iDays = @Filter::ToInt($_REQUEST['days'])) === null ||
+			($dateFrom = @Filter::ToDate($_REQUEST['dateFrom'])) === null
 			)
 		{
 			throw new InvalidDataException();
 		}
 
 		$iProduct = 0;
-		if (($iProduct = @DCL_Sanitize::ToInt($_REQUEST['product'])) === null)
+		if (($iProduct = @Filter::ToInt($_REQUEST['product'])) === null)
 		    $iProduct = 0;
 		
 		$objG = new LineGraphImageHelper();
@@ -963,12 +963,12 @@ class boWorkorders
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -989,16 +989,16 @@ class boWorkorders
 
 		commonHeader();
 		if (
-				($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-				($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null ||
-				($iResponsible = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null ||
-				($fEstHours = @DCL_Sanitize::ToDecimal($_REQUEST['esthours'])) === null ||
-				($fEtcHours = @DCL_Sanitize::ToDecimal($_REQUEST['etchours'])) === null ||
-				($iSeverity = @DCL_Sanitize::ToInt($_REQUEST['severity'])) === null ||
-				($iPriority = @DCL_Sanitize::ToInt($_REQUEST['priority'])) === null ||
-				($deadlineon = @DCL_Sanitize::ToDate($_REQUEST['deadlineon'])) === null ||
-				($eststarton = @DCL_Sanitize::ToDate($_REQUEST['eststarton'])) === null ||
-				($estendon = @DCL_Sanitize::ToDate($_REQUEST['estendon'])) === null
+				($iID = @Filter::ToInt($_REQUEST['jcn'])) === null ||
+				($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null ||
+				($iResponsible = @Filter::ToInt($_REQUEST['responsible'])) === null ||
+				($fEstHours = @Filter::ToDecimal($_REQUEST['esthours'])) === null ||
+				($fEtcHours = @Filter::ToDecimal($_REQUEST['etchours'])) === null ||
+				($iSeverity = @Filter::ToInt($_REQUEST['severity'])) === null ||
+				($iPriority = @Filter::ToInt($_REQUEST['priority'])) === null ||
+				($deadlineon = @Filter::ToDate($_REQUEST['deadlineon'])) === null ||
+				($eststarton = @Filter::ToDate($_REQUEST['eststarton'])) === null ||
+				($estendon = @Filter::ToDate($_REQUEST['estendon'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -1081,22 +1081,22 @@ class boWorkorders
 			$objWO = new WorkOrderModel();
 			$bNeedBreak = false;
 
-			if (($iResponsible = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+			if (($iResponsible = @Filter::ToInt($_REQUEST['responsible'])) === null)
 			{
 				throw new InvalidDataException();
 			}
 
-			if (($iPriority = @DCL_Sanitize::ToInt($_REQUEST['priority'])) === null)
+			if (($iPriority = @Filter::ToInt($_REQUEST['priority'])) === null)
 				$iPriority = 0;
 
-			if (($iSeverity = @DCL_Sanitize::ToInt($_REQUEST['severity'])) === null)
+			if (($iSeverity = @Filter::ToInt($_REQUEST['severity'])) === null)
 				$iSeverity = 0;
 			
 			foreach ($_REQUEST['selected'] as $val)
 			{
 				list($jcn, $seq) = explode('.', $val);
-				if (($jcn = DCL_Sanitize::ToInt($jcn)) === null ||
-					($seq = DCL_Sanitize::ToInt($seq)) === null)
+				if (($jcn = Filter::ToInt($jcn)) === null ||
+					($seq = Filter::ToInt($seq)) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -1138,8 +1138,8 @@ class boWorkorders
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-			($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null ||
+			($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -1159,8 +1159,8 @@ class boWorkorders
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-			($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null ||
+			($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -1172,14 +1172,14 @@ class boWorkorders
 		if ($oWO->Load($iID, $iSeq) == -1)
 			return;
 
-		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) === null)
+		if (($sFileName = Filter::ToFileName('userfile')) === null)
 			throw new PermissionDeniedException();
 
 		$o = new boFile();
 		$o->iType = DCL_ENTITY_WORKORDER;
 		$o->iKey1 = $iID;
 		$o->iKey2 = $iSeq;
-		$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+		$o->sFileName = Filter::ToActualFileName('userfile');
 		$o->sTempFileName = $sFileName;
 		$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 		$o->Upload();
@@ -1193,9 +1193,9 @@ class boWorkorders
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-			($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null ||
-			!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null ||
+			($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null ||
+			!@Filter::IsValidFileName($_REQUEST['filename']))
 		{
 			throw new InvalidDataException();
 		}
@@ -1215,9 +1215,9 @@ class boWorkorders
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-			($iSeq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null ||
-			!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
+		if (($iID = @Filter::ToInt($_REQUEST['jcn'])) === null ||
+			($iSeq = @Filter::ToInt($_REQUEST['seq'])) === null ||
+			!@Filter::IsValidFileName($_REQUEST['filename']))
 		{
 			throw new InvalidDataException();
 		}
@@ -1299,7 +1299,7 @@ class boWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT))
 			throw new PermissionDeniedException();
 
-		if (($sTempFileName = DCL_Sanitize::ToFileName('userfile')) === null)
+		if (($sTempFileName = Filter::ToFileName('userfile')) === null)
 			throw new PermissionDeniedException();
 		
 		// Open the file as text - let PHP take care of line
@@ -1504,8 +1504,8 @@ class boWorkorders
 					print('<p style="page-break-after: always;">');
 
 				list($jcn, $seq) = explode('.', $val);
-				if (($jcn = DCL_Sanitize::ToInt($jcn)) === null ||
-					($seq = DCL_Sanitize::ToInt($seq)) === null)
+				if (($jcn = Filter::ToInt($jcn)) === null ||
+					($seq = Filter::ToInt($seq)) === null)
 				{
 					throw new InvalidDataException();
 				}

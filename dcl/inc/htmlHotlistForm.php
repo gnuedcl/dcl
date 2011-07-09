@@ -48,7 +48,7 @@ class htmlHotlistForm
 		
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['hotlist_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['hotlist_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -66,7 +66,7 @@ class htmlHotlistForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['hotlist_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['hotlist_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -86,7 +86,7 @@ class htmlHotlistForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['hotlist_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['hotlist_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -111,7 +111,7 @@ class htmlHotlistForm
 
 		$obj = new boHotlist();
 		CleanArray($_REQUEST);
-		$active = @DCL_Sanitize::ToYN($_REQUEST['active']);
+		$active = @Filter::ToYN($_REQUEST['active']);
 		$obj->add(array(
 					'hotlist_tag' => $_REQUEST['hotlist_tag'],
 					'active' => $active,
@@ -130,7 +130,7 @@ class htmlHotlistForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['hotlist_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['hotlist_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -140,7 +140,7 @@ class htmlHotlistForm
 
 		$obj = new boHotlist();
 		CleanArray($_REQUEST);
-		$active = @DCL_Sanitize::ToYN($_REQUEST['active']);
+		$active = @Filter::ToYN($_REQUEST['active']);
 		$obj->modify(array(
 					'hotlist_id' => $id,
 					'hotlist_tag' => $_REQUEST['hotlist_tag'],
@@ -160,7 +160,7 @@ class htmlHotlistForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

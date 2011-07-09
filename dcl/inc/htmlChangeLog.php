@@ -29,7 +29,7 @@ class htmlChangeLog
 
 	function htmlChangeLog()
 	{
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['personnel_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -49,7 +49,7 @@ class htmlChangeLog
 	{
 		global $g_oSec;
 		
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['personnel_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -65,7 +65,7 @@ class htmlChangeLog
 		array_push($aRetVal, array('link' => menuLink('', 'menuAction=htmlChangeLog.ShowRepositoryCommits&personnel_id=' . $id), 'title' => $this->oPersonnel->short));
 		if ($sMethod == 'ShowProjectCommits' || $sMethod == 'ShowFileCommits' || $sMethod == 'ShowVersionCommits')
 		{
-			if (($sccs_id = @DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null)
+			if (($sccs_id = @Filter::ToInt($_REQUEST['dcl_sccs_id'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -80,7 +80,7 @@ class htmlChangeLog
 				array_push($aRetVal, array('link' => menuLink('', 'menuAction=htmlChangeLog.ShowFileCommits&dcl_sccs_id=' . $sccs_id . '&personnel_id=' . $id . '&sccs_project_path=' . rawurlencode($sccs_project_path)), 'title' => $sccs_project_path));
 				if ($sMethod == 'ShowVersionCommits')
 				{
-					$sccs_file_name = DCL_Sanitize::IsValidFileName($_REQUEST['sccs_file_name']) ? $_REQUEST['sccs_file_name'] : '';
+					$sccs_file_name = Filter::IsValidFileName($_REQUEST['sccs_file_name']) ? $_REQUEST['sccs_file_name'] : '';
 					array_push($aRetVal, array('link' => menuLink('', 'menuAction=htmlChangeLog.ShowVersionCommits&dcl_sccs_id=' . $sccs_id . '&personnel_id=' . $id . '&sccs_project_path=' . rawurlencode($sccs_project_path) . '&sccs_file_name=' . rawurlencode($sccs_file_name)), 'title' => $sccs_file_name));
 				}
 			}
@@ -97,7 +97,7 @@ class htmlChangeLog
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['personnel_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -137,8 +137,8 @@ class htmlChangeLog
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null ||
-		    ($sccs_id = DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null
+		if (($id = Filter::ToInt($_REQUEST['personnel_id'])) === null ||
+		    ($sccs_id = Filter::ToInt($_REQUEST['dcl_sccs_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -183,8 +183,8 @@ class htmlChangeLog
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null ||
-		    ($sccs_id = DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null
+		if (($id = Filter::ToInt($_REQUEST['personnel_id'])) === null ||
+		    ($sccs_id = Filter::ToInt($_REQUEST['dcl_sccs_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -231,9 +231,9 @@ class htmlChangeLog
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null ||
-		    ($sccs_id = DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null ||
-		    !DCL_Sanitize::IsValidFileName($_REQUEST['sccs_file_name'])
+		if (($id = Filter::ToInt($_REQUEST['personnel_id'])) === null ||
+		    ($sccs_id = Filter::ToInt($_REQUEST['dcl_sccs_id'])) === null ||
+		    !Filter::IsValidFileName($_REQUEST['sccs_file_name'])
 			)
 		{
 			throw new InvalidDataException();

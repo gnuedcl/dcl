@@ -34,12 +34,12 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		if (($jcn = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($jcn = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($seq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($seq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -77,16 +77,16 @@ class boTimecards
 		if ($g_oSec->IsPublicUser())
 			$objTimecard->is_public = 'Y';
 		else
-			$objTimecard->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+			$objTimecard->is_public = @Filter::ToYN($_REQUEST['is_public']);
 
 		$objTimecard->inputon = DCL_NOW;
 		if ($objWorkorder->Load($objTimecard->jcn, $objTimecard->seq) == -1)
 		    return;
 		    
-		if (($targeted_version_id = @DCL_Sanitize::ToInt($_REQUEST['targeted_version_id'])) === null)
+		if (($targeted_version_id = @Filter::ToInt($_REQUEST['targeted_version_id'])) === null)
 			$targeted_version_id = 0;
 		
-		if (($fixed_version_id = @DCL_Sanitize::ToInt($_REQUEST['fixed_version_id'])) === null)
+		if (($fixed_version_id = @Filter::ToInt($_REQUEST['fixed_version_id'])) === null)
 			$fixed_version_id = 0;
 		    
 		$status = $objWorkorder->status;
@@ -135,7 +135,7 @@ class boTimecards
 			$oWOA = new WorkOrderOrganizationModel();
 			if (IsSet($_REQUEST['secaccounts']))
 			{
-				$aAccounts = @DCL_Sanitize::ToIntArray($_REQUEST['secaccounts']);
+				$aAccounts = @Filter::ToIntArray($_REQUEST['secaccounts']);
 				if ($aAccounts === null)
 					$aAccounts = array();
 					
@@ -164,7 +164,7 @@ class boTimecards
 		// * Project
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 		{
-			if (($iProjID = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
+			if (($iProjID = @Filter::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
 			{
 				$oProjectMap = new ProjectMapModel();
 				if ($oProjectMap->LoadByWO($objWorkorder->jcn, $objWorkorder->seq) == -1 || $oProjectMap->projectid != $iProjID)
@@ -180,13 +180,13 @@ class boTimecards
 		}
 		
 		// * File attachment
-		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE))
+		if (($sFileName = Filter::ToFileName('userfile')) !== null && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE))
 		{
 			$o = new boFile();
 			$o->iType = DCL_ENTITY_WORKORDER;
 			$o->iKey1 = $objWorkorder->jcn;
 			$o->iKey2 = $objWorkorder->seq;
-			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+			$o->sFileName = Filter::ToActualFileName('userfile');
 			$o->sTempFileName = $sFileName;
 			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 			$o->Upload();
@@ -223,8 +223,8 @@ class boTimecards
 			{
 				list($objTimecard->jcn, $objTimecard->seq) = explode('.', $val);
 				
-				$objTimecard->jcn = DCL_Sanitize::ToInt($objTimecard->jcn);
-				$objTimecard->seq = DCL_Sanitize::ToInt($objTimecard->seq);
+				$objTimecard->jcn = Filter::ToInt($objTimecard->jcn);
+				$objTimecard->seq = Filter::ToInt($objTimecard->seq);
 				if ($objTimecard->jcn === null || $objTimecard->seq === null)
 					continue;
 
@@ -270,18 +270,18 @@ class boTimecards
 		if ($g_oSec->IsPublicUser())
 			$objTimecard->is_public = 'Y';
 		else
-			$objTimecard->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+			$objTimecard->is_public = @Filter::ToYN($_REQUEST['is_public']);
 			
-		if (($targeted_version_id = @DCL_Sanitize::ToInt($_REQUEST['targeted_version_id'])) === null)
+		if (($targeted_version_id = @Filter::ToInt($_REQUEST['targeted_version_id'])) === null)
 			$targeted_version_id = 0;
 		
-		if (($fixed_version_id = @DCL_Sanitize::ToInt($_REQUEST['fixed_version_id'])) === null)
+		if (($fixed_version_id = @Filter::ToInt($_REQUEST['fixed_version_id'])) === null)
 			$fixed_version_id = 0;
 
-		if (($batchStatus = @DCL_Sanitize::ToInt($_REQUEST['status'])) === null)
+		if (($batchStatus = @Filter::ToInt($_REQUEST['status'])) === null)
 			$batchStatus = 0;
 
-		$batchEtc = @DCL_Sanitize::ToDecimal($_REQUEST['etchours']);
+		$batchEtc = @Filter::ToDecimal($_REQUEST['etchours']);
 		
 		$objWorkorder = new WorkOrderModel();
 		$objWtch = new boWatches();
@@ -295,8 +295,8 @@ class boTimecards
 			{
 				list($objTimecard->jcn, $objTimecard->seq) = explode('.', $val);
 				
-				$objTimecard->jcn = DCL_Sanitize::ToInt($objTimecard->jcn);
-				$objTimecard->seq = DCL_Sanitize::ToInt($objTimecard->seq);
+				$objTimecard->jcn = Filter::ToInt($objTimecard->jcn);
+				$objTimecard->seq = Filter::ToInt($objTimecard->seq);
 				if ($objTimecard->jcn === null || $objTimecard->seq === null)
 					continue;
 					
@@ -361,7 +361,7 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -389,7 +389,7 @@ class boTimecards
 		if ($g_oSec->IsPublicUser())
 			$objTC->is_public = 'Y';
 		else
-			$objTC->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+			$objTC->is_public = @Filter::ToYN($_REQUEST['is_public']);
 
 		if ($objOldTC->Load($objTC->id) == -1)
 			return;
@@ -475,7 +475,7 @@ class boTimecards
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -497,7 +497,7 @@ class boTimecards
 
 		commonHeader();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

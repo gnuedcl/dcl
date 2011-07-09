@@ -48,7 +48,7 @@ class boContact extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
+		$aSource['active'] = @Filter::ToYN($aSource['active']);
 		parent::modify($aSource);
 		
 		$sTypes = join(',', $aSource['contact_type_id']);
@@ -76,7 +76,7 @@ class boContact extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = @DCL_Sanitize::ToInt($aSource['contact_id'])) === null)
+		if (($id = @Filter::ToInt($aSource['contact_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}		

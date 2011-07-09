@@ -55,7 +55,7 @@ class FaqController extends AbstractController
 
 	public function Edit()
 	{
-		if (($faqId = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($faqId = @Filter::ToInt($_REQUEST['faqid'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new FaqModel();
@@ -75,7 +75,7 @@ class FaqController extends AbstractController
 
 		$model = new FaqModel();
 		$model->InitFrom_POST();
-		$model->active = @DCL_Sanitize::ToYN($_POST['active']);
+		$model->active = @Filter::ToYN($_POST['active']);
 		$model->modifyby = $GLOBALS['DCLID'];
 		$model->modifyon = DCL_NOW;
 		$model->Edit();
@@ -88,7 +88,7 @@ class FaqController extends AbstractController
 	{
 		global $g_oSec;
 		
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['faqid'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new FaqModel();
@@ -103,7 +103,7 @@ class FaqController extends AbstractController
 	{
 		global $g_oSec;
 		
-		if (($faqId = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($faqId = @Filter::ToInt($_REQUEST['faqid'])) === null)
 			throw new InvalidDataException();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_DELETE, $faqId))
@@ -121,7 +121,7 @@ class FaqController extends AbstractController
 
 	public function Detail()
 	{
-		if (($faqId = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($faqId = @Filter::ToInt($_REQUEST['faqid'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new FaqModel();

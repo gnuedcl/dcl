@@ -44,7 +44,7 @@ class OrganizationEmailController extends AbstractController
 
 	public function Create()
 	{
-		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new OrganizationEmailPresenter();
@@ -55,8 +55,8 @@ class OrganizationEmailController extends AbstractController
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($id = DCL_Sanitize::ToInt($_POST['org_id'])) === null ||
-			($email_type_id = DCL_Sanitize::ToInt($_POST['email_type_id'])) === null
+		if (($id = Filter::ToInt($_POST['org_id'])) === null ||
+			($email_type_id = Filter::ToInt($_POST['email_type_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -71,7 +71,7 @@ class OrganizationEmailController extends AbstractController
 						'org_id' => $id,
 						'email_type_id' => $email_type_id,
 						'email_addr' => $_POST['email_addr'],
-						'preferred' => @DCL_Sanitize::ToYN($_POST['preferred']),
+						'preferred' => @Filter::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
@@ -83,10 +83,10 @@ class OrganizationEmailController extends AbstractController
 
 	public function Edit()
 	{
-		if (($orgEmailId = DCL_Sanitize::ToInt($_REQUEST['org_email_id'])) === null)
+		if (($orgEmailId = Filter::ToInt($_REQUEST['org_email_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new OrganizationEmailModel();
@@ -101,17 +101,17 @@ class OrganizationEmailController extends AbstractController
 	{
 		global $g_oSec;
 
-		if (($orgEmailId = DCL_Sanitize::ToInt($_POST['org_email_id'])) === null)
+		if (($orgEmailId = Filter::ToInt($_POST['org_email_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
 		CleanArray($_POST);
-		$_POST['preferred'] = @DCL_Sanitize::ToYN($_POST['preferred']);
+		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
 		parent::Update($_POST);
 
 		SetRedirectMessage('Success', 'Email updated successfully.');
@@ -125,10 +125,10 @@ class OrganizationEmailController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['org_email_id'])) === null)
+		if (($id = Filter::ToInt($_POST['org_email_id'])) === null)
 			throw new InvalidDataException();
 
 		$aKey = array('org_email_id' => $id);

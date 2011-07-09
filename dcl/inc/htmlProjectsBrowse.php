@@ -159,9 +159,9 @@ class htmlProjectsBrowse
 
 		$filterStatus = -1;
 		if (IsSet($_REQUEST['filterStatus']))
-			$filterStatus =@ DCL_Sanitize::ToSignedInt($_REQUEST['filterStatus']);
+			$filterStatus =@ Filter::ToSignedInt($_REQUEST['filterStatus']);
 			
-		$filterReportto = @DCL_Sanitize::ToInt($_REQUEST['filterReportto']);
+		$filterReportto = @Filter::ToInt($_REQUEST['filterReportto']);
 
 		$oView->RemoveDef('filternot', 'statuses.dcl_status_type');
 		$oView->RemoveDef('filter', 'statuses.dcl_status_type');

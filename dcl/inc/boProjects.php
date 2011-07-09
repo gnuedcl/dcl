@@ -59,7 +59,7 @@ class boProjects
 		$objProject->status = $dcl_info['DCL_DEFAULT_PROJECT_STATUS'];
 		$objProject->Add();
 		
-		if (($iTplID = @DCL_Sanitize::ToInt($_REQUEST['template'])) === null)
+		if (($iTplID = @Filter::ToInt($_REQUEST['template'])) === null)
 		{
 			$iTplID = 0;
 		}
@@ -95,12 +95,12 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK))
 			throw new PermissionDeniedException();
 
-		if (($jcn = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($jcn = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($seq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($seq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -149,7 +149,7 @@ class boProjects
 		
 		commonHeader();
 
-		if (($project = @DCL_Sanitize::ToInt($_REQUEST['project'])) === null)
+		if (($project = @Filter::ToInt($_REQUEST['project'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -163,10 +163,10 @@ class boProjects
 			$wostatus = 0;
 			$woresponsible = 0;
 			
-			if (($wostatus = @DCL_Sanitize::ToSignedInt($_REQUEST['wostatus'])) === null)
+			if (($wostatus = @Filter::ToSignedInt($_REQUEST['wostatus'])) === null)
 				$wostatus = 0;
 
-			if (($woresponsible = @DCL_Sanitize::ToInt($_REQUEST['woresponsible'])) === null)
+			if (($woresponsible = @Filter::ToInt($_REQUEST['woresponsible'])) === null)
 				$woresponsible = 0;
 
 			$obj->show($project, $wostatus, $woresponsible);
@@ -178,7 +178,7 @@ class boProjects
 		global $g_oSec;
 		
 		commonHeader();
-		if (($project = @DCL_Sanitize::ToInt($_REQUEST['project'])) === null)
+		if (($project = @Filter::ToInt($_REQUEST['project'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -192,10 +192,10 @@ class boProjects
 			$wostatus = 0;
 			$woresponsible = 0;
 			
-			if (($wostatus = @DCL_Sanitize::ToInt($_REQUEST['wostatus'])) === null)
+			if (($wostatus = @Filter::ToInt($_REQUEST['wostatus'])) === null)
 				$wostatus = 0;
 
-			if (($woresponsible = @DCL_Sanitize::ToInt($_REQUEST['woresponsible'])) === null)
+			if (($woresponsible = @Filter::ToInt($_REQUEST['woresponsible'])) === null)
 				$woresponsible = 0;
 
 			$obj->showtree($project, $wostatus, $woresponsible);
@@ -207,7 +207,7 @@ class boProjects
 		global $g_oSec;
 		
 		commonHeader();
-		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = @Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -228,7 +228,7 @@ class boProjects
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = @Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -239,8 +239,8 @@ class boProjects
 		$obj = new ProjectsModel();
 		if ($obj->Load($projectid) != -1)
 		{
-			if (($status = @DCL_Sanitize::ToInt($_REQUEST['status'])) === null ||
-			    ($parentprojectid = @DCL_Sanitize::ToInt($_REQUEST['parentprojectid'])) === null
+			if (($status = @Filter::ToInt($_REQUEST['status'])) === null ||
+			    ($parentprojectid = @Filter::ToInt($_REQUEST['parentprojectid'])) === null
 				)
 			{
 				throw new InvalidDataException();
@@ -291,7 +291,7 @@ class boProjects
 		global $g_oSec;
 		
 		commonHeader();
-		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = @Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -311,7 +311,7 @@ class boProjects
 		global $g_oSec;
 		
 		commonHeader();
-		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = @Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -338,12 +338,12 @@ class boProjects
 		
 		commonHeader();
 
-		if (($jcn = @DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($jcn = @Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($seq = @DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($seq = @Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -405,7 +405,7 @@ class boProjects
 		global $g_oSec;
 		
 		commonHeader();
-		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = @Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -422,7 +422,7 @@ class boProjects
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = @Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -430,12 +430,12 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE, $projectid))
 			throw new PermissionDeniedException();
 
-		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null)
+		if (($sFileName = Filter::ToFileName('userfile')) !== null)
 		{
 			$o = new boFile();
 			$o->iType = DCL_ENTITY_PROJECT;
 			$o->iKey1 = $projectid;
-			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+			$o->sFileName = Filter::ToActualFileName('userfile');
 			$o->sTempFileName = $sFileName;
 			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 			$o->Upload();
@@ -455,7 +455,7 @@ class boProjects
 		global $g_oSec;
 		
 		commonHeader();
-		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = @Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -463,7 +463,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE, $projectid))
 			throw new PermissionDeniedException();
 			
-		if (!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
+		if (!@Filter::IsValidFileName($_REQUEST['filename']))
 		{
 			trigger_error('Invalid file name.');
 			return;
@@ -478,7 +478,7 @@ class boProjects
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($projectid = @DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = @Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -486,7 +486,7 @@ class boProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE, $projectid))
 			throw new PermissionDeniedException();
 
-		if (!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
+		if (!@Filter::IsValidFileName($_REQUEST['filename']))
 		{
 			trigger_error('Invalid file name.');
 			return;
@@ -521,7 +521,7 @@ class boProjects
 		foreach ($aSource['selected'] as $val)
 		{
 			list($woid, $seq) = explode('.', $val);
-			if (DCL_Sanitize::ToInt($woid) !== null && DCL_Sanitize::ToInt($seq) !== null)
+			if (Filter::ToInt($woid) !== null && Filter::ToInt($seq) !== null)
 			{
 				$this->dbunmap($woid, $seq, false, false);
 				$objPM->jcn = $woid;

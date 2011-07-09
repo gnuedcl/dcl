@@ -36,7 +36,7 @@ class ProductPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		$filterLead = @DCL_Sanitize::ToInt($_REQUEST['filterLead']);
+		$filterLead = @Filter::ToInt($_REQUEST['filterLead']);
 
 		$objDBProduct = new ProductModel();
 

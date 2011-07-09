@@ -101,7 +101,7 @@ class htmlOrg
 	{
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -138,7 +138,7 @@ class htmlOrg
 	{
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

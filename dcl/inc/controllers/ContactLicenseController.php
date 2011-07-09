@@ -44,7 +44,7 @@ class ContactLicenseController extends AbstractController
 
 	public function Create()
 	{
-		if (($contactId = @DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = @Filter::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new ContactLicensePresenter();
@@ -55,10 +55,10 @@ class ContactLicenseController extends AbstractController
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null ||
-			($productId = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null ||
-			($registeredOn = DCL_Sanitize::ToDate($_REQUEST['registered_on'])) === null ||
-			($expiresOn = DCL_Sanitize::ToDate($_REQUEST['expires_on'])) === null
+		if (($contactId = Filter::ToInt($_REQUEST['contact_id'])) === null ||
+			($productId = Filter::ToInt($_REQUEST['product_id'])) === null ||
+			($registeredOn = Filter::ToDate($_REQUEST['registered_on'])) === null ||
+			($expiresOn = Filter::ToDate($_REQUEST['expires_on'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -88,10 +88,10 @@ class ContactLicenseController extends AbstractController
 
 	public function Edit()
 	{
-		if (($contactLicenseId = DCL_Sanitize::ToInt($_REQUEST['contact_license_id'])) === null)
+		if (($contactLicenseId = Filter::ToInt($_REQUEST['contact_license_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ContactLicenseModel();
@@ -109,11 +109,11 @@ class ContactLicenseController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($contactLicenseId = DCL_Sanitize::ToInt($_REQUEST['contact_license_id'])) === null ||
-		    ($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null ||
-			($productId = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null ||
-			($registeredOn = DCL_Sanitize::ToDate($_REQUEST['registered_on'])) === null  ||
-			($expiresOn = DCL_Sanitize::ToDate($_REQUEST['expires_on'])) === null
+		if (($contactLicenseId = Filter::ToInt($_REQUEST['contact_license_id'])) === null ||
+		    ($contactId = Filter::ToInt($_REQUEST['contact_id'])) === null ||
+			($productId = Filter::ToInt($_REQUEST['product_id'])) === null ||
+			($registeredOn = Filter::ToDate($_REQUEST['registered_on'])) === null  ||
+			($expiresOn = Filter::ToDate($_REQUEST['expires_on'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -144,10 +144,10 @@ class ContactLicenseController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['contact_license_id'])) === null)
+		if (($id = Filter::ToInt($_POST['contact_license_id'])) === null)
 			throw new InvalidDataException();
 
 		$aKey = array('contact_license_id' => $id);

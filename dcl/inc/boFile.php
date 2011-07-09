@@ -130,7 +130,7 @@ class boFile
 	function GetFilePath()
 	{
 		// don't even bother
-		if (!DCL_Sanitize::IsValidFileName($this->sFileName))
+		if (!Filter::IsValidFileName($this->sFileName))
 			return trigger_error('Invalid characters detected in filename.');
 
 		return $this->GetFileDir() . '/' . $this->sFileName;

@@ -48,10 +48,10 @@ class htmlMetricsWorkOrders
 
 		$oSmarty = new DCL_Smarty();
 		$oSmarty->assign('VAL_FORMACTION', menuLink());
-		$oSmarty->assign('CMB_PRODUCTS', $oProducts->Select(IsSet($_REQUEST['products']) ? DCL_Sanitize::ToInt($_REQUEST['products']) : 0, 'products', 'name', 0, 8, false));
-		$oSmarty->assign('CMB_PROJECTS', $oProjects->GetCombo(IsSet($_REQUEST['projects']) ? DCL_Sanitize::ToInt($_REQUEST['projects']) : 0, 'projects', 0, 8));
-		$oSmarty->assign('VAL_BEGINDATE', IsSet($_REQUEST['begindate']) ? DCL_Sanitize::ToDate($_REQUEST['begindate']) : '');
-		$oSmarty->assign('VAL_ENDDATE', IsSet($_REQUEST['enddate']) ? DCL_Sanitize::ToDate($_REQUEST['enddate']) : '');
+		$oSmarty->assign('CMB_PRODUCTS', $oProducts->Select(IsSet($_REQUEST['products']) ? Filter::ToInt($_REQUEST['products']) : 0, 'products', 'name', 0, 8, false));
+		$oSmarty->assign('CMB_PROJECTS', $oProjects->GetCombo(IsSet($_REQUEST['projects']) ? Filter::ToInt($_REQUEST['projects']) : 0, 'projects', 0, 8));
+		$oSmarty->assign('VAL_BEGINDATE', IsSet($_REQUEST['begindate']) ? Filter::ToDate($_REQUEST['begindate']) : '');
+		$oSmarty->assign('VAL_ENDDATE', IsSet($_REQUEST['enddate']) ? Filter::ToDate($_REQUEST['enddate']) : '');
 
 		$oSmarty->Render('htmlMetricsWorkOrders.tpl');
 	}
@@ -63,7 +63,7 @@ class htmlMetricsWorkOrders
 		$productNames = '';
 		if (isset($_REQUEST['products']))
 		{
-			$aProducts = DCL_Sanitize::ToIntArray($_REQUEST['products']);
+			$aProducts = Filter::ToIntArray($_REQUEST['products']);
 			foreach ($aProducts as $product_id)
 			{
 				if ($this->oProduct->Load($product_id) == -1)
@@ -79,7 +79,7 @@ class htmlMetricsWorkOrders
 		$projectNames = '';
 		if (isset($_REQUEST['projects']))
 		{
-			$aProjects = DCL_Sanitize::ToIntArray($_REQUEST['projects']);
+			$aProjects = Filter::ToIntArray($_REQUEST['projects']);
 			$oProjectMap = new ProjectMapModel();
 			if (isset($_REQUEST['childProjects']) && $_REQUEST['childProjects'] == '1')
 			{
@@ -118,8 +118,8 @@ class htmlMetricsWorkOrders
 		if ($productNames != '')
 			echo '<h3>Products: ' . $productNames . '</h3>';
 
-		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
-		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$beginDate = Filter::ToDate($_REQUEST['begindate']);
+		$endDate = Filter::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null || $endDate !== null)
 		{
 			echo '<h3>Date Range: ';
@@ -160,7 +160,7 @@ class htmlMetricsWorkOrders
 			$sFilterProduct = '';
 			if (isset($_REQUEST['products']))
 			{
-				$aProducts = DCL_Sanitize::ToIntArray($_REQUEST['products']);
+				$aProducts = Filter::ToIntArray($_REQUEST['products']);
 				if (count($aProducts) == 1)
 					$sFilterProduct = '&filterProduct=' . $aProducts[0];
 			}
@@ -195,7 +195,7 @@ class htmlMetricsWorkOrders
 		$sSQL .= ' WHERE w.status = s.id ';
 		if (isset($_REQUEST['products']))
 		{
-			$aProducts = DCL_Sanitize::ToIntArray($_REQUEST['products']);
+			$aProducts = Filter::ToIntArray($_REQUEST['products']);
 			if (count($aProducts) > 0)
 				$sSQL .= ' AND w.product IN (' . join(',', $aProducts) . ')';
 		}
@@ -220,7 +220,7 @@ class htmlMetricsWorkOrders
 		$sSQL .= ' WHERE w.priority = p.id AND w.status = s.id AND s.dcl_status_type != 2 ';
 		if (isset($_REQUEST['products']))
 		{
-			$aProducts = DCL_Sanitize::ToIntArray($_REQUEST['products']);
+			$aProducts = Filter::ToIntArray($_REQUEST['products']);
 			if (count($aProducts) > 0)
 				$sSQL .= ' AND w.product IN (' . join(',', $aProducts) . ')';
 		}
@@ -245,7 +245,7 @@ class htmlMetricsWorkOrders
 		$sSQL .= ' WHERE w.priority = p.id ';
 		if (isset($_REQUEST['products']))
 		{
-			$aProducts = DCL_Sanitize::ToIntArray($_REQUEST['products']);
+			$aProducts = Filter::ToIntArray($_REQUEST['products']);
 			if (count($aProducts) > 0)
 				$sSQL .= ' AND w.product IN (' . join(',', $aProducts) . ')';
 		}
@@ -254,8 +254,8 @@ class htmlMetricsWorkOrders
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
 		$oDB = new WorkOrderModel();
-		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
-		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$beginDate = Filter::ToDate($_REQUEST['begindate']);
+		$endDate = Filter::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)
 			$sSQL .= ' AND w.lastactionon BETWEEN ' . $oDB->DisplayToSQL($beginDate . ' 00:00:00') . ' AND ' . $oDB->DisplayToSQL($endDate . ' 23:59:59');
 		else if ($beginDate !== null)
@@ -280,7 +280,7 @@ class htmlMetricsWorkOrders
 		$sSQL .= ' WHERE w.status = s.id AND w.priority = p.id AND s.dcl_status_type = 2 ';
 		if (isset($_REQUEST['products']))
 		{
-			$aProducts = DCL_Sanitize::ToIntArray($_REQUEST['products']);
+			$aProducts = Filter::ToIntArray($_REQUEST['products']);
 			if (count($aProducts) > 0)
 				$sSQL .= ' AND w.product IN (' . join(',', $aProducts) . ')';
 		}
@@ -289,8 +289,8 @@ class htmlMetricsWorkOrders
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
 		$oDB = new WorkOrderModel();
-		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
-		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$beginDate = Filter::ToDate($_REQUEST['begindate']);
+		$endDate = Filter::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)
 			$sSQL .= ' AND w.lastactionon BETWEEN ' . $oDB->DisplayToSQL($beginDate . ' 00:00:00') . ' AND ' . $oDB->DisplayToSQL($endDate . ' 23:59:59');
 		else if ($beginDate !== null)
@@ -315,7 +315,7 @@ class htmlMetricsWorkOrders
 		$sSQL .= ' WHERE w.status = s.id ';
 		if (isset($_REQUEST['products']))
 		{
-			$aProducts = DCL_Sanitize::ToIntArray($_REQUEST['products']);
+			$aProducts = Filter::ToIntArray($_REQUEST['products']);
 			if (count($aProducts) > 0)
 				$sSQL .= ' AND w.product IN (' . join(',', $aProducts) . ')';
 		}
@@ -324,8 +324,8 @@ class htmlMetricsWorkOrders
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
 		$oDB = new WorkOrderModel();
-		$beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
-		$endDate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$beginDate = Filter::ToDate($_REQUEST['begindate']);
+		$endDate = Filter::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null && $endDate !== null)
 			$sSQL .= ' AND w.lastactionon BETWEEN ' . $oDB->DisplayToSQL($beginDate . ' 00:00:00') . ' AND ' . $oDB->DisplayToSQL($endDate . ' 23:59:59');
 		else if ($beginDate !== null)

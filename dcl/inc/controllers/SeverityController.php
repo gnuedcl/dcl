@@ -59,7 +59,7 @@ class SeverityController extends AbstractController
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		if ($this->model->Load($id) == -1)
@@ -85,7 +85,7 @@ class SeverityController extends AbstractController
 
 	public function Delete()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		if ($this->model->Load($id) == -1)
@@ -102,7 +102,7 @@ class SeverityController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		parent::Destroy(array('id' => $id));

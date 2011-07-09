@@ -58,7 +58,7 @@ class ActionController
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -93,7 +93,7 @@ class ActionController
 	public function Delete()
 	{
 		$model = new ActionModel();
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -117,7 +117,7 @@ class ActionController
 		}
 
 		$model = new ActionModel();
-		if (($id = @DCL_Sanitize::ToInt($_POST['id'])) === null)
+		if (($id = @Filter::ToInt($_POST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

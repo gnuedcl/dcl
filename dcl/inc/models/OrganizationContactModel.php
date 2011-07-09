@@ -34,10 +34,10 @@ class OrganizationContactModel extends dclDB
 	
 	public function updateOrgs($contact_id, &$aOrgID)
 	{
-		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
+		if (($contact_id = Filter::ToInt($contact_id)) === null)
 			throw new PermissionDeniedException();
 			
-		$aOrgID = DCL_Sanitize::ToIntArray($aOrgID);
+		$aOrgID = Filter::ToIntArray($aOrgID);
 		if ($aOrgID === null || count($aOrgID) == 0)
 			$aOrgID = array("-1");
 			

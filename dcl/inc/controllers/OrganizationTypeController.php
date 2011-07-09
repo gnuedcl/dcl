@@ -55,7 +55,7 @@ class OrganizationTypeController extends AbstractController
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['org_type_id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['org_type_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new OrganizationTypeModel();
@@ -76,7 +76,7 @@ class OrganizationTypeController extends AbstractController
 
 	public function Delete()
 	{
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_type_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['org_type_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new OrganizationTypeModel();
@@ -89,7 +89,7 @@ class OrganizationTypeController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		parent::Destroy(array('org_type_id' => $id));

@@ -60,7 +60,7 @@ class wsSccsXref
 	
 	function getSccsSecurity()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['personnel_id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['personnel_id'])) === null)
 		{
 			wsSccsXref::returnEmptyResponse();
 		}
@@ -82,7 +82,7 @@ class wsSccsXref
 	
 	function getRepositoryByID()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['dcl_sccs_id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['dcl_sccs_id'])) === null)
 		{
 			wsSccsXref::returnEmptyResponse();
 		}
@@ -127,7 +127,7 @@ class wsSccsXref
 	
 	function getWorkOrder()
 	{
-		if (($iWOID = DCL_Sanitize::ToInt($_POST['woid'])) === null || ($iSeq = DCL_Sanitize::ToInt($_POST['seq'])) === null)
+		if (($iWOID = Filter::ToInt($_POST['woid'])) === null || ($iSeq = Filter::ToInt($_POST['seq'])) === null)
 		{
 			wsSccsXref::returnEmptyResponse();
 		}
@@ -152,7 +152,7 @@ class wsSccsXref
 	
 	function getProject()
 	{
-		if (($iProjectID = DCL_Sanitize::ToInt($_POST['projectid'])) === null)
+		if (($iProjectID = Filter::ToInt($_POST['projectid'])) === null)
 		{
 			wsSccsXref::returnEmptyResponse();
 		}
@@ -173,11 +173,11 @@ class wsSccsXref
 	
 	function checkin()
 	{
-		$iEntityTypeID = DCL_Sanitize::ToInt($_POST['dcl_entity_type_id']);
-		$iEntityID = DCL_Sanitize::ToInt($_POST['dcl_entity_id']);
-		$iEntityID2 = DCL_Sanitize::ToInt($_POST['dcl_entity_id2']);
-		$iSccsID = DCL_Sanitize::ToInt($_POST['dcl_sccs_id']);
-		$iUserID = DCL_Sanitize::ToInt($_POST['personnel_id']);
+		$iEntityTypeID = Filter::ToInt($_POST['dcl_entity_type_id']);
+		$iEntityID = Filter::ToInt($_POST['dcl_entity_id']);
+		$iEntityID2 = Filter::ToInt($_POST['dcl_entity_id2']);
+		$iSccsID = Filter::ToInt($_POST['dcl_sccs_id']);
+		$iUserID = Filter::ToInt($_POST['personnel_id']);
 		
 		if ($iEntityTypeID === null || $iEntityID === null || $iEntityID2 === null || $iSccsID === null || $iUserID === null)
 		{

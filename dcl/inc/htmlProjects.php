@@ -83,8 +83,8 @@ class htmlProjects
 		$oView = new boView();
 		$oView->numrows = 25;
 
-		$filterStatus = @DCL_Sanitize::ToSignedInt($_REQUEST['filterStatus']);
-		$filterReportto = @DCL_Sanitize::ToInt($_REQUEST['filterReportto']);
+		$filterStatus = @Filter::ToSignedInt($_REQUEST['filterStatus']);
+		$filterReportto = @Filter::ToInt($_REQUEST['filterReportto']);
 
 		$oView->table = 'dcl_projects';
 		$oView->style = 'report';
@@ -158,7 +158,7 @@ class htmlProjects
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}

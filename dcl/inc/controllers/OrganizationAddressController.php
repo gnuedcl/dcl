@@ -46,7 +46,7 @@ class OrganizationAddressController extends AbstractController
 
 	public function Create()
 	{
-		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new OrganizationAddressPresenter();
@@ -57,8 +57,8 @@ class OrganizationAddressController extends AbstractController
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($id = DCL_Sanitize::ToInt($_POST['org_id'])) === null ||
-			($addr_type_id = DCL_Sanitize::ToInt($_POST['addr_type_id'])) === null
+		if (($id = Filter::ToInt($_POST['org_id'])) === null ||
+			($addr_type_id = Filter::ToInt($_POST['addr_type_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -78,7 +78,7 @@ class OrganizationAddressController extends AbstractController
 						'state' => $_POST['state'],
 						'zip' => $_POST['zip'],
 						'country' => $_POST['country'],
-						'preferred' => @DCL_Sanitize::ToYN($_POST['preferred']),
+						'preferred' => @Filter::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
@@ -90,10 +90,10 @@ class OrganizationAddressController extends AbstractController
 
 	public function Edit()
 	{
-		if (($orgAddrId = DCL_Sanitize::ToInt($_REQUEST['org_addr_id'])) === null)
+		if (($orgAddrId = Filter::ToInt($_REQUEST['org_addr_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new OrganizationAddressModel();
@@ -108,17 +108,17 @@ class OrganizationAddressController extends AbstractController
 	{
 		global $g_oSec;
 
-		if (($orgAddrId = DCL_Sanitize::ToInt($_POST['org_addr_id'])) === null)
+		if (($orgAddrId = Filter::ToInt($_POST['org_addr_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
 		CleanArray($_POST);
-		$_POST['preferred'] = @DCL_Sanitize::ToYN($_POST['preferred']);
+		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
 		parent::Update($_POST);
 
 		SetRedirectMessage('Success', 'Address updated successfully.');
@@ -132,10 +132,10 @@ class OrganizationAddressController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['org_addr_id'])) === null)
+		if (($id = Filter::ToInt($_POST['org_addr_id'])) === null)
 			throw new InvalidDataException();
 
 		$aKey = array('org_addr_id' => $id);

@@ -63,7 +63,7 @@ class htmlOrganizationDashboard
 		global $g_oSec, $dcl_info;
 
 		commonHeader();
-		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($orgId = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

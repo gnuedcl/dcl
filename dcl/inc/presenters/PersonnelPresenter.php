@@ -55,7 +55,7 @@ class PersonnelPresenter
 
 		$filterDepartment = 0;
 		if (IsSet($_REQUEST['filterDepartment']))
-			$filterDepartment = DCL_Sanitize::ToInt($_REQUEST['filterDepartment']);
+			$filterDepartment = Filter::ToInt($_REQUEST['filterDepartment']);
 
 		$template->assign('VAL_FILTERACTIVE', $filterActive);
 		$template->assign('VAL_FILTERSTART', $filterStartsWith);

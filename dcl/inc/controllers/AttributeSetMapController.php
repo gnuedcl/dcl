@@ -26,7 +26,7 @@ class AttributeSetMapController
 {
 	public function Index()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new AttributeSetModel();
@@ -39,10 +39,10 @@ class AttributeSetMapController
 
 	public function Edit()
 	{
-		if (($setId = @DCL_Sanitize::ToInt($_REQUEST['setid'])) === null)
+		if (($setId = @Filter::ToInt($_REQUEST['setid'])) === null)
 			throw new InvalidDataException();
 
-		if (($typeId = @DCL_Sanitize::ToInt($_REQUEST['typeid'])) === null)
+		if (($typeId = @Filter::ToInt($_REQUEST['typeid'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new AttributeSetMapPresenter();
@@ -56,10 +56,10 @@ class AttributeSetMapController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($setId = @DCL_Sanitize::ToInt($_REQUEST['setid'])) === null)
+		if (($setId = @Filter::ToInt($_REQUEST['setid'])) === null)
 			throw new InvalidDataException();
 
-		if (($typeId = @DCL_Sanitize::ToInt($_REQUEST['typeid'])) === null)
+		if (($typeId = @Filter::ToInt($_REQUEST['typeid'])) === null)
 			throw new InvalidDataException();
 
 		$model = new AttributeSetMapModel();
@@ -69,7 +69,7 @@ class AttributeSetMapController
 		$model->BeginTransaction();
 		$model->DeleteBySetType($setId, $typeId);
 
-		if (($aKeyID = @DCL_Sanitize::ToIntArray($_REQUEST['keyidset'])) !== null)
+		if (($aKeyID = @Filter::ToIntArray($_REQUEST['keyidset'])) !== null)
 		{
 			$i = 1;
 			foreach ($aKeyID as $id)

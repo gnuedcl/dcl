@@ -46,7 +46,7 @@ class ChecklistTemplateModel extends dclDB
 	
 	public function HasChecklists($id)
 	{
-		if (($id = DCL_Sanitize::ToInt($id)) == NULL)
+		if (($id = Filter::ToInt($id)) == NULL)
 		{
 			throw new InvalidDataException();
 		}

@@ -35,7 +35,7 @@ class TimeCardsModel extends dclDB
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($fEtcHours = DCL_Sanitize::ToDecimal($_REQUEST['etchours'])) === null)
+		if (($fEtcHours = Filter::ToDecimal($_REQUEST['etchours'])) === null)
 		{
 			if ($_REQUEST['menuAction'] !== 'boTimecards.dbbatchadd')
 			{

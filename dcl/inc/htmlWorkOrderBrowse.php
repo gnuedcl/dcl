@@ -198,11 +198,11 @@ class htmlWorkOrderBrowse
 
 		$filterStatus = -1;
 		if (IsSet($_REQUEST['filterStatus']))
-			$filterStatus =@ DCL_Sanitize::ToSignedInt($_REQUEST['filterStatus']);
+			$filterStatus =@ Filter::ToSignedInt($_REQUEST['filterStatus']);
 			
-		$filterReportto = @DCL_Sanitize::ToInt($_REQUEST['filterReportto']);
-		$filterProduct = @DCL_Sanitize::ToInt($_REQUEST['filterProduct']);
-		$filterType = @DCL_Sanitize::ToInt($_REQUEST['filterType']);
+		$filterReportto = @Filter::ToInt($_REQUEST['filterReportto']);
+		$filterProduct = @Filter::ToInt($_REQUEST['filterProduct']);
+		$filterType = @Filter::ToInt($_REQUEST['filterType']);
 
 		$oView->RemoveDef('filternot', 'statuses.dcl_status_type');
 		$oView->RemoveDef('filter', 'statuses.dcl_status_type');

@@ -36,7 +36,7 @@ class ContactTypeModel extends dclDB
 	
 	public function ListByContact($contact_id)
 	{
-		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
+		if (($contact_id = Filter::ToInt($contact_id)) === null)
 		{
 			throw new InvalidDataException();
 		}

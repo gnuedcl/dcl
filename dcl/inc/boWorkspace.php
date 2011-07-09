@@ -44,7 +44,7 @@ class boWorkspace extends boAdminObject
 
 	function add($aSource)
 	{
-		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
+		$aSource['active'] = @Filter::ToYN($aSource['active']);
 		parent::add($aSource);
 		
 		if ($this->oDB->workspace_id > 0)
@@ -59,7 +59,7 @@ class boWorkspace extends boAdminObject
 
 	function modify($aSource)
 	{
-		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
+		$aSource['active'] = @Filter::ToYN($aSource['active']);
 		parent::modify($aSource);
 
 		$oWSP = new WorkspaceProductModel();

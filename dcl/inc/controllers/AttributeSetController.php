@@ -55,7 +55,7 @@ class AttributeSetController
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new AttributeSetModel();
@@ -83,7 +83,7 @@ class AttributeSetController
 
 	function Delete()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new AttributeSetModel();
@@ -101,7 +101,7 @@ class AttributeSetController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new AttributeSetModel();

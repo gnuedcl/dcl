@@ -38,7 +38,7 @@ class OrganizationProductController extends AbstractController
 	
 	public function Edit()
 	{
-		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new OrganizationProductPresenter();
@@ -49,7 +49,7 @@ class OrganizationProductController extends AbstractController
 	{
 		global $g_oSec;
 
-		if (($id = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
+		if (($id = Filter::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY, $id))
@@ -57,7 +57,7 @@ class OrganizationProductController extends AbstractController
 
 		CleanArray($_POST);
 
-		$aProducts = @DCL_Sanitize::ToIntArray($_POST['product_id']);
+		$aProducts = @Filter::ToIntArray($_POST['product_id']);
 		$organizationProductModel = new OrganizationProductModel();
 		$organizationProductModel->UpdateProducts($id, $aProducts);
 

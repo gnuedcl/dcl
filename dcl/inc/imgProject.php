@@ -105,7 +105,7 @@ class imgProject
 	{
 		global $g_oSec;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -124,7 +124,7 @@ class imgProject
 	{
 		global $g_oSec;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -143,7 +143,7 @@ class imgProject
 	{
 		global $g_oSec;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -162,7 +162,7 @@ class imgProject
 	{
 		global $g_oSec;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -181,7 +181,7 @@ class imgProject
 	{
 		global $g_oSec;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -200,7 +200,7 @@ class imgProject
 	{
 		global $g_oSec;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

@@ -44,7 +44,7 @@ class ContactPhoneController extends AbstractController
 
 	public function Create()
 	{
-		if (($contactId = @DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = @Filter::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new ContactPhonePresenter();
@@ -55,8 +55,8 @@ class ContactPhoneController extends AbstractController
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($id = DCL_Sanitize::ToInt($_POST['contact_id'])) === null ||
-			($phoneTypeId = DCL_Sanitize::ToInt($_POST['phone_type_id'])) === null
+		if (($id = Filter::ToInt($_POST['contact_id'])) === null ||
+			($phoneTypeId = Filter::ToInt($_POST['phone_type_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -71,7 +71,7 @@ class ContactPhoneController extends AbstractController
 						'contact_id' => $id,
 						'phone_type_id' => $phoneTypeId,
 						'phone_number' => $_POST['phone_number'],
-						'preferred' => @DCL_Sanitize::ToYN($_POST['preferred']),
+						'preferred' => @Filter::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
@@ -83,10 +83,10 @@ class ContactPhoneController extends AbstractController
 
 	public function Edit()
 	{
-		if (($contactPhoneId = DCL_Sanitize::ToInt($_REQUEST['contact_phone_id'])) === null)
+		if (($contactPhoneId = Filter::ToInt($_REQUEST['contact_phone_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ContactPhoneModel();
@@ -104,11 +104,11 @@ class ContactPhoneController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		CleanArray($_POST);
-		$_POST['preferred'] = @DCL_Sanitize::ToYN($_POST['preferred']);
+		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
 		parent::Update($_POST);
 
 		SetRedirectMessage('Success', 'Phone updated successfully.');
@@ -122,10 +122,10 @@ class ContactPhoneController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['contact_phone_id'])) === null)
+		if (($id = Filter::ToInt($_POST['contact_phone_id'])) === null)
 			throw new InvalidDataException();
 
 		$aKey = array('contact_phone_id' => $id);

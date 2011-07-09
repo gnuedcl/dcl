@@ -39,7 +39,7 @@ class htmlChklstTpl
 	{
 		global $dcl_info, $g_oSec;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

@@ -34,7 +34,7 @@ class boFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['questionid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -62,7 +62,7 @@ class boFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['questionid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -94,7 +94,7 @@ class boFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['answerid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['answerid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -115,7 +115,7 @@ class boFaqanswers
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['questionid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -128,7 +128,7 @@ class boFaqanswers
 
 		$obj = new FaqAnswersModel();
 		$obj->InitFromGlobals();
-		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
+		$obj->active = @Filter::ToYN($_REQUEST['active']);
 		$obj->modifyby = $GLOBALS['DCLID'];
 		$obj->modifyon = DCL_NOW;
 		$obj->Edit();
@@ -142,7 +142,7 @@ class boFaqanswers
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['answerid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['answerid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -162,7 +162,7 @@ class boFaqanswers
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['answerid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['answerid'])) === null)
 		{
 			throw new InvalidDataException();
 		}

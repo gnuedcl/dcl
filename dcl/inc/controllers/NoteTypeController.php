@@ -57,7 +57,7 @@ class NoteTypeController extends AbstractController
 
 	public function Edit()
 	{
-		if (($noteTypeId = @DCL_Sanitize::ToInt($_REQUEST['note_type_id'])) == -1)
+		if (($noteTypeId = @Filter::ToInt($_REQUEST['note_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($noteTypeId) == -1)
@@ -77,7 +77,7 @@ class NoteTypeController extends AbstractController
 
 	public function Delete()
 	{
-		if (($noteTypeId = @DCL_Sanitize::ToInt($_REQUEST['note_type_id'])) == -1)
+		if (($noteTypeId = @Filter::ToInt($_REQUEST['note_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($noteTypeId) == -1)
@@ -89,7 +89,7 @@ class NoteTypeController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($noteTypeId = @DCL_Sanitize::ToInt($_REQUEST['id'])) == -1)
+		if (($noteTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
 		parent::Destroy(array('note_type_id' => $noteTypeId));

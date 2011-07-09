@@ -55,7 +55,7 @@ class WorkOrderTypeController extends AbstractController
 
 	public function Edit()
 	{
-		if (($woTypeId = @DCL_Sanitize::ToInt($_REQUEST['wo_type_id'])) == -1)
+		if (($woTypeId = @Filter::ToInt($_REQUEST['wo_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($woTypeId) == -1)
@@ -75,7 +75,7 @@ class WorkOrderTypeController extends AbstractController
 
 	public function Delete()
 	{
-		if (($woTypeId = @DCL_Sanitize::ToInt($_REQUEST['wo_type_id'])) == -1)
+		if (($woTypeId = @Filter::ToInt($_REQUEST['wo_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($woTypeId) == -1)
@@ -87,7 +87,7 @@ class WorkOrderTypeController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($woTypeId = @DCL_Sanitize::ToInt($_REQUEST['id'])) == -1)
+		if (($woTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
 		parent::Destroy(array('wo_type_id' => $woTypeId));

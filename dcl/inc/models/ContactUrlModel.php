@@ -34,7 +34,7 @@ class ContactUrlModel extends dclDB
 
 	function ListByContact($contact_id)
 	{
-		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
+		if (($contact_id = Filter::ToInt($contact_id)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -47,7 +47,7 @@ class ContactUrlModel extends dclDB
 
 	function GetPrimaryUrl($contact_id)
 	{
-		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
+		if (($contact_id = Filter::ToInt($contact_id)) === null)
 		{
 			throw new InvalidDataException();
 		}

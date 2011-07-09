@@ -38,7 +38,7 @@ class htmlTicketresolutions
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -84,7 +84,7 @@ class htmlTicketresolutions
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['resid'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['resid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -114,7 +114,7 @@ class htmlTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['resid'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['resid'])) === null)
 		{
 			throw new InvalidDataException();
 		}

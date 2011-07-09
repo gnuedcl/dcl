@@ -89,7 +89,7 @@ class reportPersonnelActivity
 		
 		$t->assign('CMB_GROUPBY', $oSelect->GetHTML());
 
-		$begindate = @DCL_Sanitize::ToDate($_REQUEST['begindate']);
+		$begindate = @Filter::ToDate($_REQUEST['begindate']);
 		if ($begindate !== null)
 		{
 			$t->assign('VAL_BEGINDATE', $begindate);
@@ -104,7 +104,7 @@ class reportPersonnelActivity
 			$t->assign('VAL_BEGINDATE', $oDate->ToDisplay());
 		}
 
-		$enddate = @DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$enddate = @Filter::ToDate($_REQUEST['enddate']);
 		if ($enddate !== null)
 		{
 			$t->assign('VAL_ENDDATE', $enddate);
@@ -136,8 +136,8 @@ class reportPersonnelActivity
 		if (!$bExport)
 			commonHeader();
 
-		$begindate = @DCL_Sanitize::ToDate($_REQUEST['begindate']);
-		$enddate = @DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$begindate = @Filter::ToDate($_REQUEST['begindate']);
+		$enddate = @Filter::ToDate($_REQUEST['enddate']);
 		if ($begindate === null || $enddate === null)
 		{
 			if ($bExport)
@@ -206,7 +206,7 @@ class reportPersonnelActivity
 			// None (0) or date (3) or action by (5)
 			if ($_REQUEST['bytype'] == '1')
 			{
-				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+				if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -216,7 +216,7 @@ class reportPersonnelActivity
 			}
 			else
 			{
-				if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
+				if (($department = Filter::ToInt($_REQUEST['department'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -251,7 +251,7 @@ class reportPersonnelActivity
 			// projects
 			if ($_REQUEST['bytype'] == '1')
 			{
-				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+				if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -264,7 +264,7 @@ class reportPersonnelActivity
 			}
 			else
 			{
-				if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
+				if (($department = Filter::ToInt($_REQUEST['department'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -284,7 +284,7 @@ class reportPersonnelActivity
 			// actions
 			if ($_REQUEST['bytype'] == '1')
 			{
-				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+				if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -296,7 +296,7 @@ class reportPersonnelActivity
 			}
 			else
 			{
-				if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
+				if (($department = Filter::ToInt($_REQUEST['department'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -315,7 +315,7 @@ class reportPersonnelActivity
 			// product
 			if ($_REQUEST['bytype'] == '1')
 			{
-				if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+				if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -328,7 +328,7 @@ class reportPersonnelActivity
 			}
 			else
 			{
-				if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
+				if (($department = Filter::ToInt($_REQUEST['department'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -358,7 +358,7 @@ class reportPersonnelActivity
 		$oMeta = new DCL_MetadataDisplay();
 		if ($_REQUEST['bytype'] == '1')
 		{
-			if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+			if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -367,7 +367,7 @@ class reportPersonnelActivity
 		}
 		else
 		{
-			if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
+			if (($department = Filter::ToInt($_REQUEST['department'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -375,8 +375,8 @@ class reportPersonnelActivity
 			$sReportFor = $oMeta->GetDepartment($department);
 		}
 
-		if (($begindate = DCL_Sanitize::ToDate($_REQUEST['begindate'])) === null ||
-			($enddate = DCL_Sanitize::ToDate($_REQUEST['enddate'])) === null
+		if (($begindate = Filter::ToDate($_REQUEST['begindate'])) === null ||
+			($enddate = Filter::ToDate($_REQUEST['enddate'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -511,7 +511,7 @@ class reportPersonnelActivity
 		$department = 0;
 		if ($_REQUEST['bytype'] == '1')
 		{
-			if (($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+			if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -520,7 +520,7 @@ class reportPersonnelActivity
 		}
 		else
 		{
-			if (($department = DCL_Sanitize::ToInt($_REQUEST['department'])) === null)
+			if (($department = Filter::ToInt($_REQUEST['department'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -528,8 +528,8 @@ class reportPersonnelActivity
 			$sReportFor = $oMeta->GetDepartment($department);
 		}
 
-		if (($begindate = DCL_Sanitize::ToDate($_REQUEST['begindate'])) === null ||
-			($enddate = DCL_Sanitize::ToDate($_REQUEST['enddate'])) === null
+		if (($begindate = Filter::ToDate($_REQUEST['begindate'])) === null ||
+			($enddate = Filter::ToDate($_REQUEST['enddate'])) === null
 			)
 		{
 			throw new InvalidDataException();

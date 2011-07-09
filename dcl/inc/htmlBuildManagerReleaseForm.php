@@ -45,10 +45,10 @@ class htmlBuildManagerReleaseForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		if (($product_id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+		if (($product_id = Filter::ToInt($_REQUEST['product_id'])) === null)
 			throw new PermissionDeniedException();
 		
-		if (($version_id = DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+		if (($version_id = Filter::ToInt($_REQUEST['product_version_id'])) === null)
 			throw new PermissionDeniedException();
 		
 		$oProduct = new ProductModel();

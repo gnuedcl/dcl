@@ -132,7 +132,7 @@ class htmlHotlists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$hotlistId = @DCL_Sanitize::ToInt($_REQUEST['hotlist_id']);
+		$hotlistId = @Filter::ToInt($_REQUEST['hotlist_id']);
 		if ($hotlistId === null || $hotlistId < 1)
 			throw new PermissionDeniedException();
 			
@@ -164,7 +164,7 @@ class htmlHotlists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$hotlistId = @DCL_Sanitize::ToInt($_POST['hotlist_id']);
+		$hotlistId = @Filter::ToInt($_POST['hotlist_id']);
 		if ($hotlistId === null || $hotlistId < 1)
 			throw new PermissionDeniedException();
 			
@@ -175,7 +175,7 @@ class htmlHotlists
 		$aEntities = array();
 		foreach ($_REQUEST['item'] as $entity)
 		{
-			$aEntity = @DCL_Sanitize::ToIntArray(split('_', $entity));
+			$aEntity = @Filter::ToIntArray(split('_', $entity));
 			if (count($aEntity) === 3)
 				$aEntities[] = $aEntity;
 		}

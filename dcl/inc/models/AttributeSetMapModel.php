@@ -46,8 +46,8 @@ class AttributeSetMapModel extends dclDB
 	
 	public function DeleteBySetType($iSetID, $iTypeID)
 	{
-		if (($iSetID = DCL_Sanitize::ToInt($iSetID)) == NULL ||
-			($iTypeID = DCL_Sanitize::ToInt($iTypeID)) == NULL)
+		if (($iSetID = Filter::ToInt($iSetID)) == NULL ||
+			($iTypeID = Filter::ToInt($iTypeID)) == NULL)
 		{
 			throw new InvalidDataException();
 		}
@@ -62,8 +62,8 @@ class AttributeSetMapModel extends dclDB
 
 	public function LoadMapForType($setid, $typeid)
 	{
-		if (($setid = DCL_Sanitize::ToInt($setid)) == NULL ||
-			($typeid = DCL_Sanitize::ToInt($typeid)) == NULL)
+		if (($setid = Filter::ToInt($setid)) == NULL ||
+			($typeid = Filter::ToInt($typeid)) == NULL)
 		{
 			throw new InvalidDataException();
 		}

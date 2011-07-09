@@ -53,7 +53,7 @@ class StatusController
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new StatusModel();
@@ -81,7 +81,7 @@ class StatusController
 
 	public function Delete()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new StatusModel();
@@ -99,7 +99,7 @@ class StatusController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new StatusModel();

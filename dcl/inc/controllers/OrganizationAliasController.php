@@ -44,7 +44,7 @@ class OrganizationAliasController extends AbstractController
 
 	public function Create()
 	{
-		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new OrganizationAliasPresenter();
@@ -55,7 +55,7 @@ class OrganizationAliasController extends AbstractController
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($id = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
+		if (($id = Filter::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
@@ -77,10 +77,10 @@ class OrganizationAliasController extends AbstractController
 
 	public function Edit()
 	{
-		if (($orgAliasId = DCL_Sanitize::ToInt($_REQUEST['org_alias_id'])) === null)
+		if (($orgAliasId = Filter::ToInt($_REQUEST['org_alias_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_REQUEST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new OrganizationAliasModel();
@@ -95,10 +95,10 @@ class OrganizationAliasController extends AbstractController
 	{
 		global $g_oSec;
 
-		if (($orgAliasId = DCL_Sanitize::ToInt($_POST['org_alias_id'])) === null)
+		if (($orgAliasId = Filter::ToInt($_POST['org_alias_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
@@ -118,10 +118,10 @@ class OrganizationAliasController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($orgId = DCL_Sanitize::ToInt($_POST['org_id'])) === null)
+		if (($orgId = Filter::ToInt($_POST['org_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['org_alias_id'])) === null)
+		if (($id = Filter::ToInt($_POST['org_alias_id'])) === null)
 			throw new InvalidDataException();
 
 		$aKey = array('org_alias_id' => $id);

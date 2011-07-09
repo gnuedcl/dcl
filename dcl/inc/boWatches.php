@@ -67,7 +67,7 @@ class boWatches
 		
 		if ($typeid === null)
 		{
-			if (($iTypeID = @DCL_Sanitize::ToInt($_REQUEST['typeid'])) === null)
+			if (($iTypeID = @Filter::ToInt($_REQUEST['typeid'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -77,13 +77,13 @@ class boWatches
 			$iTypeID = (int)$typeid;
 		}
 
-		if (($iWhatID1 = @DCL_Sanitize::ToInt($_REQUEST['whatid1'])) === null)
+		if (($iWhatID1 = @Filter::ToInt($_REQUEST['whatid1'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
 		$iWhatID2 = null;
-		if ($typeid == 3 && ($iWhatID2 = @DCL_Sanitize::ToInt($_REQUEST['whatid2'])) === null)
+		if ($typeid == 3 && ($iWhatID2 = @Filter::ToInt($_REQUEST['whatid2'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -128,7 +128,7 @@ class boWatches
 	{
 		commonHeader();
 		
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['watchid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['watchid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -148,7 +148,7 @@ class boWatches
 	{
 		commonHeader();
 		
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['watchid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['watchid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -170,7 +170,7 @@ class boWatches
 	{
 		commonHeader();
 		
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['watchid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['watchid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -189,7 +189,7 @@ class boWatches
 	{
 		commonHeader();
 		
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -362,7 +362,7 @@ class boWatches
 			}
 		}
 
-		if ('Y' == @DCL_Sanitize::ToYN($_REQUEST['copy_me_on_notification']) && $g_oSession->Value('USEREMAIL') != '')
+		if ('Y' == @Filter::ToYN($_REQUEST['copy_me_on_notification']) && $g_oSession->Value('USEREMAIL') != '')
 		{
 			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]) && !isset($arrPublicEmail[$g_oSession->Value('USEREMAIL')]))
 			{
@@ -528,7 +528,7 @@ class boWatches
 			}
 		}
 
-		if ('Y' == @DCL_Sanitize::ToYN($_REQUEST['copy_me_on_notification']) && $g_oSession->Value('USEREMAIL') != '')
+		if ('Y' == @Filter::ToYN($_REQUEST['copy_me_on_notification']) && $g_oSession->Value('USEREMAIL') != '')
 		{
 			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]) && !isset($arrPublicEmail[$g_oSession->Value('USEREMAIL')]))
 			{

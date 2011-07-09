@@ -51,7 +51,7 @@ class htmlContactForm
 		
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['contact_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -71,7 +71,7 @@ class htmlContactForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['contact_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -115,7 +115,7 @@ class htmlContactForm
 			return;
 		}
 
-		$aContactTypes = @DCL_Sanitize::ToIntArray($_REQUEST['contact_type_id']);
+		$aContactTypes = @Filter::ToIntArray($_REQUEST['contact_type_id']);
 		if ($aContactTypes !== null)
 		{
 			$oContactTypeXref = new ContactTypeXrefModel();
@@ -127,7 +127,7 @@ class htmlContactForm
 			}
 		}
 
-		$org_id = DCL_Sanitize::ToInt($_POST['org_id']);
+		$org_id = Filter::ToInt($_POST['org_id']);
 		if ($org_id > 0)
 		{
 			$organizationContactModel = new OrganizationContactModel();
@@ -138,7 +138,7 @@ class htmlContactForm
 			$organizationContactModel->Add();
 		}
 
-		$addr_type_id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id']);
+		$addr_type_id = Filter::ToInt($_REQUEST['addr_type_id']);
 		if ($addr_type_id > 0)
 		{
 			$contactAddressModel = new ContactAddressModel();
@@ -156,7 +156,7 @@ class htmlContactForm
 			$contactAddressModel->Add();
 		}
 
-		$phone_type_id = DCL_Sanitize::ToInt($_REQUEST['phone_type_id']);
+		$phone_type_id = Filter::ToInt($_REQUEST['phone_type_id']);
 		if ($phone_type_id > 0 && $_REQUEST['phone_number'] != '')
 		{
 			$contactPhoneModel = new ContactPhoneModel();
@@ -169,7 +169,7 @@ class htmlContactForm
 			$contactEmailModel->Add();
 		}
 
-		$email_type_id = DCL_Sanitize::ToInt($_REQUEST['email_type_id']);
+		$email_type_id = Filter::ToInt($_REQUEST['email_type_id']);
 		if ($email_type_id > 0 && $_REQUEST['email_addr'] != '')
 		{
 			$contactEmailModel = new ContactEmailModel();
@@ -182,7 +182,7 @@ class htmlContactForm
 			$contactEmailModel->Add();
 		}
 
-		$url_type_id = DCL_Sanitize::ToInt($_REQUEST['url_type_id']);
+		$url_type_id = Filter::ToInt($_REQUEST['url_type_id']);
 		if ($_POST['url_type_id'] > 0 && $_REQUEST['url_addr'] != '')
 		{
 			$contactUrlModel = new ContactUrlModel();
@@ -212,7 +212,7 @@ class htmlContactForm
 		
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['contact_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -223,11 +223,11 @@ class htmlContactForm
 		$obj = new boContact();
 		CleanArray($_REQUEST);
 
-		$aValues = array('contact_id' => DCL_Sanitize::ToInt($_REQUEST['contact_id']),
+		$aValues = array('contact_id' => Filter::ToInt($_REQUEST['contact_id']),
 						'first_name' => $_REQUEST['first_name'],
 						'middle_name' => $_REQUEST['middle_name'],
 						'last_name' => $_REQUEST['last_name'],
-						'contact_type_id' => DCL_Sanitize::ToIntArray($_REQUEST['contact_type_id']),
+						'contact_type_id' => Filter::ToIntArray($_REQUEST['contact_type_id']),
 						'active' => 'Y'
 						);
 						
@@ -245,7 +245,7 @@ class htmlContactForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

@@ -55,7 +55,7 @@ class PersonnelController
 		$model->Encrypt();
 		$model->Add();
 
-		$aRoles = @DCL_Sanitize::ToIntArray($_POST['roles']);
+		$aRoles = @Filter::ToIntArray($_POST['roles']);
 		if (count($aRoles) > 0)
 		{
 			// Set up global user roles
@@ -75,7 +75,7 @@ class PersonnelController
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new PersonnelModel();
@@ -105,7 +105,7 @@ class PersonnelController
 		$oUserRole = new UserRoleModel();
 		$oUserRole->DeleteGlobalRolesNotIn($model->id);
 		
-		$aRoles = @DCL_Sanitize::ToIntArray($_REQUEST['roles']);
+		$aRoles = @Filter::ToIntArray($_REQUEST['roles']);
 		if (count($aRoles) > 0)
 		{
 			// Set up global user roles
@@ -124,7 +124,7 @@ class PersonnelController
 
 	public function Delete()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new PersonnelModel();
@@ -142,7 +142,7 @@ class PersonnelController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new PersonnelModel();
@@ -176,7 +176,7 @@ class PersonnelController
 		$iID = $GLOBALS['DCLID'];
 		if (isset($_REQUEST['userid']))
 		{
-			if (($iID = @DCL_Sanitize::ToInt($_REQUEST['userid'])) === null)
+			if (($iID = @Filter::ToInt($_REQUEST['userid'])) === null)
 			{
 				throw new InvalidDataException();
 			}

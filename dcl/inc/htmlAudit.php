@@ -47,8 +47,8 @@ class htmlAudit
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT))
 			throw new PermissionDeniedException();
 			
-		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null ||
-		    ($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($type = Filter::ToInt($_REQUEST['type'])) === null ||
+		    ($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -59,7 +59,7 @@ class htmlAudit
 		switch ($type)
 		{
 			case DCL_ENTITY_WORKORDER:
-			    if (($id2 = DCL_Sanitize::ToInt($_REQUEST['id2'])) === null)
+			    if (($id2 = Filter::ToInt($_REQUEST['id2'])) === null)
 			    {
 					throw new InvalidDataException();
 				}

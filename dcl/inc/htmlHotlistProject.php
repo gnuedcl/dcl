@@ -44,7 +44,7 @@ class htmlHotlistProject
 
 		commonHeader();
 
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -57,10 +57,10 @@ class htmlHotlistProject
 			$status = 0;
 			$responsible = 0;
 
-			if (($status = @DCL_Sanitize::ToSignedInt($_REQUEST['wostatus'])) === null)
+			if (($status = @Filter::ToSignedInt($_REQUEST['wostatus'])) === null)
 				$status = 0;
 
-			if (($responsible = @DCL_Sanitize::ToInt($_REQUEST['woresponsible'])) === null)
+			if (($responsible = @Filter::ToInt($_REQUEST['woresponsible'])) === null)
 				$responsible = 0;
 
 			$this->show($id, $status, $responsible);

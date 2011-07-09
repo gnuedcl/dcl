@@ -98,12 +98,12 @@ class boTickets
 		}
 
 		// upload a file attachment?
-		if (($sFileName = @DCL_Sanitize::ToFileName('userfile')) !== null)
+		if (($sFileName = @Filter::ToFileName('userfile')) !== null)
 		{
 			$o = new boFile();
 			$o->iType = DCL_ENTITY_TICKET;
 			$o->iKey1 = $obj->ticketid;
-			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+			$o->sFileName = Filter::ToActualFileName('userfile');
 			$o->sTempFileName = $sFileName;
 			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 			$o->Upload();
@@ -156,7 +156,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -177,7 +177,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -204,7 +204,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -226,7 +226,7 @@ class boTickets
 			if (!IsSet($_REQUEST[$sField]) || ($_REQUEST[$sField] == '' && $sField == 'entity_source_id'))
 				continue;
 			
-			if (($iID = @DCL_Sanitize::ToInt($_REQUEST[$sField])) === null)
+			if (($iID = @Filter::ToInt($_REQUEST[$sField])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -270,7 +270,7 @@ class boTickets
 		}
 		else
 		{
-			if (($iID = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+			if (($iID = @Filter::ToInt($_REQUEST['responsible'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -308,7 +308,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -334,7 +334,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -382,7 +382,7 @@ class boTickets
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW, $ticketid), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT, $ticketid), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED, $ticketid)))))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -438,8 +438,8 @@ class boTickets
 		$endDate = new DCLTimestamp;
 		$testDate = new DCLTimestamp;
 
-		if (($iDays = @DCL_Sanitize::ToInt($_REQUEST['days'])) === null ||
-			($dateFrom = @DCL_Sanitize::ToDate($_REQUEST['dateFrom'])) === null
+		if (($iDays = @Filter::ToInt($_REQUEST['days'])) === null ||
+			($dateFrom = @Filter::ToDate($_REQUEST['dateFrom'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -450,7 +450,7 @@ class boTickets
 		$beginDate->time -= (($iDays - 1) * 86400);
 
 		$product_id = 0;
-		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product'])) === null)
+		if (($product_id = @Filter::ToInt($_REQUEST['product'])) === null)
 			$product_id = 0;
 		
 		if ($obj->LoadDatesByRange($beginDate->ToDisplay(), $endDate->ToDisplay(), $product_id) == -1)
@@ -520,7 +520,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -544,22 +544,22 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($responsible = @DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null)
+		if (($responsible = @Filter::ToInt($_REQUEST['responsible'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($priority = @DCL_Sanitize::ToInt($_REQUEST['priority'])) === null)
+		if (($priority = @Filter::ToInt($_REQUEST['priority'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($type = @DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
+		if (($type = @Filter::ToInt($_REQUEST['type'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -593,7 +593,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ATTACHFILE))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -617,7 +617,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ATTACHFILE))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -626,13 +626,13 @@ class boTickets
 		if ($objTicket->Load($iID) == -1)
 			return;
 
-		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) === null)
+		if (($sFileName = Filter::ToFileName('userfile')) === null)
 			throw new PermissionDeniedException();
 
 		$o = new boFile();
 		$o->iType = DCL_ENTITY_TICKET;
 		$o->iKey1 = $iID;
-		$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+		$o->sFileName = Filter::ToActualFileName('userfile');
 		$o->sTempFileName = $sFileName;
 		$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 		$o->Upload();
@@ -649,7 +649,7 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REMOVEFILE))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -658,7 +658,7 @@ class boTickets
 		if ($objTicket->Load($iID) == -1)
 			return;
 			
-		if (!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
+		if (!@Filter::IsValidFileName($_REQUEST['filename']))
 		{
 			throw new InvalidDataException();
 		}
@@ -678,12 +678,12 @@ class boTickets
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REMOVEFILE))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (!@DCL_Sanitize::IsValidFileName($_REQUEST['filename']))
+		if (!@Filter::IsValidFileName($_REQUEST['filename']))
 		{
 			throw new InvalidDataException();
 		}
@@ -705,12 +705,12 @@ class boTickets
 		commonHeader();
 
 		$personnel = isset($_REQUEST['personnel']) && is_array($_REQUEST['personnel']) ? $_REQUEST['personnel'] : array();
-		$type = @DCL_Sanitize::ToIntArray($_REQUEST['type']);
-		$priority = @DCL_Sanitize::ToIntArray($_REQUEST['priority']);
+		$type = @Filter::ToIntArray($_REQUEST['type']);
+		$priority = @Filter::ToIntArray($_REQUEST['priority']);
 		$status = @$_REQUEST['status'];
-		$account = @DCL_Sanitize::ToIntArray($_REQUEST['account']);
+		$account = @Filter::ToIntArray($_REQUEST['account']);
 		$is_public = @$_REQUEST['is_public'];
-		$entity_source_id = @DCL_Sanitize::ToIntArray($_REQUEST['entity_source_id']);
+		$entity_source_id = @Filter::ToIntArray($_REQUEST['entity_source_id']);
 		$createdon = @$_REQUEST['createdon'];
 		$closedon = @$_REQUEST['closedon'];
 		$statuson = @$_REQUEST['statuson'];
@@ -723,12 +723,12 @@ class boTickets
 		$order = $_REQUEST['order'];
 		$columnhdrs = $_REQUEST['columnhdrs'];
 
-		$dcl_status_type = @DCL_Sanitize::ToIntArray($_REQUEST['dcl_status_type']);
-		$product = @DCL_Sanitize::ToIntArray($_REQUEST['product']);
-		$department = @DCL_Sanitize::ToIntArray($_REQUEST['department']);
+		$dcl_status_type = @Filter::ToIntArray($_REQUEST['dcl_status_type']);
+		$product = @Filter::ToIntArray($_REQUEST['product']);
+		$department = @Filter::ToIntArray($_REQUEST['department']);
 
-		$dateFrom = DCL_Sanitize::ToDate($_REQUEST['dateFrom']);
-		$dateTo = DCL_Sanitize::ToDate($_REQUEST['dateTo']);
+		$dateFrom = Filter::ToDate($_REQUEST['dateFrom']);
+		$dateTo = Filter::ToDate($_REQUEST['dateTo']);
 
 		$oDB = new dclDB;
 
@@ -791,7 +791,7 @@ class boTickets
 						}
 					}
 
-					$pers_sel = DCL_Sanitize::ToIntArray($pers_sel);
+					$pers_sel = Filter::ToIntArray($pers_sel);
 					if (count($pers_sel) > 0)
 						$objView->AddDef('filter', $field, $pers_sel);
 				}
@@ -804,7 +804,7 @@ class boTickets
 		$fieldList = array('priority', 'type', 'account', 'entity_source_id');
 		while (list($key, $field) = each($fieldList))
 		{
-			$$field = DCL_Sanitize::ToIntArray($$field);
+			$$field = Filter::ToIntArray($$field);
 			if (count($$field) > 0)
 				$objView->AddDef('filter', $field, $$field);
 		}
@@ -815,7 +815,7 @@ class boTickets
 		if (count($is_public) > 0)
 		{
 			foreach ($is_public as $publicValue)
-				$objView->AddDef('filter', 'is_public', $oDB->Quote(DCL_Sanitize::ToYN($publicValue)));
+				$objView->AddDef('filter', 'is_public', $oDB->Quote(Filter::ToYN($publicValue)));
 		}
 
 		if (count($module_id) > 0)
@@ -840,7 +840,7 @@ class boTickets
 				}
 			}
 
-			$module = DCL_Sanitize::ToIntArray($module);
+			$module = Filter::ToIntArray($module);
 			if (count($module) > 0)
 				$objView->AddDef('filter', 'module_id', $module);
 		}
@@ -856,7 +856,7 @@ class boTickets
 			foreach ($status as $encoded_status)
 			{
 				list($type_id, $status_id) = explode(',', $encoded_status);
-				if (($type_id = DCL_Sanitize::ToInt($type_id)) !== null && ($status_id = DCL_Sanitize::ToInt($status_id)) !== null)
+				if (($type_id = Filter::ToInt($type_id)) !== null && ($status_id = Filter::ToInt($status_id)) !== null)
 				{
 					$statuses[count($statuses)] = $status_id;
 					if (count($dcl_status_type) > 0 && in_array($type_id, $dcl_status_type))

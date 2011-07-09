@@ -59,10 +59,10 @@ class htmlWOStatistics
 		$objStatuses = new StatusModel();
 		$objWorkorders = new WorkOrderModel();
 		
-		$products = @DCL_Sanitize::ToIntArray($_REQUEST['products']);
-		$people = @DCL_Sanitize::ToIntArray($_REQUEST['people']);
-		$begindate = @DCL_Sanitize::ToDate($_REQUEST['begindate']);
-		$enddate = @DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$products = @Filter::ToIntArray($_REQUEST['products']);
+		$people = @Filter::ToIntArray($_REQUEST['people']);
+		$begindate = @Filter::ToDate($_REQUEST['begindate']);
+		$enddate = @Filter::ToDate($_REQUEST['enddate']);
 
 		if (count($products) < 1)
 		{
@@ -317,11 +317,11 @@ class htmlWOStatistics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$responsible = DCL_Sanitize::ToInt($_REQUEST['responsible']);
-		$product = DCL_Sanitize::ToInt($_REQUEST['product']);
-		$status = DCL_Sanitize::ToInt($_REQUEST['status']);
-		$begindate = DCL_Sanitize::ToDate($_REQUEST['begindate']);
-		$enddate = DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$responsible = Filter::ToInt($_REQUEST['responsible']);
+		$product = Filter::ToInt($_REQUEST['product']);
+		$status = Filter::ToInt($_REQUEST['status']);
+		$begindate = Filter::ToDate($_REQUEST['begindate']);
+		$enddate = Filter::ToDate($_REQUEST['enddate']);
 		
 		$obj = new dclDB;
 

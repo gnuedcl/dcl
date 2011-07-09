@@ -34,7 +34,7 @@ class OrganizationTypeModel extends dclDB
 	
 	function ListByOrg($org_id)
 	{
-		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
+		if (($org_id = Filter::ToInt($org_id)) === null)
 		{
 			throw new InvalidDataException();
 		}

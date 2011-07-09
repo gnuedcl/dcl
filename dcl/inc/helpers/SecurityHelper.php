@@ -52,7 +52,7 @@ class SecurityHelper
 	function HasSpecificRole($role_id)
 	{
 		// Checks the current user for specific role - should only be used by custom plugins
-		if (($role_id = DCL_Sanitize::ToInt($role_id)) === null)
+		if (($role_id = Filter::ToInt($role_id)) === null)
 		{
 			throw new InvalidDataException();
 		}

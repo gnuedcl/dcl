@@ -56,7 +56,7 @@ class htmlWiki
 	{
 		global $dcl_info, $type;
 			
-		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
+		if (($type = Filter::ToInt($_REQUEST['type'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -64,7 +64,7 @@ class htmlWiki
 		if ($type == DCL_ENTITY_GLOBAL)
 			return;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -89,7 +89,7 @@ class htmlWiki
 				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
 				break;
 			case DCL_ENTITY_WORKORDER:
-				if (($id2 = DCL_Sanitize::ToInt($_REQUEST['id2'])) === null)
+				if (($id2 = Filter::ToInt($_REQUEST['id2'])) === null)
 				{
 					throw new InvalidDataException();
 				}
@@ -118,12 +118,12 @@ class htmlWiki
 
 		commonHeader();
 
-		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
+		if (($type = Filter::ToInt($_REQUEST['type'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null && $type != DCL_ENTITY_GLOBAL)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null && $type != DCL_ENTITY_GLOBAL)
 		{
 			throw new InvalidDataException();
 		}
@@ -134,7 +134,7 @@ class htmlWiki
 		$name = @$_REQUEST['name'];
 		$editmode = @$_REQUEST['editmode'];
 		$text = @$_REQUEST['text'];
-		$id2 = @DCL_Sanitize::ToInt($_REQUEST['id2']);
+		$id2 = @Filter::ToInt($_REQUEST['id2']);
 
 		if ($dcl_info['DCL_WIKI_ENABLED'] != 'Y' || !$g_oSec->HasPerm($type, DCL_PERM_VIEWWIKI))
 			throw new PermissionDeniedException();
@@ -266,18 +266,18 @@ class htmlWiki
 
 	function format_html($text)
 	{
-		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
+		if (($type = Filter::ToInt($_REQUEST['type'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 
-		if ($type != DCL_ENTITY_GLOBAL && ($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if ($type != DCL_ENTITY_GLOBAL && ($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
 		if ($type == DCL_ENTITY_WORKORDER)
-			$id2 = @DCL_Sanitize::ToInt($_REQUEST['id2']);
+			$id2 = @Filter::ToInt($_REQUEST['id2']);
 		else
 			$id2 = 0;
 
@@ -507,13 +507,13 @@ class htmlWiki
 
 	function RecentChanges()
 	{
-		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null)
+		if (($type = Filter::ToInt($_REQUEST['type'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		$id = @DCL_Sanitize::ToInt($_REQUEST['id']);
-		$id2 = @DCL_Sanitize::ToInt($_REQUEST['id2']);
+		$id = @Filter::ToInt($_REQUEST['id']);
+		$id2 = @Filter::ToInt($_REQUEST['id2']);
 		
 		$list = "||||||'''" . DCL_WIKI_RECENTCHANGES . "'''||\n";
 		$list .= "||'''" . DCL_WIKI_PAGE;
@@ -554,8 +554,8 @@ class htmlWiki
 	{
 		global $g_oSession, $g_oSec, $dcl_info;
 
-		if (($type = DCL_Sanitize::ToInt($_REQUEST['type'])) === null ||
-			($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null
+		if (($type = Filter::ToInt($_REQUEST['type'])) === null ||
+			($id = Filter::ToInt($_REQUEST['id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -564,7 +564,7 @@ class htmlWiki
 		$name = GPCStripSlashes($_REQUEST['name']);
 		$editmode = $_REQUEST['editmode'];
 		$text = GPCStripSlashes($_REQUEST['text']);
-		$id2 = @DCL_Sanitize::ToInt($_REQUEST['id2']);
+		$id2 = @Filter::ToInt($_REQUEST['id2']);
 		if ($type != DCL_ENTITY_WORKORDER)
 			$id2 = 0;
 		

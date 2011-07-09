@@ -729,9 +729,9 @@ class DCL_DB_Core
 				return $this->DisplayToSQL($sValue);
 			case 'int':
 			case 'auto':
-				return DCL_Sanitize::ToInt($sValue);
+				return Filter::ToInt($sValue);
 			case 'float':
-				return DCL_Sanitize::ToDecimal($sValue);
+				return Filter::ToDecimal($sValue);
 			default:
 				return $sValue;
 		}

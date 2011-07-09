@@ -121,7 +121,7 @@ class htmlPersonnelSelector
 		$iPage = 1;
 		$this->oView->startrow = 0;
 		$this->oView->numrows = 15;
-		if (isset($_REQUEST['page']) && DCL_Sanitize::ToInt($_REQUEST['page']) !== null)
+		if (isset($_REQUEST['page']) && Filter::ToInt($_REQUEST['page']) !== null)
 		{
 			$iPage = (int)$_REQUEST['page'];
 			if ($iPage < 1)

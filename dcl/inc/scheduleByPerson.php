@@ -74,7 +74,7 @@ class scheduleByPerson
 
 		commonHeader();
 		
-		if (($personID = DCL_Sanitize::ToInt($_REQUEST['personID'])) === null)
+		if (($personID = Filter::ToInt($_REQUEST['personID'])) === null)
 		{
 			throw new InvalidDataException();
 		}

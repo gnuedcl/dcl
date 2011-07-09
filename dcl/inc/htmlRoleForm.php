@@ -48,7 +48,7 @@ class htmlRoleForm
 		
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['role_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['role_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -66,7 +66,7 @@ class htmlRoleForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['role_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['role_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -86,7 +86,7 @@ class htmlRoleForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['role_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['role_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -127,7 +127,7 @@ class htmlRoleForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['role_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['role_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -154,7 +154,7 @@ class htmlRoleForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

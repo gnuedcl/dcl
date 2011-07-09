@@ -41,7 +41,7 @@ class htmlProjectDashboard
 		global $g_oSec;
 
 		commonHeader();
-		if (($projectid = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($projectid = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

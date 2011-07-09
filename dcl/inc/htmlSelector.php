@@ -30,7 +30,7 @@ class htmlSelector
 
 	function htmlSelector()
 	{
-		$this->vDefault = DCL_Sanitize::ToIntArray($_REQUEST['initSelected']);
+		$this->vDefault = Filter::ToIntArray($_REQUEST['initSelected']);
 		$this->oDB = null;
 	}
 

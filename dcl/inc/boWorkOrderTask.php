@@ -52,7 +52,7 @@ class boWorkOrderTask extends boAdminObject
 
 	function modify($aSource)
 	{
-		if (($wo_task_id = DCL_Sanitize::ToInt($aSource['wo_task_id'])) === null)
+		if (($wo_task_id = Filter::ToInt($aSource['wo_task_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -84,7 +84,7 @@ class boWorkOrderTask extends boAdminObject
 	
 	function attachFile($aSource, $iIndex = -1)
 	{
-		if (($wo_task_id = DCL_Sanitize::ToInt($aSource['wo_task_id'])) === null)
+		if (($wo_task_id = Filter::ToInt($aSource['wo_task_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -92,12 +92,12 @@ class boWorkOrderTask extends boAdminObject
 		if ($this->oDB->Load($wo_task_id) == -1)
 			return;
 			
-		if (($sFileName = DCL_Sanitize::ToFileName('userfile')) !== null)
+		if (($sFileName = Filter::ToFileName('userfile')) !== null)
 		{
 			$o = new boFile();
 			$o->iType = DCL_ENTITY_WORKORDER_TASK;
 			$o->iKey1 = $wo_task_id;
-			$o->sFileName = DCL_Sanitize::ToActualFileName('userfile');
+			$o->sFileName = Filter::ToActualFileName('userfile');
 			$o->sTempFileName = $sFileName;
 			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 			$o->Upload();
@@ -106,7 +106,7 @@ class boWorkOrderTask extends boAdminObject
 	
 	function toggleComplete($aSource)
 	{
-		if (($wo_task_id = DCL_Sanitize::ToInt($aSource['wo_task_id'])) === null)
+		if (($wo_task_id = Filter::ToInt($aSource['wo_task_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

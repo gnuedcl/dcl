@@ -50,8 +50,8 @@ class PriorityModel extends dclDB
 
 	private function AdjustWeights($fromThisWeight, $editID = 0)
 	{
-		if (($fromThisWeight = DCL_Sanitize::ToInt($fromThisWeight)) === null ||
-			($editID = DCL_Sanitize::ToInt($editID)) === null)
+		if (($fromThisWeight = Filter::ToInt($fromThisWeight)) === null ||
+			($editID = Filter::ToInt($editID)) === null)
 		{
 			throw new InvalidDataException();
 		}

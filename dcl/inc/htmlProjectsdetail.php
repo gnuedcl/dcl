@@ -436,8 +436,8 @@ class htmlProjectsdetail
 	{
 		global $dcl_info, $g_oSec;
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null ||
-			!DCL_Sanitize::IsValidFileName($_REQUEST['filename'])
+		if (($id = Filter::ToInt($_REQUEST['projectid'])) === null ||
+			!Filter::IsValidFileName($_REQUEST['filename'])
 			)
 		{
 			throw new InvalidDataException();

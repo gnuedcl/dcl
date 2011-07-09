@@ -63,7 +63,7 @@ class htmlProductDashboard
 		global $g_oSec, $dcl_info;
 
 		commonHeader();
-		if (($productid = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($productid = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

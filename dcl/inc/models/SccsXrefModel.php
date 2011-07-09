@@ -34,9 +34,9 @@ class SccsXrefModel extends dclDB
 
 	public function ListChangeLog($type, $id1, $id2 = 0)
 	{
-		if (($type = DCL_Sanitize::ToInt($type)) === null ||
-			($id1 = DCL_Sanitize::ToInt($id1)) === null ||
-			($id2 = DCL_Sanitize::ToInt($id2)) === null)
+		if (($type = Filter::ToInt($type)) === null ||
+			($id1 = Filter::ToInt($id1)) === null ||
+			($id2 = Filter::ToInt($id2)) === null)
 		{
 			throw new InvalidDataException();
 		}

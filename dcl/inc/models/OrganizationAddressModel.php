@@ -34,7 +34,7 @@ class OrganizationAddressModel extends dclDB
 	
 	public function ListByOrg($org_id)
 	{
-		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
+		if (($org_id = Filter::ToInt($org_id)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -47,7 +47,7 @@ class OrganizationAddressModel extends dclDB
 
 	public function GetPrimaryAddress($iOrgID)
 	{
-		if (($iOrgID = DCL_Sanitize::ToInt($iOrgID)) === null)
+		if (($iOrgID = Filter::ToInt($iOrgID)) === null)
 		{
 			throw new InvalidDataException();
 		}

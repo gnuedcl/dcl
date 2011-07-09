@@ -39,12 +39,12 @@ class reportTicketActivity
 		$t = new DCL_Smarty();
 		$t->assign('CMB_RESPONSIBLE', $objPersonnel->Select($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, false));
 
-		if (IsSet($_REQUEST['begindate']) && ($beginDate = DCL_Sanitize::ToDate($_REQUEST['begindate'])) !== null)
+		if (IsSet($_REQUEST['begindate']) && ($beginDate = Filter::ToDate($_REQUEST['begindate'])) !== null)
 			$t->assign('VAL_BEGINDATE', $begindate);
 		else
 			$t->assign('VAL_BEGINDATE', '');
 
-		if (IsSet($_REQUEST['enddate']) && ($beginDate = DCL_Sanitize::ToDate($_REQUEST['enddate'])) !== null)
+		if (IsSet($_REQUEST['enddate']) && ($beginDate = Filter::ToDate($_REQUEST['enddate'])) !== null)
 			$t->assign('VAL_ENDDATE', $enddate);
 		else
 			$t->assign('VAL_ENDDATE', '');
@@ -56,9 +56,9 @@ class reportTicketActivity
 	{
 		commonHeader();
 
-		if (($begindate = DCL_Sanitize::ToDate($_REQUEST['begindate'])) === null ||
-			($enddate = DCL_Sanitize::ToDate($_REQUEST['enddate'])) === null ||
-			($responsible = DCL_Sanitize::ToInt($_REQUEST['responsible'])) === null
+		if (($begindate = Filter::ToDate($_REQUEST['begindate'])) === null ||
+			($enddate = Filter::ToDate($_REQUEST['enddate'])) === null ||
+			($responsible = Filter::ToInt($_REQUEST['responsible'])) === null
 			)
 		{
 			trigger_error('All fields are required.');

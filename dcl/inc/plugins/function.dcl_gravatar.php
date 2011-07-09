@@ -25,7 +25,7 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 	global $g_oSec, $g_oSession, $g_GravitarsByUserId, $dcl_info;
 	
 	$userId = -1;
-	if (!isset($params['userId']) || ($userId = DCL_Sanitize::ToInt($params['userId'])) === null)
+	if (!isset($params['userId']) || ($userId = Filter::ToInt($params['userId'])) === null)
 	{
 		$smarty->trigger_error('dcl_gravatar: missing or incorrect parameter userId');
 		return;
@@ -53,7 +53,7 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 	}
 
 	$size = 32;
-	if (isset($params['size']) && DCL_Sanitize::ToInt($params['size']) !== null)
+	if (isset($params['size']) && Filter::ToInt($params['size']) !== null)
 		$size = $params['size'];
 
 	if (UseHttps() || $dcl_info['DCL_FORCE_SECURE_GRAVATAR'] == 'Y')

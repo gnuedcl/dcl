@@ -41,7 +41,7 @@ class htmlTimeCards
 		foreach ($_REQUEST['selected'] as $jcnseq)
 		{
 			list($jcn, $seq) = explode('.', $jcnseq);
-			if (DCL_Sanitize::ToInt($jcn) === null || DCL_Sanitize::ToInt($seq) === null)
+			if (Filter::ToInt($jcn) === null || Filter::ToInt($seq) === null)
 				continue;
 				
 			if ($bFirst)

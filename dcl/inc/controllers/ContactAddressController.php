@@ -44,7 +44,7 @@ class ContactAddressController extends AbstractController
 
 	public function Create()
 	{
-		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new ContactAddressPresenter();
@@ -55,8 +55,8 @@ class ContactAddressController extends AbstractController
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($id = DCL_Sanitize::ToInt($_POST['contact_id'])) === null ||
-			($addr_type_id = DCL_Sanitize::ToInt($_POST['addr_type_id'])) === null
+		if (($id = Filter::ToInt($_POST['contact_id'])) === null ||
+			($addr_type_id = Filter::ToInt($_POST['addr_type_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -88,10 +88,10 @@ class ContactAddressController extends AbstractController
 
 	public function Edit()
 	{
-		if (($contactAddrId = DCL_Sanitize::ToInt($_REQUEST['contact_addr_id'])) === null)
+		if (($contactAddrId = Filter::ToInt($_REQUEST['contact_addr_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ContactAddressModel();
@@ -106,17 +106,17 @@ class ContactAddressController extends AbstractController
 	{
 		global $g_oSec;
 
-		if (($contactAddrId = DCL_Sanitize::ToInt($_POST['contact_addr_id'])) === null)
+		if (($contactAddrId = Filter::ToInt($_POST['contact_addr_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
 		CleanArray($_POST);
-		$_POST['preferred'] = @DCL_Sanitize::ToYN($_POST['preferred']);
+		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
 		parent::Update($_POST);
 
 		SetRedirectMessage('Success', 'Address updated successfully.');
@@ -130,10 +130,10 @@ class ContactAddressController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['contact_addr_id'])) === null)
+		if (($id = Filter::ToInt($_POST['contact_addr_id'])) === null)
 			throw new InvalidDataException();
 
 		$aKey = array('contact_addr_id' => $id);

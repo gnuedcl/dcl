@@ -34,7 +34,7 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['faqid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -62,7 +62,7 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['faqid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -93,7 +93,7 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['topicid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['topicid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -114,7 +114,7 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['faqid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -128,7 +128,7 @@ class boFaqtopics
 
 		$obj = new FaqTopicsModel();
 		$obj->InitFromGlobals();
-		$obj->active = @DCL_Sanitize::ToYN($_REQUEST['active']);
+		$obj->active = @Filter::ToYN($_REQUEST['active']);
 		$obj->modifyby = $GLOBALS['DCLID'];
 		$obj->modifyon = DCL_NOW;
 		$obj->Edit();
@@ -142,7 +142,7 @@ class boFaqtopics
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['faqid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -162,7 +162,7 @@ class boFaqtopics
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['faqid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -195,7 +195,7 @@ class boFaqtopics
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['topicid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['topicid'])) === null)
 		{
 			throw new InvalidDataException();
 		}

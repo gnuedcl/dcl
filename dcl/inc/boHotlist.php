@@ -44,13 +44,13 @@ class boHotlist extends boAdminObject
 
 	function add($aSource)
 	{
-		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
+		$aSource['active'] = @Filter::ToYN($aSource['active']);
 		parent::add($aSource);
 	}
 
 	function modify($aSource)
 	{
-		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
+		$aSource['active'] = @Filter::ToYN($aSource['active']);
 		parent::modify($aSource);
 	}
 }

@@ -203,9 +203,9 @@ class htmlBuildManager
 		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null ||
-			($product_version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null ||
-			($buildid = @DCL_Sanitize::ToInt($_REQUEST['buildid'])) === null)
+		if (($product_id = @Filter::ToInt($_REQUEST['product_id'])) === null ||
+			($product_version_id = @Filter::ToInt($_REQUEST['product_version_id'])) === null ||
+			($buildid = @Filter::ToInt($_REQUEST['buildid'])) === null)
 			{
 				throw new InvalidDataException();
 			}
@@ -272,7 +272,7 @@ class htmlBuildManager
 
 		$t = new DCL_Smarty();
 
-		$init = @DCL_Sanitize::ToInt($_REQUEST['init']);
+		$init = @Filter::ToInt($_REQUEST['init']);
 		if ($init != 1)
 		{  
 			$t->assign('VAL_INIT', 1);

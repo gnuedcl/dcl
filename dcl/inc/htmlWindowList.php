@@ -37,8 +37,8 @@ class htmlWindowList
 	{
 		global $dcl_info;
 
-		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['wo_id'])) === null ||
-			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
+		if (($wo_id = Filter::ToInt($_REQUEST['wo_id'])) === null ||
+			($seq = Filter::ToInt($_REQUEST['seq'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -122,8 +122,8 @@ class htmlWindowList
 
 	function FrameRender()
 	{
-		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['wo_id'])) === null ||
-			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
+		if (($wo_id = Filter::ToInt($_REQUEST['wo_id'])) === null ||
+			($seq = Filter::ToInt($_REQUEST['seq'])) === null
 			)
 		{
 			throw new InvalidDataException();

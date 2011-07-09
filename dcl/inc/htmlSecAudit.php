@@ -47,13 +47,13 @@ class htmlSecAudit
 		
 		$t->assign('CMB_USERS', $objPersonnel->Select(0, 'responsible', 'lastfirst', 0, false));
 		
-		$begindate = @DCL_Sanitize::ToDate($_REQUEST['begindate']);
+		$begindate = @Filter::ToDate($_REQUEST['begindate']);
 		if ($begindate !== null)
 			$t->assign('VAL_BEGINDATE', $begindate);
 		else
 			$t->assign('VAL_BEGINDATE', '');
 
-		$enddate = @DCL_Sanitize::ToDate($_REQUEST['enddate']);
+		$enddate = @Filter::ToDate($_REQUEST['enddate']);
 		if ($enddate !== null)
 			$t->assign('VAL_ENDDATE', $enddate);
 		else

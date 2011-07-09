@@ -39,7 +39,7 @@ class htmlContactDetail
 
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['contact_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

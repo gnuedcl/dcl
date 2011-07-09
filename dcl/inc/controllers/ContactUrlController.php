@@ -44,7 +44,7 @@ class ContactUrlController extends AbstractController
 
 	public function Create()
 	{
-		if (($contactId = @DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = @Filter::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		$presenter = new ContactUrlPresenter();
@@ -55,8 +55,8 @@ class ContactUrlController extends AbstractController
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($id = DCL_Sanitize::ToInt($_POST['contact_id'])) === null ||
-			($urlTypeId = DCL_Sanitize::ToInt($_POST['url_type_id'])) === null
+		if (($id = Filter::ToInt($_POST['contact_id'])) === null ||
+			($urlTypeId = Filter::ToInt($_POST['url_type_id'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -71,7 +71,7 @@ class ContactUrlController extends AbstractController
 						'contact_id' => $id,
 						'url_type_id' => $urlTypeId,
 						'url_addr' => $_POST['url_addr'],
-						'preferred' => @DCL_Sanitize::ToYN($_POST['preferred']),
+						'preferred' => @Filter::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
 						'created_by' => $GLOBALS['DCLID']
 						)
@@ -83,10 +83,10 @@ class ContactUrlController extends AbstractController
 
 	public function Edit()
 	{
-		if (($contactUrlId = DCL_Sanitize::ToInt($_REQUEST['contact_url_id'])) === null)
+		if (($contactUrlId = Filter::ToInt($_REQUEST['contact_url_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_REQUEST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ContactUrlModel();
@@ -104,11 +104,11 @@ class ContactUrlController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
 		CleanArray($_POST);
-		$_POST['preferred'] = @DCL_Sanitize::ToYN($_POST['preferred']);
+		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
 		parent::Update($_POST);
 
 		SetRedirectMessage('Success', 'URL updated successfully.');
@@ -122,10 +122,10 @@ class ContactUrlController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($contactId = DCL_Sanitize::ToInt($_POST['contact_id'])) === null)
+		if (($contactId = Filter::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($id = DCL_Sanitize::ToInt($_POST['contact_url_id'])) === null)
+		if (($id = Filter::ToInt($_POST['contact_url_id'])) === null)
 			throw new InvalidDataException();
 
 		$aKey = array('contact_url_id' => $id);

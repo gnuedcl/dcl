@@ -41,12 +41,12 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($wo_id = Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($seq = Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -59,7 +59,7 @@ class htmlWorkOrderTask
 		global $g_oSec;
 		
 		commonHeader();
-		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
+		if (($wo_task_id = Filter::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -79,7 +79,7 @@ class htmlWorkOrderTask
 		global $g_oSec;
 		
 		commonHeader();
-		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
+		if (($wo_task_id = Filter::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -99,12 +99,12 @@ class htmlWorkOrderTask
 		global $g_oSec;
 		
 		commonHeader();
-		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+		if (($wo_id = Filter::ToInt($_REQUEST['jcn'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($seq = Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -130,12 +130,12 @@ class htmlWorkOrderTask
 			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
-		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['wo_id'])) === null)
+		if (($wo_id = Filter::ToInt($_REQUEST['wo_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($seq = Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -171,7 +171,7 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
+		if (($wo_task_id = Filter::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -192,12 +192,12 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['wo_task_id'])) === null)
+		if (($wo_task_id = Filter::ToInt($_REQUEST['wo_task_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		$task_complete = @DCL_Sanitize::ToYN($_REQUEST['task_complete']);
+		$task_complete = @Filter::ToYN($_REQUEST['task_complete']);
 
 		$obj = new boWorkOrderTask();
 		$aSource = array('wo_task_id' => $wo_task_id, 'task_complete' => $task_complete);
@@ -216,7 +216,7 @@ class htmlWorkOrderTask
 			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
-		if (($wo_task_id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($wo_task_id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -239,17 +239,17 @@ class htmlWorkOrderTask
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['wo_id'])) === null)
+		if (($wo_id = Filter::ToInt($_REQUEST['wo_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+		if (($seq = Filter::ToInt($_REQUEST['seq'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 
-		$aTaskList = @DCL_Sanitize::ToIntArray($_REQUEST['task']);
+		$aTaskList = @Filter::ToIntArray($_REQUEST['task']);
 		$oDB = new WorkOrderTaskModel();
 		$iOrder = 1;
 		for ($i = 0; $i < count($aTaskList); $i++)
@@ -283,12 +283,12 @@ class htmlWorkOrderTask
 		}
 		else
 		{
-			if (($wo_id = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null)
+			if (($wo_id = Filter::ToInt($_REQUEST['jcn'])) === null)
 			{
 				throw new InvalidDataException();
 			}
 			
-			if (($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null)
+			if (($seq = Filter::ToInt($_REQUEST['seq'])) === null)
 			{
 				throw new InvalidDataException();
 			}

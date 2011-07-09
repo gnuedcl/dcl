@@ -37,7 +37,7 @@ class htmlContactOrgs
 		
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['contact_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -81,7 +81,7 @@ class htmlContactOrgs
 		
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['contact_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -91,7 +91,7 @@ class htmlContactOrgs
 
 		CleanArray($_REQUEST);
 
-		$aOrgs = @DCL_Sanitize::ToIntArray($_REQUEST['org_id']);
+		$aOrgs = @Filter::ToIntArray($_REQUEST['org_id']);
 		$oDbContact = new OrganizationContactModel();
 		$oDbContact->updateOrgs($id, $aOrgs);
 

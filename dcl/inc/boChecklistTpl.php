@@ -70,13 +70,13 @@ class boChecklistTpl
 		$numrows = 25;
 		if (IsSet($_REQUEST['startrow']))
 		{
-			if (($offset = DCL_Sanitize::ToInt($_REQUEST['startrow'])) === null)
+			if (($offset = Filter::ToInt($_REQUEST['startrow'])) === null)
 				$offset = 0;
 		}
 			
 		if (IsSet($_REQUEST['numrows']))
 		{
-			if (($numrows = DCL_Sanitize::ToInt($_REQUEST['numrows'])) === null)
+			if (($numrows = Filter::ToInt($_REQUEST['numrows'])) === null)
 				$numrows = 25;
 		}
 
@@ -172,7 +172,7 @@ class boChecklistTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		$sFileName = DCL_Sanitize::ToFileName('userfile');
+		$sFileName = Filter::ToFileName('userfile');
 		if ($sFileName !== null)
 		{
 			$sName = '';
@@ -230,7 +230,7 @@ class boChecklistTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -238,7 +238,7 @@ class boChecklistTpl
 		$o = new ChecklistTemplateModel();
 		if ($o->Load($iID) != -1)
 		{
-			$sFileName = @DCL_Sanitize::ToFileName('userfile');
+			$sFileName = @Filter::ToFileName('userfile');
 			if ($sFileName !== null)
 			{
 				$sName = '';
@@ -262,7 +262,7 @@ class boChecklistTpl
 				}
 			}
 
-			$o->dcl_chklst_tpl_active = @DCL_Sanitize::ToYN($_REQUEST['dcl_chklst_tpl_active']);
+			$o->dcl_chklst_tpl_active = @Filter::ToYN($_REQUEST['dcl_chklst_tpl_active']);
 			$o->BeginTransaction();
 			$o->Edit();
 
@@ -298,7 +298,7 @@ class boChecklistTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 			
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -316,7 +316,7 @@ class boChecklistTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -352,7 +352,7 @@ class boChecklistTpl
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMTEMPLATES, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

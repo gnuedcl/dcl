@@ -95,7 +95,7 @@ class PersonnelModel extends dclDB
 	{
 		global $g_oSec;
 
-		if (($userID = DCL_Sanitize::ToInt($userID)) === null)
+		if (($userID = Filter::ToInt($userID)) === null)
 		{
 			throw new InvalidDataException();
 		}

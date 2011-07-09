@@ -34,7 +34,7 @@ class OrganizationModel extends dclDB
 	
 	public function GetProductArray($aOrgID)
 	{
-		if (($aOrgID = DCL_Sanitize::ToIntArray($aOrgID)) === null)
+		if (($aOrgID = Filter::ToIntArray($aOrgID)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -56,7 +56,7 @@ class OrganizationModel extends dclDB
 	
 	public function ListMainContacts($org_id)
 	{
-		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
+		if (($org_id = Filter::ToInt($org_id)) === null)
 			return;
 		
 		$sSQL = "SELECT DISTINCT C.last_name, C.first_name, C.contact_id

@@ -34,7 +34,7 @@ class ContactPhoneModel extends dclDB
 
 	function ListByContact($contactId)
 	{
-		if (($contactId = DCL_Sanitize::ToInt($contactId)) === null)
+		if (($contactId = Filter::ToInt($contactId)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -47,7 +47,7 @@ class ContactPhoneModel extends dclDB
 
 	function GetPrimaryPhone($contactId)
 	{
-		if (($contactId = DCL_Sanitize::ToInt($contactId)) === null)
+		if (($contactId = Filter::ToInt($contactId)) === null)
 		{
 			throw new InvalidDataException();
 		}

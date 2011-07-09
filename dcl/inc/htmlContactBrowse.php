@@ -128,7 +128,7 @@ class htmlContactBrowse
 		$oTable->assign('VAL_FILTERNUMROWS', $this->oView->numrows);
 		$oTable->assign('VAL_VIEWSETTINGS', $this->oView->GetForm());
 
-		$filterActive = DCL_Sanitize::ToYN($_REQUEST['filterActive']);
+		$filterActive = Filter::ToYN($_REQUEST['filterActive']);
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$filterActive = $_REQUEST['filterActive'];
 
@@ -140,7 +140,7 @@ class htmlContactBrowse
 		if (IsSet($_REQUEST['filterSearch']))
 			$filterSearch = $_REQUEST['filterSearch'];
 
-		$filterOrgID = isset($_REQUEST['org_id']) ? DCL_Sanitize::ToInt($_REQUEST['org_id']) : null;
+		$filterOrgID = isset($_REQUEST['org_id']) ? Filter::ToInt($_REQUEST['org_id']) : null;
 		if ($filterOrgID !== null)
 		{
 			$oTable->assign('VAL_FILTERORGID', $filterOrgID);
@@ -210,7 +210,7 @@ class htmlContactBrowse
 		$oView->RemoveDef('filterlike', 'first_name');
 		$oView->RemoveDef('filterstart', 'last_name');
 		
-		$filterActive = DCL_Sanitize::ToYN($_REQUEST['filterActive']);
+		$filterActive = Filter::ToYN($_REQUEST['filterActive']);
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$oView->AddDef('filter', 'active', "'$filterActive'");
 
@@ -246,7 +246,7 @@ class htmlContactBrowse
 		if ($filterStartsWith != '')
 			$oView->AddDef('filterstart', 'last_name', $filterStartsWith);
 
-		$filterOrgID = isset($_REQUEST['org_id']) ? DCL_Sanitize::ToInt($_REQUEST['org_id']) : null;
+		$filterOrgID = isset($_REQUEST['org_id']) ? Filter::ToInt($_REQUEST['org_id']) : null;
 		if ($filterOrgID !== null)
 			$oView->AddDef('filter', 'dcl_org_contact.org_id', $filterOrgID);
 
@@ -289,7 +289,7 @@ class htmlContactBrowse
 		
 		$oView->numrows = 25;
 
-		$filterActive = DCL_Sanitize::ToYN($_REQUEST['filterActive']);
+		$filterActive = Filter::ToYN($_REQUEST['filterActive']);
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$oView->AddDef('filter', 'active', "'$filterActive'");
 
@@ -301,7 +301,7 @@ class htmlContactBrowse
 		if ($filterStartsWith != '')
 			$oView->AddDef('filterstart', 'last_name', $filterStartsWith);
 
-		$filterOrgID = isset($_REQUEST['org_id']) ? DCL_Sanitize::ToInt($_REQUEST['org_id']) : null;
+		$filterOrgID = isset($_REQUEST['org_id']) ? Filter::ToInt($_REQUEST['org_id']) : null;
 		if ($filterOrgID !== null)
 			$oView->AddDef('filter', 'dcl_org_contact.org_id', $filterOrgID);
 

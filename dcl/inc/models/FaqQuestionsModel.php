@@ -47,8 +47,8 @@ class FaqQuestionsModel extends dclDB
 
 	public function AdjustSeq($fromThisSeq, $editID = 0)
 	{
-		if (($fromThisSeq = DCL_Sanitize::ToInt($fromThisSeq)) === null ||
-			($editID = DCL_Sanitize::ToInt($editID)) === null)
+		if (($fromThisSeq = Filter::ToInt($fromThisSeq)) === null ||
+			($editID = Filter::ToInt($editID)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -100,7 +100,7 @@ class FaqQuestionsModel extends dclDB
 
 	public function LoadByFaqTopicID($id, $orderby = 'seq')
 	{
-		if (($id = DCL_Sanitize::ToInt($id)) === null)
+		if (($id = Filter::ToInt($id)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -123,7 +123,7 @@ class FaqQuestionsModel extends dclDB
 		
 	public function DeleteByTopic($id)
 	{
-		if (($id = DCL_Sanitize::ToInt($id)) === null)
+		if (($id = Filter::ToInt($id)) === null)
 		{
 			throw new InvalidDataException();
 		}

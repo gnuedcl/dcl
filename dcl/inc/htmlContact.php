@@ -39,7 +39,7 @@ class htmlContact
 
 		$filterActive = '';
 		if (IsSet($_REQUEST['filterActive']))
-			$filterActive = DCL_Sanitize::ToYN($_REQUEST['filterActive']);
+			$filterActive = Filter::ToYN($_REQUEST['filterActive']);
 
 		$oView->table = 'dcl_contact';
 		$oView->title = 'Browse Contacts';
@@ -60,7 +60,7 @@ class htmlContact
 	{
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -104,7 +104,7 @@ class htmlContact
 			throw new PermissionDeniedException();
 		}
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -157,7 +157,7 @@ class htmlContact
 		global $g_oSec;
 		
 		commonHeader();
-		if (($contact_id = DCL_Sanitize::ToIntArray($_REQUEST['contact_id'])) === null)
+		if (($contact_id = Filter::ToIntArray($_REQUEST['contact_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -210,8 +210,8 @@ class htmlContact
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iContactID = DCL_Sanitize::ToInt($_REQUEST['contact_id'])) === null ||
-			($aMergeContacts = DCL_Sanitize::ToIntArray($_REQUEST['merge_contact_id'])) === null
+		if (($iContactID = Filter::ToInt($_REQUEST['contact_id'])) === null ||
+			($aMergeContacts = Filter::ToIntArray($_REQUEST['merge_contact_id'])) === null
 			)
 		{
 			throw new InvalidDataException();

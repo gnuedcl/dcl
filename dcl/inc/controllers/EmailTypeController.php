@@ -57,7 +57,7 @@ class EmailTypeController extends AbstractController
 
 	public function Edit()
 	{
-		if (($emailTypeId = @DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) == -1)
+		if (($emailTypeId = @Filter::ToInt($_REQUEST['email_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($emailTypeId) == -1)
@@ -77,7 +77,7 @@ class EmailTypeController extends AbstractController
 
 	public function Delete()
 	{
-		if (($emailTypeId = @DCL_Sanitize::ToInt($_REQUEST['email_type_id'])) == -1)
+		if (($emailTypeId = @Filter::ToInt($_REQUEST['email_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($emailTypeId) == -1)
@@ -89,7 +89,7 @@ class EmailTypeController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($emailTypeId = @DCL_Sanitize::ToInt($_REQUEST['id'])) == -1)
+		if (($emailTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
 		parent::Destroy(array('email_type_id' => $emailTypeId));

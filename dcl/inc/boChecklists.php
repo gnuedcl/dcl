@@ -59,8 +59,8 @@ class boChecklists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 					
-		$filterStatus = @DCL_Sanitize::ToInt($_REQUEST['filterStatus']);
-		$filterType = @DCL_Sanitize::ToInt($_REQUEST['filterType']);
+		$filterStatus = @Filter::ToInt($_REQUEST['filterStatus']);
+		$filterType = @Filter::ToInt($_REQUEST['filterType']);
 
 		$oView = new boView();
 
@@ -139,7 +139,7 @@ class boChecklists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -201,7 +201,7 @@ class boChecklists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_tpl_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -264,7 +264,7 @@ class boChecklists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -286,7 +286,7 @@ class boChecklists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -321,7 +321,7 @@ class boChecklists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 			
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -339,7 +339,7 @@ class boChecklists
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 			
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -358,7 +358,7 @@ class boChecklists
 	{
 		commonHeader();
 		
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['dcl_chklst_id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['dcl_chklst_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

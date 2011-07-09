@@ -29,7 +29,7 @@ class boBuildManager
 	function modifyReleaseInfo()
 	{	
 		commonHeader();
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['product_version_id'])) === null)
 		{
 		    throw new InvalidDataException();
 		}
@@ -65,7 +65,7 @@ class boBuildManager
 	{
 		commonHeader();
 		
-		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+		if (($product_id = @Filter::ToInt($_REQUEST['product_id'])) === null)
 			throw new PermissionDeniedException();
 		
 		$oDB = new ProductVersionModel();
@@ -80,10 +80,10 @@ class boBuildManager
 	function modifyRelease()
 	{
 		commonHeader();
-		if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+		if (($product_id = @Filter::ToInt($_REQUEST['product_id'])) === null)
 			throw new PermissionDeniedException();
 		
-		if (($product_version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+		if (($product_version_id = @Filter::ToInt($_REQUEST['product_version_id'])) === null)
 			throw new PermissionDeniedException();
 		
 		$oDB = new ProductVersionModel();
@@ -191,7 +191,7 @@ class boBuildManager
 		switch ($_REQUEST['from'])
 		{
 			case 'version':
-			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+			    if (($version_id = @Filter::ToInt($_REQUEST['product_version_id'])) === null)
 			    {
 			        throw new InvalidDataException();
 			    }
@@ -212,12 +212,12 @@ class boBuildManager
 				$objHV->id = $GLOBALS['product_id'];
 				break;				
 			case 'build':
-			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+			    if (($version_id = @Filter::ToInt($_REQUEST['product_version_id'])) === null)
 			    {
 			        throw new InvalidDataException();
 			    }
 			    
-			    if (($product_build_id = @DCL_Sanitize::ToInt($_REQUEST['product_build_id'])) === null)
+			    if (($product_build_id = @Filter::ToInt($_REQUEST['product_build_id'])) === null)
 			    {
 			        throw new InvalidDataException();
 			    }
@@ -258,12 +258,12 @@ class boBuildManager
 		switch ($GLOBALS['from'])
 		{
 			case 'version':	
-			    if (($version_id = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+			    if (($version_id = @Filter::ToInt($_REQUEST['product_version_id'])) === null)
 			    {
 			        throw new InvalidDataException();
 			    }
 			    
-			    if (($product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+			    if (($product_id = @Filter::ToInt($_REQUEST['product_id'])) === null)
 			    {
 			        throw new InvalidDataException();
 			    }

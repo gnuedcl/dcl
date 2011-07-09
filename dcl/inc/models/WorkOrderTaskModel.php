@@ -34,7 +34,7 @@ class WorkOrderTaskModel extends dclDB
 	
 	public function DeleteByWorkOrder($wo_id, $seq)
 	{
-		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
+		if (($wo_id = Filter::ToInt($wo_id)) === null || ($seq = Filter::ToInt($seq)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -44,7 +44,7 @@ class WorkOrderTaskModel extends dclDB
 	
 	public function GetTasksForWorkOrder($wo_id, $seq, $bForDisplay = true)
 	{
-		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
+		if (($wo_id = Filter::ToInt($wo_id)) === null || ($seq = Filter::ToInt($seq)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -69,7 +69,7 @@ class WorkOrderTaskModel extends dclDB
 	
 	public function GetCountIncompleteTasksForWorkOrder($wo_id, $seq)
 	{
-		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
+		if (($wo_id = Filter::ToInt($wo_id)) === null || ($seq = Filter::ToInt($seq)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -81,7 +81,7 @@ class WorkOrderTaskModel extends dclDB
 	{
 		global $DCLID;
 		
-		if (($wo_id = DCL_Sanitize::ToInt($wo_id)) === null || ($seq = DCL_Sanitize::ToInt($seq)) === null)
+		if (($wo_id = Filter::ToInt($wo_id)) === null || ($seq = Filter::ToInt($seq)) === null)
 		{
 			throw new InvalidDataException();
 		}

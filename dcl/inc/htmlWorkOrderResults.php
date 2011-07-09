@@ -51,7 +51,7 @@ class htmlWorkOrderResults
 		if (!$bIsExplicitView)
 			$oTable->assign('VAL_VIEWSETTINGS', $oView->GetForm());
 			
-		$aProducts = IsSet($_REQUEST['product']) ? DCL_Sanitize::ToIntArray($_REQUEST['product']) : array();
+		$aProducts = IsSet($_REQUEST['product']) ? Filter::ToIntArray($_REQUEST['product']) : array();
 		if ($aProducts !== null && count($aProducts) > 0)
 			$oTable->assign('HID_PRODUCT', join(',', $aProducts));
 		else

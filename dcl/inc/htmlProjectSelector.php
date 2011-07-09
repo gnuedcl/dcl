@@ -68,7 +68,7 @@ class htmlProjectSelector
 		else
 			$this->oSmarty->assign('VAL_MULTIPLE', 'false');
 		
-		$filterStatus = @DCL_Sanitize::ToSignedInt($_REQUEST['filterStatus']);
+		$filterStatus = @Filter::ToSignedInt($_REQUEST['filterStatus']);
 		if ($filterStatus === null)
 			$filterStatus = -1;
 			
@@ -86,7 +86,7 @@ class htmlProjectSelector
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$filterStatus = @DCL_Sanitize::ToSignedInt($_REQUEST['filterStatus']);
+		$filterStatus = @Filter::ToSignedInt($_REQUEST['filterStatus']);
 		if ($filterStatus === null)
 			$filterStatus = -1;
 		
@@ -104,7 +104,7 @@ class htmlProjectSelector
 				$filterSearch = $_REQUEST['filterSearch'];
 		}
 
-		if (isset($_REQUEST['filterID']) && @DCL_Sanitize::ToInt($_REQUEST['filterID']) !== null)
+		if (isset($_REQUEST['filterID']) && @Filter::ToInt($_REQUEST['filterID']) !== null)
 			$filterID = explode(',', $_REQUEST['filterID']);
 
 		$aColumnHeaders = array(STR_CMMN_ID, STR_PRJ_LEAD, STR_PRJ_STATUS, STR_PRJ_NAME);

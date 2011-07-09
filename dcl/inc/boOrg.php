@@ -48,7 +48,7 @@ class boOrg extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		$aSource['active'] = @DCL_Sanitize::ToYN($aSource['active']);
+		$aSource['active'] = @Filter::ToYN($aSource['active']);
 		parent::modify($aSource);
 		
 		$sTypes = join(',', $aSource['org_type_id']);
@@ -72,7 +72,7 @@ class boOrg extends boAdminObject
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = @DCL_Sanitize::ToInt($aSource['org_id'])) === null)
+		if (($id = @Filter::ToInt($aSource['org_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}		
@@ -93,7 +93,7 @@ class boOrg extends boAdminObject
 
 	function ListSelected($id)
 	{
-		if (($id = @DCL_Sanitize::ToIntArray($id)) === null)
+		if (($id = @Filter::ToIntArray($id)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -105,12 +105,12 @@ class boOrg extends boAdminObject
 
 	function ListSelectedByWorkOrder($jcn, $seq)
 	{
-		if (($jcn = @DCL_Sanitize::ToInt($jcn)) === null)
+		if (($jcn = @Filter::ToInt($jcn)) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (($seq = @DCL_Sanitize::ToInt($seq)) === null)
+		if (($seq = @Filter::ToInt($seq)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -122,7 +122,7 @@ class boOrg extends boAdminObject
 
 	function ListSelectedByTicket($ticketid)
 	{
-		if (($ticketid = @DCL_Sanitize::ToInt($ticketid)) === null)
+		if (($ticketid = @Filter::ToInt($ticketid)) === null)
 		{
 			throw new InvalidDataException();
 		}

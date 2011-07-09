@@ -43,7 +43,7 @@ class htmlProductModuleView extends htmlView
 		
 		$aLinks = array();
 		
-		if (($product_id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+		if (($product_id = Filter::ToInt($_REQUEST['product_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

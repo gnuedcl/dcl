@@ -54,9 +54,9 @@ class boSecAudit
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$begindate = @DCL_Sanitize::ToDateTime($_REQUEST['begindate'] . ' 00:00:00.00');
-		$enddate = @DCL_Sanitize::ToDateTime($_REQUEST['enddate'] . ' 23:59:59.99');
-		$responsible = DCL_Sanitize::ToInt($_REQUEST['responsible']);
+		$begindate = @Filter::ToDateTime($_REQUEST['begindate'] . ' 00:00:00.00');
+		$enddate = @Filter::ToDateTime($_REQUEST['enddate'] . ' 23:59:59.99');
+		$responsible = Filter::ToInt($_REQUEST['responsible']);
 		
 		if ($begindate === null || $enddate === null)
 		{

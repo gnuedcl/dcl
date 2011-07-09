@@ -67,13 +67,13 @@ class boWorkspaceUser extends boAdminObject
 	
 	function deleteByUser($personnel_id)
 	{
-		if (($personnel_id = DCL_Sanitize::ToInt($personnel_id)) !== null)
+		if (($personnel_id = Filter::ToInt($personnel_id)) !== null)
 			$this->oDB->Execute("DELETE FROM dcl_workspace_user WHERE personnel_id = $personnel_id");
 	}
 	
 	function deleteByWorkspace($workspace_id)
 	{
-		if (($workspace_id = DCL_Sanitize::ToInt($workspace_id)) !== null)
+		if (($workspace_id = Filter::ToInt($workspace_id)) !== null)
 			$this->oDB->Execute("DELETE FROM dcl_workspace_user WHERE workspace_id = $workspace_id");
 	}
 }

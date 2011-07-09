@@ -106,16 +106,16 @@ class htmlProjectmap
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($projectid = DCL_Sanitize::ToInt($_REQUEST['projectid'])) === null)
+		if (($projectid = Filter::ToInt($_REQUEST['projectid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		$wostatus = @DCL_Sanitize::ToInt($_REQUEST['wostatus']);
+		$wostatus = @Filter::ToInt($_REQUEST['wostatus']);
 		if ($wostatus === null)
 			$wostatus = 0;
 			
-		$woresponsible = @DCL_Sanitize::ToInt($_REQUEST['woresponsible']);
+		$woresponsible = @Filter::ToInt($_REQUEST['woresponsible']);
 		if ($woresponsible === null)
 			$woresponsible = 0;
 

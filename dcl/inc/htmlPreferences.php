@@ -100,7 +100,7 @@ class htmlPreferences
 				continue;
 				
 			if ($pref == 'DCL_PREF_NOTIFY_DEFAULT')
-				$setting = DCL_Sanitize::ToYN($_REQUEST['DCL_PREF_NOTIFY_DEFAULT']);
+				$setting = Filter::ToYN($_REQUEST['DCL_PREF_NOTIFY_DEFAULT']);
 
 			if ($o->Value($pref) != $setting)
 			{

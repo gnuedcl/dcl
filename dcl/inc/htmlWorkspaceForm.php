@@ -48,7 +48,7 @@ class htmlWorkspaceForm
 		
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['workspace_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -66,7 +66,7 @@ class htmlWorkspaceForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['workspace_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -86,7 +86,7 @@ class htmlWorkspaceForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['workspace_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -111,8 +111,8 @@ class htmlWorkspaceForm
 
 		$obj = new boWorkspace();
 		CleanArray($_REQUEST);
-		$aUsers = @DCL_Sanitize::ToIntArray($_REQUEST['users']);
-		$aProducts = @DCL_Sanitize::ToIntArray($_REQUEST['products']);
+		$aUsers = @Filter::ToIntArray($_REQUEST['users']);
+		$aProducts = @Filter::ToIntArray($_REQUEST['products']);
 		$obj->add(array(
 					'workspace_name' => $_REQUEST['workspace_name'],
 					'active' => $_REQUEST['active'],
@@ -130,7 +130,7 @@ class htmlWorkspaceForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['workspace_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -140,8 +140,8 @@ class htmlWorkspaceForm
 
 		$obj = new boWorkspace();
 		CleanArray($_REQUEST);
-		$aUsers = @DCL_Sanitize::ToIntArray($_REQUEST['users']);
-		$aProducts = @DCL_Sanitize::ToIntArray($_REQUEST['products']);
+		$aUsers = @Filter::ToIntArray($_REQUEST['users']);
+		$aProducts = @Filter::ToIntArray($_REQUEST['products']);
 		$obj->modify(array(
 					'workspace_id' => $id,
 					'workspace_name' => $_REQUEST['workspace_name'],
@@ -160,7 +160,7 @@ class htmlWorkspaceForm
 		global $g_oSec;
 		
 		commonHeader();
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -187,7 +187,7 @@ class htmlWorkspaceForm
 			throw new PermissionDeniedException();
 		}
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['workspace_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['workspace_id'])) === null)
 		{
 			ob_end_flush();
 			throw new InvalidDataException();

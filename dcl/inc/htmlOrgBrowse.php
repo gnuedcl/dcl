@@ -113,7 +113,7 @@ class htmlOrgBrowse
 		$oTable->assign('VAL_FILTERNUMROWS', $this->oView->numrows);
 		$oTable->assign('VAL_VIEWSETTINGS', $this->oView->GetForm());
 
-		$filterActive = @DCL_Sanitize::ToYN($_REQUEST['filterActive']);
+		$filterActive = @Filter::ToYN($_REQUEST['filterActive']);
 		if ($filterActive != 'Y' && $filterActive != 'N')
 			$filterActive = '';
 
@@ -170,7 +170,7 @@ class htmlOrgBrowse
 		$oView->RemoveDef('filterlike', 'name');
 		$oView->RemoveDef('filterstart', 'name');
 		
-		$filterActive = @DCL_Sanitize::ToYN($_REQUEST['filterActive']);
+		$filterActive = @Filter::ToYN($_REQUEST['filterActive']);
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$oView->AddDef('filter', 'active', "'$filterActive'");
 
@@ -218,7 +218,7 @@ class htmlOrgBrowse
 		
 		$oView->numrows = 25;
 
-		$filterActive = @DCL_Sanitize::ToYN($_REQUEST['filterActive']);
+		$filterActive = @Filter::ToYN($_REQUEST['filterActive']);
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$oView->AddDef('filter', 'active', "'$filterActive'");
 

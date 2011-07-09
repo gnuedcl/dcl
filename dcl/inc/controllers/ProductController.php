@@ -64,7 +64,7 @@ class ProductController extends AbstractController
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ProductModel();
@@ -92,7 +92,7 @@ class ProductController extends AbstractController
 
 	public function Delete()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ProductModel();
@@ -107,7 +107,7 @@ class ProductController extends AbstractController
 	{
 		global $g_oSec;
 		
-		if (($id = @DCL_Sanitize::ToInt($_POST['id'])) === null)
+		if (($id = @Filter::ToInt($_POST['id'])) === null)
 			throw new InvalidDataException();
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE, $id))
@@ -130,7 +130,7 @@ class ProductController extends AbstractController
 	
 	public function Detail()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ProductModel();
@@ -144,7 +144,7 @@ class ProductController extends AbstractController
 
 	function DetailWorkOrder()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ProductModel();
@@ -158,7 +158,7 @@ class ProductController extends AbstractController
 
 	function DetailTicket()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ProductModel();
@@ -172,7 +172,7 @@ class ProductController extends AbstractController
 
 	function DetailModule()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ProductModel();
@@ -186,7 +186,7 @@ class ProductController extends AbstractController
 
 	function DetailRelease()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ProductModel();
@@ -200,10 +200,10 @@ class ProductController extends AbstractController
 
 	function DetailBuild()
 	{
-		if (($productId = @DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+		if (($productId = @Filter::ToInt($_REQUEST['product_id'])) === null)
 			throw new InvalidDataException();
 
-		if (($versionId = @DCL_Sanitize::ToInt($_REQUEST['product_version_id'])) === null)
+		if (($versionId = @Filter::ToInt($_REQUEST['product_version_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ProductModel();
@@ -222,7 +222,7 @@ class ProductController extends AbstractController
 	public function IsProjectRequired()
 	{
 		header('Content-Type: application/json');
-		$product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id']);
+		$product_id = @Filter::ToInt($_REQUEST['product_id']);
 		if ($product_id === null)
 			exit;
 		
@@ -241,7 +241,7 @@ class ProductController extends AbstractController
 	public function ListVersions()
 	{
 		header('Content-Type: application/json');
-		$product_id = @DCL_Sanitize::ToInt($_REQUEST['product_id']);
+		$product_id = @Filter::ToInt($_REQUEST['product_id']);
 		if ($product_id === null)
 			exit;
 		

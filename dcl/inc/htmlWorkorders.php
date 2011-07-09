@@ -46,8 +46,8 @@ class htmlWorkorders
 		
 		if (!$bIsBatch)
 		{
-			if (($jcn = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-				($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
+			if (($jcn = Filter::ToInt($_REQUEST['jcn'])) === null ||
+				($seq = Filter::ToInt($_REQUEST['seq'])) === null
 				)
 			{
 				throw new InvalidDataException();
@@ -187,8 +187,8 @@ class htmlWorkorders
 
 		commonHeader();
 		
-		if (($jcn = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
+		if (($jcn = Filter::ToInt($_REQUEST['jcn'])) === null ||
+			($seq = Filter::ToInt($_REQUEST['seq'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -215,8 +215,8 @@ class htmlWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		if (($jcn = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
+		if (($jcn = Filter::ToInt($_REQUEST['jcn'])) === null ||
+			($seq = Filter::ToInt($_REQUEST['seq'])) === null
 			)
 		{
 			throw new InvalidDataException();
@@ -258,8 +258,8 @@ class htmlWorkorders
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		if (($jcn = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null
+		if (($jcn = Filter::ToInt($_REQUEST['jcn'])) === null ||
+			($seq = Filter::ToInt($_REQUEST['seq'])) === null
 			)
 		{
 			throw new InvalidDataException();

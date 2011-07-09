@@ -57,7 +57,7 @@ class UrlTypeController extends AbstractController
 
 	public function Edit()
 	{
-		if (($urlTypeId = @DCL_Sanitize::ToInt($_REQUEST['url_type_id'])) == -1)
+		if (($urlTypeId = @Filter::ToInt($_REQUEST['url_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($urlTypeId) == -1)
@@ -77,7 +77,7 @@ class UrlTypeController extends AbstractController
 
 	public function Delete()
 	{
-		if (($urlTypeId = @DCL_Sanitize::ToInt($_REQUEST['url_type_id'])) == -1)
+		if (($urlTypeId = @Filter::ToInt($_REQUEST['url_type_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($urlTypeId) == -1)
@@ -89,7 +89,7 @@ class UrlTypeController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($urlTypeId = @DCL_Sanitize::ToInt($_REQUEST['id'])) == -1)
+		if (($urlTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
 		parent::Destroy(array('url_type_id' => $urlTypeId));

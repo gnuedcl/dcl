@@ -38,7 +38,7 @@ class boTicketresolutions
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -62,7 +62,7 @@ class boTicketresolutions
 		global $dcl_info, $g_oSec;
 
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['ticketid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -73,7 +73,7 @@ class boTicketresolutions
 		$this->oDB->InitFromGlobals();
 		$this->oDB->loggedby = $GLOBALS['DCLID'];
 		$this->oDB->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
-		$this->oDB->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+		$this->oDB->is_public = @Filter::ToYN($_REQUEST['is_public']);
 
 		$obj = new TicketsModel();
 		if ($obj->Load($this->oDB->ticketid) == -1)
@@ -113,7 +113,7 @@ class boTicketresolutions
 		}
 		else if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ASSIGN))
 		{
-			$iReassignTo = @DCL_Sanitize::ToInt($_REQUEST['reassign_to_id']);
+			$iReassignTo = @Filter::ToInt($_REQUEST['reassign_to_id']);
 			if ($iReassignTo > 0 && $obj->responsible != $iReassignTo)
 			{
 				$obj->responsible = $iReassignTo;
@@ -163,7 +163,7 @@ class boTicketresolutions
 
 		$iOrigStatus = $this->oDB->status;
 		$this->oDB->InitFromArray($aSource);
-		$this->oDB->is_public = @DCL_Sanitize::ToYN($_REQUEST['is_public']);
+		$this->oDB->is_public = @Filter::ToYN($_REQUEST['is_public']);
 
 		$oTicket = new TicketsModel();
 		$oTicket->Load($this->oDB->ticketid);

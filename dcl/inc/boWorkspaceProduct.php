@@ -67,7 +67,7 @@ class boWorkspaceProduct extends boAdminObject
 	
 	function deleteByWorkspace($workspace_id)
 	{
-		if (($workspace_id = DCL_Sanitize::ToInt($workspace_id)) !== null)
+		if (($workspace_id = Filter::ToInt($workspace_id)) !== null)
 			$this->oDB->Execute("DELETE FROM dcl_workspace_product WHERE workspace_id = $workspace_id");
 	}
 }

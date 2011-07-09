@@ -47,7 +47,7 @@ class htmlFaqtopics
 		}
 		else
 		{
-			if (($id = DCL_Sanitize::ToInt($_REQUEST['faqid'])) === null)
+			if (($id = Filter::ToInt($_REQUEST['faqid'])) === null)
 			{
 				throw new InvalidDataException();
 			}

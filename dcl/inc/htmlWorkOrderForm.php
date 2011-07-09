@@ -304,7 +304,7 @@ class htmlWorkOrderForm
 			$this->oSmarty->assign('VAL_RESPONSIBLE', $GLOBALS['DCLID']);
 			$this->oSmarty->assign('VAL_RESPONSIBLENAME', $GLOBALS['DCLNAME']);
 			
-			if (($iContactID = @DCL_Sanitize::ToInt($_REQUEST['contact_id'])) !== null && $iContactID > 0)
+			if (($iContactID = @Filter::ToInt($_REQUEST['contact_id'])) !== null && $iContactID > 0)
 			{
 				$aContact =& $oMeta->GetContact($iContactID);
 				if (is_array($aContact) && count($aContact) > 1)
@@ -342,7 +342,7 @@ class htmlWorkOrderForm
 		}
 		else
 		{
-			$iOrgID = @DCL_Sanitize::ToInt($_REQUEST['org_id']);
+			$iOrgID = @Filter::ToInt($_REQUEST['org_id']);
 			if ($iOrgID === null && $g_oSession->Value('member_of_orgs') != '')
 				$iOrgID = array_shift(split(',', $g_oSession->Value('member_of_orgs')));
 			

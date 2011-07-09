@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,9 +20,9 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class DCL_Sanitize
+class Filter
 {
-	function ToInt($vValue)
+	public function ToInt($vValue)
 	{
 		if (preg_match('/^[0-9]+$/', $vValue))
 			return (int)$vValue;
@@ -32,7 +30,7 @@ class DCL_Sanitize
 		return null;
 	}
 	
-	function ToSignedInt($vValue)
+	public function ToSignedInt($vValue)
 	{
 		if (preg_match('/^[-]?[0-9]+$/', $vValue))
 			return (int)$vValue;
@@ -40,7 +38,7 @@ class DCL_Sanitize
 		return null;
 	}
 	
-	function ToIntArray($vValue)
+	public function ToIntArray($vValue)
 	{
 		$aRetVal = null;
 		if (is_array($vValue))
@@ -52,7 +50,7 @@ class DCL_Sanitize
 		{
 			for ($i = 0; $i < count($aArray); $i++)
 			{
-				if (($iVal = DCL_Sanitize::ToInt($aArray[$i])) !== null)
+				if (($iVal = Filter::ToInt($aArray[$i])) !== null)
 				{
 					if ($aRetVal === null)
 						$aRetVal = array();
@@ -65,7 +63,7 @@ class DCL_Sanitize
 		return $aRetVal;
 	}
 	
-	function ToDecimal($vValue)
+	public function ToDecimal($vValue)
 	{
 		if (preg_match('/^([0-9]*[\.][0-9]+)|([0-9]+[\.]?[0-9]*)$/', $vValue))
 			return (float)$vValue;
@@ -73,7 +71,7 @@ class DCL_Sanitize
 		return null;
 	}
 	
-	function ToDate($vValue)
+	public function ToDate($vValue)
 	{
 		$oDate = new DCLDate;
 		
@@ -84,7 +82,7 @@ class DCL_Sanitize
 		return $oDate->ToDisplay();
 	}
 	
-	function ToDateTime($vValue)
+	public function ToDateTime($vValue)
 	{
 		$oDate = new DCLTimestamp;
 
@@ -95,12 +93,12 @@ class DCL_Sanitize
 		return $oDate->ToDisplay();
 	}
 	
-	function ToYN($vValue)
+	public function ToYN($vValue)
 	{
 		return $vValue == 'Y' ? 'Y' : 'N';
 	}
 
-	function ToFileName($sFieldName, $iIndex = -1)
+	public function ToFileName($sFieldName, $iIndex = -1)
 	{
 		if ($iIndex == -1)
 		{
@@ -116,9 +114,9 @@ class DCL_Sanitize
 		return null;
 	}
 	
-	function ToActualFileName($sFieldName, $iIndex = -1)
+	public function ToActualFileName($sFieldName, $iIndex = -1)
 	{
-		if (DCL_Sanitize::ToFileName($sFieldName) === null)
+		if (Filter::ToFileName($sFieldName) === null)
 			return null;
 			
 		if ($iIndex == -1)
@@ -127,21 +125,20 @@ class DCL_Sanitize
 		return $_FILES[$sFieldName]['name'][$iIndex];
 	}
 	
-	function IsValidFileName($sFileName)
+	public function IsValidFileName($sFileName)
 	{
 		// no file system separators in file names
 		return !preg_match("#[/\\]#", $sFileName);
 	}
 	
-	function IsValidPathName($sPathName)
+	public function IsValidPathName($sPathName)
 	{
 		// just make sure we don't have dir traversal
 		return !preg_match("/[\.\.]/", $sPathName);
 	}
 	
-	function IsValidFieldName($sFieldName)
+	public function IsValidFieldName($sFieldName)
 	{
 		return preg_match("/^[a-z_][a-z0-9_]+([\.][a-z0-9_]+)?$/i", $sFieldName);
 	}
 }
-?>

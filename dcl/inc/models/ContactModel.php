@@ -34,7 +34,7 @@ class ContactModel extends dclDB
 
 	public function GetOrgArray($contact_id)
 	{
-		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
+		if (($contact_id = Filter::ToInt($contact_id)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -53,7 +53,7 @@ class ContactModel extends dclDB
 	
 	public function GetFirstOrg($contact_id)
 	{
-		if (($contact_id = DCL_Sanitize::ToInt($contact_id)) === null)
+		if (($contact_id = Filter::ToInt($contact_id)) === null)
 		{
 			throw new InvalidDataException();
 		}

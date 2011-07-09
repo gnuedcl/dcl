@@ -115,8 +115,8 @@ class htmlAgg
 
 		if (isset($_REQUEST['chkLimitByDate']) && $_REQUEST['chkLimitByDate'] == 1)
 		{
-			$t->assign('VAL_DATEFROM', DCL_Sanitize::ToDate($_REQUEST['dateFrom']));
-			$t->assign('VAL_DATETO', DCL_Sanitize::ToDate($_REQUEST['dateTo']));
+			$t->assign('VAL_DATEFROM', Filter::ToDate($_REQUEST['dateFrom']));
+			$t->assign('VAL_DATETO', Filter::ToDate($_REQUEST['dateTo']));
 			$t->assign('VAL_CHKLIMIT', ' checked');
 		}
 		else
@@ -154,8 +154,8 @@ class htmlAgg
 			$link = 'menuAction=htmlAgg.Search&group=' . $this->group . '&sub=' . $this->sub . '&col=' . (string)($oDB->f(3) - 1) . '&item=' . $oDB->f(1);
 			if (isset($_REQUEST['chkLimitByDate']) && $_REQUEST['chkLimitByDate'] == 1)
 			{
-				$link .= '&dateFrom=' . DCL_Sanitize::ToDate($_REQUEST['dateFrom']);
-				$link .= '&dateTo=' . DCL_Sanitize::ToDate($_REQUEST['dateTo']);
+				$link .= '&dateFrom=' . Filter::ToDate($_REQUEST['dateFrom']);
+				$link .= '&dateTo=' . Filter::ToDate($_REQUEST['dateTo']);
 				$link .= '&chkLimitByDate=1';
 			}
 
@@ -202,7 +202,7 @@ class htmlAgg
 		if (isset($_REQUEST['dateFrom']) && isset($_REQUEST['dateTo']))
 		{
 			$field = $_REQUEST['col'] == 0 ? 'createdon' : 'closedon';
-			$objView->AddDef('filterdate', $field, array(DCL_Sanitize::ToDate($_REQUEST['dateFrom']), DCL_Sanitize::ToDate($_REQUEST['dateTo'])));
+			$objView->AddDef('filterdate', $field, array(Filter::ToDate($_REQUEST['dateFrom']), Filter::ToDate($_REQUEST['dateTo'])));
 		}
 
 		if ($this->sub != 'product')
@@ -274,8 +274,8 @@ class htmlAgg
 		$sql .= 'and w.status = s.id and s.dcl_status_type = t.dcl_status_type_id and ';
 		if (isset($_REQUEST['chkLimitByDate']) && $_REQUEST['chkLimitByDate'] == 1)
 		{
-			$dateFrom = DCL_Sanitize::ToDate($_REQUEST['dateFrom']);
-			$dateTo = DCL_Sanitize::ToDate($_REQUEST['dateTo']);
+			$dateFrom = Filter::ToDate($_REQUEST['dateFrom']);
+			$dateTo = Filter::ToDate($_REQUEST['dateTo']);
 
 			$oDB = new dclDB; // for sql side date formatting
 

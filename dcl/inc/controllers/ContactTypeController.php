@@ -50,7 +50,7 @@ class ContactTypeController extends AbstractController
 	public function Insert()
 	{
 		$aSource = $_POST;
-		$aSource['contact_type_is_main'] = @DCL_Sanitize::ToYN($aSource['contact_type_is_main']);
+		$aSource['contact_type_is_main'] = @Filter::ToYN($aSource['contact_type_is_main']);
 		parent::Insert($aSource);
 
 		SetRedirectMessage('Success', 'Contact type added successfully.');
@@ -64,7 +64,7 @@ class ContactTypeController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_type_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['contact_type_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ContactTypeModel();
@@ -78,7 +78,7 @@ class ContactTypeController extends AbstractController
 	public function Update()
 	{
 		$aSource = $_POST;
-		$aSource['contact_type_is_main'] = @DCL_Sanitize::ToYN($aSource['contact_type_is_main']);
+		$aSource['contact_type_is_main'] = @Filter::ToYN($aSource['contact_type_is_main']);
 		parent::Update($aSource);
 
 		SetRedirectMessage('Success', 'Contact type updated successfully.');
@@ -87,7 +87,7 @@ class ContactTypeController extends AbstractController
 
 	public function Delete()
 	{
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['contact_type_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['contact_type_id'])) === null)
 			throw new InvalidDataException();
 
 		$model = new ContactTypeModel();
@@ -100,7 +100,7 @@ class ContactTypeController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
 		parent::Destroy(array('contact_type_id' => $id));

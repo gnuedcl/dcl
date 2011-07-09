@@ -57,7 +57,7 @@ class AddressTypeController extends AbstractController
 
 	public function Edit()
 	{
-		if (($id = @DCL_Sanitize::ToInt($_REQUEST['addr_type_id'])) === null)
+		if (($id = @Filter::ToInt($_REQUEST['addr_type_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -82,7 +82,7 @@ class AddressTypeController extends AbstractController
 
 	public function Delete()
 	{
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['addr_type_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['addr_type_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -99,7 +99,7 @@ class AddressTypeController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}

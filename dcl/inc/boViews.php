@@ -65,7 +65,7 @@ class boViews
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -92,7 +92,7 @@ class boViews
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -123,7 +123,7 @@ class boViews
 	function exec()
 	{
 		commonHeader();
-		if (($iID = @DCL_Sanitize::ToInt($_REQUEST['viewid'])) === null)
+		if (($iID = @Filter::ToInt($_REQUEST['viewid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -140,8 +140,8 @@ class boViews
 
 		if (IsSet($_REQUEST['btnNav']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
 		{
-			$startrow = @DCL_Sanitize::ToInt($_REQUEST['startrow']);
-			$numrows = @DCL_Sanitize::ToInt($_REQUEST['numrows']);
+			$startrow = @Filter::ToInt($_REQUEST['startrow']);
+			$numrows = @Filter::ToInt($_REQUEST['numrows']);
 			if ($startrow === null)
 				$startrow = 0;
 				
@@ -180,8 +180,8 @@ class boViews
 
 		if ((IsSet($_REQUEST['btnNav']) || IsSet($_REQUEST['jumptopage'])) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
 		{
-			$startrow = @DCL_Sanitize::ToInt($_REQUEST['startrow']);
-			$numrows = @DCL_Sanitize::ToInt($_REQUEST['numrows']);
+			$startrow = @Filter::ToInt($_REQUEST['startrow']);
+			$numrows = @Filter::ToInt($_REQUEST['numrows']);
 			if ($startrow === null)
 				$startrow = 0;
 				
@@ -194,7 +194,7 @@ class boViews
 				$objView->startrow = $startrow + $numrows;
 			else
 			{
-				$iPage = @DCL_Sanitize::ToInt($_REQUEST['jumptopage']);
+				$iPage = @Filter::ToInt($_REQUEST['jumptopage']);
 				if ($iPage === null || $iPage < 1)
 					$iPage = 1;
 

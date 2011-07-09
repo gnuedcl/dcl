@@ -55,7 +55,7 @@ class EntitySourceController extends AbstractController
 
 	public function Edit()
 	{
-		if (($entitySourceId = @DCL_Sanitize::ToInt($_REQUEST['entity_source_id'])) == -1)
+		if (($entitySourceId = @Filter::ToInt($_REQUEST['entity_source_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($entitySourceId) == -1)
@@ -75,7 +75,7 @@ class EntitySourceController extends AbstractController
 
 	public function Delete()
 	{
-		if (($entitySourceId = @DCL_Sanitize::ToInt($_REQUEST['entity_source_id'])) == -1)
+		if (($entitySourceId = @Filter::ToInt($_REQUEST['entity_source_id'])) == -1)
 			throw new InvalidDataException();
 
 		if ($this->model->Load($entitySourceId) == -1)
@@ -87,7 +87,7 @@ class EntitySourceController extends AbstractController
 
 	public function Destroy()
 	{
-		if (($entitySourceId = @DCL_Sanitize::ToInt($_REQUEST['id'])) == -1)
+		if (($entitySourceId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
 		parent::Destroy(array('entity_source_id' => $entitySourceId));

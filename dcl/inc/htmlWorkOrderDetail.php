@@ -179,9 +179,9 @@ class htmlWorkOrderDetail
 	{
 		global $dcl_info, $g_oSec;
 
-		if (($jcn = DCL_Sanitize::ToInt($_REQUEST['jcn'])) === null ||
-			($seq = DCL_Sanitize::ToInt($_REQUEST['seq'])) === null ||
-			!DCL_Sanitize::IsValidFileName($_REQUEST['filename'])
+		if (($jcn = Filter::ToInt($_REQUEST['jcn'])) === null ||
+			($seq = Filter::ToInt($_REQUEST['seq'])) === null ||
+			!Filter::IsValidFileName($_REQUEST['filename'])
 			)
 		{
 			throw new InvalidDataException();

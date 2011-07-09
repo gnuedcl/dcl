@@ -34,10 +34,10 @@ class OrganizationProductModel extends dclDB
 	
 	public function UpdateProducts($org_id, &$aProductID)
 	{
-		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
+		if (($org_id = Filter::ToInt($org_id)) === null)
 			throw new PermissionDeniedException();
 			
-		$aProductID = DCL_Sanitize::ToIntArray($aProductID);
+		$aProductID = Filter::ToIntArray($aProductID);
 		if ($aProductID === null || count($aProductID) == 0)
 			$aProductID = array("-1");
 			
@@ -51,7 +51,7 @@ class OrganizationProductModel extends dclDB
 	{
 		global $g_oSec;
 
-		if (($org_id = DCL_Sanitize::ToInt($org_id)) === null)
+		if (($org_id = Filter::ToInt($org_id)) === null)
 		{
 			throw new InvalidDataException();
 		}

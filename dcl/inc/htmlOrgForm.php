@@ -50,7 +50,7 @@ class htmlOrgForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['org_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -70,7 +70,7 @@ class htmlOrgForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['org_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['org_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -107,7 +107,7 @@ class htmlOrgForm
 			return;
 		}
 		
-		$aOrgTypes = @DCL_Sanitize::ToIntArray($_REQUEST['org_type_id']);
+		$aOrgTypes = @Filter::ToIntArray($_REQUEST['org_type_id']);
 		if ($aOrgTypes !== null)
 		{
 			$oOrgTypeXref = new boOrgTypeXref();
@@ -128,7 +128,7 @@ class htmlOrgForm
 			$organizationAliasModel->Add();
 		}
 
-		$addr_type_id = DCL_Sanitize::ToInt($_POST['addr_type_id']);
+		$addr_type_id = Filter::ToInt($_POST['addr_type_id']);
 		if ($addr_type_id > 0)
 		{
 			$organizationAddressModel = new OrganizationAddressModel();
@@ -146,7 +146,7 @@ class htmlOrgForm
 			$organizationAddressModel->Add();
 		}
 
-		$phone_type_id = DCL_Sanitize::ToInt($_POST['phone_type_id']);
+		$phone_type_id = Filter::ToInt($_POST['phone_type_id']);
 		if ($_POST['phone_type_id'] > 0 && $_POST['phone_number'] != '')
 		{
 			$organizationPhoneModel = new OrganizationPhoneModel();
@@ -159,7 +159,7 @@ class htmlOrgForm
 			$organizationPhoneModel->Add();
 		}
 
-		$email_type_id = DCL_Sanitize::ToInt($_POST['email_type_id']);
+		$email_type_id = Filter::ToInt($_POST['email_type_id']);
 		if ($_POST['email_type_id'] > 0 && $_POST['email_addr'] != '')
 		{
 			$organizationEmailModel = new OrganizationEmailModel();
@@ -172,7 +172,7 @@ class htmlOrgForm
 			$organizationEmailModel->Add();
 		}
 
-		$url_type_id = DCL_Sanitize::ToInt($_POST['url_type_id']);
+		$url_type_id = Filter::ToInt($_POST['url_type_id']);
 		if ($_POST['url_type_id'] > 0 && $_POST['url_addr'] != '')
 		{
 			$organizationUrlModel = new OrganizationUrlModel();
@@ -204,9 +204,9 @@ class htmlOrgForm
 		$obj = new boOrg();
 		CleanArray($_REQUEST);
 
-		$aValues = array('org_id' => DCL_Sanitize::ToInt($_REQUEST['org_id']),
+		$aValues = array('org_id' => Filter::ToInt($_REQUEST['org_id']),
 						'name' => $_REQUEST['name'],
-						'org_type_id' => @DCL_Sanitize::ToIntArray($_REQUEST['org_type_id']),
+						'org_type_id' => @Filter::ToIntArray($_REQUEST['org_type_id']),
 						'active' => 'Y'
 						);
 						
@@ -227,7 +227,7 @@ class htmlOrgForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			trigger_error('Data sanitize_failed.');
 			return;

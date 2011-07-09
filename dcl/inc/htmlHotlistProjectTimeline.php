@@ -35,7 +35,7 @@ class htmlHotlistProjectTimeline
         
 		commonHeader();
 		
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		    throw new PermissionDeniedException();
 		    
 		$hotlist = new HotlistModel();
@@ -56,13 +56,13 @@ class htmlHotlistProjectTimeline
     {
         commonHeader();
         
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		    throw new PermissionDeniedException();
 
-		if (($days = DCL_Sanitize::ToInt($_REQUEST['days'])) === null)
+		if (($days = Filter::ToInt($_REQUEST['days'])) === null)
 		    throw new PermissionDeniedException();
 
-		if (($endon = DCL_Sanitize::ToDate($_REQUEST['endon'])) === null)
+		if (($endon = Filter::ToDate($_REQUEST['endon'])) === null)
 		    throw new PermissionDeniedException();
 		    
 		$oDate = new DCLDate;

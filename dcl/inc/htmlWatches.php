@@ -157,14 +157,14 @@ class htmlWatches
 		}
 		else
 		{
-			if (($typeid = DCL_Sanitize::ToInt($_REQUEST['typeid'])) === null ||
-				($whatid1 = DCL_Sanitize::ToInt($_REQUEST['whatid1'])) === null
+			if (($typeid = Filter::ToInt($_REQUEST['typeid'])) === null ||
+				($whatid1 = Filter::ToInt($_REQUEST['whatid1'])) === null
 				)
 			{
 				throw new InvalidDataException();
 			}
 			
-			if (!isset($_REQUEST['whatid2']) || ($whatid2 = DCL_Sanitize::ToInt($_REQUEST['whatid2'])) === null)
+			if (!isset($_REQUEST['whatid2']) || ($whatid2 = Filter::ToInt($_REQUEST['whatid2'])) === null)
 				$whatid2 = 0;
 			
 			$objW = new WatchesModel();

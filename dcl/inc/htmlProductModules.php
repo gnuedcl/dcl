@@ -69,7 +69,7 @@ class htmlProductModules
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 			
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['product_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -149,7 +149,7 @@ class htmlProductModules
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_module_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['product_module_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -169,7 +169,7 @@ class htmlProductModules
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 			
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['product_module_id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['product_module_id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -218,7 +218,7 @@ class htmlProductModules
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCTMODULE, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 
-		if (($id = DCL_Sanitize::ToInt($_REQUEST['id'])) === null)
+		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -244,14 +244,14 @@ class htmlProductModules
 		
 		if ($isEdit)
 		{
-			if (($product_module_id = DCL_Sanitize::ToInt($_REQUEST['product_module_id'])) === null)
+			if (($product_module_id = Filter::ToInt($_REQUEST['product_module_id'])) === null)
 			{
 				throw new InvalidDataException();
 			}
 		}
 		else
 		{
-			if (($product_id = DCL_Sanitize::ToInt($_REQUEST['product_id'])) === null)
+			if (($product_id = Filter::ToInt($_REQUEST['product_id'])) === null)
 			{
 				throw new InvalidDataException();
 			}

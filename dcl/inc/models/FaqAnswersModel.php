@@ -57,7 +57,7 @@ class FaqAnswersModel extends dclDB
 
 	public function LoadByQuestionID($id, $orderby = 'createon desc')
 	{
-		if (($id = DCL_Sanitize::ToInt($id)) === null)
+		if (($id = Filter::ToInt($id)) === null)
 		{
 			throw new InvalidDataException();
 		}
@@ -80,7 +80,7 @@ class FaqAnswersModel extends dclDB
 		
 	public function DeleteByQuestion($id)
 	{
-		if (($id = DCL_Sanitize::ToInt($id)) === null)
+		if (($id = Filter::ToInt($id)) === null)
 		{
 			throw new InvalidDataException();
 		}

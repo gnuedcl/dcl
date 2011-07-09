@@ -126,7 +126,7 @@ class htmlTicketForm
 			$oSmarty->assign('VAL_STARTEDON', date($dcl_info['DCL_TIMESTAMP_FORMAT']));
 			$oSmarty->assign('VAL_STATUS', $dcl_info['DCL_DEFAULT_TICKET_STATUS']);
 			
-			if (($iOrgID = @DCL_Sanitize::ToInt($_REQUEST['org_id'])) !== null && $iOrgID > 0)
+			if (($iOrgID = @Filter::ToInt($_REQUEST['org_id'])) !== null && $iOrgID > 0)
 			{
 				$aOrg =& $oMeta->GetOrganization($iOrgID);
 				if (is_array($aOrg) && count($aOrg) > 0)
@@ -136,7 +136,7 @@ class htmlTicketForm
 				}
 			}
 			
-			if (($iContactID = @DCL_Sanitize::ToInt($_REQUEST['contact_id'])) !== null && $iContactID > 0)
+			if (($iContactID = @Filter::ToInt($_REQUEST['contact_id'])) !== null && $iContactID > 0)
 			{
 				$aContact =& $oMeta->GetContact($iContactID);
 				if (is_array($aContact) && count($aContact) > 1)
