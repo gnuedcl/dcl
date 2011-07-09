@@ -79,7 +79,7 @@ class imgProduct
 
 		$iWidth = 460;
 		$iHeight = count($aCount) > 9 ? 220 : 200;
-		$this->img = new DCL_Chart($iWidth, $iHeight);
+		$this->img = new ChartHelper($iWidth, $iHeight);
 				
 		$this->img->Data->AddPoint($aCount, 'Count');
 		$this->img->Data->AddPoint($aItem, 'Item');

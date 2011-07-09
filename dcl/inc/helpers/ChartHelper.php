@@ -20,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class DCL_Chart
+class ChartHelper
 {
 	public $Data;
 	public $Chart;
