@@ -100,7 +100,7 @@ class boTickets
 		// upload a file attachment?
 		if (($sFileName = @Filter::ToFileName('userfile')) !== null)
 		{
-			$o = new boFile();
+			$o = new FileHelper();
 			$o->iType = DCL_ENTITY_TICKET;
 			$o->iKey1 = $obj->ticketid;
 			$o->sFileName = Filter::ToActualFileName('userfile');
@@ -629,7 +629,7 @@ class boTickets
 		if (($sFileName = Filter::ToFileName('userfile')) === null)
 			throw new PermissionDeniedException();
 
-		$o = new boFile();
+		$o = new FileHelper();
 		$o->iType = DCL_ENTITY_TICKET;
 		$o->iKey1 = $iID;
 		$o->sFileName = Filter::ToActualFileName('userfile');

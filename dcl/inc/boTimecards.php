@@ -182,7 +182,7 @@ class boTimecards
 		// * File attachment
 		if (($sFileName = Filter::ToFileName('userfile')) !== null && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE))
 		{
-			$o = new boFile();
+			$o = new FileHelper();
 			$o->iType = DCL_ENTITY_WORKORDER;
 			$o->iKey1 = $objWorkorder->jcn;
 			$o->iKey2 = $objWorkorder->seq;

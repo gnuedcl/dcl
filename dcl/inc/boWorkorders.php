@@ -235,7 +235,7 @@ class boWorkorders
 		// upload a file attachment?
 		if (($sFileName = Filter::ToFileName('userfile')) !== null)
 		{
-			$o = new boFile();
+			$o = new FileHelper();
 			$o->iType = DCL_ENTITY_WORKORDER;
 			$o->iKey1 = $objWorkorder->jcn;
 			$o->iKey2 = $objWorkorder->seq;
@@ -1175,7 +1175,7 @@ class boWorkorders
 		if (($sFileName = Filter::ToFileName('userfile')) === null)
 			throw new PermissionDeniedException();
 
-		$o = new boFile();
+		$o = new FileHelper();
 		$o->iType = DCL_ENTITY_WORKORDER;
 		$o->iKey1 = $iID;
 		$o->iKey2 = $iSeq;

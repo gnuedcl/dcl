@@ -86,7 +86,7 @@ class htmlProjectsdetail
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEWFILE))
 		{
-			$oAttachments = new boFile();
+			$oAttachments = new FileHelper();
 			$this->oSmarty->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_PROJECT, $this->oProject->projectid));
 		}
 
@@ -447,7 +447,7 @@ class htmlProjectsdetail
 			throw new PermissionDeniedException();
 
 		// TODO: Security check
-		$o = new boFile();
+		$o = new FileHelper();
 		$o->iType = DCL_ENTITY_PROJECT;
 		$o->iKey1 = $id;
 		$o->sFileName = $_REQUEST['filename'];

@@ -90,7 +90,7 @@ class htmlTicketDetail
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEWFILE))
 		{
-			$oAttachments = new boFile();
+			$oAttachments = new FileHelper();
 			$oSmarty->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_TICKET, $obj->ticketid));
 		}
 
@@ -133,7 +133,7 @@ class htmlTicketDetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW, $id))
 			throw new PermissionDeniedException();
 
-		$o = new boFile();
+		$o = new FileHelper();
 		$o->iType = DCL_ENTITY_TICKET;
 		$o->iKey1 = $id;
 		$o->sFileName = $_REQUEST['filename'];

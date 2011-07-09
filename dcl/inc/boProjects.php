@@ -432,7 +432,7 @@ class boProjects
 
 		if (($sFileName = Filter::ToFileName('userfile')) !== null)
 		{
-			$o = new boFile();
+			$o = new FileHelper();
 			$o->iType = DCL_ENTITY_PROJECT;
 			$o->iKey1 = $projectid;
 			$o->sFileName = Filter::ToActualFileName('userfile');

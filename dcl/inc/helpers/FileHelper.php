@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,7 +22,7 @@
 
 LoadStringResource('bo');
 
-class boFile
+class FileHelper
 {
 	var $iType;
 	var $iKey1;
@@ -33,12 +31,12 @@ class boFile
 	var $sTempFileName;
 	var $sRoot;
 
-	function IsValid()
+	public function IsValid()
 	{
 		return ($this->iType == DCL_ENTITY_WORKORDER || $this->iType == DCL_ENTITY_PROJECT || $this->iType == DCL_ENTITY_TICKET || $this->iType == DCL_ENTITY_WORKORDER_TASK);
 	}
 
-	function Download()
+	public function Download()
 	{
 		if (!$this->IsValid())
 			return trigger_error('Invalid attachment type.');
@@ -60,7 +58,7 @@ class boFile
 		}
 	}
 
-	function Upload()
+	public function Upload()
 	{
 		if (!$this->IsValid() || $this->sTempFileName == '' || $this->sTempFileName == 'none')
 			return;
@@ -69,7 +67,7 @@ class boFile
 			trigger_error(STR_BO_UPLOADERR);
 	}
 
-	function AddPath($sPath, $sDir)
+	public function AddPath($sPath, $sDir)
 	{
 		$retVal = $sPath . '/' . $sDir;
 		if (!is_dir($retVal))
@@ -77,7 +75,7 @@ class boFile
 		return $retVal;
 	}
 
-	function GetFileDir($bCreateDir = true)
+	public function GetFileDir($bCreateDir = true)
 	{
 		if (!$bCreateDir)
 		{
@@ -127,7 +125,7 @@ class boFile
 		return $retVal;
 	}
 
-	function GetFilePath()
+	public function GetFilePath()
 	{
 		// don't even bother
 		if (!Filter::IsValidFileName($this->sFileName))
@@ -136,7 +134,7 @@ class boFile
 		return $this->GetFileDir() . '/' . $this->sFileName;
 	}
 
-	function GetAttachments($entity_type_id, $id1, $id2 = 0)
+	public function GetAttachments($entity_type_id, $id1, $id2 = 0)
 	{
 		global $dcl_info;
 
@@ -169,4 +167,3 @@ class boFile
 		return $aFiles;
 	}
 }
-?>

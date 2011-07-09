@@ -113,7 +113,7 @@ class htmlWorkOrderDetail
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWFILE))
 		{
-			$oAttachments = new boFile();
+			$oAttachments = new FileHelper();
 			$oSmarty->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_WORKORDER, $objWorkOrder->jcn, $objWorkOrder->seq));
 		}
 
@@ -190,7 +190,7 @@ class htmlWorkOrderDetail
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $jcn, $seq))
 			throw new PermissionDeniedException();
 
-		$o = new boFile();
+		$o = new FileHelper();
 		$o->iType = DCL_ENTITY_WORKORDER;
 		$o->iKey1 = $jcn;
 		$o->iKey2 = $seq;

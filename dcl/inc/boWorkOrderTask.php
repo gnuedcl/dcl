@@ -94,7 +94,7 @@ class boWorkOrderTask extends boAdminObject
 			
 		if (($sFileName = Filter::ToFileName('userfile')) !== null)
 		{
-			$o = new boFile();
+			$o = new FileHelper();
 			$o->iType = DCL_ENTITY_WORKORDER_TASK;
 			$o->iKey1 = $wo_task_id;
 			$o->sFileName = Filter::ToActualFileName('userfile');
