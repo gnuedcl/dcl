@@ -461,7 +461,7 @@ function CreateTemplate($arrTemplate)
 
 	// Create a template object and hook it up to the template in the
 	// configured template set
-	$Template = new DCLTemplate();
+	$Template = new TemplateDeprecated();
 	$Template->set_root(DCL_ROOT . 'templates/' . GetDefaultTemplateSet());
 	$Template->set_file($arrTemplate);
 

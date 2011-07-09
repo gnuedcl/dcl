@@ -10,7 +10,7 @@
  * $Id$
  *
  */
-class DCLTemplate {
+class TemplateDeprecated {
 	var $classname = 'Template';
 
 	/* if set, echo assignments */
