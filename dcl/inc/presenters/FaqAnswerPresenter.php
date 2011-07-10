@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,37 +22,43 @@
 
 LoadStringResource('faq');
 
-class htmlFaqanswers
+class FaqAnswerPresenter
 {
-	function DisplayForm($obj = '')
+	public function Create()
 	{
 		global $dcl_info, $g_oSec;
 
-		$isEdit = is_object($obj);
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 			
 		$t = new SmartyHelper();
-		$t->assign('IS_EDIT', $isEdit);
+		$t->assign('IS_EDIT', false);
 		
-		if ($isEdit)
+		if (($questionId = Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
-			$t->assign('VAL_ANSWERTEXT', $obj->answertext);
-			$t->assign('VAL_ANSWERID', $obj->answerid);
-			$t->assign('VAL_QUESTIONID', $obj->questionid);
+			throw new InvalidDataException();
 		}
-		else
-		{
-			if (($id = Filter::ToInt($_REQUEST['questionid'])) === null)
-			{
-				throw new InvalidDataException();
-			}
 
-			$t->assign('VAL_ANSWERTEXT', '');
-			$t->assign('VAL_QUESTIONID', $id);
-		}
+		$t->assign('VAL_ANSWERTEXT', '');
+		$t->assign('VAL_QUESTIONID', $questionId);
+
+		$t->Render('htmlFaqanswersForm.tpl');
+	}
+
+	public function Edit(FaqAnswersModel $model)
+	{
+		global $dcl_info, $g_oSec;
+
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
+			throw new PermissionDeniedException();
+			
+		$t = new SmartyHelper();
+		$t->assign('IS_EDIT', true);
+		
+		$t->assign('VAL_ANSWERTEXT', $model->answertext);
+		$t->assign('VAL_ANSWERID', $model->answerid);
+		$t->assign('VAL_QUESTIONID', $model->questionid);
 
 		$t->Render('htmlFaqanswersForm.tpl');
 	}
 }
-?>

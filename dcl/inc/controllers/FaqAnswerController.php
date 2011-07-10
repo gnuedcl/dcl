@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,9 +22,9 @@
 
 LoadStringResource('bo');
 
-class FaqAnswerController
+class FaqAnswerController extends AbstractController
 {
-	function Create()
+	public function Create()
 	{
 		global $g_oSec;
 		
@@ -34,27 +32,23 @@ class FaqAnswerController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		if (($iID = @Filter::ToInt($_REQUEST['questionid'])) === null)
+		if (($questionId = @Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		$objF = new FaqQuestionsModel();
-		if ($objF->Load($iID) == -1)
+		$faqQuestionsModel = new FaqQuestionsModel();
+		if ($faqQuestionsModel->Load($questionId) == -1)
 		{
-			printf(STR_BO_CANNOTLOADQUESTION, $iID);
+			printf(STR_BO_CANNOTLOADQUESTION, $questionId);
 			return;
 		}
 
-		$obj = new htmlFaqanswers();
-		$obj->DisplayForm();
-
-		$objH = new htmlFaqquestions();
-		print('<p>');
-		$objH->ShowQuestion($objF);
+		$faqAnswerPresenter = new FaqAnswerPresenter();
+		$faqAnswerPresenter->Create();
 	}
 
-	function Insert()
+	public function Insert()
 	{
 		global $g_oSec;
 		
@@ -62,31 +56,30 @@ class FaqAnswerController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
-		if (($iID = @Filter::ToInt($_REQUEST['questionid'])) === null)
+		if (($questionId = @Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		$objF = new FaqQuestionsModel();
-		if ($objF->Load($iID) == -1)
+		$faqQuestionsModel = new FaqQuestionsModel();
+		if ($faqQuestionsModel->Load($questionId) == -1)
 		{
-			printf(STR_BO_CANNOTLOADQUESTION, $iID);
+			printf(STR_BO_CANNOTLOADQUESTION, $questionId);
 			return;
 		}
 
-		$obj = new FaqAnswersModel();
-		$obj->InitFromGlobals();
-		$obj->createby = $GLOBALS['DCLID'];
-		$obj->createon = DCL_NOW;
-		$obj->active = 'Y';
-		$obj->Add();
+		$model = new FaqAnswersModel();
+		$model->InitFromGlobals();
+		$model->createby = $GLOBALS['DCLID'];
+		$model->createon = DCL_NOW;
+		$model->active = 'Y';
+		$model->Add();
 
-		$objH = new htmlFaqquestions();
-		print('<p>');
-		$objH->ShowQuestion($objF);
+		SetRedirectMessage('Success', 'Answer added successfully.');
+		RedirectToAction('FaqQuestion', 'Index', 'questionid=' . $questionId);
 	}
 
-	function Edit()
+	public function Edit()
 	{
 		global $g_oSec;
 		
@@ -94,20 +87,20 @@ class FaqAnswerController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @Filter::ToInt($_REQUEST['answerid'])) === null)
+		if (($answerId = @Filter::ToInt($_REQUEST['answerid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		$obj = new FaqAnswersModel();
-		if ($obj->Load($iID) == -1)
+		$model = new FaqAnswersModel();
+		if ($model->Load($answerId) == -1)
 			return;
 			
-		$objH = new htmlFaqanswers();
-		$objH->DisplayForm($obj);
+		$presenter = new FaqAnswerPresenter();
+		$presenter->Edit($model);
 	}
 
-	function Update()
+	public function Update()
 	{
 		global $g_oSec;
 		
@@ -115,75 +108,75 @@ class FaqAnswerController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
-		if (($iID = @Filter::ToInt($_REQUEST['questionid'])) === null)
+		if (($questionId = @Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		$objF = new FaqQuestionsModel();
-		if ($objF->Load($iID) == -1)
+		$faqQuestionsModel = new FaqQuestionsModel();
+		if ($faqQuestionsModel->Load($questionId) == -1)
 		{
 			return;
 		}
 
-		$obj = new FaqAnswersModel();
-		$obj->InitFromGlobals();
-		$obj->active = @Filter::ToYN($_REQUEST['active']);
-		$obj->modifyby = $GLOBALS['DCLID'];
-		$obj->modifyon = DCL_NOW;
-		$obj->Edit();
+		$faqAnswersModel = new FaqAnswersModel();
+		$faqAnswersModel->InitFromGlobals();
+		$faqAnswersModel->active = @Filter::ToYN($_REQUEST['active']);
+		$faqAnswersModel->modifyby = $GLOBALS['DCLID'];
+		$faqAnswersModel->modifyon = DCL_NOW;
+		$faqAnswersModel->Edit();
 		
-		$objH = new htmlFaqquestions();
-		$objH->ShowQuestion($objF);
+		SetRedirectMessage('Success', 'Answer updated successfully.');
+		RedirectToAction('FaqQuestion', 'Index', 'questionid=' . $questionId);
 	}
 
-	function Delete()
+	public function Delete()
 	{
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @Filter::ToInt($_REQUEST['answerid'])) === null)
+		if (($answerId = @Filter::ToInt($_REQUEST['answerid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $iID))
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $answerId))
 			throw new PermissionDeniedException();
 
-		$obj = new FaqAnswersModel();
-		if ($obj->Load($iID) == -1)
+		$faqAnswersModel = new FaqAnswersModel();
+		if ($faqAnswersModel->Load($answerId) == -1)
 			return;
 		
-		ShowDeleteYesNo(STR_FAQ_ANSWER, 'FaqAnswer.dbdelete', $iID, $obj->answertext, false, 'answerid');
+		ShowDeleteYesNo(STR_FAQ_ANSWER, 'FaqAnswer.Destroy', $answerId, $faqAnswersModel->answertext, false, 'answerid');
 	}
 
-	function Destroy()
+	public function Destroy()
 	{
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @Filter::ToInt($_REQUEST['answerid'])) === null)
+		if (($answerId = @Filter::ToInt($_REQUEST['answerid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $iID))
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE, $answerId))
 			throw new PermissionDeniedException();
 
-		$obj = new FaqAnswersModel();
-		if ($obj->Load($iID) == -1)
+		$faqAnswersModel = new FaqAnswersModel();
+		if ($faqAnswersModel->Load($answerId) == -1)
 			return;
 			
-		$iQuestionID = $obj->questionid;
-		$obj->Delete($iID);
+		$questionId = $faqAnswersModel->questionid;
+		$faqAnswersModel->Delete($answerId);
 		
-		$objQ = new FaqQuestionsModel();
-		if ($objQ->Load($iQuestionID) == -1)
+		$faqQuestionsModel = new FaqQuestionsModel();
+		if ($faqQuestionsModel->Load($questionId) == -1)
 		{
 			return -1;
 		}
 		
-		$objH = new htmlFaqquestions();
-		$objH->ShowQuestion($objQ);
+		SetRedirectMessage('Success', 'Answer deleted successfully.');
+		RedirectToAction('FaqQuestion', 'Index', 'questionid=' . $questionId);
 	}
 }

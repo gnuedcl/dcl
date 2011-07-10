@@ -26,7 +26,7 @@ function validateAndSubmitForm(form)
 {/literal}
 </script>
 <form class="styled" name="FAQFORM" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="{if $IS_EDIT}boFaqquestions.dbmodify{else}boFaqquestions.dbadd{/if}">
+	<input type="hidden" name="menuAction" value="{if $IS_EDIT}FaqQuestion.Update{else}FaqQuestion.Insert{/if}">
 	{if $IS_EDIT}<input type="hidden" name="questionid" value="{$VAL_QUESTIONID}">{/if}
 	<input type="hidden" name="topicid" value="{$VAL_TOPICID}">
 	<fieldset>
@@ -43,7 +43,7 @@ function validateAndSubmitForm(form)
 	<fieldset>
 		<div class="submit">
 			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=boFaqtopics.view&topicid={$VAL_TOPICID}';">
+			<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=FaqTopic.Index&topicid={$VAL_TOPICID}';">
 		</div>
 	</fieldset>
 </form>
