@@ -27,7 +27,7 @@ class DepartmentModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'departments';
 		$this->cacheEnabled = true;
 		

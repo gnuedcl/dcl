@@ -26,7 +26,7 @@ class WorkOrderTypeModel extends DbProvider
 {
 	public function WorkOrderTypeModel()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_wo_type';
 		$this->cacheEnabled = true;
 		

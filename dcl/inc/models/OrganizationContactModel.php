@@ -25,7 +25,7 @@ class OrganizationContactModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_org_contact';
 		LoadSchema($this->TableName);
 		

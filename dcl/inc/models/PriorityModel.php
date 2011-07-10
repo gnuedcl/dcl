@@ -25,7 +25,7 @@ class PriorityModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'priorities';
 		$this->cacheEnabled = true;
 		

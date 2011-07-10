@@ -28,7 +28,7 @@ class AttributeSetModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'attributesets';
 		$this->cacheEnabled = true;
 		

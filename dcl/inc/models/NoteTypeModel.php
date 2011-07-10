@@ -25,7 +25,7 @@ class NoteTypeModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_note_type';
 		LoadSchema($this->TableName);
 		

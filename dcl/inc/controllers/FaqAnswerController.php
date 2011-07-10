@@ -28,7 +28,6 @@ class FaqAnswerController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
@@ -52,7 +51,6 @@ class FaqAnswerController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
@@ -83,7 +81,6 @@ class FaqAnswerController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
@@ -104,7 +101,6 @@ class FaqAnswerController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
@@ -134,7 +130,6 @@ class FaqAnswerController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (($answerId = @Filter::ToInt($_REQUEST['answerid'])) === null)
 		{
 			throw new InvalidDataException();
@@ -146,15 +141,15 @@ class FaqAnswerController extends AbstractController
 		$faqAnswersModel = new FaqAnswersModel();
 		if ($faqAnswersModel->Load($answerId) == -1)
 			return;
-		
-		ShowDeleteYesNo(STR_FAQ_ANSWER, 'FaqAnswer.Destroy', $answerId, $faqAnswersModel->answertext, false, 'answerid');
+			
+		$presenter = new FaqAnswerPresenter();
+		$presenter->Delete($faqAnswersModel);
 	}
 
 	public function Destroy()
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (($answerId = @Filter::ToInt($_REQUEST['answerid'])) === null)
 		{
 			throw new InvalidDataException();

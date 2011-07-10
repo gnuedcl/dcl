@@ -25,7 +25,7 @@ class ContactEmailModel extends DbProvider
 {
 	public function ContactEmailModel()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_contact_email';
 		LoadSchema($this->TableName);
 

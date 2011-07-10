@@ -25,7 +25,7 @@ class ContactTypeXrefModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_contact_type_xref';
 		LoadSchema($this->TableName);
 		

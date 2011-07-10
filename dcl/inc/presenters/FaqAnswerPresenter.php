@@ -28,37 +28,50 @@ class FaqAnswerPresenter
 	{
 		global $dcl_info, $g_oSec;
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 			
-		$t = new SmartyHelper();
-		$t->assign('IS_EDIT', false);
+		$smartyHelper = new SmartyHelper();
+		$smartyHelper->assign('IS_EDIT', false);
 		
 		if (($questionId = Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 
-		$t->assign('VAL_ANSWERTEXT', '');
-		$t->assign('VAL_QUESTIONID', $questionId);
+		$smartyHelper->assign('VAL_ANSWERTEXT', '');
+		$smartyHelper->assign('VAL_QUESTIONID', $questionId);
 
-		$t->Render('htmlFaqanswersForm.tpl');
+		$smartyHelper->Render('htmlFaqanswersForm.tpl');
 	}
 
 	public function Edit(FaqAnswersModel $model)
 	{
 		global $dcl_info, $g_oSec;
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, $isEdit ? DCL_PERM_MODIFY : DCL_PERM_ADD))
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
-		$t = new SmartyHelper();
-		$t->assign('IS_EDIT', true);
+		$smartyHelper = new SmartyHelper();
+		$smartyHelper->assign('IS_EDIT', true);
 		
-		$t->assign('VAL_ANSWERTEXT', $model->answertext);
-		$t->assign('VAL_ANSWERID', $model->answerid);
-		$t->assign('VAL_QUESTIONID', $model->questionid);
+		$smartyHelper->assign('VAL_ANSWERTEXT', $model->answertext);
+		$smartyHelper->assign('VAL_ANSWERID', $model->answerid);
+		$smartyHelper->assign('VAL_QUESTIONID', $model->questionid);
 
-		$t->Render('htmlFaqanswersForm.tpl');
+		$smartyHelper->Render('htmlFaqanswersForm.tpl');
+	}
+	
+	public function Delete(FaqAnswersModel $model)
+	{
+		global $g_oSec;
+		
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_DELETE))
+			throw new PermissionDeniedException();
+			
+		ShowDeleteYesNo(STR_FAQ_ANSWER, 'FaqAnswer.Destroy', $model->answerid, $model->answertext, false, 'answerid');
 	}
 }

@@ -28,7 +28,6 @@ class FaqQuestionController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQQUESTION, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
@@ -52,7 +51,6 @@ class FaqQuestionController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQQUESTION, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
@@ -83,7 +81,6 @@ class FaqQuestionController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQQUESTION, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
@@ -104,7 +101,6 @@ class FaqQuestionController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQQUESTION, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
@@ -134,7 +130,6 @@ class FaqQuestionController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (($questionId = @Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
@@ -147,14 +142,14 @@ class FaqQuestionController extends AbstractController
 		if ($faqQuestionsModel->Load($questionId) == -1)
 			return;
 		
-		ShowDeleteYesNo(STR_FAQ_QUESTION, 'FaqQuestion.Destroy', $questionId, $faqQuestionsModel->questiontext, false, 'questionid');
+		$presenter = new FaqQuestionPresenter();
+		$presenter->Delete($faqQuestionsModel);
 	}
 
 	public function Destroy()
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (($questionId = @Filter::ToInt($_REQUEST['questionid'])) === null)
 		{
 			throw new InvalidDataException();
@@ -178,7 +173,6 @@ class FaqQuestionController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 

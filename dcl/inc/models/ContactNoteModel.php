@@ -25,7 +25,7 @@ class ContactNoteModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_contact_note';
 		LoadSchema($this->TableName);
 		

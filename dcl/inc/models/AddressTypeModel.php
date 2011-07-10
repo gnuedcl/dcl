@@ -27,7 +27,7 @@ class AddressTypeModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_addr_type';
 		LoadSchema($this->TableName);
 		

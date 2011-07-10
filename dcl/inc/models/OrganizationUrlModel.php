@@ -25,7 +25,7 @@ class OrganizationUrlModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_org_url';
 		LoadSchema($this->TableName);
 		

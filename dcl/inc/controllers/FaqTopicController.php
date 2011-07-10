@@ -28,7 +28,6 @@ class FaqTopicController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
@@ -52,7 +51,6 @@ class FaqTopicController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
@@ -76,14 +74,13 @@ class FaqTopicController extends AbstractController
 		$faqTopicsModel->Add();
 
 		SetRedirectMessage('Success', 'Topic added successfully.');
-		RedirectToAction('Faq', 'Index', 'faqid=' . $faqId);
+		RedirectToAction('Faq', 'Detail', 'faqid=' . $faqId);
 	}
 	
 	public function Edit()
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
@@ -104,7 +101,6 @@ class FaqTopicController extends AbstractController
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
@@ -128,58 +124,56 @@ class FaqTopicController extends AbstractController
 		$faqTopicsModel->Edit();
 		
 		SetRedirectMessage('Success', 'Topic updated successfully.');
-		RedirectToAction('Faq', 'Index', 'faqid=' . $faqId);
+		RedirectToAction('Faq', 'Detail', 'faqid=' . $faqId);
 	}
 
 	public function Delete()
 	{
 		global $g_oSec;
 		
-		commonHeader();
-		if (($faqId = @Filter::ToInt($_REQUEST['faqid'])) === null)
+		if (($topicId = @Filter::ToInt($_REQUEST['topicid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $faqId))
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId))
 			throw new PermissionDeniedException();
 
 		$faqTopicsModel = new FaqTopicsModel();
-		if ($faqTopicsModel->Load($faqId) == -1)
+		if ($faqTopicsModel->Load($topicId) == -1)
 			return;
 		
-		ShowDeleteYesNo(STR_FAQ_FAQ, 'FaqTopic.Destroy', $faqId, $faqTopicsModel->name, false, 'topicid');
+		$presenter = new FaqTopicPresenter();
+		$presenter->Delete($faqTopicsModel);
 	}
 
 	public function Destroy()
 	{
 		global $g_oSec;
 		
-		commonHeader();
-		if (($faqId = @Filter::ToInt($_REQUEST['faqid'])) === null)
+		if (($topicId = @Filter::ToInt($_REQUEST['topicid'])) === null)
 		{
 			throw new InvalidDataException();
 		}
 		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $faqId))
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId))
 			throw new PermissionDeniedException();
 
 		$faqTopicsModel = new FaqTopicsModel();
-		if ($faqTopicsModel->Load($faqId) == -1)
+		if ($faqTopicsModel->Load($topicId) == -1)
 			return;
 			
 		$faqId = $faqTopicsModel->faqid;
-		$faqTopicsModel->Delete($faqId);
+		$faqTopicsModel->Delete($topicId);
 		
 		SetRedirectMessage('Success', 'Topic deleted successfully.');
-		RedirectToAction('Faq', 'Index', 'faqid=' . $faqId);
+		RedirectToAction('Faq', 'Detail', 'faqid=' . $faqId);
 	}
 
 	public function Index()
 	{
 		global $g_oSec;
 		
-		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 

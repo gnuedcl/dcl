@@ -25,7 +25,7 @@ class OrganizationTypeModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_org_type';
 		LoadSchema($this->TableName);
 

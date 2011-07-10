@@ -20,6 +20,8 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
+include_once(DCL_ROOT . 'inc/lib/AbstractDbProvider.php');
+
 class DbProvider extends AbstractDbProvider
 {
 	public function __construct()

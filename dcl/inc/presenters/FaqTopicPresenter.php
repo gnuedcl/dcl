@@ -28,6 +28,7 @@ class FaqTopicPresenter
 	{
 		global $dcl_info, $g_oSec;
 
+		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 			
@@ -52,6 +53,7 @@ class FaqTopicPresenter
 	{
 		global $dcl_info, $g_oSec;
 
+		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 			
@@ -67,10 +69,22 @@ class FaqTopicPresenter
 		$smartyHelper->Render('htmlFaqtopicsForm.tpl');
 	}
 
+	public function Delete(FaqTopicsModel $model)
+	{
+		global $dcl_info, $g_oSec;
+
+		commonHeader();
+		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE))
+			throw new PermissionDeniedException();
+
+		ShowDeleteYesNo(STR_FAQ_FAQ, 'FaqTopic.Destroy', $model->topicid, $model->name, false, 'topicid');
+	}
+			
 	public function Index(FaqTopicsModel $obj)
 	{
 		global $dcl_info, $g_oSec;
 
+		commonHeader();
 		if (!is_object($obj))
 		{
 			trigger_error('[htmlFaqtopics::ShowTopic] ' . STR_FAQ_TOPICOBJECTNOTPASSED);

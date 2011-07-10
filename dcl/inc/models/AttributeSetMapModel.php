@@ -26,7 +26,7 @@ class AttributeSetMapModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'attributesetsmap';
 		
 		LoadSchema($this->TableName);

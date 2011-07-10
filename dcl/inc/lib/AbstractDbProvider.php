@@ -20,6 +20,8 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
+include_once(DCL_ROOT . 'inc/helpers/DateTimeHelper.php');
+
 /**
  * API - All Classes Relating to DCL API
  * @package api
@@ -29,7 +31,7 @@
  */
 
 /**
- * Provides common methods for database access.  Cannot be used directly, must instantiate {@link dclDB}
+ * Provides common methods for database access.  Cannot be used directly, must instantiate {@link DbProvider}
  * @package dcl
  * @subpackage api
  * @copyright Copyright (C) 1999-2004 Free Software Foundation

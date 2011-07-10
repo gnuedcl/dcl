@@ -25,7 +25,7 @@ class PhoneTypeModel extends DbProvider
 {
 	public function __construct()
 	{
-		parent::dclDB();
+		parent::__construct();
 		$this->TableName = 'dcl_phone_type';
 		LoadSchema($this->TableName);
 		
