@@ -224,6 +224,14 @@ function RedirectToAction($controller, $action, $params = '')
 	exit;
 }
 
+function RequirePermission($entityId, $permissionId, $id1 = 0, $id2 = 0)
+{
+	global $g_oSec;
+
+	if (!$g_oSec->HasPerm($entityId, $permId, $id1, $id2))
+		throw new PermissionDeniedException();
+}
+
 function UseHttps()
 {
 	global $dcl_info;

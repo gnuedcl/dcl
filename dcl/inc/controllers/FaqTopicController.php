@@ -26,16 +26,9 @@ class FaqTopicController extends AbstractController
 {
 	public function Create()
 	{
-		global $g_oSec;
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD);
 
-		if (($faqId = @Filter::ToInt($_REQUEST['faqid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
+		$faqId = @Filter::RequireInt($_REQUEST['faqid']);
 		$faqModel = new FaqModel();
 		if ($faqModel->Load($faqId) == -1)
 		{
@@ -49,16 +42,9 @@ class FaqTopicController extends AbstractController
 
 	public function Insert()
 	{
-		global $g_oSec;
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_ADD);
 
-		if (($faqId = @Filter::ToInt($_REQUEST['faqid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
+		$faqId = @Filter::RequireInt($_REQUEST['faqid']);
 		$faqModel = new FaqModel();
 		if ($faqModel->Load($faqId) == -1)
 		{
@@ -79,18 +65,11 @@ class FaqTopicController extends AbstractController
 	
 	public function Edit()
 	{
-		global $g_oSec;
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY);
 
-		if (($topicid = @Filter::ToInt($_REQUEST['topicid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
+		$topicId = @Filter::RequireInt($_REQUEST['topicid']);
 		$faqTopicsModel = new FaqTopicsModel();
-		if ($faqTopicsModel->Load($topicid) == -1)
+		if ($faqTopicsModel->Load($topicId) == -1)
 			return;
 			
 		$presenter = new FaqTopicPresenter();
@@ -99,16 +78,9 @@ class FaqTopicController extends AbstractController
 
 	public function Update()
 	{
-		global $g_oSec;
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
+		RequirePersmission(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY);
 
-		if (($faqId = @Filter::ToInt($_REQUEST['faqid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
+		$faqId = @Filter::RequireInt($_POST['faqid']);
 		$faqModel = new FaqModel();
 		if ($faqModel->Load($faqId) == -1)
 		{
@@ -129,12 +101,9 @@ class FaqTopicController extends AbstractController
 
 	public function Delete()
 	{
-		global $g_oSec;
+		$topicId = @Filter::RequireInt($_REQUEST['topicid']);
 		
-		if (($topicId = @Filter::ToInt($_REQUEST['topicid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId);
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId))
 			throw new PermissionDeniedException();
@@ -149,15 +118,9 @@ class FaqTopicController extends AbstractController
 
 	public function Destroy()
 	{
-		global $g_oSec;
+		$topicId = @Filter::RequireInt($_REQUEST['topicid']);
 		
-		if (($topicId = @Filter::ToInt($_REQUEST['topicid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId);
 
 		$faqTopicsModel = new FaqTopicsModel();
 		if ($faqTopicsModel->Load($topicId) == -1)
@@ -172,16 +135,14 @@ class FaqTopicController extends AbstractController
 
 	public function Index()
 	{
+		RequirePermission(DCL_ENTITY_FAQ, DCL_PERM_VIEW);
+		
 		global $g_oSec;
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		if (($topicId = @Filter::ToInt($_REQUEST['topicid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
+		$topicId = @Filter::RequireInt($_REQUEST['topicid']);
 		$faqTopicsModel = new FaqTopicsModel();
 		if ($faqTopicsModel->Load($topicId) == -1)
 			return;

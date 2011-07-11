@@ -20,9 +20,9 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class Filter
+abstract class Filter
 {
-	public function ToInt($vValue)
+	public static function ToInt($vValue)
 	{
 		if (preg_match('/^[0-9]+$/', $vValue))
 			return (int)$vValue;
@@ -30,7 +30,16 @@ class Filter
 		return null;
 	}
 	
-	public function ToSignedInt($vValue)
+	public static function RequireInt($vValue)
+	{
+		$parsedValue = Filter::ToInt($vValue);
+		if ($parsedValue === null)
+			throw new InvalidDataException();
+		
+		return $parsedValue;
+	}
+	
+	public static function ToSignedInt($vValue)
 	{
 		if (preg_match('/^[-]?[0-9]+$/', $vValue))
 			return (int)$vValue;
@@ -38,7 +47,16 @@ class Filter
 		return null;
 	}
 	
-	public function ToIntArray($vValue)
+	public static function RequireSignedInt($vValue)
+	{
+		$parsedValue = Filter::ToSignedInt($vValue);
+		if ($parsedValue === null)
+			throw new InvalidDataException();
+		
+		return $parsedValue;
+	}
+	
+	public static function ToIntArray($vValue)
 	{
 		$aRetVal = null;
 		if (is_array($vValue))
@@ -63,7 +81,16 @@ class Filter
 		return $aRetVal;
 	}
 	
-	public function ToDecimal($vValue)
+	public static function RequireIntArray($vValue)
+	{
+		$parsedValue = Filter::ToIntArray($vValue);
+		if ($parsedValue === null)
+			throw new InvalidDataException();
+		
+		return $parsedValue;
+	}
+	
+	public static function ToDecimal($vValue)
 	{
 		if (preg_match('/^([0-9]*[\.][0-9]+)|([0-9]+[\.]?[0-9]*)$/', $vValue))
 			return (float)$vValue;
@@ -71,7 +98,16 @@ class Filter
 		return null;
 	}
 	
-	public function ToDate($vValue)
+	public static function RequireDecimal($vValue)
+	{
+		$parsedValue = Filter::ToDecimal($vValue);
+		if ($parsedValue === null)
+			throw new InvalidDataException();
+		
+		return $parsedValue;
+	}
+	
+	public static function ToDate($vValue)
 	{
 		$oDate = new DateHelper;
 		
@@ -82,7 +118,16 @@ class Filter
 		return $oDate->ToDisplay();
 	}
 	
-	public function ToDateTime($vValue)
+	public static function RequireDate($vValue)
+	{
+		$parsedValue = Filter::ToDate($vValue);
+		if ($parsedValue === null)
+			throw new InvalidDataException();
+		
+		return $parsedValue;
+	}
+	
+	public static function ToDateTime($vValue)
 	{
 		$oDate = new TimestampHelper;
 
@@ -93,12 +138,21 @@ class Filter
 		return $oDate->ToDisplay();
 	}
 	
-	public function ToYN($vValue)
+	public static function RequireDateTime($vValue)
+	{
+		$parsedValue = Filter::ToDateTime($vValue);
+		if ($parsedValue === null)
+			throw new InvalidDataException();
+		
+		return $parsedValue;
+	}
+	
+	public static function ToYN($vValue)
 	{
 		return $vValue == 'Y' ? 'Y' : 'N';
 	}
-
-	public function ToFileName($sFieldName, $iIndex = -1)
+	
+	public static function ToFileName($sFieldName, $iIndex = -1)
 	{
 		if ($iIndex == -1)
 		{
@@ -114,7 +168,16 @@ class Filter
 		return null;
 	}
 	
-	public function ToActualFileName($sFieldName, $iIndex = -1)
+	public static function RequireFileName($sFieldName, $iIndex = -1)
+	{
+		$parsedValue = Filter::ToFileName($sFieldName, $iIndex);
+		if ($parsedValue === null)
+			throw new InvalidDataException();
+		
+		return $parsedValue;
+	}
+	
+	public static function ToActualFileName($sFieldName, $iIndex = -1)
 	{
 		if (Filter::ToFileName($sFieldName) === null)
 			return null;
@@ -125,19 +188,28 @@ class Filter
 		return $_FILES[$sFieldName]['name'][$iIndex];
 	}
 	
-	public function IsValidFileName($sFileName)
+	public static function RequireActualFileName($sFieldName, $iIndex = -1)
+	{
+		$parsedValue = Filter::ToActualFileName($sFieldName, $iIndex);
+		if ($parsedValue === null)
+			throw new InvalidDataException();
+		
+		return $parsedValue;
+	}
+	
+	public static function IsValidFileName($sFileName)
 	{
 		// no file system separators in file names
 		return !preg_match("#[/\\]#", $sFileName);
 	}
 	
-	public function IsValidPathName($sPathName)
+	public static function IsValidPathName($sPathName)
 	{
 		// just make sure we don't have dir traversal
 		return !preg_match("/[\.\.]/", $sPathName);
 	}
 	
-	public function IsValidFieldName($sFieldName)
+	public static function IsValidFieldName($sFieldName)
 	{
 		return preg_match("/^[a-z_][a-z0-9_]+([\.][a-z0-9_]+)?$/i", $sFieldName);
 	}
