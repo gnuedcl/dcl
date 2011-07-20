@@ -53,7 +53,7 @@ function validateAndSubmitForm(form)
 				<th>{$smarty.const.STR_TCK_VERSION}:</th><td>{$VAL_VERSION|escape}</td>
 			</tr>
 			<tr><th>{$smarty.const.STR_TCK_TYPE}:</th><td>{$VAL_TYPE|escape}</td>
-				<th>{$smarty.const.STR_TCK_ACCOUNT}:</th><td>{if $VAL_ORGID}{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$VAL_ORGID}">{/if}{$VAL_ACCOUNT|escape}{if $PERM_VIEWORG}</a>{/if}{/if}</td>
+				<th>{$smarty.const.STR_TCK_ACCOUNT}:</th><td>{if $VAL_ORGID}{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGID}">{/if}{$VAL_ACCOUNT|escape}{if $PERM_VIEWORG}</a>{/if}{/if}</td>
 			</tr>
 			<tr><th>{$smarty.const.STR_WO_LASTACTION}:</th><td>{$VAL_LASTACTIONON|escape}</td>
 				<th>{$smarty.const.STR_WO_CONTACT}:</th><td>{if $VAL_CONTACTID}{if $PERM_VIEWCONTACT}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$VAL_CONTACTID}">{/if}{$VAL_CONTACT|escape}{if $PERM_VIEWCONTACT}</a>{/if}{/if}</td>

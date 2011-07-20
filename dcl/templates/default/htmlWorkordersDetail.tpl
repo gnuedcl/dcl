@@ -90,7 +90,7 @@ function submitAction(sFormName, sAction)
 	{if count($VAL_ORGS) > 0}
 	{section name=org loop=$VAL_ORGS}
 		{if $smarty.section.org.first}<tr><th>{$smarty.const.STR_CMMN_ORGANIZATION}:</th><td colspan="3">{/if}
-		{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$VAL_ORGS[org].org_id}">{/if}{$VAL_ORGS[org].org_name|escape}{if $PERM_VIEWORG}</a>{/if}
+		{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGS[org].org_id}">{/if}{$VAL_ORGS[org].org_name|escape}{if $PERM_VIEWORG}</a>{/if}
 		{if $smarty.section.org.last}</td></tr>{else},&nbsp;{/if}
 	{/section}
 	{/if}

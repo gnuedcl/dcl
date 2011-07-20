@@ -185,7 +185,7 @@
 <table style="width: 100%;" cellspacing="0">
 	<tr>
 		<th class="formTitle">{$VAL_TITLE}</th>
-		<th class="formLinks">{if $PERM_ADD || $PERM_MODIFY}{if $PERM_ADD}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactForm.add">{$smarty.const.STR_CMMN_NEW}</a>{if $PERM_MODIFY}&nbsp;|&nbsp;{/if}{/if}{if $PERM_MODIFY}<a href="javascript:merge();">Merge</a>{/if}{if $VAL_FILTERORGID != ""}&nbsp;|&nbsp;{/if}{/if}{if $VAL_FILTERORGID != ""}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$VAL_FILTERORGID}">View Organization</a>{/if}</th>
+		<th class="formLinks">{if $PERM_ADD || $PERM_MODIFY}{if $PERM_ADD}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactForm.add">{$smarty.const.STR_CMMN_NEW}</a>{if $PERM_MODIFY}&nbsp;|&nbsp;{/if}{/if}{if $PERM_MODIFY}<a href="javascript:merge();">Merge</a>{/if}{if $VAL_FILTERORGID != ""}&nbsp;|&nbsp;{/if}{/if}{if $VAL_FILTERORGID != ""}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_FILTERORGID}">View Organization</a>{/if}</th>
 	</tr>
 	<tr>
 		<td class="formContainer" colspan="2">

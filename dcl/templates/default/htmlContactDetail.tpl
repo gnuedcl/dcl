@@ -262,7 +262,7 @@ No contact types!
 	<tr class="{$rowClass}">
 	{foreach name=org key=key item=data from=$record}
 	{if is_numeric($key)}<td>
-		{if $smarty.foreach.org.iteration == 2}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$record.org_id}">{$data}</a>
+		{if $smarty.foreach.org.iteration == 2}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$record.org_id}">{$data}</a>
 		{elseif $smarty.foreach.org.iteration == 4 && $data != ""}{mailto address=$data}
 		{elseif $smarty.foreach.org.iteration == 5}{$data|escape:"link"}
 		{else}{$data}

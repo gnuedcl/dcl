@@ -211,7 +211,7 @@ class htmlWatches
 				break;
 			case 6:
 			case 7:
-				$link = menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $obj->whatid1);
+				$link = menuLink('', 'menuAction=Organization.Detail&org_id=' . $obj->whatid1);
 				break;
 			default:
 				$summary = STR_WTCH_INVALIDITEM;

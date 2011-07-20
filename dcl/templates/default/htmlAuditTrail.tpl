@@ -63,7 +63,7 @@
 			<td>{$VAL_AUDITACCOUNT[account].audit_by|escape:"htmlall"}</td>
 			<td>{$VAL_AUDITACCOUNT[account].audit_on}</td>
 			<td>{$VAL_AUDITACCOUNT[account].audit_type|escape:"htmlall"}</td>
-			<td><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$VAL_AUDITACCOUNT[account].account_id}">{$VAL_AUDITACCOUNT[account].name|escape:"htmlall"}</a></td>
+			<td><a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_AUDITACCOUNT[account].account_id}">{$VAL_AUDITACCOUNT[account].name|escape:"htmlall"}</a></td>
 		</tr>
 {/strip}
 {/section}

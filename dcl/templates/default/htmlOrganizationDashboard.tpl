@@ -16,8 +16,8 @@
 					&nbsp;(<a href="{$URL_MAIN_PHP}?menuAction=boWatches.add&typeid=7&whatid1={Org->org_id}">Watch</a>)
 				</li>
 				<li><a href="{$URL_MAIN_PHP}?menuAction=htmlWiki.show&type=5&id={Org->org_id}">Wiki</a></li>
-				<li><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgForm.modify&org_id={Org->org_id}">Edit</a></li>
-				<li><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgForm.delete&org_id={Org->org_id}">Delete</a></li>
+				<li><a href="{$URL_MAIN_PHP}?menuAction=Organization.Edit&org_id={Org->org_id}">Edit</a></li>
+				<li><a href="{$URL_MAIN_PHP}?menuAction=Organization.Delete&org_id={Org->org_id}">Delete</a></li>
 			</ul>
 		</th></tr>
 	</thead>

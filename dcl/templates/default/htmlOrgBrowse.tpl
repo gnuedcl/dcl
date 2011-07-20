@@ -157,7 +157,7 @@
 <table style="width: 100%;" cellspacing="0">
 	<tr>
 		<th class="formTitle">Browse Organizations</th>
-		<th class="formLinks">{if $PERM_ADD}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgForm.add">{$smarty.const.STR_CMMN_NEW}</a>{else}&nbsp;{/if}</th>
+		<th class="formLinks">{if $PERM_ADD}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Create">{$smarty.const.STR_CMMN_NEW}</a>{else}&nbsp;{/if}</th>
 	</tr>
 	<tr>
 		<td class="formContainer" colspan="2">
@@ -197,7 +197,7 @@
 		<tr class="{$rowClass}">
 		<td>{$VAL_ORGS[org].org_id}</td>
 		<td>{if $VAL_ORGS[org].active == "Y"}{$smarty.const.STR_CMMN_YES}{else}{$smarty.const.STR_CMMN_NO}{/if}</td>
-		<td><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$VAL_ORGS[org].org_id}">{$VAL_ORGS[org].name|escape}</a></td>
+		<td><a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGS[org].org_id}">{$VAL_ORGS[org].name|escape}</a></td>
 		<td>{$VAL_ORGS[org].phone_number|escape}</td>
 		<td>{if $VAL_ORGS[org].email_addr != ""}{mailto address=$VAL_ORGS[org].email_addr}{else}&nbsp;{/if}</td>
 		<td>{$VAL_ORGS[org].url_addr|escape:link}</td>

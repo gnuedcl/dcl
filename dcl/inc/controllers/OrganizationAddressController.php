@@ -85,7 +85,7 @@ class OrganizationAddressController extends AbstractController
 					);
 
 		SetRedirectMessage('Success', 'New address added successfully.');
-		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $id);
+		RedirectToAction('Organization', 'Detail', 'org_id=' . $id);
 	}
 
 	public function Edit()
@@ -122,7 +122,7 @@ class OrganizationAddressController extends AbstractController
 		parent::Update($_POST);
 
 		SetRedirectMessage('Success', 'Address updated successfully.');
-		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $orgId);
+		RedirectToAction('Organization', 'Detail', 'org_id=' . $orgId);
 	}
 
 	public function Destroy()

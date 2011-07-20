@@ -72,7 +72,7 @@ class OrganizationAliasController extends AbstractController
 					);
 
 		SetRedirectMessage('Success', 'New alias added successfully.');
-		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $id);
+		RedirectToAction('Organization', 'Detail', 'org_id=' . $id);
 	}
 
 	public function Edit()
@@ -108,7 +108,7 @@ class OrganizationAliasController extends AbstractController
 		parent::Update($_POST);
 
 		SetRedirectMessage('Success', 'Alias updated successfully.');
-		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $orgId);
+		RedirectToAction('Organization', 'Detail', 'org_id=' . $orgId);
 	}
 
 	public function Destroy()

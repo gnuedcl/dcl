@@ -72,7 +72,7 @@ class htmlOrgBrowse
 			$oTable->addColumn($sColumn, 'string');
 		}
 		
-		$aOptions = array(STR_CMMN_NEW => array('menuAction' => 'htmlOrgForm.add', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD)));
+		$aOptions = array(STR_CMMN_NEW => array('menuAction' => 'Organization.Create', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD)));
 
 		foreach ($aOptions as $sDisplay => $aOption)
 		{

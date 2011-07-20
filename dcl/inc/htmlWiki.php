@@ -86,7 +86,7 @@ class htmlWiki
 			case DCL_ENTITY_ORG:
 				$aOrg = $oMeta->GetOrganization($id);
 				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_ACCOUNTWIKI, $aOrg['name']));
-				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $id));
+				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=Organization.Detail&org_id=' . $id));
 				break;
 			case DCL_ENTITY_WORKORDER:
 				if (($id2 = Filter::ToInt($_REQUEST['id2'])) === null)

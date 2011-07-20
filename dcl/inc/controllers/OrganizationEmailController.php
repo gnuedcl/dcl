@@ -78,7 +78,7 @@ class OrganizationEmailController extends AbstractController
 					);
 
 		SetRedirectMessage('Success', 'New email added successfully.');
-		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $id);
+		RedirectToAction('Organization', 'Detail', 'org_id=' . $id);
 	}
 
 	public function Edit()
@@ -115,7 +115,7 @@ class OrganizationEmailController extends AbstractController
 		parent::Update($_POST);
 
 		SetRedirectMessage('Success', 'Email updated successfully.');
-		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $orgId);
+		RedirectToAction('Organization', 'Detail', 'org_id=' . $orgId);
 	}
 
 	public function Destroy()

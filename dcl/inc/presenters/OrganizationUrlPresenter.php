@@ -33,7 +33,7 @@ class OrganizationUrlPresenter
 		$oSmarty = new SmartyHelper();
 		$oUrlType = new UrlTypeHtmlHelper();
 
-		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $orgId));
+		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=Organization.Detail&org_id=' . $orgId));
 
 		$oOrg = new OrganizationModel();
 		$oOrg->Load($orgId);
@@ -58,7 +58,7 @@ class OrganizationUrlPresenter
 		$oSmarty = new SmartyHelper();
 		$oUrlType = new UrlTypeHtmlHelper();
 
-		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $model->org_id));
+		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=Organization.Detail&org_id=' . $model->org_id));
 
 		$oOrg = new OrganizationModel();
 		$oOrg->Load($model->org_id);

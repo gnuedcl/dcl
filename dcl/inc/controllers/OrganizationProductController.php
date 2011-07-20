@@ -62,6 +62,6 @@ class OrganizationProductController extends AbstractController
 		$organizationProductModel->UpdateProducts($id, $aProducts);
 
 		SetRedirectMessage('Success', 'Products updated successfully.');
-		RedirectToAction('htmlOrgDetail', 'show', 'org_id=' . $id);
+		RedirectToAction('Organization', 'Detail', 'org_id=' . $id);
 	}
 }

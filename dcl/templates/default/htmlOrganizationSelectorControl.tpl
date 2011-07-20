@@ -50,7 +50,7 @@
 			function doNew()
 			{
 {/literal}
-				parent.mainFrame.location.href = "{$URL_MAIN_PHP}?menuAction=htmlOrgForm.add&hideMenu=true&return_to=" + escape("menuAction=htmlOrganizationSelector.showBrowseFrame" + getFilterParams());
+				parent.mainFrame.location.href = "{$URL_MAIN_PHP}?menuAction=Organization.Create&hideMenu=true&return_to=" + escape("menuAction=htmlOrganizationSelector.showBrowseFrame" + getFilterParams());
 {literal}
 			}
 

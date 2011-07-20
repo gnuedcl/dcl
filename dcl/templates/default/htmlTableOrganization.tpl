@@ -165,7 +165,7 @@
 	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
 	{if $checks}{assign var=ticketid value=$groupcount}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$ticketid]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
-	{section loop=$records[row] name=item}{if !in_array($smarty.section.item.index, $groups)}<td class="{$columns[$smarty.section.item.index].type}">{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}{else}{if $columns[$smarty.section.item.index].title == $smarty.const.STR_CMMN_NAME}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$records[row][0]}">{$records[row][item]|escape}</a>{else}{$records[row][item]|escape}{/if}{/if}</td>{/if}{/section}
+	{section loop=$records[row] name=item}{if !in_array($smarty.section.item.index, $groups)}<td class="{$columns[$smarty.section.item.index].type}">{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}{else}{if $columns[$smarty.section.item.index].title == $smarty.const.STR_CMMN_NAME}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$records[row][0]}">{$records[row][item]|escape}</a>{else}{$records[row][item]|escape}{/if}{/if}</td>{/if}{/section}
 	</tr>
 	{if $smarty.section.row.last}</tbody>{/if}
 {/section}

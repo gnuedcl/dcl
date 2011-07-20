@@ -147,7 +147,7 @@ class htmlContactBrowse
 			$aOrg = $oMetadata->GetOrganization($filterOrgID);
 			$oTable->setCaption('Browse Contacts - ' . $aOrg['name']);
 			if ($g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
-				$oTable->addToolbar('htmlOrgDetail.show&org_id=' . $filterOrgID, 'Organization');
+				$oTable->addToolbar('Organization.Detail&org_id=' . $filterOrgID, 'Organization');
 		}
 
 		$oTable->assign('VAL_FILTERACTIVE', $filterActive);

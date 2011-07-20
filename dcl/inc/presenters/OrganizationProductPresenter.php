@@ -66,7 +66,7 @@ class OrganizationProductPresenter
 		$oSmarty->assign('TXT_TITLE', 'Edit Organization Products');
 		$oSmarty->assign('VAL_MENUACTION', 'OrganizationProduct.Update');
 		$oSmarty->assign('VAL_ORGID', $oOrg->org_id);
-		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgDetail.show&org_id=' . $oOrg->org_id));
+		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=Organization.Detail&org_id=' . $oOrg->org_id));
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 
 		$oSmarty->assign_by_ref('VAL_PRODUCTID', $aProducts);

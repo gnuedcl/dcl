@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,42 +20,97 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('tck');
-LoadStringResource('wo');
-class htmlOrgDetail
+class OrganizationPresenter
 {
-	var $public;
-
-	function htmlOrgDetail()
+	public function Create()
 	{
-		$this->public = array('show');
+		commonHeader();
+		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_ADD);
+		
+		$smartyHelper = new SmartyHelper();
+		
+		if (isset($_REQUEST['return_to']))
+		{
+			$smartyHelper->assign('return_to', $_REQUEST['return_to']);
+			$smartyHelper->assign('URL_BACK', menuLink('', $_REQUEST['return_to']));
+		}
+		else
+			$smartyHelper->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgBrowse.show&filterActive=Y'));
+			
+		if (isset($_REQUEST['hideMenu']))
+			$smartyHelper->assign('hideMenu', $_REQUEST['hideMenu']);
+
+		$smartyHelper->assign('TXT_FUNCTION', 'Add New Organization');
+		$smartyHelper->assign('VAL_MENUACTION', 'Organization.Insert');
+
+		$addressTypeHtmlHelper = new AddressTypeHtmlHelper();
+		$smartyHelper->assign('CMB_ADDRTYPE', $addressTypeHtmlHelper->Select());
+
+		$emailTypeHtmlHelper = new EmailTypeHtmlHelper();
+		$smartyHelper->assign('CMB_EMAILTYPE', $emailTypeHtmlHelper->Select());
+
+		$phoneTypeHtmlHelper = new PhoneTypeHtmlHelper();
+		$smartyHelper->assign('CMB_PHONETYPE', $phoneTypeHtmlHelper->Select());
+
+		$urlTypeHtmlHelper = new UrlTypeHtmlHelper();
+		$smartyHelper->assign('CMB_URLTYPE', $urlTypeHtmlHelper->Select());
+
+		$organizationTypeModel = new OrganizationTypeModel();
+		$smartyHelper->assign('orgTypes', $organizationTypeModel->GetTypes());
+
+		$smartyHelper->Render('htmlNewOrgForm.tpl');
 	}
 
-	function show()
+	public function Edit(OrganizationModel $model)
+	{
+		commonHeader();
+		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_MODIFY);
+
+		$smartyHelper = new SmartyHelper();
+		
+		if (isset($_REQUEST['return_to']))
+		{
+			$smartyHelper->assign('return_to', $_REQUEST['return_to']);
+			$smartyHelper->assign('URL_BACK', menuLink('', $_REQUEST['return_to']));
+		}
+		else
+			$smartyHelper->assign('URL_BACK', menuLink('', 'menuAction=htmlOrgBrowse.show&filterActive=Y'));
+			
+		if (isset($_REQUEST['hideMenu']))
+			$smartyHelper->assign('hideMenu', $_REQUEST['hideMenu']);
+
+		$smartyHelper->assign('VAL_MENUACTION', 'Organization.Update');
+		$smartyHelper->assign('VAL_NAME', $model->name);
+		$smartyHelper->assign('VAL_ORGID', $model->org_id);
+		$smartyHelper->assign('VAL_ACTIVE', $model->active);
+		$smartyHelper->assign('TXT_FUNCTION', 'Edit Organization');
+
+		$oOrgType = new OrganizationTypeModel();
+		$smartyHelper->assign('orgTypes', $oOrgType->GetTypes($model->org_id));
+
+		$smartyHelper->Render('htmlOrgForm.tpl');
+	}
+
+	public function Delete(OrganizationModel $model)
+	{
+		commonHeader();
+		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_DELETE);
+
+		ShowDeleteYesNo('Organization', 'Organization.Destroy', $model->org_id, $model->name);
+	}
+	
+	public function Detail(OrganizationModel $model)
 	{
 		global $dcl_info, $g_oSec, $g_oSession;
 
 		commonHeader();
-		if (($id = Filter::ToInt($_REQUEST['org_id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW, $id))
+		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_VIEW, $model->org_id);
+		if ($g_oSec->IsOrgUser() && !in_array($model->org_id, split(',', $g_oSession->Value('member_of_orgs'))))
 			throw new PermissionDeniedException();
-
-		if ($g_oSec->IsOrgUser() && !in_array($id, split(',', $g_oSession->Value('member_of_orgs'))))
-			throw new PermissionDeniedException();
-
-		$oOrg = new OrganizationModel();
-		if ($oOrg->Load($id) == -1)
-		{
-			trigger_error('Could not load organization ID [' . $id . ']', E_USER_ERROR);
-			return;
-		}
 
 		$t = new SmartyHelper();
-		$t->register_object('Org', $oOrg);
+		$t->register_object('Org', $model);
 
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE));
@@ -72,7 +125,7 @@ class htmlOrgDetail
 
 		// Get aliases for this org
 		$oOrgAlias = new OrganizationAliasModel();
-		$oOrgAlias->ListByOrg($oOrg->org_id);
+		$oOrgAlias->ListByOrg($model->org_id);
 		$aAliases = array();
 		while ($oOrgAlias->next_record())
 		{
@@ -84,7 +137,7 @@ class htmlOrgDetail
 
 		// Get types for this org
 		$oOrgType = new OrganizationTypeModel();
-		$oOrgType->ListByOrg($oOrg->org_id);
+		$oOrgType->ListByOrg($model->org_id);
 		$aTypes = array();
 		while ($oOrgType->next_record())
 		{
@@ -96,7 +149,7 @@ class htmlOrgDetail
 
 		// Get products for this org
 		$oOrgProduct = new OrganizationProductModel();
-		$oOrgProduct->ListByOrg($oOrg->org_id);
+		$oOrgProduct->ListByOrg($model->org_id);
 		$aProducts = array();
 		while ($oOrgProduct->next_record())
 		{
@@ -108,7 +161,7 @@ class htmlOrgDetail
 
 		// Get addresses
 		$oOrgAddress = new OrganizationAddressModel();
-		$oOrgAddress->ListByOrg($oOrg->org_id);
+		$oOrgAddress->ListByOrg($model->org_id);
 		$aAddresses = array();
 		while ($oOrgAddress->next_record())
 		{
@@ -120,7 +173,7 @@ class htmlOrgDetail
 
 		// Get phone numbers
 		$oOrgPhone = new OrganizationPhoneModel();
-		$oOrgPhone->ListByOrg($oOrg->org_id);
+		$oOrgPhone->ListByOrg($model->org_id);
 		$aPhoneNumbers = array();
 		while ($oOrgPhone->next_record())
 		{
@@ -132,7 +185,7 @@ class htmlOrgDetail
 
 		// Get e-mail addresses
 		$oOrgEmail = new OrganizationEmailModel();
-		$oOrgEmail->ListByOrg($oOrg->org_id);
+		$oOrgEmail->ListByOrg($model->org_id);
 		$aEmails = array();
 		while ($oOrgEmail->next_record())
 		{
@@ -144,7 +197,7 @@ class htmlOrgDetail
 
 		// Get URLs
 		$oOrgURL = new OrganizationUrlModel();
-		$oOrgURL->ListByOrg($oOrg->org_id);
+		$oOrgURL->ListByOrg($model->org_id);
 		$aURL = array();
 		while ($oOrgURL->next_record())
 		{
@@ -156,7 +209,7 @@ class htmlOrgDetail
 		
 		// Get main contacts
 		$oOrgContacts = new OrganizationModel();
-		$oOrgContacts->ListMainContacts($oOrg->org_id);
+		$oOrgContacts->ListMainContacts($model->org_id);
 		$aContacts = array();
 		$oMetadata = new DisplayHelper();
 		$oContactType = new ContactTypeModel();
@@ -196,7 +249,7 @@ class htmlOrgDetail
 				STR_TCK_RESPONSIBLE,
 				STR_TCK_SUMMARY));
 
-		$oViewTicket->AddDef('filter', 'account', $oOrg->org_id);
+		$oViewTicket->AddDef('filter', 'account', $model->org_id);
 		$oViewTicket->AddDef('order', '', array('createdon DESC'));
 		$oViewTicket->numrows = 10;
 		
@@ -235,7 +288,7 @@ class htmlOrgDetail
 				STR_WO_SUMMARY));
 
 				
-		$oViewWO->AddDef('filter', 'dcl_wo_account.account_id', $oOrg->org_id);
+		$oViewWO->AddDef('filter', 'dcl_wo_account.account_id', $model->org_id);
 		$oViewWO->AddDef('order', '', array('createdon DESC'));
 		$oViewWO->numrows = 10;
 		

@@ -228,7 +228,7 @@ function RequirePermission($entityId, $permissionId, $id1 = 0, $id2 = 0)
 {
 	global $g_oSec;
 
-	if (!$g_oSec->HasPerm($entityId, $permId, $id1, $id2))
+	if (!$g_oSec->HasPerm($entityId, $permissionId, $id1, $id2))
 		throw new PermissionDeniedException();
 }
 

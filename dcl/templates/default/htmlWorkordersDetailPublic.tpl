@@ -60,7 +60,7 @@ function submitAction(sFormName, sAction)
 				<th>{$smarty.const.STR_WO_REVISION}:</th><td>{$VAL_VERSION|escape}</td>
 			</tr>
 			<tr><th>{$smarty.const.STR_WO_SEVERITY}:</th><td>{$VAL_SEVERITY|escape}</td>
-				{if count($VAL_ORGS) == 1}<th>{$smarty.const.STR_WO_ACCOUNT}:</th><td>{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$VAL_ORGS[0].org_id}">{/if}{$VAL_ORGS[0].org_name|escape}{if $PERM_VIEWORG}</a>{/if}</td>{/if}
+				{if count($VAL_ORGS) == 1}<th>{$smarty.const.STR_WO_ACCOUNT}:</th><td>{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGS[0].org_id}">{/if}{$VAL_ORGS[0].org_name|escape}{if $PERM_VIEWORG}</a>{/if}</td>{/if}
 			</tr>
 			<tr><th>{$smarty.const.STR_WO_LASTACTION}:</th><td>{$VAL_LASTACTIONON|escape}</td>
 				<th>{$smarty.const.STR_WO_CONTACT}:</th><td>{if $VAL_CONTACTID}{if $PERM_VIEWCONTACT}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$VAL_CONTACTID}">{/if}{$VAL_CONTACT|escape}{if $PERM_VIEWCONTACT}</a>{/if}{/if}</td>
@@ -73,7 +73,7 @@ function submitAction(sFormName, sAction)
 	{if count($VAL_ORGS) > 1}
 	{section name=org loop=$VAL_ORGS}
 		{if $smarty.section.org.first}<tr><th>{$smarty.const.STR_CMMN_ORGANIZATION}:</th><td colspan="3">{/if}
-		{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$VAL_ORGS[org].org_id}">{/if}{$VAL_ORGS[org].org_name|escape}{if $PERM_VIEWORG}</a>{/if}
+		{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGS[org].org_id}">{/if}{$VAL_ORGS[org].org_name|escape}{if $PERM_VIEWORG}</a>{/if}
 		{if $smarty.section.org.last}</td></tr>{else},&nbsp;{/if}
 	{/section}
 	{/if}

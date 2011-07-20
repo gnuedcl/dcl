@@ -6,7 +6,7 @@
 			</table>
 			<table cellspacing="1" cellpadding="2" style="width: 100%;"><tr>
 {/if}
-			<td><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgDetail.show&org_id={$VAL_ORGS[org].org_id}">{$VAL_ORGS[org].org_name}</a></td>
+			<td><a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGS[org].org_id}">{$VAL_ORGS[org].org_name}</a></td>
 {if $smarty.section.org.index > 0 && $smarty.section.org.index % 4 == 0}</tr><tr>{/if}
 {if $smarty.section.org.last}</tr></table></td></tr>{/if}
 {/section}
