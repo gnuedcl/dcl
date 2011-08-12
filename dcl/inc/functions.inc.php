@@ -630,7 +630,7 @@ function buildMenuArray()
 			DCL_MENU_CHANGEPASSWORD => array('Personnel.EditPassword', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD)),
 			DCL_MENU_PREFERENCES => array('htmlPreferences.modify', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY)),
 			DCL_MENU_SYSTEMSETUP => array('SystemSetup.Index', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW)),
-			DCL_MENU_SESSIONS => array('htmlSession.Show', $g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_VIEW)),
+			DCL_MENU_SESSIONS => array('Session.Index', $g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_VIEW)),
 			DCL_MENU_SEC_AUDITING => array('boSecAudit.Show', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 		);
 
