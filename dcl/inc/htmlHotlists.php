@@ -173,14 +173,21 @@ class htmlHotlists
 			throw new PermissionDeniedException();
 
 		$aEntities = array();
+		$aRemoveEntities = array();
 		foreach ($_REQUEST['item'] as $entity)
 		{
 			$aEntity = @Filter::ToIntArray(split('_', $entity));
 			if (count($aEntity) === 3)
-				$aEntities[] = $aEntity;
+			{
+				if (in_array($entity, $_REQUEST['remove']))
+					$aRemoveEntities[] = $aEntity;
+				else
+					$aEntities[] = $aEntity;
+			}
 		}
 			
 		$db = new EntityHotlistModel();
 		$db->setPriority($hotlistId, $aEntities);
+		$db->RemoveEntities($hotlistId, $aRemoveEntities);
 	}
 }

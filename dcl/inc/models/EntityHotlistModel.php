@@ -180,6 +180,28 @@ class EntityHotlistModel extends DbProvider
 		}
 	}
 	
+	public function RemoveEntities($hotlistId, $aEntities)
+	{
+		$deleted_by = $GLOBALS['DCLID'];
+		$deleted_on = $this->GetDateSQL();
+		foreach ($aEntities as $entity)
+		{
+			$entity_id = $entity[0];
+			$entity_key_id = $entity[1];
+			$entity_key_id2 = $entity[2];
+			
+			$this->Execute("INSERT INTO dcl_entity_hotlist_audit (entity_id, entity_key_id, entity_key_id2, hotlist_id, sort, audit_by, audit_on, audit_type)
+							SELECT $entity_id, $entity_key_id, $entity_key_id2, hotlist_id, sort, $deleted_by, $deleted_on, 2
+							FROM dcl_entity_hotlist WHERE entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2
+							AND hotlist_id = $hotlistId");
+
+			if ($entity_id == DCL_ENTITY_WORKORDER)
+				$this->Execute("DELETE FROM dcl_entity_hotlist WHERE hotlist_id = $hotlistId AND entity_id = $entity_id AND entity_key_id = $entity_key_id AND entity_key_id2 = $entity_key_id2");
+			else
+				$this->Execute("DELETE FROM dcl_entity_hotlist WHERE hotlist_id = $hotlistId AND entity_id = $entity_id AND entity_key_id = $entity_key_id");
+		}
+	}
+	
 	public function listByTag($sHotlists)
 	{
 		global $g_oSec;
@@ -223,7 +245,7 @@ class EntityHotlistModel extends DbProvider
 		$bDoneDidWhere = false;
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, P.projectid, P.name AS project, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort FROM ';
+			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, P.projectid, P.name AS project, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort, statuses.dcl_status_type FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
@@ -327,7 +349,7 @@ class EntityHotlistModel extends DbProvider
 			if ($sSQL != '')
 				$sSQL .= ' UNION ALL ';
 				
-			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, NULL, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort FROM ';
+			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, NULL, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort, statuses.dcl_status_type FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
