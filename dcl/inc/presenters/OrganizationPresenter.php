@@ -235,10 +235,8 @@ class OrganizationPresenter
 		$oOrgContacts->FreeResult();
 
 		// Get last 10 tickets
-		$oViewTicket = new boView();
+		$oViewTicket = new TicketSqlQueryHelper();
 		$oViewTicket->title = 'Last 10 Tickets';
-		$oViewTicket->style = 'report';
-		$oViewTicket->table = 'tickets';
 		$oViewTicket->AddDef('columns', '', array('ticketid', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'responsible.short', 'summary'));
 		$oViewTicket->AddDef('columnhdrs', '', array(
 				STR_TCK_TICKET . '#',
@@ -271,10 +269,8 @@ class OrganizationPresenter
 		$oTickets->FreeResult();
 
 		// Get last 10 work orders
-		$oViewWO = new boView();
+		$oViewWO = new WorkOrderSqlQueryHelper();
 		$oViewWO->title = 'Last 10 Work Orders';
-		$oViewWO->style = 'report';
-		$oViewWO->table = 'workorders';
 		$oViewWO->AddDef('columns', '', array('jcn', 'seq', 'products.name', 'statuses.name', 'priorities.name', 'severities.name', 'responsible.short', 'deadlineon', 'summary'));
 		$oViewWO->AddDef('columnhdrs', '', array(
 				STR_WO_JCN,
