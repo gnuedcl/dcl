@@ -22,11 +22,11 @@
 		</th></tr>
 	</thead>
 		<tbody>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byStatusTicket&id={Org->org_id}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byModuleTicket&id={Org->org_id}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.TicketStatusChart&id={Org->org_id}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.TicketModuleChart&id={Org->org_id}"></td>
 			</tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byTypeTicket&id={Org->org_id}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byPriorityTicket&id={Org->org_id}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.TicketTypeChart&id={Org->org_id}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.TicketPriorityChart&id={Org->org_id}"></td>
 			</tr>
 		</tbody>
 	</table>

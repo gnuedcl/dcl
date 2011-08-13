@@ -22,14 +22,14 @@
 		</th></tr>
 	</thead>
 		<tbody>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byStatus&id={Org->org_id}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byDepartment&id={Org->org_id}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.WorkOrderStatusChart&id={Org->org_id}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.WorkOrderDepartmentChart&id={Org->org_id}"></td>
 			</tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.bySeverity&id={Org->org_id}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byPriority&id={Org->org_id}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.WorkOrderSeverityChart&id={Org->org_id}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.WorkOrderPriorityChart&id={Org->org_id}"></td>
 			</tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byModule&id={Org->org_id}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgOrganization.byType&id={Org->org_id}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.WorkOrderModuleChart&id={Org->org_id}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=OrganizationImage.WorkOrderTypeChart&id={Org->org_id}"></td>
 			</tr>
 		</tbody>
 	</table>
