@@ -85,7 +85,6 @@ class DCLNavBar
 				$aItems[] = array(DCL_MENU_ACTIVITY, 'reportPersonnelActivity.getparameters', 'exec-16.png');
 				$aItems[] = array(DCL_MENU_GRAPH, 'boWorkorders.graph', 'exec-16.png');
 				$aItems[] = array(DCL_MENU_STATISTICS, 'htmlWOStatistics.ShowUserVsProductStatusForm', 'exec-16.png');
-				$aItems[] = array(DCL_MENU_SCHEDULE, 'scheduleByPerson.SelectPersonToSchedule', 'exec-16.png');
 			}
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
@@ -188,7 +187,6 @@ class DCLNavBar
 				$this->_class == 'reportPersonnelActivity' ||
 				$this->_class == 'htmlWOSearches' ||
 				$this->_class == 'htmlWOStatistics' ||
-				$this->_class == 'scheduleByPerson' ||
 				$this->_class == 'boTimecards' ||
 				($this->_class == 'htmlSearchBox' && $_REQUEST['which'] == 'workorders')
 			);

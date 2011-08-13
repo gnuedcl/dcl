@@ -543,7 +543,6 @@ function buildMenuArray()
 				DCL_MENU_GRAPH => array('boWorkorders.graph', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
 				DCL_MENU_STATISTICS => array('htmlWOStatistics.ShowUserVsProductStatusForm', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
 				'Metrics' => array('htmlMetricsWorkOrders.getparameters', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
-				DCL_MENU_SCHEDULE => array('scheduleByPerson.SelectPersonToSchedule', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SCHEDULE)),
 				DCL_MENU_SEARCH => array('htmlWOSearches.Show', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH)),
 				DCL_MENU_VIEWS => array($aViews, count($aViews) > 0),
 				DCL_MENU_BROWSE => array('htmlWorkorders.show', $g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
