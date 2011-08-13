@@ -7,8 +7,8 @@
 				<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=Product.Index">Browse</a></li>
 {/strip}</ul></th></tr></thead>
 		<tbody>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byProduct"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byProductTickets"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderProductChart"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.TicketProductChart"></td>
 			</tr>
 		</tbody>
 	</table>

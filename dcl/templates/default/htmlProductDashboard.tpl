@@ -19,14 +19,14 @@
 				{if $PERM_DELETE}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.Delete&id={$VAL_ID}">{$smarty.const.STR_CMMN_DELETE}</a></li>{/if}
 {/strip}</ul></th></tr></thead>
 		<tbody>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byStatus&id={$VAL_ID}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byDepartment&id={$VAL_ID}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderStatusChart&id={$VAL_ID}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderDepartmentChart&id={$VAL_ID}"></td>
 			</tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.bySeverity&id={$VAL_ID}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byPriority&id={$VAL_ID}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderSeverityChart&id={$VAL_ID}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderPriorityChart&id={$VAL_ID}"></td>
 			</tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byModule&id={$VAL_ID}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byType&id={$VAL_ID}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderModuleChart&id={$VAL_ID}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderTypeChart&id={$VAL_ID}"></td>
 			</tr>
 		</tbody>
 	</table>

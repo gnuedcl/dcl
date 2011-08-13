@@ -19,11 +19,11 @@
 				{if $PERM_DELETE}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.Delete&id={$VAL_ID}">{$smarty.const.STR_CMMN_DELETE}</a></li>{/if}
 {/strip}</ul></th></tr></thead>
 		<tbody>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byStatusTicket&id={$VAL_ID}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byModuleTicket&id={$VAL_ID}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.TicketStatusChart&id={$VAL_ID}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.TicketModuleChart&id={$VAL_ID}"></td>
 			</tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byTypeTicket&id={$VAL_ID}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=imgProduct.byPriorityTicket&id={$VAL_ID}"></td>
+			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.TicketTypeChart&id={$VAL_ID}"></td>
+				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.TicketPriorityChart&id={$VAL_ID}"></td>
 			</tr>
 		</tbody>
 	</table>
