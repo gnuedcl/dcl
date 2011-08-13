@@ -16,8 +16,6 @@
   *  option) any later version.                                              *
   \**************************************************************************/
 
-  /* $Id$ */
-
 	class SchemaManagerPgsql
 	{
 		var $m_sStatementTerminator;

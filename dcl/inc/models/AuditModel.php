@@ -1,6 +1,6 @@
 <?php
 /*
- * Double Choco Latte - Source Configuration Management System
+ * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2011 Free Software Foundation
  *
  * This program is free software; you can redistribute it and/or

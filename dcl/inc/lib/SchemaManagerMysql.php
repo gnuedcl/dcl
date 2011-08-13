@@ -12,8 +12,6 @@
   *  option) any later version.                                              *
   \**************************************************************************/
 
-  /* $Id$ */
-
 	class SchemaManagerMysql
 	{
 		var $m_sStatementTerminator;

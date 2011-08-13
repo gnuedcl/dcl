@@ -12,8 +12,6 @@
   *  option) any later version.                                              *
   \**************************************************************************/
 
-  /* $Id$ */
-
 	class SchemaManager
 	{
 		var $m_oTranslator;

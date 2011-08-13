@@ -12,8 +12,6 @@
   *  option) any later version.                                              *
   \**************************************************************************/
 
-  /* $Id$ */
-
 	class SchemaManagerArray
 	{
 		var $m_sStatementTerminator;

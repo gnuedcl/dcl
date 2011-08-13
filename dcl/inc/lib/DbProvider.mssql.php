@@ -1,7 +1,5 @@
 <?php
 /*
- * Original implementation by Urmet Janes.  Many thanks!
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2011 Free Software Foundation
  *
