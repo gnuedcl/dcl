@@ -36,11 +36,11 @@ function smarty_function_dcl_select_urltype($params, &$smarty)
 
 	$sSQL = 'SELECT url_type_id, url_type_name FROM dcl_url_type ORDER BY url_type_name';
 
-	$oSelect = new htmlSelect();
-	$oSelect->vDefault = $params['default'];
-	$oSelect->sName = $params['name'];
-	$oSelect->iSize = $params['size'];
-	$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+	$oSelect = new SelectHtmlHelper();
+	$oSelect->DefaultValue = $params['default'];
+	$oSelect->Id = $params['name'];
+	$oSelect->Size = $params['size'];
+	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetFromQuery($sSQL);
 
 	return $oSelect->GetHTML();

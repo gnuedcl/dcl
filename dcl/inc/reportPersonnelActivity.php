@@ -42,7 +42,7 @@ class reportPersonnelActivity
 			return;
 
 		$t = new SmartyHelper();
-		$oSelect = new htmlSelect();
+		$oSelect = new SelectHtmlHelper();
 		
 		$iDept = $oDBPersonnel->department;
 		if (isset($_REQUEST['department']))
@@ -60,14 +60,14 @@ class reportPersonnelActivity
 		$t->assign('CMB_DEPARTMENTS', $oDept->Select($iDept, 'department', 'name', 0, false, true));
 
 		// By department or responsible
-		$oSelect->sZeroOption = '';
-		$oSelect->sName = 'bytype';
-		$oSelect->sOnChange = 'onChangeByType();';
-		$oSelect->aOptions = array(array('1', 'By Responsible'), array('2', 'By Department'));
+		$oSelect->FirstOption = '';
+		$oSelect->Id = 'bytype';
+		$oSelect->OnChange = 'onChangeByType();';
+		$oSelect->Options = array(array('1', 'By Responsible'), array('2', 'By Department'));
 		if (isset($_REQUEST['bytype']))
-			$oSelect->vDefault = $_REQUEST['bytype'];
+			$oSelect->DefaultValue = $_REQUEST['bytype'];
 		else if ($g_oSession->IsRegistered('personnel_activity_bytype'))
-			$oSelect->vDefault = $g_oSession->Value('personnel_activity_bytype');
+			$oSelect->DefaultValue = $g_oSession->Value('personnel_activity_bytype');
 		
 		$t->assign('CMB_BYTYPE', $oSelect->GetHTML());
 		
@@ -78,14 +78,14 @@ class reportPersonnelActivity
 		$dtYesterday = $oDate->time - 86400;
 
 		// Optional group by
-		$oSelect->sZeroOption = 'None';
-		$oSelect->sName = 'groupby';
-		$oSelect->sOnChange = '';
-		$oSelect->aOptions = array(array('1', 'Project'), array('2', 'Action'), array('3', 'Date'), array('4', 'Product'), array('5', 'Action By'));
+		$oSelect->FirstOption = 'None';
+		$oSelect->Id = 'groupby';
+		$oSelect->OnChange = '';
+		$oSelect->Options = array(array('1', 'Project'), array('2', 'Action'), array('3', 'Date'), array('4', 'Product'), array('5', 'Action By'));
 		if (isset($_REQUEST['groupby']))
-			$oSelect->vDefault = $_REQUEST['groupby'];
+			$oSelect->DefaultValue = $_REQUEST['groupby'];
 		else if ($g_oSession->IsRegistered('personnel_activity_groupby'))
-			$oSelect->vDefault = $g_oSession->Value('personnel_activity_groupby');
+			$oSelect->DefaultValue = $g_oSession->Value('personnel_activity_groupby');
 		
 		$t->assign('CMB_GROUPBY', $oSelect->GetHTML());
 

@@ -51,12 +51,12 @@ function smarty_function_dcl_select_product_version($params, &$smarty)
 		$sFilter .= 'product_id = ' . $params['product'];
 	}
 	
-	$oSelect = new htmlSelect();
-	$oSelect->vDefault = $params['default'];
-	$oSelect->sName = $params['name'];
-	$oSelect->iSize = $params['size'];
-	$oSelect->sOnChange = $params['onchange'];
-	$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+	$oSelect = new SelectHtmlHelper();
+	$oSelect->DefaultValue = $params['default'];
+	$oSelect->Id = $params['name'];
+	$oSelect->Size = $params['size'];
+	$oSelect->OnChange = $params['onchange'];
+	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetOptionsFromDb('dcl_product_version', 'product_version_id', 'product_version_text', $sFilter, 'product_version_actual_date desc, product_version_text');
 
 	return $oSelect->GetHTML();

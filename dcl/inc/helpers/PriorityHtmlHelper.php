@@ -45,11 +45,11 @@ class PriorityHtmlHelper
 			$query .= ' ORDER BY a.name';
 		}
 
-		$oSelect = new htmlSelect();
-		$oSelect->vDefault = $default;
-		$oSelect->sName = $cbName;
-		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$oSelect = new SelectHtmlHelper();
+		$oSelect->DefaultValue = $default;
+		$oSelect->Id = $cbName;
+		$oSelect->Size = $size;
+		$oSelect->FirstOption = STR_CMMN_SELECTONE;
 		$oSelect->SetFromQuery($query);
 
 		return $oSelect->GetHTML();

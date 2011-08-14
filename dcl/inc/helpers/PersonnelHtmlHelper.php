@@ -49,11 +49,11 @@ class PersonnelHtmlHelper
 		$query .= "ORDER BY short";
 		$objDBPersonnel->Query($query);
 
-		$oSelect = new htmlSelect();
-		$oSelect->vDefault = $default;
-		$oSelect->sName = $cbName;
-		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$oSelect = new SelectHtmlHelper();
+		$oSelect->DefaultValue = $default;
+		$oSelect->Id = $cbName;
+		$oSelect->Size = $size;
+		$oSelect->FirstOption = STR_CMMN_SELECTONE;
 		$oSelect->bCastToInt = true;
 
 		while ($objDBPersonnel->next_record())

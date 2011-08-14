@@ -250,30 +250,30 @@ class htmlWOSearches
 			$t->assign('CMB_PUBLIC', GetYesNoCombo($aDefault['is_public'], 'is_public', 2, false));
 		}
 
-		$oSelect = new htmlSelect();
+		$oSelect = new SelectHtmlHelper();
 
 		if ($g_oSec->IsOrgUser())
 			$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', 'org_id IN (' . $g_oSession->Value('member_of_orgs') . ')', 'name');
 		else
 			$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', '', 'name');
 		
-		$oSelect->iSize = 8;
-		$oSelect->vDefault = $aDefault['dcl_wo_account.account_id'];
-		$oSelect->sName = 'account';
+		$oSelect->Size = 8;
+		$oSelect->DefaultValue = $aDefault['dcl_wo_account.account_id'];
+		$oSelect->Id = 'account';
 		$t->assign('CMB_ACCOUNTS', $oSelect->GetHTML());
 
 		$oSource = new EntitySourceHtmlHelper();
 		$t->assign('CMB_SOURCE', $oSource->Select($aDefault['entity_source_id'], 'entity_source_id', 8, false));
 
 		// Empty status is for selecting status type, then filtering status if desired
-		$oSelect->sName = 'status';
-		$oSelect->iSize = 8;
+		$oSelect->Id = 'status';
+		$oSelect->Size = 8;
 		$t->assign('CMB_STATUSESEMPTY', $oSelect->GetHTML());
 
 		// Status Types
-		$oSelect->sName = 'dcl_status_type';
-		$oSelect->iSize = 8;
-		$oSelect->vDefault = $aDefault['statuses.dcl_status_type'];
+		$oSelect->Id = 'dcl_status_type';
+		$oSelect->Size = 8;
+		$oSelect->DefaultValue = $aDefault['statuses.dcl_status_type'];
 		$oSelect->SetOptionsFromDb('dcl_status_type', 'dcl_status_type_id', 'dcl_status_type_name', '', 'dcl_status_type_id');
 		$t->assign('CMB_STATUSTYPES', $oSelect->GetHTML());
 

@@ -28,12 +28,12 @@ class PhoneTypeHtmlHelper
 		$table = 'dcl_phone_type';
 		$order = 'phone_type_name';
 
-		$obj = new htmlSelect();
+		$obj = new SelectHtmlHelper();
 		$obj->SetOptionsFromDb($table, 'phone_type_id', 'phone_type_name', $filter, $order);
-		$obj->vDefault = $default;
-		$obj->sName = $cbName;
-		$obj->iSize = $size;
-		$obj->sZeroOption = STR_CMMN_SELECTONE;
+		$obj->DefaultValue = $default;
+		$obj->Id = $cbName;
+		$obj->Size = $size;
+		$obj->FirstOption = STR_CMMN_SELECTONE;
 
 		return $obj->GetHTML();
 	}

@@ -61,12 +61,12 @@ function smarty_function_dcl_select_module($params, &$smarty)
 	if ($params['product'] > 0)
 		$sFilter .= ($sFilter == '' ? '' : ' AND ') . "product_id = " . $params['product'];
 
-	$oSelect = new htmlSelect();
-	$oSelect->vDefault = $params['default'];
-	$oSelect->sName = $params['name'];
-	$oSelect->iSize = $params['size'];
-	$oSelect->sOnChange = $params['onchange'];
-	$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+	$oSelect = new SelectHtmlHelper();
+	$oSelect->DefaultValue = $params['default'];
+	$oSelect->Id = $params['name'];
+	$oSelect->Size = $params['size'];
+	$oSelect->OnChange = $params['onchange'];
+	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	
 	if ($g_oSec->IsPublicUser())
 	{

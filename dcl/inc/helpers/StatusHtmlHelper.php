@@ -40,15 +40,15 @@ class StatusHtmlHelper
 
 		$query .= "ORDER BY $longShort";
 
-		$oSelect = new htmlSelect();
-		$oSelect->vDefault = $default;
-		$oSelect->sName = $cbName;
-		$oSelect->iSize = $size;
+		$oSelect = new SelectHtmlHelper();
+		$oSelect->DefaultValue = $default;
+		$oSelect->Id = $cbName;
+		$oSelect->Size = $size;
 
 		if ($zeroOption == '_SELECT_ONE_')
-			$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+			$oSelect->FirstOption = STR_CMMN_SELECTONE;
 		else
-			$oSelect->sZeroOption = $zeroOption;
+			$oSelect->FirstOption = $zeroOption;
 
 		$oSelect->SetFromQuery($query);
 
@@ -57,11 +57,11 @@ class StatusHtmlHelper
 
 	public function SelectType($default = 0)
 	{
-		$oSelect = new htmlSelect();
+		$oSelect = new SelectHtmlHelper();
 		$oSelect->SetOptionsFromDb('dcl_status_type', 'dcl_status_type_id', 'dcl_status_type_name', '', $order = 'dcl_status_type_id');
-		$oSelect->vDefault = $default;
-		$oSelect->sName = 'dcl_status_type';
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$oSelect->DefaultValue = $default;
+		$oSelect->Id = 'dcl_status_type';
+		$oSelect->FirstOption = STR_CMMN_SELECTONE;
 
 		return $oSelect->GetHTML();
 	}

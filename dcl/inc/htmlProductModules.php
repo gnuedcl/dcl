@@ -51,12 +51,12 @@ class htmlProductModules
 
 		$order = 'module_name';
 
-		$obj = new htmlSelect();
+		$obj = new SelectHtmlHelper();
 		$obj->SetOptionsFromDb($table, 'product_module_id', 'module_name', $filter, $order);
-		$obj->vDefault = $default;
-		$obj->sName = $cbName;
-		$obj->iSize = $size;
-		$obj->sZeroOption = STR_CMMN_SELECTONE;
+		$obj->DefaultValue = $default;
+		$obj->Id = $cbName;
+		$obj->Size = $size;
+		$obj->FirstOption = STR_CMMN_SELECTONE;
 
 		return $obj->GetHTML();
 	}

@@ -68,15 +68,15 @@ class ProductHtmlHelper
 
 		$objDBProducts->Query("SELECT id,$longShort FROM products " . $whereClause . " ORDER BY $longShort");
 
-		$o = new htmlSelect();
-		$o->vDefault = $default;
-		$o->sName = $cbName;
-		$o->iSize = $size;
-		$o->sZeroOption = STR_CMMN_SELECTONE;
-		$o->aOptions = $objDBProducts->FetchAllRows();
+		$o = new SelectHtmlHelper();
+		$o->DefaultValue = $default;
+		$o->Id = $cbName;
+		$o->Size = $size;
+		$o->FirstOption = STR_CMMN_SELECTONE;
+		$o->Options = $objDBProducts->FetchAllRows();
 		$objDBProducts->FreeResult();
 		if ($inputHandler)
-			$o->sOnChange = 'productSelChange(this.form);';
+			$o->OnChange = 'productSelChange(this.form);';
 
 		return $o->GetHTML();
 	}

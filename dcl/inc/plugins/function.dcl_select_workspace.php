@@ -36,14 +36,14 @@ function smarty_function_dcl_select_workspace($params, &$smarty)
 	if (!isset($params['size']))
 		$params['size'] = 1;
 
-	$oSelect = new htmlSelect();
-	$oSelect->vDefault = $params['default'];
-	$oSelect->sName = $params['name'];
-	$oSelect->iSize = $params['size'];
-	$oSelect->sZeroOption = "No Workspace";
+	$oSelect = new SelectHtmlHelper();
+	$oSelect->DefaultValue = $params['default'];
+	$oSelect->Id = $params['name'];
+	$oSelect->Size = $params['size'];
+	$oSelect->FirstOption = "No Workspace";
 	
 	if (isset($params['onchange']))
-		$oSelect->sOnChange = $params['onchange'];
+		$oSelect->OnChange = $params['onchange'];
 	
 	$oSelect->SetOptionsFromDb('dcl_workspace', 'workspace_id', 'workspace_name', "active = 'Y'");
 	

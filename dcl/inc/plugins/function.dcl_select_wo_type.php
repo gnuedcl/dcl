@@ -43,11 +43,11 @@ function smarty_function_dcl_select_wo_type($params, &$smarty)
 	if ($params['active'] == 'Y')
 		$sFilter = "active = 'Y'";
 
-	$oSelect = new htmlSelect();
-	$oSelect->vDefault = $params['default'];
-	$oSelect->sName = $params['name'];
-	$oSelect->iSize = $params['size'];
-	$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+	$oSelect = new SelectHtmlHelper();
+	$oSelect->DefaultValue = $params['default'];
+	$oSelect->Id = $params['name'];
+	$oSelect->Size = $params['size'];
+	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetOptionsFromDb('dcl_wo_type', 'wo_type_id', 'type_name', $sFilter, 'type_name');
 
 	return $oSelect->GetHTML();

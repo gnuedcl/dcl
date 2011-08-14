@@ -110,16 +110,16 @@ class htmlChecklistForm
 	function RenderPersonnel(&$node)
 	{
 		if ($this->oSelect == NULL)
-			$this->oSelect = new htmlSelect();
+			$this->oSelect = new SelectHtmlHelper();
 
 		if (substr($node->attributes['type'], -3, 3) == 'one')
-			$this->oSelect->iSize = 0;
+			$this->oSelect->Size = 0;
 		else
-			$this->oSelect->iSize = 8;
+			$this->oSelect->Size = 8;
 
-		$this->oSelect->sName = $node->attributes['name'];
-		$this->oSelect->vDefault = $this->GetNodeValue($node);
-		$this->oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$this->oSelect->Id = $node->attributes['name'];
+		$this->oSelect->DefaultValue = $this->GetNodeValue($node);
+		$this->oSelect->FirstOption = STR_CMMN_SELECTONE;
 		$this->oSelect->SetOptionsFromDb('personnel', 'short', 'short');
 		$this->oSelect->Render();
 	}
@@ -127,16 +127,16 @@ class htmlChecklistForm
 	function RenderProducts(&$node)
 	{
 		if ($this->oSelect == NULL)
-			$this->oSelect = new htmlSelect();
+			$this->oSelect = new SelectHtmlHelper();
 
 		if (substr($node->attributes['type'], -3, 3) == 'one')
-			$this->oSelect->iSize = 0;
+			$this->oSelect->Size = 0;
 		else
-			$this->oSelect->iSize = 8;
+			$this->oSelect->Size = 8;
 
-		$this->oSelect->sName = $node->attributes['name'];
-		$this->oSelect->vDefault = $this->GetNodeValue($node);
-		$this->oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$this->oSelect->Id = $node->attributes['name'];
+		$this->oSelect->DefaultValue = $this->GetNodeValue($node);
+		$this->oSelect->FirstOption = STR_CMMN_SELECTONE;
 		$this->oSelect->SetOptionsFromDb('products', 'name', 'name');
 		$this->oSelect->Render();
 	}

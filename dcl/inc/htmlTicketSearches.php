@@ -67,7 +67,7 @@ class htmlTicketSearches
 		$objJS->bDepartments = !$g_oSec->IsPublicUser();
 		$objJS->DisplayAttributeScript();
 
-		$oSelect = new htmlSelect();
+		$oSelect = new SelectHtmlHelper();
 		$objStatuses = new StatusHtmlHelper();
 		$objModules = new htmlProductModules();
 
@@ -229,29 +229,29 @@ class htmlTicketSearches
 		else
 			$oSelect->SetOptionsFromDb('dcl_org', 'org_id', 'name', '', 'name');
 		
-		$oSelect->iSize = 8;
-		$oSelect->vDefault = $aDefault['account'];
-		$oSelect->sName = 'account';
+		$oSelect->Size = 8;
+		$oSelect->DefaultValue = $aDefault['account'];
+		$oSelect->Id = 'account';
 		$t->assign('CMB_ACCOUNTS', $oSelect->GetHTML());
 
 		$oSource = new EntitySourceHtmlHelper();
 		$t->assign('CMB_SOURCE', $oSource->Select($aDefault['entity_source_id'], 'entity_source_id', 8, false));
 
 		// Modules only show for selected products
-		$oSelect->aOptions = array();
-		$oSelect->sName = 'module_id';
-		$oSelect->iSize = 8;
+		$oSelect->Options = array();
+		$oSelect->Id = 'module_id';
+		$oSelect->Size = 8;
 		$t->assign('CMB_MODULES', $oSelect->GetHTML());
 
 		// Empty status is for selecting status type, then filtering status if desired
-		$oSelect->sName = 'status';
-		$oSelect->iSize = 8;
+		$oSelect->Id = 'status';
+		$oSelect->Size = 8;
 		$t->assign('CMB_STATUSESEMPTY', $oSelect->GetHTML());
 
 		// Status Types
-		$oSelect->sName = 'dcl_status_type';
-		$oSelect->iSize = 8;
-		$oSelect->vDefault = $aDefault['statuses.dcl_status_type'];
+		$oSelect->Id = 'dcl_status_type';
+		$oSelect->Size = 8;
+		$oSelect->DefaultValue = $aDefault['statuses.dcl_status_type'];
 		$oSelect->SetOptionsFromDb('dcl_status_type', 'dcl_status_type_id', 'dcl_status_type_name', '', 'dcl_status_type_id');
 		$t->assign('CMB_STATUSTYPES', $oSelect->GetHTML());
 		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION))

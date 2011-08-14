@@ -43,7 +43,7 @@ class htmlSecAudit
 			return;
 			
 		$t = new SmartyHelper();
-		$oSelect = new htmlSelect();
+		$oSelect = new SelectHtmlHelper();
 		
 		$t->assign('CMB_USERS', $objPersonnel->Select(0, 'responsible', 'lastfirst', 0, false));
 		

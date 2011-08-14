@@ -61,11 +61,11 @@ class htmlProjects
 			$whereClause .= 'dcl_projects.status = statuses.id AND statuses.dcl_status_type != 2';
 		}
 
-		$oSelect = new htmlSelect();
-		$oSelect->vDefault = $default;
-		$oSelect->sName = $cbName;
-		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$oSelect = new SelectHtmlHelper();
+		$oSelect->DefaultValue = $default;
+		$oSelect->Id = $cbName;
+		$oSelect->Size = $size;
+		$oSelect->FirstOption = STR_CMMN_SELECTONE;
 		$oSelect->SetFromQuery('SELECT dcl_projects.projectid, dcl_projects.name FROM dcl_projects' . $whereClause . ' ORDER BY dcl_projects.name');
 
 		return $oSelect->GetHTML();

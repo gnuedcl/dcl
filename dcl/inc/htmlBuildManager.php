@@ -47,12 +47,12 @@ class htmlBuildManager
 		//$query .= "ORDER BY $orderBy";
 		$objDBRDate->Query($query);
 
-		$oSelect = new htmlSelect();
-		$oSelect->vDefault = $default;
-		$oSelect->sName = $cbName;
+		$oSelect = new SelectHtmlHelper();
+		$oSelect->DefaultValue = $default;
+		$oSelect->Id = $cbName;
 		//$oSelect->sOnChange = '';
-		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$oSelect->Size = $size;
+		$oSelect->FirstOption = STR_CMMN_SELECTONE;
 		$oSelect->bCastToInt = true;
 
 		while ($objDBRDate->next_record())
@@ -85,12 +85,12 @@ class htmlBuildManager
 		//$query .= "ORDER BY $orderBy";
 		$objDBRDate->Query($query);
 
-		$oSelect = new htmlSelect();
-		$oSelect->vDefault = $default;
-		$oSelect->sName = $cbName;
+		$oSelect = new SelectHtmlHelper();
+		$oSelect->DefaultValue = $default;
+		$oSelect->Id = $cbName;
 		//$oSelect->sOnChange = '';
-		$oSelect->iSize = $size;
-		$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+		$oSelect->Size = $size;
+		$oSelect->FirstOption = STR_CMMN_SELECTONE;
 		$oSelect->bCastToInt = true;
 
 		while ($objDBRDate->next_record())

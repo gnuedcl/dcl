@@ -60,12 +60,12 @@ function smarty_function_dcl_select_product($params, &$smarty)
 		$sFilter .= ($sFilter == '' ? '' : ' AND ') . ' id IN (' . join(',', $aProducts) . ')';
 	}
 	
-	$oSelect = new htmlSelect();
-	$oSelect->vDefault = $params['default'];
-	$oSelect->sName = $params['name'];
-	$oSelect->iSize = $params['size'];
-	$oSelect->sOnChange = $params['onchange'];
-	$oSelect->sZeroOption = STR_CMMN_SELECTONE;
+	$oSelect = new SelectHtmlHelper();
+	$oSelect->DefaultValue = $params['default'];
+	$oSelect->Id = $params['name'];
+	$oSelect->Size = $params['size'];
+	$oSelect->OnChange = $params['onchange'];
+	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetOptionsFromDb('products', 'id', 'name', $sFilter, 'name');
 
 	return $oSelect->GetHTML();
