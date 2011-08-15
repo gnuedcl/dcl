@@ -54,7 +54,7 @@ class PersonnelHtmlHelper
 		$oSelect->Id = $cbName;
 		$oSelect->Size = $size;
 		$oSelect->FirstOption = STR_CMMN_SELECTONE;
-		$oSelect->bCastToInt = true;
+		$oSelect->CastToInt = true;
 
 		while ($objDBPersonnel->next_record())
 			$oSelect->AddOption($objDBPersonnel->f(0), $objDBPersonnel->f(1));

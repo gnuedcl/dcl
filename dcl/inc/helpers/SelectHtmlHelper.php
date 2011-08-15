@@ -30,7 +30,7 @@ class SelectHtmlHelper
 	public $OnChange;
 	public $FirstOption;
 	public $Options;
-	public $bCastToInt;
+	public $CastToInt;
 	public $IsHidden;
 
 	private $_dbProvider;
@@ -43,7 +43,7 @@ class SelectHtmlHelper
 		$this->OnChange = '';
 		$this->FirstOption = '';
 		$this->Options = array();
-		$this->bCastToInt = false;
+		$this->CastToInt = false;
 		$this->IsHidden = false;
 		$this->_dbProvider = NULL;
 	}
@@ -53,14 +53,14 @@ class SelectHtmlHelper
 		$sValue = trim($sValue);
 		$sDisplay = trim($sDisplay);
 		$sSelected = ((is_array($this->DefaultValue) && in_array($sValue, $this->DefaultValue)) || (!is_array($this->DefaultValue) && $this->DefaultValue == $sValue)) ? ' selected' : '';
-		return sprintf('<option value="%s"%s>%s</option>', $this->bCastToInt ? (int)$sValue : htmlspecialchars($sValue), $sSelected, htmlspecialchars($sDisplay));
+		return sprintf('<option value="%s"%s>%s</option>', $this->CastToInt ? (int)$sValue : htmlspecialchars($sValue), $sSelected, htmlspecialchars($sDisplay));
 	}
 
 	public function AddOption($sValue, $sDisplay)
 	{
 		$i = count($this->Options);
 		$this->Options[$i] = array();
-		$this->Options[$i][0] = $this->bCastToInt ? (int)$sValue : $sValue;
+		$this->Options[$i][0] = $this->CastToInt ? (int)$sValue : $sValue;
 		$this->Options[$i][1] = $sDisplay;
 	}
 

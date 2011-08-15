@@ -26,25 +26,6 @@ LoadStringResource('bm');
 
 class boBuildManager
 {
-	function modifyReleaseInfo()
-	{	
-		commonHeader();
-		if (($id = @Filter::ToInt($_REQUEST['product_version_id'])) === null)
-		{
-		    throw new InvalidDataException();
-		}
-		
-		$obj = new BuildManagerModel();
-		
-		$query = "SELECT * FROM dcl_product_version where product_version_id = $id";
-		$obj->Query($query);
-		$allRecs = $obj->FetchAllRows();
-		
-		$obj = new htmlBuildManager();
-		$obj->ModifyReleasePage($allRecs);
-	}
-	
-	
 	function add()
 	{	
 		// Determines if the user is trying to add a RELEASE or to add a BUILD

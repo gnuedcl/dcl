@@ -1,9 +1,7 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,76 +26,63 @@ LoadStringResource('wo');
 
 class htmlBuildManager 
 {
-	function GetCombo($default = 0, $cbName = 'product_version_descr', $longShort = 'product_version_descr', $validate=0, $productid,$size = 0, $activeOnly = true, $minsec = 0)
+	function GetCombo($default = 0, $cbName = 'product_version_descr', $longShort = 'product_version_descr', $validate = 0, $productid, $size = 0, $activeOnly = true, $minsec = 0)
 	{
-		$objDBRDate = new ProductVersionModel();
-		$objDBRDate->Connect();
+		$productVersionModel = new ProductVersionModel();
 
 		$whereClause = '';
-		if ($validate == 0 )
-		{
-
-		}
-		else
+		if ($validate != 0 )
 		{
 			$whereClause = 'where product_id = ' . $productid . '';
 		}
-			$query = "SELECT * FROM dcl_product_version $whereClause ";
+		
+		$query = "SELECT * FROM dcl_product_version $whereClause ";
 			
-		//$query .= "ORDER BY $orderBy";
-		$objDBRDate->Query($query);
+		$productVersionModel->Query($query);
 
 		$oSelect = new SelectHtmlHelper();
 		$oSelect->DefaultValue = $default;
 		$oSelect->Id = $cbName;
-		//$oSelect->sOnChange = '';
 		$oSelect->Size = $size;
 		$oSelect->FirstOption = STR_CMMN_SELECTONE;
-		$oSelect->bCastToInt = true;
+		$oSelect->CastToInt = true;
 
-		while ($objDBRDate->next_record())
+		while ($productVersionModel->next_record())
 		{
-			$objDBRDate->GetRow();
+			$productVersionModel->GetRow();
 
-			$name = $objDBRDate->product_version_descr;
-
-			$oSelect->AddOption($objDBRDate->product_version_id, $name);
+			$oSelect->AddOption($productVersionModel->product_version_id, $productVersionModel->product_version_descr);
 		}
+		
 		return $oSelect->GetHTML();
 	}
 	
-	function GetBuildCombo($default = 0, $cbName = 'product_build_descr', $longShort = 'product_build_descr', $validate=0, $versionid,$size = 0, $activeOnly = true, $minsec = 0)
+	function GetBuildCombo($default = 0, $cbName = 'product_build_descr', $longShort = 'product_build_descr', $validate = 0, $versionid, $size = 0, $activeOnly = true, $minsec = 0)
 	{
-		$objDBRDate = new ProductBuildModel();
-		$objDBRDate->Connect();
+		$productBuildModel = new ProductBuildModel();
 
 		$whereClause = '';
-		if ($validate == 0 )
-		{
-
-		}
-		else
+		if ($validate != 0 )
 		{
 			$whereClause = 'where product_version_id = ' . $versionid . '';
 		}
-			$query = "SELECT * FROM dcl_product_build $whereClause ";			
+		
+		$query = "SELECT * FROM dcl_product_build $whereClause ";			
 
-		//$query .= "ORDER BY $orderBy";
-		$objDBRDate->Query($query);
+		$productBuildModel->Query($query);
 
 		$oSelect = new SelectHtmlHelper();
 		$oSelect->DefaultValue = $default;
 		$oSelect->Id = $cbName;
-		//$oSelect->sOnChange = '';
 		$oSelect->Size = $size;
 		$oSelect->FirstOption = STR_CMMN_SELECTONE;
-		$oSelect->bCastToInt = true;
+		$oSelect->CastToInt = true;
 
-		while ($objDBRDate->next_record())
+		while ($productBuildModel->next_record())
 		{
-			$objDBRDate->GetRow();
-			$name = $objDBRDate->product_build_descr;
-			$oSelect->AddOption($objDBRDate->product_build_id, $name);
+			$productBuildModel->GetRow();
+			$name = $productBuildModel->product_build_descr;
+			$oSelect->AddOption($productBuildModel->product_build_id, $name);
 		}
 
 		return $oSelect->GetHTML();
@@ -105,16 +90,16 @@ class htmlBuildManager
 	
 	function ShowAddReleasePage()
 	{
-		global $dcl_info;
+		$productId = @Filter::RequireInt($_REQUEST['product_id']);
 
-		$oProduct = new ProductModel();
-		$oProduct->Load($_REQUEST['product_id']);
+		$productModel = new ProductModel();
+		$productModel->Load($productId);
 		
 		$oSmarty = new SmartyHelper();
 
 		$oSmarty->assign('menuAction', 'boBuildManager.addRelease');
-		$oSmarty->assign('VAL_PRODUCTID', $oProduct->id);
-		$oSmarty->assign('VAL_PRODUCTNAME', $oProduct->name);
+		$oSmarty->assign('VAL_PRODUCTID', $productModel->id);
+		$oSmarty->assign('VAL_PRODUCTNAME', $productModel->name);
 
 		$oSmarty->Render('htmlBuildManagerRelease.tpl');
 	}
@@ -122,113 +107,54 @@ class htmlBuildManager
 	function ShowAddBuildPage()
 	{
 		global $dcl_info;
+		$productId = @Filter::RequireInt($_REQUEST['product_id']);
+		$productVersionId = @Filter::RequireInt($_REQUEST['product_version_id']);
 
-		$oDbProduct = new ProductModel();
-		$oDbProduct->Load($_REQUEST['product_id']);
+		$productModel = new ProductModel();
+		$productModel->Load($productId);
 		
-		$oVersion = new ProductVersionModel();
-		$oVersion->Load(array('product_version_id' => $_REQUEST['product_version_id']));
+		$productVersionModel = new ProductVersionModel();
+		$productVersionModel->Load(array('product_version_id' => $productVersionId));
 		
 		$oSmarty = new SmartyHelper();
 		
-		$oSmarty->assign('VAL_PRODUCTID', $_REQUEST['product_id']);
-		$oSmarty->assign('VAL_VERSIONID', $_REQUEST['product_version_id']);
-		$oSmarty->assign('VAL_PRODUCT', $oDbProduct->name);
-		$oSmarty->assign('VAL_VERSION', $oVersion->product_version_text);
+		$oSmarty->assign('VAL_PRODUCTID', $productId);
+		$oSmarty->assign('VAL_VERSIONID', $productVersionId);
+		$oSmarty->assign('VAL_PRODUCT', $productModel->name);
+		$oSmarty->assign('VAL_VERSION', $productVersionModel->product_version_text);
 		$oSmarty->assign('VAL_WHICH', $_REQUEST['which']);
 		
 		$oSmarty->Render('htmlBuildManagerBuild.tpl');
 	}
 	
-	function ModifyReleaseInfo()
-	{
-		commonHeader();
-		global $dcl_info, $versionid, $g_oSec;
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
-			
-		includeCalendar();			
-		$Template = CreateTemplate(array('hForm' => 'htmlBuildManagerRelease.tpl'));
-
-		$oProduct = new ProductModel();
-		$oProduct->Connect();
-		$oProduct->Load($_REQUEST['product_id']);
-		
-		$Template->set_var('COLOR_LIGHT', $dcl_info['DCL_COLOR_LIGHT']);
-		$Template->set_var('VAL_FORMACTION', menuLink());
-		$Template->set_var('VAL_JSDATEFORMAT', GetJSDateFormat());
-		$Template->set_var('VAL_MENU', 'boBuildManager.modifySumbit');
-		
-		$oPV = new ProductVersionModel();
-		if ($oPV->Load(array('product_version_id' => $versionid)) == -1)
-		{
-			ShowError('Failed to load version ID ' . $versionid, 'Error');
-			return;
-		}
-
-		$myDate = $oPV->product_version_target_date;
-		
-		$Template->set_var('TXT_BM_ADD_RELEASE', STR_BM_MOD_RELEASE);
-		$Template->set_var('TXT_BM_PRODUCT', STR_BM_PRODUCT);
-		$Template->set_var('TXT_BM_RELEASE_ALIAS_TITLE', STR_BM_RELEASE_ALIAS_TITLE);
-		$Template->set_var('TXT_BM_RELEASE_ALIAS', '<input type="text" name="ReleaseAlias" size=10 value='. $oPV->product_version_text . '>');
-		
-		$Template->set_var('VAL_PRODUCTNAME', $oProduct->name);
-		$Template->set_var('H_VERSIONID', $versionid);
-		$Template->set_var('H_PRODUCTID', $oProduct->id);
-		$Template->set_var('H_TARGETDATE', $oPV->product_version_target_date);
-		$Template->set_var('VAL_VERSIONTEXT', $oPV->product_version_text);
-		$Template->set_var('VAL_VERSIONDESCR', $oPV->product_version_descr);
-		$Template->set_var('VAL_DATE', 'product_version_actual_date');
-		$Template->set_var('VAL_VERSIONTARGETDATE', $oPV->product_version_target_date);
-		$Template->set_var('TXT_BM_RELEASEDATE_DESC', STR_BM_RELEASEDATE_DESC);
-		$Template->set_var('TXT_BM_RELEASEDATE', STR_BM_RELEASEDATE);
-		$Template->set_var('TXT_BM_RELEASEDATEFORM', '<input type="text" name="ReleaseDesc" size=50 value="'. $oPV->product_version_descr .'">');
-		$Template->set_var('date', $oPV->product_version_target_date);
-		$Template->set_var('VAL_WHICH', $_REQUEST['which']);
-		$Template->set_var('H_PRODUCTID', $oPV->product_id);
-		
-		
-		$Template->set_var('BTN_SUBMIT', STR_BM_SUBMIT);
-		$Template->pparse('out', 'hForm');
-		
-	}
-	
 	function ModifyBuildInfo()
 	{
-		global $dcl_info, $g_oSec;
-
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_BUILDMANAGER, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
-			
-		if (($product_id = @Filter::ToInt($_REQUEST['product_id'])) === null ||
-			($product_version_id = @Filter::ToInt($_REQUEST['product_version_id'])) === null ||
-			($buildid = @Filter::ToInt($_REQUEST['buildid'])) === null)
-			{
-				throw new InvalidDataException();
-			}
-
-		$oDbProduct = new ProductModel();
-		$oDbProduct->Load($product_id);
+		RequirePermission(DCL_ENTITY_BUILDMANAGER, DCL_PERM_MODIFY);
 		
-		$oVersion = new ProductVersionModel();
-		$oVersion->Load(array('product_version_id' => $product_version_id));
+		$productId = @Filter::RequireInt($_REQUEST['product_id']);
+		$productVersionId = @Filter::RequireInt($_REQUEST['product_version_id']);
+		$buildId = @Filter::RequireInt($_REQUEST['buildid']);
+			
+		$productModel = new ProductModel();
+		$productModel->Load($productId);
+		
+		$productVersionModel = new ProductVersionModel();
+		$productVersionModel->Load(array('product_version_id' => $productVersionId));
 
 		$oPB = new ProductBuildModel();
-		if ($oPB->Load(array('product_build_id' => $buildid)) == -1)
+		if ($oPB->Load(array('product_build_id' => $buildId)) == -1)
 		{
-			ShowError('Failed to load build ID ' . $buildid, 'Error');
+			ShowError('Failed to load build ID ' . $buildId, 'Error');
 			return;
 		}
 		
 		$oSmarty = new SmartyHelper();
 		
-		$oSmarty->assign('VAL_PRODUCTID', $product_id);
-		$oSmarty->assign('VAL_VERSIONID', $product_version_id);
-		$oSmarty->assign('VAL_PRODUCT', $oDbProduct->name);
-		$oSmarty->assign('VAL_VERSION', $oVersion->product_version_text);
+		$oSmarty->assign('VAL_PRODUCTID', $productId);
+		$oSmarty->assign('VAL_VERSIONID', $productVersionId);
+		$oSmarty->assign('VAL_PRODUCT', $productModel->name);
+		$oSmarty->assign('VAL_VERSION', $productVersionModel->product_version_text);
 		$oSmarty->assign('VAL_WHICH', $_REQUEST['which']);
 		$oSmarty->assign('VAL_BM_BUILDNAME', $oPB->product_build_descr);
 		
@@ -238,9 +164,11 @@ class htmlBuildManager
 	function ShowWOByBuild()
 	{
 		commonHeader();
+		
+		$productBuildId = @Filter::RequireInt($_REQUEST['product_build_id']);
 
 		$oBuild = new ProductBuildModel();
-		$oBuild->Load(array('product_build_id' => $_REQUEST['product_build_id']));
+		$oBuild->Load(array('product_build_id' => $productBuildId));
 		
 		$oVersion = new ProductVersionModel();
 		$oVersion->Load(array('product_version_id' => $oBuild->product_version_id));
@@ -315,44 +243,6 @@ class htmlBuildManager
 		$obj->ShowBatchWO();
 	}
 		
-	function SubmitSelectedWO($selected)
-	{
-		commonHeader();
-		
-		global $dcl_info;
-		
-		$Template = CreateTemplate(array('hForm' => 'htmlBuildManagerEntry.tpl'));
-		$Template->set_var('COLOR_LIGHT', $dcl_info['DCL_COLOR_LIGHT']);
-		$Template->set_var('VAL_FORMACTION', menuLink());
-		
-		$Template->set_var('TXT_BM_ADD_RELEASE', STR_BM_ADDBUILD_TITLE);
-		$Template->set_var('TXT_BM_VERSIONNAME', STR_BM_VERSIONNAME);
-		$Template->set_var('TXT_BM_BUILDNAME', STR_BM_BUILDNAME);
-		
-		$Template->set_var('CMB_PRODUCT', $this->GetCombo($_REQUEST['DCLID'], 'project', 'name'));
-		
-		$Template->set_var('BTN_SUBMIT', STR_BM_SUBMIT);
-		$Template->pparse('out', 'hForm');
-		
-		$objWO = new WorkOrderModel();
-		$objWO->Connect();
-		
-		while (list($key, $jcnseq) = each($selected))
-		{
-			list($jcn, $seq) = explode('.', $jcnseq);
-		
-			$sql = "SELECT jcn,seq,status,summary FROM workorders where jcn=$jcn and seq=$seq";
-		
-			$objWO->Query($sql);		
-			
-			while ($objWO->next_record())
-			{	
-				echo $objWO->f(3);
-				echo ("<BR>");
-			}
-		}
-	}		
-	
 	function ShowErrorReport()
 	{
 		global $dcl_info, $g_oSession;

@@ -42,7 +42,7 @@ class htmlRole
 		$oSelect->Id = $cbName;
 		$oSelect->Size = $size;
 		$oSelect->FirstOption = STR_CMMN_SELECTONE;
-		$oSelect->bCastToInt = true;
+		$oSelect->CastToInt = true;
 
 		while ($oDB->next_record())
 			$oSelect->AddOption($oDB->f(0), $oDB->f(1));
