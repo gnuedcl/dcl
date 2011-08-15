@@ -646,7 +646,7 @@ function buildMenuArray()
 			DCL_MENU_DCLHOMEPAGE => array('http://dcl.sourceforge.net/index.php', true),
 			'GNU Enterprise' => array('http://www.gnuenterprise.org/index.php', true),
 			DCL_MENU_LICENSEINFO => array(DCL_WWW_ROOT . 'gpl.php', true),
-			DCL_MENU_VERSIONINFO => array('htmlVersion.DisplayVersionInfo', true)
+			DCL_MENU_VERSIONINFO => array('About.Detail', true)
 		);
 }
 
