@@ -133,22 +133,21 @@ class htmlViews
 	{
 		global $dcl_info, $g_oSec;
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_ADD))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_ADD);
 
-		$Template = CreateTemplate(array('hForm' => 'htmlViewForm.tpl'));
+		$template = new SmartyHelper();
 
-		$Template->set_var('TXT_TITLE', STR_VW_ADDVIEW);
-		$Template->set_var('TXT_PUBLIC', STR_VW_PUBLIC);
-		$Template->set_var('TXT_NAME', STR_VW_NAME);
-		$Template->set_var('BTN_SAVE', STR_CMMN_SAVE);
-		$Template->set_var('BTN_RESET', STR_CMMN_RESET);
-		$Template->set_var('TXT_HIGHLIGHTEDNOTE', STR_CMMN_HIGHLIGHTEDNOTE);
-		$Template->set_var('VAL_FORMACTION', menuLink());
-		$Template->set_var('BTN_CANCEL', STR_CMMN_CANCEL);
+		$template->assign('TXT_TITLE', STR_VW_ADDVIEW);
+		$template->assign('TXT_PUBLIC', STR_VW_PUBLIC);
+		$template->assign('TXT_NAME', STR_VW_NAME);
+		$template->assign('BTN_SAVE', STR_CMMN_SAVE);
+		$template->assign('BTN_RESET', STR_CMMN_RESET);
+		$template->assign('TXT_HIGHLIGHTEDNOTE', STR_CMMN_HIGHLIGHTEDNOTE);
+		$template->assign('VAL_FORMACTION', menuLink());
+		$template->assign('BTN_CANCEL', STR_CMMN_CANCEL);
 
-		$Template->set_var('VAL_DCLID', $GLOBALS['DCLID']);
-		$Template->set_var('VAL_TABLENAME', $_REQUEST['vt']);
+		$template->assign('VAL_DCLID', $GLOBALS['DCLID']);
+		$template->assign('VAL_TABLENAME', $_REQUEST['vt']);
 
 		// Add the URL pieces
 		$viewUrl = '';
@@ -160,9 +159,9 @@ class htmlViews
 				$viewUrl .= sprintf('<input type="hidden" name="%s" value="%s">', $val, htmlspecialchars($o->GPCStripSlashes($_REQUEST[$val])));
 		}
 
-		$Template->set_var('VAL_VIEWURL', $viewUrl);
-		$Template->set_var('CMB_ISPUBLIC', GetYesNoCombo("N", "ispublic", 0, false));
+		$template->assign('VAL_VIEWURL', $viewUrl);
+		$template->assign('CMB_ISPUBLIC', GetYesNoCombo("N", "ispublic", 0, false));
 
-		$Template->pparse('out', 'hForm');
+		$template->Render('htmlViewForm.tpl');
 	}
 }
