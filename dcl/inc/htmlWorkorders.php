@@ -135,22 +135,19 @@ class htmlWorkorders
 
 	function ShowDeleteAttachmentYesNo($jcn, $seq, $filename)
 	{
-		global $dcl_info, $g_oSec;
+		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $jcn, $seq);
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $jcn, $seq))
-			throw new PermissionDeniedException();
+		$template = new SmartyHelper();
+		$template->assign('TXT_TITLE', STR_WO_DELETEATTACHMENTTITLE);
+		$template->assign('VAL_JCN', $jcn);
+		$template->assign('VAL_SEQ', $seq);
+		$template->assign('VAL_FILENAME', htmlspecialchars($filename));
+		$template->assign('VAL_FORMACTION', menuLink());
+		$template->assign('TXT_DELATTCONFIRM', sprintf(STR_WO_DELATTCONFIRM, htmlspecialchars($filename)));
+		$template->assign('BTN_YES', STR_CMMN_YES);
+		$template->assign('BTN_NO', STR_CMMN_NO);
 
-		$Template = CreateTemplate(array('hForm' => 'htmlWorkOrderDelAttachment.tpl'));
-		$Template->set_var('TXT_TITLE', STR_WO_DELETEATTACHMENTTITLE);
-		$Template->set_var('VAL_JCN', $jcn);
-		$Template->set_var('VAL_SEQ', $seq);
-		$Template->set_var('VAL_FILENAME', htmlspecialchars($filename));
-		$Template->set_var('VAL_FORMACTION', menuLink());
-		$Template->set_var('TXT_DELATTCONFIRM', sprintf(STR_WO_DELATTCONFIRM, htmlspecialchars($filename)));
-		$Template->set_var('BTN_YES', STR_CMMN_YES);
-		$Template->set_var('BTN_NO', STR_CMMN_NO);
-
-		$Template->pparse('out', 'hForm');
+		$template->Render('htmlWorkOrderDelAttachment.tpl');
 	}
 
        // THANKS: Urmet Janes
