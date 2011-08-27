@@ -620,7 +620,6 @@ function buildMenuArray()
 			DCL_MENU_VIEWS => array('htmlViews.PrintAll', $g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_VIEW)),
 			DCL_MENU_WATCHES => array('boWatches.showall', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)),
 																					DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT))))),
-			DCL_MENU_AGGREGATESTATS => array('htmlAgg.Init', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_REPORT)), DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_REPORT))))),
 			'Metrics' => array('htmlMetrics.show', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_REPORT)), DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_REPORT))))),
 			DCL_MENU_MAINWIKI => array('htmlWiki.show&name=FrontPage&type=0', $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_VIEWWIKI))
 		);
