@@ -161,12 +161,12 @@ class htmlContactForm
 		{
 			$contactPhoneModel = new ContactPhoneModel();
 			$contactPhoneModel->contact_id = $iContactID;
-			$contactEmailModel->phone_type_id = $phone_type_id;
-			$contactEmailModel->phone_number = $_POST['phone_number'];
-			$contactEmailModel->preferred = 'Y';
-			$contactEmailModel->created_on = DCL_NOW;
-			$contactEmailModel->created_by = $GLOBALS['DCLID'];
-			$contactEmailModel->Add();
+			$contactPhoneModel->phone_type_id = $phone_type_id;
+			$contactPhoneModel->phone_number = $_POST['phone_number'];
+			$contactPhoneModel->preferred = 'Y';
+			$contactPhoneModel->created_on = DCL_NOW;
+			$contactPhoneModel->created_by = $GLOBALS['DCLID'];
+			$contactPhoneModel->Add();
 		}
 
 		$email_type_id = Filter::ToInt($_REQUEST['email_type_id']);
@@ -186,13 +186,13 @@ class htmlContactForm
 		if ($_POST['url_type_id'] > 0 && $_REQUEST['url_addr'] != '')
 		{
 			$contactUrlModel = new ContactUrlModel();
-			$contactEmailModel->contact_id = $iContactID;
-			$contactEmailModel->url_type_id = $url_type_id;
-			$contactEmailModel->url_addr = $_POST['url_addr'];
-			$contactEmailModel->preferred = 'Y';
-			$contactEmailModel->created_on = DCL_NOW;
-			$contactEmailModel->created_by = $GLOBALS['DCLID'];
-			$contactEmailModel->Add();
+			$contactUrlModel->contact_id = $iContactID;
+			$contactUrlModel->url_type_id = $url_type_id;
+			$contactUrlModel->url_addr = $_POST['url_addr'];
+			$contactUrlModel->preferred = 'Y';
+			$contactUrlModel->created_on = DCL_NOW;
+			$contactUrlModel->created_by = $GLOBALS['DCLID'];
+			$contactUrlModel->Add();
 		}
 
 		if (isset($_REQUEST['fromBrowse']) && $_REQUEST['fromBrowse'] == 'true')
