@@ -49,18 +49,28 @@ class boOrg extends boAdminObject
 		$aSource['active'] = @Filter::ToYN($aSource['active']);
 		parent::modify($aSource);
 		
-		$sTypes = join(',', $aSource['org_type_id']);
+		$hasOrgTypes = isset($aSource['org_type_id']) && count($aSource['org_type_id']) > 0;
 		$sql = 'DELETE FROM dcl_org_type_xref WHERE org_id = ' . $aSource['org_id'];
-		if (count($aSource['org_type_id']) > 0)
+		if ($hasOrgTypes)
+		{
+			$sTypes = join(',', $aSource['org_type_id']);
 			$sql .= ' AND org_type_id NOT IN (' . $sTypes . ')';
+		}
 
 		$this->oDB->Execute($sql);
+		if (!$hasOrgTypes)
+			return;
 		
-		$oOrgTypeXref = new boOrgTypeXref();
+		$organizationTypeXrefModel = new OrganizationTypeXrefModel();
+		$organizationTypeXrefModel->org_id = $aSource['org_id'];
+		
 		foreach ($aSource['org_type_id'] as $org_type_id)
 		{
-			if (!$oOrgTypeXref->exists(array('org_id' => $aSource['org_id'], 'org_type_id' => $org_type_id)))
-				$oOrgTypeXref->Add(array('org_id' => $aSource['org_id'], 'org_type_id' => $org_type_id));
+			if (!$organizationTypeXrefModel->Exists(array('org_id' => $aSource['org_id'], 'org_type_id' => $org_type_id)))
+			{
+				$organizationTypeXrefModel->org_type_id = $org_type_id;
+				$organizationTypeXrefModel->Add();
+			}
 		}
 	}
 	

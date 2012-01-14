@@ -45,11 +45,12 @@ class OrganizationCreateViewModel
 		$aOrgTypes = @Filter::ToIntArray($formCollection['org_type_id']);
 		if ($aOrgTypes !== null)
 		{
-			$oOrgTypeXref = new boOrgTypeXref();
-			$oOrgTypeXref->PermAdd = DCL_PERM_ADD;
+			$organizationTypeXrefModel = new OrganizationTypeXrefModel();
+			$organizationTypeXrefModel->org_id = $organization;
 			foreach ($aOrgTypes as $organizationTypeId)
 			{
-				$oOrgTypeXref->add(array('org_id' => $organizationId, 'org_type_id' => $organizationTypeId));
+				$organizationTypeXrefModel->org_type_id = $organizationTypeId;
+				$organizationTypeXrefModel->Add();
 			}
 		}
 
