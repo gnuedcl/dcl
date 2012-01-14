@@ -37,6 +37,7 @@ class OrganizationController
 
 	public function Insert()
 	{
+		RequirePost();
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_ADD);
 		CleanArray($_POST);
 
@@ -65,20 +66,32 @@ class OrganizationController
 
 	public function Update()
 	{
+		RequirePost();
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_MODIFY);
 
 		CleanArray($_POST);
 
 		$organizationId = @Filter::RequireInt($_POST['org_id']);
-		$aValues = array('org_id' => $organizationId,
-						'name' => $_POST['name'],
-						'org_type_id' => @Filter::ToIntArray($_POST['org_type_id']),
-						'active' => @Filter::ToYN($_POST['active'])
-						);
-						
-		$obj = new boOrg();
-		$obj->modify($aValues);
 
+		$model = new OrganizationModel();
+		$model->Load(array('org_id' => $organizationId));
+		
+		$name = $_POST['name'];
+		$active = @Filter::ToYN($_POST['active']);
+		
+		if ($name != $model->name || $active != $model->active)
+		{
+			$model->name = $name;
+			$model->active = $active;
+			
+			$model->Edit(array('created_on', 'created_by'));
+		}
+		
+		$orgTypes = @Filter::ToIntArray($_POST['org_type_id']);
+		
+		$organizationTypeXrefModel = new OrganizationTypeXrefModel();
+		$organizationTypeXrefModel->Edit($organizationId, $orgTypes);
+						
 		SetRedirectMessage('Success', 'Organization updated successfully.');
 		RedirectToAction('Organization', 'Detail', 'org_id=' . $organizationId);
 	}
@@ -98,15 +111,13 @@ class OrganizationController
 
 	public function Destroy()
 	{
+		RequirePost();
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_DELETE);
 		
 		$organizationId = @Filter::RequireInt($_POST['id']);
 		
-		$obj = new boOrg();
-		CleanArray($_POST);
-
-		$aKey = array('org_id' => $organizationId);
-		$obj->delete($aKey);
+		$organizationModel = new OrganizationModel();
+		$organizationModel->Delete($organizationId);
 
 		SetRedirectMessage('Success', 'Organization deleted successfully.');
 		RedirectToAction('htmlOrgBrowse', 'show', 'filterActive=Y');

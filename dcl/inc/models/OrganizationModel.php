@@ -32,6 +32,46 @@ class OrganizationModel extends DbProvider
 		parent::Clear();
 	}
 	
+	public function Edit()
+	{
+		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_MODIFY);
+		
+		$this->modified_by = $GLOBALS['DCLID'];
+		$this->modified_on = DCL_NOW;
+		
+		parent::Edit(array('created_on', 'created_by'));
+	}
+	
+	public function Delete($id)
+	{
+		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_DELETE);
+		$id = @Filter::RequireInt($id);
+
+		$this->BeginTransaction();
+		
+		try
+		{
+			if (!$this->HasFKRef($id))
+			{
+				$this->Execute("DELETE FROM dcl_org_addr WHERE org_id = $id");
+				$this->Execute("DELETE FROM dcl_org_alias WHERE org_id = $id");
+				$this->Execute("DELETE FROM dcl_org_contact WHERE org_id = $id");
+				$this->Execute("DELETE FROM dcl_org_email WHERE org_id = $id");
+				$this->Execute("DELETE FROM dcl_org_note WHERE org_id = $id");
+				$this->Execute("DELETE FROM dcl_org_phone WHERE org_id = $id");
+				$this->Execute("DELETE FROM dcl_org_type_xref WHERE org_id = $id");
+			}
+
+			parent::Delete(array('org_id' => $id));
+			
+			$this->EndTransaction();
+		}
+		catch (Exception $ex)
+		{
+			$this->RollbackTransaction();
+		}
+	}
+	
 	public function GetProductArray($aOrgID)
 	{
 		if (($aOrgID = Filter::ToIntArray($aOrgID)) === null)

@@ -31,4 +31,33 @@ class OrganizationTypeXrefModel extends DbProvider
 		
 		parent::Clear();
 	}
+	
+	public function Edit($organizationId, array $orgTypes)
+	{
+		$organizationId = @Filter::RequireInt($organizationId);
+		$orgTypes = @Filter::RequireIntArray($orgTypes);
+		
+		$hasOrgTypes = $orgTypes !== null && count($orgTypes) > 0;
+		$sql = 'DELETE FROM dcl_org_type_xref WHERE org_id = ' . $organizationId;
+		if ($hasOrgTypes)
+		{
+			$sTypes = join(',', $orgTypes);
+			$sql .= ' AND org_type_id NOT IN (' . $sTypes . ')';
+		}
+
+		$this->Execute($sql);
+		if (!$hasOrgTypes)
+			return;
+		
+		$this->org_id = $organizationId;
+		
+		foreach ($orgTypes as $org_type_id)
+		{
+			if (!$this->Exists(array('org_id' => $this->org_id, 'org_type_id' => $org_type_id)))
+			{
+				$this->org_type_id = $org_type_id;
+				$this->Add();
+			}
+		}
+	}
 }

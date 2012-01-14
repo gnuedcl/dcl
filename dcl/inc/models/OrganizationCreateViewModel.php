@@ -26,27 +26,25 @@ class OrganizationCreateViewModel
 	
 	public function Insert(array $formCollection)
 	{
-		$obj = new boOrg();
-		$organizationId = $obj->add(array(
-								'name' => $formCollection['name'],
-								'active' => 'Y',
-								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
-							)
-						);
+		$organizationModel = new OrganizationModel();
+		$organizationModel->name = $formCollection['name'];
+		$organizationModel->active = 'Y';
+		$organizationModel->created_on = DCL_NOW;
+		$organizationModel->created_by = $GLOBALS['DCLID'];
+		$organizationModel->Add();
 
-		if ($organizationId == -1)
+		if ($organizationModel->org_id < 1)
 		{
 			throw new InvalidEntityException();
 		}
 		
-		$this->OrganizationId = $organizationId;
+		$this->OrganizationId = $organizationModel->org_id;
 		
 		$aOrgTypes = @Filter::ToIntArray($formCollection['org_type_id']);
 		if ($aOrgTypes !== null)
 		{
 			$organizationTypeXrefModel = new OrganizationTypeXrefModel();
-			$organizationTypeXrefModel->org_id = $organization;
+			$organizationTypeXrefModel->org_id = $organizationModel->org_id;
 			foreach ($aOrgTypes as $organizationTypeId)
 			{
 				$organizationTypeXrefModel->org_type_id = $organizationTypeId;
