@@ -42,9 +42,7 @@ class boOrg extends boAdminObject
 
 	function modify($aSource)
 	{
-		global $g_oSec;
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_MODIFY);
 
 		$aSource['active'] = @Filter::ToYN($aSource['active']);
 		parent::modify($aSource);
@@ -76,14 +74,8 @@ class boOrg extends boAdminObject
 	
 	function delete($aSource)
 	{
-		global $g_oSec;
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE))
-			throw new PermissionDeniedException();
-
-		if (($id = @Filter::ToInt($aSource['org_id'])) === null)
-		{
-			throw new InvalidDataException();
-		}		
+		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_DELETE);
+		$id = @Filter::RequireInt($aSource['org_id']);
 		
 		if (!$this->oDB->HasFKRef($id))
 		{
@@ -101,10 +93,7 @@ class boOrg extends boAdminObject
 
 	function ListSelected($id)
 	{
-		if (($id = @Filter::ToIntArray($id)) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$id = @Filter::RequireIntArray($id);
 		
 		$sSQL = 'SELECT org_id, name FROM dcl_org WHERE org_id IN (' . join(',', $id) . ') ORDER BY name';
 
@@ -113,15 +102,8 @@ class boOrg extends boAdminObject
 
 	function ListSelectedByWorkOrder($jcn, $seq)
 	{
-		if (($jcn = @Filter::ToInt($jcn)) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
-		if (($seq = @Filter::ToInt($seq)) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$jcn = @Filter::RequireInt($jcn);
+		$seq = @Filter::RequireInt($seq);
 		
 		$sSQL = "SELECT o.org_id, o.name FROM dcl_org o, dcl_wo_account w WHERE o.org_id = w.account_id AND w.wo_id = $jcn AND w.seq = $seq ORDER BY o.name";
 
@@ -130,10 +112,7 @@ class boOrg extends boAdminObject
 
 	function ListSelectedByTicket($ticketid)
 	{
-		if (($ticketid = @Filter::ToInt($ticketid)) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$ticketid = @Filter::RequireInt($ticketid);
 		
 		$sSQL = "SELECT o.org_id, o.name FROM dcl_org o, tickets t WHERE o.org_id = t.account AND t.ticketid = $ticketid ORDER BY o.name";
 
