@@ -133,12 +133,12 @@ class htmlTimeCardForm
 				$oSmarty->assign('VAL_PROJECTS', $objPM->projectid);
 			}
 
-			$oOrgs = new boOrg();
-			$oOrgs->ListSelectedByWorkOrder($jcn, $seq);
-			while ($oOrgs->oDB->next_record())
+			$organizationModel = new OrganizationModel();
+			$organizationModel->ListSelectedByWorkOrder($jcn, $seq);
+			while ($organizationModel->oDB->next_record())
 			{
-				$aOrgID[] = $oOrgs->oDB->f(0);
-				$aOrgName[] = $oOrgs->oDB->f(1);
+				$aOrgID[] = $organizationModel->oDB->f(0);
+				$aOrgName[] = $organizationModel->oDB->f(1);
 			}
 			
 			$oTag = new EntityTagModel();

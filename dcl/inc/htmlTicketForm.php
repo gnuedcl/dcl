@@ -100,12 +100,12 @@ class htmlTicketForm
 					$oSmarty->assign('VAL_RESPONSIBLENAME', 'Unknown');
 			}
 
-			$oOrgs = new boOrg();
-			$oOrgs->ListSelectedByTicket($obj->ticketid);
-			if ($oOrgs->oDB->next_record())
+			$organizationModel = new OrganizationModel();
+			$organizationModel->ListSelectedByTicket($obj->ticketid);
+			if ($organizationModel->oDB->next_record())
 			{
-				$oSmarty->assign('VAL_ORGID', $oOrgs->oDB->f('org_id'));
-				$oSmarty->assign('VAL_ORGNAME', $oOrgs->oDB->f('name'));
+				$oSmarty->assign('VAL_ORGID', $organizationModel->oDB->f('org_id'));
+				$oSmarty->assign('VAL_ORGNAME', $organizationModel->oDB->f('name'));
 			}
 
 			$oSmarty->assign('VAL_MENUACTION', 'boTickets.dbmodify');

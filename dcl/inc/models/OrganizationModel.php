@@ -238,4 +238,23 @@ class OrganizationModel extends DbProvider
 
 		return $this->Query($sql);
 	}
+
+	public function ListSelectedByWorkOrder($jcn, $seq)
+	{
+		$jcn = @Filter::RequireInt($jcn);
+		$seq = @Filter::RequireInt($seq);
+		
+		$sSQL = "SELECT o.org_id, o.name FROM dcl_org o, dcl_wo_account w WHERE o.org_id = w.account_id AND w.wo_id = $jcn AND w.seq = $seq ORDER BY o.name";
+
+		return $this->Query($sSQL);
+	}
+
+	public function ListSelectedByTicket($ticketid)
+	{
+		$ticketid = @Filter::RequireInt($ticketid);
+		
+		$sSQL = "SELECT o.org_id, o.name FROM dcl_org o, tickets t WHERE o.org_id = t.account AND t.ticketid = $ticketid ORDER BY o.name";
+
+		return $this->Query($sSQL);
+	}
 }
