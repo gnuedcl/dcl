@@ -87,6 +87,26 @@ abstract class AbstractSqlQueryHelper
 		$this->logiclike = 'OR';
 		$this->style = 'spreadsheet';
 	}
+	
+	public function GetFilter()
+	{
+		return $this->filter;
+	}
+	
+	public function GetFilterLike()
+	{
+		return $this->filterlike;
+	}
+	
+	public function GetFilterDate()
+	{
+		return $this->filterdate;
+	}
+	
+	public function GetOrder()
+	{
+		return $this->order;
+	}
 
 	public function GetURLArray($field, &$arr, $encode = true)
 	{

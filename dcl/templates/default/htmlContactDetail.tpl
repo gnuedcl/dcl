@@ -326,7 +326,7 @@ No contact types!
 </table>
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_LAST10WORKORDERS}Last 10 Work Orders</caption>
-	<thead><tr class="toolbar"><th colspan="9"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.newjcn&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+	<thead><tr class="toolbar"><th colspan="9"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateForContact&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
 		<tr>{foreach item=col from=$ViewWorkOrder->columnhdrs}<th>{$col}</th>{/foreach}</tr>
 	</thead>
 	<tbody>
@@ -335,7 +335,7 @@ No contact types!
 	<tr class="{$rowClass}">
 	{foreach name=wo item=data key=key from=$record}
 	{if is_numeric($key)}
-	<td>{if $smarty.foreach.wo.iteration < 3}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$record.jcn}&seq={$record.seq}">{$data}</a>{else}{$data}{/if}</td>
+	<td>{if $smarty.foreach.wo.iteration < 3}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$record.jcn}&seq={$record.seq}">{$data}</a>{else}{$data}{/if}</td>
 	{/if}
 	{/foreach}
 	</tr>

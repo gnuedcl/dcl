@@ -73,63 +73,13 @@ class htmlSearchBox
 			case 'tags':
 			    $this->searchTags($search_text);
 			    break;
+			case 'hotlists':
+				$this->searchHotlists($search_text);
+				break;
 			default:
 				trigger_error('Error');
 				break;
 		}
-	}
-
-	function listWorkOrders($sWorkOrders)
-	{
-		commonHeader();
-
-		$aWorkOrders = array();
-		$aList = explode(',', $sWorkOrders);
-		foreach ($aList as $sWorkOrder)
-		{
-			if ($sWorkOrder == '')
-				continue;
-
-			$aWoSeq = explode('-', $sWorkOrder);
-			if (!isset($aWorkOrders[$aWoSeq[0]]))
-				$aWorkOrders[$aWoSeq[0]] = array();
-
-			if (count($aWoSeq) > 1)
-				$aWorkOrders[$aWoSeq[0]][] = $aWoSeq[1];
-		}
-
-		$sWhere = '';
-		$oView = new boExplicitView();
-		foreach ($aWorkOrders as $wo_id => $aSeq)
-		{
-			if ($sWhere != '')
-				$sWhere .= ' OR ';
-
-			$sWhere .= '(jcn = ' . $wo_id;
-			if (count($aSeq) > 1 || (count($aSeq) == 1 && $aSeq[0] != 0))
-			{
-				if (count($aSeq) == 1)
-					$sWhere .= ' AND seq = ' . $aSeq[0];
-				else
-					$sWhere .= ' AND seq IN (' . implode(',', $aSeq) . ')';
-			}
-
-			$sWhere .= ')';
-		}
-
-		$oView->sql = 'SELECT jcn, seq, a.short, p.name, s.name, t.type_name, eststarton, deadlineon, etchours, totalhours, summary FROM workorders, statuses s, products p, personnel a, dcl_wo_type t WHERE responsible = a.id AND status = s.id AND product = p.id AND (' . $sWhere . ') AND t.wo_type_id = workorders.wo_type_id ORDER BY jcn, seq';
-		$oView->title = STR_WO_RESULTSTITLE;
-
-		$oView->AddDef('columns', '',
-			array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'dcl_wo_type.type_name', 'eststarton', 'deadlineon',
-				'etchours', 'totalhours', 'dcl_tag.tag_desc', 'summary'));
-
-		$oView->AddDef('columnhdrs', '',
-			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
-				STR_WO_STATUS, STR_WO_TYPE, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_CMMN_TAGS, STR_WO_SUMMARY));
-
-		$objHV = CreateViewObject($this->oView->table);
-		$objHV->Render($oView);
 	}
 
 	function findWorkOrders($sWorkOrders)
@@ -148,8 +98,12 @@ class htmlSearchBox
 			list($woid, $seq) = explode('-', $sWorkOrders);
 			if ($seq > 0)
 			{
-				$obj = new htmlWorkOrderDetail();
-				$obj->Show($woid, $seq);
+				$workOrderModel = new WorkOrderModel();
+				if ($workOrderModel->Load($woid, $seq) == -1)
+					throw new InvalidEntityException();
+				
+				$workOrderPresenter = new WorkOrderPresenter();
+				$workOrderPresenter->Detail($workOrderModel);
 				return;
 			}
 		}
@@ -178,8 +132,8 @@ class htmlSearchBox
 			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
 				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_CMMN_TAGS, STR_WO_SUMMARY));
 
-		$objHV = CreateViewObject($this->oView->table);
-		$objHV->Render($this->oView);
+		$presenter = new WorkOrderPresenter();
+		$presenter->DisplayView($this->oView);
 	}
 
 	function searchWorkOrders($searchText)
@@ -218,8 +172,8 @@ class htmlSearchBox
 			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
 				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_CMMN_TAGS, STR_WO_SUMMARY));
 
-		$objHV = CreateViewObject($this->oView->table);
-		$objHV->Render($this->oView);
+		$presenter = new WorkOrderPresenter();
+		$presenter->DisplayView($this->oView);
 	}
 
 	function findTicket($ticketid)
@@ -269,7 +223,7 @@ class htmlSearchBox
 			array(STR_TCK_TICKET, STR_TCK_RESPONSIBLE, STR_TCK_PRODUCT,
 				STR_TCK_ACCOUNT, STR_TCK_STATUS, 'Last Name', 'First Name', STR_TCK_CONTACTPHONE, STR_CMMN_TAGS, STR_TCK_SUMMARY));
 
-		$objHV = CreateViewObject($this->oView->table);
+		$objHV = new htmlTicketResults();
 		$objHV->Render($this->oView);
 	}
 
@@ -297,5 +251,14 @@ class htmlSearchBox
 	    $obj = new htmlTags();
 	    $_REQUEST['tag'] = $searchText;
 	    $obj->browse();
+	}
+	
+	function searchHotlists($searchText)
+	{
+		commonHeader();
+		
+		$obj = new htmlHotlists();
+		$_REQUEST['tag'] = $searchText;
+		$obj->browse();
 	}
 }

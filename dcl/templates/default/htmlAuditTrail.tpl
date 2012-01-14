@@ -85,7 +85,7 @@
 			<td>{$VAL_AUDITWORKORDER[wo].audit_by|escape:"htmlall"}</td>
 			<td>{$VAL_AUDITWORKORDER[wo].audit_on}</td>
 			<td>{$VAL_AUDITWORKORDER[wo].audit_type|escape:"htmlall"}</td>
-			<td><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_AUDITWORKORDER[wo].jcn}&seq={$VAL_AUDITWORKORDER[wo].seq}">[{$VAL_AUDITWORKORDER[wo].jcn}-{$VAL_AUDITWORKORDER[wo].seq}] {$VAL_AUDITWORKORDER[wo].summary|escape:"htmlall"}</a></td>
+			<td><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_AUDITWORKORDER[wo].jcn}&seq={$VAL_AUDITWORKORDER[wo].seq}">[{$VAL_AUDITWORKORDER[wo].jcn}-{$VAL_AUDITWORKORDER[wo].seq}] {$VAL_AUDITWORKORDER[wo].summary|escape:"htmlall"}</a></td>
 		</tr>
 {/strip}
 {/section}

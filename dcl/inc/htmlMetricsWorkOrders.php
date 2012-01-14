@@ -168,9 +168,9 @@ class htmlMetricsWorkOrders
 			while ($oDB->next_record())
 			{
 				if ($sAggregateBy == STR_WO_STATUS)
-					array_push($aData, array('<a href="' . menuLink('', 'menuAction=htmlWorkorders.show&filterStatus=' . $oDB->f(0) . $sFilterProduct) . '">' . $oDB->f(1) . '</a>', $oDB->f(2)));
+					array_push($aData, array('<a href="' . menuLink('', 'menuAction=WorkOrder.Browse&filterStatus=' . $oDB->f(0) . $sFilterProduct) . '">' . $oDB->f(1) . '</a>', $oDB->f(2)));
 				else
-					array_push($aData, array('<a href="' . menuLink('', 'menuAction=htmlWorkorders.show&filterPriority=' . $oDB->f(0) . $sFilterProduct) . '">' . $oDB->f(1) . '</a>', $oDB->f(2)));
+					array_push($aData, array('<a href="' . menuLink('', 'menuAction=WorkOrder.Browse&filterPriority=' . $oDB->f(0) . $sFilterProduct) . '">' . $oDB->f(1) . '</a>', $oDB->f(2)));
 					
 				$iTotal += $oDB->f(2);
 			}

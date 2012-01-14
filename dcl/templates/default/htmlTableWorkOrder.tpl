@@ -27,7 +27,7 @@ function submitBatch()
 	var f = document.forms.searchAction;
 	var sAction = f.elements.menuAction.value;
 
-	if (sAction == 'boWorkorders.batchdetail' || sAction == 'boTimecards.batchadd' || sAction == 'boWorkorders.batchassign' || sAction == 'htmlProjectmap.move' || sAction == 'htmlProjectmap.batchmove')
+	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchAssign' || sAction == 'htmlProjectmap.move' || sAction == 'htmlProjectmap.batchmove')
 	{
 		var bHasCheck = false;
 		for (var i = 0; i < f.elements.length && !bHasCheck; i++)
@@ -139,7 +139,7 @@ function jumpToPage(iPage)
 		{if !in_array($smarty.section.item.index, $groups) && $smarty.section.item.index < (count($records[row]) + $VAL_ENDOFFSET)}<td class="{$columns[$smarty.section.item.index].type}">
 			{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}
 			{else}
-				{if $smarty.section.item.index < 2}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$records[row][0]}&seq={$records[row][1]}">{$records[row][item]|escape}</a>
+				{if $smarty.section.item.index < 2}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$records[row][0]}&seq={$records[row][1]}">{$records[row][item]|escape}</a>
 				{elseif $smarty.section.item.index == $tag_ordinal && $records[row][$num_tags_ordinal] > 1}{dcl_get_entity_tags entity=$smarty.const.DCL_ENTITY_WORKORDER key_id=$records[row][0] key_id2=$records[row][1] link=Y}
 				{elseif $smarty.section.item.index == $tag_ordinal && $records[row][$num_tags_ordinal] == 1}{dcl_tag_link value=$records[row][item]}
 				{else}{$records[row][item]|escape}

@@ -32,7 +32,7 @@ function submitBatch()
 	f.elements.menuAction.value = tf.elements.menuAction.options[tf.elements.menuAction.selectedIndex].value;
 	var sAction = f.elements.menuAction.value;
 
-	if (sAction == 'boWorkorders.batchdetail' || sAction == 'boTimecards.batchadd' || sAction == 'boWorkorders.batchassign' || sAction == 'htmlProjectmap.move' || sAction == 'htmlProjectmap.batchmove')
+	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchAssign' || sAction == 'htmlProjectmap.move' || sAction == 'htmlProjectmap.batchmove')
 	{
 		var bHasCheck = false;
 		for (var i = 0; i < f.elements.length && !bHasCheck; i++)

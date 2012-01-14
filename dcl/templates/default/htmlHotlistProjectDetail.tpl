@@ -10,7 +10,7 @@ function forceSubmit(sAction)
 
 function processSubmit(f){
 	var sAction = f.elements['menuAction'].value;
-	if (sAction == 'boWorkorders.batchdetail' || sAction == 'boTimecards.batchadd' || sAction == 'boWorkorders.batchassign')
+	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchAssign')
 	{
 		if (!submitActionIfValid(sAction))
 		{

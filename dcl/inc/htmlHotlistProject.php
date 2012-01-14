@@ -158,7 +158,6 @@ class htmlHotlistProject
 			{
 				$aTasks = array();
 
-				$objHWO = new htmlWorkorders();
 				$objWOAcct = new WorkOrderOrganizationModel();
 				$oDate = new DateHelper;
 

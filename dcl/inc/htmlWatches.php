@@ -201,9 +201,9 @@ class htmlWatches
 				break;
 			case 3:
 				if ($obj->whatid2 > 0)
-					$link = menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $obj->whatid1 . '&seq=' . $obj->whatid2);
+					$link = menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $obj->whatid1 . '&seq=' . $obj->whatid2);
 				else
-					$link = menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $obj->whatid1);
+					$link = menuLink('', 'menuAction=htmlSearchBox.submitSearch&which=workorders&search_text=' . $obj->whatid1);
 
 				break;
 			case 5:

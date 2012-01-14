@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 <form class="styled" name="fileupload" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
-	<input type="hidden" name="menuAction" value="boWorkorders.doupload">
+	<input type="hidden" name="menuAction" value="WorkOrder.UploadAttachment">
 	<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">
 	<input type="hidden" name="jcn" value="{$VAL_JCN}">
 	<input type="hidden" name="seq" value="{$VAL_SEQ}">

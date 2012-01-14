@@ -7,7 +7,7 @@
 	</tr>
 	{/if}
 	{if $PERM_WORKORDERS}
-	<tr><td><a href="{$URL_MENULINK}?menuAction=htmlWorkorders.show">Work Orders</a></td>
+	<tr><td><a href="{$URL_MENULINK}?menuAction=WorkOrder.Browse">Work Orders</a></td>
 		<td>View work orders associated with your contact record or created by you</td>
 	</tr>
 	{/if}

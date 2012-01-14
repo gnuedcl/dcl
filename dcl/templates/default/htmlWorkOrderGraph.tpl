@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 {dcl_calendar_init}
 <form class="styled" name="theForm" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="boWorkorders.showgraph">
+	<input type="hidden" name="menuAction" value="WorkOrder.Graph">
 	<fieldset>
 		<legend>{$smarty.const.STR_WO_ACTIVITYGRAPH}</legend>
 		<div>

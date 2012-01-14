@@ -18,13 +18,11 @@
 			<form method="POST" action="main.php">
 				<input type="hidden" name="menuAction" value="htmlSearchBox.submitSearch">
 				<select name="which">
-					{if $PERM_WORKORDERSEARCH}<option value="openworkorders">Open {$TXT_WORKORDERS}</option>
-					<option value="workorders">All {$TXT_WORKORDERS}</option>{/if}
-					{if $PERM_PROJECTSEARCH}<option value="opendcl_projects">Open {$TXT_PROJECTS}</option>
-					<option value="dcl_projects">All {$TXT_PROJECTS}</option>{/if}
-					{if $PERM_TICKETSEARCH}<option value="opentickets">Open {$TXT_TICKETS}</option>
-					<option value="tickets">All {$TXT_TICKETS}</option>{/if}
+					{if $PERM_WORKORDERSEARCH}<option value="openworkorders">Open {$TXT_WORKORDERS}</option><option value="workorders">All {$TXT_WORKORDERS}</option>{/if}
+					{if $PERM_PROJECTSEARCH}<option value="opendcl_projects">Open {$TXT_PROJECTS}</option><option value="dcl_projects">All {$TXT_PROJECTS}</option>{/if}
+					{if $PERM_TICKETSEARCH}<option value="opentickets">Open {$TXT_TICKETS}</option><option value="tickets">All {$TXT_TICKETS}</option>{/if}
 					{if $PERM_WORKORDERSEARCH || $PERM_TICKETSEARCH}<option value="tags">Tags</option>{/if}
+					{if $PERM_HOTLISTVIEW}<option value="hotlists">Hotlists</option>{/if}
 				</select>&nbsp;
 				<input type="text" name="search_text" size="20">&nbsp;
 				<input type="submit" value="Search">

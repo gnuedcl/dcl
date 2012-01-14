@@ -88,9 +88,8 @@ class htmlContact
 		$objView->AddDef('order', '', array('jcn', 'seq'));
 		$objView->AddDef('groups', '', array('statuses.name'));
 
-		$objHV = CreateViewObject($objView->table);
-		$objHV->bShowPager = false;
-		$objHV->Render($objView);
+		$presenter = new WorkOrderPresenter();
+		$presenter->DisplayView($objView);
 	}
 	
 	function viewTickets()
@@ -147,7 +146,7 @@ class htmlContact
 		$objView->AddDef('order', '', array('ticketid'));
 		$objView->AddDef('groups', '', array('statuses.name'));
 
-		$objHV = CreateViewObject($objView->table);
+		$objHV = new htmlTicketResults();
 		$objHV->bShowPager = false;
 		$objHV->Render($objView);
 	}

@@ -75,7 +75,7 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 
 		}
 		if (!$bFirst)
-			echo ', ';
+			echo '';
 		else
 			$bFirst = false;
 

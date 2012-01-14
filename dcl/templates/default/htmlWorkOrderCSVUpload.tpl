@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 <form class="styled" name="fileupload" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
-	<input type="hidden" name="menuAction" value="boWorkorders.docsvupload">
+	<input type="hidden" name="menuAction" value="WorkOrder.ImportFile">
 	<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">
 	<fieldset>
 		<legend>{$smarty.const.STR_WO_CSVTITLE}</legend>

@@ -104,7 +104,7 @@ class htmlViews
 
 			$options = '';
 			if ($allRecs[$i][4] == 'workorders' )
-				$options .= '<a href="' . menuLink('', 'menuAction=htmlWOSearches.ShowView&id=' . $allRecs[$i][0]) . '">' . STR_VW_SETUP . '</a>';
+				$options .= '<a href="' . menuLink('', 'menuAction=WorkOrder.LoadCriteria&id=' . $allRecs[$i][0]) . '">' . STR_VW_SETUP . '</a>';
 			else if ($allRecs[$i][4] == 'tickets' )
 				$options .= '<a href="' . menuLink('', 'menuAction=htmlTicketSearches.ShowView&id=' . $allRecs[$i][0]) . '">' . STR_VW_SETUP . '</a>';
 

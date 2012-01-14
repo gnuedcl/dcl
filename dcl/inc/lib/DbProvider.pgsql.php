@@ -318,7 +318,7 @@ class DbProvider extends AbstractDbProvider
 
 		return $retVal;
 	}
-
+	
 	public function GetNewIDSQLForTable($tableName)
 	{
 		return "nextval('seq_" . $tableName . "')";

@@ -135,19 +135,43 @@ class WorkOrderModel extends DbProvider
 
 	public function Delete()
 	{
-		// Should have been unmapped from any projects in a bo
-
 		$this->BeginTransaction();
-		// Bye, bye time cards!
-		$query = 'DELETE FROM timecards WHERE jcn=' . $this->jcn . ' AND seq=' . $this->seq;
-		$this->Execute($query);
+		
+		try
+		{
+			$projectModel = new boProjects();
+			$projectModel->dbunmap($this->jcn, $this->seq, true);
 
-		// And you! Clear off!
-		$this->Audit(array('jcn' => $this->jcn, 'seq' => $this->seq));
+			$workOrderOrgModel = new WorkOrderOrganizationModel();
+			$workOrderOrgModel->DeleteByWorkOrder($this->jcn, $this->seq);
 
-		$query = 'DELETE FROM workorders WHERE jcn=' . $this->jcn . ' AND seq=' . $this->seq;
-		$this->Execute($query);
-		$this->EndTransaction();
+			$workOrderTaskModel = new WorkOrderTaskModel();
+			$workOrderTaskModel->DeleteByWorkOrder($this->jcn, $this->seq);
+
+			$entityTagModel = new EntityTagModel();
+			$entityTagModel->deleteByEntity(DCL_ENTITY_WORKORDER, $this->jcn, $this->seq);
+
+			$entityHotlistModel = new EntityHotlistModel();
+			$entityHotlistModel->deleteByEntity(DCL_ENTITY_WORKORDER, $this->jcn, $this->seq);
+
+			$fileHelper = new FileHelper();
+			$fileHelper->DeleteAttachments(DCL_ENTITY_WORKORDER, $this->jcn, $this->seq);
+
+			$query = 'DELETE FROM timecards WHERE jcn=' . $this->jcn . ' AND seq=' . $this->seq;
+			$this->Execute($query);
+
+			$this->Audit(array('jcn' => $this->jcn, 'seq' => $this->seq));
+
+			$query = 'DELETE FROM workorders WHERE jcn=' . $this->jcn . ' AND seq=' . $this->seq;
+			$this->Execute($query);
+
+			$this->EndTransaction();
+		}
+		catch (Exception $ex)
+		{
+			$this->RollbackTransaction();
+			throw $ex;
+		}
 	}
 
 	public function Load($jcn, $seq)
@@ -155,7 +179,7 @@ class WorkOrderModel extends DbProvider
 		global $g_oSec;
 
 		if (!isset($jcn) || !is_numeric($jcn) || $jcn < 1 || !isset($seq) || !is_numeric($seq) || $seq < 1)
-			return trigger_error("Invalid work order ID passed to Load: $jcn-$seq");
+			throw new InvalidDataException("Invalid work order ID passed to Load: $jcn-$seq");
 
 		$this->Clear();
 		$oRetVal = parent::Load(array('jcn' => $jcn, 'seq' => $seq));
@@ -286,5 +310,131 @@ class WorkOrderModel extends DbProvider
 		}
 		
 		return $bCanView;
+	}
+	
+	/**
+	 *
+	 * @param type $days
+	 * @param type $dateFrom
+	 * @param type $product
+	 * @return LineGraphImageHelper 
+	 */
+	public function Graph($days, $dateFrom, $product)
+	{
+		$lineGraphImageHelper = new LineGraphImageHelper();
+		$workOrderModel = new WorkOrderModel();
+		
+		$beginDate = new TimestampHelper();
+		$endDate = new TimestampHelper();
+		$testDate = new DateHelper();
+		$testTS = new TimestampHelper();
+
+		$endDate->SetFromDisplay($dateFrom . ' 23:59:59');
+		$beginDate->SetFromDisplay($dateFrom . ' 00:00:00');
+		$beginDate->time -= (($days - 1) * 86400);
+		
+		$query = sprintf('SELECT %1$s, %2$s FROM workorders WHERE %3$s (createdon BETWEEN %4$s AND %5$s OR closedon BETWEEN %4$s AND %5$s)',
+				$workOrderModel->ConvertTimestamp('createdon', 'createdon'),
+				$workOrderModel->ConvertTimestamp('createdon', 'createdon'),
+				$product > 0 ? 'product = ' . $product . ' AND' : '',
+				$workOrderModel->DisplayToSQL($beginDate->ToDisplay()),
+				$workOrderModel->DisplayToSQL($endDate->ToDisplay())
+				);
+
+		$workOrderModel->Query($query);
+
+		$lineGraphImageHelper->data[0] = array(); // Open
+		$lineGraphImageHelper->data[1] = array(); // Closed
+
+		$daysBack = array();
+		$testDate->time = $beginDate->time;
+		for ($i = 0; $i < $days; $i++)
+		{
+			$daysBack[$i] = $testDate->time;
+			// Set the relevant object properties while we're at it
+			$lineGraphImageHelper->line_captions_x[$i] = date('m/d', $testDate->time);
+			$lineGraphImageHelper->data[0][$i] = 0;
+			$lineGraphImageHelper->data[1][$i] = 0;
+
+			$testDate->time += 86400;
+		}
+
+		while ($workOrderModel->next_record())
+		{
+			$iTime = 0;
+			for ($y = 0; $y < 2; $y++)
+			{
+				if ($y == 0)
+				{
+					$testTS->SetFromDB($workOrderModel->f($y));
+					$iTime = $testTS->time;
+				}
+				else
+				{
+					$testDate->SetFromDB($workOrderModel->f($y));
+					$iTime = $testDate->time;
+				}
+
+				$j = $days - 1;
+				while ($j >= 0)
+				{
+					if ($iTime >= $daysBack[$j])
+					{
+						if (!IsSet($lineGraphImageHelper->data[$y][$j]))
+							$lineGraphImageHelper->data[$y][$j] = 0;
+						$lineGraphImageHelper->data[$y][$j]++;
+						break;
+					}
+
+					$j--;
+				}
+			}
+		}
+
+		$lineGraphImageHelper->title = STR_BO_WOGRAPHTITLE;
+		if ($product > 0)
+		{
+			$oDB = new ProductModel();
+			if ($oDB->Load($product) != -1)
+				$lineGraphImageHelper->title .= ' ' . $oDB->name;
+		}
+
+		$lineGraphImageHelper->caption_y = STR_BO_WOGRAPHCAPTIONY;
+		$lineGraphImageHelper->caption_x = STR_BO_GRAPHCAPTIONX;
+		$lineGraphImageHelper->num_lines_y = 15;
+		$lineGraphImageHelper->num_lines_x = $days;
+		$lineGraphImageHelper->colors = array('red', 'blue');
+		
+		return $lineGraphImageHelper;
+	}
+	
+	public function ListSelected($selected)
+	{
+		$query = 'select a.jcn, a.seq, b.short, c.name, e.name, a.summary from workorders a ' . $this->JoinKeyword . ' personnel b on a.responsible = b.id ';
+		$query .= $this->JoinKeyword . ' statuses c on a.status = c.id left join projectmap d on a.jcn = d.jcn and (a.seq = d.seq or d.seq = 0) ';
+		$query .= 'left join dcl_projects e on d.projectid = e.projectid ';
+		$query .= 'where (';
+
+		$bFirst = true;
+		foreach ($selected as $jcnseq)
+		{
+			list($jcn, $seq) = explode('.', $jcnseq);
+			if (Filter::ToInt($jcn) === null || Filter::ToInt($seq) === null)
+				continue;
+				
+			if ($bFirst)
+				$bFirst = false;
+			else
+				$query .= ' or ';
+
+			$query .= "(a.jcn=$jcn and a.seq=$seq)";
+		}
+
+		if ($bFirst)
+			return;
+			
+		$query .= ')';
+		
+		return $this->Query($query);
 	}
 }

@@ -412,14 +412,6 @@ class boWatches
 		if (count($oMail->to) > 0)
 		{
 			$bSuccess = $oMail->Send();
-	
-			if ($bShowNotifyMsg && $toAddr != '')
-			{
-				if ($bSuccess)
-					trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
-				else
-					trigger_error('Could not send email notification.', E_USER_ERROR);
-			}
 		}
 		
 		if ($obj->is_public == 'Y' && count($arrPublicEmail) > 0)
@@ -439,14 +431,6 @@ class boWatches
 				return;
 	
 			$bSuccess = $oMail->Send();
-	
-			if ($bShowNotifyMsg && $toAddr != '')
-			{
-				if ($bSuccess)
-					trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
-				else
-					trigger_error('Could not send email notification.', E_USER_ERROR);
-			}
 		}
 	}
 

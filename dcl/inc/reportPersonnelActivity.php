@@ -648,7 +648,7 @@ class reportPersonnelActivity
 						if ($bExport)
 							$reportArray[$arrayIndex][0] = '[' . $thisJCN . '-' . $thisSeq . '] ' . $objW->summary;
 						else
-							$reportArray[$arrayIndex][0] = '[<a href="main.php?menuAction=boWorkorders.viewjcn&jcn=' . $thisJCN . '&seq=' . $thisSeq . '">' . $thisJCN . '-' . $thisSeq . '</a>] ' . htmlentities($objW->summary);
+							$reportArray[$arrayIndex][0] = '[<a href="main.php?menuAction=WorkOrder.Detail&jcn=' . $thisJCN . '&seq=' . $thisSeq . '">' . $thisJCN . '-' . $thisSeq . '</a>] ' . htmlentities($objW->summary);
 
 						if ($groupBy != '1')
 						{

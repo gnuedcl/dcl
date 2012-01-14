@@ -55,6 +55,7 @@ function renderDCLMenu()
 	$t->assign('PERM_PROJECTSEARCH', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW));
 	$t->assign('PERM_PREFS', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY));
 	$t->assign('PERM_WORKSPACE', $g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW));
+	$t->assign('PERM_HOTLISTVIEW', $g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW));
 	$t->assign('VAL_WORKSPACE', $g_oSession->Value('workspace'));
 
 	$t->assign('VAL_DCL_MENU', $GLOBALS['DCL_MENU']);

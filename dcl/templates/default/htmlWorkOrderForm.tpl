@@ -1,4 +1,3 @@
-<!-- $Id$ -->
 {dcl_calendar_init}
 {dcl_selector_init}
 {dcl_validator_init}
@@ -101,109 +100,109 @@ function UpdateOptions()
 	if (oProduct == null || oProduct.selectedIndex == 0)
 		return;
 {/literal}
-	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.ListVersions{if !$IS_EDIT}&active=Y{/if}&product_id=" + oProduct.options[oProduct.selectedIndex].value, UpdateVersionsCallback);
+	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.ListVersions{if !$ViewData->IsEdit}&active=Y{/if}&product_id=" + oProduct.options[oProduct.selectedIndex].value, UpdateVersionsCallback);
 	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.IsProjectRequired&product_id=" + oProduct.options[oProduct.selectedIndex].value, IsProjectRequiredCallback);
 {literal}
 }
 {/literal}
 </script>
 <form class="styled" name="woform" method="post" action="{$smarty.const.DCL_WWW_ROOT}main.php" enctype="multipart/form-data">
-	<input type="hidden" name="menuActionExExExExEx" value="{$VAL_MENUACTION}">
-	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
-	{if $VAL_WOID}<input type="hidden" name="jcn" value="{$VAL_WOID}">{/if}
-	{if $VAL_SEQ}<input type="hidden" name="seq" value="{$VAL_SEQ}">{/if}
-	{if $VAL_TICKETID}<input type="hidden" name="ticketid" value="{$VAL_TICKETID}">{/if}
-{if $IS_EDIT}{assign var=ACTIVE_ONLY value=N}{else}{assign var=ACTIVE_ONLY value=Y}{/if}
-{if $PERM_ISPUBLICUSER}
+	<input type="hidden" name="menuActionExExExExEx" value="{$ViewData->Action}">
+	<input type="hidden" name="menuAction" value="{$ViewData->Action}">
+	{if $ViewData->WorkOrderId}<input type="hidden" name="jcn" value="{$ViewData->WorkOrderId}">{/if}
+	{if $ViewData->Sequence}<input type="hidden" name="seq" value="{$ViewData->Sequence}">{/if}
+	{if $ViewData->TicketId}<input type="hidden" name="ticketid" value="{$ViewData->TicketId}">{/if}
+{if $ViewData->IsEdit}{assign var=ACTIVE_ONLY value=N}{else}{assign var=ACTIVE_ONLY value=Y}{/if}
+{if $ViewData->IsPublicUser}
 	<input type="hidden" name="is_public" id="is_public" value="Y">
 {/if}
 {if $return_to}
 	<input type="hidden" name="return_to" value="{$return_to}">
 {/if}
 	<fieldset>
-		<legend>{$TXT_TITLE}</legend>
+		<legend>{$ViewData->Title}</legend>
 		<div class="required">
 			<label for="product">{$smarty.const.STR_WO_PRODUCT}:</label>
-			{dcl_select_product default="$VAL_PRODUCT" active="$ACTIVE_ONLY"}
+			{dcl_select_product default="`$ViewData->ProductId`" active="$ACTIVE_ONLY"}
 		</div>
 		<div class="required">
 			<label for="module_id">{$smarty.const.STR_CMMN_MODULE}:</label>
-			{if $IS_EDIT}{dcl_select_module default="$VAL_MODULE" active="$ACTIVE_ONLY" product="$VAL_PRODUCT"}{else}{dcl_select_module default="$VAL_MODULE" active="$ACTIVE_ONLY"}{/if}
+			{if $ViewData->IsEdit}{dcl_select_module default="`$ViewData->ModuleId`" active="$ACTIVE_ONLY" product="`$ViewData->ProductId`"}{else}{dcl_select_module default="`$ViewData->ModuleId`" active="$ACTIVE_ONLY"}{/if}
 		</div>
 		<div>
 			<label for="revision">Reported Version:</label>
-			{dcl_select_product_version name=reported_version_id active="$ACTIVE_ONLY" default="$VAL_REPORTED_VERSION" product="$VAL_PRODUCT"}
+			{dcl_select_product_version name=reported_version_id active="$ACTIVE_ONLY" default="`$ViewData->ReportedVersionId`" product="`$ViewData->ProductId`"}
 		</div>
-{if $IS_EDIT}
+{if $ViewData->IsEdit}
 		<div>
 			<label for="revision">Targeted Version:</label>
-			{dcl_select_product_version name=targeted_version_id active="$ACTIVE_ONLY" default="$VAL_TARGETED_VERSION" product="$VAL_PRODUCT"}
+			{dcl_select_product_version name=targeted_version_id active="$ACTIVE_ONLY" default="`$ViewData->TargetedVersionId`" product="`$ViewData->ProductId`"}
 		</div>
 		<div>
 			<label for="revision">Fixed Version:</label>
-			{dcl_select_product_version name=fixed_version_id active="$ACTIVE_ONLY" default="$VAL_FIXED_VERSION" product="$VAL_PRODUCT"}
+			{dcl_select_product_version name=fixed_version_id active="$ACTIVE_ONLY" default="`$ViewData->FixedVersionId`" product="`$ViewData->ProductId`"}
 		</div>
 {/if}
-{if !$PERM_ISPUBLICUSER}
+{if !$ViewData->IsPublicUser}
 		<div class="required">
 			<label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label>
-			<input type="checkbox" name="is_public" id="is_public" value="Y"{if $VAL_ISPUBLIC == 'Y'} checked{/if}>
+			<input type="checkbox" name="is_public" id="is_public" value="Y"{if $ViewData->IsPublic == 'Y'} checked{/if}>
 		</div>
 {/if}
 		<div class="required">
 			<label for="wo_type_id">{$smarty.const.STR_WO_TYPE}:</label>
-			{dcl_select_wo_type default="$VAL_TYPE" active="$ACTIVE_ONLY"}
+			{dcl_select_wo_type default="`$ViewData->TypeId`" active="$ACTIVE_ONLY"}
 		</div>
 		<div class="required">
 			<label for="entity_source_id">{$smarty.const.STR_CMMN_SOURCE}:</label>
-			{dcl_select_source default="$VAL_SOURCE" active="$ACTIVE_ONLY"}
+			{dcl_select_source default="`$ViewData->SourceId`" active="$ACTIVE_ONLY"}
 		</div>
-{if $PERM_ASSIGNWO}
+{if $ViewData->CanAssignWorkOrder}
 		<div class="required">
 			<label for="responsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label>
-			{dcl_select_personnel name="responsible" default="$VAL_RESPONSIBLE" entity=$smarty.const.DCL_ENTITY_WORKORDER perm=$smarty.const.DCL_PERM_ACTION}
+			{dcl_select_personnel name="responsible" default="`$ViewData->ResponsibleId`" entity=$smarty.const.DCL_ENTITY_WORKORDER perm=$smarty.const.DCL_PERM_ACTION}
 		</div>
 		<div class="required">
 			<label for="deadlineon">{$smarty.const.STR_WO_DEADLINE}:</label>
-			{dcl_calendar name="deadlineon" value="$VAL_DEADLINEON"}
+			{dcl_calendar name="deadlineon" value="`$ViewData->DeadlineDate`"}
 		</div>
 		<div class="required">
 			<label for="eststarton">{$smarty.const.STR_WO_ESTSTART}:</label>
-			{dcl_calendar name="eststarton" value="$VAL_ESTSTARTON"}
+			{dcl_calendar name="eststarton" value="`$ViewData->EstStartDate`"}
 		</div>
 		<div class="required">
 			<label for="estendon">{$smarty.const.STR_WO_ESTEND}:</label>
-			{dcl_calendar name="estendon" value="$VAL_ESTENDON"}
+			{dcl_calendar name="estendon" value="`$ViewData->EstEndDate`"}
 		</div>
 		<div class="required">
 			<label for="esthours">{$smarty.const.STR_WO_ESTHOURS}:</label>
-			<input type="text" name="esthours" size="6" maxlength="6" value="{$VAL_ESTHOURS}">
+			<input type="text" name="esthours" size="6" maxlength="6" value="{$ViewData->EstHours}">
 		</div>
-{elseif $PERM_ACTION && !$PERM_ISPUBLICUSER}
+{elseif $ViewData->CanAction && !$ViewData->IsPublicUser}
 		<div>
 			<label for="responsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label>
-			<input type="checkbox" name="responsible" id="responsible" value="{$VAL_DCLID}"{$CHK_DCLID}>
+			<input type="checkbox" name="responsible" id="responsible" value="{$ViewData->ResponsibleId}"{$CHK_DCLID}>
 		</div>
 {/if}
-{if $PERM_ASSIGNWO}
+{if $ViewData->CanAssignWorkOrder}
 		<div class="required">
 			<label for="priority">{$smarty.const.STR_WO_PRIORITY}:</label>
-			{dcl_select_priority default="$VAL_PRIORITY" active="$ACTIVE_ONLY" setid="$VAL_SETID"}
+			{dcl_select_priority default="`$ViewData->PriorityId`" active="$ACTIVE_ONLY" setid="`$ViewData->AttributeSetId`"}
 		</div>
 		<div class="required">
 			<label for="severity">{$smarty.const.STR_WO_SEVERITY}:</label>
-			{dcl_select_severity default="$VAL_SEVERITY" active="$ACTIVE_ONLY" setid="$VAL_SETID"}
+			{dcl_select_severity default="`$ViewData->SeverityId`" active="$ACTIVE_ONLY" setid="`$ViewData->AttributeSetId`"}
 		</div>
 	</tr>
 {/if}
-{if !$PERM_ISPUBLICUSER}
+{if !$ViewData->IsPublicUser}
 		<div>
 			<label for="contact_id">{$smarty.const.STR_WO_CONTACT}:</label>
-			{dcl_selector_contact name="contact_id" value="$VAL_CONTACTID" decoded="$VAL_CONTACTNAME" orgselector="secaccounts"}
+			{dcl_selector_contact name="contact_id" value="`$ViewData->ContactId`" decoded="`$ViewData->ContactName`" orgselector="secaccounts"}
 		</div>
 		<div>
 			<label for="secaccounts">{$smarty.const.STR_CMMN_ORGANIZATION}:</label>
-			{dcl_selector_org name="secaccounts" value="$VAL_ORGID" decoded="$VAL_ORGNAME" multiple="$VAL_MULTIORG"}
+			{dcl_selector_org name="secaccounts" value="`$ViewData->OrganizationIdCollection`" decoded="`$ViewData->OrganizationNameCollection`" multiple="`$ViewData->MultiOrganizationEnabled`"}
 		</div>
 		<div class="noinput">
 			<div id="div_secaccounts" style="width: 100%;"><script language="JavaScript">render_a_secaccounts();</script></div>
@@ -212,37 +211,37 @@ function UpdateOptions()
 {/if}
 		<div class="required">
 			<label for="summary">{$smarty.const.STR_WO_SUMMARY}:</label>
-			<input type="text" name="summary" size="60" maxlength="100" value="{$VAL_SUMMARY|escape}">
+			<input type="text" name="summary" size="60" maxlength="100" value="{$ViewData->Summary|escape}">
 		</div>
 		<div>
 			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
-			<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
+			<input type="text" name="tags" id="tags" size="60" value="{$ViewData->Tags|escape}">
 			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 		</div>
 		<div>
 			<label for="hotlist">Hotlist:</label>
-			<input type="text" name="hotlist" id="hotlist" size="60" value="{$VAL_HOTLIST|escape}">
+			<input type="text" name="hotlist" id="hotlist" size="60" value="{$ViewData->Hotlists|escape}">
 			<span>Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
 		</div>
 		<div>
 			<label for="notes">{$smarty.const.STR_WO_NOTES}:</label>
-			<textarea name="notes" rows="4" cols="70" wrap valign="top">{$VAL_NOTES|escape}</textarea>
+			<textarea name="notes" rows="4" cols="70" wrap valign="top">{$ViewData->Notes|escape}</textarea>
 		</div>
 		<div class="required">
 			<label for="description">{$smarty.const.STR_WO_DESCRIPTION}:</label>
-			<textarea name="description" rows="4" cols="70" wrap valign="top">{$VAL_DESCRIPTION|escape}</textarea>
+			<textarea name="description" rows="4" cols="70" wrap valign="top">{$ViewData->Description|escape}</textarea>
 		</div>
 		<div class="required">
 			<label for="copy_me_on_notification">Copy Me on Notification:</label>
 			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
 		</div>
-{if $PERM_ADDTASK}
-{if $TXT_WILLBEPARTOFPROJECT}
-		<div class="noinput">{$TXT_WILLBEPARTOFPROJECT}<input type="hidden" name="projectid" value="{$VAL_PROJECTS}"></div>
-{elseif !$VAL_HIDEPROJECT}
+{if $ViewData->CanAddTask}
+{if $ViewData->ProjectLabel}
+		<div class="noinput">{$ViewData->ProjectLabel|escape}<input type="hidden" name="projectid" value="{$ViewData->ProjectId}"></div>
+{elseif !$ViewData->HideProject}
 		<div>
 			<label for="projectid">{$smarty.const.STR_WO_PROJECT}:</label>
-			{dcl_selector_project name="projectid" value="$VAL_PROJECTS" decoded="$VAL_PROJECT"}
+			{dcl_selector_project name="projectid" value="`$ViewData->ProjectId`" decoded="`$ViewData->ProjectName`"}
 		</div>
 		<div>
 			<label for="addall">{$smarty.const.STR_WO_ADDALLSEQ}</label>
@@ -250,8 +249,8 @@ function UpdateOptions()
 		</div>
 {/if}
 {/if}
-{if $PERM_ATTACHFILE}
-		<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">
+{if $ViewData->CanAttachFile}
+		<input type="hidden" name="MAX_FILE_SIZE" value="{$ViewData->MaxUploadFileSize}">
 		<div>
 			<label for="userfile">{$smarty.const.STR_WO_ATTACHFILE}:</label>
 			<input type="file" id="userfile" name="userfile">
@@ -284,8 +283,8 @@ function UpdateOptions()
 			return val.split(/,\s*/);
 		}
 
-		function extractLast( term ) {
-			return split( term ).pop();
+		function extractLast(term) {
+			return split(term).pop();
 		}
 
 		$("input#tags")

@@ -6,6 +6,11 @@ body {
 	background-color: #ffffff;
 }
 
+button.jq-ajax-table-pager
+{
+	margin-top: 12px;
+}
+
 div#left ul
 {
 	margin: 0px;
@@ -19,20 +24,29 @@ div.dcl-notification
 
 div.sf-menu-container
 {
-	height: 28px;
+	height: 32px;
 	background-color: #555555;
 }
 
 a.dcl-tag, span.dcl-tag
 {
-	border: solid 1px #bfbf60;
-	background-color: #ffffe6;
+	background-color: #bfbf60;
 }
 
 a.dcl-hotlist, span.dcl-hotlist
 {
-	border: solid 1px #bf6060;
-	background-color: #ffe6e6;
+	background-color: #bf6060;
+}
+
+a.dcl-tag, span.dcl-tag a, a.dcl-hotlist, span.dcl-hotlist a
+{
+	color: #ffffff;
+	text-decoration: none;
+}
+
+a.dcl-tag:hover, span.dcl-tag a:hover, a.dcl-hotlist:hover, span.dcl-hotlist a:hover
+{
+	color: #ffffff;
 }
 
 a.dcl-tag, span.dcl-tag, a.dcl-hotlist, span.dcl-hotlist
@@ -40,6 +54,10 @@ a.dcl-tag, span.dcl-tag, a.dcl-hotlist, span.dcl-hotlist
 	padding: 2px;
 	margin: 2px;
 	display: inline-block;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 1px 3px 2px;
 }
 
 form
@@ -54,8 +72,8 @@ input,
 textarea, 
 body, 
 caption {
-	font-family: Tahoma, Verdana, Arial, Helvetica;
-	font-size: 11px;
+	font-family: sans-serif;
+	font-size: 13px;
 }
 
 td, th {
@@ -495,8 +513,8 @@ div.dcl_filter label {
 
 div.dcl_filter_selectstart div {
 	display: inline;
-	font-family: Tahoma, Verdana, Arial, Helvetica;
-	font-size: 10px;
+	font-family: sans-serif;
+	font-size: 13px;
 	width: 8px;
 	text-align: center;
 	cursor: hand;
@@ -558,7 +576,7 @@ table.timecard tbody td { background-color: #ffffff; border: solid 1px #666666; 
 table.timecard tbody blockquote { margin-left: 4px; border: none 0px; background-color: #ffffff; border-left: solid 4px #666666; }
 table.timecard tbody img { margin: 2px; border: solid 1px #cecece; }
 table.timecard tbody tr dl { margin-bottom: 0; margin-top: 4px; }
-table.timecard tbody tr dt { font-size: 14px; }
+table.timecard tbody tr dt { font-size: 17px; }
 table.timecard tbody tr dl dd { color: #666666; margin: 2px 0px 0px 24px; }
 table.timecard tbody tr td.timecard-description { padding: 2px 24px 2px 24px; }
 
@@ -785,7 +803,7 @@ form.styled fieldset div fieldset {
 }
 
 form.styled fieldset div fieldset legend {
-	font-size: 11px;
+	font-size: 14px;
 	color: #3a81c1;
 }
 
@@ -918,7 +936,7 @@ tr.formFooter
 th.formTitle
 {
 	text-align: left;
-	font-size: 14px;
+	font-size: 17px;
 	color: #000065;
 }
 
@@ -929,7 +947,7 @@ th.formLinks
 
 th.detailTitle
 {
-	font-size: 12px;
+	font-size: 15px;
 	text-align: left;
 	color: #000065;
 	border-bottom: solid #3a81c1 2px;
@@ -938,7 +956,7 @@ th.detailTitle
 
 th.detailTitleFancy
 {
-	font-size: 12px;
+	font-size: 15px;
 	text-align: left;
 	color: #000065;
 	border-bottom: solid #3a81c1 2px;
@@ -1028,14 +1046,14 @@ th.groupLevel0
 {
 	text-align: left;
 	background-color: #eeeeee;
-	font-size: 12px;
+	font-size: 15px;
 	border-bottom: solid #3a81c1 1px;
 }
 
 th.groupLevel1
 {
 	text-align: left;
-	font-size: 11px;
+	font-size: 14px;
 }
 
 label
@@ -1049,7 +1067,7 @@ div.sectionTitle
 	background-color: #000000;
 	padding: 2px;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 15px;
 	color: #ffffff;
 }
 
@@ -1067,14 +1085,14 @@ span.error
 
 .go
 {
-	font-family: Tahoma, Verdana, Arial, Helvetica;
-	font-size: 11px;
+	font-family: sans-serif;
+	font-size: 14px;
 	border: solid black 1px;
 }
 
 .apptitle
 {
-	font-size: 14px;
+	font-size: 17px;
 	font-weight: bold;
 	color: #ffffff;
 }
@@ -1251,7 +1269,7 @@ tt, pre
 
 h1.wiki, h2.wiki, h3.wiki, h4.wiki, h5.wiki
 {
-	font-family: Verdana, Helvetica;
+	font-family: sans-serif;
 	margin-top:2pt;
 	margin-bottom:8pt;
 	width:99%;
@@ -1261,31 +1279,31 @@ h1.wiki, h2.wiki, h3.wiki, h4.wiki, h5.wiki
 
 h1.wiki
 {
-	font-size: 16pt;
+	font-size: 19px;
 	padding-left: 3pt;
 }
 
 h2.wiki
 {
-	font-size: 14pt;
+	font-size: 17px;
 	padding-left:6pt;
 }
 
 h3.wiki
 {
-	font-size: 10pt;
+	font-size: 15px;
 	padding-left:9pt;
 }
 
 h4.wiki
 {
-	font-size: 8pt;
+	font-size: 13px;
 	padding-left:12pt;
 }
 
 h5.wiki
 {
-	font-size: 8pt;
+	font-size: 13px;
 	padding-left:15pt;
 }
 

@@ -22,12 +22,12 @@
 
 abstract class Filter
 {
-	public static function ToInt($vValue)
+	public static function ToInt($vValue, $default = null)
 	{
 		if (preg_match('/^[0-9]+$/', $vValue))
 			return (int)$vValue;
 			
-		return null;
+		return $default;
 	}
 	
 	public static function RequireInt($vValue)

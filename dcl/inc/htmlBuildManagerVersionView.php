@@ -69,7 +69,7 @@ class htmlBuildManagerVersionView
 				$options = '';
 				if (IsSet($this->ModNav))
 				{
-					$options = '<a href="' . menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $allRecs[$i][1] . '&seq=' . $allRecs[$i][2]) . '">' . STR_CMMN_VIEW . '</a>';
+					$options = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $allRecs[$i][1] . '&seq=' . $allRecs[$i][2]) . '">' . STR_CMMN_VIEW . '</a>';
 				}
 				else
 				{

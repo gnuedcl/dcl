@@ -46,7 +46,7 @@ class DCLNavBar
 		$aItems = array();
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
-			$aItems[] = array(DCL_MENU_NEWWORKORDER, 'boWorkorders.newjcn', 'new-16.png');
+			$aItems[] = array(DCL_MENU_NEWWORKORDER, 'WorkOrder.Create', 'new-16.png');
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
 			$aItems[] = array(DCL_MENU_NEWPROJECT, 'boProjects.newproject', 'new-16.png');
@@ -72,26 +72,25 @@ class DCLNavBar
 		if ($this->_isWorkorderGroup())
 		{
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-				$aItems[] = array(DCL_MENU_MYWOS, 'htmlWorkorders.show&filterReportto=' . $GLOBALS['DCLID'], 'home-16.png');
+				$aItems[] = array(DCL_MENU_MYWOS, 'WorkOrder.SearchMy', 'home-16.png');
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD))
-				$aItems[] = array(DCL_MENU_NEW, 'boWorkorders.newjcn', 'new-16.png');
+				$aItems[] = array(DCL_MENU_NEW, 'WorkOrder.Create', 'new-16.png');
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT))
-				$aItems[] = array(DCL_MENU_IMPORT, 'boWorkorders.csvupload', 'import-16.png');
+				$aItems[] = array(DCL_MENU_IMPORT, 'WorkOrder.Import', 'import-16.png');
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT))
 			{
 				$aItems[] = array(DCL_MENU_ACTIVITY, 'reportPersonnelActivity.getparameters', 'exec-16.png');
-				$aItems[] = array(DCL_MENU_GRAPH, 'boWorkorders.graph', 'exec-16.png');
-				$aItems[] = array(DCL_MENU_STATISTICS, 'htmlWOStatistics.ShowUserVsProductStatusForm', 'exec-16.png');
+				$aItems[] = array(DCL_MENU_GRAPH, 'WorkOrder.GraphCriteria', 'exec-16.png');
 			}
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
-				$aItems[] = array(DCL_MENU_SEARCH, 'htmlWOSearches.Show', 'search-16.png');
+				$aItems[] = array(DCL_MENU_SEARCH, 'WorkOrder.Criteria', 'search-16.png');
 
 			if ($g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
-				$aItems[] = array(DCL_MENU_BROWSE, 'htmlWorkorders.show', 'exec-16.png');
+				$aItems[] = array(DCL_MENU_BROWSE, 'WorkOrder.Browse', 'exec-16.png');
 
 			$this->t->assign('VAL_TITLE', DCL_MENU_WORKORDERS);
 		}
@@ -107,7 +106,6 @@ class DCLNavBar
 			{
 				$aItems[] = array(DCL_MENU_ACTIVITY, 'reportTicketActivity.getparameters', 'exec-16.png');
 				$aItems[] = array(DCL_MENU_GRAPH, 'boTickets.graph', 'exec-16.png');
-				$aItems[] = array(DCL_MENU_STATISTICS, 'htmlTicketStatistics.ShowUserVsProductStatusForm', 'exec-16.png');
 			}
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
@@ -182,11 +180,8 @@ class DCLNavBar
 
 	function _isWorkorderGroup()
 	{
-		return ($this->_class == 'htmlWorkorders' ||
-				$this->_class == 'boWorkorders' ||
-				$this->_class == 'reportPersonnelActivity' ||
-				$this->_class == 'htmlWOSearches' ||
-				$this->_class == 'htmlWOStatistics' ||
+		return ($this->_class == 'reportPersonnelActivity' ||
+				$this->_class == 'WorkOrder' ||
 				$this->_class == 'boTimecards' ||
 				($this->_class == 'htmlSearchBox' && $_REQUEST['which'] == 'workorders')
 			);
@@ -211,11 +206,11 @@ class DCLNavBar
 		}
 
 		return ($bSearchBox ||
-				$menuAction == 'boWorkorders.viewjcn' ||
+				$menuAction == 'WorkOrder.Detail' ||
 				$menuAction == 'boTimecards.add' ||
-				$menuAction == 'boWorkorders.upload' ||
-				$menuAction == 'boWorkorders.reassign' ||
-				$menuAction == 'boWorkorders.modifyjcn'
+				$menuAction == 'WorkOrder.Attachment' ||
+				$menuAction == 'WorkOrder.Reassign' ||
+				$menuAction == 'WorkOrder.Edit'
 			);
 	}
 
@@ -230,7 +225,6 @@ class DCLNavBar
 				$this->_class == 'boTickets' ||
 				$this->_class == 'boTicketresolutions' ||
 				$this->_class == 'reportTicketActivity' ||
-				$this->_class == 'htmlTicketStatistics' ||
 				($this->_class == 'htmlSearchBox' && $_REQUEST['which'] == 'tickets')
 			);
 	}

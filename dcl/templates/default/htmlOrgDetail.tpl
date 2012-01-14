@@ -321,7 +321,7 @@ No organization types!
 {if $PERM_VIEW_WORKORDER}
 <table width="100%" class="dcl_results">
 	<caption class="spacer">{$smarty.const.STR_CM_LAST10WORKORDERS}Last 10 Work Orders</caption>
-	<thead>{if $PERM_MODIFY}<tr class="toolbar"><th colspan="9"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.newjcn&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
+	<thead>{if $PERM_MODIFY}<tr class="toolbar"><th colspan="9"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateForOrg&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
 		<tr>{foreach item=col from=$ViewWorkOrder->columnhdrs}<th>{$col}</th>{/foreach}</tr>
 	</thead>
 	<tbody>
@@ -330,7 +330,7 @@ No organization types!
 	<tr class="{$rowClass}">
 	{foreach name=wo item=data key=key from=$record}
 	{if is_numeric($key)}
-	<td>{if $smarty.foreach.wo.iteration < 3}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$record.jcn}&seq={$record.seq}">{$data}</a>{else}{$data}{/if}</td>
+	<td>{if $smarty.foreach.wo.iteration < 3}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$record.jcn}&seq={$record.seq}">{$data}</a>{else}{$data}{/if}</td>
 	{/if}
 	{/foreach}
 	</tr>

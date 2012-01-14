@@ -134,17 +134,11 @@ class FileHelper
 		return $this->GetFileDir() . '/' . $this->sFileName;
 	}
 
-	public function GetAttachments($entity_type_id, $id1, $id2 = 0)
+	public function GetAttachments($entityTypeId, $id1, $id2 = 0)
 	{
 		global $dcl_info;
 
-		$this->iType = $entity_type_id;
-		$this->iKey1 = $id1;
-		$this->iKey2 = $id2;
-		$this->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
-
-		if (!$this->IsValid())
-			return trigger_error('Invalid attachment type.');
+		$this->Init($entityTypeId, $id1, $id2);
 
 		$aFiles = array();
 		$sDir = $this->GetFileDir(false);
@@ -165,5 +159,35 @@ class FileHelper
 		}
 
 		return $aFiles;
+	}
+	
+	public function DeleteAttachments($entityTypeId, $id1, $id2 = 0)
+	{
+		$this->Init($entityTypeId, $id1, $id2);
+		$attachPath = $this->GetFileDir(false) . '/';
+		
+		if (($hDir = @opendir($attachPath)) != null)
+		{
+			while ($fileName = @readdir($hDir))
+			{
+				if (is_file($attachPath . $fileName) && is_readable($attachPath . $fileName))
+					unlink($attachPath . $fileName);
+			}
+
+			@closedir($hDir);
+		}
+	}
+	
+	private function Init($entityTypeId, $id1, $id2 = 0)
+	{
+		global $dcl_info;
+
+		$this->iType = $entityTypeId;
+		$this->iKey1 = $id1;
+		$this->iKey2 = $id2;
+		$this->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
+
+		if (!$this->IsValid())
+			throw new InvalidArgumentException('Invalid attachment type.');
 	}
 }

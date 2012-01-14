@@ -149,7 +149,6 @@ class htmlProjectsdetail
 			{
 				$aTasks = array();
 
-				$objHWO = new htmlWorkorders();
 				$objWOAcct = new WorkOrderOrganizationModel();
 				$oDate = new DateHelper;
 
@@ -415,7 +414,7 @@ class htmlProjectsdetail
 				{
 					echo '<td>';
 					if ($i == 4)
-						echo '<a href="' . menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $db->f(0) . '&seq=' . $db->f(1)), '">';
+						echo '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $db->f(0) . '&seq=' . $db->f(1)), '">';
 					echo $db->f($i);
 					if ($i == 4)
 						echo '</a>';

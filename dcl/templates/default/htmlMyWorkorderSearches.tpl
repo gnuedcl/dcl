@@ -40,7 +40,7 @@ function validateView(f)
 <legend><span style="font-weight: bold;">{$smarty.const.STR_WO_MYWOSEARCHES}</span></legend>
 <table border="0" width="100%">
 <tr><td><form action="{$URL_MAIN_PHP}" method="POST" onsubmit="return validateWorkorder(this);">
-	<input type="hidden" name="menuAction" value="boWorkorders.viewjcn">
+	<input type="hidden" name="menuAction" value="WorkOrder.Detail">
 	{$smarty.const.STR_WO_JCN} <input type="text" name="jcn" size="8">&nbsp;{$smarty.const.STR_WO_SEQ} <input type="text" name="seq" size="3">&nbsp;&nbsp;&nbsp;
 	<input type="submit" value="{$smarty.const.STR_CMMN_FIND}"></form></td></tr>
 <tr><td><form action="{$URL_MAIN_PHP}" method="POST" onsubmit="return validateView(this);">

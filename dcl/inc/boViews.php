@@ -56,8 +56,16 @@ class boViews
 		$objDB->viewurl = $objView->GetURL();
 		$objDB->Add();
 
-		$objH =& CreateViewObject($objDB->tablename);
-		$objH->Render($objView);
+		if ($objDB->TableName == 'workorders')
+		{
+			$presenter = new WorkOrderPresenter();
+			$presenter->DisplayView($objView);
+		}
+		else
+		{
+			$objH = new htmlTicketResults();
+			$objH->Render($objView);
+		}
 	}
 
 	function delete()
@@ -168,8 +176,16 @@ class boViews
 			$objView->startrow = 0;
 		}
 
-		$objH =& CreateViewObject($objView->table);
-		$objH->Render($objView);
+		if ($objView->table == 'workorders')
+		{
+			$presenter = new WorkOrderPresenter();
+			$presenter->DisplayView($objView);
+		}
+		else
+		{
+			$objH = new htmlTicketResults();
+			$objH->Render($objView);
+		}
 	}
 
 	function page()
@@ -212,8 +228,16 @@ class boViews
 			$objView->startrow = 0;
 		}
 
-		$objH =& CreateViewObject($objView->table);
-		$objH->Render($objView);
+		if ($objView->table == 'workorders')
+		{
+			$presenter = new WorkOrderPresenter();
+			$presenter->DisplayView($objView);
+		}
+		else
+		{
+			$objH = new htmlTicketResults();
+			$objH->Render($objView);
+		}
 	}
 
 	function export()

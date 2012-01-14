@@ -150,47 +150,32 @@ class boTickets
 	// THANKS: Michael Brader
 	function copyToWO()
 	{
-		global $g_oSec;
-		
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_TICKET, DCL_PERM_COPYTOWO);
 
-		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$id = Filter::RequireInt($_REQUEST['ticketid']);
 		
-		$oTicket = new TicketsModel();
-		if ($oTicket->Load($iID) == -1)
+		$ticket = new TicketsModel();
+		if ($ticket->Load($id) == -1)
 			return;
 
-		$objHWO = new htmlWorkOrderForm();
-		$objHWO->Show(0, $oTicket);
+		$presenter = new WorkOrderPresenter();
+		$presenter->CopyFromTicket($ticket);
 	}
 
 	function modify()
 	{
-		global $g_oSec;
-		
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_TICKET, DCL_PERM_MODIFY);
 
-		if (($iID = @Filter::ToInt($_REQUEST['ticketid'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$iID = Filter::RequireInt($_REQUEST['ticketid']);
 		
 		$obj = new TicketsModel();
 		if ($obj->Load($iID) == -1)
 			return;
 
 		if ($obj->is_public == 'N' && $g_oSec->IsPublicUser())
-		{
-			trigger_error('Cannot modify private item.', E_USER_ERROR);
-			return;
-		}
+			throw new PermissionDeniedException();
 
 		$objF = new htmlTicketForm();
 		$objF->Show($obj);

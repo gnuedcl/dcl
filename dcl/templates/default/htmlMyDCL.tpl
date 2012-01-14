@@ -97,10 +97,10 @@ function validateView(f)
 		<tr><th class="sectionHeader">{$smarty.const.STR_WO_MYWO}</th></tr>
 {section loop=$VAL_WORKORDERS name=wo}
 {cycle name=set3 assign=rowClass values="odd,even"}
-		<tr class="{$rowClass}"><td>{if $VAL_WORKORDERS[wo].color != ""}<span style="color:{$VAL_WORKORDERS[wo].color};font-weight: bold;">!&nbsp;<span>{/if}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_WORKORDERS[wo].jcn}&seq={$VAL_WORKORDERS[wo].seq}">({$VAL_WORKORDERS[wo].jcn}-{$VAL_WORKORDERS[wo].seq}) {$VAL_WORKORDERS[wo].summary|escape}</a></td></tr>
+		<tr class="{$rowClass}"><td>{if $VAL_WORKORDERS[wo].color != ""}<span style="color:{$VAL_WORKORDERS[wo].color};font-weight: bold;">!&nbsp;<span>{/if}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_WORKORDERS[wo].jcn}&seq={$VAL_WORKORDERS[wo].seq}">({$VAL_WORKORDERS[wo].jcn}-{$VAL_WORKORDERS[wo].seq}) {$VAL_WORKORDERS[wo].summary|escape}</a></td></tr>
 		{if $smarty.section.wo.last}
 		{cycle name=set3 assign=rowClass values="odd,even"}
-		<tr class="{$rowClass}"><td style="text-align: right;"><a href="{$URL_MAIN_PHP}?menuAction=htmlWorkorders.show&filterReportto={$VAL_ID}">{$smarty.const.STR_CMMN_VIEW}</a></td></tr>
+		<tr class="{$rowClass}"><td style="text-align: right;"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.SearchMy">{$smarty.const.STR_CMMN_VIEW}</a></td></tr>
 		{/if}
 {sectionelse}
 		<tr><td>{$smarty.const.STR_WO_NOOPEN}</td></tr>
@@ -110,10 +110,10 @@ function validateView(f)
 		<tr><th class="sectionHeader">{$smarty.const.STR_WO_MYSUBMISSIONS}</th></tr>
 {section loop=$VAL_WOSUBMISSIONS name=wo}
 {cycle name=set4 assign=rowClass values="odd,even"}
-		<tr class="{$rowClass}"><td>{if $VAL_WORKORDERS[wo].color != ""}<span style="color:{$VAL_WORKORDERS[wo].color};font-weight: bold;">!&nbsp;<span>{/if}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_WOSUBMISSIONS[wo].jcn}&seq={$VAL_WOSUBMISSIONS[wo].seq}">({$VAL_WOSUBMISSIONS[wo].jcn}-{$VAL_WOSUBMISSIONS[wo].seq}) {$VAL_WOSUBMISSIONS[wo].summary|escape}</a></td></tr>
+		<tr class="{$rowClass}"><td>{if $VAL_WORKORDERS[wo].color != ""}<span style="color:{$VAL_WORKORDERS[wo].color};font-weight: bold;">!&nbsp;<span>{/if}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_WOSUBMISSIONS[wo].jcn}&seq={$VAL_WOSUBMISSIONS[wo].seq}">({$VAL_WOSUBMISSIONS[wo].jcn}-{$VAL_WOSUBMISSIONS[wo].seq}) {$VAL_WOSUBMISSIONS[wo].summary|escape}</a></td></tr>
 		{if $smarty.section.wo.last}
 		{cycle name=set4 assign=rowClass values="odd,even"}
-		<tr class="{$rowClass}"><td style="text-align: right;"><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.showmy&which=createby">{$smarty.const.STR_CMMN_VIEW}</a></td></tr>
+		<tr class="{$rowClass}"><td style="text-align: right;"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.SearchMyCreated">{$smarty.const.STR_CMMN_VIEW}</a></td></tr>
 		{/if}
 {sectionelse}
 		<tr><td>{$smarty.const.STR_WO_NOSUBMISSIONS}</td></tr>
@@ -123,7 +123,7 @@ function validateView(f)
 		<tr><th class="sectionHeader">{$smarty.const.STR_WO_SEARCHTITLE}</th></tr>
 		<tr><td>
 			<form action="{$URL_MAIN_PHP}" method="POST" onsubmit="return validateWorkorder(this);">
-			<input type="hidden" name="menuAction" value="boWorkorders.viewjcn">
+			<input type="hidden" name="menuAction" value="WorkOrder.Detail">
 			{$smarty.const.STR_WO_JCN} <input type="text" name="jcn" size="8">&nbsp;{$smarty.const.STR_WO_SEQ} <input type="text" name="seq" size="3">&nbsp;&nbsp;&nbsp;
 			<input type="submit" value="{$smarty.const.STR_CMMN_FIND}"></form>
 		</td></tr>

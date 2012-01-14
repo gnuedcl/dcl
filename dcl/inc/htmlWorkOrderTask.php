@@ -126,19 +126,15 @@ class htmlWorkOrderTask
 		global $g_oSec;
 		
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION);
 
 		CleanArray($_REQUEST);
-		if (($wo_id = Filter::ToInt($_REQUEST['wo_id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$wo_id = Filter::RequireInt($_REQUEST['wo_id']);
+		$seq = Filter::RequireInt($_REQUEST['seq']);
 		
-		if (($seq = Filter::ToInt($_REQUEST['seq'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$workOrderModel = new WorkOrderModel();
+		if ($workOrderModel->Load($wo_id, $seq) == -1)
+			throw new InvalidEntityException();
 		
 		$obj = new boWorkOrderTask();
 		$iOrder = $obj->oDB->ExecuteScalar("SELECT MAX(task_order) FROM dcl_wo_task WHERE wo_id = $wo_id AND seq = $seq");
@@ -159,8 +155,8 @@ class htmlWorkOrderTask
 			}
 		}
 
-		$objWO = new htmlWorkOrderDetail();
-		$objWO->Show($wo_id, $seq);
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($workOrderModel);
 	}
 
 	function submitModify()
@@ -168,20 +164,20 @@ class htmlWorkOrderTask
 		global $g_oSec;
 		
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			throw new PermissionDeniedException();
-
-		if (($wo_task_id = Filter::ToInt($_REQUEST['wo_task_id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION);
+		
+		$wo_task_id = Filter::RequireInt($_REQUEST['wo_task_id']);
 
 		$obj = new boWorkOrderTask();
 		CleanArray($_REQUEST);
 		$obj->modify($_REQUEST);
-
-		$objWO = new htmlWorkOrderDetail();
-		$objWO->Show($obj->oDB->wo_id, $obj->oDB->seq);
+		
+		$workOrderModel = new WorkOrderModel();
+		if ($workOrderModel->Load($obj->oDB->wo_id, $obj->oDB->seq) == -1)
+			throw new InvalidEntityException();
+		
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($workOrderModel);
 	}
 	
 	function submitToggle()
@@ -189,22 +185,21 @@ class htmlWorkOrderTask
 		global $g_oSec;
 		
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			throw new PermissionDeniedException();
-
-		if (($wo_task_id = Filter::ToInt($_REQUEST['wo_task_id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION);
 		
+		$wo_task_id = Filter::RequireInt($_REQUEST['wo_task_id']);
 		$task_complete = @Filter::ToYN($_REQUEST['task_complete']);
 
 		$obj = new boWorkOrderTask();
 		$aSource = array('wo_task_id' => $wo_task_id, 'task_complete' => $task_complete);
 		$obj->toggleComplete($aSource);
 
-		$objWO = new htmlWorkOrderDetail();
-		$objWO->Show($obj->oDB->wo_id, $obj->oDB->seq);
+		$workOrderModel = new WorkOrderModel();
+		if ($workOrderModel->Load($obj->oDB->wo_id, $obj->oDB->seq) == -1)
+			throw new InvalidEntityException();
+		
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($workOrderModel);
 	}
 
 	function submitDelete()
@@ -212,22 +207,22 @@ class htmlWorkOrderTask
 		global $g_oSec;
 		
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION);
 
 		CleanArray($_REQUEST);
-		if (($wo_task_id = Filter::ToInt($_REQUEST['id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$wo_task_id = Filter::RequireInt($_REQUEST['id']);
 		
 		$obj = new boWorkOrderTask();
 		if ($obj->oDB->Load($wo_task_id) != -1)
 		{
 			$obj->delete(array('wo_task_id' => $wo_task_id));
 	
-			$objWO = new htmlWorkOrderDetail();
-			$objWO->Show($obj->oDB->wo_id, $obj->oDB->seq);
+			$workOrderModel = new WorkOrderModel();
+			if ($workOrderModel->Load($obj->oDB->wo_id, $obj->oDB->seq) == -1)
+				throw new InvalidEntityException();
+
+			$workOrderPresenter = new WorkOrderPresenter();
+			$workOrderPresenter->Detail($workOrderModel);
 		}
 	}
 	
@@ -277,7 +272,7 @@ class htmlWorkOrderTask
 		if ($isEdit)
 		{
 			$t->assign('VAL_WO_TASK_ID', $obj->wo_task_id);
-			$t->assign('URL_BACK', menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $obj->wo_id . '&seq=' . $obj->seq));
+			$t->assign('URL_BACK', menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $obj->wo_id . '&seq=' . $obj->seq));
 			$t->assign('VAL_COMPLETE', $obj->task_complete);
 			$t->assign('VAL_SUMMARY', $obj->task_summary);
 		}
@@ -293,7 +288,7 @@ class htmlWorkOrderTask
 				throw new InvalidDataException();
 			}
 
-			$t->assign('URL_BACK', menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $wo_id . '&seq=' . $seq));
+			$t->assign('URL_BACK', menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $wo_id . '&seq=' . $seq));
 			$t->assign('VAL_WO_ID', $wo_id);
 			$t->assign('VAL_SEQ', $seq);
 			$t->assign('VAL_SUMMARY', '');

@@ -129,7 +129,7 @@ class htmlTickets
 			$objView->AddDef('filternot', 'responsible', $GLOBALS['DCLID']);
 		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'ticketid'));
 
-		$objHV = CreateViewObject($objView->table);
+		$objHV = new htmlTicketResults();
 		$objHV->Render($objView);
 	}
 

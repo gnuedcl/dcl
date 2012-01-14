@@ -216,7 +216,7 @@
 {/literal}
 </script>
 <form class="styled" name="mondosearchform" action="{$URL_MAIN_PHP}" method="post">
-	<input type="hidden" name="menuAction" value="boWorkorders.dbsearch">
+	<input type="hidden" name="menuAction" value="WorkOrder.Search">
 	<fieldset>
 		<legend>{$smarty.const.STR_WO_SEARCHTITLE}</legend>
 		<div>

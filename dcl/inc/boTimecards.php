@@ -31,24 +31,20 @@ class boTimecards
 		global $g_oSec;
 		
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION);
 
-		if (($jcn = @Filter::ToInt($_REQUEST['jcn'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$id = Filter::RequireInt($_REQUEST['jcn']);
+		$seq = Filter::RequireInt($_REQUEST['seq']);
 		
-		if (($seq = @Filter::ToInt($_REQUEST['seq'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$workOrderModel = new WorkOrderModel();
+		if ($workOrderModel->Load($id, $seq) == -1)
+			throw new InvalidEntityException();
 		
 		$obj = new htmlTimeCardForm();
-		$obj->Show($jcn, $seq);
+		$obj->Show($id, $seq);
 
-		$objWO = new htmlWorkOrderDetail();
-		$objWO->Show($jcn, $seq);
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($workOrderModel);
 	}
 	
 	function closeIncompleteTasks($wo_id, $seq)
@@ -204,8 +200,8 @@ class boTimecards
 //			$oBM->CheckDepartmentSubmit($objTimecard->jcn, $objTimecard->seq, $objWorkorder->product);
 		}
 
-		$objWO = new htmlWorkOrderDetail();
-		$objWO->Show($objTimecard->jcn, $objTimecard->seq);
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($objWorkorder);
 	}
 
 	function batchadd()
@@ -247,11 +243,11 @@ class boTimecards
 		if (EvaluateReturnTo())
 			return;
 
-		$objView = new boView();
+		$objView = new WorkOrderSqlQueryHelper();
 		$objView->SetFromURL();
 		
-		$objH = new htmlWorkOrderResults();
-		$objH->Render($objView);
+		$presenter = new WorkOrderPresenter();
+		$presenter->DisplayView($objView);
 	}
 
 	function dbbatchadd()
@@ -346,11 +342,11 @@ class boTimecards
 		if (EvaluateReturnTo())
 			return;
 
-		$objView = new boView();
-		$objView->SetFromURL();
+		$sqlQueryHelper = new WorkOrderSqlQueryHelper();
+		$sqlQueryHelper->SetFromURL();
 		
-		$objH = new htmlWorkOrderResults();
-		$objH->Render($objView);
+		$presenter = new WorkOrderPresenter();
+		$presenter->DisplayView($sqlQueryHelper);
 	}
 
 	function modify()
@@ -358,20 +354,20 @@ class boTimecards
 		global $g_oSec;
 		
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY);
 
-		if (($iID = @Filter::ToInt($_REQUEST['id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		$id = Filter::RequireInt($_REQUEST['id']);
 		
 		$objTC = new TimeCardsModel();
-		if ($objTC->Load($iID) == -1)
-			return;
+		if ($objTC->Load($id) == -1)
+			throw new InvalidEntityException();
+		
+		$workOrderModel = new WorkOrderModel();
+		if ($workOrderModel->Load($objTC->jcn, $objTC->seq) == -1)
+			throw new InvalidEntityException();
 
-		$obj = new htmlWorkOrderDetail();
-		$obj->Show($objTC->jcn, $objTC->seq, $objTC->id);
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($workOrderModel, $objTC->id);
 	}
 
 	function dbmodify()
@@ -466,8 +462,8 @@ class boTimecards
 		$objWtch = new boWatches();
 		$objWtch->sendNotification($objWO, $notify);
 
-		$obj = new htmlWorkOrderDetail();
-		$obj->Show($objTC->jcn, $objTC->seq);
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($objWO);
 	}
 
 	function delete()
@@ -475,20 +471,20 @@ class boTimecards
 		global $g_oSec;
 		
 		commonHeader();
-		if (($iID = @Filter::ToInt($_REQUEST['id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
+		RequirePermission(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE);
 		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
-			throw new PermissionDeniedException();
-
+		$id = Filter::RequireInt($_REQUEST['id']);
+		
 		$objTC = new TimeCardsModel();
-		if ($objTC->Load($iID) == -1)
-			return;
+		if ($objTC->Load($id) == -1)
+			throw new InvalidEntityException();
+		
+		$workOrderModel = new WorkOrderModel();
+		if ($workOrderModel->Load($objTC->jcn, $objTC->seq) == -1)
+			throw new InvalidEntityException();
 
-		$obj = new htmlWorkOrderDetail();
-		$obj->Show($objTC->jcn, $objTC->seq, $objTC->id, true);
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($workOrderModel, $objTC->id, true);
 	}
 
 	function dbdelete()
@@ -567,13 +563,21 @@ class boTimecards
 		$objWO->totalhours -= $objTC->hours;
 
 		$objTC->BeginTransaction();
-		$objTC->Delete();
-		$objWO->Edit();
-		$objTC->EndTransaction();
+		
+		try
+		{
+			$objTC->Delete();
+			$objWO->Edit();
+			$objTC->EndTransaction();
+		}
+		catch (Exception $ex)
+		{
+			$objTC->RollbackTransaction();
+		}
 
 		trigger_error(sprintf(STR_BO_TIMECARDDELETED, $objTC->id, $objWO->jcn, $objWO->seq), E_USER_NOTICE);
 
-		$obj = new htmlWorkOrderDetail();
-		$obj->Show($objTC->jcn, $objTC->seq);
+		$workOrderPresenter = new WorkOrderPresenter();
+		$workOrderPresenter->Detail($objWO);
 	}
 }

@@ -166,7 +166,7 @@ class htmlWorkspaceBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$oView = new boView();
+		$oView = new WorkOrderSqlQueryHelper();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -234,7 +234,7 @@ class htmlWorkspaceBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$oView = new boView();
+		$oView = new WorkOrderSqlQueryHelper();
 		$oView->table = 'dcl_workspace';
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME));
 		$oView->AddDef('columns', '', array('workspace_id', 'active', 'workspace_name'));

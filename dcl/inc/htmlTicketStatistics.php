@@ -415,7 +415,7 @@ trigger_error($query);
 		if ($product > 0)
 			$objView->AddDef('filter', 'product', $product);
 
-		$obj = CreateViewObject($objView->table);
+		$obj = new htmlTicketResults();
 		$obj->Render($objView);
 	}
 }

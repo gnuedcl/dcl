@@ -74,8 +74,8 @@ class htmlBuildManagerShowWOView
 			    $jcn = $allRecs[$i][0];
 			    $seq = $allRecs[$i][1];
 			    
-				$allRecs[$i][0] = '<a href="' . menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $jcn . '&seq=' . $seq) . '">' . $jcn . '</a>';
-				$allRecs[$i][1] = '<a href="' . menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $jcn . '&seq=' . $seq) . '">' . $seq . '</a>';
+				$allRecs[$i][0] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $jcn . '&seq=' . $seq) . '">' . $jcn . '</a>';
+				$allRecs[$i][1] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $jcn . '&seq=' . $seq) . '">' . $seq . '</a>';
 			}
 		}
 		

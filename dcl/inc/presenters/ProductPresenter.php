@@ -243,8 +243,8 @@ class ProductPresenter
 		$sqlHelper->AddDef('order', '', array('jcn', 'seq'));
 		$sqlHelper->AddDef('groups', '', array('statuses.name'));
 
-		$objHV = new htmlWorkOrderResults();
-		$objHV->Render($sqlHelper);
+		$presenter = new WorkOrderPresenter();
+		$presenter->DisplayView($sqlHelper);
 	}
 
 	public function DetailTicket(ProductModel $model)

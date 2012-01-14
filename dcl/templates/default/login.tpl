@@ -1,18 +1,17 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
-        "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<!-- $Id$ -->
-<meta http-equiv="Set-Cookie" content="DCLINFO=;expires=Sunday, 31-Dec-2000 23:59:59 GMT">
-<meta http-equiv="Expires" content="-1">
-<title>{$TXT_TITLE}</title>
-<script language="JavaScript">{literal}
-function init()
-{
-    document.forms[0].elements['UID'].focus();
-}
-{/literal}</script>
-<link rel="stylesheet" href="{$DIR_CSS}default.css" type="text/css"></link>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+	<meta http-equiv="Set-Cookie" content="DCLINFO=;expires=Sunday, 31-Dec-2000 23:59:59 GMT">
+	<meta http-equiv="Expires" content="-1">
+	<title>{$TXT_TITLE}</title>
+	<script language="JavaScript">{literal}
+	function init()
+	{
+		document.forms[0].elements['UID'].focus();
+	}
+	{/literal}</script>
+	<link rel="stylesheet" href="{$DIR_CSS}default.css" type="text/css"></link>
 </head>
 <body onload="init();">
 <h3>{$VAL_WELCOME}</h3>

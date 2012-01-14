@@ -27,11 +27,11 @@
 	<table class="dcl_results"><caption>{$smarty.const.STR_PRJ_TASKLIST}</caption>
 		<thead>
 			<tr class="toolbar"><th colspan="17"><ul>
-				<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.newjcn&projectid={$VAL_PROJECTID}">{$smarty.const.STR_CMMN_NEW}</a></li>
+				<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateTask&projectid={$VAL_PROJECTID}">{$smarty.const.STR_CMMN_NEW}</a></li>
 				{if count($VAL_TASKS) > 0}
-				<li><a href="javascript:forceSubmit('boWorkorders.batchdetail');">Detail</a></li>
+				<li><a href="javascript:forceSubmit('WorkOrder.BatchDetail');">Detail</a></li>
 				<li><a href="javascript:forceSubmit('boTimecards.batchadd');">Time Card</a></li>
-				<li><a href="javascript:forceSubmit('boWorkorders.batchassign');">Assign</a></li>
+				<li><a href="javascript:forceSubmit('WorkOrder.BatchAssign');">Assign</a></li>
 				<li><a href="javascript:forceSubmit('htmlProjectmap.batchMove');">Move</a></li>
 				{/if}
 			</ul></th></tr>
@@ -90,7 +90,7 @@
 			{assign var=woid value=$groupcount}
 			{assign var=seq value=$groupcount+1}
 			<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$VAL_TASKS[row].woid}.{$VAL_TASKS[row].seq}"></td>
-			<td class="html"><a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$VAL_TASKS[row].woid}&seq={$VAL_TASKS[row].seq}">{$VAL_TASKS[row].woid}</a></td>
+			<td class="html"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_TASKS[row].woid}&seq={$VAL_TASKS[row].seq}">{$VAL_TASKS[row].woid}</a></td>
 			<td class="string">{$VAL_TASKS[row].seq}</td>
 			<td class="string">{$VAL_TASKS[row].type|escape}</td>
 			<td class="string">{$VAL_TASKS[row].responsible|escape}</td>

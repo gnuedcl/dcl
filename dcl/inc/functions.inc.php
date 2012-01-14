@@ -141,9 +141,11 @@ function __autoload($className)
 
 	$areas = array('Controller' => 'controllers',
 					'Model' => 'models',
+					'ViewData' => 'models',
 					'Presenter' => 'presenters',
 					'Exception' => 'exceptions',
-					'Helper' => 'helpers');
+					'Helper' => 'helpers',
+					'Service' => 'services');
 
 	foreach ($areas as $suffix => $directory)
 	{
@@ -230,6 +232,32 @@ function RequirePermission($entityId, $permissionId, $id1 = 0, $id2 = 0)
 
 	if (!$g_oSec->HasPerm($entityId, $permissionId, $id1, $id2))
 		throw new PermissionDeniedException();
+}
+
+function RequireAnyPermission($entityId, array $permissionList, $id1 = 0, $id2 = 0)
+{
+	global $g_oSec;
+	
+	foreach ($permissionList as $permissionId)
+	{
+		if ($g_oSec->HasPerm($entityId, $permissionId, $id1, $id2))
+			return;
+	}
+	
+	throw new PermissionDeniedException();
+}
+
+function RequirePost()
+{
+	if ($_SERVER["REQUEST_METHOD"] != "POST")
+		throw new PermissionDeniedException ();
+}
+
+function IsPublicUser()
+{
+	global $g_oSec;
+	
+	return $g_oSec->IsPublicUser();
 }
 
 function UseHttps()
@@ -406,28 +434,6 @@ function EvaluateReturnTo()
 	return false;
 }
 
-function &CreateViewObject($sType = '')
-{
-	$oRetVal = null;
-
-	switch ($sType)
-	{
-		case 'workorders':
-			$oRetVal = new htmlWorkOrderResults();
-			break;
-		case 'tickets':
-			$oRetVal = new htmlTicketResults();
-			break;
-		case 'dcl_product_module':
-			$oRetVal = new htmlProductModuleView();
-			break;
-		default:
-			$oRetVal = new htmlView();
-	}
-	
-	return $oRetVal;
-}
-
 function GetPluginDir()
 {
 	global $dcl_info;
@@ -536,16 +542,15 @@ function buildMenuArray()
 		}
 		
 		$DCL_MENU[DCL_MENU_WORKORDERS] = array(
-				DCL_MENU_MYWOS => array('htmlWorkorders.show&filterReportto=' . $GLOBALS['DCLID'], $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION)),
-				DCL_MENU_NEW => array('boWorkorders.newjcn', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD)),
-				DCL_MENU_IMPORT => array('boWorkorders.csvupload', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT)),
+				DCL_MENU_MYWOS => array('WorkOrder.SearchMy', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION)),
+				DCL_MENU_NEW => array('WorkOrder.Create', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD)),
+				DCL_MENU_IMPORT => array('WorkOrder.Import', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT)),
 				DCL_MENU_ACTIVITY => array('reportPersonnelActivity.getparameters', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
-				DCL_MENU_GRAPH => array('boWorkorders.graph', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
-				DCL_MENU_STATISTICS => array('htmlWOStatistics.ShowUserVsProductStatusForm', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
+				DCL_MENU_GRAPH => array('WorkOrder.GraphCriteria', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
 				'Metrics' => array('htmlMetricsWorkOrders.getparameters', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
-				DCL_MENU_SEARCH => array('htmlWOSearches.Show', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH)),
+				DCL_MENU_SEARCH => array('WorkOrder.Criteria', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH)),
 				DCL_MENU_VIEWS => array($aViews, count($aViews) > 0),
-				DCL_MENU_BROWSE => array('htmlWorkorders.show', $g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
+				DCL_MENU_BROWSE => array('WorkOrder.Browse', $g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			);
 	}
 
@@ -578,7 +583,6 @@ function buildMenuArray()
 				DCL_MENU_NEW => array('boTickets.add', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD)),
 				DCL_MENU_ACTIVITY => array('reportTicketActivity.getparameters', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
 				DCL_MENU_GRAPH => array('boTickets.graph', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
-				DCL_MENU_STATISTICS => array('htmlTicketStatistics.ShowUserVsProductStatusForm', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
 				DCL_MENU_SEARCH => array('htmlTicketSearches.Show', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH)),
 				DCL_MENU_VIEWS => array($aViews, count($aViews) > 0),
 				DCL_MENU_BROWSE => array('htmlTickets.show', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))

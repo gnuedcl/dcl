@@ -3,7 +3,7 @@ You are receiving this e-mail because you are (1) directly involved, or
 product or project associated with this work order.  This is a snapshot
 of the work order.
 
-You can see the detail at: {dcl_config name=DCL_ROOT}main.php?menuAction=boWorkorders.viewjcn&jcn={$obj->jcn}&seq={$obj->seq}
+You can see the detail at: {dcl_config name=DCL_ROOT}main.php?menuAction=WorkOrder.Detail&jcn={$obj->jcn}&seq={$obj->seq}
 
 [{$obj->jcn}-{$obj->seq}] {$obj->summary}
 

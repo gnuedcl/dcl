@@ -27,7 +27,7 @@ function submitBatch()
 	var f = document.forms.searchAction;
 	var sAction = f.elements.menuAction.value;
 
-	if (sAction == 'boWorkorders.batchdetail' || sAction == 'boTimecards.batchadd' || sAction == 'boWorkorders.batchassign' || sAction == 'htmlProjectmap.move' || sAction == 'htmlProjectmap.batchmove' || sAction == 'boBuildManager.SubmitWO')
+	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchAssign' || sAction == 'htmlProjectmap.move' || sAction == 'htmlProjectmap.batchmove' || sAction == 'boBuildManager.SubmitWO')
 	{
 		var bHasCheck = false;
 		for (var i = 0; i < f.elements.length && !bHasCheck; i++)
@@ -43,17 +43,99 @@ function submitBatch()
 	}
 	f.submit();
 }
+	
+$(document).ready(function() {
+	/*$("#menuAction").val("WorkOrderService.GetData");
+	$("#results").jqAjaxTable({
+		url: "{/literal}{$URL_MAIN_PHP}{literal}",
+		form: "#searchAction"
+	});*/
+});
+(function($) {
+	$.fn.jqAjaxTable = function(options) {
+		var defaults = {
+			url: "",
+			rows: 25,
+			columns: [],
+			form: ""
+		};
+			
+		var settings = $.extend(defaults, options);
+			
+		var methods = {
+			id: "",
+			pagerId: "",
+			table: $([]),
+			response: {count: 0, records: [], total: 0},
+			init: function(id) {
+				this.id = id;
+				this.pagerId = id + "Pager";
+				this.table = $("#" + id);
+				this.clearTable();
+			},
+			setPage: function(page) {
+				this.getData(page);
+			},
+			getData: function(page) {
+				$("#" + this.pagerId).text("Loading...");
+				$.ajax({
+					type: "POST",
+					url: settings.url,
+					data: $(settings.form).serialize() + "&page=" + page + "&rows=" + settings.rows,
+					success: function(data) {
+						$("#" + methods.pagerId).remove();
+						if (data.count > 0) {
+							var $div = $("<div/>");
+							var html = "";
+							$.each(data.records, function(ridx, row) {
+								html += "<tr>";
+								html += "<td><input type=\"checkbox\" /></td>";
+								$.each(row, function(fidx, field) {
+									if (field != null && field != "") {
+										html += "<td>" + $div.text(field).html() + "</td>";
+									}
+									else {
+										html += "<td>&nbsp;</td>";
+									}
+								});
+								html += "</tr>";
+							});
+
+							methods.table.find("tbody").append(html);
+
+							if (data.total > (page * settings.rows)) {
+								$("<button class=\"jq-ajax-table-pager\"></button>").attr("id", methods.pagerId).text((data.total - (page * settings.rows)) + " More").appendTo(methods.table.parent()).click(function() {
+									methods.getData(page + 1);
+									return false;
+								});
+							}
+						}
+					}
+				});
+			},
+			clearTable: function() {
+				this.table.find("tbody").empty();
+			}
+		};
+			
+		return this.each(function() {
+			var $this = $(this);
+			methods.init($this.attr("id"));
+			methods.setPage(1);
+		});
+	};
+})(jQuery);
 {/literal}
 </script>
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}
 {if $rownum}{assign var=colcount value=$colcount+1}{/if}
 {if $checks}{assign var=colcount value=$colcount+1}{/if}
-<form name="searchAction" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="" />
+<form name="searchAction" id="searchAction" method="post" action="{$URL_MAIN_PHP}">
+	<input type="hidden" name="menuAction" id="menuAction" value="" />
 	<input type="hidden" name="product" value="{$HID_PRODUCT}" />
 	{$VAL_VIEWSETTINGS}
-<table class="dcl_results{if $inline} inline{/if}"{if $width > 0} style="width:{$width};"{/if}>
+<table id="results" class="dcl_results{if $inline} inline{/if}"{if $width > 0} style="width:{$width};"{/if}>
 {if $caption ne ""}<caption{if $spacer} class="spacer"{/if}>{$caption|escape}</caption>{/if}
 {strip}
 {section loop=$columns name=col}
@@ -112,7 +194,7 @@ function submitBatch()
 	{section loop=$records[row] name=item}
 		{if !in_array($smarty.section.item.index, $groups) && $smarty.section.item.index < (count($records[row]) + $VAL_ENDOFFSET)}
 			<td class="{$columns[$smarty.section.item.index].type}">
-			{if $smarty.section.item.index == $wo_id_ordinal || $smarty.section.item.index == $seq_ordinal}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$records[row][$wo_id_ordinal]}&seq={$records[row][$seq_ordinal]}">{$records[row][item]}</a>
+			{if $smarty.section.item.index == $wo_id_ordinal || $smarty.section.item.index == $seq_ordinal}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$records[row][$wo_id_ordinal]}&seq={$records[row][$seq_ordinal]}">{$records[row][item]}</a>
 			{elseif $smarty.section.item.index == $tag_ordinal && $records[row][$num_tags_ordinal] > 1}{dcl_get_entity_tags entity=$smarty.const.DCL_ENTITY_WORKORDER key_id=$records[row][$wo_id_ordinal] key_id2=$records[row][$seq_ordinal] link=Y}
 			{elseif $smarty.section.item.index == $tag_ordinal && $records[row][$num_tags_ordinal] == 1}{dcl_tag_link value=$records[row][item]}
 			{elseif $smarty.section.item.index == $hotlist_ordinal && $records[row][$num_hotlist_ordinal] > 0}{dcl_get_entity_hotlist entity=$smarty.const.DCL_ENTITY_WORKORDER key_id=$records[row][$wo_id_ordinal] key_id2=$records[row][$seq_ordinal] link=Y}

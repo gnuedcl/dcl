@@ -117,7 +117,7 @@ class htmlProjectTimeline
 		        }
 		        else
 		        {
-		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $oDB->f(2) . '&seq=' . $oDB->f(3)) . '">[' . $oDB->f(2) . '-' . $oDB->f(3) . '] ' . htmlspecialchars($oDB->f(6)) . '</a>';
+		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $oDB->f(2) . '&seq=' . $oDB->f(3)) . '">[' . $oDB->f(2) . '-' . $oDB->f(3) . '] ' . htmlspecialchars($oDB->f(6)) . '</a>';
 		        }
 		        
 		        $aRecord[] = $oDB->f(7);

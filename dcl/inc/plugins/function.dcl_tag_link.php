@@ -51,7 +51,7 @@ function smarty_function_dcl_tag_link($params, &$smarty)
 	{
 		$sTag = trim($sTag);
 		if (!$bFirst)
-			echo ', ';
+			echo '';
 		else
 			$bFirst = false;
 

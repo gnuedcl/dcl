@@ -162,4 +162,13 @@ class ProductModel extends DbProvider
 		
 		return $this->Query($sql);
 	}
+	
+	public function GetWorkOrderAttributeSet($productId)
+	{
+		$this->Query('SELECT wosetid FROM products WHERE id=' . (int)$productId);
+		if ($this->next_record())
+			return $this->f(0);
+		
+		throw new InvalidArgumentException();
+	}
 }

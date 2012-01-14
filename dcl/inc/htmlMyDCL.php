@@ -184,9 +184,9 @@ class htmlMyDCL
 		$oTable->setWidth('100%');
 		
 		if ($forField == 'responsible')
-			$oTable->addToolbar(menuLink('', 'menuAction=htmlWorkorders.show&filterReportto=' . $GLOBALS['DCLID']), STR_CMMN_VIEWALL);
+			$oTable->addToolbar(menuLink('', 'menuAction=WorkOrder.SearchMy'), STR_CMMN_VIEWALL);
 		else
-			$oTable->addToolbar(menuLink('', 'menuAction=boWorkorders.showmy&which=createby'), STR_CMMN_VIEWALL);
+			$oTable->addToolbar(menuLink('', 'menuAction=WorkOrder.SearchMyCreated'), STR_CMMN_VIEWALL);
 		
 		$oDB = new DbProvider;
 		$oDB->LimitQuery($objView->GetSQL(), 0, 5);
@@ -195,8 +195,8 @@ class htmlMyDCL
 		{
 			$iID = $aData[$i][0];
 			$iSeq = $aData[$i][1];
-			$aData[$i][0] = '<a href="' . menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $iID . '&seq=' . $iSeq) . '">' . $iID . '</a>';
-			$aData[$i][1] = '<a href="' . menuLink('', 'menuAction=boWorkorders.viewjcn&jcn=' . $iID . '&seq=' . $iSeq) . '">' . $iSeq . '</a>';
+			$aData[$i][0] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $iID . '&seq=' . $iSeq) . '">' . $iID . '</a>';
+			$aData[$i][1] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $iID . '&seq=' . $iSeq) . '">' . $iSeq . '</a>';
 		}
 		
 		$oTable->setData($aData);

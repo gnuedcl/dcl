@@ -67,7 +67,7 @@ class htmlAudit
 				$this->aAudit = $oAudit->LoadDiff('WorkOrderModel', array('jcn' => $id, 'seq' => $id2));
 				$oSmarty->assign('VAL_ID', sprintf('%d-%d', $id, $id2));
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetWorkOrder($id, $id2));
-				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boWorkorders.viewjcn&jcn=$id&seq=$id2"));
+				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=WorkOrder.Detail&jcn=$id&seq=$id2"));
 
 				$oAccount = new WorkOrderOrganizationModel();
 				$this->aAuditAccount = $oAccount->AuditWorkOrderList($id, $id2);

@@ -65,7 +65,7 @@
 		{if $columnindex > 2}{assign var=columnindex value=$columnindex-1}{/if}
 		{if $smarty.section.item.index != 1 && $smarty.section.item.index != 2 && $smarty.section.item.index != 4 && !in_array($smarty.section.item.index, $groups) && $smarty.section.item.index < (count($records[row]) + $VAL_ENDOFFSET)}<td class="{$columns[$columnindex].type}">
 		{if $columnindex == 0}
-			{if $records[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}<a href="{$URL_MAIN_PHP}?menuAction=boWorkorders.viewjcn&jcn={$records[row][1]}&seq={$records[row][2]}">{$records[row][1]|escape}-{$records[row][2]|escape}</a>
+			{if $records[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$records[row][1]}&seq={$records[row][2]}">{$records[row][1]|escape}-{$records[row][2]|escape}</a>
 			{elseif $records[row][0] == $smarty.const.DCL_ENTITY_TICKET}<a href="{$URL_MAIN_PHP}?menuAction=boTickets.view&ticketid={$records[row][1]}">{$records[row][1]|escape}</a>
 			{else}{$records[row][item]|escape}
 			{/if}
