@@ -193,13 +193,6 @@ class boTimecards
 		$objWorkorder->Load($objTimecard->jcn, $objTimecard->seq);
 		$objWtch->sendNotification($objWorkorder, $notify);
 
-		// if BuildManager is used, find info on who submitted the WO
-		if ($dcl_info['DCL_BUILD_MANAGER_ENABLED'] == 'Y')
-		{
-//			$oBM = new dbBuildManager();
-//			$oBM->CheckDepartmentSubmit($objTimecard->jcn, $objTimecard->seq, $objWorkorder->product);
-		}
-
 		$workOrderPresenter = new WorkOrderPresenter();
 		$workOrderPresenter->Detail($objWorkorder);
 	}

@@ -124,7 +124,6 @@ class ConfigurationPresenter
 
 		// SCM
 		$t->assign('VAL_SCCSENABLED', $dcl_info['DCL_SCCS_ENABLED']);
-		$t->assign('VAL_BUILDMANAGERENABLED', $dcl_info['DCL_BUILD_MANAGER_ENABLED']);
 
 		$t->Render('htmlConfig.tpl');
 	}

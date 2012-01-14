@@ -14,7 +14,6 @@
 				{/if}
 				<li><a href="{$URL_MAIN_PHP}?menuAction=htmlProductModules.PrintAll&product_id={$VAL_ID}">{$smarty.const.STR_PROD_VIEWMODULES}</a></li>
 				{if $PERM_WIKI}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlWiki.show&name=FrontPage&type={$smarty.const.DCL_ENTITY_PRODUCT}&id={$VAL_ID}">{$smarty.const.STR_CMMN_WIKI}</a></li>{/if}
-				{if $PERM_VERSIONS}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.DetailRelease&id={$VAL_ID}">Versions</a></li>{/if}
 				{if $PERM_EDIT}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.Edit&id={$VAL_ID}">{$smarty.const.STR_CMMN_EDIT}</a></li>{/if}
 				{if $PERM_DELETE}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.Delete&id={$VAL_ID}">{$smarty.const.STR_CMMN_DELETE}</a></li>{/if}
 {/strip}</ul></th></tr></thead>

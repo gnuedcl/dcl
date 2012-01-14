@@ -182,41 +182,6 @@ class ProductController extends AbstractController
 		$presenter->DetailModule($model);
 	}
 
-	function DetailRelease()
-	{
-		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
-			throw new InvalidDataException();
-
-		$model = new ProductModel();
-		if ($model->Load($id) == -1)
-			throw new InvalidEntityException();
-
-		$presenter = new ProductPresenter();
-		$presenter->Detail($model);
-		$presenter->DetailRelease($model);
-	}
-
-	function DetailBuild()
-	{
-		if (($productId = @Filter::ToInt($_REQUEST['product_id'])) === null)
-			throw new InvalidDataException();
-
-		if (($versionId = @Filter::ToInt($_REQUEST['product_version_id'])) === null)
-			throw new InvalidDataException();
-
-		$model = new ProductModel();
-		if ($model->Load($id) == -1)
-			throw new InvalidEntityException();
-
-		$buildModel = new ProductBuildModel();
-		if ($buildModel->Load($versionId) == -1)
-			throw new InvalidEntityException();
-
-		$presenter = new ProductPresenter();
-		$presenter->Detail($model);
-		$presenter->DetailBuild($model, $buildModel);
-	}
-	
 	public function IsProjectRequired()
 	{
 		header('Content-Type: application/json');

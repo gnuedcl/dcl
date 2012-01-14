@@ -36,9 +36,6 @@
 	define('STR_PROD_VIEWMODULES', "Modules");
 	define('STR_PROD_NOMODULES', "No Modules");
 	define('STR_PROD_MODULEREPORTTITLE', "Product Modules Ordered By %s");
-	define('STR_PROD_BUILDMANAGER', "SCM");
-	define('STR_PROD_RELEASEDETAILS', "Release Details");
-	define('STR_PROD_READY_BUILD', "Ready for Build");
 	define('STR_PROD_DCL_APPLIED', "DCL Applied");
 	define('STR_PROD_DCL_MODIFIED', "DCL Modified");
 	define('STR_PROD_DCL_NEW', "New DCL");

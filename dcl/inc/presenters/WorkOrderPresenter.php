@@ -1102,15 +1102,6 @@ class WorkOrderPresenter
 			'Project' => array('menuAction' => 'htmlProjectmap.batchmove', 'hasPermission' => $g_oSec->HasAllPerm(array(DCL_ENTITY_PROJECT => array($g_oSec->PermArray(DCL_PERM_ADDTASK), $g_oSec->PermArray(DCL_PERM_REMOVETASK)))))
 			);
 
-		$showBM = $g_oSession->Value('showBM');
-		if (IsSet($showBM) && (int)$showBM == 1)
-		{
-			$aOptions_BM = array('Version' => array('menuAction' => 'boBuildManager.SubmitWO', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION)));
-			$aOptions = array_merge($aOptions, $aOptions_BM);
-			$g_oSession->Unregister('showBM');
-			$g_oSession->Edit();
-		}
-
 		foreach ($aOptions as $sDisplay => $aOption)
 		{
 			if ($aOption['hasPermission'])

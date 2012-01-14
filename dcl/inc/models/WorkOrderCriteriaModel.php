@@ -233,12 +233,6 @@ class WorkOrderCriteriaModel
 		if (count($this->Product) > 0)
 		{
 			$view->AddDef('filter', 'product', $this->Product);
-
-			// Adds BuildManager to drop down menu only if user selects a product
-			if (count($this->Product) == 1)
-			{
-				$g_oSession->Register('showBM', 1);
-			}
 		}
 
 		$g_oSession->Edit();

@@ -369,11 +369,6 @@ function validateAndSubmit(f)
 			<input type="checkbox" name="DCL_SCCS_ENABLED" id="DCL_SCCS_ENABLED" value="Y"{if $VAL_SCCSENABLED == "Y"} checked{/if}>
 			<span>{$smarty.const.STR_CFG_SCCSENABLEDHELP}</span>
 		</div>
-		<div class="required">
-			<label for="DCL_BUILD_MANAGER_ENABLED">{$smarty.const.STR_CFG_BUILDMANAGERENABLED}:</label>
-			<input type="checkbox" name="DCL_BUILD_MANAGER_ENABLED" id="DCL_BUILD_MANAGER_ENABLED" value="Y"{if $VAL_BUILDMANAGERENABLED == "Y"} checked{/if}>
-			<span>{$smarty.const.STR_CFG_BUILDMANAGERENABLEDHELP}</span>
-		</div>
 	</fieldset>
 	<fieldset>
 		<div class="submit"><input type="button" onclick="validateAndSubmit(this.form);" value="{$smarty.const.STR_CMMN_SAVE}"></div>

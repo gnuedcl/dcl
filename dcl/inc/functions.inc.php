@@ -69,7 +69,6 @@ define('DCL_ENTITY_SESSION', 35);
 define('DCL_ENTITY_ROLE', 36);
 define('DCL_ENTITY_ORGTYPE', 37);
 define('DCL_ENTITY_CONTACTTYPE', 38);
-define('DCL_ENTITY_BUILDMANAGER', 39);
 define('DCL_ENTITY_WORKORDER_TASK', 40);
 define('DCL_ENTITY_WORKSPACE', 41);
 define('DCL_ENTITY_TEST_CASE', 42);
@@ -113,11 +112,6 @@ define('DCL_FORM_MODIFY', 2);
 define('DCL_FORM_DELETE', 3);
 define('DCL_FORM_COPY', 4);
 define('DCL_FORM_COPYFROMTICKET', 5);
-
-// BuildManager 
-define('DCL_BUILDMANAGER_SUBMIT', 1);
-define('DCL_BUILDMANAGER_APPLIED', 2);
-define('DCL_BUILDMANAGER_COMPLETE', 3);
 
 // Smarty settings
 define('SMARTY_DIR', DCL_ROOT . 'vendor/Smarty/');
