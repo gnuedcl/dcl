@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id: build.php,v 1.1.1.1 2006/11/27 05:30:54 mdean Exp $
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *

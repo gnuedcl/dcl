@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -40,7 +38,7 @@ class htmlTicketStatistics
 		$t->assign('CMB_PEOPLE', $objPersonnel->Select(0, 'people', 'lastfirst', 8, false));
 		$t->assign('CMB_PRODUCTS', $objProducts->Select(0, 'products', 'name', 0, 8, false));
 		
-		$t->Render('htmlTicketStatisticsForm.tpl');
+		$t->Render('TicketStatisticsForm.tpl');
 	}
 
 	function ShowUserVsProductStatus()

@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -154,7 +152,7 @@ class htmlWorkspaceBrowse
 
 		$oTable->setCaption('Browse Workspaces');
 		$oTable->setShowChecks(false);
-		$oTable->sTemplate = 'htmlTableWorkspace.tpl';
+		$oTable->sTemplate = 'TableWorkspace.tpl';
 		$oTable->render();
 	}
 

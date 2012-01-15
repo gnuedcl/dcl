@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Derived from XOOPS Setup
  *
  * Double Choco Latte - Source Configuration Management System
@@ -32,7 +30,6 @@ include_once 'class/textsanitizer.php';
 * setting manager for XOOPS installer
 *
 * @author Haruki Setoyama  <haruki@planewave.org>
-* @version $Id$
 * @access public
 **/
 class setting_manager {

@@ -90,7 +90,7 @@ class SeverityPresenter
 		$t->assign('menuAction', 'Severity.Insert');
 		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 
-		$t->Render('htmlSeveritiesForm.tpl');
+		$t->Render('SeveritiesForm.tpl');
 	}
 
 	public function Edit(SeverityModel $model)
@@ -111,7 +111,7 @@ class SeverityPresenter
 		$t->assign('VAL_NAME', $model->name);
 		$t->assign('VAL_WEIGHT', $model->weight);
 
-		$t->Render('htmlSeveritiesForm.tpl');
+		$t->Render('SeveritiesForm.tpl');
 	}
 
 	public function Delete(SeverityModel $model)

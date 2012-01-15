@@ -43,17 +43,17 @@ class htmlOrganizationDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$this->oSmarty->Render('htmlOrganizationDashboardAll.tpl');
+		$this->oSmarty->Render('OrganizationDashboardAll.tpl');
 	}
 
 	function Show()
 	{
-		$this->ShowPage('htmlOrganizationDashboard.tpl');
+		$this->ShowPage('OrganizationDashboard.tpl');
 	}
 
 	function ShowTicket()
 	{
-		$this->ShowPage('htmlOrganizationDashboardTickets.tpl');
+		$this->ShowPage('OrganizationDashboardTickets.tpl');
 	}
 
 	function ShowPage($sPage)

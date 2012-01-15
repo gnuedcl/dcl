@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -45,17 +43,17 @@ class htmlProductDashboard
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$this->oSmarty->Render('htmlProductDashboardAll.tpl');
+		$this->oSmarty->Render('ProductDashboardAll.tpl');
 	}
 	
 	function Show()
 	{
-		$this->ShowPage('htmlProductDashboard.tpl');
+		$this->ShowPage('ProductDashboard.tpl');
 	}
 
 	function ShowTicket()
 	{
-		$this->ShowPage('htmlProductDashboardTickets.tpl');
+		$this->ShowPage('ProductDashboardTickets.tpl');
 	}
 	
 	function ShowPage($sPage)

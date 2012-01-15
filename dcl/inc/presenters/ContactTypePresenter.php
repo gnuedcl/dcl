@@ -94,7 +94,7 @@ class ContactTypePresenter
 		$t->assign('TXT_FUNCTION', 'Add Contact Type');
 		$t->assign('menuAction', 'ContactType.Insert');
 
-		$t->Render('htmlContactTypeForm.tpl');
+		$t->Render('ContactTypeForm.tpl');
 	}
 
 	public function Edit(ContactTypeModel $model)
@@ -113,7 +113,7 @@ class ContactTypePresenter
 		$t->assign('VAL_MAIN', $model->contact_type_is_main);
 		$t->assign('VAL_NAME', $model->contact_type_name);
 
-		$t->Render('htmlContactTypeForm.tpl');
+		$t->Render('ContactTypeForm.tpl');
 	}
 
 	public function Delete(ContactTypeModel $model)

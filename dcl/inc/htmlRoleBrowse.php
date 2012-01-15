@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -36,7 +34,7 @@ class htmlRoleBrowse extends htmlView
 	
 	function InitTemplate()
 	{
-		$this->Template = CreateTemplate(array('hForm' => 'htmlRoleBrowse.tpl'));
+		$this->Template = CreateTemplate(array('hForm' => 'RoleBrowse.tpl'));
 		$this->_CreateBlocks();
 		$this->_ResetBlocks();
 	}

@@ -36,7 +36,7 @@ class SystemSetupPresenter
 		$oSmarty->assign('TXT_SETUPTITLE', STR_ADMIN_SETUPTITLE);
 		$oSmarty->assign('VAL_OPTIONS', $this->GetOptions());
 
-		$oSmarty->Render('htmlAdminMain.tpl');
+		$oSmarty->Render('AdminMain.tpl');
 	}
 
 	private function GetOptions()

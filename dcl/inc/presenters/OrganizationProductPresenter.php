@@ -70,6 +70,6 @@ class OrganizationProductPresenter
 		$oSmarty->assign_by_ref('VAL_PRODUCTID', $aProducts);
 		$oSmarty->assign_by_ref('VAL_PRODUCTNAME', $aProductsNames);
 
-		$oSmarty->Render('htmlOrgProducts.tpl');
+		$oSmarty->Render('OrgProducts.tpl');
 	}
 }

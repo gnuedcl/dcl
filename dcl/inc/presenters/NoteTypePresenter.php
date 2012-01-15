@@ -95,7 +95,7 @@ class NoteTypePresenter
 		$t->assign('TXT_FUNCTION', 'Add Note Type');
 		$t->assign('menuAction', 'NoteType.Insert');
 
-		$t->Render('htmlNoteTypeForm.tpl');
+		$t->Render('NoteTypeForm.tpl');
 	}
 
 	public function Edit(NoteTypeModel $model)
@@ -113,7 +113,7 @@ class NoteTypePresenter
 		$t->assign('note_type_id', $model->note_type_id);
 		$t->assign('VAL_NAME', $model->note_type_name);
 
-		$t->Render('htmlNoteTypeForm.tpl');
+		$t->Render('NoteTypeForm.tpl');
 	}
 
 	public function Delete(NoteTypeModel $model)

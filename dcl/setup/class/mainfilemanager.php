@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Derived from XOOPS Setup
  *
  * Double Choco Latte - Source Configuration Management System
@@ -28,7 +26,6 @@
 * mainfile manager for XOOPS installer
 *
 * @author Haruki Setoyama  <haruki@planewave.org>
-* @version $Id$
 * @access public
 **/
 class mainfile_manager

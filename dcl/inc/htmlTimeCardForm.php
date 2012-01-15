@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -157,6 +155,6 @@ class htmlTimeCardForm
 		if (isset($_REQUEST['project']))
 			$oSmarty->assign('VAL_PROJECT', $_REQUEST['project']);
 
-		return $oSmarty->ToString('htmlTimeCardForm.tpl');
+		return $oSmarty->ToString('TimeCardForm.tpl');
 	}
 }

@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -177,7 +175,7 @@ class htmlWatches
 			$t->assign('VAL_WHATID2', $whatid2);
 		}
 
-		$t->Render('htmlWatchForm.tpl');
+		$t->Render('WatchForm.tpl');
 	}
 
 	function GetMyViewLinkAndDescription($obj)

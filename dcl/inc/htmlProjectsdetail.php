@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -93,7 +91,7 @@ class htmlProjectsdetail
 		$oProjects = new boProjects();
 		$this->oSmarty->assign('VAL_PROJECTS', $oProjects->GetParentProjectPath($this->oProject->projectid));
 
-		$this->oSmarty->Render('htmlProjectsDetail.tpl');
+		$this->oSmarty->Render('ProjectsDetail.tpl');
 	}
 
 	function SetTasks($wostatus, $woresponsible, $bIsGrouping)

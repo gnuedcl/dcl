@@ -1,5 +1,4 @@
 #!/usr/bin/perl -w
-# $Id$
 
 ##################################################################################
 # Derived From dcl-gateway.pl - see comments about origin there :)               #

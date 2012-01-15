@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -49,7 +47,7 @@ class reportTicketActivity
 		else
 			$t->assign('VAL_ENDDATE', '');
 		
-		$t->Render('htmlTicketActivity.tpl');
+		$t->Render('TicketActivity.tpl');
 	}
 
 	function execute()

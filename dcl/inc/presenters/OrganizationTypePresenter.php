@@ -93,7 +93,7 @@ class OrganizationTypePresenter
 		$t->assign('TXT_FUNCTION', 'Add Organization Type');
 		$t->assign('menuAction', 'OrganizationType.Insert');
 
-		$t->Render('htmlOrgTypeForm.tpl');
+		$t->Render('OrgTypeForm.tpl');
 	}
 
 	public function Edit(OrganizationTypeModel $model)
@@ -111,7 +111,7 @@ class OrganizationTypePresenter
 		$t->assign('org_type_id', $model->org_type_id);
 		$t->assign('VAL_NAME', $model->org_type_name);
 
-		$t->Render('htmlOrgTypeForm.tpl');
+		$t->Render('OrgTypeForm.tpl');
 	}
 
 	function Delete(OrganizationTypeModel $model)

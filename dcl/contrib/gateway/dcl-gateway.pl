@@ -1,5 +1,4 @@
 #!/usr/bin/perl -w
-# $Id$
 
 ##################################################################################
 # Derived From GNATS MIME page: parsemime.pl -- Yngve Svendsen, May 2001         #

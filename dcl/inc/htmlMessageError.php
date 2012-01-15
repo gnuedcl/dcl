@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -32,7 +30,7 @@ class htmlMessageError extends htmlMessage
 			define('STR_CMMN_ERROR', 'Error');
 		
 		$this->sTitle = STR_CMMN_ERROR;
-		$this->sTemplate = 'htmlMessageError.tpl';
+		$this->sTemplate = 'MessageError.tpl';
 	}
 	
 	function &GetInstance()

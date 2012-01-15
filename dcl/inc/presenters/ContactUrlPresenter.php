@@ -47,7 +47,7 @@ class ContactUrlPresenter
 		$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select());
 		$oSmarty->assign('VAL_MENUACTION', 'ContactUrl.Insert');
 
-		$oSmarty->Render('htmlUrlForm.tpl');
+		$oSmarty->Render('UrlForm.tpl');
 	}
 
 	public function Edit(ContactUrlModel $model)
@@ -78,6 +78,6 @@ class ContactUrlPresenter
 		$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select($model->url_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Contact URL');
 
-		$oSmarty->Render('htmlUrlForm.tpl');
+		$oSmarty->Render('UrlForm.tpl');
 	}
 }

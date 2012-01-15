@@ -27,7 +27,6 @@ include_once(DCL_ROOT . 'inc/helpers/DateTimeHelper.php');
  * @package api
  * @subpackage database
  * @copyright Copyright &copy; 1999-2004 Free Software Foundation
- * @version $Id$
  */
 
 /**
@@ -35,7 +34,6 @@ include_once(DCL_ROOT . 'inc/helpers/DateTimeHelper.php');
  * @package dcl
  * @subpackage api
  * @copyright Copyright (C) 1999-2004 Free Software Foundation
- * @version $Id$
  */
 abstract class AbstractDbProvider
 {

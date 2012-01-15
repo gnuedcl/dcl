@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -59,6 +57,6 @@ class htmlHotlistProjectDashboard
 		$this->oSmarty->assign('VAL_HOTLISTID', $id);
 		$this->oSmarty->assign('VAL_NAME', $this->hotlist->hotlist_desc);
 
-		$this->oSmarty->Render('htmlHotlistProjectDashboard.tpl');
+		$this->oSmarty->Render('HotlistProjectDashboard.tpl');
 	}
 }

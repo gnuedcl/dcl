@@ -125,7 +125,7 @@ class ConfigurationPresenter
 		// SCM
 		$t->assign('VAL_SCCSENABLED', $dcl_info['DCL_SCCS_ENABLED']);
 
-		$t->Render('htmlConfig.tpl');
+		$t->Render('Config.tpl');
 	}
 
 	private function Select($sName, $aOptions, $sDefault)

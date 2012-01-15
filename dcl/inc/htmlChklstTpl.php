@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -85,6 +83,6 @@ class htmlChklstTpl
 			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'dcl_chklst_tpl_active', 0, false));
 		}
 		
-		$t->Render('htmlChklstTplAdd.tpl');
+		$t->Render('ChklstTplAdd.tpl');
 	}
 }

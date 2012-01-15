@@ -91,7 +91,7 @@ class PriorityPresenter
 		$t->assign('menuAction', 'Priority.Insert');
 		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 
-		$t->Render('htmlPrioritiesForm.tpl');
+		$t->Render('PrioritiesForm.tpl');
 	}
 
 	public function Edit(PriorityModel $model)
@@ -112,7 +112,7 @@ class PriorityPresenter
 		$t->assign('VAL_NAME', $model->name);
 		$t->assign('VAL_WEIGHT', $model->weight);
 
-		$t->Render('htmlPrioritiesForm.tpl');
+		$t->Render('PrioritiesForm.tpl');
 	}
 
 	public function Delete(PriorityModel $model)

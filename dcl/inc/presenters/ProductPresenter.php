@@ -122,7 +122,7 @@ class ProductPresenter
 		$t->assign('CMB_WOATTRIBUTESET', $objHA->Select(0, 'wosetid'));
 		$t->assign('CMB_TCKATTRIBUTESET', $objHA->Select(0, 'tcksetid'));
 
-		$t->Render('htmlProductsForm.tpl');
+		$t->Render('ProductsForm.tpl');
 	}
 
 	public function Edit(ProductModel $model)
@@ -154,7 +154,7 @@ class ProductPresenter
 		$t->assign('CMB_WOATTRIBUTESET', $objHA->Select($model->wosetid, 'wosetid'));
 		$t->assign('CMB_TCKATTRIBUTESET', $objHA->Select($model->tcksetid, 'tcksetid'));
 
-		$t->Render('htmlProductsForm.tpl');
+		$t->Render('ProductsForm.tpl');
 	}
 
 	public function Delete(ProductModel $model)
@@ -198,7 +198,7 @@ class ProductPresenter
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_DELETE));
 		$t->assign('PERM_VERSIONS', $dcl_info['DCL_BUILD_MANAGER_ENABLED'] == 'Y' && $model->is_versioned == 'Y');
 
-		$t->Render('htmlProductsDetail.tpl');
+		$t->Render('ProductsDetail.tpl');
 	}
 
 	public function DetailWorkOrderMetrics(ProductModel $model)

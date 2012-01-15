@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -325,7 +323,7 @@ class htmlChecklistForm
 		
 		$t->assign_by_ref('root', $this->xml->root);
 
-		$t->Render('htmlChecklistForm.tpl');
+		$t->Render('ChecklistForm.tpl');
 
 		echo '<form class="styled" method="post" action="' . menuLink() . '">';
 		if (!$bIsView)

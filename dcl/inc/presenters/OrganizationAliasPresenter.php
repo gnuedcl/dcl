@@ -41,7 +41,7 @@ class OrganizationAliasPresenter
 		$oSmarty->assign('TXT_FUNCTION', 'Add New Organization Alias');
 		$oSmarty->assign('VAL_MENUACTION', 'OrganizationAlias.Insert');
 
-		$oSmarty->Render('htmlOrgAlias.tpl');
+		$oSmarty->Render('OrgAlias.tpl');
 	}
 
 	public function Edit(OrganizationAliasModel $model)
@@ -65,6 +65,6 @@ class OrganizationAliasPresenter
 		$oSmarty->assign('VAL_ALIAS', $model->alias);
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Organization Alias');
 
-		$oSmarty->Render('htmlOrgAlias.tpl');
+		$oSmarty->Render('OrgAlias.tpl');
 	}
 }

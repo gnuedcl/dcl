@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -174,7 +172,7 @@ class htmlHotlistBrowse
 
 		$oTable->setCaption('Browse Hotlists');
 		$oTable->setShowChecks(false);
-		$oTable->sTemplate = 'htmlTableHotlist.tpl';
+		$oTable->sTemplate = 'TableHotlist.tpl';
 		$oTable->render();
 	}
 

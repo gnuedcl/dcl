@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -283,6 +281,6 @@ class htmlProductModules
 			$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 		}
 
-		$t->Render('htmlProductModulesForm.tpl');
+		$t->Render('ProductModulesForm.tpl');
 	}
 }

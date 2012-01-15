@@ -48,7 +48,7 @@ class TableHtmlHelper
 		$this->aGroups = array();
 		$this->aCheckVals = array();
 		$this->sCaption = '';
-		$this->sTemplate = 'htmlTable.tpl';
+		$this->sTemplate = 'Table.tpl';
 		$this->bShowRownum = false;
 		$this->bInline = false;
 		$this->bShowChecks = false;

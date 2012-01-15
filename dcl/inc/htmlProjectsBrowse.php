@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -123,7 +121,7 @@ class htmlProjectsBrowse
 
 		$oTable->setCaption($this->oView->title);
 		$oTable->setShowChecks(false);
-		$oTable->sTemplate = 'htmlTableProject.tpl';
+		$oTable->sTemplate = 'TableProject.tpl';
 		$oTable->render();
 	}
 

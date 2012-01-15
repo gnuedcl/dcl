@@ -329,7 +329,7 @@ function LoadSchema($sTableName)
 
 function Invoke($sClassMethod)
 {
-	global $dcl_info;
+	global $dcl_info, $menuAction;
 	
 	if ($dcl_info['DCL_SEC_AUDIT_ENABLED']=='Y' && $dcl_info['DCL_SEC_AUDIT_LOGIN_ONLY'] == 'N')
 	{
@@ -762,7 +762,7 @@ function ShowDeleteYesNo($title, $action, $id, $name, $canBeDeactivated = true, 
 	$t->assign('VAL_NAME', $name);
 	$t->assign('VAL_WARNING', sprintf(STR_CMMN_DELETECONFIRM, $title, $name));
 
-	$t->Render('htmlDeleteItem.tpl');
+	$t->Render('DeleteItem.tpl');
 }
 
 function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOption = true)

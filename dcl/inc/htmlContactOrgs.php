@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -119,6 +117,6 @@ class htmlContactOrgs
 		$oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
 		$oSmarty->assign_by_ref('VAL_ORGNAME', $aOrgName);
 
-		$oSmarty->Render('htmlContactOrgs.tpl');
+		$oSmarty->Render('ContactOrgs.tpl');
 	}
 }

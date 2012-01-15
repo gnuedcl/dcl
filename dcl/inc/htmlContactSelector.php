@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -57,7 +55,7 @@ class htmlContactSelector
 		else
 			$this->oSmarty->assign('VAL_FILTERACTIVE', '');
 
-		$this->oSmarty->Render('htmlContactSelector.tpl');
+		$this->oSmarty->Render('ContactSelector.tpl');
 	}
 
 	function showControlFrame()
@@ -80,7 +78,7 @@ class htmlContactSelector
 		$this->oSmarty->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_ADD));
 		$this->oSmarty->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
 
-		$this->oSmarty->Render('htmlContactSelectorControl.tpl');
+		$this->oSmarty->Render('ContactSelectorControl.tpl');
 		
 		exit();
 	}
@@ -201,7 +199,7 @@ class htmlContactSelector
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 
- 			$this->oSmarty->Render('htmlContactSelectorBrowse.tpl');
+ 			$this->oSmarty->Render('ContactSelectorBrowse.tpl');
 		}
 
 		exit();

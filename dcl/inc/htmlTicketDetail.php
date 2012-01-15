@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -114,9 +112,9 @@ class htmlTicketDetail
 		$oSmarty->assign('PERM_PUBLICONLY', $g_oSec->IsPublicUser());
 
 		if ($g_oSec->IsPublicUser())
-			$oSmarty->Render('htmlTicketDetailPublic.tpl');
+			$oSmarty->Render('TicketDetailPublic.tpl');
 		else
-			$oSmarty->Render('htmlTicketDetail.tpl');
+			$oSmarty->Render('TicketDetail.tpl');
 	}
 
 	function Download()

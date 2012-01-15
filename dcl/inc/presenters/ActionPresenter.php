@@ -90,7 +90,7 @@ class ActionPresenter
 		$t->assign('menuAction', 'Action.Insert');
 		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 
-		$t->Render('htmlActionsForm.tpl');
+		$t->Render('ActionsForm.tpl');
 	}
 
 	public function Edit(ActionModel $model)
@@ -111,7 +111,7 @@ class ActionPresenter
 		$t->assign('VAL_SHORT', $model->short);
 		$t->assign('VAL_NAME', $model->name);
 
-		$t->Render('htmlActionsForm.tpl');
+		$t->Render('ActionsForm.tpl');
 	}
 
 	public function Delete(ActionModel $model)

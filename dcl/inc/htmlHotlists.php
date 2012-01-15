@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -120,7 +118,7 @@ class htmlHotlists
 		}
 		
 		$oTable->assign('VAL_SELECTEDTAGS', $_REQUEST['tag']);
-		$oTable->sTemplate = 'htmlTableHotlistBrowse.tpl';
+		$oTable->sTemplate = 'TableHotlistBrowse.tpl';
 		$oTable->render();
 	}
 	
@@ -153,7 +151,7 @@ class htmlHotlists
 		$t->assign_by_ref('items', $items);
 		$t->assign('VAL_HOTLIST_ID', $hotlistId);
 		$t->assign('VAL_HOTLIST_NAME', $dbHotlist->hotlist_tag);
-		$t->Render('htmlHotlistPrioritize.tpl');
+		$t->Render('HotlistPrioritize.tpl');
 	}
 	
 	function savePriority()

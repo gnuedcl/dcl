@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -201,7 +199,7 @@ class htmlContact
 			$oSmarty->assign_by_ref('VAL_LASTPAGE', $aLastContactBrowsePage);
 		}
 		
-		$oSmarty->Render('htmlContactMerge.tpl');
+		$oSmarty->Render('ContactMerge.tpl');
 	}
 	
 	function doMerge()

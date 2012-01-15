@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -65,7 +63,7 @@ class htmlWindowList
 		}
 		else
 		{
-			$this->t = CreateTemplate(array('hForm' => 'htmlWindowList.tpl'));
+			$this->t = CreateTemplate(array('hForm' => 'WindowList.tpl'));
 
 			$this->t->set_var('TXT_TITLE', 'Work Order ' . $wo_id . '-' . $seq . ' Organizations');
 			$this->t->set_var('TXT_OK', STR_CMMN_OK);
@@ -129,7 +127,7 @@ class htmlWindowList
 			throw new InvalidDataException();
 		}
 		
-		$this->t = CreateTemplate(array('hForm' => 'htmlWindowListFrame.tpl'));
+		$this->t = CreateTemplate(array('hForm' => 'WindowListFrame.tpl'));
 		$this->t->set_var('LNK_TOP', menuLink('', 'menuAction=htmlWindowList.Top&what=' . $_REQUEST['what'] . '&wo_id=' . $wo_id . '&seq=' . $seq));
 		$this->t->set_var('LNK_MAIN', menuLink('', 'menuAction=htmlWindowList.Main&what=' . $_REQUEST['what'] . '&wo_id=' . $wo_id . '&seq=' . $seq));
 		$this->t->pparse('out', 'hForm');
@@ -138,7 +136,7 @@ class htmlWindowList
 
 	function Top()
 	{
-		$this->t = CreateTemplate(array('hForm' => 'htmlWindowListTop.tpl'));
+		$this->t = CreateTemplate(array('hForm' => 'WindowListTop.tpl'));
 		$this->GetHTML('top');
 		$this->t->pparse('out', 'hForm');
 		exit;
@@ -146,7 +144,7 @@ class htmlWindowList
 
 	function Main()
 	{
-		$this->t = CreateTemplate(array('hForm' => 'htmlWindowListMain.tpl'));
+		$this->t = CreateTemplate(array('hForm' => 'WindowListMain.tpl'));
 		$this->GetHTML('main');
 		$this->t->pparse('out', 'hForm');
 		exit;

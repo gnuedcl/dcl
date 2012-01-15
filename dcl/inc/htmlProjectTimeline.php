@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -47,7 +45,7 @@ class htmlProjectTimeline
 		$t->assign('VAL_SCOPE', true);
 		$t->assign('VAL_TIMECARDS', true);
 		$t->assign('VAL_CODE', true);
-		$t->Render('htmlProjectTimelineForm.tpl');
+		$t->Render('ProjectTimelineForm.tpl');
     }
     
     function Render()

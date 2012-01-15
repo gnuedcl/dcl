@@ -44,7 +44,7 @@ class OrganizationAddressPresenter
 		$oSmarty->assign('VAL_MENUACTION', 'OrganizationAddress.Insert');
 		$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->Select());
 
-		$oSmarty->Render('htmlAddrForm.tpl');
+		$oSmarty->Render('AddrForm.tpl');
 	}
 
 	public function Edit(OrganizationAddressModel $model)
@@ -77,6 +77,6 @@ class OrganizationAddressPresenter
 		$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->Select($model->addr_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Organization Address');
 
-		$oSmarty->Render('htmlAddrForm.tpl');
+		$oSmarty->Render('AddrForm.tpl');
 	}
 }

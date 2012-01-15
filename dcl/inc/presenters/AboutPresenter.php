@@ -62,6 +62,6 @@ class AboutPresenter
 		else
 			$template->assign('VAL_SERVEROS', '');
 
-		$template->Render('htmlAbout.tpl');
+		$template->Render('About.tpl');
 	}
 }

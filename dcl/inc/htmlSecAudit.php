@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -59,7 +57,7 @@ class htmlSecAudit
 		else
 			$t->assign('VAL_ENDDATE', '');
 
-		$t->Render('htmlSecAuditBrowse.tpl');
+		$t->Render('SecAuditBrowse.tpl');
 	}
 	
 	function Render($reportArray = NULL, $begindate, $enddate, $respname)

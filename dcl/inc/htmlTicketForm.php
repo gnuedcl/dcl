@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -147,6 +145,6 @@ class htmlTicketForm
 			}
 		}
 
-		$oSmarty->Render('htmlTicketForm.tpl');
+		$oSmarty->Render('TicketForm.tpl');
 	}
 }

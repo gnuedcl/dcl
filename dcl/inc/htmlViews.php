@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -162,6 +160,6 @@ class htmlViews
 		$template->assign('VAL_VIEWURL', $viewUrl);
 		$template->assign('CMB_ISPUBLIC', GetYesNoCombo("N", "ispublic", 0, false));
 
-		$template->Render('htmlViewForm.tpl');
+		$template->Render('ViewForm.tpl');
 	}
 }

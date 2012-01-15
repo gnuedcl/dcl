@@ -53,7 +53,7 @@ class htmlOrganizationSelector
 		if (isset($_REQUEST['filterActive']) && $_REQUEST['filterActive'] != '')
 			$this->oSmarty->assign('VAL_FILTERACTIVE', $_REQUEST['filterActive']);
 
-		$this->oSmarty->Render('htmlOrganizationSelector.tpl');
+		$this->oSmarty->Render('OrganizationSelector.tpl');
 	}
 
 	function showControlFrame()
@@ -75,7 +75,7 @@ class htmlOrganizationSelector
 		$this->oSmarty->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_ADD));
 		$this->oSmarty->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
 		$this->oSmarty->assign('VAL_FILTERACTIVE', $filterActive);
-		$this->oSmarty->Render('htmlOrganizationSelectorControl.tpl');
+		$this->oSmarty->Render('OrganizationSelectorControl.tpl');
 		exit();
 	}
 
@@ -162,7 +162,7 @@ class htmlOrganizationSelector
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 
-			$this->oSmarty->Render('htmlOrganizationSelectorBrowse.tpl');
+			$this->oSmarty->Render('OrganizationSelectorBrowse.tpl');
 		}
 
 		exit();

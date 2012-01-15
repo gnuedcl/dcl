@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -49,7 +47,7 @@ class htmlTickets
 		$t->assign('CMB_PRIORITY', $objHTMLPriorities->Select($obj->priority, 'priority', 'name', 0, false, $setid));
 		$t->assign('CMB_TYPE', $objHTMLSeverities->Select($obj->type, 'type', 'name', 0, false, $setid));
 		
-		$t->Render('htmlTicketReassignForm.tpl');
+		$t->Render('TicketReassignForm.tpl');
 	}
 
 	function ShowUploadFileForm($obj)
@@ -65,7 +63,7 @@ class htmlTickets
 		$t->assign('VAL_TICKETID', $obj->ticketid);
 		$t->assign('LNK_CANCEL', menuLink('', 'menuAction=boTickets.view&ticketid=' . $obj->ticketid));
 		
-		$t->Render('htmlTicketAddAttachment.tpl');
+		$t->Render('TicketAddAttachment.tpl');
 	}
 
 	function ShowDeleteAttachmentYesNo($ticketid, $filename)
@@ -80,7 +78,7 @@ class htmlTickets
 		$t->assign('VAL_TICKETID', $ticketid);
 		$t->assign('TXT_DELCONFIRM', sprintf(STR_TCK_CONFIRMDELATT, $filename));
 		
-		$t->Render('htmlTicketDelAttachment.tpl');
+		$t->Render('TicketDelAttachment.tpl');
 	}
 
 	function DisplayGraphForm()
@@ -95,7 +93,7 @@ class htmlTickets
 		$o = new ProductHtmlHelper();
 		$t->assign('CMB_PRODUCTS', $o->Select(0, 'product', 'name', 0, 0, false));
 		
-		$t->Render('htmlTicketGraph.tpl');
+		$t->Render('TicketGraph.tpl');
 	}
 
 	function showSubmissions()

@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -118,7 +116,7 @@ class htmlWorkOrderTask
 		$oSmarty->assign('VAL_JCN', $wo_id);
 		$oSmarty->assign('VAL_SEQ', $seq);
 		
-		$oSmarty->Render('htmlWorkOrderTaskReorder.tpl');
+		$oSmarty->Render('WorkOrderTaskReorder.tpl');
 	}
 
 	function submitAdd()
@@ -294,6 +292,6 @@ class htmlWorkOrderTask
 			$t->assign('VAL_SUMMARY', '');
 		}
 
-		$t->Render('htmlWorkOrderTaskForm.tpl');
+		$t->Render('WorkOrderTaskForm.tpl');
 	}
 }

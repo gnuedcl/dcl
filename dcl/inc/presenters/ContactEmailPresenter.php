@@ -46,7 +46,7 @@ class ContactEmailPresenter
 		$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select());
 		$oSmarty->assign('VAL_MENUACTION', 'ContactEmail.Insert');
 
-		$oSmarty->Render('htmlEmailForm.tpl');
+		$oSmarty->Render('EmailForm.tpl');
 	}
 
 	public function Edit(ContactEmailModel $model)
@@ -77,6 +77,6 @@ class ContactEmailPresenter
 		$oSmarty->assign('VAL_PREFERRED', $model->preferred);
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Contact E-Mail');
 
-		$oSmarty->Render('htmlEmailForm.tpl');
+		$oSmarty->Render('EmailForm.tpl');
 	}
 }

@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -214,6 +212,6 @@ class htmlTicketresolutions
 
 		$t->assign('ticketid', $ticketid);
 
-		$t->Render('htmlTicketresolutionsForm.tpl');
+		$t->Render('TicketresolutionsForm.tpl');
 	}
 }

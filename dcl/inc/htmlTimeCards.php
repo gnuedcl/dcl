@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -129,7 +127,7 @@ class htmlTimeCards
 					else
 						$oSmarty->assign('VAL_REASSIGNTO', '');
 
-					$retVal .= $oSmarty->ToString('htmlTimeCardDetail.tpl');
+					$retVal .= $oSmarty->ToString('TimeCardDetail.tpl');
 				}
 			}
 		}

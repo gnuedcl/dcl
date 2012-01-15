@@ -58,7 +58,7 @@ class OrganizationPresenter
 		$organizationTypeModel = new OrganizationTypeModel();
 		$smartyHelper->assign('orgTypes', $organizationTypeModel->GetTypes());
 
-		$smartyHelper->Render('htmlNewOrgForm.tpl');
+		$smartyHelper->Render('NewOrgForm.tpl');
 	}
 
 	public function Edit(OrganizationModel $model)
@@ -88,7 +88,7 @@ class OrganizationPresenter
 		$oOrgType = new OrganizationTypeModel();
 		$smartyHelper->assign('orgTypes', $oOrgType->GetTypes($model->org_id));
 
-		$smartyHelper->Render('htmlOrgForm.tpl');
+		$smartyHelper->Render('OrgForm.tpl');
 	}
 
 	public function Delete(OrganizationModel $model)
@@ -307,6 +307,6 @@ class OrganizationPresenter
 		$t->assign_by_ref('WorkOrders', $aWO);
 		$oWO->FreeResult();
 
-		$t->Render('htmlOrgDetail.tpl');
+		$t->Render('OrgDetail.tpl');
 	}
 }

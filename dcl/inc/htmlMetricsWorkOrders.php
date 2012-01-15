@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -53,7 +51,7 @@ class htmlMetricsWorkOrders
 		$oSmarty->assign('VAL_BEGINDATE', IsSet($_REQUEST['begindate']) ? Filter::ToDate($_REQUEST['begindate']) : '');
 		$oSmarty->assign('VAL_ENDDATE', IsSet($_REQUEST['enddate']) ? Filter::ToDate($_REQUEST['enddate']) : '');
 
-		$oSmarty->Render('htmlMetricsWorkOrders.tpl');
+		$oSmarty->Render('MetricsWorkOrders.tpl');
 	}
 
 	function showAll()

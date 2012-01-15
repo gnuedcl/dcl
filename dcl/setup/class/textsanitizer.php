@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Derived from XOOPS Setup
  *
  * Double Choco Latte - Source Configuration Management System

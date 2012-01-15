@@ -90,7 +90,7 @@ class DepartmentPresenter
 		$t->assign('menuAction', 'Department.Insert');
 		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 
-		$t->Render('htmlDepartmentsForm.tpl');
+		$t->Render('DepartmentsForm.tpl');
 	}
 
 	public function Edit(DepartmentModel $model)
@@ -110,7 +110,7 @@ class DepartmentPresenter
 		$t->assign('VAL_SHORT', $model->short);
 		$t->assign('VAL_NAME', $model->name);
 
-		$t->Render('htmlDepartmentsForm.tpl');
+		$t->Render('DepartmentsForm.tpl');
 	}
 
 	public function Delete(DepartmentModel $model)

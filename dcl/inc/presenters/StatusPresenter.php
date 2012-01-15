@@ -97,7 +97,7 @@ class StatusPresenter
 
 		$t->assign('CMB_TYPE', $statusHtmlHelper->SelectType(0));
 		
-		$t->Render('htmlStatusesForm.tpl');
+		$t->Render('StatusesForm.tpl');
 	}
 
 	public function Edit(StatusModel $model)
@@ -120,7 +120,7 @@ class StatusPresenter
 
 		$t->assign('CMB_TYPE', $statusHtmlHelper->SelectType($model->dcl_status_type));
 
-		$t->Render('htmlStatusesForm.tpl');
+		$t->Render('StatusesForm.tpl');
 	}
 
 	public function Delete(StatusModel $model)

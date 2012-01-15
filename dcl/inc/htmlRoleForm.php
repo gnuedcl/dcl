@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -198,6 +196,6 @@ class htmlRoleForm
 			$Template->assign('Permissions', $oRole->GetPermissions($bCopy ? $obj->role_id : -1));
 		}
 
-		$Template->Render('htmlRoleForm.tpl');
+		$Template->Render('RoleForm.tpl');
 	}
 }

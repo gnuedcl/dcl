@@ -62,7 +62,7 @@ class htmlPreferences
 
 		$t->assign('CMB_DEFAULTLANGUAGE', $o->GetLangCombo('DCL_PREF_LANGUAGE', $lang));
 
-		$t->Render('htmlPreferences.tpl');
+		$t->Render('Preferences.tpl');
 	}
 
 	function submitModify()

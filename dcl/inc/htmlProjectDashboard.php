@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -59,6 +57,6 @@ class htmlProjectDashboard
 		$this->oSmarty->assign('VAL_PROJECTID', $this->oProject->projectid);
 		$this->oSmarty->assign('VAL_NAME', $this->oProject->name);
 
-		$this->oSmarty->Render('htmlProjectDashboard.tpl');
+		$this->oSmarty->Render('ProjectDashboard.tpl');
 	}
 }

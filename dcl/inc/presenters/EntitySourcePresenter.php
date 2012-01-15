@@ -98,7 +98,7 @@ class EntitySourcePresenter
 		$t->assign('menuAction', 'EntitySource.Insert');
 		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 
-		$t->Render('htmlEntitySourceForm.tpl');
+		$t->Render('EntitySourceForm.tpl');
 	}
 
 	public function Edit(EntitySourceModel $model)
@@ -117,7 +117,7 @@ class EntitySourcePresenter
 		$t->assign('CMB_ACTIVE', GetYesNoCombo($model->active, 'active', 0, false));
 		$t->assign('VAL_NAME', $model->entity_source_name);
 
-		$t->Render('htmlEntitySourceForm.tpl');
+		$t->Render('EntitySourceForm.tpl');
 	}
 
 	public function Delete(EntitySourceModel $model)

@@ -44,7 +44,7 @@ class OrganizationPhonePresenter
 		$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select());
 		$oSmarty->assign('VAL_MENUACTION', 'OrganizationPhone.Insert');
 
-		$oSmarty->Render('htmlPhoneForm.tpl');
+		$oSmarty->Render('PhoneForm.tpl');
 	}
 
 	public function Edit(OrganizationPhoneModel $model)
@@ -71,6 +71,6 @@ class OrganizationPhonePresenter
 		$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select($model->phone_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Organization Phone Number');
 
-		$oSmarty->Render('htmlPhoneForm.tpl');
+		$oSmarty->Render('PhoneForm.tpl');
 	}
 }

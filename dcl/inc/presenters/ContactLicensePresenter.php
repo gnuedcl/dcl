@@ -45,7 +45,7 @@ class ContactLicensePresenter
 		$oSmarty->assign('TXT_FUNCTION', 'Add New Product License');
 		$oSmarty->assign('VAL_MENUACTION', 'ContactLicense.Insert');
 
-		$oSmarty->Render('htmlLicenseForm.tpl');
+		$oSmarty->Render('LicenseForm.tpl');
 	}
 
 	public function Edit(ContactLicenseModel $model)
@@ -76,6 +76,6 @@ class ContactLicensePresenter
 		$oSmarty->assign('VAL_EXPIRESON', $model->expires_on);
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Product License');
 
-		$oSmarty->Render('htmlLicenseForm.tpl');
+		$oSmarty->Render('LicenseForm.tpl');
 	}
 }

@@ -95,7 +95,7 @@ class PhoneTypePresenter
 		$t->assign('TXT_FUNCTION', 'Add Phone Type');
 		$t->assign('menuAction', 'PhoneType.Insert');
 
-		$t->Render('htmlPhoneTypeForm.tpl');
+		$t->Render('PhoneTypeForm.tpl');
 	}
 
 	public function Edit(PhoneTypeModel $model)
@@ -113,7 +113,7 @@ class PhoneTypePresenter
 		$t->assign('phone_type_id', $model->phone_type_id);
 		$t->assign('VAL_NAME', $model->phone_type_name);
 
-		$t->Render('htmlPhoneTypeForm.tpl');
+		$t->Render('PhoneTypeForm.tpl');
 	}
 
 	public function Delete(PhoneTypeModel $model)

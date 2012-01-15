@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -294,7 +292,7 @@ class htmlContactForm
 			$oContactType = new ContactTypeModel();
 			$oSmarty->assign('contactTypes', $oContactType->GetTypes());
 
-			$oSmarty->Render('htmlNewContactForm.tpl');
+			$oSmarty->Render('NewContactForm.tpl');
 
 			return;
 		}
@@ -316,6 +314,6 @@ class htmlContactForm
 		$oContactType = new ContactTypeModel();
 		$oSmarty->assign('contactTypes', $oContactType->GetTypes($obj->contact_id));
 
-		$oSmarty->Render('htmlContactForm.tpl');
+		$oSmarty->Render('ContactForm.tpl');
 	}
 }

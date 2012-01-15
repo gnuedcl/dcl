@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -32,7 +30,7 @@ class htmlMessageWarning extends htmlMessage
 			define('STR_CMMN_WARNING', 'Warning');
 		
 		$this->sTitle = STR_CMMN_WARNING;
-		$this->sTemplate = 'htmlMessageWarning.tpl';
+		$this->sTemplate = 'MessageWarning.tpl';
 	}
 	
 	function &GetInstance()

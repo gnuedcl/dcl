@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -55,7 +53,7 @@ class htmlProductSelector
 		if (isset($_REQUEST['filterActive']) && $_REQUEST['filterActive'] != '')
 			$this->oSmarty->assign('VAL_FILTERACTIVE', $_REQUEST['filterActive']);
 
-		$this->oSmarty->Render('htmlProductSelector.tpl');
+		$this->oSmarty->Render('ProductSelector.tpl');
 	}
 
 	function showControlFrame()
@@ -76,7 +74,7 @@ class htmlProductSelector
 
 		$this->oSmarty->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
 		$this->oSmarty->assign('VAL_FILTERACTIVE', $filterActive);
-		$this->oSmarty->Render('htmlProductSelectorControl.tpl');
+		$this->oSmarty->Render('ProductSelectorControl.tpl');
 		exit();
 	}
 
@@ -161,7 +159,7 @@ class htmlProductSelector
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 
-			$this->oSmarty->Render('htmlProductSelectorBrowse.tpl');
+			$this->oSmarty->Render('ProductSelectorBrowse.tpl');
 		}
 
 		exit();

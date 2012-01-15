@@ -95,7 +95,7 @@ class UrlTypePresenter
 		$t->assign('TXT_FUNCTION', 'Add URL Type');
 		$t->assign('menuAction', 'UrlType.Insert');
 
-		$t->Render('htmlUrlTypeForm.tpl');
+		$t->Render('UrlTypeForm.tpl');
 	}
 
 	public function Edit(UrlTypeModel $model)
@@ -113,7 +113,7 @@ class UrlTypePresenter
 		$t->assign('url_type_id', $model->url_type_id);
 		$t->assign('VAL_NAME', $model->url_type_name);
 
-		$t->Render('htmlUrlTypeForm.tpl');
+		$t->Render('UrlTypeForm.tpl');
 	}
 
 	public function Delete(UrlTypeModel $model)

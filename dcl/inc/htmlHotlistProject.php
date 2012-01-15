@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright 1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010 Free Software Foundation
  *
@@ -102,7 +100,7 @@ class htmlHotlistProject
 		$this->SetStatistics();
 		$this->SetTasks($status, $responsible, $bIsGrouping);
 
-		$this->oSmarty->Render('htmlHotlistProjectDetail.tpl');
+		$this->oSmarty->Render('HotlistProjectDetail.tpl');
 	}
 	
 	function SetTasks($wostatus, $woresponsible, $bIsGrouping)

@@ -44,7 +44,7 @@ class OrganizationUrlPresenter
 		$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select());
 		$oSmarty->assign('VAL_MENUACTION', 'OrganizationUrl.Insert');
 
-		$oSmarty->Render('htmlUrlForm.tpl');
+		$oSmarty->Render('UrlForm.tpl');
 	}
 
 	public function Edit(OrganizationUrlModel $model)
@@ -71,6 +71,6 @@ class OrganizationUrlPresenter
 		$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select($model->url_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Organization URL');
 
-		$oSmarty->Render('htmlUrlForm.tpl');
+		$oSmarty->Render('UrlForm.tpl');
 	}
 }

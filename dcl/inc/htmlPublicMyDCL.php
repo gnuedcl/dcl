@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -35,6 +33,6 @@ class htmlPublicMyDCL
 		$t->assign('PERM_WORKORDERS', $g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED)))));
 		$t->assign('PERM_FAQ', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW));
 
-		$t->Render('htmlPublicMyDCL.tpl');
+		$t->Render('PublicMyDCL.tpl');
 	}
 }

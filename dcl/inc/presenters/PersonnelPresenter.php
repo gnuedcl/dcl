@@ -118,7 +118,7 @@ class PersonnelPresenter
 			$template->assign('VAL_HEADERS', $aColumnHeaders);
 		}
 
-		$template->Render('htmlPersonnelBrowse.tpl');
+		$template->Render('PersonnelBrowse.tpl');
 	}
 
 	public function Create()
@@ -140,7 +140,7 @@ class PersonnelPresenter
 		$oUserRole = new UserRoleModel();
 		$template->assign('Roles', $oUserRole->GetGlobalRoles());
 
-		$template->Render('htmlPersonnelForm.tpl');
+		$template->Render('PersonnelForm.tpl');
 	}
 
 	public function Edit(PersonnelModel $model)
@@ -169,7 +169,7 @@ class PersonnelPresenter
 		$template->assign('VAL_CONTACTID', $model->contact_id);
 		$template->assign('VAL_CONTACTNAME', $aContact['name']);
 
-		$template->Render('htmlPersonnelForm.tpl');
+		$template->Render('PersonnelForm.tpl');
 	}
 
 	public function Delete(PersonnelModel $model)
@@ -197,6 +197,6 @@ class PersonnelPresenter
 		$oSmarty->assign('VAL_USERID', $GLOBALS['DCLID']);
 		$oSmarty->assign('VAL_USERNAME', $GLOBALS['DCLNAME']);
 		
-		$oSmarty->Render('htmlPersonnelPasswdForm.tpl');
+		$oSmarty->Render('PersonnelPasswdForm.tpl');
 	}
 }

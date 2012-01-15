@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -119,7 +117,7 @@ class htmlTicketResults
 
 		$oTable->setCaption($oView->title);
 		$oTable->setShowChecks(false);
-		$oTable->sTemplate = 'htmlTableTicketResults.tpl';
+		$oTable->sTemplate = 'TableTicketResults.tpl';
 		$oTable->render();
 	}
 }

@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -153,7 +151,7 @@ class boChecklists
 			$t->assign('VAL_TPLNAME', $o->dcl_chklst_tpl_name);
 			$t->assign('VAL_SUMMARY', '');
 
-			$t->Render('htmlNewChecklist.tpl');
+			$t->Render('NewChecklist.tpl');
 		}
 		else
 			printf(STR_CHK_ERRLOADINGTPLID, $iID);

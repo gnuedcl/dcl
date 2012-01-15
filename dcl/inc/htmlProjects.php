@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -131,7 +129,7 @@ class htmlProjects
 		$t->assign('VAL_PROJECTID', $projectid);
 		$t->assign('LNK_CANCEL', menuLink('', 'menuAction=boProjects.viewproject&project=' . $projectid));
 		
-		$t->Render('htmlProjectsUpload.tpl');
+		$t->Render('ProjectsUpload.tpl');
 	}
 
 	function ShowDeleteAttachmentYesNo($projectid, $filename)
@@ -146,7 +144,7 @@ class htmlProjects
 		$t->assign('VAL_PROJECTID', $projectid);
 		$t->assign('TXT_DELCONFIRM', sprintf(STR_PRJ_DELCONFIRM, $filename));
 		
-		$t->Render('htmlProjectsDeleteAttachment.tpl');
+		$t->Render('ProjectsDeleteAttachment.tpl');
 	}
 
 	function changeLog()

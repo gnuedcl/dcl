@@ -44,7 +44,7 @@ class OrganizationEmailPresenter
 		$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select());
 		$oSmarty->assign('VAL_MENUACTION', 'OrganizationEmail.Insert');
 
-		$oSmarty->Render('htmlEmailForm.tpl');
+		$oSmarty->Render('EmailForm.tpl');
 	}
 
 	public function Edit(OrganizationEmailModel $model)
@@ -71,6 +71,6 @@ class OrganizationEmailPresenter
 		$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select($model->email_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Organization E-Mail');
 
-		$oSmarty->Render('htmlEmailForm.tpl');
+		$oSmarty->Render('EmailForm.tpl');
 	}
 }

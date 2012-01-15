@@ -44,7 +44,7 @@ class FaqQuestionPresenter
 		$smartyHelper->assign('VAL_QUESTIONTEXT', '');
 		$smartyHelper->assign('VAL_TOPICID', $topicId);
 
-		$smartyHelper->Render('htmlFaqquestionsForm.tpl');
+		$smartyHelper->Render('FaqquestionsForm.tpl');
 	}
 
 	public function Edit(FaqQuestionsModel $model)
@@ -63,7 +63,7 @@ class FaqQuestionPresenter
 		$smartyHelper->assign('VAL_TOPICID', $model->topicid);
 		$smartyHelper->assign('VAL_QUESTIONID', $model->questionid);
 
-		$smartyHelper->Render('htmlFaqquestionsForm.tpl');
+		$smartyHelper->Render('FaqquestionsForm.tpl');
 	}
 	
 	public function Delete(FaqQuestionsModel $model)
@@ -125,6 +125,6 @@ class FaqQuestionPresenter
 		
 		$smartyHelper->assign('VAL_ANSWERS', $aRecords);
 		
-		$smartyHelper->Render('htmlFaqquestionsDetail.tpl');
+		$smartyHelper->Render('FaqquestionsDetail.tpl');
 	}
 }

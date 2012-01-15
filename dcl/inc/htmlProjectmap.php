@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -43,7 +41,7 @@ class htmlProjectmap
 		$t->assign('jcn', $jcn);
 		$t->assign('seq', $seq);
 		
-		$t->Render('htmlProjectmapForm.tpl');
+		$t->Render('ProjectmapForm.tpl');
 	}
 
 	function ChooseProjectForJCN($jcn, $seq)

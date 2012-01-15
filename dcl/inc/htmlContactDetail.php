@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -242,6 +240,6 @@ class htmlContactDetail
 		$t->assign_by_ref('WorkOrders', $aWO);
 		$oWO->FreeResult();
 
-		$t->Render('htmlContactDetail.tpl');
+		$t->Render('ContactDetail.tpl');
 	}
 }

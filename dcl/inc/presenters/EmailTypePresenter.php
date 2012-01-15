@@ -95,7 +95,7 @@ class EmailTypePresenter
 		$t->assign('TXT_FUNCTION', 'Add Email Type');
 		$t->assign('menuAction', 'EmailType.Insert');
 
-		$t->Render('htmlEmailTypeForm.tpl');
+		$t->Render('EmailTypeForm.tpl');
 	}
 
 	public function Edit(EmailTypeModel $model)
@@ -113,7 +113,7 @@ class EmailTypePresenter
 		$t->assign('email_type_id', $model->email_type_id);
 		$t->assign('VAL_NAME', $model->email_type_name);
 
-		$t->Render('htmlEmailTypeForm.tpl');
+		$t->Render('EmailTypeForm.tpl');
 	}
 
 	public function Delete(EmailTypeModel $model)

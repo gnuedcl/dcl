@@ -1,4 +1,3 @@
-<!-- $Id$ -->
 <html>
 	<head>
 		<meta http-equiv="Set-Cookie" content="DCLINFO=">

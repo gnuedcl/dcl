@@ -43,7 +43,7 @@ class FaqAnswerPresenter
 		$smartyHelper->assign('VAL_ANSWERTEXT', '');
 		$smartyHelper->assign('VAL_QUESTIONID', $questionId);
 
-		$smartyHelper->Render('htmlFaqanswersForm.tpl');
+		$smartyHelper->Render('FaqanswersForm.tpl');
 	}
 
 	public function Edit(FaqAnswersModel $model)
@@ -61,7 +61,7 @@ class FaqAnswerPresenter
 		$smartyHelper->assign('VAL_ANSWERID', $model->answerid);
 		$smartyHelper->assign('VAL_QUESTIONID', $model->questionid);
 
-		$smartyHelper->Render('htmlFaqanswersForm.tpl');
+		$smartyHelper->Render('FaqanswersForm.tpl');
 	}
 	
 	public function Delete(FaqAnswersModel $model)

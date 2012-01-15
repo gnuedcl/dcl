@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -35,7 +33,7 @@ class htmlWiki
 
 	function htmlWiki()
 	{
-		$this->t = CreateTemplate(array('hForm' => 'htmlWiki.tpl'));
+		$this->t = CreateTemplate(array('hForm' => 'Wiki.tpl'));
 
 		$this->t->set_block('hForm', 'display', 'hDisplay');
 		$this->t->set_block('hForm', 'edit', 'hEdit');

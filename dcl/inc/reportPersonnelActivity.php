@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -124,7 +122,7 @@ class reportPersonnelActivity
 		else if ($g_oSession->IsRegistered('personnel_activity_timesheet'))
 			$t->assign('VAL_TIMESHEET', $g_oSession->Value('personnel_activity_timesheet'));
 			
-		$t->Render('htmlPersonnelActivity.tpl');
+		$t->Render('PersonnelActivity.tpl');
 	}
 
 	function execute()

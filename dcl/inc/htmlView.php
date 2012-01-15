@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -53,7 +51,7 @@ class htmlView
 
 	function InitTemplate()
 	{
-		$this->Template = CreateTemplate(array('hForm' => 'htmlView.tpl'));
+		$this->Template = CreateTemplate(array('hForm' => 'View.tpl'));
 		$this->_CreateBlocks();
 		$this->_ResetBlocks();
 	}

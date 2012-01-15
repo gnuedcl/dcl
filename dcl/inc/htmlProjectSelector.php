@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -53,7 +51,7 @@ class htmlProjectSelector
 		if (isset($_REQUEST['filterID']) && $_REQUEST['filterID'] != '')
 			$this->oSmarty->assign('VAL_FILTERID', $_REQUEST['filterID']);
 
-		$this->oSmarty->Render('htmlProjectSelector.tpl');
+		$this->oSmarty->Render('ProjectSelector.tpl');
 	}
 	
 	function showControlFrame()
@@ -75,7 +73,7 @@ class htmlProjectSelector
 		$this->oSmarty->assign('VAL_FILTERSTATUS', $filterStatus);
 
 		$this->oSmarty->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
-		$this->oSmarty->Render('htmlProjectSelectorControl.tpl');
+		$this->oSmarty->Render('ProjectSelectorControl.tpl');
 		exit();
 	}
 	
@@ -177,7 +175,7 @@ class htmlProjectSelector
 			$this->oSmarty->assign('VAL_FILTERID', $filterID);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 			
- 			$this->oSmarty->Render('htmlProjectSelectorBrowse.tpl');
+ 			$this->oSmarty->Render('ProjectSelectorBrowse.tpl');
 		}
 		
 		exit();

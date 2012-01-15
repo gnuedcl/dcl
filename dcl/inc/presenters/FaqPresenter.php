@@ -93,7 +93,7 @@ class FaqPresenter
 		$oSmarty->assign('VAL_MENUACTION', 'Faq.Insert');
 		$oSmarty->assign('VAL_ACTIVE', 'Y');
 
-		$oSmarty->Render('htmlFaqForm.tpl');
+		$oSmarty->Render('FaqForm.tpl');
 	}
 
 	public function Edit(FaqModel $model)
@@ -113,7 +113,7 @@ class FaqPresenter
 		$oSmarty->assign('VAL_FAQID', $model->faqid);
 		$oSmarty->assign('VAL_ACTIVE', $model->active);
 
-		$oSmarty->Render('htmlFaqForm.tpl');
+		$oSmarty->Render('FaqForm.tpl');
 	}
 
 	public function Delete(FaqModel $model)
@@ -147,6 +147,6 @@ class FaqPresenter
 		$objF->LoadByFaqID($model->faqid);
 		$oSmarty->assign_by_ref('VAL_TOPICS', $objF->ResultToArray());
 
-		$oSmarty->Render('htmlFaqDetail.tpl');
+		$oSmarty->Render('FaqDetail.tpl');
 	}
 }

@@ -45,7 +45,7 @@ class ContactAddressPresenter
 		$oSmarty->assign('VAL_MENUACTION', 'ContactAddress.Insert');
 		$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->Select());
 
-		$oSmarty->Render('htmlAddrForm.tpl');
+		$oSmarty->Render('AddrForm.tpl');
 	}
 
 	public function Edit(ContactAddressModel $model)
@@ -79,7 +79,7 @@ class ContactAddressPresenter
 		$oSmarty->assign('CMB_ADDRTYPE', $oAddrType->Select($model->addr_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Contact Address');
 
-		$oSmarty->Render('htmlAddrForm.tpl');
+		$oSmarty->Render('AddrForm.tpl');
 	}
 
 	public function Delete()

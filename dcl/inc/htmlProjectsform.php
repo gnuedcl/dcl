@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -72,6 +70,6 @@ class htmlProjectsform
 			$t->assign('JS_TEMPLATE', $objXMLProject->comboJS);
 		}
 
-		$t->Render('htmlProjectsForm.tpl');
+		$t->Render('ProjectsForm.tpl');
 	}
 }

@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -99,7 +97,7 @@ class htmlAudit
 		$oSmarty->assign_by_ref('VAL_AUDITPROJECT', $this->aAuditProject);
 		$oSmarty->assign_by_ref('VAL_AUDITWORKORDER', $this->aAuditWorkOrder);
 
-		$oSmarty->Render('htmlAuditTrail.tpl');
+		$oSmarty->Render('AuditTrail.tpl');
 	}
 
 	function prepareForDisplay()

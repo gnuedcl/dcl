@@ -2,7 +2,6 @@
         "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 	<head>
-		<!-- $Id$ -->
 		<meta http-equiv="Expires" content="0">
 		<script language="JavaScript">
 			function init()

@@ -27,7 +27,6 @@ include_once(DCL_ROOT . 'inc/lib/AbstractDbProvider.php');
  * @package api
  * @subpackage database
  * @copyright Copyright &copy; 1999-2004 Free Software Foundation
- * @version $Id$
  */
    
 /**
@@ -35,7 +34,6 @@ include_once(DCL_ROOT . 'inc/lib/AbstractDbProvider.php');
  * @package api
  * @subpackage database
  * @copyright Copyright &copy; 1999-2004 Free Software Foundation
- * @version $Id$
  */
 class DbProvider extends AbstractDbProvider
 {

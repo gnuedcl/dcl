@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -408,7 +406,7 @@ class htmlTicketSearches
 			$t->assign('VAL_SORT');
 		}
 
-		$t->Render('htmlTicketSearch.tpl');
+		$t->Render('TicketSearch.tpl');
 	}
 
 	function my()
@@ -420,6 +418,6 @@ class htmlTicketSearches
 		$obj = new htmlViews();
 		$t->assign('CMB_VIEWS', $obj->GetCombo(0, 'viewid', 0, true, 'tickets'));
 		
-		$t->Render('htmlMyTicketSearches.tpl');
+		$t->Render('MyTicketSearches.tpl');
 	}
 }

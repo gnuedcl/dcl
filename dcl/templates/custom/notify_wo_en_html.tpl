@@ -1,5 +1,4 @@
 <html><head>
-	<!-- $Id$ -->
 	<title>DCL Notification</title>
 	<style type="text/css">
 {literal}

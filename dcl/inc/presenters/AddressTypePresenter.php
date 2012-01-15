@@ -92,7 +92,7 @@ class AddressTypePresenter
 		$t->assign('TXT_FUNCTION', 'Add Address Type');
 		$t->assign('menuAction', 'AddressType.Insert');
 
-		$t->Render('htmlAddrTypeForm.tpl');
+		$t->Render('AddrTypeForm.tpl');
 
 		print('<p>');
 		$this->Index();
@@ -113,7 +113,7 @@ class AddressTypePresenter
 		$t->assign('addr_type_id', $model->addr_type_id);
 		$t->assign('VAL_NAME', $model->addr_type_name);
 
-		$t->Render('htmlAddrTypeForm.tpl');
+		$t->Render('AddrTypeForm.tpl');
 	}
 
 	public function Delete(AddressTypeModel $model)

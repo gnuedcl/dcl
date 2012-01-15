@@ -129,7 +129,7 @@ class htmlOrgBrowse
 
 		$oTable->setCaption('Browse Organizations');
 		$oTable->setShowChecks(false);
-		$oTable->sTemplate = 'htmlTableOrganization.tpl';
+		$oTable->sTemplate = 'TableOrganization.tpl';
 		$oTable->render();
 	}
 

@@ -96,7 +96,7 @@ class WorkOrderTypePresenter
 		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 		$t->assign('VAL_NAME', '');
 
-		$t->Render('htmlWorkOrderTypeForm.tpl');
+		$t->Render('WorkOrderTypeForm.tpl');
 	}
 
 	public function Edit(WorkOrderTypeModel $model)
@@ -114,7 +114,7 @@ class WorkOrderTypePresenter
 		$t->assign('CMB_ACTIVE', GetYesNoCombo($model->active, 'active', 0, false));
 		$t->assign('VAL_NAME', $model->type_name);
 
-		$t->Render('htmlWorkOrderTypeForm.tpl');
+		$t->Render('WorkOrderTypeForm.tpl');
 	}
 
 	public function Delete(WorkOrderTypeModel $model)

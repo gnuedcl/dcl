@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -105,7 +103,7 @@ class htmlTags
 		$oTable->setShowRownum(true);
 		
 		$oTable->assign('VAL_SELECTEDTAGS', $_REQUEST['tag']);
-		$oTable->sTemplate = 'htmlTableTag.tpl';
+		$oTable->sTemplate = 'TableTag.tpl';
 		$oTable->render();
 	}
 }

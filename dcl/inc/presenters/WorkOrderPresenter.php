@@ -115,7 +115,7 @@ class WorkOrderPresenter
 		$productHtmlHelper = new ProductHtmlHelper();
 		$smarty->assign('CMB_PRODUCTS', $productHtmlHelper->Select(0, 'product', 'name', 0, 0, false));
 		
-		$smarty->Render('htmlWorkOrderGraph.tpl');
+		$smarty->Render('WorkOrderGraph.tpl');
 	}
 	
 	public function Graph($days, $dateFrom, $product)
@@ -173,7 +173,7 @@ class WorkOrderPresenter
 				$smartyHelper->assign('project', $projectId);
 		}
 
-		$smartyHelper->Render('htmlWorkOrderReassign.tpl');
+		$smartyHelper->Render('WorkOrderReassign.tpl');
 	}
 	
 	public function BatchReassign($selected, $returnTo, $projectId)
@@ -208,7 +208,7 @@ class WorkOrderPresenter
 				$smartyHelper->assign('project', $projectId);
 		}
 
-		$smartyHelper->Render('htmlWorkOrderBatchAssign.tpl');
+		$smartyHelper->Render('WorkOrderBatchAssign.tpl');
 	}
 	
 	public function BatchDetail($selected)
@@ -379,9 +379,9 @@ class WorkOrderPresenter
 		$smarty->assign('PERM_ISPUBLICUSER', $g_oSec->IsPublicUser());
 
 		if ($g_oSec->IsPublicUser())
-			$smarty->Render('htmlWorkordersDetailPublic.tpl');
+			$smarty->Render('WorkordersDetailPublic.tpl');
 		else
-			$smarty->Render('htmlWorkordersDetail.tpl');
+			$smarty->Render('WorkordersDetail.tpl');
 	}
 	
 	public function ListSelected($selected)
@@ -419,7 +419,7 @@ class WorkOrderPresenter
 		$smartyHelper->assign('VAL_JCN', $workOrderModel->jcn);
 		$smartyHelper->assign('VAL_SEQ', $workOrderModel->seq);
 
-		$smartyHelper->Render('htmlWorkOrderAddAttachment.tpl');
+		$smartyHelper->Render('WorkOrderAddAttachment.tpl');
 	}
 	
 	public function DeleteAttachment(WorkOrderModel $workOrderModel, $fileName)
@@ -437,7 +437,7 @@ class WorkOrderPresenter
 		$smartyHelper->assign('BTN_YES', STR_CMMN_YES);
 		$smartyHelper->assign('BTN_NO', STR_CMMN_NO);
 
-		$smartyHelper->Render('htmlWorkOrderDelAttachment.tpl');
+		$smartyHelper->Render('WorkOrderDelAttachment.tpl');
 	}
 	
 	public function Import()
@@ -449,7 +449,7 @@ class WorkOrderPresenter
 
 		$smartyHelper = new SmartyHelper();
 		$smartyHelper->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
-		$smartyHelper->Render('htmlWorkOrderCSVUpload.tpl');
+		$smartyHelper->Render('WorkOrderCSVUpload.tpl');
 	}
 	
 	public function ChangeLog($id, $seq)
@@ -907,7 +907,7 @@ class WorkOrderPresenter
 			$smartyHelper->assign('VAL_SORT');
 		}
 
-		$smartyHelper->Render('htmlWorkOrderSearch.tpl');
+		$smartyHelper->Render('WorkOrderSearch.tpl');
 	}
 	
 	private function CreateForm(WorkOrderFormViewData $viewData)
@@ -995,7 +995,7 @@ class WorkOrderPresenter
 
 		$smartyHelper = new SmartyHelper();
 		$smartyHelper->assign_by_ref('ViewData', $viewData);
-		$smartyHelper->Render('htmlWorkOrderForm.tpl');
+		$smartyHelper->Render('WorkOrderForm.tpl');
 	}
 	
 	private function EditForm(WorkOrderFormViewData $viewData)
@@ -1052,7 +1052,7 @@ class WorkOrderPresenter
 		
 		$smartyHelper = new SmartyHelper();
 		$smartyHelper->assign_by_ref('ViewData', $viewData);
-		$smartyHelper->Render('htmlWorkOrderForm.tpl');
+		$smartyHelper->Render('WorkOrderForm.tpl');
 	}
 	
 	public function Search(WorkOrderCriteriaModel $workOrderCriteriaModel)
@@ -1162,7 +1162,7 @@ class WorkOrderPresenter
 		$oTable->setShowChecks(true);
 		$oDB->FreeResult();
 
-		$oTable->sTemplate = 'htmlTableWorkOrderResults.tpl';
+		$oTable->sTemplate = 'TableWorkOrderResults.tpl';
 		$oTable->render();
 	}
 }

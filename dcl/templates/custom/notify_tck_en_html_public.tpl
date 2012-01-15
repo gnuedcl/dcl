@@ -1,5 +1,4 @@
 <html><head>
-	<!-- $Id: notify_tck_en_html.tpl 41 2007-01-14 18:59:36Z mdean $ -->
 	<title>DCL Notification</title>
 	<style type="text/css">
 {literal}

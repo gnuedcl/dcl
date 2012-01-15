@@ -50,7 +50,7 @@ class htmlPersonnelSelector
 		if (isset($_REQUEST['filterID']) && $_REQUEST['filterID'] != '')
 			$this->oSmarty->assign('VAL_FILTERID', $_REQUEST['filterID']);
 
-		$this->oSmarty->Render('htmlPersonnelSelector.tpl');
+		$this->oSmarty->Render('PersonnelSelector.tpl');
 	}
 
 	function showControlFrame()
@@ -83,7 +83,7 @@ class htmlPersonnelSelector
 		$this->oSmarty->assign('VAL_FILTERSTART', $filterStartsWith);
 		$this->oSmarty->assign('VAL_FILTERID', $filterID);
 
-		$this->oSmarty->Render('htmlPersonnelSelectorControl.tpl');
+		$this->oSmarty->Render('PersonnelSelectorControl.tpl');
 		exit();
 	}
 
@@ -168,7 +168,7 @@ class htmlPersonnelSelector
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 
- 			$this->oSmarty->Render('htmlPersonnelSelectorBrowse.tpl');
+ 			$this->oSmarty->Render('PersonnelSelectorBrowse.tpl');
 		}
 
 		exit();

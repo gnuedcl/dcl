@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2004 Free Software Foundation
  *
@@ -37,7 +35,7 @@ class htmlMessage
 	function htmlMessage()
 	{
 		$this->t = new SmartyHelper();
-		$this->sTemplate = 'htmlMessageInfo.tpl';
+		$this->sTemplate = 'MessageInfo.tpl';
 		
 		if (!defined('STR_CMMN_INFORMATION'))
 			define('STR_CMMN_INFORMATION', 'Information');

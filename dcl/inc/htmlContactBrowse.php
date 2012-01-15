@@ -1,7 +1,5 @@
 <?php
 /*
- * $Id$
- *
  * Double Choco Latte - Source Configuration Management System
  * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
  *
@@ -169,7 +167,7 @@ class htmlContactBrowse
 		$g_oSession->Edit();
 
 		$oTable->setShowChecks($g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY));
-		$oTable->sTemplate = 'htmlTableContact.tpl';
+		$oTable->sTemplate = 'TableContact.tpl';
 		$oTable->render();
 	}
 

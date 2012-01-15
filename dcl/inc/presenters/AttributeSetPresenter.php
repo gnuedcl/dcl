@@ -83,7 +83,7 @@ class AttributeSetPresenter
 		$t->assign('menuAction', 'AttributeSet.Insert');
 		$t->assign('CMB_ACTIVE', GetYesNoCombo('Y', 'active', 0, false));
 
-		$t->Render('htmlAttributesetsForm.tpl');
+		$t->Render('AttributesetsForm.tpl');
 	}
 
 	public function Edit(AttributeSetModel $model)
@@ -103,7 +103,7 @@ class AttributeSetPresenter
 		$t->assign('VAL_SHORT', $model->short);
 		$t->assign('VAL_NAME', $model->name);
 
-		$t->Render('htmlAttributesetsForm.tpl');
+		$t->Render('AttributesetsForm.tpl');
 	}
 
 	public function Delete(AttributeSetModel $model)

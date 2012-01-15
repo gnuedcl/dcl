@@ -33,7 +33,7 @@ class AttributeSetMapPresenter
 
 		$t = new SmartyHelper();
 		$t->assign('VAL_ATTRIBUTESETNAME', $model->name);
-		$t->Render('htmlAttributesetdetail.tpl');
+		$t->Render('Attributesetdetail.tpl');
 
 		$objA = new ActionModel();
 		$theAttributes = array('actions', 'priorities', 'severities', 'statuses');
@@ -151,6 +151,6 @@ class AttributeSetMapPresenter
 		$t->assign('OPT_AVAILABLE', $htmlAvailable);
 		$t->assign('OPT_SELECTED', $htmlSelected);
 
-		$t->Render('htmlAttributesetmapping.tpl');
+		$t->Render('Attributesetmapping.tpl');
 	}
 }
