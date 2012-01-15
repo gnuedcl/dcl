@@ -36,7 +36,7 @@ function validateAndSubmitForm(form)
 		</div>
 		<div class="required">
 			<label for="name">{$smarty.const.STR_FAQ_NAME}:</label>
-			<input type="text" size="70" maxlength="100" id="name" name="name" value="{$VAL_NAME|escape}">
+			<input type="text" size="50" maxlength="100" id="name" name="name" value="{$VAL_NAME|escape}">
 		</div>
 		<div class="required">
 			<label for="description">{$smarty.const.STR_FAQ_DESCRIPTION}:</label>

@@ -211,16 +211,16 @@ function UpdateOptions()
 {/if}
 		<div class="required">
 			<label for="summary">{$smarty.const.STR_WO_SUMMARY}:</label>
-			<input type="text" name="summary" size="60" maxlength="100" value="{$ViewData->Summary|escape}">
+			<input type="text" name="summary" size="50" maxlength="100" value="{$ViewData->Summary|escape}">
 		</div>
 		<div>
 			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
-			<input type="text" name="tags" id="tags" size="60" value="{$ViewData->Tags|escape}">
+			<input type="text" name="tags" id="tags" size="50" value="{$ViewData->Tags|escape}">
 			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 		</div>
 		<div>
 			<label for="hotlist">Hotlist:</label>
-			<input type="text" name="hotlist" id="hotlist" size="60" value="{$ViewData->Hotlists|escape}">
+			<input type="text" name="hotlist" id="hotlist" size="50" value="{$ViewData->Hotlists|escape}">
 			<span>Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
 		</div>
 		<div>

@@ -310,13 +310,13 @@
 	</fieldset>
 	<fieldset id="divText" style="display: none;">
 		<legend>Text</legend>
-		<div><label for="searchText">Issues/Summary:</label><input type="text" size="70" id="searchText" name="searchText" value="{$VAL_SEARCHTEXT}"></div>
+		<div><label for="searchText">Issues/Summary:</label><input type="text" size="50" id="searchText" name="searchText" value="{$VAL_SEARCHTEXT}"></div>
 	</fieldset>
 	<fieldset id="divTags" style="display: none;">
 		<legend>{$smarty.const.STR_CMMN_TAGS}</legend>
 		<div>
 			<label for="tags">{$smarty.const.STR_CMMN_TAGS}:</label>
-			<input type="text" size="70" id="tags" name="tags" value="{$VAL_TAGS|escape}">
+			<input type="text" size="50" id="tags" name="tags" value="{$VAL_TAGS|escape}">
 			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 		</div>
 	</fieldset>

@@ -46,7 +46,7 @@ function validateAndSubmitForm(form)
 		</div>
 		<div class="required">
 			<label for="email_addr">URL Address:</label>
-			<input type="text" name="url_addr" size="70" maxlength="150" value="{$VAL_URLADDR|escape|trim}">
+			<input type="text" name="url_addr" size="50" maxlength="150" value="{$VAL_URLADDR|escape|trim}">
 		</div>
 	</fieldset>
 	<fieldset>

@@ -110,11 +110,11 @@ function validate(form, status)
 		</div>
 		<div class="required">
 			<label for="summary">{$smarty.const.STR_TCK_SUMMARY}:</label>
-			<input type="text" name="summary" size="70" maxlength="100" value="{$VAL_SUMMARY|escape}">
+			<input type="text" name="summary" size="50" maxlength="100" value="{$VAL_SUMMARY|escape}">
 		</div>
 		<div>
 			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
-			<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
+			<input type="text" name="tags" id="tags" size="50" value="{$VAL_TAGS|escape}">
 			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 		</div>
 		<div class="required">

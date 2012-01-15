@@ -362,13 +362,13 @@
 				</div>
 			</fieldset>
 		</div>
-		<div><label for="searchText">Text:</label><input type="text" size="70" id="searchText" name="searchText" value="{$VAL_SEARCHTEXT|escape}"></div>
+		<div><label for="searchText">Text:</label><input type="text" size="50" id="searchText" name="searchText" value="{$VAL_SEARCHTEXT|escape}"></div>
 	</fieldset>
 	<fieldset id="divTags" style="display: none;">
 		<legend>{$smarty.const.STR_CMMN_TAGS}</legend>
 		<div>
 			<label for="tags">{$smarty.const.STR_CMMN_TAGS}:</label>
-			<input type="text" size="70" id="tags" name="tags" value="{$VAL_TAGS|escape}">
+			<input type="text" size="50" id="tags" name="tags" value="{$VAL_TAGS|escape}">
 			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 		</div>
 	</fieldset>
@@ -376,7 +376,7 @@
 		<legend>Hotlists</legend>
 		<div>
 			<label for="hotlist">Hotlists:</label>
-			<input type="text" size="70" id="hotlist" name="hotlist" value="{$VAL_HOTLISTS|escape}">
+			<input type="text" size="50" id="hotlist" name="hotlist" value="{$VAL_HOTLISTS|escape}">
 			<span>Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
 		</div>
 	</fieldset>{/if}

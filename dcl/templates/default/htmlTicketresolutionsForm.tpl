@@ -70,7 +70,7 @@ function validateAndSubmitForm(form)
 	{if $PERM_MODIFYTICKET}
 		<div>
 			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
-			<input type="text" name="tags" id="tags" size="60" value="{$VAL_TAGS|escape}">
+			<input type="text" name="tags" id="tags" size="50" value="{$VAL_TAGS|escape}">
 			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
 		</div>
 	{/if}
