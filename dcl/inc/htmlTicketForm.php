@@ -102,10 +102,10 @@ class htmlTicketForm
 
 			$organizationModel = new OrganizationModel();
 			$organizationModel->ListSelectedByTicket($obj->ticketid);
-			if ($organizationModel->oDB->next_record())
+			if ($organizationModel->next_record())
 			{
-				$oSmarty->assign('VAL_ORGID', $organizationModel->oDB->f('org_id'));
-				$oSmarty->assign('VAL_ORGNAME', $organizationModel->oDB->f('name'));
+				$oSmarty->assign('VAL_ORGID', $organizationModel->f('org_id'));
+				$oSmarty->assign('VAL_ORGNAME', $organizationModel->f('name'));
 			}
 
 			$oSmarty->assign('VAL_MENUACTION', 'boTickets.dbmodify');

@@ -135,10 +135,10 @@ class htmlTimeCardForm
 
 			$organizationModel = new OrganizationModel();
 			$organizationModel->ListSelectedByWorkOrder($jcn, $seq);
-			while ($organizationModel->oDB->next_record())
+			while ($organizationModel->next_record())
 			{
-				$aOrgID[] = $organizationModel->oDB->f(0);
-				$aOrgName[] = $organizationModel->oDB->f(1);
+				$aOrgID[] = $organizationModel->f(0);
+				$aOrgName[] = $organizationModel->f(1);
 			}
 			
 			$oTag = new EntityTagModel();
