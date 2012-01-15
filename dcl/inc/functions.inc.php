@@ -119,7 +119,7 @@ define('SMARTY_DIR', DCL_ROOT . 'vendor/Smarty/');
 // Others
 define('DCL_NOW', 'now()');
 
-function __autoload($className)
+function DclClassAutoLoader($className)
 {
 	if (file_exists(DCL_ROOT . 'inc/' . $className . '.php'))
 	{
@@ -855,3 +855,4 @@ function dcl_error_handler($errno, $errstr, $errfile, $errline)
 
 error_reporting(E_ALL);
 set_error_handler('dcl_error_handler');
+spl_autoload_register('DclClassAutoLoader');
