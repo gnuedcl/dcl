@@ -255,8 +255,8 @@ class htmlSearchBox
 	{
 		commonHeader();
 		
-		$obj = new htmlHotlists();
+		$obj = new HotlistController();
 		$_REQUEST['tag'] = $searchText;
-		$obj->browse();
+		$obj->Browse();
 	}
 }

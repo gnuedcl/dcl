@@ -40,4 +40,93 @@ class HotlistController extends AbstractController
 		echo json_encode($matches);
 		exit;
 	}
+
+	public function Browse()
+	{
+		if (isset($_REQUEST['tag']) && trim($_REQUEST['tag'] != ''))
+		{
+			$this->browseByTag();
+			return;
+		}
+		
+		$this->cloud();
+	}
+	
+	public function Cloud()
+	{
+		if (!HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) && !HasPermission(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
+			throw new PermissionDeniedException();
+		
+		$model = new HotlistModel();
+		$model->listByPopular();
+		
+		$presenter = new HotlistPresenter();
+		$presenter->Cloud($model);
+	}
+	
+	public function BrowseByTag()
+	{
+		if (!HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) && !HasPermission(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
+			throw new PermissionDeniedException();
+		
+		if (!isset($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')
+			return $this->cloud();
+			
+		$model = new EntityHotlistModel();
+		$model->listByTag($_REQUEST['tag']);
+		
+		$presenter = new HotlistPresenter();
+		$presenter->BrowseByTag($model);
+	}
+	
+	public function Prioritize()
+	{
+		RequirePermission(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY);
+			
+		$hotlistId = @Filter::RequireInt($_REQUEST['hotlist_id']);
+		if ($hotlistId < 1)
+			throw new InvalidEntityException();
+			
+		$hotlistModel = new HotlistModel();
+		if ($hotlistModel->Load($hotlistId) === -1)
+			throw new InvalidEntityException();
+			
+		$entityHotlistModel = new EntityHotlistModel();
+		$entityHotlistModel->listById($hotlistId);
+
+		$presenter = new HotlistPresenter();
+		$presenter->Prioritize($hotlistModel, $entityHotlistModel);
+	}
+	
+	public function SavePriority()
+	{
+		RequirePost();
+		RequirePermission(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY);
+
+		$hotlistId = @Filter::RequireInt($_POST['hotlist_id']);
+		if ($hotlistId < 1)
+			throw new InvalidEntityException();
+			
+		$hotlistModel = new HotlistModel();
+		if ($hotlistModel->Load($hotlistId) === -1)
+			throw new InvalidEntityException();
+
+		$aEntities = array();
+		$aRemoveEntities = array();
+		foreach ($_POST['item'] as $entity)
+		{
+			$aEntity = @Filter::ToIntArray(split('_', $entity));
+			if (count($aEntity) === 3)
+			{
+				if (in_array($entity, $_POST['remove']))
+					$aRemoveEntities[] = $aEntity;
+				else
+					$aEntities[] = $aEntity;
+			}
+		}
+			
+		$db = new EntityHotlistModel();
+		$db->setPriority($hotlistId, $aEntities);
+		$db->RemoveEntities($hotlistId, $aRemoveEntities);
+	}
 }

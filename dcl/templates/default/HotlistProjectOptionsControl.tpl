@@ -4,7 +4,7 @@
 {assign var="ctlHotlistProjectOptions_isfirst" value="true"}
 <li {if $ctlHotlistProjectOptions_isfirst == "true"}{assign var="ctlHotlistProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=htmlHotlistProjectDashboard.show&id={$VAL_HOTLISTID}">Dashboard</a></li>
 <li {if $ctlHotlistProjectOptions_isfirst == "true"}{assign var="ctlHotlistProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=htmlHotlistProject.View&id={$VAL_HOTLISTID}">Tasks</a></li>
-<li {if $ctlHotlistProjectOptions_isfirst == "true"}{assign var="ctlHotlistProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=htmlHotlists.prioritize&hotlist_id={$VAL_HOTLISTID}">Prioritize</a></li>
+<li {if $ctlHotlistProjectOptions_isfirst == "true"}{assign var="ctlHotlistProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=Hotlist.Prioritize&hotlist_id={$VAL_HOTLISTID}">Prioritize</a></li>
 <li {if $ctlHotlistProjectOptions_isfirst == "true"}{assign var="ctlHotlistProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=htmlHotlistBrowse.show">Manage Hotlists</a></li>
 {if false}<li {if $ctlHotlistProjectOptions_isfirst == "true"}{assign var="ctlHotlistProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boWatches.add&typeid=2&whatid1={$VAL_HOTLISTID}">Watch</a></li>{/if}
 {if false}<li {if $ctlHotlistProjectOptions_isfirst == "true"}{assign var="ctlHotlistProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=htmlHotlistProjectTimeline.GetCriteria&id={$VAL_HOTLISTID}">Timeline</a></li>{/if}

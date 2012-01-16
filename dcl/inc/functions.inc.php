@@ -220,25 +220,36 @@ function RedirectToAction($controller, $action, $params = '')
 	exit;
 }
 
-function RequirePermission($entityId, $permissionId, $id1 = 0, $id2 = 0)
+function HasPermission($entityId, $permissionId, $id1 = 0, $id2 = 0)
 {
 	global $g_oSec;
 
-	if (!$g_oSec->HasPerm($entityId, $permissionId, $id1, $id2))
+	return $g_oSec->HasPerm($entityId, $permissionId, $id1, $id2);
+}
+
+function RequirePermission($entityId, $permissionId, $id1 = 0, $id2 = 0)
+{
+	if (!HasPermission($entityId, $permissionId, $id1, $id2))
 		throw new PermissionDeniedException();
 }
 
-function RequireAnyPermission($entityId, array $permissionList, $id1 = 0, $id2 = 0)
+function HasAnyPermission($entityId, array $permissionList, $id1 = 0, $id2 = 0)
 {
 	global $g_oSec;
 	
 	foreach ($permissionList as $permissionId)
 	{
 		if ($g_oSec->HasPerm($entityId, $permissionId, $id1, $id2))
-			return;
+			return true;
 	}
 	
-	throw new PermissionDeniedException();
+	return false;
+}
+
+function RequireAnyPermission($entityId, array $permissionList, $id1 = 0, $id2 = 0)
+{
+	if (!HasAnyPermission($entityId, $permissionList, $id1, $id2))
+		throw new PermissionDeniedException();
 }
 
 function RequirePost()

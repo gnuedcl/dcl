@@ -82,11 +82,11 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		if ($params['browse'] == 'Y')
 		{
 			echo '<span class="dcl-hotlist">';
-			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlists.browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES) . ($priority == '' ? '' : ' #' . $priority) . '</a>';
+			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES) . ($priority == '' ? '' : ' #' . $priority) . '</a>';
 			if (in_array($sHotlist, $aSelected))
 			{
 				if (count($aSelected) == 1)
-					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlists.browse"> [-]</a>';
+					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse"> [-]</a>';
 				else
 				{
 					$sUpHotlist = '';
@@ -101,17 +101,17 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 						}
 					}
 					
-					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlists.browse&tag=' . urlencode($sUpHotlist) . '"> [-]</a>';
+					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sUpHotlist) . '"> [-]</a>';
 				}
 			}
 			else
-				echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlists.browse&tag=' . urlencode($sSelected . ',' . $sHotlist) . '"> [+]</a>';
+				echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sSelected . ',' . $sHotlist) . '"> [+]</a>';
 
 			echo '</span>';
 		}
 		else
 		{
-			echo '<a class="dcl-hotlist" href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlists.browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES) . ($priority == '' ? '' : ' #' . $priority) . '</a>';
+			echo '<a class="dcl-hotlist" href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES) . ($priority == '' ? '' : ' #' . $priority) . '</a>';
 		}
 	}
 }

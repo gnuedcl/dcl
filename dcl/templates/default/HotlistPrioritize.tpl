@@ -1,4 +1,4 @@
-{strip}<a class="left button" href="{$URL_MAIN_PHP}?menuAction=htmlHotlists.prioritize&hotlist_id={$VAL_HOTLIST_ID}">Reload</a>
+{strip}<a class="left button" href="{$URL_MAIN_PHP}?menuAction=Hotlist.Prioritize&hotlist_id={$VAL_HOTLIST_ID}">Reload</a>
 <a class="middle button" id="select-all-closed" href="javascript:;">Remove All Closed</a>
 <a class="positive middle button" id="ItemSave" href="javascript:;">{$smarty.const.STR_CMMN_SAVE}</a>
 <a class="negative right button" href="{$URL_MAIN_PHP}?menuAction=htmlHotlistBrowse.show">{$smarty.const.STR_CMMN_CANCEL}</a>{/strip}
@@ -43,7 +43,7 @@ $(document).ready(function() {
 		
 	function getData() {
 		var regEx = /^[^_\-](?:[A-Za-z0-9\-]*)[_](.*)$/;
-		var retVal = "menuAction=htmlHotlists.savePriority&hotlist_id={/literal}{$VAL_HOTLIST_ID}{literal}&" + 
+		var retVal = "menuAction=Hotlist.SavePriority&hotlist_id={/literal}{$VAL_HOTLIST_ID}{literal}&" + 
 			$("#item_list").sortable("serialize", { key: "item[]", expression: regEx });
 				
 		var $removeItems = $("#item_list li.remove-item");
