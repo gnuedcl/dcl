@@ -78,7 +78,7 @@ class htmlHotlistBrowse
 			$allRecs[$i][2] = '<a class="dcl-hotlist" href="' . menuLink('', 'menuAction=Hotlist.Browse&tag=' . $allRecs[$i][2]) . '">' . $allRecs[$i][2] . '</a>';
 		}
 		
-		$aOptions = array(STR_CMMN_NEW => array('menuAction' => 'htmlHotlistForm.add', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD)));
+		$aOptions = array(STR_CMMN_NEW => array('menuAction' => 'Hotlist.Create', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_ADD)));
 
 		foreach ($aOptions as $sDisplay => $aOption)
 		{
@@ -106,7 +106,7 @@ class htmlHotlistBrowse
 
 					$options .= '<a href="' . menuLink('', 'menuAction=Hotlist.Prioritize&hotlist_id=' . $allRecs[$i][0]) . '">' . 'Prioritize' . '</a>';
 					$options .= '&nbsp;|&nbsp;';
-					$options .= '<a href="' . menuLink('', 'menuAction=htmlHotlistForm.modify&hotlist_id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
+					$options .= '<a href="' . menuLink('', 'menuAction=Hotlist.Edit&hotlist_id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
 				}
 
 				if ($g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE))
@@ -114,7 +114,7 @@ class htmlHotlistBrowse
 					if ($options != '')
 						$options .= '&nbsp;|&nbsp;';
 
-					$options .= '<a href="' . menuLink('', 'menuAction=htmlHotlistForm.delete&hotlist_id=' . $allRecs[$i][0]) . '">' . STR_CMMN_DELETE . '</a>';
+					$options .= '<a href="' . menuLink('', 'menuAction=Hotlist.Delete&hotlist_id=' . $allRecs[$i][0]) . '">' . STR_CMMN_DELETE . '</a>';
 				}
 
 				$allRecs[$i][] = $options;

@@ -96,4 +96,40 @@ class HotlistPresenter
 		$smartyHelper->assign('VAL_HOTLIST_NAME', $hotlistModel->hotlist_tag);
 		$smartyHelper->Render('HotlistPrioritize.tpl');
 	}
+	
+	public function Create()
+	{
+		commonHeader();
+		
+		$smartyHelper = new SmartyHelper();
+
+		$smartyHelper->assign('menuAction', 'Hotlist.Insert');
+		$smartyHelper->assign('VAL_TITLE', 'Add New Hotlist');
+		$smartyHelper->assign('VAL_ACTIVE', 'Y');
+
+		$smartyHelper->Render('HotlistForm.tpl');
+	}
+	
+	public function Edit(HotlistModel $model)
+	{
+		commonHeader();
+		
+		$smartyHelper = new SmartyHelper();
+
+		$smartyHelper->assign('menuAction', 'Hotlist.Update');
+		$smartyHelper->assign('VAL_TITLE', 'Edit Hotlist');
+		$smartyHelper->assign('VAL_ID', $model->hotlist_id);
+		$smartyHelper->assign('VAL_NAME', $model->hotlist_tag);
+		$smartyHelper->assign('VAL_DESCRIPTION', $model->hotlist_desc);
+		$smartyHelper->assign('VAL_ACTIVE', $model->active);
+
+		$smartyHelper->Render('HotlistForm.tpl');
+	}
+	
+	public function Delete(HotlistModel $model)
+	{
+		commonHeader();
+		
+		ShowDeleteYesNo('Hotlist', 'Hotlist.Destroy', $model->hotlist_id, $model->hotlist_tag);
+	}
 }

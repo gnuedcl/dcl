@@ -25,6 +25,115 @@ LoadStringResource('bo');
 
 class HotlistController extends AbstractController
 {
+	public function Create()
+	{
+		RequirePermission(DCL_ENTITY_HOTLIST, DCL_PERM_ADD);
+		
+		$presenter = new HotlistPresenter();
+		$presenter->Create();
+	}
+	
+	public function Insert()
+	{
+		RequirePost();
+		RequirePermission(DCL_ENTITY_HOTLIST, DCL_PERM_ADD);
+		
+		CleanArray($_POST);
+
+		$model = new HotlistModel();
+		$model->hotlist_tag = $_POST['hotlist_tag'];
+		$model->hotlist_desc = $_POST['hotlist_desc'];
+		$model->active = @Filter::ToYN($_POST['active']);
+		$model->created_by = $GLOBALS['DCLID'];
+		$model->created_on = DCL_NOW;
+		$model->Add();
+		
+		SetRedirectMessage('Success', 'New hotlist added successfully.');
+		RedirectToAction('htmlHotlistBrowse', 'show');
+	}
+	
+	public function Edit()
+	{
+		RequirePermission(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY);
+		
+		$id = Filter::RequireInt($_REQUEST['hotlist_id']);
+		
+		$model = new HotlistModel();
+		if ($model->Load($id) == -1)
+			throw new InvalidEntityException();
+
+		$presenter = new HotlistPresenter();
+		$presenter->Edit($model);
+	}
+	
+	public function Update()
+	{
+		RequirePost();
+		RequirePermission(DCL_ENTITY_HOTLIST, DCL_PERM_MODIFY);
+		
+		CleanArray($_POST);
+		
+		$id = Filter::RequireInt($_REQUEST['hotlist_id']);
+
+		$model = new HotlistModel();
+		if ($model->Load($id) == -1)
+			throw new InvalidEntityException();
+		
+		$model->hotlist_tag = $_POST['hotlist_tag'];
+		$model->hotlist_desc = $_POST['hotlist_desc'];
+		
+		$active = @Filter::ToYN($_POST['active']);
+		$isActiveChange = $model->active != $active;
+		
+		$model->active = $active;
+		
+		if ($isActiveChange)
+		{
+			if ($model->active === 'Y')
+			{
+				$model->closed_by = null;
+				$model->closed_on = null;
+			}
+			else
+			{
+				$model->closed_by = $GLOBALS['DCLID'];
+				$model->closed_on = DCL_NOW;
+			}
+		}
+		
+		$model->Edit();
+		
+		SetRedirectMessage('Success', 'Hotlist updated successfully.');
+		RedirectToAction('htmlHotlistBrowse', 'show');
+	}
+	
+	public function Delete()
+	{
+		RequirePermission(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE);
+		
+		$id = Filter::RequireInt($_REQUEST['hotlist_id']);
+		
+		$model = new HotlistModel();
+		if ($model->Load($id) == -1)
+			throw new InvalidEntityException();
+
+		$presenter = new HotlistPresenter();
+		$presenter->Delete($model);		
+	}
+	
+	public function Destroy()
+	{
+		RequirePost();
+		RequirePermission(DCL_ENTITY_HOTLIST, DCL_PERM_DELETE);
+		
+		$id = Filter::RequireInt($_REQUEST['id']);
+		$model = new HotlistModel();
+		$model->Delete(array('hotlist_id' => $id));
+		
+		SetRedirectMessage('Success', 'Hotlist deleted successfully.');
+		RedirectToAction('htmlHotlistBrowse', 'show');
+	}
+	
 	public function Autocomplete()
 	{
 		$model = new HotlistModel();
