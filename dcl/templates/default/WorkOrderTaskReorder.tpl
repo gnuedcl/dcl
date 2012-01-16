@@ -9,7 +9,6 @@
 <li class="task_{if $VAL_TASKS[task].task_complete != "Y"}in{/if}complete" id="task_{$VAL_TASKS[task].wo_task_id}">{$VAL_TASKS[task].task_summary|escape}</li>
 {/section}
 </ul>
-<script language="JavaScript" type="text/javascript" src="{$DIR_JS}jquery-ui-1.8.2.custom.min.js"></script>
 <script language="javascript">
 //<![CDATA[
 {literal}

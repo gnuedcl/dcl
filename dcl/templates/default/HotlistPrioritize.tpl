@@ -29,7 +29,6 @@ ol li p { border: solid #cecece 1px; height: 60px; background-color: #ffffff; te
 {/section}
 </ol>
 <div class="clear"></div>
-<script language="JavaScript" type="text/javascript" src="{$DIR_JS}jquery-ui-1.8.2.custom.min.js"></script>
 <script language="javascript">
 //<![CDATA[
 {literal}
