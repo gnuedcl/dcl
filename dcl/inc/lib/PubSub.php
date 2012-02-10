@@ -20,10 +20,42 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class PluginHelper
+class PubSub 
 {
-	public function ExecPlugin()
+	private static $Subscriptions = array();
+	
+	private function __construct()
 	{
-		@InvokePlugin($_REQUEST['plugin_name'], $_REQUEST['plugin_params'], $_REQUEST['plugin_method']);
+	}
+	
+	public static function Subscribe($eventName, $eventHandler)
+	{
+		if (!isset(self::$Subscriptions[$eventName]))
+			self::$Subscriptions[$eventName] = array();
+		
+		self::$Subscriptions[$eventName][] = $eventHandler;
+	}
+	
+	public static function Unsubscribe($eventName)
+	{
+		if (isset(self::$Subscriptions[$eventName]))
+			unset(self::$Subscriptions[$eventName]);
+	}
+	
+	public static function Publish($eventName)
+	{
+		if (!isset(self::$Subscriptions[$eventName]) || !is_array(self::$Subscriptions[$eventName]) || count(self::$Subscriptions) == 0)
+			return;
+		
+		$eventParams = func_get_args();
+		array_shift($eventParams);
+		
+		foreach (self::$Subscriptions[$eventName] as $eventHandler)
+		{
+			if (is_callable($eventHandler))
+			{
+				call_user_func_array($eventHandler, $eventParams);
+			}
+		}
 	}
 }

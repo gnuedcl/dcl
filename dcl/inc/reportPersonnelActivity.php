@@ -34,6 +34,7 @@ class reportPersonnelActivity
 
 		$objPersonnel = new PersonnelHtmlHelper();
 		$oDept = new DepartmentHtmlHelper();
+		$statusHelper = new StatusHtmlHelper();
 
 		$oDBPersonnel = new PersonnelModel();
 		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
@@ -54,8 +55,13 @@ class reportPersonnelActivity
 		else if ($g_oSession->IsRegistered('personnel_activity_responsible'))
 			$iUser = (int)$g_oSession->Value('personnel_activity_responsible');
 		
+		$aStatuses = array();
+		if (isset($_REQUEST['status']))
+			$aStatuses = $_REQUEST['status'];
+		
 		$t->assign('CMB_RESPONSIBLE', $objPersonnel->Select($iUser, 'responsible', 'lastfirst', 0, false));
 		$t->assign('CMB_DEPARTMENTS', $oDept->Select($iDept, 'department', 'name', 0, false, true));
+		$t->assign('CMB_STATUSES', $statusHelper->Select($aStatuses, 'status', 'name', 8, false));
 
 		// By department or responsible
 		$oSelect->FirstOption = '';
@@ -172,6 +178,8 @@ class reportPersonnelActivity
 			$this->GetParameters(false);
 			return;
 		}
+		
+		$aStatuses = Filter::ToIntArray($_REQUEST['status']);
 
 		$objDB = new DbProvider;
 		
@@ -222,6 +230,11 @@ class reportPersonnelActivity
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
 				$query .= 'where personnel.department=' . $department;
 				$query .= ' and actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
+			}
+			
+			if (count($aStatuses) > 0)
+			{
+				$query .= ' and status in (' . join(',', $aStatuses) . ')';
 			}
 
 			if ($_REQUEST['groupby'] == '0')
@@ -275,6 +288,11 @@ class reportPersonnelActivity
 				$iGroupColumn = 14;
 			}
 
+			if (count($aStatuses) > 0)
+			{
+				$query .= ' and status in (' . join(',', $aStatuses) . ')';
+			}
+
 			$query .= ' order by dcl_projects.name, timecards.jcn, timecards.seq';
 		}
 		else if ($_REQUEST['groupby'] == '2')
@@ -304,6 +322,11 @@ class reportPersonnelActivity
 				$query .= 'where personnel.department=' . $department;
 				$query .= ' and actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
 				$iGroupColumn = 15;
+			}
+
+			if (count($aStatuses) > 0)
+			{
+				$query .= ' and status in (' . join(',', $aStatuses) . ')';
 			}
 
 			$query .= ' order by actions.name, timecards.jcn, timecards.seq';
@@ -337,6 +360,11 @@ class reportPersonnelActivity
 				$query .= 'where personnel.department=' . $department;
 				$query .= ' and actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
 				$iGroupColumn = 15;
+			}
+
+			if (count($aStatuses) > 0)
+			{
+				$query .= ' and status in (' . join(',', $aStatuses) . ')';
 			}
 
 			$query .= ' order by products.name, timecards.jcn, timecards.seq';

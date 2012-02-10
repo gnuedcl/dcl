@@ -150,12 +150,12 @@ function DclClassAutoLoader($className)
 		}
 	}
 
-	if (substr($className, 0, 11) === 'PluginHelper_')
+	if (substr($className, 0, 13) === 'PluginHelper_')
 	{
-		$pluginParts = explode('_', $className, 4);
-		if (count($pluginParts) > 3)
+		$pluginParts = explode('_', $className, 3);
+		if (count($pluginParts) > 2)
 		{
-			$classPath = GetPluginDir() . strtolower($pluginParts[2]) . '/PluginHelper_' . $pluginParts[2] . '_' . $pluginParts[3] . '.php';
+			$classPath = GetPluginDir() . strtolower($pluginParts[1]) . '/PluginHelper_' . $pluginParts[1] . '_' . $pluginParts[2] . '.php';
 			if (file_exists($classPath))
 			{
 				require_once($classPath);
@@ -180,6 +180,12 @@ function DclClassAutoLoader($className)
 	if ($className === 'pChart')
 	{
 		require_once(DCL_ROOT . 'vendor/pChart/pChart.class');
+		return;
+	}
+
+	if (file_exists(GetPluginDir() . 'lib/' . $className . '.php'))
+	{
+		require_once(GetPluginDir() . 'lib/' . $className . '.php');
 		return;
 	}
 }
@@ -389,20 +395,20 @@ function InvokePlugin($sPluginName, &$aParams = null, $method = 'Invoke')
 {	
 	list($type, $name) = explode(".", $sPluginName);
 	$class = 'PluginHelper_' . $type . '_' . $name;
-	
+
 	if (!class_exists($class))
 	{
 		// If we can't import it, no plugin has been set up
 		return;
 	}
-	
+
 	$obj = new $class();
 	if (!method_exists($obj, $method))
 	{
 		trigger_error('Plugin class ' . $class . ' does not contain a definition for method ' . $method, E_USER_ERROR);
 		return;
 	}
-	
+
 	$obj->$method($aParams);
 }
 

@@ -395,7 +395,7 @@ class boWatches
 
 		$sResponsible = '';
 		$sStatusName = '';
-		$oMail->subject = sprintf('[%s %d-%d] [%s] [%s] %s', STR_WO_JCN, $obj->jcn, $obj->seq, $this->oMeta->GetPersonnel($obj->responsible), $this->oMeta->GetStatus($obj->status), $obj->summary);
+		$oMail->subject = sprintf('[%s %s %d-%d] [%s] [%s] %s', $this->oMeta->GetProduct($obj->product), STR_WO_JCN, $obj->jcn, $obj->seq, $this->oMeta->GetPersonnel($obj->responsible), $this->oMeta->GetStatus($obj->status), $obj->summary);
 		$oMail->body = $this->GetWorkOrderNotificationBody($obj, false);
 
 		$oMail->to = array();
@@ -559,7 +559,7 @@ class boWatches
 			$oMail->AddHeader('X-Priority: 1');
 
 		$oMail->from = $mailFrom;
-		$oMail->subject = sprintf('[%s %d] [%s] [%s] %s', STR_TCK_TICKET, $obj->ticketid, $this->oMeta->GetPersonnel($obj->responsible), $this->oMeta->GetStatus($obj->status), $obj->summary);
+		$oMail->subject = sprintf('[%s %s %d] [%s] [%s] %s', $this->oMeta->GetProduct($obj->product), STR_TCK_TICKET, $obj->ticketid, $this->oMeta->GetPersonnel($obj->responsible), $this->oMeta->GetStatus($obj->status), $obj->summary);
 		$oMail->body = $this->GetTicketNotificationBody($obj, true);
 		$oMail->to = array();
 		foreach ($arrEmail as $email => $junk)

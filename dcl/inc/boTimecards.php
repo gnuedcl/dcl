@@ -62,20 +62,22 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
-		$objTimecard = new TimeCardsModel();
-		$objWorkorder = new WorkOrderModel();
-		$oStatus = new StatusModel();
+		$timeCardModel = new TimeCardsModel();
+		$workOrderModel = new WorkOrderModel();
+		$statusModel = new StatusModel();
 
-		$objTimecard->InitFromGlobals();
-		$objTimecard->actionby = $GLOBALS['DCLID'];
+		$timeCardModel->InitFromGlobals();
+		$timeCardModel->actionby = $GLOBALS['DCLID'];
 		if ($g_oSec->IsPublicUser())
-			$objTimecard->is_public = 'Y';
+			$timeCardModel->is_public = 'Y';
 		else
-			$objTimecard->is_public = @Filter::ToYN($_REQUEST['is_public']);
+			$timeCardModel->is_public = @Filter::ToYN($_REQUEST['is_public']);
 
-		$objTimecard->inputon = DCL_NOW;
-		if ($objWorkorder->Load($objTimecard->jcn, $objTimecard->seq) == -1)
+		$timeCardModel->inputon = DCL_NOW;
+		if ($workOrderModel->Load($timeCardModel->jcn, $timeCardModel->seq) == -1)
 		    return;
+		
+		$originalWorkOrder = clone $workOrderModel;
 		    
 		if (($targeted_version_id = @Filter::ToInt($_REQUEST['targeted_version_id'])) === null)
 			$targeted_version_id = 0;
@@ -83,18 +85,18 @@ class boTimecards
 		if (($fixed_version_id = @Filter::ToInt($_REQUEST['fixed_version_id'])) === null)
 			$fixed_version_id = 0;
 		    
-		$status = $objWorkorder->status;
-		$oldStatusType = $oStatus->GetStatusType($status);
-		$newStatusType = $oStatus->GetStatusType($objTimecard->status);
+		$status = $workOrderModel->status;
+		$oldStatusType = $statusModel->GetStatusType($status);
+		$newStatusType = $statusModel->GetStatusType($timeCardModel->status);
 
 		if ($oldStatusType != $newStatusType && $newStatusType == 2)
 		{
 			// Check if re-open is allowed
 		}
 
-		$objTimecard->Add($targeted_version_id, $fixed_version_id);
+		$timeCardModel->Add($targeted_version_id, $fixed_version_id);
 		$notify = '4';
-		if ($status != $objTimecard->status)
+		if ($status != $timeCardModel->status)
 		{
 			$notify .= ',3';
 			if ($newStatusType == 2)
@@ -102,7 +104,7 @@ class boTimecards
 				$notify .= ',2';
 				
 				// also need to close all incomplete tasks and warn user if it happens
-				$this->closeIncompleteTasks($objTimecard->jcn, $objTimecard->seq);
+				$this->closeIncompleteTasks($timeCardModel->jcn, $timeCardModel->seq);
 			}
 			elseif ($newStatusType == 1 && $oldStatusType != 1)
 				$notify .= ',1';
@@ -113,14 +115,14 @@ class boTimecards
 		if (isset($_REQUEST['tags']) && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY))
 		{
 			$oTag = new EntityTagModel();
-			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['tags']);
+			$oTag->serialize(DCL_ENTITY_WORKORDER, $workOrderModel->jcn, $workOrderModel->seq, $_REQUEST['tags']);
 		}
 
 		// * Hotlists
 		if (isset($_REQUEST['hotlist']) && $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY))
 		{
 			$oTag = new EntityHotlistModel();
-			$oTag->serialize(DCL_ENTITY_WORKORDER, $objWorkorder->jcn, $objWorkorder->seq, $_REQUEST['hotlist']);
+			$oTag->serialize(DCL_ENTITY_WORKORDER, $workOrderModel->jcn, $workOrderModel->seq, $_REQUEST['hotlist']);
 		}
 
 		// * Organizations - only if multiple are allowed to improve workflow
@@ -133,13 +135,13 @@ class boTimecards
 				if ($aAccounts === null)
 					$aAccounts = array();
 					
-				$oWOA->DeleteByWorkOrder($objWorkorder->jcn, $objWorkorder->seq, join(',', $aAccounts));
+				$oWOA->DeleteByWorkOrder($workOrderModel->jcn, $workOrderModel->seq, join(',', $aAccounts));
 				
 				// Add the new ones
 				if (count($aAccounts) > 0)
 				{
-					$oWOA->wo_id = $objWorkorder->jcn;
-					$oWOA->seq = $objWorkorder->seq;
+					$oWOA->wo_id = $workOrderModel->jcn;
+					$oWOA->seq = $workOrderModel->seq;
 	
 					for ($i = 0; $i < count($aAccounts); $i++)
 					{
@@ -152,7 +154,7 @@ class boTimecards
 				}
 			}
 			else
-				$oWOA->DeleteByWorkOrder($objWorkorder->jcn, $objWorkorder->seq);
+				$oWOA->DeleteByWorkOrder($workOrderModel->jcn, $workOrderModel->seq);
 		}
 
 		// * Project
@@ -161,11 +163,11 @@ class boTimecards
 			if (($iProjID = @Filter::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
 			{
 				$oProjectMap = new ProjectMapModel();
-				if ($oProjectMap->LoadByWO($objWorkorder->jcn, $objWorkorder->seq) == -1 || $oProjectMap->projectid != $iProjID)
+				if ($oProjectMap->LoadByWO($workOrderModel->jcn, $workOrderModel->seq) == -1 || $oProjectMap->projectid != $iProjID)
 				{
 					$oProject = new boProjects();
 					$aSource = array();
-					$aSource['selected'] = array($objWorkorder->jcn . '.' . $objWorkorder->seq);
+					$aSource['selected'] = array($workOrderModel->jcn . '.' . $workOrderModel->seq);
 					$aSource['projectid'] = $iProjID;
 					
 					$oProject->batchMove($aSource);
@@ -178,21 +180,23 @@ class boTimecards
 		{
 			$o = new FileHelper();
 			$o->iType = DCL_ENTITY_WORKORDER;
-			$o->iKey1 = $objWorkorder->jcn;
-			$o->iKey2 = $objWorkorder->seq;
+			$o->iKey1 = $workOrderModel->jcn;
+			$o->iKey2 = $workOrderModel->seq;
 			$o->sFileName = Filter::ToActualFileName('userfile');
 			$o->sTempFileName = $sFileName;
 			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
 			$o->Upload();
 		}
 
+		$workOrderModel->Load($timeCardModel->jcn, $timeCardModel->seq);
+		
+		PubSub::Publish('TimeCard.Inserted', $originalWorkOrder, $workOrderModel);
+
 		$objWtch = new boWatches();
-		// Reload before sending since time card modifies the work order
-		$objWorkorder->Load($objTimecard->jcn, $objTimecard->seq);
-		$objWtch->sendNotification($objWorkorder, $notify);
+		$objWtch->sendNotification($workOrderModel, $notify);
 
 		$workOrderPresenter = new WorkOrderPresenter();
-		$workOrderPresenter->Detail($objWorkorder);
+		$workOrderPresenter->Detail($workOrderModel);
 	}
 
 	function batchadd()
@@ -270,7 +274,7 @@ class boTimecards
 
 		$batchEtc = @Filter::ToDecimal($_REQUEST['etchours']);
 		
-		$objWorkorder = new WorkOrderModel();
+		$workOrderModel = new WorkOrderModel();
 		$objWtch = new boWatches();
 		if (IsSet($_REQUEST['selected']) && is_array($_REQUEST['selected']) && count($_REQUEST['selected']) > 0)
 		{
@@ -287,10 +291,12 @@ class boTimecards
 				if ($objTimecard->jcn === null || $objTimecard->seq === null)
 					continue;
 					
-				if ($objWorkorder->Load($objTimecard->jcn, $objTimecard->seq) == -1)
+				if ($workOrderModel->Load($objTimecard->jcn, $objTimecard->seq) == -1)
 				    continue;
+				
+				$originalWorkOrder = clone $workOrderModel;
 				    
-				$status = $objWorkorder->status;
+				$status = $workOrderModel->status;
 				if ($batchStatus == 0)
 					$objTimecard->status = $status;
 				
@@ -325,8 +331,11 @@ class boTimecards
 				}
 
 				// Reload before sending since time card modifies the work order
-				if ($objWorkorder->Load($objTimecard->jcn, $objTimecard->seq) != -1)
-					$objWtch->sendNotification($objWorkorder, $notify, false);
+				if ($workOrderModel->Load($objTimecard->jcn, $objTimecard->seq) != -1)
+				{
+					PubSub::Publish('TimeCard.Inserted', $originalWorkOrder, $workOrderModel);
+					$objWtch->sendNotification($workOrderModel, $notify, false);
+				}
 			}
 		}
 

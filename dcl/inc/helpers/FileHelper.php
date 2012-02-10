@@ -47,11 +47,19 @@ class FileHelper
 			if ($hFile)
 			{
 				// Output the file and nothing else
+				ob_end_clean();
+				ob_start();
 				header('Content-Type: application/binary; name="' . $this->sFileName . '"');
 				header('Content-Disposition: attachment; filename="' . $this->sFileName . '"');
 
 				while (!feof($hFile))
+				{
 					echo fread($hFile, 4096);
+					ob_flush();
+					flush();
+				}
+				
+				fclose($hFile);
 
 				exit;
 			}

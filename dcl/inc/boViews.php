@@ -328,14 +328,14 @@ class boViews
 						{
 							if ($workOrderOrg->Load($obj->f('jcn'), $obj->f('seq')) != -1)
 							{
-								do
+								while ($workOrderOrg->next_record())
 								{
 									if ($fieldValue != '')
 										$fieldValue .= ', ';
 
 									$workOrderOrg->GetRow();
 									$fieldValue .= $workOrderOrg->account_name;
-								} while ($workOrderOrg->next_record());
+								}
 							}
 
 						}

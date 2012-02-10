@@ -343,7 +343,7 @@ class WorkOrderPresenter
 
 			$aOrgNames = array();
 			$iOrgIndex = 0;
-			do
+			while ($oAcct->next_record())
 			{
 				$oAcct->GetRow();
 				if ($bViewAll || ($bHasPerm && in_array($oAcct->account_id, $aOrgs)))
@@ -353,7 +353,6 @@ class WorkOrderPresenter
 					$iOrgIndex++;
 				}
 			}
-			while ($oAcct->next_record());
 
 			$smarty->assign('VAL_ORGS', $aOrgNames);
 		}
@@ -431,9 +430,9 @@ class WorkOrderPresenter
 		$smartyHelper->assign('TXT_TITLE', STR_WO_DELETEATTACHMENTTITLE);
 		$smartyHelper->assign('VAL_JCN', $workOrderModel->jcn);
 		$smartyHelper->assign('VAL_SEQ', $workOrderModel->seq);
-		$smartyHelper->assign('VAL_FILENAME', htmlspecialchars($filename));
+		$smartyHelper->assign('VAL_FILENAME', htmlspecialchars($fileName));
 		$smartyHelper->assign('VAL_FORMACTION', menuLink());
-		$smartyHelper->assign('TXT_DELATTCONFIRM', sprintf(STR_WO_DELATTCONFIRM, htmlspecialchars($filename)));
+		$smartyHelper->assign('TXT_DELATTCONFIRM', sprintf(STR_WO_DELATTCONFIRM, htmlspecialchars($fileName)));
 		$smartyHelper->assign('BTN_YES', STR_CMMN_YES);
 		$smartyHelper->assign('BTN_NO', STR_CMMN_NO);
 
@@ -1028,26 +1027,6 @@ class WorkOrderPresenter
 				$viewData->ContactName = $aContact['name'];
 			else
 				$viewData->ContactId = '';
-		}
-
-		$organizationIds = array();
-		$organizationNames = array();
-		$workOrderOrgsModel = new WorkOrderOrganizationModel();
-		if ($workOrderOrgsModel->Load($viewData->WorkOrderId, $viewData->Sequence) != -1)
-		{
-			while ($workOrderOrgsModel->next_record())
-			{
-				$organizationIds[] = $workOrderOrgsModel->f('account_id');
-				
-				$organization = $metaData->GetOrganization($workOrderOrgsModel->f('account_id'));
-				$organizationNames[] = $organization['name'];
-			}
-		}
-		
-		if (count($organizationIds) > 0)
-		{
-			$viewData->OrganizationIdCollection = $organizationIds;
-			$viewData->OrganizationNameCollection = $organizationNames;
 		}
 		
 		$smartyHelper = new SmartyHelper();

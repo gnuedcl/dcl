@@ -129,6 +129,9 @@ class WorkOrderController
 		$workOrderModel->etchours = $workOrderModel->esthours;
 		$workOrderModel->createby = $GLOBALS['DCLID'];
 		$workOrderModel->is_public = ((isset($_REQUEST['is_public']) && $_REQUEST['is_public'] == 'Y') || $g_oSec->IsPublicUser() ? 'Y' : 'N');
+
+		PubSub::Publish('WorkOrder.Inserting', $workOrderModel);
+		
 		$workOrderModel->Add();
 
 		// multiple accounts?
@@ -243,9 +246,11 @@ class WorkOrderController
 		// Reload work order to update fields now that we have it all stored
 		$workOrderModel->Load($workOrderModel->jcn, $workOrderModel->seq);
 
+		PubSub::Publish('WorkOrder.Inserted', $workOrderModel);
+
 		$watches = new boWatches();
 		$watches->sendNotification($workOrderModel, '4,1');
-
+		
 		if (EvaluateReturnTo())
 			return;
 
@@ -314,6 +319,8 @@ class WorkOrderController
 			}
 		}
 
+		PubSub::Publish('WorkOrder.Updating', $workOrderModel);
+		
 		if ($isModified)
 			$workOrderModel->Edit();
 
@@ -360,6 +367,8 @@ class WorkOrderController
 			$oHotlist = new EntityHotlistModel();
 			$oHotlist->serialize(DCL_ENTITY_WORKORDER, $workOrderModel->jcn, $workOrderModel->seq, $_REQUEST['hotlist']);
 		}
+		
+		PubSub::Publish('WorkOrder.Updated', $workOrderModel);
 
 		$watches = new boWatches();
 		$watches->sendNotification($workOrderModel, '4');
@@ -399,7 +408,11 @@ class WorkOrderController
 		if ($model-Load($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
+		PubSub::Publish('WorkOrder.Deleting', $model);
+		
 		$model->Delete();
+
+		PubSub::Publish('WorkOrder.Deleted', $model);
 
 		SetRedirectMessage('Success', sprintf(STR_BO_WORKORDERDELETED, $id, $seq));
 		RedirectToAction('htmlMyDCL', 'showMy');
@@ -648,7 +661,7 @@ class WorkOrderController
 		$seq = Filter::RequireInt($_REQUEST['seq']);
 		$fileName = $_REQUEST['filename'];
 		
-		if (!Filter::IsValidFieldName($fileName))
+		if (!Filter::IsValidFileName($fileName))
 			throw new InvalidArgumentException();
 		
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $id, $seq);
@@ -669,7 +682,7 @@ class WorkOrderController
 
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_REMOVEFILE, $id, $seq);
 		
-		$fileName = $_REQUEST['fileName'];
+		$fileName = $_REQUEST['filename'];
 		if (!@Filter::IsValidFileName($fileName))
 			throw new InvalidDataException();
 		
@@ -684,6 +697,8 @@ class WorkOrderController
 	
 	public function DestroyAttachment()
 	{
+		global $dcl_info;
+		
 		RequirePost();
 		
 		$id = Filter::RequireInt($_REQUEST['jcn']);

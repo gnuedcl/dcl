@@ -23,7 +23,7 @@ div.dcl-notification
 
 div.sf-menu-container
 {
-	height: 32px;
+	height: 28px;
 	background-color: #555555;
 }
 
@@ -71,8 +71,8 @@ input,
 textarea, 
 body, 
 caption {
-	font-family: sans-serif;
-	font-size: 13px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 11px;
 }
 
 td, th {
@@ -229,7 +229,7 @@ dd.status-type-1, dd.status-type-2, dd.status-type-3
 	width: 150px;
 	background: #F7F6F0;
 	border: 1px solid #D3D1C7;
-	float: left;
+	position: absolute;
 }
 
 #content {
@@ -331,7 +331,7 @@ table.inline {
 
 table.dcl_results caption {
 	color: #333333;
-	font-size: 125%;
+	font-size: 17px;
 	margin-bottom: 2px;
 	text-align: left;
 	white-space: nowrap;
@@ -513,7 +513,7 @@ div.dcl_filter label {
 div.dcl_filter_selectstart div {
 	display: inline;
 	font-family: sans-serif;
-	font-size: 13px;
+	font-size: 11px;
 	width: 8px;
 	text-align: center;
 	cursor: hand;
@@ -575,13 +575,13 @@ table.timecard tbody td { background-color: #ffffff; border: solid 1px #666666; 
 table.timecard tbody blockquote { margin-left: 4px; border: none 0px; background-color: #ffffff; border-left: solid 4px #666666; }
 table.timecard tbody img { margin: 2px; border: solid 1px #cecece; }
 table.timecard tbody tr dl { margin-bottom: 0; margin-top: 4px; }
-table.timecard tbody tr dt { font-size: 17px; }
+table.timecard tbody tr dt { font-size: 13px; }
 table.timecard tbody tr dl dd { color: #666666; margin: 2px 0px 0px 24px; }
 table.timecard tbody tr td.timecard-description { padding: 2px 24px 2px 24px; }
 
 div.dcl_detail table.styled caption {
 	color: #333333;
-	font-size: 125%;
+	font-size: 17px;
 	margin-bottom: 2px;
 	text-align: left;
 }
@@ -1278,31 +1278,31 @@ h1.wiki, h2.wiki, h3.wiki, h4.wiki, h5.wiki
 
 h1.wiki
 {
-	font-size: 19px;
+	font-size: 17px;
 	padding-left: 3pt;
 }
 
 h2.wiki
 {
-	font-size: 17px;
+	font-size: 15px;
 	padding-left:6pt;
 }
 
 h3.wiki
 {
-	font-size: 15px;
+	font-size: 13px;
 	padding-left:9pt;
 }
 
 h4.wiki
 {
-	font-size: 13px;
+	font-size: 11px;
 	padding-left:12pt;
 }
 
 h5.wiki
 {
-	font-size: 13px;
+	font-size: 11px;
 	padding-left:15pt;
 }
 

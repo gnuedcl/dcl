@@ -275,10 +275,10 @@ class WorkOrderModel extends DbProvider
 						$this->iWoid = $obj->jcn;
 						$this->iSeq = $obj->seq;
 						$this->aOrgs = array();
-						do
+						while ($oWOA->next_record())
 						{
 							array_push($this->aOrgs, $oWOA->f(2));
-						} while ($oWOA->next_record());
+						}
 						
 						$bCanView = (count($this->aOrgs) > 0);
 					}

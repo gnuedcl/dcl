@@ -73,7 +73,7 @@ $(document).ready(function() {
 			error: function() {
 				alert("Could not save hotlist priority order.");
 			},
-			dataType: "text/html"
+			dataType: "json"
 		});
 	});
 	

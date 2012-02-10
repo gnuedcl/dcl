@@ -237,5 +237,9 @@ class HotlistController extends AbstractController
 		$db = new EntityHotlistModel();
 		$db->setPriority($hotlistId, $aEntities);
 		$db->RemoveEntities($hotlistId, $aRemoveEntities);
+		
+		header('Content-Type: application/json');
+		echo '{"result": "OK"}';
+		exit;
 	}
 }

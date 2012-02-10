@@ -31,6 +31,7 @@ if (IsSet($menuAction) && $menuAction != 'clearScreen')
 	{
 		try
 		{
+			InvokePlugin('UI.PubSub');
 			Invoke($menuAction);
 		}
 		catch (Exception $ex)

@@ -29,9 +29,8 @@ class StatusPresenter
 		global $g_oSec;
 
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_VIEW))
-			throw new PermissionDeniedException();
-
+		RequirePermission(DCL_ENTITY_STATUS, DCL_PERM_VIEW);
+		
 		$objDBStatus = new StatusModel();
 		$objDBStatus->Query("SELECT a.id,a.active,a.short,a.name,b.dcl_status_type_name FROM statuses a,dcl_status_type b WHERE b.dcl_status_type_id=a.dcl_status_type ORDER BY a.name");
 		$allRecs = $objDBStatus->FetchAllRows();

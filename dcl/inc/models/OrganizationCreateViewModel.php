@@ -55,7 +55,7 @@ class OrganizationCreateViewModel
 		if ($formCollection['alias'] != '')
 		{
 			$organizationAliasModel = new OrganizationAliasModel();
-			$organizationAliasModel->org_id = $organizationId;
+			$organizationAliasModel->org_id = $organizationModel->org_id;
 			$organizationAliasModel->alias = $formCollection['alias'];
 			$organizationAliasModel->created_on = DCL_NOW;
 			$organizationAliasModel->created_by = $GLOBALS['DCLID'];
@@ -66,7 +66,7 @@ class OrganizationCreateViewModel
 		if ($addr_type_id > 0)
 		{
 			$organizationAddressModel = new OrganizationAddressModel();
-			$organizationAddressModel->org_id = $organizationId;
+			$organizationAddressModel->org_id = $organizationModel->org_id;
 			$organizationAddressModel->addr_type_id = $addr_type_id;
 			$organizationAddressModel->add1 = $formCollection['add1'];
 			$organizationAddressModel->add2 = $formCollection['add2'];
@@ -84,7 +84,7 @@ class OrganizationCreateViewModel
 		if ($formCollection['phone_type_id'] > 0 && $formCollection['phone_number'] != '')
 		{
 			$organizationPhoneModel = new OrganizationPhoneModel();
-			$organizationPhoneModel->org_id = $organizationId;
+			$organizationPhoneModel->org_id = $organizationModel->org_id;
 			$organizationPhoneModel->phone_type_id = $phone_type_id;
 			$organizationPhoneModel->phone_number = $formCollection['phone_number'];
 			$organizationPhoneModel->preferred = 'Y';
@@ -97,7 +97,7 @@ class OrganizationCreateViewModel
 		if ($formCollection['email_type_id'] > 0 && $formCollection['email_addr'] != '')
 		{
 			$organizationEmailModel = new OrganizationEmailModel();
-			$organizationEmailModel->org_id = $organizationId;
+			$organizationEmailModel->org_id = $organizationModel->org_id;
 			$organizationEmailModel->email_type_id = $email_type_id;
 			$organizationEmailModel->email_addr = $formCollection['email_addr'];
 			$organizationEmailModel->preferred = 'Y';
@@ -110,7 +110,7 @@ class OrganizationCreateViewModel
 		if ($formCollection['url_type_id'] > 0 && $formCollection['url_addr'] != '')
 		{
 			$organizationUrlModel = new OrganizationUrlModel();
-			$organizationUrlModel->org_id = $organizationId;
+			$organizationUrlModel->org_id = $organizationModel->org_id;
 			$organizationUrlModel->url_type_id = $url_type_id;
 			$organizationUrlModel->url_addr = $formCollection['url_addr'];
 			$organizationUrlModel->preferred = 'Y';

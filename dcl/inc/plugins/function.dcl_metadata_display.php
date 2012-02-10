@@ -177,7 +177,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 					$aOrgs = split(',', $g_oSession->Value('member_of_orgs'));
 	
 				$aOrgNames = array();
-				do
+				while ($oAcct->next_record())
 				{
 					$oAcct->GetRow();
 					if ($bViewAll || ($bHasPerm && in_array($oAcct->account_id, $aOrgs)))
@@ -185,7 +185,6 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 						$aOrgNames[] = $oAcct->account_name;
 					}
 				}
-				while ($oAcct->next_record());
 			}
 			
 			if (count($aOrgNames) > 0)

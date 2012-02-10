@@ -147,6 +147,30 @@ class WorkOrderFormViewData
 		
 		$model->ResponsibleId = $workOrder->responsible;
 		
+		$tagModel = new EntityTagModel();
+		$model->Tags = $tagModel->getTagsForEntity(DCL_ENTITY_WORKORDER, $workOrder->jcn, $workOrder->seq);
+		
+		$hotlistModel = new EntityHotlistModel();
+		$model->Hotlists = $hotlistModel->getTagsForEntity(DCL_ENTITY_WORKORDER, $workOrder->jcn, $workOrder->seq);
+		
+		$organizationIds = array();
+		$organizationNames = array();
+		$workOrderOrgsModel = new WorkOrderOrganizationModel();
+		if ($workOrderOrgsModel->Load($model->WorkOrderId, $model->Sequence) != -1)
+		{
+			while ($workOrderOrgsModel->next_record())
+			{
+				$organizationIds[] = $workOrderOrgsModel->f('account_id');
+				$organizationNames[] = $workOrderOrgsModel->f('account_id');
+			}
+		}
+		
+		if (count($organizationIds) > 0)
+		{
+			$model->OrganizationIdCollection = $organizationIds;
+			$model->OrganizationNameCollection = $organizationNames;
+		}
+		
 		return $model;
 	}
 	

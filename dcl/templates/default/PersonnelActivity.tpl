@@ -27,6 +27,10 @@ function onChangeByType()
 			{$CMB_BYTYPE}{$CMB_RESPONSIBLE}{$CMB_DEPARTMENTS}
 		</div>
 		<div>
+			<label for="status">Statuses:</label>
+			{$CMB_STATUSES}
+		</div>
+		<div>
 			<label for="groupby">{$smarty.const.STR_CMMN_GROUPING}:</label>
 			{$CMB_GROUPBY}
 		</div>

@@ -109,12 +109,6 @@ class WorkOrderOrganizationModel extends DbProvider
 
 		// Get all rows since we read with GetRow
 		$sql = sprintf('Select wo_id, seq, account_id, name From dcl_wo_account, dcl_org Where account_id = org_id And wo_id = %d And seq = %d Order By name', $wo_id, $seq);
-		if (!$this->Query($sql))
-			return -1;
-
-		if (!$this->next_record())
-			return -1;
-
-		return $this->GetRow();
+		return $this->Query($sql);
 	}
 }
