@@ -254,6 +254,7 @@ class WorkOrderPresenter
 		$oMeta = new DisplayHelper();
 		$smarty = new SmartyHelper();
 		
+		$smarty->assign_by_ref('WorkOrder', $workOrder);
 		$smarty->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
 
 		$smarty->assign('VAL_FORMACTION', menuLink());

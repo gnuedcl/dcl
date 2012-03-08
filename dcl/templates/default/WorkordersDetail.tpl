@@ -105,6 +105,7 @@ function submitAction(sFormName, sAction)
 		<tr><th>{$smarty.const.STR_WO_DESCRIPTION}:</th><td colspan="3">{$VAL_DESCRIPTION|escape:"link"}</td></tr>
 	</tbody>
 	</table>
+{dcl_publish topic="WorkOrder.Detail" param="`$WorkOrder`"}
 {include file="AttachmentsControl.tpl"}
 {include file="WorkOrderTasksControl.tpl"}
 </div>
