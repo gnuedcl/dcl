@@ -186,6 +186,19 @@ class FileHelper
 		}
 	}
 	
+	public function WriteContent($entityTypeId, $id1, $id2, $fileName, $fileContents)
+	{
+		$this->Init($entityTypeId, $id1, $id2);
+		$this->sFileName = $fileName;
+		
+		$fileHandle = fopen($this->GetFilePath(), 'wb');
+		if ($fileHandle)
+		{
+			fwrite($fileHandle, $fileContents);
+			fclose($fileHandle);
+		}
+	}
+	
 	private function Init($entityTypeId, $id1, $id2 = 0)
 	{
 		global $dcl_info;

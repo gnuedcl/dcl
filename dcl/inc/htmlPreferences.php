@@ -76,7 +76,7 @@ class htmlPreferences
 		$o = new PreferencesModel();
 		$o->personnel_id = $GLOBALS['DCLID'];
 		$o->preferences_data = $g_oSession->Value('dcl_preferences');
-		if (!isset($o->preferences_data) || !is_array($o->preferences_data) || count($o->preferences_data) < 1)
+		if (!$o->Exists(array('personnel_id' => $o->personnel_id)))
 		{
 			$o->preferences_data = array(
 					'DCL_PREF_TEMPLATE_SET' => $dcl_info['DCL_DEF_TEMPLATE_SET'],
@@ -89,8 +89,6 @@ class htmlPreferences
 
 			$bHasChanges = true;
 		}
-
-		$sOldTpl = $o->preferences_data['DCL_PREF_TEMPLATE_SET'];
 
 		foreach ($_REQUEST as $pref => $setting)
 		{

@@ -64,7 +64,7 @@ class HotlistPresenter
 		$oHotlistDB = new EntityHotlistModel();
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
-			$sHotlists = $oHotlistDB->getTagsForEntity($allRecs[$i][0], $allRecs[$i][1], $allRecs[$i][2]);
+			$sHotlists = $oHotlistDB->getTagsWithPriorityForEntity($allRecs[$i][0], $allRecs[$i][1], $allRecs[$i][2]);
 			$allRecs[$i][11] = $sHotlists;
 		}
 
