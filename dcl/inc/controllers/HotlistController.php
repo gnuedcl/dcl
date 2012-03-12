@@ -219,6 +219,11 @@ class HotlistController extends AbstractController
 		$hotlistModel = new HotlistModel();
 		if ($hotlistModel->Load($hotlistId) === -1)
 			throw new InvalidEntityException();
+		
+		if (isset($_POST['remove']) && is_array($_POST['remove']))
+			$removeEntities = $_POST['remove'];
+		else
+			$removeEntities = array();
 
 		$aEntities = array();
 		$aRemoveEntities = array();
@@ -227,7 +232,7 @@ class HotlistController extends AbstractController
 			$aEntity = @Filter::ToIntArray(split('_', $entity));
 			if (count($aEntity) === 3)
 			{
-				if (in_array($entity, $_POST['remove']))
+				if (in_array($entity, $removeEntities))
 					$aRemoveEntities[] = $aEntity;
 				else
 					$aEntities[] = $aEntity;
