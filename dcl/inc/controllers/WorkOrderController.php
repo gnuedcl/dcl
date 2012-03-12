@@ -543,8 +543,8 @@ class WorkOrderController
 	{
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN);
 		
-		$selected = $_REQUEST['selected'];
-		$returnTo = $_REQUEST['return_to'];
+		$selected = @$_REQUEST['selected'];
+		$returnTo = @$_REQUEST['return_to'];
 		$projectId = @Filter::ToInt($_REQUEST['project']);
 
 		$presenter = new WorkOrderPresenter();

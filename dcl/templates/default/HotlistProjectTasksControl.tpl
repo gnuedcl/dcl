@@ -28,7 +28,7 @@
 				{if count($VAL_TASKS) > 0}
 				<li class="first"><a href="javascript:forceSubmit('WorkOrder.BatchDetail');">Detail</a></li>
 				<li><a href="javascript:forceSubmit('boTimecards.batchadd');">Time Card</a></li>
-				<li><a href="javascript:forceSubmit('WorkOrder.BatchAssign');">Assign</a></li>
+				<li><a href="javascript:forceSubmit('WorkOrder.BatchReassign');">Assign</a></li>
 				{/if}
 			</ul></th></tr>
 			<tr><th>{if $VAL_FILTERGROUPBY == "none"}<input type="checkbox" name="group_check" onclick="javascript: toggleCheckGroup(this);">{/if}</th>

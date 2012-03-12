@@ -30,7 +30,7 @@
 				{if count($VAL_TASKS) > 0}
 				<li><a href="javascript:forceSubmit('WorkOrder.BatchDetail');">Detail</a></li>
 				<li><a href="javascript:forceSubmit('boTimecards.batchadd');">Time Card</a></li>
-				<li><a href="javascript:forceSubmit('WorkOrder.BatchAssign');">Assign</a></li>
+				<li><a href="javascript:forceSubmit('WorkOrder.BatchReassign');">Assign</a></li>
 				<li><a href="javascript:forceSubmit('htmlProjectmap.batchMove');">Move</a></li>
 				{/if}
 			</ul></th></tr>

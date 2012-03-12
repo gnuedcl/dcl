@@ -190,7 +190,7 @@ class WorkOrderPresenter
 		$smartyHelper->assign('menuAction', 'WorkOrder.BatchReassignWorkOrders');
 		$smartyHelper->assign('selected', $selected);
 
-		$smartyHelper->assign('TXT_TITLE', STR_PRJ_BATCHASSIGN);
+		$smartyHelper->assign('TXT_TITLE', STR_CMMN_REASSIGN);
 
 		$smartyHelper->assign('CMB_RESPONSIBLE', $personnelHtmlHelper->Select($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
 		$smartyHelper->assign('CMB_PRIORITY', $priorityHtmlHelper->Select(0, 'priority', 'name', 0, false));
@@ -1078,7 +1078,7 @@ class WorkOrderPresenter
 			'Export' => array('menuAction' => 'boViews.export', 'hasPermission' => true),
 			'Detail' => array('menuAction' => 'WorkOrder.BatchDetail', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD)),
 			'Time Card' => array('menuAction' => 'boTimecards.batchadd', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION)),
-			'Assign' => array('menuAction' => 'WorkOrder.BatchAssign', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN)),
+			'Assign' => array('menuAction' => 'WorkOrder.BatchReassign', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN)),
 			'Project' => array('menuAction' => 'htmlProjectmap.batchmove', 'hasPermission' => $g_oSec->HasAllPerm(array(DCL_ENTITY_PROJECT => array($g_oSec->PermArray(DCL_PERM_ADDTASK), $g_oSec->PermArray(DCL_PERM_REMOVETASK)))))
 			);
 

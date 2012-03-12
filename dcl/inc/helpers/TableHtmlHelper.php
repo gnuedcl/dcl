@@ -28,7 +28,7 @@ class TableHtmlHelper
 	protected $aFooter;
 	protected $aGroups;
 	protected $aCheckVals;
-	protected $sCaption;
+	public $sCaption;
 	protected $bShowRownum;
 	public $sTemplate;
 	protected $bInline;
