@@ -54,7 +54,7 @@ function submitAction(sFormName, sAction)
 						<tbody>
 							<tr>
 								<td><dl><dt>{$smarty.const.STR_WO_STATUS}</dt><dd class="status-type-{$VAL_STATUS_TYPE}">{$VAL_STATUS|escape}</dd><dt>({$VAL_STATUSON|escape})</dt></dl></td>
-								<td>{dcl_gravatar userId=$VAL_RESPONSIBLEID style="float:left;margin-right:2px;"}<dl><dt>{$smarty.const.STR_WO_RESPONSIBLE}</dt><dd>{$VAL_RESPONSIBLE|escape}</dd><dt>{if $VAL_TOTALHOURS != ""}{$VAL_TOTALHOURS|escape}{else}0{/if} Hours ({$VAL_ETCHOURS|escape} Remaining)</dt></dl></td>
+								<td>{dcl_gravatar userId=$VAL_RESPONSIBLEID style="float:left;margin-right:2px;"}<dl><dt>{$smarty.const.STR_WO_RESPONSIBLE}</dt><dd>{dcl_personnel_link text=$VAL_RESPONSIBLE id=$VAL_RESPONSIBLEID}</dd><dt>{if $VAL_TOTALHOURS != ""}{$VAL_TOTALHOURS|escape}{else}0{/if} Hours ({$VAL_ETCHOURS|escape} Remaining)</dt></dl></td>
 								<td><dl><dt>{$smarty.const.STR_WO_PRODUCT}</dt><dd>{$VAL_PRODUCT|escape}</dd><dt>{if $VAL_MODULE != ""}({$VAL_MODULE|escape}){/if}</dt></dl></td>
 								<td><dl><dt>{$smarty.const.STR_WO_PRIORITY}</dt><dd>{$VAL_PRIORITY|escape}</dd><dt>{$VAL_SEVERITY|escape}</dt></dl></td>
 								<td><dl><dt>{$smarty.const.STR_WO_TYPE}</dt><dd>{$VAL_TYPE|escape}</dd><dt>{$smarty.const.STR_CMMN_PUBLIC}: {$VAL_PUBLIC|escape}</dt></dl></td>
@@ -71,10 +71,10 @@ function submitAction(sFormName, sAction)
 			<tr><th>{$smarty.const.STR_WO_LASTACTION}:</th><td>{$VAL_LASTACTIONON|escape}</td>
 				<th>Targeted Version:</th><td>{$VAL_TARGETED_VERSION|escape}</td>
 			</tr>
-			<tr><th>{$smarty.const.STR_WO_OPENBY}:</th><td>{$VAL_CREATEBY|escape} ({$VAL_CREATEDON|escape})</td>
+			<tr><th>{$smarty.const.STR_WO_OPENBY}:</th><td>{dcl_personnel_link text=$VAL_CREATEBY id=`$WorkOrder->createby`} ({$VAL_CREATEDON|escape})</td>
 				<th>Fixed Version:</th><td>{$VAL_FIXED_VERSION|escape}</td>
 			</tr>
-			<tr><th>{$smarty.const.STR_WO_CLOSEBY}:</th><td>{$VAL_CLOSEDBY|escape} ({$VAL_CLOSEDON|escape})</td>
+			<tr><th>{$smarty.const.STR_WO_CLOSEBY}:</th><td>{dcl_personnel_link text=$VAL_CLOSEDBY id=`$WorkOrder->closedby`} ({$VAL_CLOSEDON|escape})</td>
 				<th>{$smarty.const.STR_WO_CONTACT}:</th><td>{if $VAL_CONTACTID}{if $PERM_VIEWCONTACT}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$VAL_CONTACTID}">{/if}{$VAL_CONTACT|escape}{if $PERM_VIEWCONTACT}</a>{/if}{/if}</td>
 			</tr>
 			<tr><th>{$smarty.const.STR_WO_ESTSTART}:</th><td>{$VAL_ESTSTARTON|escape}</td>

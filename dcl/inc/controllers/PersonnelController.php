@@ -29,6 +29,12 @@ class PersonnelController
 		$presenter = new PersonnelPresenter();
 		$presenter->Index();
 	}
+	
+	public function Detail()
+	{
+		$presenter = new PersonnelPresenter();
+		$presenter->Detail();
+	}
 
 	public function Create()
 	{

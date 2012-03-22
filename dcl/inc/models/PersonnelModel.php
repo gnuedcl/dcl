@@ -120,4 +120,49 @@ class PersonnelModel extends DbProvider
 	{
 		$this->pwd = md5($this->pwd);
 	}
+	
+	public function GetStatusCount($personnelId)
+	{
+		$sql = 'SELECT s.name, count(*) FROM statuses s, workorders w WHERE ';
+		$sql .= "s.id = w.status AND s.dcl_status_type IN (1, 3) AND w.responsible=$personnelId ";
+		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	public function GetSeverityCount($personnelId)
+	{
+		$sql = 'SELECT s.name, count(*) FROM severities s, workorders w, statuses st WHERE ';
+		$sql .= "s.id = w.severity AND st.id = w.status AND st.dcl_status_type IN (1, 3) AND w.responsible=$personnelId ";
+		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	public function GetPriorityCount($personnelId)
+	{
+		$sql = 'SELECT s.name, count(*) FROM priorities s, workorders w, statuses st WHERE ';
+		$sql .= "s.id = w.priority AND st.id = w.status AND st.dcl_status_type IN (1, 3) AND w.responsible=$personnelId ";
+		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	public function GetProductCount($personnelId)
+	{
+		$sql = 'SELECT p.name, count(*) FROM products p, workorders w, statuses st WHERE ';
+		$sql .= "p.id = w.product AND st.id = w.status AND st.dcl_status_type IN (1, 3) AND w.responsible=$personnelId ";
+		$sql .= 'GROUP BY p.name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
+
+	public function GetTypeCount($personnelId)
+	{
+		$sql = 'SELECT t.type_name, count(*) FROM dcl_wo_type t, workorders w, statuses st WHERE ';
+		$sql .= "t.wo_type_id = w.wo_type_id AND st.id = w.status AND st.dcl_status_type IN (1, 3) AND w.responsible=$personnelId ";
+		$sql .= 'GROUP BY t.type_name ORDER BY 2 DESC';
+		
+		return $this->Query($sql);
+	}
 }

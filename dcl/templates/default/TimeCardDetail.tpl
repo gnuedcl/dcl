@@ -1,7 +1,7 @@
 <tr>
 	<td>
 		<dl>
-			<dt><strong>{$VAL_ACTIONBY|escape}</strong> {$VAL_SUMMARY|escape}</dt>
+			<dt><strong>{dcl_personnel_link text=$VAL_ACTIONBY id=`$TimeCard->actionby`}</strong> {$VAL_SUMMARY|escape}</dt>
 			<dd><strong>{$VAL_ACTION|escape}</strong> @ <strong>{$VAL_ACTIONON}</strong> for <strong>{$VAL_HOURS}</strong> Hours
 {if $IS_DELETE}
 		<form method="post" action="{$URL_MAIN_PHP}">
@@ -26,16 +26,4 @@
 		</dl>
 	</td>
 	{if $VAL_DESCRIPTION != ""}<td>{$VAL_DESCRIPTION|escape:"link"}</td>{/if}
-</tr><!-- 
-<tr><td colspan="2" class="formContainer">
-	<table width="100%" border="0" cellpadding="2" cellspacing="2">
-	<tr>
-		<td class="detailBox" colspan="2"><b>{$smarty.const.STR_CMMN_PUBLIC}:</b> {$VAL_PUBLIC}</td>
-	</tr>
-	<tr>
-		<td class="detailBox"><b>{$smarty.const.STR_TC_STATUS}:</b> {$VAL_STATUS|escape}<br><b>{$smarty.const.STR_TC_VERSION}:</b> {$VAL_REVISION|escape}</td>
-		<td class="detailBox"><b>{$smarty.const.STR_TC_ACTION}:</b> {$VAL_ACTION|escape}<br><b>{$smarty.const.STR_TC_HOURS}:</b> {$VAL_HOURS}</td>
-	</tr>
-	<tr><td colspan="2"><b>{$smarty.const.STR_TC_DESCRIPTION}:</b> {$VAL_DESCRIPTION|escape:"link"}</td></tr>
-	</table>
-</td></tr> -->
+</tr>

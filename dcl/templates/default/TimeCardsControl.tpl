@@ -37,7 +37,7 @@
 <tr>
 	<td>
 		<dl>
-			<dt>{dcl_gravatar userId=$VAL_TIMECARDS[tc].actionby_id style="float:left;margin-right:2px;"}<strong>{$VAL_TIMECARDS[tc].actionby|escape}</strong> <span class="status-type-{$VAL_TIMECARDS[tc].dcl_status_type}">{$VAL_TIMECARDS[tc].status|escape}</span> {$VAL_TIMECARDS[tc].summary|escape}</dt>
+			<dt>{dcl_gravatar userId=$VAL_TIMECARDS[tc].actionby_id style="float:left;margin-right:2px;"}<strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].actionby id=$VAL_TIMECARDS[tc].actionby_id}</strong> <span class="status-type-{$VAL_TIMECARDS[tc].dcl_status_type}">{$VAL_TIMECARDS[tc].status|escape}</span> {$VAL_TIMECARDS[tc].summary|escape}</dt>
 			<dd><strong>{$VAL_TIMECARDS[tc].action|escape}</strong> on <strong>{$VAL_TIMECARDS[tc].actionon}</strong> for <strong>{$VAL_TIMECARDS[tc].hours}</strong> Hours
 {if $VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
 		<form method="post" action="{$URL_MAIN_PHP}">
@@ -58,7 +58,7 @@
 {/if}
 			</dd>
 {if !$IS_PUBLIC && ($VAL_TIMECARDS[tc].reassign_from_id || $VAL_TIMECARDS[tc].reassign_to_id)}
-		<dd>Reassign <strong>{$VAL_TIMECARDS[tc].reassign_from_id|escape}</strong> to <strong>{$VAL_TIMECARDS[tc].reassign_to_id|escape}</strong></dd>
+		<dd>Reassign <strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].reassign_from_id id=$VAL_TIMECARDS[tc].reassign_from_id_int}</strong> to <strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].reassign_to_id id=$VAL_TIMECARDS[tc].reassign_to_id_int}</strong></dd>
 {/if}
 		</dl>
 		{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}<blockquote>{$VAL_TIMECARDS[tc].description|escape:"link"}</blockquote>{/if}
