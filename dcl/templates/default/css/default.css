@@ -1354,7 +1354,7 @@ input.wiki
 		display: none;
 	}
 	
-	div.listmenu
+	div.listmenu, div.sf-menu-container
 	{
 		display: none;
 	}
