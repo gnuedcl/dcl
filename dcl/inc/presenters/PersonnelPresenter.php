@@ -292,9 +292,9 @@ class PersonnelPresenter
     private function GetWorkOrderCodeSQL($personnelId)
     {
         return "select 3 AS type, SC.sccs_checkin_on, SC.dcl_entity_id, SC.dcl_entity_id2, P.projectid, P.name, W.summary, S.name, R.short, 'Checked in v' || SC.sccs_version || ' ' || SC.sccs_project_path || '/' || SC.sccs_file_name  from dcl_sccs_xref SC
-			JOIN projectmap M ON M.jcn = SC.dcl_entity_id AND M.seq IN (0, SC.dcl_entity_id2)
+			JOIN projectmap M ON M.jcn = SC.dcl_entity_id AND M.seq IN (0, SC.dcl_entity_id2) AND SC.dcl_entity_type_id = " . DCL_ENTITY_WORKORDER . "
 			JOIN dcl_projects P ON P.projectid = M.projectid
-			JOIN workorders W ON W.jcn = SC.dcl_entity_id AND M.seq IN (0, SC.dcl_entity_id2)
+			JOIN workorders W ON W.jcn = SC.dcl_entity_id AND W.seq = SC.dcl_entity_id2 AND SC.dcl_entity_type_id = " . DCL_ENTITY_WORKORDER . "
 			JOIN statuses S ON W.status = S.id
 			JOIN personnel R ON R.id = SC.personnel_id
 			where SC.personnel_id = $personnelId";
@@ -303,7 +303,7 @@ class PersonnelPresenter
     private function GetProjectCodeSQL($personnelId)
     {
         return "select 4 AS type, SC.sccs_checkin_on, SC.dcl_entity_id, SC.dcl_entity_id2, P.projectid, P.name, P.name, S.name, R.short, 'Checked in v' || SC.sccs_version || ' ' || SC.sccs_project_path || '/' || SC.sccs_file_name  from dcl_sccs_xref SC
-	        JOIN dcl_projects P ON P.projectid = SC.dcl_entity_id
+	        JOIN dcl_projects P ON P.projectid = SC.dcl_entity_id AND SC.dcl_entity_type_id = " . DCL_ENTITY_PROJECT . "
 	        JOIN statuses S ON P.status = S.id
 	        JOIN personnel R ON R.id = SC.personnel_id
 	        where SC.personnel_id = $personnelId";
