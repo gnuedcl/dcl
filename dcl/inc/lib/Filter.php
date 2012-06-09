@@ -22,6 +22,23 @@
 
 abstract class Filter
 {
+    public static function ToSqlName($vValue)
+    {
+        if (preg_match('/^[a-z][a-z0-9]+(\.[a-z0-9]+)?$/i', $vValue))
+            return ($vValue);
+
+        return null;
+    }
+
+    public static function RequireSqlName($vValue)
+    {
+        $parsedValue = Filter::ToSqlName($vValue);
+        if ($parsedValue === null)
+            throw new InvalidDataException();
+
+        return $parsedValue;
+    }
+
 	public static function ToInt($vValue, $default = null)
 	{
 		if (preg_match('/^[0-9]+$/', $vValue))

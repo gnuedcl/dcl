@@ -95,7 +95,9 @@ class StatusController
 	public function Destroy()
 	{
 		global $g_oSec;
-		
+
+        RequirePost();
+
 		if (!$g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 

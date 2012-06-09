@@ -41,6 +41,7 @@ class DbProvider extends AbstractDbProvider
 	{
 		parent::__construct();
 		$this->JoinKeyword = 'JOIN';
+        $this->LikeKeyword = 'ILIKE';
 	}
 
 	public function Connect($conn = '')

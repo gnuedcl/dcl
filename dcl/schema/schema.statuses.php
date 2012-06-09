@@ -33,4 +33,7 @@ $GLOBALS['phpgw_baseline']['statuses'] = array(
 	'ix' => array(),
 	'uc' => array()
 );
-?>
+
+$GLOBALS['phpgw_baseline']['statuses']['joins'] = array(
+	'dcl_status_type' => 'dcl_status_type.dcl_status_type_id = statuses.dcl_status_type'
+);

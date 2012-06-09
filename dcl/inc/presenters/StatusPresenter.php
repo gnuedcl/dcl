@@ -30,53 +30,13 @@ class StatusPresenter
 
 		commonHeader();
 		RequirePermission(DCL_ENTITY_STATUS, DCL_PERM_VIEW);
-		
-		$objDBStatus = new StatusModel();
-		$objDBStatus->Query("SELECT a.id,a.active,a.short,a.name,b.dcl_status_type_name FROM statuses a,dcl_status_type b WHERE b.dcl_status_type_id=a.dcl_status_type ORDER BY a.name");
-		$allRecs = $objDBStatus->FetchAllRows();
 
-		$oTable = new TableHtmlHelper();
-		$oTable->setCaption(STR_STAT_TABLETITLE);
-		$oTable->addColumn(STR_STAT_ID, 'numeric');
-		$oTable->addColumn(STR_STAT_ACTIVE, 'string');
-		$oTable->addColumn(STR_STAT_SHORT, 'string');
-		$oTable->addColumn(STR_STAT_NAME, 'string');
-		$oTable->addColumn(STR_STAT_TYPE, 'string');
-
-		if ($g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_ADD))
-		{
-			$oTable->addToolbar(menuLink('', 'menuAction=Status.Create'), STR_CMMN_NEW);
-		}
-
-		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-		{
-			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
-		}
-
-		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_STATUS => array($g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
-		{
-			$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
-			for ($i = 0; $i < count($allRecs); $i++)
-			{
-				$options = '';
-				if ($g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_MODIFY))
-					$options = '<a href="' . menuLink('', 'menuAction=Status.Edit&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
-
-				if ($g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_DELETE))
-				{
-					if ($options != '')
-						$options .= '&nbsp;|&nbsp;';
-
-					$options .= '<a href="' . menuLink('', 'menuAction=Status.Delete&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_DELETE . '</a>';
-				}
-
-				$allRecs[$i][] = $options;
-			}
-		}
-		
-		$oTable->setData($allRecs);
-		$oTable->setShowRownum(true);
-		$oTable->render();
+        $smartyHelper = new SmartyHelper();
+        $smartyHelper->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_ADD));
+        $smartyHelper->assign('PERM_EDIT', $g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_MODIFY));
+        $smartyHelper->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_STATUS, DCL_PERM_DELETE));
+        $smartyHelper->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW));
+        $smartyHelper->Render('StatusGrid.tpl');
 	}
 
 	public function Create()

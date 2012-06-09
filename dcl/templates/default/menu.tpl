@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="{$DIR_JS}/jqueryui/overcast/jquery-ui-1.8.17.custom.css" media="screen">
+<link rel="stylesheet" type="text/css" href="{$DIR_JS}/jqueryui/dcl/jquery-ui-1.8.21.custom.css" media="screen">
 <link rel="stylesheet" type="text/css" href="{$DIR_JS}/superfish/css/superfish.css" media="screen">
 <link rel="stylesheet" type="text/css" href="{$DIR_JS}/gritter/css/jquery.gritter.css" media="screen">
 <link rel="stylesheet" type="text/css" href="{$DIR_CSS}/css3buttons.css" media="screen">

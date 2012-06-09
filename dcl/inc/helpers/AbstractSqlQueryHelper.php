@@ -827,7 +827,7 @@ abstract class AbstractSqlQueryHelper
 			$joinsql = '';
 
 			// Ensure these join in the proper order
-			if (isset($this->joins['dcl_status_type']))
+			if ($this->table != 'statuses' && isset($this->joins['dcl_status_type']))
 			{
 				if (isset($this->joins['statuses']))
 				{

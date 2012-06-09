@@ -100,6 +100,11 @@ abstract class AbstractDbProvider
 	 * @var string
 	 */
 	var $JoinKeyword;
+    /**
+   	 * The keyword(s) used for performing a case-insensitive LIKE
+   	 * @var string
+   	 */
+   	var $LikeKeyword;
 	/**
 	 * The character used to escape single quotes in SQL queries
 	 * @var string
@@ -136,6 +141,7 @@ abstract class AbstractDbProvider
 		$this->foreignKeys = array();
 
 		$this->JoinKeyword = 'INNER JOIN';
+        $this->LikeKeyword = 'LIKE';
 		$this->emptyTimestamp = 'null';
 		$this->EscapeQuoteChar = "'";
 		$this->TableName = '';
