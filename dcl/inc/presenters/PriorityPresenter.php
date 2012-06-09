@@ -26,64 +26,23 @@ class PriorityPresenter
 {
 	public function Index()
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_VIEW))
-			throw new PermissionDeniedException();
+        RequirePermission(DCL_ENTITY_PRIORITY, DCL_PERM_VIEW);
 
-		$model = new PriorityModel();
-		$model->Query("SELECT id,active,short,name,weight FROM priorities ORDER BY name");
-		$allRecs = $model->FetchAllRows();
-
-		$oTable = new TableHtmlHelper();
-		$oTable->setCaption(STR_PRIO_TABLETITLE);
-		$oTable->addColumn(STR_PRIO_ID, 'numeric');
-		$oTable->addColumn(STR_PRIO_ACTIVE, 'string');
-		$oTable->addColumn(STR_PRIO_SHORT, 'string');
-		$oTable->addColumn(STR_PRIO_NAME, 'string');
-		$oTable->addColumn(STR_PRIO_WEIGHT, 'numeric');
-
-		if ($g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_ADD))
-			$oTable->addToolbar(menuLink('', 'menuAction=Priority.Create'), STR_CMMN_NEW);
-
-		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
-
-		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_PRIORITY => array($g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
-		{
-			$oTable->addColumn(STR_PRIO_OPTIONS, 'html');
-			$allName[] = STR_PRIO_OPTIONS;
-			for ($i = 0; $i < count($allRecs); $i++)
-			{
-				$options = '';
-				if ($g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_MODIFY))
-					$options = '<a href="' . menuLink('', 'menuAction=Priority.Edit&id=' . $allRecs[$i][0]) . '">' . htmlentities(STR_CMMN_EDIT) . '</a>';
-
-				if ($g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_DELETE))
-				{
-					if ($options != '')
-						$options .= '&nbsp;|&nbsp;';
-
-					$options .= '<a href="' . menuLink('', 'menuAction=Priority.Delete&id=' . $allRecs[$i][0]) . '">' . htmlentities(STR_CMMN_DELETE) . '</a>';
-				}
-
-				$allRecs[$i][] = $options;
-			}
-		}
-		
-		$oTable->setData($allRecs);
-		$oTable->setShowRownum(true);
-		$oTable->render();
+        $smartyHelper = new SmartyHelper();
+        $smartyHelper->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_ADD));
+        $smartyHelper->assign('PERM_EDIT', $g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_MODIFY));
+        $smartyHelper->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_DELETE));
+        $smartyHelper->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW));
+        $smartyHelper->Render('PriorityGrid.tpl');
 	}
 
 	public function Create()
 	{
-		global $g_oSec;
-
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_ADD))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_PRIORITY, DCL_PERM_ADD);
 
 		$t = new SmartyHelper();
 
@@ -96,11 +55,8 @@ class PriorityPresenter
 
 	public function Edit(PriorityModel $model)
 	{
-		global $g_oSec;
-
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
+        RequirePermission(DCL_ENTITY_PRIORITY, DCL_PERM_MODIFY);
 
 		$t = new SmartyHelper();
 
@@ -117,11 +73,8 @@ class PriorityPresenter
 
 	public function Delete(PriorityModel $model)
 	{
-		global $g_oSec;
-
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PRIORITY, DCL_PERM_DELETE))
-			throw new PermissionDeniedException();
+        RequirePermission(DCL_ENTITY_PRIORITY, DCL_PERM_DELETE);
 
 		ShowDeleteYesNo('Priority', 'Priority.Destroy', $model->id, $model->name);
 	}

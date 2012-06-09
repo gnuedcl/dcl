@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2012 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,12 +20,12 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class StatusService
+class PriorityService
 {
-	public function GetData()
-	{
+    public function GetData()
+   	{
         $page = @Filter::ToInt($_REQUEST['page']);
-		$limit = @Filter::ToInt($_REQUEST['rows']);
+        $limit = @Filter::ToInt($_REQUEST['rows']);
         $sidx = @Filter::ToSqlName($_REQUEST['sidx']);
         $sord = isset($_REQUEST['sord']) ? $_REQUEST['sord'] : 'asc';
 
@@ -34,28 +34,26 @@ class StatusService
 
         if ($sidx === null)
             $sidx = 'name';
-        else if ($sidx === 'type')
-            $sidx = 'dcl_status_type.dcl_status_type_name';
 
-        $validColumns = array('id', 'short', 'active', 'name', 'dcl_status_type.dcl_status_type_name');
+   		if ($page === null)
+   			$page = 1;
+
+   		if ($limit === null)
+   			$limit = 1;
+
+        $validColumns = array('id', 'short', 'active', 'name', 'weight');
         if (!in_array($sidx, $validColumns))
             $sidx = 'name';
-
-		if ($page === null)
-			$page = 1;
-		
-		if ($limit === null)
-			$limit = 1;
 
         $idFilter = @Filter::ToInt($_REQUEST['id']);
         $shortFilter = @$_REQUEST['short'];
         $activeFilter = isset($_REQUEST['active']) ? @Filter::ToYN($_REQUEST['active']) : null;
         $nameFilter = @$_REQUEST['name'];
-        $typeFilter = @Filter::ToInt($_REQUEST['type']);
+        $weightFilter = @Filter::ToInt($_REQUEST['weight']);
 
-        $model = new StatusModel();
-        $queryHelper = new StatusSqlQueryHelper();
-        $queryHelper->AddDef('columns', '', array('id', 'active', 'short', 'name', 'dcl_status_type.dcl_status_type_name'));
+        $model = new PriorityModel();
+        $queryHelper = new PrioritySqlQueryHelper();
+        $queryHelper->AddDef('columns', '', array('id', 'active', 'short', 'name', 'weight'));
 
         if ($idFilter !== null)
             $queryHelper->AddDef('filter', 'id', $idFilter);
@@ -69,35 +67,35 @@ class StatusService
         if (isset($nameFilter))
             $queryHelper->AddDef('filterlike', 'name', $nameFilter);
 
-        if ($typeFilter !== null)
-            $queryHelper->AddDef('filter', 'dcl_status_type', $typeFilter);
+        if ($weightFilter !== null)
+            $queryHelper->AddDef('filter', 'weight', $weightFilter);
 
         $queryHelper->AddDef('order', '', array($sidx . ' ' . $sord));
 
-		$retVal = new stdClass();
-		$retVal->records = $model->ExecuteScalar($queryHelper->GetSQL(true));
+   		$retVal = new stdClass();
+   		$retVal->records = $model->ExecuteScalar($queryHelper->GetSQL(true));
         $retVal->page = $page;
-		$retVal->total = ceil($retVal->records / $limit);
+   		$retVal->total = ceil($retVal->records / $limit);
 
         $query = $queryHelper->GetSQL();
-		if ($limit > 0)
-			$model->LimitQuery($query, ($page - 1) * $limit, $limit);
-		else
-			$model->Query($query);
+   		if ($limit > 0)
+   			$model->LimitQuery($query, ($page - 1) * $limit, $limit);
+   		else
+   			$model->Query($query);
 
-		$allRecs = $model->FetchAllRows();
-		
+   		$allRecs = $model->FetchAllRows();
+
         $retVal->rows = array();
-		if ($retVal->records > 0)
-		{
+   		if ($retVal->records > 0)
+   		{
             foreach ($allRecs as $record)
             {
                 $retVal->rows[] = array('id' => $record[0], 'cell' => $record);
             }
-		}
+   		}
 
-		header('Content-Type: application/json');
-		echo json_encode($retVal);
-		exit;
-	}
+   		header('Content-Type: application/json');
+   		echo json_encode($retVal);
+   		exit;
+   	}
 }
