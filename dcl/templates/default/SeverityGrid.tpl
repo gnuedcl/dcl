@@ -27,7 +27,7 @@
 		   		{name: 'short', index: 'short', width: 55},
 		   		{name: 'name', index: 'name', width: 100},
 		   		{name: 'weight', index: 'weight', width: 55},
-		   		{name: 'options', index: 'options', width: 80, search: false, formatter: formatOptions}
+		   		{name: 'options', index: 'options', width: 80, search: false, sortable: false, formatter: formatOptions}
 		   	],
 		   	rowNum: 25,
 		   	rowList: [25, 50, 100],

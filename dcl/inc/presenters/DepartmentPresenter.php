@@ -26,54 +26,17 @@ class DepartmentPresenter
 {
 	public function Index()
 	{
-		global $dcl_info, $g_oSec;
+        global $g_oSec;
 
-		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_VIEW))
-			throw new PermissionDeniedException();
+        commonHeader();
+        RequirePermission(DCL_ENTITY_DEPARTMENT, DCL_PERM_VIEW);
 
-		$model = new DepartmentModel();
-
-		$model->Query("SELECT id,active,short,name FROM departments ORDER BY name");
-		$allRecs = $model->FetchAllRows();
-
-		$oTable = new TableHtmlHelper();
-		$oTable->setCaption(STR_DEPT_TABLETITLE);
-		$oTable->addColumn(STR_DEPT_ID, 'numeric');
-		$oTable->addColumn(STR_DEPT_ACTIVE, 'string');
-		$oTable->addColumn(STR_DEPT_SHORT, 'string');
-		$oTable->addColumn(STR_DEPT_NAME, 'string');
-
-		if ($g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_ADD))
-			$oTable->addToolbar(menuLink('', 'menuAction=Department.Create'), STR_CMMN_NEW);
-
-		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
-			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
-
-		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_DEPARTMENT => array($g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
-		{
-			$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
-			for ($i = 0; $i < count($allRecs); $i++)
-			{
-				$options = '';
-				if ($g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_MODIFY))
-					$options = '<a href="' . menuLink('', 'menuAction=Department.Edit&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
-
-				if ($g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_DELETE))
-				{
-					if ($options != '')
-						$options .= '&nbsp;|&nbsp;';
-
-					$options .= '<a href="' . menuLink('', 'menuAction=Department.Delete&id=' . $allRecs[$i][0]) . '">' . STR_CMMN_DELETE . '</a>';
-				}
-
-				$allRecs[$i][] = $options;
-			}
-		}
-		
-		$oTable->setData($allRecs);
-		$oTable->setShowRownum(true);
-		$oTable->render();
+        $smartyHelper = new SmartyHelper();
+        $smartyHelper->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_ADD));
+        $smartyHelper->assign('PERM_EDIT', $g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_MODIFY));
+        $smartyHelper->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_DEPARTMENT, DCL_PERM_DELETE));
+        $smartyHelper->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW));
+        $smartyHelper->Render('DepartmentGrid.tpl');
 	}
 
 	public function Create()
