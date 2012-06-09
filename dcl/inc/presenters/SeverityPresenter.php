@@ -26,6 +26,18 @@ class SeverityPresenter
 {
 	public function Index()
 	{
+        global $g_oSec;
+
+        commonHeader();
+        RequirePermission(DCL_ENTITY_SEVERITY, DCL_PERM_VIEW);
+
+        $smartyHelper = new SmartyHelper();
+        $smartyHelper->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_ADD));
+        $smartyHelper->assign('PERM_EDIT', $g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_MODIFY));
+        $smartyHelper->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_SEVERITY, DCL_PERM_DELETE));
+        $smartyHelper->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW));
+        $smartyHelper->Render('SeverityGrid.tpl');
+        return;
 		global $g_oSec;
 
 		commonHeader();
