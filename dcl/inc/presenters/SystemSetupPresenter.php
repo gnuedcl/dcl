@@ -42,7 +42,7 @@ class SystemSetupPresenter
 	private function GetOptions()
 	{
 		return array(
-			'htmlRole.show' => array(
+			'Role.Index' => array(
 				'action' => STR_ADMIN_SECURITY,
 				'description' => STR_ADMIN_SECURITYDESC,
 				'note' => STR_ADMIN_SECURITYNOTE

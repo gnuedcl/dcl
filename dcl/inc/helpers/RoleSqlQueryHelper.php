@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2011 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,31 +20,11 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class htmlRole
+class RoleSqlQueryHelper extends AbstractSqlQueryHelper
 {
-	function GetCombo($default = 0, $cbName = 'role_id', $size = 0, $activeOnly = true)
+	public function __construct()
 	{
-		$oDB = new RoleModel();
-		$oDB->cacheEnabled = false;
-
-		$query = "SELECT role_id, role_desc FROM dcl_role ";
-		if ($activeOnly)
-			$query .= "WHERE active='Y' ";
-
-		$query .= "ORDER BY role_desc";
-
-		$oDB->Query($query);
-
-		$oSelect = new SelectHtmlHelper();
-		$oSelect->DefaultValue = $default;
-		$oSelect->Id = $cbName;
-		$oSelect->Size = $size;
-		$oSelect->FirstOption = STR_CMMN_SELECTONE;
-		$oSelect->CastToInt = true;
-
-		while ($oDB->next_record())
-			$oSelect->AddOption($oDB->f(0), $oDB->f(1));
-
-		return $oSelect->GetHTML();
+		parent::__construct();
+		$this->table = 'dcl_role';
 	}
 }

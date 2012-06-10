@@ -1,37 +1,22 @@
+<style type="text/css">{literal}
+	label.role-label { padding: 2px; border-radius: 5px; }
+{/literal}</style>
 <script language="JavaScript">
 {literal}
-var sLastLayer = 'div1';
+$(document).ready(function() {
+	$("input.permission").on("change", function() {
+		if ($(this).prop("checked")) {
+			$("#" + $(this).attr("id") + "_label").css({color: "#ffffff", backgroundColor: "#006500"});
+		}
+		else {
+			$("#" + $(this).attr("id") + "_label").css({color: "#555555", backgroundColor: "transparent"});
+		}
+	}).trigger("change");
+});
+
 function validateAndSubmit(f)
 {
 	f.submit();
-}
-function showHide(sLayer)
-{
-	if (sLastLayer == sLayer)
-		return;
-
-	var oDiv = document.getElementById(sLayer);
-	var oDivCurrent = document.getElementById(sLastLayer);
-
-	if (oDivCurrent)
-		oDivCurrent.style.display = 'none';
-
-	if (oDiv)
-		oDiv.style.display = '';
-
-	sLastLayer = sLayer;
-}
-function togglePerm(oControl)
-{
-	if (!oControl)
-		return;
-
-	var oLabel = document.getElementById(oControl.id + '_label');
-	if (!oLabel)
-		return;
-
-	oLabel.style.color = oControl.checked ? "#000000" : "#555555";
-	oLabel.style.fontWeight = oControl.checked ? "bold" : "normal";
 }
 {/literal}
 </script>
@@ -50,8 +35,8 @@ function togglePerm(oControl)
 			{foreach item=permItem key=entityPerm from=$entityPerms}
 				{strip}
 				<span style="white-space: nowrap;">
-				<input type="checkbox" name="rolePerms[]" onclick="togglePerm(this);" id="rolePerm{$entityPerm}" value="{$entityPerm}"{if $permItem.selected == "true"} checked{/if}>
-				<label id="rolePerm{$entityPerm}_label" for="rolePerm{$entityPerm}" style="{if $permItem.selected == "true"}color: #000000; font-weight: bold;{else}color: #555555; font-weight: normal;{/if}">{$permItem.desc}</label>&nbsp;
+				<input type="checkbox" class="permission" name="rolePerms[]" id="rolePerm{$entityPerm}" value="{$entityPerm}"{if $permItem.selected == "true"} checked{/if}>
+				<label class="role-label" id="rolePerm{$entityPerm}_label" for="rolePerm{$entityPerm}">{$permItem.desc}</label>&nbsp;
 				</span>
 				{/strip}
 			{/foreach}
@@ -61,7 +46,7 @@ function togglePerm(oControl)
 		<tr class="formFooter">
 			<td style="text-align: right;" colspan="2">
 				<input type="button" onclick="validateAndSubmit(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-				<input type="button" onclick="location.href='{$WWW_ROOT}main.php?menuAction=htmlRole.show';" value="{$smarty.const.STR_CMMN_CANCEL}">
+				<input type="button" onclick="location.href='{$WWW_ROOT}main.php?menuAction=Role.Index';" value="{$smarty.const.STR_CMMN_CANCEL}">
 			</td>
 		</tr>
 	</table>
