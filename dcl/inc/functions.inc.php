@@ -659,7 +659,7 @@ function buildMenuArray()
 			DCL_MENU_FAQS => array('Faq.Index', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW)),
 			DCL_MENU_DCLHOMEPAGE => array('http://dcl.sourceforge.net/index.php', true),
 			'GNU Enterprise' => array('http://www.gnuenterprise.org/index.php', true),
-			DCL_MENU_LICENSEINFO => array(DCL_WWW_ROOT . 'gpl.php', true),
+			DCL_MENU_LICENSEINFO => array('License.Index', true),
 			DCL_MENU_VERSIONINFO => array('About.Detail', true)
 		);
 }
