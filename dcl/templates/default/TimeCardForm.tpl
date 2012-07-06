@@ -148,7 +148,7 @@ function validateAndSubmitForm(form)
 			{dcl_selector_org name="secaccounts" value="$VAL_ORGID" decoded="$VAL_ORGNAME" multiple="$VAL_MULTIORG"}
 		</div>
 		<div class="noinput">
-			<div id="div_secaccounts" style="width: 100%;"><script language="JavaScript">render_a_secaccounts();</script></div>
+			<div id="div_secaccounts" style="width: 100%;"></div>
 		</div>
 		{/if}
 		{if $PERM_ATTACHFILE && $VAL_MAXUPLOADFILESIZE > 0}
@@ -173,6 +173,10 @@ function validateAndSubmitForm(form)
 	//<![CDATA[{literal}
 	$(document).ready(function() {
 		$("textarea").BetterGrow();
+
+		if (typeof render_a_secaccounts == "function") {
+			render_a_secaccounts();
+		}
 
 		function split(val) {
 			return val.split(/,\s*/);

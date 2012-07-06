@@ -971,7 +971,7 @@ class WorkOrderPresenter
 		$aOrgID = array();
 		$aOrgName = array();
 		if ($viewData->OrganizationId == 0 && $g_oSession->Value('member_of_orgs') != '')
-			$viewData->OrganizationId = array_shift(split(',', $g_oSession->Value('member_of_orgs')));
+			$viewData->OrganizationId = array_shift(explode(',', $g_oSession->Value('member_of_orgs')));
 
 		if ($viewData->OrganizationId > 0)
 		{

@@ -161,7 +161,7 @@ class WorkOrderFormViewData
 			while ($workOrderOrgsModel->next_record())
 			{
 				$organizationIds[] = $workOrderOrgsModel->f('account_id');
-				$organizationNames[] = $workOrderOrgsModel->f('account_id');
+				$organizationNames[] = $workOrderOrgsModel->f('name');
 			}
 		}
 		

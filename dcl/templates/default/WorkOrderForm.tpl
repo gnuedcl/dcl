@@ -176,7 +176,7 @@ function UpdateOptions()
 		</div>
 		<div class="required">
 			<label for="esthours">{$smarty.const.STR_WO_ESTHOURS}:</label>
-			<input type="text" name="esthours" size="6" maxlength="6" value="{$ViewData->EstHours}">
+			<input type="text" name="esthours" id="esthours" size="6" maxlength="6" value="{$ViewData->EstHours}">
 		</div>
 {elseif $ViewData->CanAction && !$ViewData->IsPublicUser}
 		<div>
@@ -205,13 +205,13 @@ function UpdateOptions()
 			{dcl_selector_org name="secaccounts" value="`$ViewData->OrganizationIdCollection`" decoded="`$ViewData->OrganizationNameCollection`" multiple="`$ViewData->MultiOrganizationEnabled`"}
 		</div>
 		<div class="noinput">
-			<div id="div_secaccounts" style="width: 100%;"><script language="JavaScript">render_a_secaccounts();</script></div>
+			<div id="div_secaccounts" style="width: 100%;"></div>
 		</div>
 	</tr>
 {/if}
 		<div class="required">
 			<label for="summary">{$smarty.const.STR_WO_SUMMARY}:</label>
-			<input type="text" name="summary" size="50" maxlength="100" value="{$ViewData->Summary|escape}">
+			<input type="text" name="summary" id="summary" size="50" maxlength="100" value="{$ViewData->Summary|escape}">
 		</div>
 		<div>
 			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
@@ -225,11 +225,11 @@ function UpdateOptions()
 		</div>
 		<div>
 			<label for="notes">{$smarty.const.STR_WO_NOTES}:</label>
-			<textarea name="notes" rows="4" cols="70" wrap valign="top">{$ViewData->Notes|escape}</textarea>
+			<textarea name="notes" id="notes" rows="4" cols="70" wrap valign="top">{$ViewData->Notes|escape}</textarea>
 		</div>
 		<div class="required">
 			<label for="description">{$smarty.const.STR_WO_DESCRIPTION}:</label>
-			<textarea name="description" rows="4" cols="70" wrap valign="top">{$ViewData->Description|escape}</textarea>
+			<textarea name="description" id="description" rows="4" cols="70" wrap valign="top">{$ViewData->Description|escape}</textarea>
 		</div>
 		<div class="required">
 			<label for="copy_me_on_notification">Copy Me on Notification:</label>
@@ -278,6 +278,10 @@ function UpdateOptions()
 		}
 
 		$("textarea").BetterGrow();
+
+		if (typeof render_a_secaccounts == "function") {
+			render_a_secaccounts();
+		}
 
 		function split(val) {
 			return val.split(/,\s*/);
