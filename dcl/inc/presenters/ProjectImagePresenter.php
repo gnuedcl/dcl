@@ -75,8 +75,8 @@ class ProjectImagePresenter
 			$aItem[] = '0: No Matches';
 		}
 
-		$iWidth = 460;
-		$iHeight = count($aCount) > 9 ? 220 : 200;
+		$iWidth = 540;
+		$iHeight = 240;
 		$this->_imageHelper = new ChartHelper($iWidth, $iHeight);
 		
 		$this->_imageHelper->Data->AddPoint($aCount, 'Count');
@@ -88,13 +88,13 @@ class ProjectImagePresenter
 		foreach ($this->_additionalColors as $rgb)
 			$this->_imageHelper->Chart->setColorPalette($iIndex++, $rgb[0], $rgb[1], $rgb[2]);
 				
-		$this->_imageHelper->Chart->drawFilledRoundedRectangle(7, 7, $iWidth - 7, $iHeight - 7, 5, 240, 240, 240);
-		$this->_imageHelper->Chart->drawRoundedRectangle(5, 5, $iWidth - 5, $iHeight - 5, 5, 230, 230, 230);
+		$this->_imageHelper->Chart->drawGraphAreaGradient(250, 250, 250, 50, TARGET_BACKGROUND);
 		
-		$this->_imageHelper->Chart->drawPieGraph($this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 150, 90, 110, PIE_PERCENTAGE, true, 50, 20, 5);
+		$this->_imageHelper->Chart->drawPieGraph($this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 150, 110, 110, PIE_PERCENTAGE, true, 50, 20, 5);
 		$this->_imageHelper->Chart->drawPieLegend(310, 30, $this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 250, 250, 250);
-		$this->_imageHelper->Chart->drawTitle(314, 24, $sTitle, 32, 32, 32);
-		
+		$this->_imageHelper->Chart->drawTextBox(0, 0, 540, 20, $sTitle, 0, 255, 255, 255, ALIGN_CENTER, true, 0, 0, 0, 40);
+		$this->_imageHelper->Chart->addBorder(2);
+
 		$this->_imageHelper->Chart->Stroke();
 		exit;
 	}
