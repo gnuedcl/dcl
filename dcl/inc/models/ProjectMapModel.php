@@ -118,57 +118,65 @@ class ProjectMapModel extends DbProvider
 
 		return $this->GetRow();
 	}
+
+	private function GetProjectClause($projectId, $children)
+	{
+		if (is_array($children))
+			return "IN ($projectId," . join(',', $children) . ')';
+
+		return "=$projectId";
+	}
 	
-	public function GetStatusCount($projectid)
+	public function GetStatusCount($projectid, $children)
 	{
-		$sql = 'SELECT s.name, count(*) FROM statuses s, workorders w, projectmap p WHERE ';
-		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.status AND p.projectid=$projectid ";
-		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		$sql = 'SELECT s.name, count(*) FROM statuses s, workorders w, projectmap p WHERE';
+		$sql .= " w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.status AND p.projectid " . $this->GetProjectClause($projectid, $children);
+		$sql .= ' GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
 	}
 
-	public function GetSeverityCount($projectid)
+	public function GetSeverityCount($projectid, $children)
 	{
-		$sql = 'SELECT s.name, count(*) FROM severities s, workorders w, projectmap p WHERE ';
-		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.severity AND p.projectid=$projectid ";
-		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		$sql = 'SELECT s.name, count(*) FROM severities s, workorders w, projectmap p WHERE';
+		$sql .= " w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.severity AND p.projectid " . $this->GetProjectClause($projectid, $children);
+		$sql .= ' GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
 	}
 
-	public function GetPriorityCount($projectid)
+	public function GetPriorityCount($projectid, $children)
 	{
-		$sql = 'SELECT s.name, count(*) FROM priorities s, workorders w, projectmap p WHERE ';
-		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.priority AND p.projectid=$projectid ";
-		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
+		$sql = 'SELECT s.name, count(*) FROM priorities s, workorders w, projectmap p WHERE';
+		$sql .= " w.jcn=p.jcn AND p.seq IN (0, w.seq) AND s.id = w.priority AND p.projectid " . $this->GetProjectClause($projectid, $children);
+		$sql .= ' GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
 	}
 
-	public function GetDepartmentCount($projectid)
+	public function GetDepartmentCount($projectid, $children)
 	{
-		$sql = 'SELECT d.name, count(*) FROM departments d, personnel u, workorders w, projectmap p WHERE ';
-		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND w.responsible = u.id AND d.id = u.department AND p.projectid=$projectid ";
-		$sql .= 'GROUP BY d.name ORDER BY 2 DESC';
+		$sql = 'SELECT d.name, count(*) FROM departments d, personnel u, workorders w, projectmap p WHERE';
+		$sql .= " w.jcn=p.jcn AND p.seq IN (0, w.seq) AND w.responsible = u.id AND d.id = u.department AND p.projectid " . $this->GetProjectClause($projectid, $children);
+		$sql .= ' GROUP BY d.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
 	}
 
-	public function GetModuleCount($projectid)
+	public function GetModuleCount($projectid, $children)
 	{
-		$sql = 'SELECT m.module_name, count(*) FROM dcl_product_module m, workorders w, projectmap p WHERE ';
-		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND m.product_module_id = w.module_id AND p.projectid=$projectid ";
-		$sql .= 'GROUP BY m.module_name ORDER BY 2 DESC';
+		$sql = 'SELECT m.module_name, count(*) FROM dcl_product_module m, workorders w, projectmap p WHERE';
+		$sql .= " w.jcn=p.jcn AND p.seq IN (0, w.seq) AND m.product_module_id = w.module_id AND p.projectid " . $this->GetProjectClause($projectid, $children);
+		$sql .= ' GROUP BY m.module_name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
 	}
 
-	public function GetTypeCount($projectid)
+	public function GetTypeCount($projectid, $children)
 	{
-		$sql = 'SELECT t.type_name, count(*) FROM dcl_wo_type t, workorders w, projectmap p WHERE ';
-		$sql .= "w.jcn=p.jcn AND p.seq IN (0, w.seq) AND t.wo_type_id = w.wo_type_id AND p.projectid=$projectid ";
-		$sql .= 'GROUP BY t.type_name ORDER BY 2 DESC';
+		$sql = 'SELECT t.type_name, count(*) FROM dcl_wo_type t, workorders w, projectmap p WHERE';
+		$sql .= " w.jcn=p.jcn AND p.seq IN (0, w.seq) AND t.wo_type_id = w.wo_type_id AND p.projectid " . $this->GetProjectClause($projectid, $children);
+		$sql .= ' GROUP BY t.type_name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
 	}

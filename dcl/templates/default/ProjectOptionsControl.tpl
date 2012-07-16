@@ -2,7 +2,7 @@
 <ul>
 {strip}
 {assign var="ctlProjectOptions_isfirst" value="true"}
-<li {if $ctlProjectOptions_isfirst == "true"}{assign var="ctlProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=htmlProjectDashboard.show&id={$VAL_PROJECTID}">Dashboard</a></li>
+<li {if $ctlProjectOptions_isfirst == "true"}{assign var="ctlProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=Project.Dashboard&id={$VAL_PROJECTID}">Dashboard</a></li>
 <li {if $ctlProjectOptions_isfirst == "true"}{assign var="ctlProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boProjects.viewproject&project={$VAL_PROJECTID}">Tasks</a></li>
 <li {if $ctlProjectOptions_isfirst == "true"}{assign var="ctlProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boProjects.showtree&project={$VAL_PROJECTID}">Tree</a></li>
 <li {if $ctlProjectOptions_isfirst == "true"}{assign var="ctlProjectOptions_isfirst" value="false"}class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction=boWatches.add&typeid=2&whatid1={$VAL_PROJECTID}">Watch</a></li>

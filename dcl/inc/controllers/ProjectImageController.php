@@ -25,48 +25,54 @@ class ProjectImageController
 	public function StatusChart()
 	{
 		$projectId = @Filter::RequireInt($_REQUEST['id']);
+		$children = @Filter::ToIntArray($_REQUEST['children']);
 		
 		$presenter = new ProjectImagePresenter();
-		$presenter->StatusChart($projectId);
+		$presenter->StatusChart($projectId, $children);
 	}
 	
 	public function DepartmentChart()
 	{
 		$projectId = @Filter::RequireInt($_REQUEST['id']);
-		
+		$children = @Filter::ToIntArray($_REQUEST['children']);
+
 		$presenter = new ProjectImagePresenter();
-		$presenter->DepartmentChart($projectId);
+		$presenter->DepartmentChart($projectId, $children);
 	}
 	
 	public function SeverityChart()
 	{
 		$projectId = @Filter::RequireInt($_REQUEST['id']);
-		
+		$children = @Filter::ToIntArray($_REQUEST['children']);
+
 		$presenter = new ProjectImagePresenter();
-		$presenter->SeverityChart($projectId);
+		$presenter->SeverityChart($projectId, $children);
 	}
 	
 	public function PriorityChart()
 	{
 		$projectId = @Filter::RequireInt($_REQUEST['id']);
-		
+		$children = @Filter::ToIntArray($_REQUEST['children']);
+
 		$presenter = new ProjectImagePresenter();
-		$presenter->PriorityChart($projectId);
+		$presenter->PriorityChart($projectId, $children);
 	}
 	
 	public function ModuleChart()
 	{
 		$projectId = @Filter::RequireInt($_REQUEST['id']);
-		
+		$children = @Filter::ToIntArray($_REQUEST['children']);
+
 		$presenter = new ProjectImagePresenter();
-		$presenter->ModuleChart($projectId);
+		$presenter->ModuleChart($projectId, $children);
 	}
 	
 	public function TypeChart()
 	{
 		$projectId = @Filter::RequireInt($_REQUEST['id']);
-		
+		$children = @Filter::ToIntArray($_REQUEST['children']);
+
 		$presenter = new ProjectImagePresenter();
-		$presenter->TypeChart($projectId);
+		$presenter->TypeChart($projectId, $children);
 	}
 }

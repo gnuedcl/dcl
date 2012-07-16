@@ -99,67 +99,67 @@ class ProjectImagePresenter
 		exit;
 	}
 	
-	public function StatusChart($projectId)
+	public function StatusChart($projectId, $children)
 	{
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 			
 		$model = new ProjectMapModel();
-		if ($model->GetStatusCount($projectId) == -1)
+		if ($model->GetStatusCount($projectId, $children) == -1)
 			exit;
 
 		$this->RenderPieChart($model, 'Work Orders By Status');
 	}
 	
-	public function DepartmentChart($projectId)
+	public function DepartmentChart($projectId, $children)
 	{
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 			
 		$oDB = new ProjectMapModel();
-		if ($oDB->GetDepartmentCount($projectId) == -1)
+		if ($oDB->GetDepartmentCount($projectId, $children) == -1)
 			exit;
 
 		$this->RenderPieChart($oDB, 'Work Orders By Department');
 	}
 	
-	public function SeverityChart($projectId)
+	public function SeverityChart($projectId, $children)
 	{
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 			
 		$model = new ProjectMapModel();
-		if ($model->GetSeverityCount($projectId) == -1)
+		if ($model->GetSeverityCount($projectId, $children) == -1)
 			exit;
 
 		$this->RenderPieChart($model, 'Work Orders By Severity');
 	}
 	
-	public function PriorityChart($projectId)
+	public function PriorityChart($projectId, $children)
 	{
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 			
 		$model = new ProjectMapModel();
-		if ($model->GetPriorityCount($projectId) == -1)
+		if ($model->GetPriorityCount($projectId, $children) == -1)
 			exit;
 
 		$this->RenderPieChart($model, 'Work Orders By Priority');
 	}
 	
-	public function ModuleChart($projectId)
+	public function ModuleChart($projectId, $children)
 	{
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 			
 		$model = new ProjectMapModel();
-		if ($model->GetModuleCount($projectId) == -1)
+		if ($model->GetModuleCount($projectId, $children) == -1)
 			exit;
 
 		$this->RenderPieChart($model, 'Work Orders By Module');
 	}
 	
-	public function TypeChart($projectId)
+	public function TypeChart($projectId, $children)
 	{
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 			
 		$model = new ProjectMapModel();
-		if ($model->GetTypeCount($projectId) == -1)
+		if ($model->GetTypeCount($projectId, $children) == -1)
 			exit;
 
 		$this->RenderPieChart($model, 'Work Orders By Type');
