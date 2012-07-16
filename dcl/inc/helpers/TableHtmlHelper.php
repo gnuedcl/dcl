@@ -128,6 +128,18 @@ class TableHtmlHelper
 	
 	public function render()
 	{
+		$this->AssignTableValues();
+		$this->oSmarty->Render($this->sTemplate);
+	}
+
+	public function fetch()
+	{
+		$this->AssignTableValues();
+		return $this->oSmarty->ToString($this->sTemplate);
+	}
+
+	private function AssignTableValues()
+	{
 		$this->oSmarty->assign('columns', $this->aCols);
 		$this->oSmarty->assign('footer', $this->aFooter);
 		$this->oSmarty->assign('records', $this->aData);
@@ -140,7 +152,5 @@ class TableHtmlHelper
 		$this->oSmarty->assign('checkvals', $this->aCheckVals);
 		$this->oSmarty->assign('width', $this->sWidth);
 		$this->oSmarty->assign('spacer', $this->bSpacer);
-		
-		$this->oSmarty->Render($this->sTemplate);
 	}
 }

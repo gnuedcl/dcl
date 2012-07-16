@@ -138,8 +138,6 @@ class PersonnelPresenter
 		$smarty->assign_by_ref('Personnel', $personnelModel);
 		$smarty->assign_by_ref('Contact', $contactModel);
 		
-		$smarty->Render('PersonnelDetail.tpl');
-		
 		$sSQL = '';
 	    $sSQL = $this->GetScopeSQL($personnelId);
         $sSQL .= ' UNION ALL ';
@@ -186,8 +184,10 @@ class PersonnelPresenter
     		
     		$oTable->setData($aResults);
     		$oTable->setShowRownum(true);
-    		$oTable->render();
+			$smarty->assign('VAL_RECENTACTIVITY', $oTable->fetch());
 		}
+
+		$smarty->Render('PersonnelDetail.tpl');
 	}
 
 	public function Create()
