@@ -103,7 +103,7 @@
 			<td class="numeric">{$VAL_TASKS[row].projected}</td>
 			<td class="numeric">{$VAL_TASKS[row].plusminus}</td>
 			<td class="numeric">{$VAL_TASKS[row].pctcomplete}</td>
-			<td class="string">{$VAL_TASKS[row].summary}</td>
+			<td class="string">{$VAL_TASKS[row].summary|escape}</td>
 		</tr>
 	{if $smarty.section.row.last}</tbody>{/if}
 {/section}
