@@ -107,10 +107,9 @@ class htmlOrg
 		$oMeta = new DisplayHelper();
 		$aOrg = $oMeta->GetOrganization($id);
 		
-		$objView = new boView();
+		$objView = new WorkOrderSqlQueryHelper();
 		$objView->title = sprintf('%s Work Orders', $aOrg['name']);
 		$objView->style = 'report';
-		$objView->table = 'workorders';
 		$objView->AddDef('columns', '', array('jcn', 'seq', 'priorities.name', 'severities.name', 'responsible.short', 'deadlineon', 'summary'));
 		$objView->AddDef('columnhdrs', '', array(
 				STR_WO_STATUS,
