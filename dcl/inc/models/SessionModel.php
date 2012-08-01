@@ -205,14 +205,14 @@ class SessionModel extends DbProvider
 		
 		$aProducts = array();
 		if ($g_oSec->IsOrgUser())
-			$aProducts = split(',', $this->Value('org_products'));
+			$aProducts = explode(',', $this->Value('org_products'));
 		
 		if ($this->IsInWorkspace())
 		{
 			if (count($aProducts) > 0)
-				$aProducts = array_intersect($aProducts, split(',', $this->Value('workspace_products')));
+				$aProducts = array_intersect($aProducts, explode(',', $this->Value('workspace_products')));
 			else
-				$aProducts = split(',', $this->Value('workspace_products'));
+				$aProducts = explode(',', $this->Value('workspace_products'));
 		}
 		
 		return $aProducts;
