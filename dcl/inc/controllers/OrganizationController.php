@@ -129,7 +129,7 @@ class OrganizationController
 		
 		$organizationId = @Filter::RequireInt($_REQUEST['org_id']);
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_VIEW, $organizationId);
-		if ($g_oSec->IsOrgUser() && !in_array($id, split(',', $g_oSession->Value('member_of_orgs'))))
+		if ($g_oSec->IsOrgUser() && !in_array($organizationId, explode(',', $g_oSession->Value('member_of_orgs'))))
 			throw new PermissionDeniedException();
 
 		$model = new OrganizationModel();
