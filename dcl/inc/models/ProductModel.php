@@ -51,6 +51,9 @@ class ProductModel extends DbProvider
 		
 		$sql = 'SELECT p.name, count(*) FROM products p, statuses s, workorders w WHERE ';
 		$sql .= "p.id = w.product AND s.id = w.status AND s.dcl_status_type != 2 AND P.active = 'Y' ";
+		$sql .= $this->GetWorkOrderOrgWhereClause();
+		$sql .= $this->GetWorkOrderPublicClause();
+		$sql .= $this->GetProductPublicClause();
 		if ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace())
 			$sql .= ' AND p.id IN (' . join(',', $g_oSession->GetProductFilter()) . ') ';
 		
@@ -65,6 +68,9 @@ class ProductModel extends DbProvider
 		
 		$sql = 'SELECT p.name, count(*) FROM products p, statuses s, tickets t WHERE ';
 		$sql .= "p.id = t.product AND s.id = t.status AND s.dcl_status_type != 2 AND P.active = 'Y' ";
+		$sql .= $this->GetTicketOrgWhereClause();
+		$sql .= $this->GetTicketPublicClause();
+		$sql .= $this->GetProductPublicClause();
 		if ($g_oSec->IsOrgUser() || $g_oSession->IsInWorkspace())
 			$sql .= ' AND p.id IN (' . join(',', $g_oSession->GetProductFilter()) . ') ';
 		
@@ -77,6 +83,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT s.name, count(*) FROM statuses s, workorders w WHERE ';
 		$sql .= "s.id = w.status AND w.product=$id AND s.dcl_status_type != 2 ";
+		$sql .= $this->GetWorkOrderOrgWhereClause();
+		$sql .= $this->GetWorkOrderPublicClause();
 		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -86,6 +94,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT s.name, count(*) FROM severities s, statuses st, workorders w WHERE ';
 		$sql .= "s.id = w.severity AND w.product=$id AND st.id = w.status AND st.dcl_status_type != 2 ";
+		$sql .= $this->GetWorkOrderOrgWhereClause();
+		$sql .= $this->GetWorkOrderPublicClause();
 		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -95,6 +105,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT s.name, count(*) FROM priorities s, statuses st, workorders w WHERE ';
 		$sql .= "s.id = w.priority AND w.product=$id AND st.id = w.status AND st.dcl_status_type != 2 ";
+		$sql .= $this->GetWorkOrderOrgWhereClause();
+		$sql .= $this->GetWorkOrderPublicClause();
 		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -104,6 +116,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT d.name, count(*) FROM departments d, personnel u, statuses st, workorders w WHERE ';
 		$sql .= "w.responsible = u.id AND d.id = u.department AND w.product=$id AND st.id = w.status AND st.dcl_status_type != 2 ";
+		$sql .= $this->GetWorkOrderOrgWhereClause();
+		$sql .= $this->GetWorkOrderPublicClause();
 		$sql .= 'GROUP BY d.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -113,6 +127,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT m.module_name, count(*) FROM dcl_product_module m, statuses st, workorders w WHERE ';
 		$sql .= "m.product_module_id = w.module_id AND w.product=$id AND st.id = w.status AND st.dcl_status_type != 2 ";
+		$sql .= $this->GetWorkOrderOrgWhereClause();
+		$sql .= $this->GetWorkOrderPublicClause();
 		$sql .= 'GROUP BY m.module_name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -122,6 +138,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT t.type_name, count(*) FROM dcl_wo_type t, statuses st, workorders w WHERE ';
 		$sql .= "t.wo_type_id = w.wo_type_id AND w.product=$id AND st.id = w.status AND st.dcl_status_type != 2 ";
+		$sql .= $this->GetWorkOrderOrgWhereClause();
+		$sql .= $this->GetWorkOrderPublicClause();
 		$sql .= 'GROUP BY t.type_name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -131,6 +149,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT s.name, count(*) FROM statuses s, tickets t WHERE ';
 		$sql .= "s.id = t.status AND t.product=$id AND s.dcl_status_type != 2 ";
+		$sql .= $this->GetTicketOrgWhereClause();
+		$sql .= $this->GetTicketPublicClause();
 		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -140,6 +160,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT s.name, count(*) FROM severities s, statuses st, tickets t WHERE ';
 		$sql .= "s.id = t.type AND t.product=$id AND st.id = t.status AND st.dcl_status_type != 2 ";
+		$sql .= $this->GetTicketOrgWhereClause();
+		$sql .= $this->GetTicketPublicClause();
 		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -149,6 +171,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT s.name, count(*) FROM priorities s, statuses st, tickets t WHERE ';
 		$sql .= "s.id = t.priority AND t.product=$id AND st.id = t.status AND st.dcl_status_type != 2 ";
+		$sql .= $this->GetTicketOrgWhereClause();
+		$sql .= $this->GetTicketPublicClause();
 		$sql .= 'GROUP BY s.name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -158,6 +182,8 @@ class ProductModel extends DbProvider
 	{
 		$sql = 'SELECT m.module_name, count(*) FROM dcl_product_module m, tickets t, statuses st WHERE ';
 		$sql .= "m.product_module_id = t.module_id AND t.product=$id AND st.id = t.status AND st.dcl_status_type != 2 ";
+		$sql .= $this->GetTicketOrgWhereClause();
+		$sql .= $this->GetTicketPublicClause();
 		$sql .= 'GROUP BY m.module_name ORDER BY 2 DESC';
 		
 		return $this->Query($sql);
@@ -170,5 +196,74 @@ class ProductModel extends DbProvider
 			return $this->f(0);
 		
 		throw new InvalidArgumentException();
+	}
+
+	private function GetProductPublicClause()
+	{
+		global $g_oSec;
+
+		if (!$g_oSec->IsPublicUser())
+			return '';
+
+		return " AND p.is_public = 'Y'";
+	}
+
+	private function GetWorkOrderPublicClause()
+	{
+		global $g_oSec;
+
+		if (!$g_oSec->IsPublicUser())
+			return '';
+
+		return " AND w.is_public = 'Y'";
+	}
+
+	private function GetTicketPublicClause()
+	{
+		global $g_oSec;
+
+		if (!$g_oSec->IsPublicUser())
+			return '';
+
+		return " AND t.is_public = 'Y'";
+	}
+
+	private function GetWorkOrderOrgWhereClause()
+	{
+		global $g_oSec, $g_oSession;
+
+		if (!$g_oSec->IsOrgUser())
+			return '';
+
+		$memberOfOrgs = $g_oSession->Value('member_of_orgs');
+		if ($memberOfOrgs != '')
+			$values = explode(',', $memberOfOrgs);
+		else
+			$values = array('-1');
+
+		$organizationIds = join(',', $values);
+
+		$sql = " AND (w.jcn in (select wo_id from dcl_wo_account where account_id in (" . $organizationIds . "))";
+		$sql .= " AND w.seq in (select seq from dcl_wo_account where w.jcn = wo_id And account_id in (" . $organizationIds . "))) ";
+
+		return $sql;
+	}
+
+	private function GetTicketOrgWhereClause()
+	{
+		global $g_oSec, $g_oSession;
+
+		if (!$g_oSec->IsOrgUser())
+			return '';
+
+		$memberOfOrgs = $g_oSession->Value('member_of_orgs');
+		if ($memberOfOrgs != '')
+			$values = explode(',', $memberOfOrgs);
+		else
+			$values = array('-1');
+
+		$organizationIds = join(',', $values);
+
+		return ' AND t.account in (' . $organizationIds . ') ';
 	}
 }
