@@ -172,7 +172,7 @@ class boTickets
 		if ($obj->Load($iID) == -1)
 			return;
 
-		if ($obj->is_public == 'N' && $g_oSec->IsPublicUser())
+		if ($obj->is_public == 'N' && IsPublicUser())
 			throw new PermissionDeniedException();
 
 		$objF = new htmlTicketForm();
