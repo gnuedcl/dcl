@@ -67,7 +67,7 @@ function validate(form, status)
 			<input type="checkbox" name="is_public" id="is_public" value="Y"{if $VAL_ISPUBLIC == "Y"} checked{/if}>
 		</div>
 	{/if}
-{elseif $PERM_ACTION && !$VAL_ISEDIT}
+{elseif $PERM_ACTION && !$IS_EDIT}
 		<div class="required">
 			<label for="responsible">{$smarty.const.STR_TCK_ASSIGNTOME}:</label>
 			<input type="checkbox" name="responsible" value="{$VAL_DCLID}" checked>
@@ -124,14 +124,14 @@ function validate(form, status)
 			<label for="copy_me_on_notification">Copy Me on Notification:</label>
 			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
 		</div>
-{if $PERM_ATTACHFILE && !$VAL_ISEDIT && $VAL_MAXUPLOADFILESIZE > 0}
+{if $PERM_ATTACHFILE && !$IS_EDIT && $VAL_MAXUPLOADFILESIZE > 0}
 		<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">
 		<div>
 			<label for="userfile">{$smarty.const.STR_WO_ATTACHFILE}:</label>
 			<input type="file" id="userfile" name="userfile">
 		</div>
 {/if}
-{if $PERM_ACTION && !$VAL_ISEDIT}
+{if $PERM_ACTION && !$IS_EDIT}
 		<div>
 			<label for="resolution">{$smarty.const.STR_TCK_RESOLUTION}:</label>
 			<textarea name="resolution" rows="6" cols="70" wrap valign="top"></textarea>
@@ -140,7 +140,7 @@ function validate(form, status)
 	</fieldset>
 	<fieldset>
 		<div class="submit">
-{if $PERM_ACTION && !$VAL_ISEDIT}<input type="button" onclick="validate(this.form, '2');" value="{$smarty.const.STR_TCK_SAVEANDCLOSE}">{/if}
+{if $PERM_ACTION && !$IS_EDIT}<input type="button" onclick="validate(this.form, '2');" value="{$smarty.const.STR_TCK_SAVEANDCLOSE}">{/if}
 		<input type="button" onclick="validate(this.form, '1');" value="{$smarty.const.STR_CMMN_SAVE}">
 		</div>
 	</fieldset>

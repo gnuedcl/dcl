@@ -51,7 +51,7 @@ class htmlTicketForm
 		$oSmarty->assign('PERM_ATTACHFILE', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ATTACHFILE) && $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE'] > 0 && !$isEdit);
 		$oSmarty->assign('PERM_ISPUBLIC', $g_oSec->IsPublicUser());
 		$oSmarty->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
-		$oSmarty->assign('VAL_ISEDIT', $isEdit);
+		$oSmarty->assign('IS_EDIT', $isEdit);
 		$oSmarty->assign('VAL_DCLID', $GLOBALS['DCLID']);
 		$oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
