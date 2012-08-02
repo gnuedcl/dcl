@@ -141,7 +141,11 @@ class boViews
 		if ($objDB->ispublic == 'N' && $objDB->whoid != $GLOBALS['DCLID'])
 			throw new PermissionDeniedException();
 
-		$objView = new boView();
+		if ($objDB->tablename == 'workorders')
+			$objView = new WorkOrderSqlQueryHelper();
+		else
+			$objView = new boView();
+
 		$objView->SetFromURLString($objDB->viewurl);
 
 		if (IsSet($_REQUEST['btnNav']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -174,7 +178,7 @@ class boViews
 			$objView->startrow = 0;
 		}
 
-		if ($objView->table == 'workorders')
+		if ($objDB->tablename == 'workorders')
 		{
 			$presenter = new WorkOrderPresenter();
 			$presenter->DisplayView($objView);
