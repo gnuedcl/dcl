@@ -27,12 +27,6 @@ class htmlSearchBox
 {
 	var $oView;
 
-	function htmlSearchBox()
-	{
-		$this->oView = new boView();
-		$this->oView->style = 'report';
-	}
-
 	function submitSearch()
 	{
 		commonHeader();
@@ -42,7 +36,7 @@ class htmlSearchBox
 		{
 			case 'workorders':
 			case 'openworkorders':
-		        $this->oView->table = 'workorders';
+		        $this->oView = new WorkOrderSqlQueryHelper();
 			    if (preg_match('/^([0-9]+[-]?[0-9]*)+([,][0-9]+[-]?[0-9]*)+$/', $search_text))
 					$this->findWorkOrders($search_text);
 				else if (preg_match('/^([0-9]+)[-]?([0-9]*)$/', $search_text, $reg))
@@ -54,7 +48,7 @@ class htmlSearchBox
 				break;
 			case 'dcl_projects':
 			case 'opendcl_projects':
-		        $this->oView->table = 'dcl_projects';
+				$this->oView = new ProjectSqlQueryHelper();
 			    if (preg_match('/^([0-9]+)$/', $search_text, $reg))
 					$this->findProject($reg[1], 0);
 				else
@@ -62,7 +56,7 @@ class htmlSearchBox
 				break;
 			case 'tickets':
 			case 'opentickets':
-		        $this->oView->table = 'tickets';
+				$this->oView = new TicketSqlQueryHelper();
 			    if (preg_match('/^([0-9]+)$/', $search_text, $reg))
 					$this->findTicket($reg[1], 0);
 				else
@@ -198,7 +192,6 @@ class htmlSearchBox
 		}
 
 		$this->oView->title = STR_TCK_TICKETSEARCHRESULTS;
-		$this->oView->table = 'tickets';
 
 		$this->oView->AddDef('filterlike', 'issue', $searchText);
 		$this->oView->AddDef('filterlike', 'summary', $searchText);
