@@ -38,4 +38,72 @@ class ContactSqlQueryHelper extends AbstractSqlQueryHelper
 			$this->joins[$table] = $joinType;
 		}
 	}
+
+	protected function GetWhereSqlForOrganizationUser($bOrgFilter, &$bDoneDidWhere)
+	{
+		global $g_oSec, $g_oSession;
+
+		if ($bOrgFilter || !$g_oSec->IsOrgUser())
+			return '';
+
+		$sql = '';
+		if ($bDoneDidWhere == false)
+		{
+			$sql = ' WHERE ';
+			$bDoneDidWhere = true;
+		}
+		else
+		{
+			$sql = ' AND ';
+		}
+
+		return $sql . 'dcl_org.org_id IN (' . $g_oSession->Value('member_of_orgs') . ')';
+	}
+
+	protected function GetColumnSqlForOneToMany()
+	{
+		$sql = '';
+
+		if (in_array('dcl_org.name', $this->columns))
+		{
+			$sql .= ', (select count(*) from dcl_org_contact where org_id = dcl_org.org_id) As _num_accounts_';
+		}
+
+		return $sql;
+	}
+
+	protected function GetWhereSqlForOneToManyColumns($sTagFilter, $sHotlistFilter)
+	{
+		global $g_oSession, $g_oSec;
+
+		$sql = '';
+
+		// If we group by account, we'll join the whole lot together.  This will cause a work order
+		// with n accounts to appear in the report n times.  Otherwise, if we only sort or show the account
+		// column, we'll get the first account (in order) and display a link to show the other accounts
+		// as needed
+		if (in_array('dcl_org.name', $this->columns))
+		{
+			$aOrgFilter = array();
+			if ($g_oSec->IsOrgUser())
+				$aOrgFilter = explode(',', $g_oSession->Value('member_of_orgs'));
+
+			if (isset($this->filter['dcl_org.org_id']) && is_array($this->filter['dcl_org.org_id']))
+			{
+				if (count($aOrgFilter) > 0)
+					$aOrgFilter = array_intersect($this->filter['dcl_org.org_id'], $aOrgFilter);
+				else
+					$aOrgFilter = $this->filter['dcl_org.org_id'];
+			}
+
+			$sql .= ' And (dcl_org_contact.org_id is null OR dcl_org_contact.org_id = ';
+			$sql .= '(Select min(org_id) From dcl_org_contact where contact_id = dcl_contact.contact_id';
+			if (count($aOrgFilter) > 0)
+				$sql .= ' AND org_id IN (' . join(',', $aOrgFilter) . ')';
+
+			$sql .= '))';
+		}
+
+		return $sql;
+	}
 }

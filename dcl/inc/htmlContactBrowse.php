@@ -180,7 +180,7 @@ class htmlContactBrowse
 			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
-		$oView = new boView();
+		$oView = new ContactSqlQueryHelper();
 		$oView->SetFromURL();
 
 		if (IsSet($_REQUEST['jumptopage']) && IsSet($_REQUEST['startrow']) && IsSet($_REQUEST['numrows']))
@@ -270,7 +270,7 @@ class htmlContactBrowse
 	
 	function show()
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info, $g_oSec, $g_oSession;
 
 		commonHeader();
 
@@ -278,9 +278,7 @@ class htmlContactBrowse
 			throw new PermissionDeniedException();
 
 		CleanArray($_REQUEST);
-		$oDB = new DbProvider;
-		$oView = new boView();
-		$oView->table = 'dcl_contact';
+		$oView = new ContactSqlQueryHelper();
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_LASTNAME, STR_CMMN_FIRSTNAME, 'Organization', 'Phone', 'Email', 'Internet'));
 		$oView->AddDef('columns', '', array('contact_id', 'active', 'last_name', 'first_name'));
 		$oView->AddDef('order', '', array('last_name', 'first_name', 'contact_id'));
@@ -299,8 +297,23 @@ class htmlContactBrowse
 		if ($filterStartsWith != '')
 			$oView->AddDef('filterstart', 'last_name', $filterStartsWith);
 
-		$filterOrgID = isset($_REQUEST['org_id']) ? Filter::ToInt($_REQUEST['org_id']) : null;
-		if ($filterOrgID !== null)
+		$defaultOrgIds = array();
+		if ($g_oSec->IsOrgUser())
+			$defaultOrgIds = explode(',', $g_oSession->Value('member_of_orgs'));
+
+		$filterOrgID = isset($_REQUEST['org_id']) ? Filter::ToIntArray($_REQUEST['org_id']) : null;
+		if ($filterOrgID === null)
+			$filterOrgID = array();
+
+		if (count($defaultOrgIds) > 0)
+		{
+			if (count($filterOrgID) > 0)
+				$filterOrgID = array_intersect($defaultOrgIds, $filterOrgID);
+			else
+				$filterOrgID = $defaultOrgIds;
+		}
+
+		if (count($filterOrgID) > 0)
 			$oView->AddDef('filter', 'dcl_org_contact.org_id', $filterOrgID);
 
 		$this->sColumnTitle = STR_CMMN_OPTIONS;

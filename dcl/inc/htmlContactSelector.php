@@ -31,7 +31,7 @@ class htmlContactSelector
 	{
 		$this->bMultiSelect = false;
 		$this->oSmarty = new SmartyHelper();
-		$this->oView = new boView();
+		$this->oView = new ContactSqlQueryHelper();
 		$this->oDB = new DbProvider;
 	}
 
@@ -85,10 +85,7 @@ class htmlContactSelector
 
 	function showBrowseFrame()
 	{
-		global $dcl_info, $g_oSec;
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_CONTACT, DCL_PERM_VIEW);
 
 		$filterActive = '';
 		if (IsSet($_REQUEST['filterActive']))
@@ -102,15 +99,10 @@ class htmlContactSelector
 		if (IsSet($_REQUEST['filterSearch']))
 			$filterSearch = $_REQUEST['filterSearch'];
 
-		$filterID = '';
-		if (isset($_REQUEST['filterID']))
-		{
-			if (preg_match('/^[0-9]+([,][0-9]+)*$/', $_REQUEST['filterID']))
-				$filterID = explode(',', $_REQUEST['filterID']);
-		}
+		$filterID = @Filter::ToIntArray($_REQUEST['filterID']);
 
 		$aColumnHeaders = array(STR_CMMN_ID, STR_CMMN_NAME, 'Organization', 'Phone', 'Email');
-		$aColumns = array('contact_id', 'last_name', 'first_name');
+		$aColumns = array('contact_id', 'last_name', 'first_name', 'dcl_org.name', 'dcl_org.org_id', 'dcl_contact_phone.phone_number', 'dcl_contact_email.email_addr');
 
 		$iPage = 1;
 		$this->oView->startrow = 0;
@@ -126,7 +118,6 @@ class htmlContactSelector
 				$this->oView->startrow = 0;
 		}
 
-		$this->oView->table = 'dcl_contact';
 		$this->oView->AddDef('columnhdrs', '', $aColumnHeaders);
 		$this->oView->AddDef('columns', '', $aColumns);
 		$this->oView->AddDef('order', '', array('last_name', 'first_name', 'contact_id'));
@@ -143,7 +134,7 @@ class htmlContactSelector
 			else
 			{
 				$this->oView->logiclike = 'AND';
-				$aCriteria = split(',', $filterSearch);
+				$aCriteria = explode(',', $filterSearch);
 				if (count($aCriteria) > 2)
 				{
 					$this->oView->AddDef('filterlike', 'last_name', trim($aCriteria[0]));
@@ -161,13 +152,15 @@ class htmlContactSelector
 		if ($filterStartsWith != '')
 			$this->oView->AddDef('filterstart', 'last_name', $filterStartsWith);
 
-		if (is_array($filterID))
+		if (is_array($filterID) && count($filterID) > 0)
+		{
 			$this->oView->AddDef('filter', 'contact_id', $filterID);
 
-		if (isset($_REQUEST['updateTop']) && $_REQUEST['updateTop'] == 'true' && is_array($filterID))
-		{
-			$this->oSmarty->assign('updateTop', 'true');
-			$this->oSmarty->assign('filterID', join(',', $filterID));
+			if (isset($_REQUEST['updateTop']) && $_REQUEST['updateTop'] == 'true')
+			{
+				$this->oSmarty->assign('updateTop', 'true');
+				$this->oSmarty->assign('filterID', join(',', $filterID));
+			}
 		}
 
 		if ($this->oDB->Query($this->oView->GetSQL(true)) == -1 || !$this->oDB->next_record())
@@ -185,10 +178,13 @@ class htmlContactSelector
 			$aContacts = array();
 			while ($this->oDB->next_record())
 			{
-				$aContact = $oMetadata->GetContact($this->oDB->f('contact_id'));
-				$aRow = array('contact_id' => $this->oDB->f('contact_id'), 'last_name' => $this->oDB->f('last_name'),
-								'first_name' => $this->oDB->f('first_name'), 'email_addr' => $aContact['email'], 'phone_number' => $aContact['phone'],
-								'org_name' => $aContact['org_name'], 'org_id' => $aContact['org_id']);
+				$aRow = array('contact_id' => $this->oDB->f('contact_id'),
+					'last_name' => $this->oDB->f('last_name'),
+					'first_name' => $this->oDB->f('first_name'),
+					'email_addr' => $this->oDB->f('email_addr'),
+					'phone_number' => $this->oDB->f('phone_number'),
+					'org_name' => $this->oDB->f('name'),
+					'org_id' => $this->oDB->f('org_id'));
 				
 				$aContacts[] = $aRow;
 			}
