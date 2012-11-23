@@ -355,7 +355,7 @@ class boProjects
 				throw new PermissionDeniedException();
 
 			$objPrj = new htmlProjectsdetail();
-			$objPrj->Show($projectid, 0, 0);
+			$objPrj->Show($obj->projectid, 0, 0);
 		}
 		else
 		{
