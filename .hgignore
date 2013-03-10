@@ -1,2 +1,3 @@
 syntax: regexp
 \.DS_Store$
+\.idea$

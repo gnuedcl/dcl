@@ -68,7 +68,7 @@
 	define('STR_WO_NEWSEQ', "New Sequence");
 	define('STR_WO_ADDPRJ', "Add To Or View Project");
 	define('STR_WO_DELETE', "Delete WO");
-	define('STR_WO_UNMAP', "Unmap From Project");
+	define('STR_WO_UNMAP', "Remove From Project");
 	define('STR_WO_UPLOAD', "Upload File Attachment");
 	define('STR_WO_WATCHES', "Add Watch For This WO");
 	define('STR_WO_DELATTACH', "Delete File Attachment");

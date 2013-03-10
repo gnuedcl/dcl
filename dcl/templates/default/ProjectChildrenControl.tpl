@@ -16,7 +16,7 @@
 	<tbody>
 {/if}
 		<tr{if $smarty.section.child.iteration is even} class="even"{/if}>
-			<td><a href="{$URL_MAIN_PHP}?menuAction=boProjects.viewproject&wostatus=0&project={$VAL_CHILDPROJECTS[child].projectid}">[{$VAL_CHILDPROJECTS[child].projectid}] {$VAL_CHILDPROJECTS[child].name}</a></td>
+			<td><a href="{$URL_MAIN_PHP}?menuAction=Project.Detail&id={$VAL_CHILDPROJECTS[child].projectid}&wostatus=0">[{$VAL_CHILDPROJECTS[child].projectid}] {$VAL_CHILDPROJECTS[child].name}</a></td>
 			<td class="numeric">&nbsp;{$VAL_CHILDPROJECTS[child].totaltasks}&nbsp;</td>
 			<td class="numeric">&nbsp;{$VAL_CHILDPROJECTS[child].tasksclosed}&nbsp;</td>
 			<td class="numeric">&nbsp;{$VAL_CHILDPROJECTS[child].esthours}&nbsp;</td>

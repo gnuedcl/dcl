@@ -66,7 +66,7 @@ class boTimecards
 		$workOrderModel = new WorkOrderModel();
 		$statusModel = new StatusModel();
 
-		$timeCardModel->InitFromGlobals();
+		$timeCardModel->InitFrom_POST();
 		$timeCardModel->actionby = $GLOBALS['DCLID'];
 		if ($g_oSec->IsPublicUser())
 			$timeCardModel->is_public = 'Y';
@@ -162,15 +162,15 @@ class boTimecards
 		{
 			if (($iProjID = @Filter::ToInt($_REQUEST['projectid'])) !== null && $iProjID > 0)
 			{
-				$oProjectMap = new ProjectMapModel();
-				if ($oProjectMap->LoadByWO($workOrderModel->jcn, $workOrderModel->seq) == -1 || $oProjectMap->projectid != $iProjID)
+				$projectMapModel = new ProjectMapModel();
+				if ($projectMapModel->LoadByWO($workOrderModel->jcn, $workOrderModel->seq) == -1 || $projectMapModel->projectid != $iProjID)
 				{
-					$oProject = new boProjects();
+					$projectModel = new ProjectsModel();
 					$aSource = array();
 					$aSource['selected'] = array($workOrderModel->jcn . '.' . $workOrderModel->seq);
 					$aSource['projectid'] = $iProjID;
 					
-					$oProject->batchMove($aSource);
+					$projectModel->BatchMove($aSource);
 				}
 			}
 		}
@@ -256,7 +256,7 @@ class boTimecards
 		}
 
 		$objTimecard = new TimeCardsModel();
-		$objTimecard->InitFromGlobals();
+		$objTimecard->InitFrom_POST();
 		$objTimecard->actionby = $GLOBALS['DCLID'];
 		if ($g_oSec->IsPublicUser())
 			$objTimecard->is_public = 'Y';
@@ -380,7 +380,7 @@ class boTimecards
 
 		$objTC = new TimeCardsModel();
 		$objOldTC = new TimeCardsModel();
-		$objTC->InitFromGlobals();
+		$objTC->InitFrom_POST();
 
 		if ($g_oSec->IsPublicUser())
 			$objTC->is_public = 'Y';

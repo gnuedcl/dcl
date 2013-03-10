@@ -125,7 +125,7 @@ class WorkOrderController
 			}
 		}
 
-		$workOrderModel->InitFromGlobals();
+		$workOrderModel->InitFrom_POST();
 		$workOrderModel->etchours = $workOrderModel->esthours;
 		$workOrderModel->createby = $GLOBALS['DCLID'];
 		$workOrderModel->is_public = ((isset($_REQUEST['is_public']) && $_REQUEST['is_public'] == 'Y') || $g_oSec->IsPublicUser() ? 'Y' : 'N');

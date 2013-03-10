@@ -67,7 +67,7 @@ class FaqAnswerController extends AbstractController
 		}
 
 		$model = new FaqAnswersModel();
-		$model->InitFromGlobals();
+		$model->InitFrom_POST();
 		$model->createby = $GLOBALS['DCLID'];
 		$model->createon = DCL_NOW;
 		$model->active = 'Y';
@@ -116,7 +116,7 @@ class FaqAnswerController extends AbstractController
 		}
 
 		$faqAnswersModel = new FaqAnswersModel();
-		$faqAnswersModel->InitFromGlobals();
+		$faqAnswersModel->InitFrom_POST();
 		$faqAnswersModel->active = @Filter::ToYN($_REQUEST['active']);
 		$faqAnswersModel->modifyby = $GLOBALS['DCLID'];
 		$faqAnswersModel->modifyon = DCL_NOW;

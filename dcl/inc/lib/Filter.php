@@ -230,4 +230,15 @@ abstract class Filter
 	{
 		return preg_match("/^[a-z_][a-z0-9_]+([\.][a-z0-9_]+)?$/i", $sFieldName);
 	}
+
+	public static function Coalesce()
+	{
+		foreach (func_get_args() as $arg)
+		{
+			if (!empty($arg))
+				return $arg;
+		}
+
+		return null;
+	}
 }

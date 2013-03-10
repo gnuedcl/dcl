@@ -53,7 +53,7 @@ class FaqQuestionController extends AbstractController
 		}
 
 		$faqQuestionsModel = new FaqQuestionsModel();
-		$faqQuestionsModel->InitFromGlobals();
+		$faqQuestionsModel->InitFrom_POST();
 		$faqQuestionsModel->createby = $GLOBALS['DCLID'];
 		$faqQuestionsModel->createon = DCL_NOW;
 		$faqQuestionsModel->active = 'Y';

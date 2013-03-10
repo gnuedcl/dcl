@@ -209,4 +209,107 @@ class ProjectsModel extends DbProvider
 		$obj->next_record();
 		return ($obj->f(0) > 0);
 	}
+
+	public function BatchMove($aSource)
+	{
+		if (!is_array($aSource) || !isset($aSource['selected']) || !is_array($aSource['selected']))
+			return;
+
+		$db = new DbProvider;
+		$db->BeginTransaction();
+
+		$projectMapModel = new ProjectMapModel();
+		$projectMapModel->projectid = $aSource['projectid'];
+
+		foreach ($aSource['selected'] as $val)
+		{
+			list($woid, $seq) = explode('.', $val);
+			if (Filter::ToInt($woid) !== null && Filter::ToInt($seq) !== null)
+			{
+				ProjectsModel::RemoveTask($woid, $seq, false, false);
+				$projectMapModel->jcn = $woid;
+				$projectMapModel->seq = $seq;
+				$projectMapModel->Add();
+			}
+		}
+
+		$db->EndTransaction();
+	}
+
+	public static function GetParentProjectPath($projectId)
+	{
+		$projects = array();
+
+		$projectModel = new ProjectsModel();
+		$parentProjects = $projectModel->GetProjectParents($projectId);
+		if ($parentProjects == '')
+			return null;
+
+		$projectPath = explode(',', $projectModel->GetProjectParents($projectId));
+		foreach ($projectPath as $project_id)
+		{
+			$projectModel->Load($project_id);
+			$projects[] = array('project_id' => $project_id, 'name' => $projectModel->name);
+		}
+
+		if (count($projects) > 0)
+			$projects = array_reverse($projects);
+
+		return $projects;
+	}
+
+	public static function GetProjectPath($jcn, $seq)
+	{
+		$projects = array();
+
+		$projectMapModel = new ProjectMapModel();
+		if ($projectMapModel->LoadByWO($jcn, $seq) != -1)
+		{
+			$projectModel = new ProjectsModel();
+			$projectPath = explode(',', $projectModel->GetProjectParents($projectMapModel->projectid, true));
+			while (list($key, $projectId) = each($projectPath))
+			{
+				$projectModel->Load($projectId);
+				$projects[] = array('project_id' => $projectId, 'name' => $projectModel->name);
+			}
+
+			if (count($projects) > 0)
+				$projects = array_reverse($projects);
+		}
+
+		return $projects;
+	}
+
+	public static function RemoveTask($jcn, $seq, $sequenceOnly = false, $allSequences = false)
+	{
+		$projectMapModel = new ProjectMapModel();
+		if ($projectMapModel->LoadByWOFilter($jcn, $seq, $sequenceOnly, $allSequences) == -1)
+			return;
+
+		if ($projectMapModel->next_record())
+		{
+			if ($allSequences == true)
+			{
+				do
+				{
+					$projectMapModel->GetRow();
+					$projectMapModel->Delete();
+				}
+				while ($projectMapModel->next_record());
+			}
+			else
+			{
+				$projectMapModel->GetRow();
+
+				// Remove the mapping here
+				$projectMapModel->Delete();
+				if ($projectMapModel->seq == 0)
+				{
+					// It was implicitly mapped - explicitly relink all but this seq
+					// No auditing needed here since these aren't moving or being removed
+					$projectMapModel->MapAllExcept($projectMapModel->projectid, $jcn, $seq);
+				}
+			}
+		}
+	}
 }

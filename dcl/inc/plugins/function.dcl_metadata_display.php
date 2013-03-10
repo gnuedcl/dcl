@@ -68,8 +68,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 				return;
 			}
 			
-			$oProjects = new boProjects();
-			$aProjects = $oProjects->GetProjectPath($params['value'], $params['value2']);
+			$aProjects = ProjectsModel::GetProjectPath($params['value'], $params['value2']);
 			if (count($aProjects) > 0)
 			{
 				$sRetVal = '';

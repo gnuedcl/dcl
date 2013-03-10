@@ -1,12 +1,13 @@
 <form method="POST" action="{$URL_MAIN_PHP}" name="frmWorkorders">
 	<input type="hidden" name="menuAction" value="">
-	<input type="hidden" name="return_to" value="menuAction=boProjects.viewproject">
+	<input type="hidden" name="return_to" value="menuAction=Project.Detail">
 	<input type="hidden" name="project" value="{$VAL_PROJECTID}">
+	<input type="hidden" name="id" value="{$VAL_PROJECTID}">
 	<div class="dcl_filter">
 		<span><label for="wostatus">{$smarty.const.STR_PRJ_FILTERWOBYSTATUS}:</label> {dcl_select_status default=$VAL_FILTERSTATUS name=wostatus allowHideOrOnlyClosed=Y}</span>
 		<span><label for="woresponsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label> {dcl_select_personnel default=$VAL_FILTERRESPONSIBLE name=woresponsible project=$VAL_PROJECTID}</span>
 		<span><label for="wogroupby">Group By:</label> {html_options name=wogroupby options=$OPT_GROUPBY selected=$VAL_FILTERGROUPBY}</span>
-		<input type="button" value="{$smarty.const.STR_CMMN_FILTER}" onclick="this.form.elements['menuAction'].value='boProjects.viewproject';this.form.submit();">
+		<input type="button" value="{$smarty.const.STR_CMMN_FILTER}" onclick="this.form.elements['menuAction'].value='Project.Detail';this.form.submit();">
 		{if $VAL_PAGES > 1}
 			{strip}<div><ul>
 			{if $VAL_PAGE > 1}
@@ -31,7 +32,7 @@
 				<li><a href="javascript:forceSubmit('WorkOrder.BatchDetail');">Detail</a></li>
 				<li><a href="javascript:forceSubmit('boTimecards.batchadd');">Time Card</a></li>
 				<li><a href="javascript:forceSubmit('WorkOrder.BatchReassign');">Assign</a></li>
-				<li><a href="javascript:forceSubmit('htmlProjectmap.batchMove');">Move</a></li>
+				<li><a href="javascript:forceSubmit('Project.BatchMove');">Move</a></li>
 				{/if}
 			</ul></th></tr>
 			<tr><th>{if $VAL_FILTERGROUPBY == "none"}<input type="checkbox" name="group_check" onclick="javascript: toggleCheckGroup(this);">{/if}</th>

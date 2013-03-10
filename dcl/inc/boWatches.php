@@ -115,7 +115,7 @@ class boWatches
 		commonHeader();
 		
 		$obj = new WatchesModel();
-		$obj->InitFromGlobals();
+		$obj->InitFrom_POST();
 		$obj->Add();
 
 		$objHTML = new htmlWatches();
@@ -158,7 +158,7 @@ class boWatches
 		if ($obj->whoid != $GLOBALS['DCLID'])
 			throw new PermissionDeniedException();
 
-		$obj->InitFromGlobals();
+		$obj->InitFrom_POST();
 		$obj->Edit();
 		
 		$objHTML = new htmlWatches();

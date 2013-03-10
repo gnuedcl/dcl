@@ -98,7 +98,7 @@ class PersonnelController
 			throw new PermissionDeniedException();
 
 		$model = new PersonnelModel();
-		$model->InitFromGlobals();
+		$model->InitFrom_POST();
 		if (isset($_REQUEST['active']))
 			$model->active = 'Y';
 		else

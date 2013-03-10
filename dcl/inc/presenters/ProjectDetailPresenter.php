@@ -23,83 +23,77 @@
 LoadStringResource('prj');
 LoadStringResource('wo');
 
-class htmlProjectsdetail
+class ProjectDetailPresenter
 {
-	var $oPM;
-	var $oSmarty;
-	var $oProject;
+	private $projectMapModel;
+	private $smartyHelper;
+	private $project;
 
-	function htmlProjectsDetail()
+	public function __construct()
 	{
-		$this->oPM = new ProjectMapModel();
-		$this->oSmarty = new SmartyHelper();
-		$this->oProject = null;
+		$this->projectMapModel = new ProjectMapModel();
+		$this->smartyHelper = new SmartyHelper();
+		$this->project = null;
 	}
 
-	function Show($projectid, $wostatus, $woresponsible)
+	public function Show($projectId, $woStatus, $woResponsible, $woGroupBy = 'none')
 	{
-		global $dcl_info, $dcl_domain_info, $dcl_domain, $g_oSec;
+		global $g_oSec;
 
-		if (!IsSet($_REQUEST['wogroupby']))
-			$_REQUEST['wogroupby'] = 'none';
+		commonHeader();
 
-		$bIsGrouping = ($_REQUEST['wogroupby'] != 'none');
+		$bIsGrouping = (@$woGroupBy != 'none');
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 
-		$this->oProject = new ProjectsModel();
-		if ($this->oProject->Load($projectid) == -1)
-		{
-			trigger_error('Could not find a project with an id of ' . $projectid, E_USER_ERROR);
-			return;
-		}
+		$this->project = new ProjectsModel();
+		if ($this->project->Load($projectId) == -1)
+			throw new InvalidEntityException();
 
-		$oMeta = new DisplayHelper();
+		$displayHelper = new DisplayHelper();
 
-		$this->oSmarty->assign('VAL_PROJECTID', $this->oProject->projectid);
-		$this->oSmarty->assign('VAL_REPORTTO', $oMeta->GetPersonnel($this->oProject->reportto));
-		$this->oSmarty->assign('VAL_WATCHTYPE', '2');
-		$this->oSmarty->assign('VAL_NAME', $this->oProject->name);
-		$this->oSmarty->assign('VAL_PROJECTDEADLINE', $this->oProject->projectdeadline);
-		$this->oSmarty->assign('VAL_CREATEDON', $this->oProject->createdon);
-		$this->oSmarty->assign('VAL_LASTACTIVITY', $this->oProject->lastactivity);
-		$this->oSmarty->assign('VAL_FINALCLOSE', $this->oProject->finalclose);
-		$this->oSmarty->assign('VAL_DESCRIPTION', $this->oProject->description);
-		$this->oSmarty->assign('VAL_WIKITYPE', 1); // 1 = DCL_WIKI_PROJECT
-		$this->oSmarty->assign('VAL_CREATEDBY', $oMeta->GetPersonnel($this->oProject->createdby));
-		$this->oSmarty->assign('VAL_STATUS', $oMeta->GetStatus($this->oProject->status));
-		$this->oSmarty->assign('VAL_FILTERSTATUS', $wostatus);
-		$this->oSmarty->assign('VAL_FILTERRESPONSIBLE', $woresponsible);
-		$this->oSmarty->assign('VAL_FILTERGROUPBY', $_REQUEST['wogroupby']);
-		$this->oSmarty->assign('OPT_GROUPBY', array('none' => STR_CMMN_SELECTONE, '3' => STR_WO_RESPONSIBLE, '7' => STR_WO_STATUS, '4' => STR_WO_PRODUCT, '5' => STR_CMMN_MODULE, '2' => STR_WO_TYPE));
+		$this->smartyHelper->assign('VAL_PROJECTID', $this->project->projectid);
+		$this->smartyHelper->assign('VAL_REPORTTO', $displayHelper->GetPersonnel($this->project->reportto));
+		$this->smartyHelper->assign('VAL_WATCHTYPE', '2');
+		$this->smartyHelper->assign('VAL_NAME', $this->project->name);
+		$this->smartyHelper->assign('VAL_PROJECTDEADLINE', $this->project->projectdeadline);
+		$this->smartyHelper->assign('VAL_CREATEDON', $this->project->createdon);
+		$this->smartyHelper->assign('VAL_LASTACTIVITY', $this->project->lastactivity);
+		$this->smartyHelper->assign('VAL_FINALCLOSE', $this->project->finalclose);
+		$this->smartyHelper->assign('VAL_DESCRIPTION', $this->project->description);
+		$this->smartyHelper->assign('VAL_WIKITYPE', 1); // 1 = DCL_WIKI_PROJECT
+		$this->smartyHelper->assign('VAL_CREATEDBY', $displayHelper->GetPersonnel($this->project->createdby));
+		$this->smartyHelper->assign('VAL_STATUS', $displayHelper->GetStatus($this->project->status));
+		$this->smartyHelper->assign('VAL_FILTERSTATUS', $woStatus);
+		$this->smartyHelper->assign('VAL_FILTERRESPONSIBLE', $woResponsible);
+		$this->smartyHelper->assign('VAL_FILTERGROUPBY', $_REQUEST['wogroupby']);
+		$this->smartyHelper->assign('OPT_GROUPBY', array('none' => STR_CMMN_SELECTONE, '3' => STR_WO_RESPONSIBLE, '7' => STR_WO_STATUS, '4' => STR_WO_PRODUCT, '5' => STR_CMMN_MODULE, '2' => STR_WO_TYPE));
 
-		$this->oSmarty->assign('PERM_AUDIT', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_AUDIT));
-		$this->oSmarty->assign('PERM_ATTACHFILE', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE));
-		$this->oSmarty->assign('PERM_REMOVEFILE', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE));
+		$this->smartyHelper->assign('PERM_AUDIT', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_AUDIT));
+		$this->smartyHelper->assign('PERM_ATTACHFILE', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ATTACHFILE));
+		$this->smartyHelper->assign('PERM_REMOVEFILE', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVEFILE));
 
 		$this->SetStatistics();
 		$this->SetChildProjects();
-		$this->SetTasks($wostatus, $woresponsible, $bIsGrouping);
+		$this->SetTasks($woStatus, $woResponsible, $bIsGrouping);
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEWFILE))
 		{
 			$oAttachments = new FileHelper();
-			$this->oSmarty->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_PROJECT, $this->oProject->projectid));
+			$this->smartyHelper->assign('VAL_ATTACHMENTS', $oAttachments->GetAttachments(DCL_ENTITY_PROJECT, $this->project->projectid));
 		}
 
-		$oProjects = new boProjects();
-		$this->oSmarty->assign('VAL_PROJECTS', $oProjects->GetParentProjectPath($this->oProject->projectid));
+		$this->smartyHelper->assign('VAL_PROJECTS', ProjectsModel::GetParentProjectPath($this->project->projectid));
 
-		$this->oSmarty->Render('ProjectsDetail.tpl');
+		$this->smartyHelper->Render('ProjectsDetail.tpl');
 	}
 
-	function SetTasks($wostatus, $woresponsible, $bIsGrouping)
+	private function SetTasks($wostatus, $woresponsible, $bIsGrouping)
 	{
-		global $dcl_domain, $dcl_domain_info, $dcl_info;
+		global $dcl_info;
 
 		$cols = array('a.jcn', 'a.seq', 'h.type_name', 'b.short', 'c.name', 'g.module_name', 'd.name', 'e.name', 'a.deadlineon', 'a.totalhours', 'a.etchours', 'a.esthours', '(a.totalhours + a.etchours) - a.esthours', 'a.summary');
-		$sql = 'Select a.jcn, a.seq, h.type_name, b.short, c.name, g.module_name, d.name, e.name, ' . $this->oPM->ConvertDate('a.deadlineon', 'deadlineon') . ', a.totalhours, a.etchours, a.esthours, (a.totalhours + a.etchours) - a.esthours, a.summary';
+		$sql = 'Select a.jcn, a.seq, h.type_name, b.short, c.name, g.module_name, d.name, e.name, ' . $this->projectMapModel->ConvertDate('a.deadlineon', 'deadlineon') . ', a.totalhours, a.etchours, a.esthours, (a.totalhours + a.etchours) - a.esthours, a.summary';
 
 		if ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y')
 		{
@@ -107,15 +101,15 @@ class htmlProjectsdetail
 		}
 
 		$sql .= ' From workorders a ';
-		$sql .= $this->oPM->JoinKeyword . ' personnel b ON a.responsible = b.id ';
-		$sql .= $this->oPM->JoinKeyword . ' products c ON a.product = c.id';
+		$sql .= $this->projectMapModel->JoinKeyword . ' personnel b ON a.responsible = b.id ';
+		$sql .= $this->projectMapModel->JoinKeyword . ' products c ON a.product = c.id';
 		$sql .= ' LEFT JOIN dcl_wo_account i ON a.jcn = i.wo_id AND a.seq = i.seq';
 		$sql .= ' LEFT JOIN dcl_org d ON i.account_id = d.org_id ';
-		$sql .= $this->oPM->JoinKeyword . ' statuses e ON a.status = e.id ';
-		$sql .= $this->oPM->JoinKeyword . ' projectmap f ON a.jcn = f.jcn and f.seq in (0, a.seq)';
+		$sql .= $this->projectMapModel->JoinKeyword . ' statuses e ON a.status = e.id ';
+		$sql .= $this->projectMapModel->JoinKeyword . ' projectmap f ON a.jcn = f.jcn and f.seq in (0, a.seq)';
 		$sql .= ' LEFT JOIN dcl_product_module g ON a.module_id = g.product_module_id ';
-		$sql .= $this->oPM->JoinKeyword . ' dcl_wo_type h ON a.wo_type_id = h.wo_type_id';
-		$sql .= ' Where f.projectid=' . $this->oProject->projectid;
+		$sql .= $this->projectMapModel->JoinKeyword . ' dcl_wo_type h ON a.wo_type_id = h.wo_type_id';
+		$sql .= ' Where f.projectid=' . $this->project->projectid;
 
 		if ($wostatus > 0)
 			$sql .= ' And a.status=' . $wostatus;
@@ -138,10 +132,10 @@ class htmlProjectsdetail
 		else
 			$sql .= ' Order By a.jcn, a.seq';
 
-		if ($this->oPM->Query($sql) != -1)
+		if ($this->projectMapModel->Query($sql) != -1)
 		{
-			$allRecs = $this->oPM->FetchAllRows();
-			$this->oPM->FreeResult();
+			$allRecs = $this->projectMapModel->FetchAllRows();
+			$this->projectMapModel->FreeResult();
 
 			if (count($allRecs) > 0)
 			{
@@ -207,18 +201,18 @@ class htmlProjectsdetail
 						case '2': $sGroupBy = 'type';        break;
 					}
 
-					$this->oSmarty->assign('VAL_GROUPBY', $sGroupBy);
+					$this->smartyHelper->assign('VAL_GROUPBY', $sGroupBy);
 				}
 
-				$this->oSmarty->assign_by_ref('VAL_TASKS', $aTasks);
+				$this->smartyHelper->assign_by_ref('VAL_TASKS', $aTasks);
 			}
 		}
 	}
 
-	function SetChildProjects()
+	private function SetChildProjects()
 	{
 		$oDB = new DbProvider;
-		$oDB->Query('SELECT projectid FROM dcl_projects WHERE parentprojectid = ' . $this->oProject->projectid . ' ORDER BY name');
+		$oDB->Query('SELECT projectid FROM dcl_projects WHERE parentprojectid = ' . $this->project->projectid . ' ORDER BY name');
 		if ($oDB->next_record())
 		{
 			$oProject = new ProjectsModel();
@@ -241,21 +235,21 @@ class htmlProjectsdetail
 			}
 			while ($oDB->next_record());
 
-			$this->oSmarty->assign('VAL_CHILDPROJECTS', $aProjects);
+			$this->smartyHelper->assign('VAL_CHILDPROJECTS', $aProjects);
 		}
 	}
 
-	function SetStatistics()
+	private function SetStatistics()
 	{
 		global $dcl_info;
 
-		if ($this->oProject == null)
+		if ($this->project == null)
 			return;
 
-		$arrayStats = $this->oProject->GetProjectStatistics($this->oProject->projectid, $dcl_info['DCL_PROJECT_INCLUDE_CHILD_STATS'] == 'Y', $dcl_info['DCL_PROJECT_INCLUDE_PARENT_STATS'] == 'Y');
-		$this->oSmarty->assign('VAL_TOTALTASKS', $arrayStats['totaltasks']);
-		$this->oSmarty->assign('VAL_TASKSCLOSED', $arrayStats['tasksclosed']);
-		$this->oSmarty->assign('VAL_ESTHOURS', $arrayStats['esthours']);
+		$arrayStats = $this->project->GetProjectStatistics($this->project->projectid, $dcl_info['DCL_PROJECT_INCLUDE_CHILD_STATS'] == 'Y', $dcl_info['DCL_PROJECT_INCLUDE_PARENT_STATS'] == 'Y');
+		$this->smartyHelper->assign('VAL_TOTALTASKS', $arrayStats['totaltasks']);
+		$this->smartyHelper->assign('VAL_TASKSCLOSED', $arrayStats['tasksclosed']);
+		$this->smartyHelper->assign('VAL_ESTHOURS', $arrayStats['esthours']);
 		if ($arrayStats['etchours'] > 0)
 		{
 			$oneDay = 24 * 60 * 60; // Just in case time scale changes in the future
@@ -272,12 +266,12 @@ class htmlProjectsdetail
 					$i++;
 			}
 
-			$this->oSmarty->assign('VAL_ETCDATE', date($dcl_info['DCL_DATE_FORMAT'], $endDay));
+			$this->smartyHelper->assign('VAL_ETCDATE', date($dcl_info['DCL_DATE_FORMAT'], $endDay));
 		}
 		else
-			$this->oSmarty->assign('VAL_ETCDATE', '');
+			$this->smartyHelper->assign('VAL_ETCDATE', '');
 
-		$this->oSmarty->assign('VAL_RESOURCES', $arrayStats['resources']);
+		$this->smartyHelper->assign('VAL_RESOURCES', $arrayStats['resources']);
 
 		$ouHours = -($arrayStats['esthours'] - $arrayStats['totalhours']);
 		$diffHours = $ouHours;
@@ -295,17 +289,17 @@ class htmlProjectsdetail
 				$sign = '+';
 		}
 
-		$this->oSmarty->assign('VAL_HOURSPM', sprintf('%s%0.2f (%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct)));
-		$this->oSmarty->assign('VAL_TOTALHOURS', $arrayStats['totalhours']);
-		$this->oSmarty->assign('VAL_ETCHOURS', $arrayStats['etchours']);
+		$this->smartyHelper->assign('VAL_HOURSPM', sprintf('%s%0.2f (%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct)));
+		$this->smartyHelper->assign('VAL_TOTALHOURS', $arrayStats['totalhours']);
+		$this->smartyHelper->assign('VAL_ETCHOURS', $arrayStats['etchours']);
 
 		if ($arrayStats['totalhours'] + $arrayStats['etchours'] > 0.0)
-			$this->oSmarty->assign('VAL_PCTCOMP', sprintf('%0.2f%%', ($arrayStats['totalhours'] / ($arrayStats['totalhours'] + $arrayStats['etchours'])) * 100));
+			$this->smartyHelper->assign('VAL_PCTCOMP', sprintf('%0.2f%%', ($arrayStats['totalhours'] / ($arrayStats['totalhours'] + $arrayStats['etchours'])) * 100));
 		else
-			$this->oSmarty->assign('VAL_PCTCOMP', '0.00%');
+			$this->smartyHelper->assign('VAL_PCTCOMP', '0.00%');
 	}
 
-	function ShowTree($projectid, $wostatus, $woresponsible)
+	public function ShowTree($projectid, $wostatus, $woresponsible)
 	{
 		global $dcl_info, $g_oSec;
 
@@ -327,7 +321,7 @@ class htmlProjectsdetail
 
 		echo '<form action="' . menuLink('') . '" method="post">';
 		echo GetHiddenVar('project', $projectid);
-		echo GetHiddenVar('menuAction', 'boProjects.showtree');
+		echo GetHiddenVar('menuAction', 'Project.Tree');
 
 		$objStat = new StatusHtmlHelper();
 		$objPersonnel = new PersonnelHtmlHelper();
@@ -346,10 +340,10 @@ class htmlProjectsdetail
 		echo '</table></center>';
 	}
 
-	function GetTreeLink($projectid, $name, $wostatus, $woresponsible)
+	private function GetTreeLink($projectid, $name, $wostatus, $woresponsible)
 	{
 		$link = '<a href="';
-		$link .= menuLink('', sprintf('menuAction=boProjects.showtree&project=%d&wostatus=%d&woresponsible=%d',
+		$link .= menuLink('', sprintf('menuAction=Project.Tree&project=%d&wostatus=%d&woresponsible=%d',
 					$projectid,
 					$wostatus,
 					$woresponsible));
@@ -358,7 +352,7 @@ class htmlProjectsdetail
 		return $link;
 	}
 
-	function DisplayChildProjects($childOfID, $wostatus, $woresponsible, $level = 0)
+	private function DisplayChildProjects($childOfID, $wostatus, $woresponsible, $level = 0)
 	{
 		$oPM = new ProjectMapModel();
 		$oPM->Query('SELECT projectid,name FROM dcl_projects WHERE parentprojectid=' . $childOfID);
@@ -377,7 +371,7 @@ class htmlProjectsdetail
 		}
 	}
 
-	function DisplayProjectTasks($projectid, $wostatus, $woresponsible, $level = 0)
+	private function DisplayProjectTasks($projectid, $wostatus, $woresponsible, $level = 0)
 	{
 		global $dcl_info;
 
@@ -427,28 +421,5 @@ class htmlProjectsdetail
 			echo '<tr><td colspan="6">This project has no tasks that match your filter.</td></tr>';
 
 		$db->FreeResult();
-	}
-
-	function Download()
-	{
-		global $dcl_info, $g_oSec;
-		
-		if (($id = Filter::ToInt($_REQUEST['projectid'])) === null ||
-			!Filter::IsValidFileName($_REQUEST['filename'])
-			)
-		{
-			throw new InvalidDataException();
-		}
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id))
-			throw new PermissionDeniedException();
-
-		// TODO: Security check
-		$o = new FileHelper();
-		$o->iType = DCL_ENTITY_PROJECT;
-		$o->iKey1 = $id;
-		$o->sFileName = $_REQUEST['filename'];
-		$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
-		$o->Download();
 	}
 }

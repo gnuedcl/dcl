@@ -26,7 +26,7 @@ function submitBatch()
 	var f = document.forms.searchAction;
 	var sAction = f.elements.menuAction.value;
 
-	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchReassign' || sAction == 'htmlProjectmap.move' || sAction == 'htmlProjectmap.batchmove')
+	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchReassign' || sAction == 'Project.Move' || sAction == 'Project.BatchMove')
 	{
 		var bHasCheck = false;
 		for (var i = 0; i < f.elements.length && !bHasCheck; i++)

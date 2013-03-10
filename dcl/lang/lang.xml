@@ -6225,8 +6225,7 @@
 		</phrase>
 		<phrase name="STR_WO_UNMAP">
 			<xlt lang="de">vom Projekt lÃƒÂ¶sen</xlt>
-			<xlt lang="en">Unmap From Project</xlt>
-			<xlt lang="es">Unmap From Project</xlt>
+			<xlt lang="en">Remove From Project</xlt>
 			<xlt lang="fr">DÃƒÂ©tacher du Projet</xlt>
 			<xlt lang="it">Scollega da questo progetto</xlt>
 			<xlt lang="ru">ÃƒÂ¯Ãƒâ€�Ãƒâ€œÃƒï¿½Ãƒâ€¦Ãƒâ€žÃƒâ€°ÃƒÅ½Ãƒâ€°Ãƒâ€�ÃƒËœ Ãƒï¿½Ãƒâ€� ÃƒÂ°Ãƒâ€™Ãƒï¿½Ãƒâ€¦Ãƒâ€¹Ãƒâ€�Ãƒï¿½</xlt>

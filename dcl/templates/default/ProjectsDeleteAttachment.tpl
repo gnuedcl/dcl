@@ -1,5 +1,5 @@
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="boProjects.dodeleteattachment">
+	<input type="hidden" name="menuAction" value="Project.DestroyAttachment">
 	<input type="hidden" name="projectid" value="{$VAL_PROJECTID}">
 	<input type="hidden" name="filename" value="{$VAL_FILENAME|escape}">
 	<fieldset>

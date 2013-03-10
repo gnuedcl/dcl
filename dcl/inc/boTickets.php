@@ -46,7 +46,7 @@ class boTickets
 			throw new PermissionDeniedException();
 
 		$obj = new TicketsModel();
-		$obj->InitFromGlobals();
+		$obj->InitFrom_POST();
 		$obj->createdby = $GLOBALS['DCLID'];
 		$obj->createdon = DCL_NOW;
 
@@ -110,7 +110,7 @@ class boTickets
 		if (IsSet($_REQUEST['resolution']) && $_REQUEST['resolution'] != '')
 		{
 			$objR = new TicketResolutionsModel();
-			$objR->InitFromGlobals();
+			$objR->InitFrom_POST();
 			$objR->loggedby = $GLOBALS['DCLID'];
 			$objR->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 			$objR->ticketid = $obj->ticketid;

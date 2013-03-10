@@ -329,8 +329,7 @@ class WorkOrderPresenter
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
 		{
-			$oProjects = new boProjects();
-			$smarty->assign('VAL_PROJECTS', $oProjects->GetProjectPath($workOrder->jcn, $workOrder->seq));
+			$smarty->assign('VAL_PROJECTS', ProjectsModel::GetProjectPath($workOrder->jcn, $workOrder->seq));
 		}
 
 		$oAcct = new WorkOrderOrganizationModel();
@@ -505,8 +504,7 @@ class WorkOrderPresenter
 		$attributeSetJsHelper->DisplayAttributeScript();
 
 		$statusHtmlHelper = new StatusHtmlHelper();
-		$htmlProjects = new htmlProjects();
-		$htmlProjectModules = new htmlProductModules();
+		$projectHtmlHelper = new ProjectHtmlHelper();
 
 		$personnelModel = new PersonnelModel();
 		$personnelModel->Load($GLOBALS['DCLID']);
@@ -679,7 +677,7 @@ class WorkOrderPresenter
 		$smartyHelper->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
 		if (!$g_oSec->IsPublicUser())
 		{
-			$smartyHelper->assign('CMB_PROJECTS', $htmlProjects->GetCombo($aDefault['project'], 'project', 'name', 8));
+			$smartyHelper->assign('CMB_PROJECTS', $projectHtmlHelper->GetCombo($aDefault['project'], 'project', 'name', 8));
 			$smartyHelper->assign('CMB_PUBLIC', GetYesNoCombo($aDefault['is_public'], 'is_public', 2, false));
 		}
 
@@ -1079,7 +1077,7 @@ class WorkOrderPresenter
 			'Detail' => array('menuAction' => 'WorkOrder.BatchDetail', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD)),
 			'Time Card' => array('menuAction' => 'boTimecards.batchadd', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION)),
 			'Assign' => array('menuAction' => 'WorkOrder.BatchReassign', 'hasPermission' => $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN)),
-			'Project' => array('menuAction' => 'htmlProjectmap.batchmove', 'hasPermission' => $g_oSec->HasAllPerm(array(DCL_ENTITY_PROJECT => array($g_oSec->PermArray(DCL_PERM_ADDTASK), $g_oSec->PermArray(DCL_PERM_REMOVETASK)))))
+			'Project' => array('menuAction' => 'Project.BatchMove', 'hasPermission' => $g_oSec->HasAllPerm(array(DCL_ENTITY_PROJECT => array($g_oSec->PermArray(DCL_PERM_ADDTASK), $g_oSec->PermArray(DCL_PERM_REMOVETASK)))))
 			);
 
 		foreach ($aOptions as $sDisplay => $aOption)

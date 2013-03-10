@@ -237,14 +237,14 @@ class htmlMyDCL
 		$oTable->setShowRownum(false);
 		$oTable->setCaption($oView->title);
 		$oTable->setWidth('100%');
-		$oTable->addToolbar(menuLink('', 'menuAction=htmlProjects.show&filterReportto=' . $GLOBALS['DCLID']), STR_CMMN_VIEWALL);
+		$oTable->addToolbar(menuLink('', 'menuAction=Project.Index&filterReportto=' . $GLOBALS['DCLID']), STR_CMMN_VIEWALL);
 
 		$oDB = new DbProvider;
 		$oDB->LimitQuery($oView->GetSQL(), 0, 5);
 		$aData = $oDB->FetchAllRows();
 		for ($i = 0; $i < count($aData); $i++)
 		{
-			$aData[$i][3] = '<a href="' . menuLink('', 'menuAction=boProjects.viewproject&project=' . $aData[$i][0]) . '">' . $aData[$i][3] . '</a>';
+			$aData[$i][3] = '<a href="' . menuLink('', 'menuAction=Project.Detail&id=' . $aData[$i][0]) . '">' . $aData[$i][3] . '</a>';
 		}
 		
 		$oTable->setData($aData);

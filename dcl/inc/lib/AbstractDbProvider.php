@@ -206,31 +206,6 @@ abstract class AbstractDbProvider
 	}
 
 	/**
-	 * Initializes field member variables from $GLOBALS global array.  Used for copying form contents into class.
-	 */
-	public function InitFromGlobals()
-	{
-		foreach ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'] as $sFieldName => $aFieldInfo)
-		{
-			if (IsSet($GLOBALS[$sFieldName]))
-			{
-				$this->$sFieldName = $this->GPCStripSlashes($GLOBALS[$sFieldName]);
-			}
-		}
-	}
-
-	/**
-	 * Pass-through function used for phpGroupWare/eGroupWare compatability
-	 * @param string The string to escape
-	 * @return string The escaped string
-	 * @see DBAddSlashes()
-	 */
-	public function db_addslashes($thisString)
-	{
-		return $this->DBAddSlashes($thisString);
-	}
-
-	/**
 	 * Escape a string to make it safe for SQL DML
 	 * @param string The string to escape
 	 * @return string The escaped string

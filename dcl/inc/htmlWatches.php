@@ -195,7 +195,7 @@ class htmlWatches
 
 				break;
 			case 2:
-				$link = menuLink('', 'menuAction=boProjects.viewproject&project=' . $obj->whatid1);
+				$link = menuLink('', 'menuAction=Project.Detail&id=' . $obj->whatid1);
 				break;
 			case 3:
 				if ($obj->whatid2 > 0)

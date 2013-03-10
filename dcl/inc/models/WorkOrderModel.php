@@ -139,8 +139,7 @@ class WorkOrderModel extends DbProvider
 		
 		try
 		{
-			$projectModel = new boProjects();
-			$projectModel->dbunmap($this->jcn, $this->seq, true);
+			ProjectsModel::RemoveTask($this->jcn, $this->seq, true);
 
 			$workOrderOrgModel = new WorkOrderOrganizationModel();
 			$workOrderOrgModel->DeleteByWorkOrder($this->jcn, $this->seq);

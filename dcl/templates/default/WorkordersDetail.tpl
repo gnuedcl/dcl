@@ -96,7 +96,7 @@ function submitAction(sFormName, sAction)
 	{if $VAL_PROJECTS}
 			<tr><th>{$smarty.const.STR_WO_PROJECT}:</th><td colspan="3">
 	{section name=project loop=$VAL_PROJECTS}
-	<a href="{$VAL_MENULINK}?menuAction=boProjects.viewproject&project={$VAL_PROJECTS[project].project_id}">[{$VAL_PROJECTS[project].project_id}] {$VAL_PROJECTS[project].name|escape}</a>{if !$smarty.section.project.last}&nbsp;/&nbsp;{/if}
+	<a href="{$VAL_MENULINK}?menuAction=Project.Detail&id={$VAL_PROJECTS[project].project_id}">[{$VAL_PROJECTS[project].project_id}] {$VAL_PROJECTS[project].name|escape}</a>{if !$smarty.section.project.last}&nbsp;/&nbsp;{/if}
 	{/section}
 				</td>
 			</tr>

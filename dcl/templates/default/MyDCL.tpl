@@ -168,10 +168,10 @@ function validateView(f)
 		<tr><th class="sectionHeader">{$smarty.const.STR_PRJ_MYPRJ}</th></tr>
 {section loop=$VAL_PROJECTS name=project}
 {cycle name=set7 assign=rowClass values="odd,even"}
-		<tr class="{$rowClass}"><td><a href="{$URL_MAIN_PHP}?menuAction=boProjects.viewproject&wostatus=0&project={$VAL_PROJECTS[project].projectid}">({$VAL_PROJECTS[project].projectid}) {$VAL_PROJECTS[project].name|escape}</a></td></tr>
+		<tr class="{$rowClass}"><td><a href="{$URL_MAIN_PHP}?menuAction=Project.Detail&id={$VAL_PROJECTS[project].projectid}&wostatus=0">({$VAL_PROJECTS[project].projectid}) {$VAL_PROJECTS[project].name|escape}</a></td></tr>
 		{if $smarty.section.project.last}
 			{cycle name=set7 assign=rowClass values="odd,even"}
-		<tr class="{$rowClass}"><td style="text-align: right;"><a href="{$URL_MAIN_PHP}?menuAction=htmlProjects.show&filterReportto={$VAL_ID}">{$smarty.const.STR_CMMN_VIEW}</a></td></tr>
+		<tr class="{$rowClass}"><td style="text-align: right;"><a href="{$URL_MAIN_PHP}?menuAction=Project.Index&filterReportto={$VAL_ID}">{$smarty.const.STR_CMMN_VIEW}</a></td></tr>
 		{/if}
 {sectionelse}
 		<tr><td>{$smarty.const.STR_PRJ_NOTLEAD}</td></tr>

@@ -29,6 +29,14 @@ define('DCL_MODE_NEW', 1);
 define('DCL_MODE_EDIT', 2);
 define('DCL_MODE_COPY', 3);
 
+// Log levels
+define('DCL_LOG_TRACE', 1);
+define('DCL_LOG_DEBUG', 2);
+define('DCL_LOG_INFO', 3);
+define('DCL_LOG_WARN', 4);
+define('DCL_LOG_ERROR', 5);
+define('DCL_LOG_FATAL', 6);
+
 // Entities
 define('DCL_ENTITY_GLOBAL', 0);
 define('DCL_ENTITY_PROJECT', 1);
@@ -568,9 +576,9 @@ function buildMenuArray()
 	if ($dcl_info['DCL_MODULE_PROJECTS_ENABLED'])
 	{
 		$DCL_MENU[DCL_MENU_PROJECTS] = array(
-				DCL_MENU_MYPROJECTS => array('htmlProjects.show&filterReportto=' . $GLOBALS['DCLID'], $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW)),
-				DCL_MENU_NEW => array('boProjects.newproject', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD)),
-				DCL_MENU_VIEW => array('htmlProjects.show', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
+				DCL_MENU_MYPROJECTS => array('Project.Index&filterReportto=' . $GLOBALS['DCLID'], $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW)),
+				DCL_MENU_NEW => array('Project.Create', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD)),
+				DCL_MENU_VIEW => array('Project.Index', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
 			);
 	}
 
@@ -664,7 +672,7 @@ function buildMenuArray()
 		);
 }
 
-function commonHeader($formValidateSrc = '', $onLoad = '')
+function commonHeader()
 {
 	if (defined('HTML_HEADER_GENERATED'))
 		return;
@@ -811,65 +819,146 @@ function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOptio
 	return $str;
 }
 
-function ShowInfo($sMessage, $sFile, $iLine, $aBacktrace)
+function ShowInfo($sMessage, $sFile = '', $iLine = 0, $aBacktrace = null)
 {
+	commonHeader();
+
 	$o = htmlMessageInfo::GetInstance();
 	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
 }
 
-function ShowWarning($sMessage, $sFile, $iLine, $aBacktrace)
+function ShowWarning($sMessage, $sFile = '', $iLine = 0, $aBacktrace = null)
 {
+	commonHeader();
+
 	$o = htmlMessageWarning::GetInstance();
 	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
 }
 
-function ShowError($sMessage, $sFile, $iLine, $aBacktrace)
+function ShowError($sMessage, $sFile = '', $iLine = 0, $aBacktrace = null)
 {
+	commonHeader();
+
 	$o = htmlMessageError::GetInstance();
 	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
 }
 
-function dcl_error_handler($errno, $errstr, $errfile, $errline)
+function DclErrorLog($level, $message, $file, $line, $backTrace)
 {
-	global $g_oPage, $g_oSec;
+	try
+	{
+		$logger = new ErrorLogModel();
+		$logger->server_name = $_SERVER['SERVER_NAME'];
+		$logger->script_name = $_SERVER['SCRIPT_NAME'];
+		$logger->request_uri = $_SERVER['REQUEST_URI'];
+		$logger->query_string = $_SERVER['QUERY_STRING'];
+		$logger->error_file = $file;
+		$logger->error_line = $line;
+		$logger->error_description = $message;
+		$logger->log_level = $level;
+
+		if ($backTrace != null && $backTrace != '')
+			$logger->stack_trace = @json_encode($backTrace);
+
+		$logger->Add();
+
+		return $logger->error_log_id;
+	}
+	catch (Exception $ex)
+	{
+		return -1;
+	}
+}
+
+function LogInfo($message, $file, $line, $backTrace)
+{
+	$logId = DclErrorLog(DCL_LOG_INFO, $message, $file, $line, $backTrace);
+	if ($logId != -1)
+		ShowInfo('An info log entry was generated.  Please refer to log ID ' . $logId . '.');
+	else
+		ShowInfo('An info log entry was attempted, but was not able to be recorded.');
+}
+
+function LogWarning($message, $file, $line, $backTrace)
+{
+	$logId = DclErrorLog(DCL_LOG_WARN, $message, $file, $line, $backTrace);
+	if ($logId != -1)
+		ShowWarning('A warning log entry was generated.  Please refer to log ID ' . $logId . '.');
+	else
+		ShowWarning('A warning log entry was attempted, but was not able to be recorded.');
+}
+
+function LogError($message, $file, $line, $backTrace)
+{
+	$logId = DclErrorLog(DCL_LOG_ERROR, $message, $file, $line, $backTrace);
+	if ($logId != -1)
+		ShowError('An error log entry was generated.  Please refer to log ID ' . $logId . '.');
+	else
+		ShowError('An error log entry was attempted, but was not able to be recorded.');
+}
+
+function LogFatal($message, $file, $line, $backTrace)
+{
+	$logId = DclErrorLog(DCL_LOG_FATAL, $message, $file, $line, $backTrace);
+	if ($logId != -1)
+		ShowError('A fatal log entry was generated.  Please refer to log ID ' . $logId . '.');
+	else
+		ShowError('A fatal log entry was attempted, but was not able to be recorded.');
+}
+
+function DclErrorHandler($errorNumber, $message, $file, $line)
+{
+	global $g_oPage;
 	
-	if (!($errno & error_reporting()))
+	if (!($errorNumber & error_reporting()))
 		return;
 
-	$aBacktrace = array();
+	$backTrace = debug_backtrace();
 
-	if (function_exists('debug_backtrace'))
-	{
-		$aBacktrace = debug_backtrace();
-	}
-
- 	switch ($errno)
+ 	switch ($errorNumber)
 	{
 		case E_COMPILE_ERROR:
 		case E_PARSE:
 		case E_CORE_ERROR:
+			LogFatal($message, $file, $line, $backTrace);
+			break;
 		case E_USER_ERROR:
 		case E_ERROR:
-			ShowError($errstr, $errfile, $errline, $aBacktrace);
+			LogError($message, $file, $line, $backTrace);
 			break;
 		case E_CORE_WARNING:
 		case E_USER_WARNING:
 		case E_WARNING:
-			ShowWarning($errstr, $errfile, $errline, $aBacktrace);
+			LogWarning($message, $file, $line, $backTrace);
 			break;
 		case E_NOTICE:
 		case E_USER_NOTICE:
-			ShowInfo($errstr, $errfile, $errline, $aBacktrace);
+			LogInfo($message, $file, $line, $backTrace);
 			break;
 	}
 
-	if ($errno == E_COMPILE_ERROR || $errno == E_PARSE)
+	if ($errorNumber == E_COMPILE_ERROR || $errorNumber == E_PARSE)
 	{
-		$g_oPage->EndPage();
+		if (is_object($g_oPage))
+			$g_oPage->EndPage();
+
 		exit(255);
 	}
 }
 
+function DclExceptionHandler(Exception $ex)
+{
+	global $g_oPage;
+
+	LogError($ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
+
+	if (is_object($g_oPage))
+		$g_oPage->EndPage();
+
+	exit(255);
+}
+
 error_reporting(E_ALL);
-set_error_handler('dcl_error_handler');
+set_error_handler('DclErrorHandler');
+set_exception_handler('DclExceptionHandler');
 spl_autoload_register('DclClassAutoLoader');

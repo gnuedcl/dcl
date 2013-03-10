@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2013 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,116 +20,114 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$setup_info['dcl'] = array();
-$setup_info['dcl']['name']      = 'dcl';
-$setup_info['dcl']['title']     = 'Double Choco Latte';
-$setup_info['dcl']['version']   = '0.9.5RC15';
-$setup_info['dcl']['enable']    = 1;
-$setup_info['dcl']['app_order'] = 1;
-
-$setup_info['dcl']['author'] = array
-(
-	'name'	=> 'Michael L. Dean',
-	'email' => 'dcl-users@lists.sourceforge.net',
-	'url'	=> 'dcl.sourceforge.net'
+$setup_info['dcl'] = array(
+    'name' => 'dcl',
+    'title' => 'Double Choco Latte',
+    'version' => '0.9.5RC16',
+    'enable' => 1,
+    'app_order' => 1,
+    'author' => array(
+        'name'	=> 'Michael L. Dean',
+        'email' => 'dcl-users@lists.sourceforge.net',
+        'url'	=> 'dcl.sourceforge.net'
+    ),
+    'maintainer' => array(
+        'name'	=> 'Michael L. Dean',
+        'email' => 'dcl-users@lists.sourceforge.net',
+        'url'	=> 'dcl.sourceforge.net'
+    ),
+    'description' => 'Double Choco Latte - Project Management, Issue Tracking, Call Tracking',
+    'license' => 'GPL',
+    'tables' => array(
+        'actions',
+        'attributesetsmap',
+        'attributesets',
+        'dcl_addr_type',
+        'dcl_chklst',
+        'dcl_chklst_tpl',
+        'dcl_config',
+        'dcl_contact_addr',
+        'dcl_contact_email',
+        'dcl_contact_note',
+        'dcl_contact_phone',
+        'dcl_contact',
+        'dcl_contact_license',
+        'dcl_contact_type',
+        'dcl_contact_type_xref',
+        'dcl_contact_url',
+        'dcl_email_type',
+        'dcl_entity',
+        'dcl_entity_hotlist',
+        'dcl_entity_hotlist_audit',
+        'dcl_entity_perm',
+        'dcl_entity_source',
+        'dcl_entity_tag',
+        'dcl_error_log',
+        'dcl_hotlist',
+        'dcl_note_type',
+        'dcl_org_addr',
+        'dcl_org_alias',
+        'dcl_org_contact',
+        'dcl_org_email',
+        'dcl_org_note',
+        'dcl_org_phone',
+        'dcl_org',
+        'dcl_org_product_xref',
+        'dcl_org_type',
+        'dcl_org_type_xref',
+        'dcl_org_url',
+        'dcl_perm',
+        'dcl_phone_type',
+        'dcl_preferences',
+        'dcl_product_build',
+        'dcl_product_build_except',
+        'dcl_product_build_item',
+        'dcl_product_build_sccs',
+        'dcl_product_module',
+        'dcl_product_version',
+        'dcl_product_version_item',
+        'dcl_product_version_status',
+        'dcl_projects',
+        'dcl_projects_audit',
+        'dcl_role_perm',
+        'dcl_role',
+        'dcl_sccs',
+        'dcl_sccs_xref',
+        'dcl_sec_audit',
+        'dcl_session',
+        'dcl_status_type',
+        'dcl_tag',
+        'dcl_url_type',
+        'dcl_user_role',
+        'dcl_wiki',
+        'dcl_wo_account',
+        'dcl_wo_account_audit',
+        'dcl_wo_id',
+        'dcl_wo_task',
+        'dcl_wo_type',
+        'dcl_workspace_product',
+        'dcl_workspace_user',
+        'dcl_workspace',
+        'departments',
+        'faqanswers',
+        'faq',
+        'faqquestions',
+        'faqtopics',
+        'personnel',
+        'priorities',
+        'products',
+        'projectmap',
+        'projectmap_audit',
+        'severities',
+        'statuses',
+        'ticketresolutions',
+        'tickets',
+        'tickets_audit',
+        'timecards',
+        'views',
+        'watches',
+        'workorders',
+        'workorders_audit'
+    )
 );
 
-$setup_info['dcl']['maintainer'] = array
-(
-	'name'	=> 'Michael L. Dean',
-	'email' => 'dcl-users@lists.sourceforge.net',
-	'url'	=> 'dcl.sourceforge.net'
-);
-
-$setup_info['dcl']['description'] = 'Double Choco Latte - Project Management, Issue Tracking, Call Tracking';
-$setup_info['dcl']['license'] = 'GPL';
-
-$setup_info['dcl']['tables'] = array();
-$setup_info['dcl']['tables'][] = 'actions';
-$setup_info['dcl']['tables'][] = 'attributesetsmap';
-$setup_info['dcl']['tables'][] = 'attributesets';
-$setup_info['dcl']['tables'][] = 'dcl_addr_type';
-$setup_info['dcl']['tables'][] = 'dcl_chklst';
-$setup_info['dcl']['tables'][] = 'dcl_chklst_tpl';
-$setup_info['dcl']['tables'][] = 'dcl_config';
-$setup_info['dcl']['tables'][] = 'dcl_contact_addr';
-$setup_info['dcl']['tables'][] = 'dcl_contact_email';
-$setup_info['dcl']['tables'][] = 'dcl_contact_note';
-$setup_info['dcl']['tables'][] = 'dcl_contact_phone';
-$setup_info['dcl']['tables'][] = 'dcl_contact';
-$setup_info['dcl']['tables'][] = 'dcl_contact_license';
-$setup_info['dcl']['tables'][] = 'dcl_contact_type';
-$setup_info['dcl']['tables'][] = 'dcl_contact_type_xref';
-$setup_info['dcl']['tables'][] = 'dcl_contact_url';
-$setup_info['dcl']['tables'][] = 'dcl_email_type';
-$setup_info['dcl']['tables'][] = 'dcl_entity';
-$setup_info['dcl']['tables'][] = 'dcl_entity_hotlist';
-$setup_info['dcl']['tables'][] = 'dcl_entity_hotlist_audit';
-$setup_info['dcl']['tables'][] = 'dcl_entity_perm';
-$setup_info['dcl']['tables'][] = 'dcl_entity_source';
-$setup_info['dcl']['tables'][] = 'dcl_entity_tag';
-$setup_info['dcl']['tables'][] = 'dcl_hotlist';
-$setup_info['dcl']['tables'][] = 'dcl_note_type';
-$setup_info['dcl']['tables'][] = 'dcl_org_addr';
-$setup_info['dcl']['tables'][] = 'dcl_org_alias';
-$setup_info['dcl']['tables'][] = 'dcl_org_contact';
-$setup_info['dcl']['tables'][] = 'dcl_org_email';
-$setup_info['dcl']['tables'][] = 'dcl_org_note';
-$setup_info['dcl']['tables'][] = 'dcl_org_phone';
-$setup_info['dcl']['tables'][] = 'dcl_org';
-$setup_info['dcl']['tables'][] = 'dcl_org_product_xref';
-$setup_info['dcl']['tables'][] = 'dcl_org_type';
-$setup_info['dcl']['tables'][] = 'dcl_org_type_xref';
-$setup_info['dcl']['tables'][] = 'dcl_org_url';
-$setup_info['dcl']['tables'][] = 'dcl_perm';
-$setup_info['dcl']['tables'][] = 'dcl_phone_type';
-$setup_info['dcl']['tables'][] = 'dcl_preferences';
-$setup_info['dcl']['tables'][] = 'dcl_product_build';
-$setup_info['dcl']['tables'][] = 'dcl_product_build_except';
-$setup_info['dcl']['tables'][] = 'dcl_product_build_item';
-$setup_info['dcl']['tables'][] = 'dcl_product_build_sccs';
-$setup_info['dcl']['tables'][] = 'dcl_product_module';
-$setup_info['dcl']['tables'][] = 'dcl_product_version';
-$setup_info['dcl']['tables'][] = 'dcl_product_version_item';
-$setup_info['dcl']['tables'][] = 'dcl_product_version_status';
-$setup_info['dcl']['tables'][] = 'dcl_projects';
-$setup_info['dcl']['tables'][] = 'dcl_projects_audit';
-$setup_info['dcl']['tables'][] = 'dcl_role_perm';
-$setup_info['dcl']['tables'][] = 'dcl_role';
-$setup_info['dcl']['tables'][] = 'dcl_sccs';
-$setup_info['dcl']['tables'][] = 'dcl_sccs_xref';
-$setup_info['dcl']['tables'][] = 'dcl_sec_audit';
-$setup_info['dcl']['tables'][] = 'dcl_session';
-$setup_info['dcl']['tables'][] = 'dcl_status_type';
-$setup_info['dcl']['tables'][] = 'dcl_tag';
-$setup_info['dcl']['tables'][] = 'dcl_url_type';
-$setup_info['dcl']['tables'][] = 'dcl_user_role';
-$setup_info['dcl']['tables'][] = 'dcl_wiki';
-$setup_info['dcl']['tables'][] = 'dcl_wo_account';
-$setup_info['dcl']['tables'][] = 'dcl_wo_account_audit';
-$setup_info['dcl']['tables'][] = 'dcl_wo_id';
-$setup_info['dcl']['tables'][] = 'dcl_wo_task';
-$setup_info['dcl']['tables'][] = 'dcl_wo_type';
-$setup_info['dcl']['tables'][] = 'dcl_workspace_product';
-$setup_info['dcl']['tables'][] = 'dcl_workspace_user';
-$setup_info['dcl']['tables'][] = 'dcl_workspace';
-$setup_info['dcl']['tables'][] = 'departments';
-$setup_info['dcl']['tables'][] = 'faqanswers';
-$setup_info['dcl']['tables'][] = 'faq';
-$setup_info['dcl']['tables'][] = 'faqquestions';
-$setup_info['dcl']['tables'][] = 'faqtopics';
-$setup_info['dcl']['tables'][] = 'personnel';
-$setup_info['dcl']['tables'][] = 'priorities';
-$setup_info['dcl']['tables'][] = 'products';
-$setup_info['dcl']['tables'][] = 'projectmap';
-$setup_info['dcl']['tables'][] = 'projectmap_audit';
-$setup_info['dcl']['tables'][] = 'severities';
-$setup_info['dcl']['tables'][] = 'statuses';
-$setup_info['dcl']['tables'][] = 'ticketresolutions';
-$setup_info['dcl']['tables'][] = 'tickets';
-$setup_info['dcl']['tables'][] = 'tickets_audit';
-$setup_info['dcl']['tables'][] = 'timecards';
-$setup_info['dcl']['tables'][] = 'views';
-$setup_info['dcl']['tables'][] = 'watches';
-$setup_info['dcl']['tables'][] = 'workorders';
-$setup_info['dcl']['tables'][] = 'workorders_audit';

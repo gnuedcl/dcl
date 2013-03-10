@@ -222,7 +222,7 @@ class htmlSearchBox
 	{
 		commonHeader();
 
-		$obj = new htmlProjectsdetail();
+		$obj = new ProjectDetailPresenter();
 		$obj->show($projectid, 0, 0);
 	}
 
@@ -230,9 +230,9 @@ class htmlSearchBox
 	{
 		commonHeader();
 		
-		$obj = new htmlProjects();
+		$presenter = new ProjectPresenter();
 		$_REQUEST['filterName'] = $searchText;
-		$obj->show();
+		$presenter->Index();
 	}
 	
 	function searchTags($searchText)

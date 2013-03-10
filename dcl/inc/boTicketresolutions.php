@@ -68,7 +68,7 @@ class boTicketresolutions
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION, $iID))
 			throw new PermissionDeniedException();
 
-		$this->oDB->InitFromGlobals();
+		$this->oDB->InitFrom_POST();
 		$this->oDB->loggedby = $GLOBALS['DCLID'];
 		$this->oDB->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 		$this->oDB->is_public = @Filter::ToYN($_REQUEST['is_public']);

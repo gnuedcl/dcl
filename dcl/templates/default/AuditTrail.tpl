@@ -40,7 +40,7 @@
 			<td>{$VAL_AUDITPROJECT[project].audit_by|escape:"htmlall"}</td>
 			<td>{$VAL_AUDITPROJECT[project].audit_on}</td>
 			<td>{$VAL_AUDITPROJECT[project].audit_type|escape:"htmlall"}</td>
-			<td><a href="{$URL_MAIN_PHP}?menuAction=boProjects.viewproject&wostatus=0&project={$VAL_AUDITPROJECT[project].projectid}">[{$VAL_AUDITPROJECT[project].projectid}] {$VAL_AUDITPROJECT[project].name|escape:"htmlall"}</a></td>
+			<td><a href="{$URL_MAIN_PHP}?menuAction=Project.Detail&id={$VAL_AUDITPROJECT[project].projectid}&wostatus=0">[{$VAL_AUDITPROJECT[project].projectid}] {$VAL_AUDITPROJECT[project].name|escape:"htmlall"}</a></td>
 		</tr>
 {/strip}
 {/section}

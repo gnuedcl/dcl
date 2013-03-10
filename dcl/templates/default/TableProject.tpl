@@ -136,9 +136,9 @@ function jumpToPage(iPage)
 			{/if}
 			{if $smarty.section.item.last}
 			<td>
-				<a href="{$URL_MAIN_PHP}?menuAction=boProjects.viewproject&project={$records[row][0]}">Detail</a>
-				&nbsp;|&nbsp;<a href="{$URL_MAIN_PHP}?menuAction=boProjects.showtree&project={$records[row][0]}">Tree</a>
-				{if $VAL_WIKIUSED}&nbsp;|&nbsp;<a href="{$URL_MAIN_PHP}?menuAction=boProjects.viewproject&project={$records[row][0]}">{$smarty.const.STR_CMMN_WIKI}</a>{/if}
+				<a href="{$URL_MAIN_PHP}?menuAction=Project.Detail&id={$records[row][0]}">Detail</a>
+				&nbsp;|&nbsp;<a href="{$URL_MAIN_PHP}?menuAction=Project.Tree&project={$records[row][0]}">Tree</a>
+				{if $VAL_WIKIUSED}&nbsp;|&nbsp;<a href="{$URL_MAIN_PHP}?menuAction=Project.Detail&id={$records[row][0]}">{$smarty.const.STR_CMMN_WIKI}</a>{/if}
 			</td>
 			{/if}
 			</td>

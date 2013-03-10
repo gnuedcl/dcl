@@ -29,27 +29,17 @@ if (IsSet($menuAction) && $menuAction != 'clearScreen')
 {
 	if ($g_oSec->ValidateMenuAction() == true)
 	{
-		try
-		{
-			InvokePlugin('UI.PubSub');
-			Invoke($menuAction);
-		}
-		catch (Exception $ex)
-		{
-			commonHeader();
-			ShowError('Exception: ' . $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTraceAsString());
-		}
+		InvokePlugin('UI.PubSub');
+		Invoke($menuAction);
 	}
 	else
 	{
-		commonHeader();
-		trigger_error('The request was invalid.', E_USER_ERROR);
+		throw new InvalidArgumentException();
 	}
 }
 else
 {
-	commonHeader();
-	trigger_error('Method not supplied.', E_USER_ERROR);
+	throw new InvalidArgumentException();
 }
 
 $g_oPage->EndPage();

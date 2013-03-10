@@ -42,7 +42,7 @@ class htmlMetricsWorkOrders
 			commonHeader();
 
 		$oProducts = new ProductHtmlHelper();
-		$oProjects = new htmlProjects();
+		$oProjects = new ProjectHtmlHelper();
 
 		$oSmarty = new SmartyHelper();
 		$oSmarty->assign('VAL_FORMACTION', menuLink());

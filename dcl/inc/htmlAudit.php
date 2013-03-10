@@ -77,7 +77,7 @@ class htmlAudit
 				$this->aAudit = $oAudit->LoadDiff('ProjectsModel', array('projectid' => $id));
 				$oSmarty->assign('VAL_ID', $id);
 				$oSmarty->assign('VAL_SUMMARY', $this->oMeta->GetProject($id));
-				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=boProjects.viewproject&wostatus=0&project=$id"));
+				$oSmarty->assign('LNK_BACK', menuLink('', "menuAction=Project.Detail&id=$id&wostatus=0"));
 
 				$oProject = new ProjectMapModel();
 				$this->aAuditWorkOrder = $oProject->AuditProjectList($id);

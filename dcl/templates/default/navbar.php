@@ -47,7 +47,7 @@ class DCLNavBar
 			$aItems[] = array(DCL_MENU_NEWWORKORDER, 'WorkOrder.Create', 'new-16.png');
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
-			$aItems[] = array(DCL_MENU_NEWPROJECT, 'boProjects.newproject', 'new-16.png');
+			$aItems[] = array(DCL_MENU_NEWPROJECT, 'Project.Create', 'new-16.png');
 
 		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD))
 			$aItems[] = array(DCL_MENU_NEWTICKET, 'boTickets.add', 'new-16.png');
@@ -117,13 +117,13 @@ class DCLNavBar
 		else if ($this->_isProjectGroup())
 		{
 			if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
-				$aItems[] = array(DCL_MENU_MYPROJECTS, 'htmlProjects.show&filterReportto=' . $GLOBALS['DCLID'], 'home-16.png');
+				$aItems[] = array(DCL_MENU_MYPROJECTS, 'Project.Index&filterReportto=' . $GLOBALS['DCLID'], 'home-16.png');
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
-				$aItems[] = array(DCL_MENU_NEW, 'boProjects.newproject', 'new-16.png');
+				$aItems[] = array(DCL_MENU_NEW, 'Project.Create', 'new-16.png');
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
-				$aItems[] = array(DCL_MENU_BROWSE, 'htmlProjects.show', 'exec-16.png');
+				$aItems[] = array(DCL_MENU_BROWSE, 'Project.Index', 'exec-16.png');
 
 			$this->t->assign('VAL_TITLE', DCL_MENU_PROJECTS);
 		}
@@ -252,11 +252,8 @@ class DCLNavBar
 
 	function _isProjectGroup()
 	{
-		return ($this->_class == 'htmlProjects' ||
-				$this->_class == 'htmlProjectsform' ||
-				$this->_class == 'htmlProjectsdetail' ||
-				$this->_class == 'htmlProjectmap' ||
-				$this->_class == 'boProjects' ||
+		return ($this->_class == 'ProjectDetailPresenter' ||
+				$this->_class == 'Project' ||
 				($this->_class == 'htmlSearchBox' && $_REQUEST['which'] == 'dcl_projects')
 			);
 	}
@@ -265,6 +262,6 @@ class DCLNavBar
 	{
 		global $menuAction;
 
-		return ($menuAction == 'boProjects.viewproject');
+		return ($menuAction == 'Project.Detail');
 	}
 }

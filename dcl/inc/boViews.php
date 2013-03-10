@@ -46,7 +46,7 @@ class boViews
 			throw new PermissionDeniedException();
 
 		$objDB = new SavedSearchesModel();
-		$objDB->InitFromGlobals();
+		$objDB->InitFrom_POST();
 
 		$objView = new boView();
 		$objView->SetFromURL();

@@ -683,7 +683,7 @@ class reportPersonnelActivity
 								if ($bExport)
 									$reportArray[$arrayIndex][] = '[' . $oPM->projectid . '] ' . $oMeta->GetProject($oPM->projectid);
 								else
-									$reportArray[$arrayIndex][] = '[<a href="main.php?menuAction=boProjects.viewproject&project=' . $oPM->projectid . '">' . $oPM->projectid . '</a>] ' . htmlentities($oMeta->GetProject($oPM->projectid));
+									$reportArray[$arrayIndex][] = '[<a href="main.php?menuAction=Project.Detail&id=' . $oPM->projectid . '">' . $oPM->projectid . '</a>] ' . htmlentities($oMeta->GetProject($oPM->projectid));
 							}
 							else 
 							{

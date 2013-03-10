@@ -22,11 +22,6 @@
 
 class htmlProjectTimeline
 {
-    function htmlProjectTimeline()
-    {
-        
-    }
-    
     function GetCriteria()
     {
         global $dcl_info;
@@ -111,7 +106,7 @@ class htmlProjectTimeline
 		        
 		        if ($oDB->f(0) == 4)
 		        {
-		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=boProjects.viewproject&project=' . $id) . '">[' . $id . '] ' . htmlspecialchars($oDB->f(5)) . '</a>';
+		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=Project.Detail&id=' . $id) . '">[' . $id . '] ' . htmlspecialchars($oDB->f(5)) . '</a>';
 		        }
 		        else
 		        {

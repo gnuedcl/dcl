@@ -75,7 +75,7 @@ class htmlWiki
 		{
 			case DCL_ENTITY_PROJECT:
 				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_PROJECTWIKI, $id, $oMeta->GetProject($id)));
-				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=boProjects.viewproject&project=' . $id));
+				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=Project.Detail&id=' . $id));
 				break;
 			case DCL_ENTITY_PRODUCT:
 				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_PRODUCTWIKI, $oMeta->GetProduct($id)));

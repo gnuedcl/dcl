@@ -258,7 +258,7 @@ class htmlChangeLog
 			if ($aRecords[$i][3] == DCL_ENTITY_WORKORDER)
 				$aDisplayRecords[$i][3] = $this->GetLink('menuAction=WorkOrder.Detail&jcn=' . $aRecords[$i][4] . '&seq=' . $aRecords[$i][5], '[' . $aRecords[$i][4] . '-' . $aRecords[$i][5] . ']' . $oMeta->GetWorkOrder($aRecords[$i][4], $aRecords[$i][5]));
 			else if ($aRecords[$i][3] == DCL_ENTITY_PROJECT)
-				$aDisplayRecords[$i][3] = $this->GetLink('menuAction=boProjects.viewproject&project=' . $aRecords[$i][4], '[' . $aRecords[$i][4] . ']' . $oMeta->GetProject($aRecords[$i][4]));
+				$aDisplayRecords[$i][3] = $this->GetLink('menuAction=Project.Detail&id=' . $aRecords[$i][4], '[' . $aRecords[$i][4] . ']' . $oMeta->GetProject($aRecords[$i][4]));
 		}
 
 		$oTable = new TableHtmlHelper();

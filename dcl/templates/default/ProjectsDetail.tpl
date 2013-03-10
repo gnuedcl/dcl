@@ -10,7 +10,7 @@ function forceSubmit(sAction)
 
 function processSubmit(f){
 	var sAction = f.elements['menuAction'].value;
-	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchReassign' || sAction == 'htmlProjectmap.batchMove')
+	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchReassign' || sAction == 'Project.BatchMove')
 	{
 		if (!submitActionIfValid(sAction))
 		{
@@ -91,7 +91,7 @@ function submitActionIfValid(sAction){
 {if $VAL_PROJECTS && @count($VAL_PROJECTS) > 0}
 			<tr><th>{$smarty.const.STR_PRJ_PARENTPRJ}:</th>
 				<td colspan="3">/&nbsp;{section name=project loop=$VAL_PROJECTS}
-&nbsp;<a href="{$VAL_MENULINK}?menuAction=boProjects.viewproject&project={$VAL_PROJECTS[project].project_id}">{$VAL_PROJECTS[project].name|escape}</a>{if !$smarty.section.project.last}&nbsp;/{/if}
+&nbsp;<a href="{$VAL_MENULINK}?menuAction=Project.Detail&id={$VAL_PROJECTS[project].project_id}">{$VAL_PROJECTS[project].name|escape}</a>{if !$smarty.section.project.last}&nbsp;/{/if}
 {/section}
 				</td>
 			</tr>

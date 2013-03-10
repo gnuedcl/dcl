@@ -34,7 +34,7 @@ function smarty_modifier_escape($string, $esc_type = 'html')
 			// Pseudo stuff
 			$sRetVal = preg_replace('#dcl://workorders/([0-9]+)[-]([0-9]+)#i', '<a href="' . menuLink() . '?menuAction=WorkOrder.Detail&jcn=\1&seq=\2">\0</a>', $sRetVal);
 			$sRetVal = preg_replace('#dcl://tickets/([0-9]+)#i', '<a href="' . menuLink() . '?menuAction=boTickets.view&ticketid=\1">\0</a>', $sRetVal);
-			$sRetVal = preg_replace('#dcl://projects/([0-9]+)#i', '<a href="' . menuLink() . '?menuAction=boProjects.viewproject&wostatus=0&project=\1">\0</a>', $sRetVal);
+			$sRetVal = preg_replace('#dcl://projects/([0-9]+)#i', '<a href="' . menuLink() . '?menuAction=Project.Detail&id=\1&wostatus=0">\0</a>', $sRetVal);
 
 			return $sRetVal;
 
