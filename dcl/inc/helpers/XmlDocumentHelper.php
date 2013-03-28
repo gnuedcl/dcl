@@ -40,7 +40,7 @@ class XmlDocumentHelper
 	public function ParseString($sXML)
 	{
 		$this->parser = xml_parser_create();
-		xml_set_object($this->parser, &$this);
+		xml_set_object($this->parser, $this);
 		xml_set_element_handler($this->parser, 'StartElement', 'EndElement');
 		xml_set_character_data_handler($this->parser, 'DataElement');
 
@@ -62,7 +62,7 @@ class XmlDocumentHelper
 	public function ParseFile($sFileName)
 	{
 		$this->parser = xml_parser_create();
-		xml_set_object($this->parser, &$this);
+		xml_set_object($this->parser, $this);
 		xml_set_element_handler($this->parser, 'StartElement', 'EndElement');
 		xml_set_character_data_handler($this->parser, 'DataElement');
 

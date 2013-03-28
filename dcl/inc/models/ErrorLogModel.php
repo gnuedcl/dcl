@@ -34,22 +34,22 @@ class ErrorLogModel extends DbProvider
 
 	public function Add()
 	{
-		$this->user_id = $GLOBALS['DCLID'];
+		$this->user_id = @$GLOBALS['DCLID'];
 		$this->error_timestamp = DCL_NOW;
 		return parent::Add();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		throw new NotImplementedException();
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		throw new NotImplementedException();
 	}
 
-	public function Load($id)
+	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		return parent::Load(array('error_log_id' => $id));
 	}
