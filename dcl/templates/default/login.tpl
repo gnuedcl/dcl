@@ -15,7 +15,7 @@
 </head>
 <body onload="init();">
 <h3>{$VAL_WELCOME}</h3>
-<form class="styled login" method="post" action="login.php">
+<form class="styled login" method="post" action="login.php" autocomplete="off">
 {if $VAL_REFERTO}<input type="hidden" name="refer_to" value="{$VAL_REFERTO|escape:"rawurl"}">{/if}
 	<fieldset>
 		<legend>{$TXT_LOGIN}</legend>
