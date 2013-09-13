@@ -48,7 +48,7 @@
 <tr><td colspan="2">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th bgcolor="#cecece">{$smarty.const.STR_WO_DESCRIPTION|escape}</th></tr>
-	<tr><td>{$obj->description|escape}</td></tr>
+	<tr><td>{$obj->description|escape|nl2br}</td></tr>
 	</table>
 </td></tr>
 {section name=tc loop=$VAL_TIMECARDS}
@@ -58,7 +58,7 @@
 	<tr><td nowrap width="25%"><b>{$smarty.const.STR_TC_STATUS}</b></td><td nowrap width="25%">{$VAL_TIMECARDS[tc].status|escape}</td><td nowrap width="25%"><b>{$smarty.const.STR_TC_HOURS|escape}</b></td><td nowrap width="25%">{$VAL_TIMECARDS[tc].hours|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_TC_ACTION|escape}</b></td><td nowrap>{$VAL_TIMECARDS[tc].action|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_CMMN_REASSIGN|escape}</b></td><td nowrap>{$VAL_TIMECARDS[tc].reassign_from_id|escape}</td><td nowrap><b>{$smarty.const.STR_CMMN_TO|escape}</b></td><td nowrap>{$VAL_TIMECARDS[tc].reassign_to_id|escape}</td></tr>
-	{if $VAL_TIMECARDS[tc].description != ""}<tr><td colspan="4"><b>{$smarty.const.STR_TC_DESCRIPTION|escape}:</b> {$VAL_TIMECARDS[tc].description|escape}</td></tr>{/if}
+	{if $VAL_TIMECARDS[tc].description != ""}<tr><td colspan="4"><b>{$smarty.const.STR_TC_DESCRIPTION|escape}:</b> {$VAL_TIMECARDS[tc].description|escape|nl2br}</td></tr>{/if}
 	</table>
 </td></tr>
 {/section}

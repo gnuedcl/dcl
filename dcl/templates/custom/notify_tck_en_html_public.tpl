@@ -50,7 +50,7 @@
 <tr><td colspan="2">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th bgcolor="#cecece">{$smarty.const.STR_TCK_ISSUE|escape}</th></tr>
-	<tr><td>{$obj->issue|escape}</td></tr>
+	<tr><td>{$obj->issue|escape|nl2br}</td></tr>
 	</table>
 </td></tr>
 {section name=tr loop=$VAL_RESOLUTIONS}
@@ -58,7 +58,7 @@
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th bgcolor="black" align="left" colspan="4"><font color="white">Logged By {$VAL_RESOLUTIONS[tr].loggedby|escape} On {$VAL_RESOLUTIONS[tr].loggedon|escape}</font></th></tr>
 	<tr><td nowrap width="25%"><b>{$smarty.const.STR_TCK_STATUS|escape}</b></td><td nowrap width="25%">{$VAL_RESOLUTIONS[tr].status|escape}</td><td nowrap width="25%"><b>{$smarty.const.STR_TCK_TIME|escape}</b></td><td nowrap width="25%">{$VAL_RESOLUTIONS[tr].time|escape}</td></tr>
-	<tr><td colspan="4"><b>{$smarty.const.STR_TCK_RESOLUTION|escape}:</b> {$VAL_RESOLUTIONS[tr].resolution|escape}</td></tr>
+	<tr><td colspan="4"><b>{$smarty.const.STR_TCK_RESOLUTION|escape}:</b> {$VAL_RESOLUTIONS[tr].resolution|escape|nl2br}</td></tr>
 	</table>
 </td></tr>
 {/section}
