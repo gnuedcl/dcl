@@ -104,7 +104,7 @@
 			<td class="numeric">{$VAL_TASKS[row].projected}</td>
 			<td class="numeric">{$VAL_TASKS[row].plusminus}</td>
 			<td class="numeric">{$VAL_TASKS[row].pctcomplete}</td>
-			<td class="string">{$VAL_TASKS[row].summary|escape}</td>
+			<td class="string">{$VAL_TASKS[row].summary|escape} {dcl_get_entity_tags entity=$smarty.const.DCL_ENTITY_WORKORDER key_id=$VAL_TASKS[row].woid key_id2=$VAL_TASKS[row].seq link=Y}</td>
 		</tr>
 	{if $smarty.section.row.last}</tbody>{/if}
 {/section}
