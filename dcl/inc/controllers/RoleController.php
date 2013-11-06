@@ -65,7 +65,7 @@ class RoleController extends AbstractController
 		RequirePermission(DCL_ENTITY_ROLE, DCL_PERM_ADD);
 
 		$roleId = parent::Insert($_POST);
-		if (is_array($_POST['rolePerms']))
+		if (isset($_POST['rolePerms']) && is_array($_POST['rolePerms']))
 		{
 			$rolePermissionModel = new RolePermissionModel();
 			foreach ($_POST['rolePerms'] as $entityPerm)
