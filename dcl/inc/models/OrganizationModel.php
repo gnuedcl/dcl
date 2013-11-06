@@ -36,7 +36,7 @@ class OrganizationModel extends DbProvider
 	{
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_MODIFY);
 		
-		$this->modified_by = $GLOBALS['DCLID'];
+		$this->modified_by = DCLID;
 		$this->modified_on = DCL_NOW;
 		
 		parent::Edit(array('created_on', 'created_by'));

@@ -40,7 +40,7 @@ class FaqAnswersModel extends DbProvider
 
 	public function Edit()
 	{
-		$this->modifyby = $GLOBALS['DCLID'];
+		$this->modifyby = DCLID;
 		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}

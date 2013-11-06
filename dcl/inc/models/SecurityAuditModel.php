@@ -32,15 +32,4 @@ class SecurityAuditModel extends DbProvider
 		
 		parent::Clear();
 	}
-
-	public function Add($action, $actparam = '')
-	{
-		$this->id=$GLOBALS['DCLID'];
-		$this->actionon = DCL_NOW;
-		$this->actiontxt = $action;
-		$this->actionparam = $actparam;
-		
-		if (parent::Add() == -1)
-			return -1;
-	}
 }

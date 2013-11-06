@@ -60,7 +60,7 @@ class EntityTagModel extends DbProvider
 		}
 		
 		$oTag = new TagModel();
-		$aTags = split(',', $sTags);
+		$aTags = explode(',', $sTags);
 		$aTagID = array();
 		foreach ($aTags as $sTag)
 		{
@@ -142,8 +142,8 @@ class EntityTagModel extends DbProvider
 			trigger_error('No such tag.');
 			return;
 		}
-		
-		$aTags = split(',', $sID);
+
+		$aTags = explode(',', $sID);
 		$iTagCount = count($aTags);
 		$bMultiTag = ($iTagCount > 1);
 		
@@ -195,7 +195,7 @@ class EntityTagModel extends DbProvider
 				else
 					$sSQL .= ' AND ';
 	
-				$sSQL .= '(workorders.createby = ' . $GLOBALS['DCLID'];
+				$sSQL .= '(workorders.createby = ' . DCLID;
 				$sSQL .= ' OR workorders.contact_id = ' . $g_oSession->Value('contact_id');
 				if ($sAccountSQL != '')
 					$sSQL .= ' OR ' . $sAccountSQL;
@@ -263,7 +263,7 @@ class EntityTagModel extends DbProvider
 				else
 					$sSQL .= ' AND ';
 	
-				$sSQL .= '(tickets.createdby = ' . $GLOBALS['DCLID'];
+				$sSQL .= '(tickets.createdby = ' . DCLID;
 				$sSQL .= ' OR tickets.contact_id = ' . $g_oSession->Value('contact_id');
 				if ($sAccountSQL != '')
 					$sSQL .= ' OR ' . $sAccountSQL;

@@ -69,13 +69,13 @@ class boAdminObject
 			$this->oDB->{$this->sCreatedDateField} = DCL_NOW;
 			
 		if ($this->sCreatedByField != '')
-			$this->oDB->{$this->sCreatedByField} = $GLOBALS['DCLID'];
+			$this->oDB->{$this->sCreatedByField} = DCLID;
 			
 		if ($this->sModifiedDateField != '')
 			$this->oDB->{$this->sModifiedDateField} = DCL_NOW;
 
 		if ($this->sModifiedByField != '')
-			$this->oDB->{$this->sModifiedByField} = $GLOBALS['DCLID'];
+			$this->oDB->{$this->sModifiedByField} = DCLID;
 			
 		if ($this->oDB->Add() == -1)
 			return -1;
@@ -97,7 +97,7 @@ class boAdminObject
 			$this->oDB->{$this->sModifiedDateField} = DCL_NOW;
 
 		if ($this->sModifiedByField != '')
-			$this->oDB->{$this->sModifiedByField} = $GLOBALS['DCLID'];
+			$this->oDB->{$this->sModifiedByField} = DCLID;
 			
 		if ($this->oDB->Edit($this->aIgnoreFieldsOnUpdate) == -1)
 			return -1;

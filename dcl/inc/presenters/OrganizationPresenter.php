@@ -106,7 +106,7 @@ class OrganizationPresenter
 		commonHeader();
 
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_VIEW, $model->org_id);
-		if ($g_oSec->IsOrgUser() && !in_array($model->org_id, split(',', $g_oSession->Value('member_of_orgs'))))
+		if ($g_oSec->IsOrgUser() && !in_array($model->org_id, explode(',', $g_oSession->Value('member_of_orgs'))))
 			throw new PermissionDeniedException();
 
 		$t = new SmartyHelper();

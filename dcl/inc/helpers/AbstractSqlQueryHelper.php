@@ -1060,7 +1060,7 @@ abstract class AbstractSqlQueryHelper
 						$sOrgs = $g_oSession->Value('member_of_orgs');
 						if ($sOrgs != '')
 						{
-							$aOrgs = split(',', $sOrgs);
+							$aOrgs = explode(',', $sOrgs);
 							$values = array_intersect($values, $aOrgs);
 							if (count($values) == 0)
 								$values = array('-1');
@@ -1087,7 +1087,7 @@ abstract class AbstractSqlQueryHelper
 						$sOrgs = $g_oSession->Value('member_of_orgs');
 						if ($sOrgs != '')
 						{
-							$aOrgs = split(',', $sOrgs);
+							$aOrgs = explode(',', $sOrgs);
 							$values = array_intersect($values, $aOrgs);
 							if (count($values) == 0)
 								$values = array('-1');

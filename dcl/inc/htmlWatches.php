@@ -88,7 +88,7 @@ class htmlWatches
 		
 		$obj = new WatchesModel();
 
-		$obj->Query(sprintf('SELECT * FROM watches WHERE whoid=%d ORDER BY typeid,watchid', $GLOBALS['DCLID']));
+		$obj->Query(sprintf('SELECT * FROM watches WHERE whoid=%d ORDER BY typeid,watchid', DCLID));
 		$bGotSome = true;
 		if (!$obj->next_record())
 		{
@@ -170,7 +170,7 @@ class htmlWatches
 			$t->assign('VAL_DESC', $this->GetObjectDescription($typeid, $whatid1, $whatid2));
 			$t->assign('VAL_TYPEID', $typeid);
 			$t->assign('VAL_WHATID1', $whatid1);
-			$t->assign('VAL_WHOID', $GLOBALS['DCLID']);
+			$t->assign('VAL_WHOID', DCLID);
 			$t->assign('CMB_ACTIONS', $this->GetCombo());
 			$t->assign('VAL_WHATID2', $whatid2);
 		}

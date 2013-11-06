@@ -70,7 +70,7 @@ class htmlTicketSearches
 		$objModules = new htmlProductModules();
 
 		$oDBP = new PersonnelModel();
-		$oDBP->Load($GLOBALS['DCLID']);
+		$oDBP->Load(DCLID);
 		
 		$t = new SmartyHelper();
 		
@@ -80,7 +80,7 @@ class htmlTicketSearches
 			$t->assign('VAL_REPORTTITLE', '');
 
 		$t->assign('VAL_DEPARTMENT', $oDBP->department);
-		$t->assign('VAL_ID', $GLOBALS['DCLID']);
+		$t->assign('VAL_ID', DCLID);
 
 		$aDefault = array();
 		$aDefault['product'] = array();
@@ -185,9 +185,9 @@ class htmlTicketSearches
 			$aDefault['entity_source_id'] = 0;
 			$aDefault['statuses.dcl_status_type'] = 1;
 			$aDefault['department'] = array($oDBP->department);
-			$aDefault['personnel'] = $GLOBALS['DCLID'];
+			$aDefault['personnel'] = DCLID;
 			$aDefault['is_public'] = '';
-			$sPersonnelKey = sprintf('%d,%d', $oDBP->department, $GLOBALS['DCLID']);
+			$sPersonnelKey = sprintf('%d,%d', $oDBP->department, DCLID);
 			$sStatusKey = '';
 			$sModuleKey = '';
 

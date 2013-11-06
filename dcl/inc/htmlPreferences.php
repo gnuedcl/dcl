@@ -74,7 +74,7 @@ class htmlPreferences
 			
 		$bHasChanges = false;
 		$o = new PreferencesModel();
-		$o->personnel_id = $GLOBALS['DCLID'];
+		$o->personnel_id = DCLID;
 		$o->preferences_data = $g_oSession->Value('dcl_preferences');
 		if (!$o->Exists(array('personnel_id' => $o->personnel_id)))
 		{

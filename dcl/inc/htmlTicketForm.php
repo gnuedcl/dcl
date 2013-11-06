@@ -52,7 +52,7 @@ class htmlTicketForm
 		$oSmarty->assign('PERM_ISPUBLIC', $g_oSec->IsPublicUser());
 		$oSmarty->assign('VAL_MAXUPLOADFILESIZE', $dcl_info['DCL_MAX_UPLOAD_FILE_SIZE']);
 		$oSmarty->assign('IS_EDIT', $isEdit);
-		$oSmarty->assign('VAL_DCLID', $GLOBALS['DCLID']);
+		$oSmarty->assign('VAL_DCLID', DCLID);
 		$oSmarty->assign('VAL_NOTIFYDEFAULT', isset($dcl_preferences['DCL_PREF_NOTIFY_DEFAULT']) ? $dcl_preferences['DCL_PREF_NOTIFY_DEFAULT'] : 'N');
 
 		$oMeta = new DisplayHelper();
@@ -85,7 +85,7 @@ class htmlTicketForm
 			}
 
 			$oSmarty->assign('VAL_RESPONSIBLE', $obj->responsible);
-			if ($obj->responsible == $GLOBALS['DCLID'])
+			if ($obj->responsible == DCLID)
 			{
 				$oSmarty->assign('VAL_RESPONSIBLENAME', $GLOBALS['DCLNAME']);
 			}
@@ -117,7 +117,7 @@ class htmlTicketForm
 		{
 			$oSmarty->assign('TXT_TITLE', STR_TCK_ADDTITLE);
 			$oSmarty->assign('VAL_ISPUBLIC', 'Y');
-			$oSmarty->assign('VAL_RESPONSIBLE', $GLOBALS['DCLID']);
+			$oSmarty->assign('VAL_RESPONSIBLE', DCLID);
 			$oSmarty->assign('VAL_RESPONSIBLENAME', $GLOBALS['DCLNAME']);
 
 			$oSmarty->assign('VAL_MENUACTION', 'boTickets.dbadd');

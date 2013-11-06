@@ -72,7 +72,7 @@ class ProjectController
 		if (@Filter::ToInt($model->parentprojectid) === null)
 			$model->parentprojectid = 0;
 
-		$model->createdby = $GLOBALS['DCLID'];
+		$model->createdby = DCLID;
 		$model->status = $dcl_info['DCL_DEFAULT_PROJECT_STATUS'];
 		$model->Add();
 

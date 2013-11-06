@@ -37,7 +37,7 @@ class htmlSecAudit
 		$objPersonnel = new PersonnelHtmlHelper();
 		
 		$oDBPersonnel = new PersonnelModel();
-		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
+		if ($oDBPersonnel->Load(DCLID) == -1)
 			return;
 			
 		$t = new SmartyHelper();

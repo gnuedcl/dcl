@@ -177,7 +177,7 @@ class PersonnelController
 	{
 		global $g_oSec;
 		
-		$iID = $GLOBALS['DCLID'];
+		$iID = DCLID;
 		if (isset($_REQUEST['userid']))
 		{
 			if (($iID = @Filter::ToInt($_REQUEST['userid'])) === null)
@@ -186,7 +186,7 @@ class PersonnelController
 			}
 		}
 		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD) || (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD) && $GLOBALS['DCLID'] != $iID))
+		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD) || (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD) && DCLID != $iID))
 			throw new PermissionDeniedException();
 
 		if ($_POST['confirm'] != $_POST['new'] || $_POST['new'] == '')

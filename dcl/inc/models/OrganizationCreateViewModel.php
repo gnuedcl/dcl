@@ -30,7 +30,7 @@ class OrganizationCreateViewModel
 		$organizationModel->name = $formCollection['name'];
 		$organizationModel->active = 'Y';
 		$organizationModel->created_on = DCL_NOW;
-		$organizationModel->created_by = $GLOBALS['DCLID'];
+		$organizationModel->created_by = DCLID;
 		$organizationModel->Add();
 
 		if ($organizationModel->org_id < 1)
@@ -58,7 +58,7 @@ class OrganizationCreateViewModel
 			$organizationAliasModel->org_id = $organizationModel->org_id;
 			$organizationAliasModel->alias = $formCollection['alias'];
 			$organizationAliasModel->created_on = DCL_NOW;
-			$organizationAliasModel->created_by = $GLOBALS['DCLID'];
+			$organizationAliasModel->created_by = DCLID;
 			$organizationAliasModel->Add();
 		}
 
@@ -76,7 +76,7 @@ class OrganizationCreateViewModel
 			$organizationAddressModel->country = $formCollection['country'];
 			$organizationAddressModel->preferred = 'Y';
 			$organizationAddressModel->created_on = DCL_NOW;
-			$organizationAddressModel->created_by = $GLOBALS['DCLID'];
+			$organizationAddressModel->created_by = DCLID;
 			$organizationAddressModel->Add();
 		}
 
@@ -89,7 +89,7 @@ class OrganizationCreateViewModel
 			$organizationPhoneModel->phone_number = $formCollection['phone_number'];
 			$organizationPhoneModel->preferred = 'Y';
 			$organizationPhoneModel->created_on = DCL_NOW;
-			$organizationPhoneModel->created_by = $GLOBALS['DCLID'];
+			$organizationPhoneModel->created_by = DCLID;
 			$organizationPhoneModel->Add();
 		}
 
@@ -102,7 +102,7 @@ class OrganizationCreateViewModel
 			$organizationEmailModel->email_addr = $formCollection['email_addr'];
 			$organizationEmailModel->preferred = 'Y';
 			$organizationEmailModel->created_on = DCL_NOW;
-			$organizationEmailModel->created_by = $GLOBALS['DCLID'];
+			$organizationEmailModel->created_by = DCLID;
 			$organizationEmailModel->Add();
 		}
 
@@ -115,7 +115,7 @@ class OrganizationCreateViewModel
 			$organizationUrlModel->url_addr = $formCollection['url_addr'];
 			$organizationUrlModel->preferred = 'Y';
 			$organizationUrlModel->created_on = DCL_NOW;
-			$organizationUrlModel->created_by = $GLOBALS['DCLID'];
+			$organizationUrlModel->created_by = DCLID;
 			$organizationUrlModel->Add();
 		}		
 	}

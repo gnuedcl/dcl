@@ -102,7 +102,7 @@ class htmlContactForm
 								'last_name' => $_REQUEST['last_name'],
 								'active' => 'Y',
 								'created_on' => DCL_NOW,
-								'created_by' => $GLOBALS['DCLID']
+								'created_by' => DCLID
 							)
 						);
 
@@ -132,7 +132,7 @@ class htmlContactForm
 			$organizationContactModel->org_id = $org_id;
 			$organizationContactModel->contact_id = $iContactID;
 			$organizationContactModel->created_on = DCL_NOW;
-			$organizationContactModel->created_by = $GLOBALS['DCLID'];
+			$organizationContactModel->created_by = DCLID;
 			$organizationContactModel->Add();
 		}
 
@@ -150,7 +150,7 @@ class htmlContactForm
 			$contactAddressModel->country = $_REQUEST['country'];
 			$contactAddressModel->preferred = 'Y';
 			$contactAddressModel->created_on = DCL_NOW;
-			$contactAddressModel->created_by = $GLOBALS['DCLID'];
+			$contactAddressModel->created_by = DCLID;
 			$contactAddressModel->Add();
 		}
 
@@ -163,7 +163,7 @@ class htmlContactForm
 			$contactPhoneModel->phone_number = $_POST['phone_number'];
 			$contactPhoneModel->preferred = 'Y';
 			$contactPhoneModel->created_on = DCL_NOW;
-			$contactPhoneModel->created_by = $GLOBALS['DCLID'];
+			$contactPhoneModel->created_by = DCLID;
 			$contactPhoneModel->Add();
 		}
 
@@ -176,7 +176,7 @@ class htmlContactForm
 			$contactEmailModel->email_addr = $_POST['email_addr'];
 			$contactEmailModel->preferred = 'Y';
 			$contactEmailModel->created_on = DCL_NOW;
-			$contactEmailModel->created_by = $GLOBALS['DCLID'];
+			$contactEmailModel->created_by = DCLID;
 			$contactEmailModel->Add();
 		}
 
@@ -189,7 +189,7 @@ class htmlContactForm
 			$contactUrlModel->url_addr = $_POST['url_addr'];
 			$contactUrlModel->preferred = 'Y';
 			$contactUrlModel->created_on = DCL_NOW;
-			$contactUrlModel->created_by = $GLOBALS['DCLID'];
+			$contactUrlModel->created_by = DCLID;
 			$contactUrlModel->Add();
 		}
 

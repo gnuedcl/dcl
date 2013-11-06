@@ -49,7 +49,7 @@ class ConfigurationModel extends DbProvider
 		}
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		$query  = 'UPDATE dcl_config SET ' . $this->dcl_config_field . ' = ' . $this->FieldValueToSQL($this->dcl_config_field, $this->{$this->dcl_config_field});
 		$query .= ' WHERE dcl_config_name=' . $this->Quote($this->dcl_config_name);
@@ -65,12 +65,12 @@ class ConfigurationModel extends DbProvider
 		return $this->Execute($query);
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		return parent::Delete(array('dcl_config_name' => $this->dcl_config_name));
 	}
 
-	public function Load($sName = '')
+	public function Load($sName = '', $bTriggerErrorIfNotFound = true)
 	{
 		global $dcl_info, $dcl_domain, $dcl_domain_info;
 

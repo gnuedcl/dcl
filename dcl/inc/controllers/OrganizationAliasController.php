@@ -67,7 +67,7 @@ class OrganizationAliasController extends AbstractController
 						'org_id' => $id,
 						'alias' => $_POST['alias'],
 						'created_on' => DCL_NOW,
-						'created_by' => $GLOBALS['DCLID']
+						'created_by' => DCLID
 						)
 					);
 

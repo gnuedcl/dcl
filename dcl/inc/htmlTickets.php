@@ -121,10 +121,10 @@ class htmlTickets
 				STR_CMMN_TAGS,
 				STR_TCK_SUMMARY));
 
-		$objView->AddDef('filter', $forField, $GLOBALS['DCLID']);
+		$objView->AddDef('filter', $forField, DCLID);
 		$objView->AddDef('filternot', 'statuses.dcl_status_type', '2');
 		if ($forField == 'createdby')
-			$objView->AddDef('filternot', 'responsible', $GLOBALS['DCLID']);
+			$objView->AddDef('filternot', 'responsible', DCLID);
 		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'ticketid'));
 
 		$objHV = new htmlTicketResults();

@@ -25,12 +25,12 @@ include_once('login.php');
 $g_oPage = new Page();
 $g_oPage->StartPage();
 
-if (IsSet($menuAction) && $menuAction != 'clearScreen')
+if (IsSet($_REQUEST['menuAction']) && $_REQUEST['menuAction'] != 'clearScreen')
 {
 	if ($g_oSec->ValidateMenuAction() == true)
 	{
 		InvokePlugin('UI.PubSub');
-		Invoke($menuAction);
+		Invoke($_REQUEST['menuAction']);
 	}
 	else
 	{

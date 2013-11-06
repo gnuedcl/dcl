@@ -48,7 +48,7 @@ class PersonnelModel extends DbProvider
 		parent::Clear();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		$query = 'UPDATE personnel SET ';
 		$query .= 'short=' . $this->FieldValueToSQL('short', $this->short) . ',';
@@ -61,7 +61,7 @@ class PersonnelModel extends DbProvider
 		return $this->Execute($query);
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		return parent::Delete(array('id' => $this->id));
 	}
@@ -100,7 +100,7 @@ class PersonnelModel extends DbProvider
 			throw new InvalidDataException();
 		}
 		
-		if ($GLOBALS['DCLID'] > 1 && !$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD))
+		if (DCLID > 1 && !$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD))
 		{
 			if ($this->IsPasswordOK($userID, $oldPassword) == false)
 			{

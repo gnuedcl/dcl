@@ -225,7 +225,7 @@ class htmlContactBrowse
 			else
 			{
 				$oView->logiclike = 'AND';
-				$aCriteria = split(',', $filterSearch);
+				$aCriteria = explode(',', $filterSearch);
 				if (count($aCriteria) > 2)
 				{
 					$oView->AddDef('filterlike', 'last_name', trim($aCriteria[0]));

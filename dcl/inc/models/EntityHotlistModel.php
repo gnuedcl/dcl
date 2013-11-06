@@ -37,7 +37,7 @@ class EntityHotlistModel extends DbProvider
 		$entity_id = (int)$entity_id;
 		$entity_key_id = (int)$entity_key_id;
 		$entity_key_id2 = (int)$entity_key_id2;
-		$deleted_by = $GLOBALS['DCLID'];
+		$deleted_by = DCLID;
 		$deleted_on = $this->GetDateSQL();
 
 		$this->Execute("INSERT INTO dcl_entity_hotlist_audit (entity_id, entity_key_id, entity_key_id2, hotlist_id, sort, audit_by, audit_on, audit_type)
@@ -64,7 +64,7 @@ class EntityHotlistModel extends DbProvider
 		}
 		
 		$oHotlist = new HotlistModel();
-		$aHotlists = split(',', $sHotlists);
+		$aHotlists = explode(',', $sHotlists);
 		$aHotlistID = array();
 		foreach ($aHotlists as $sHotlist)
 		{
@@ -99,7 +99,7 @@ class EntityHotlistModel extends DbProvider
 		// Add the new hotlists
 		if ($sHotlistID != '-1')
 		{
-			$created_by = $GLOBALS['DCLID'];
+			$created_by = DCLID;
 			$created_on = $this->GetDateSQL();
 
 			$this->Execute("INSERT INTO dcl_entity_hotlist_audit (entity_id, entity_key_id, entity_key_id2, hotlist_id, sort, audit_by, audit_on, audit_type)
@@ -182,7 +182,7 @@ class EntityHotlistModel extends DbProvider
 	
 	public function RemoveEntities($hotlistId, $aEntities)
 	{
-		$deleted_by = $GLOBALS['DCLID'];
+		$deleted_by = DCLID;
 		$deleted_on = $this->GetDateSQL();
 		foreach ($aEntities as $entity)
 		{
@@ -323,7 +323,7 @@ class EntityHotlistModel extends DbProvider
 				else
 					$sSQL .= ' AND ';
 	
-				$sSQL .= '(workorders.createby = ' . $GLOBALS['DCLID'];
+				$sSQL .= '(workorders.createby = ' . DCLID;
 				$sSQL .= ' OR workorders.contact_id = ' . $g_oSession->Value('contact_id');
 				if ($sAccountSQL != '')
 					$sSQL .= ' OR ' . $sAccountSQL;
@@ -417,7 +417,7 @@ class EntityHotlistModel extends DbProvider
 				else
 					$sSQL .= ' AND ';
 	
-				$sSQL .= '(tickets.createdby = ' . $GLOBALS['DCLID'];
+				$sSQL .= '(tickets.createdby = ' . DCLID;
 				$sSQL .= ' OR tickets.contact_id = ' . $g_oSession->Value('contact_id');
 				if ($sAccountSQL != '')
 					$sSQL .= ' OR ' . $sAccountSQL;

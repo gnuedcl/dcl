@@ -223,7 +223,7 @@ class boChecklists
 		$o = new ChecklistModel();
 		$o->dcl_chklst_tpl_id = $iID;
 		$o->dcl_chklst_summary = $o->GPCStripSlashes($_REQUEST['dcl_chklst_summary']);
-		$o->dcl_chklst_createby = $GLOBALS['DCLID'];
+		$o->dcl_chklst_createby = DCLID;
 		$o->dcl_chklst_createon = DCL_NOW;
 		$o->dcl_chklst_modifyon = DCL_NOW;
 		if ($oXML->currentNode != NULL)
@@ -302,7 +302,7 @@ class boChecklists
 		$o = new ChecklistModel();
 		if ($o->Load($iID) != -1)
 		{
-			$o->dcl_chklst_modifyby = $GLOBALS['DCLID'];
+			$o->dcl_chklst_modifyby = DCLID;
 			$o->dcl_chklst_modifyon = DCL_NOW;
 			$o->dcl_chklst_status = $_REQUEST['dcl_chklst_status'];
 			$o->Edit();

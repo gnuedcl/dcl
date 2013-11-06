@@ -35,7 +35,7 @@ class reportTicketActivity
 		$objPersonnel = new PersonnelHtmlHelper();
 		
 		$t = new SmartyHelper();
-		$t->assign('CMB_RESPONSIBLE', $objPersonnel->Select($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, false));
+		$t->assign('CMB_RESPONSIBLE', $objPersonnel->Select(DCLID, 'responsible', 'lastfirst', 0, false));
 
 		if (IsSet($_REQUEST['begindate']) && ($beginDate = Filter::ToDate($_REQUEST['begindate'])) !== null)
 			$t->assign('VAL_BEGINDATE', $begindate);

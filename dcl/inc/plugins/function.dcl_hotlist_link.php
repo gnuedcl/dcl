@@ -44,7 +44,7 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		if ($params['value'] == '')
 			return;
 
-		$aHotlists = split(',', $sValue);
+		$aHotlists = explode(',', $sValue);
 	}
 		
 	if (!isset($params['browse']))
@@ -54,7 +54,7 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		$params['selected'] = '';
 	
 	$sSelected = trim($params['selected']);
-	$aSelected = split(',', $sSelected);
+	$aSelected = explode(',', $sSelected);
 	foreach ($aSelected as $iIndex => $sSelectedHotlist)
 		$aSelected[$iIndex] = trim($sSelectedHotlist);
 

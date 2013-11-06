@@ -37,7 +37,7 @@ class reportPersonnelActivity
 		$statusHelper = new StatusHtmlHelper();
 
 		$oDBPersonnel = new PersonnelModel();
-		if ($oDBPersonnel->Load($GLOBALS['DCLID']) == -1)
+		if ($oDBPersonnel->Load(DCLID) == -1)
 			return;
 
 		$t = new SmartyHelper();
@@ -49,7 +49,7 @@ class reportPersonnelActivity
 		else if ($g_oSession->IsRegistered('personnel_activity_department'))
 			$iDept = (int)$g_oSession->Value('personnel_activity_department');
 			
-		$iUser = $GLOBALS['DCLID'];
+		$iUser = DCLID;
 		if (isset($_REQUEST['responsible']))
 			$iUser = (int)$_REQUEST['responsible'];
 		else if ($g_oSession->IsRegistered('personnel_activity_responsible'))

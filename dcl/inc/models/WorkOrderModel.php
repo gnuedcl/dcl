@@ -107,7 +107,7 @@ class WorkOrderModel extends DbProvider
 		parent::Add();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		if ($this->closedby < 1)
 		{
@@ -133,7 +133,7 @@ class WorkOrderModel extends DbProvider
 		parent::Edit();
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		$this->BeginTransaction();
 		
@@ -185,7 +185,7 @@ class WorkOrderModel extends DbProvider
 		if ($oRetVal !== -1)
 		{
 			$bIsPublic = false;
-			if (($g_oSec->IsPublicUser() || $g_oSec->IsOrgUser()) && !$this->CanView($this, $GLOBALS['DCLID'], $bIsPublic))
+			if (($g_oSec->IsPublicUser() || $g_oSec->IsOrgUser()) && !$this->CanView($this, DCLID, $bIsPublic))
 			{
 				throw new PermissionDeniedException();
 			}
@@ -254,7 +254,7 @@ class WorkOrderModel extends DbProvider
 						$bCanView = ($oDBProduct->is_public == 'Y');
 						if ($bCanView)
 						{
-							$aProducts = split(',', $g_oSession->Value('org_products'));
+							$aProducts = explode(',', $g_oSession->Value('org_products'));
 							$bCanView = (count($aProducts) > 0 && in_array($obj->product, $aProducts));
 						}
 					}

@@ -52,9 +52,9 @@ function GetDomainCombo()
 
 $t = new SmartyHelper();
 
-if (IsSet($GLOBALS['cd']))
+if (IsSet($_REQUEST['cd']))
 {
-	switch ($GLOBALS['cd'])
+	switch ($_REQUEST['cd'])
 	{
 		case 1:
 			$t->assign('VAL_ERROR', 'Invalid login or password');
@@ -84,7 +84,7 @@ $t->assign('BTN_LOGIN', 'Login');
 $t->assign('BTN_CLEAR', 'Clear');
 $t->assign('CMB_DOMAIN', GetDomainCombo());
 
-if (IsSet($GLOBALS['refer_to']))
-	$t->assign('VAL_REFERTO', urldecode($GLOBALS['refer_to']));
+if (IsSet($_REQUEST['refer_to']))
+	$t->assign('VAL_REFERTO', urldecode($_REQUEST['refer_to']));
 
 $t->Render('login.tpl');

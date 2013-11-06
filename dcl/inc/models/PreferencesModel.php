@@ -45,7 +45,7 @@ class PreferencesModel extends DbProvider
 		return $iRetVal;
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		$this->preferences_data = serialize($this->preferences_data);
 		$iRetVal = parent::Edit();
@@ -54,12 +54,12 @@ class PreferencesModel extends DbProvider
 		return $iRetVal;
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		return parent::Delete(array('personnel_id' => $this->personnel_id));
 	}
 
-	public function Load($id)
+	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		$iRetVal = parent::Load(array('personnel_id' => $id), false);
 		if ($iRetVal != -1 && is_string($this->preferences_data))

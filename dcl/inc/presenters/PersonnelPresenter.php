@@ -199,7 +199,7 @@ class PersonnelPresenter
 
 		$template->assign('IS_EDIT', false);
 		$template->assign('VAL_ACTIVE', 'Y');
-		$template->assign('VAL_REPORTTO', $GLOBALS['DCLID']);
+		$template->assign('VAL_REPORTTO', DCLID);
 		$template->assign('VAL_DEPARTMENT', 0);
 		$template->assign('VAL_SHORT', '');
 
@@ -260,7 +260,7 @@ class PersonnelPresenter
 		$oSmarty = new SmartyHelper();
 		
 		$oSmarty->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN));
-		$oSmarty->assign('VAL_USERID', $GLOBALS['DCLID']);
+		$oSmarty->assign('VAL_USERID', DCLID);
 		$oSmarty->assign('VAL_USERNAME', $GLOBALS['DCLNAME']);
 		
 		$oSmarty->Render('PersonnelPasswdForm.tpl');

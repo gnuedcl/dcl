@@ -117,7 +117,7 @@ class ProjectPresenter
 		if ($model == null)
 		{
 			$viewData->StatusId = 1;
-			$viewData->ResponsibleId = $GLOBALS['DCLID'];
+			$viewData->ResponsibleId = DCLID;
 		}
 		else
 		{

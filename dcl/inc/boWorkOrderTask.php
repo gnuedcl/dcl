@@ -63,7 +63,7 @@ class boWorkOrderTask extends boAdminObject
 			
 		if ($aSource['task_complete'] == 'Y' && $this->oDB->task_complete != 'Y')
 		{
-			$aSource['task_complete_by'] = $GLOBALS['DCLID'];
+			$aSource['task_complete_by'] = DCLID;
 			$aSource['task_complete_dt'] = DCL_NOW;
 		}
 		else if ($aSource['task_complete'] == 'N')

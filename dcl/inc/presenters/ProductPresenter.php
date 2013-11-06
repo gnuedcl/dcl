@@ -117,8 +117,8 @@ class ProductPresenter
 		$t->assign('CMB_ISVERSIONED', GetYesNoCombo('Y', 'is_versioned', 0, false));
 		$t->assign('CMB_ISPROJECTREQUIRED', GetYesNoCombo('N', 'is_project_required', 0, false));
 		$t->assign('CMB_ISPUBLIC', GetYesNoCombo('N', 'is_public', 0, false));
-		$t->assign('CMB_REPORTTO', $objHTMLPersonnel->Select($GLOBALS['DCLID'], 'reportto'));
-		$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->Select($GLOBALS['DCLID'], 'ticketsto'));
+		$t->assign('CMB_REPORTTO', $objHTMLPersonnel->Select(DCLID, 'reportto'));
+		$t->assign('CMB_TICKETSTO', $objHTMLPersonnel->Select(DCLID, 'ticketsto'));
 		$t->assign('CMB_WOATTRIBUTESET', $objHA->Select(0, 'wosetid'));
 		$t->assign('CMB_TCKATTRIBUTESET', $objHA->Select(0, 'tcksetid'));
 

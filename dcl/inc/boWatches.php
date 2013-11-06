@@ -87,7 +87,7 @@ class boWatches
 		}
 		
 		$obj = new WatchesModel();
-		$query = sprintf('SELECT * FROM watches WHERE typeid=%d AND whoid=%d AND whatid1=%d', $iTypeID, $GLOBALS['DCLID'], $iWhatID1);
+		$query = sprintf('SELECT * FROM watches WHERE typeid=%d AND whoid=%d AND whatid1=%d', $iTypeID, DCLID, $iWhatID1);
 		if ($iWhatID2 !== null)
 			$query .= sprintf(' AND whatid2=%d', $iWhatID2);
 
@@ -135,7 +135,7 @@ class boWatches
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		if ($obj->whoid != $GLOBALS['DCLID'])
+		if ($obj->whoid != DCLID)
 			throw new PermissionDeniedException();
 			
 		$objHTML = new htmlWatches();
@@ -155,7 +155,7 @@ class boWatches
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		if ($obj->whoid != $GLOBALS['DCLID'])
+		if ($obj->whoid != DCLID)
 			throw new PermissionDeniedException();
 
 		$obj->InitFrom_POST();
@@ -177,7 +177,7 @@ class boWatches
 		if ($obj->Load($iID) == -1)
 			return;
 			
-		if ($obj->whoid != $GLOBALS['DCLID'])
+		if ($obj->whoid != DCLID)
 			throw new PermissionDeniedException();
 
 		ShowDeleteYesNo('Watch', 'boWatches.dbdelete', $obj->watchid, $this->getWatchDescription($obj));
@@ -302,7 +302,7 @@ class boWatches
 		$query .= sprintf(' or (typeid=3 and whatid1=%d and whatid2 in (0,%d))', $obj->jcn, $obj->seq);
 		$query .= ' or (typeid = 6 and whatid1 = account_id)';
 
-		$query .= sprintf(') AND whoid != %d', $GLOBALS['DCLID']);
+		$query .= sprintf(') AND whoid != %d', DCLID);
 		$query .= " AND active = 'Y'";
 
 		$arrEmail = array();
@@ -315,7 +315,7 @@ class boWatches
 			$this->oMeta = new DisplayHelper();
 			
 		$bIsPublic = false;
-		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
+		if ($obj->responsible != DCLID && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->responsible, $bIsPublic))
@@ -327,7 +327,7 @@ class boWatches
 			}
 		}
 		
-		if ($obj->createby != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->createby) != '' && $this->oMeta->oPersonnel->active == 'Y')
+		if ($obj->createby != DCLID && $this->oMeta->GetPersonnel($obj->createby) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createby, $bIsPublic))
@@ -364,7 +364,7 @@ class boWatches
 		{
 			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]) && !isset($arrPublicEmail[$g_oSession->Value('USEREMAIL')]))
 			{
-				if ($obj->CanView($obj, $GLOBALS['DCLID'], $bIsPublic))
+				if ($obj->CanView($obj, DCLID, $bIsPublic))
 				{
 					if ($bIsPublic)
 						$arrPublicEmail[$g_oSession->Value('USEREMAIL')] = 1;
@@ -469,7 +469,7 @@ class boWatches
 		if ($obj->account > 0)
 			$query .= " or (typeid = 7 and whatid1 = {$obj->account})";
 
-		$query .= sprintf(') AND whoid != %d', $GLOBALS['DCLID']);
+		$query .= sprintf(') AND whoid != %d', DCLID);
 		$query .= " AND active = 'Y'";
 		
 		$arrEmail = array();
@@ -482,7 +482,7 @@ class boWatches
 			$this->oMeta = new DisplayHelper();
 			
 		$bIsPublic = false;
-		if ($obj->responsible != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
+		if ($obj->responsible != DCLID && $this->oMeta->GetPersonnel($obj->responsible) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->responsible, $bIsPublic))
@@ -494,7 +494,7 @@ class boWatches
 			}
 		}
 		
-		if ($obj->createdby != $GLOBALS['DCLID'] && $this->oMeta->GetPersonnel($obj->createdby) != '' && $this->oMeta->oPersonnel->active == 'Y')
+		if ($obj->createdby != DCLID && $this->oMeta->GetPersonnel($obj->createdby) != '' && $this->oMeta->oPersonnel->active == 'Y')
 		{
 			$aContact = $this->oMeta->GetContact($this->oMeta->oPersonnel->contact_id);
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createdby, $bIsPublic))
@@ -514,7 +514,7 @@ class boWatches
 		{
 			if (!isset($arrEmail[$g_oSession->Value('USEREMAIL')]) && !isset($arrPublicEmail[$g_oSession->Value('USEREMAIL')]))
 			{
-				if ($obj->CanView($obj, $GLOBALS['DCLID'], $bIsPublic))
+				if ($obj->CanView($obj, DCLID, $bIsPublic))
 				{
 					if ($bIsPublic)
 						$arrPublicEmail[$g_oSession->Value('USEREMAIL')] = 1;

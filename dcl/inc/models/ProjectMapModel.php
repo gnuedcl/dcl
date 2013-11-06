@@ -47,7 +47,7 @@ class ProjectMapModel extends DbProvider
 			}
 			else
 			{
-				$this->Execute('INSERT INTO projectmap_audit VALUES (' . $sValues . ', ' . $this->GetDateSQL() . ', ' . $GLOBALS['DCLID'] . ', ' . DCL_EVENT_ADD . ')');
+				$this->Execute('INSERT INTO projectmap_audit VALUES (' . $sValues . ', ' . $this->GetDateSQL() . ', ' . DCLID . ', ' . DCL_EVENT_ADD . ')');
 			}
 		}
 	}
@@ -59,7 +59,7 @@ class ProjectMapModel extends DbProvider
 
 	public function Delete()
 	{
-		$sSQL = 'INSERT INTO projectmap_audit VALUES (' . $this->projectid . ', ' . $this->jcn . ', ' . $this->seq . ', ' . $this->GetDateSQL() . ', ' . $GLOBALS['DCLID'] . ', ' . DCL_EVENT_DELETE . ')';
+		$sSQL = 'INSERT INTO projectmap_audit VALUES (' . $this->projectid . ', ' . $this->jcn . ', ' . $this->seq . ', ' . $this->GetDateSQL() . ', ' . DCLID . ', ' . DCL_EVENT_DELETE . ')';
 		$this->Execute($sSQL);
 
 		$query = 'DELETE FROM projectmap WHERE projectid=' . $this->projectid . ' AND jcn=' . $this->jcn;

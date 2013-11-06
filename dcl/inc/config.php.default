@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2013 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,26 +19,6 @@
  *
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
-
-/***********************************************************************************************
- * DO NOT EDIT THIS SECTION!!!!!!!!!!!!!!!!!!!!!  SKIP TO NEXT SECTION...                      *
- ***********************************************************************************************/
-if (ini_get('register_globals') == 0)
-{
-	// Too many support requests - this should take care of it until CVS HEAD is ready
-	// These are set *BEFORE* any work is done to avoid overwriting what we build
-	if (!empty($_GET))
-		extract($_GET);
-
-	if (!empty($_POST))
-		extract($_POST);
-
-	if (!empty($_FILES))
-		extract($_FILES);
-
-	if (!empty($_COOKIE))
-		extract($_COOKIE);
-}
 
 /***********************************************************************************************
  * Edit this section                                                                           *

@@ -77,7 +77,7 @@ class FaqQuestionsModel extends DbProvider
 			return;
 		}
 		
-		$this->modifyby = $GLOBALS['DCLID'];
+		$this->modifyby = DCLID;
 		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}

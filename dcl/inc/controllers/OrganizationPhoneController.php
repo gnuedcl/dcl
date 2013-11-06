@@ -73,7 +73,7 @@ class OrganizationPhoneController extends AbstractController
 						'phone_number' => $_POST['phone_number'],
 						'preferred' => @Filter::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
-						'created_by' => $GLOBALS['DCLID']
+						'created_by' => DCLID
 						)
 					);
 

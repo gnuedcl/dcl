@@ -71,7 +71,7 @@ class FaqTopicsModel extends DbProvider
 			return -1;
 		}
 		
-		$this->modifyby = $GLOBALS['DCLID'];
+		$this->modifyby = DCLID;
 		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}

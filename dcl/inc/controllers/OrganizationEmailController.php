@@ -73,7 +73,7 @@ class OrganizationEmailController extends AbstractController
 						'email_addr' => $_POST['email_addr'],
 						'preferred' => @Filter::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
-						'created_by' => $GLOBALS['DCLID']
+						'created_by' => DCLID
 						)
 					);
 

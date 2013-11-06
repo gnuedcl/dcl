@@ -163,7 +163,7 @@ class TicketSqlQueryHelper extends AbstractSqlQueryHelper
 			else
 				$sql .= ' AND ';
 
-			$sql .= '(' . $this->table . '.createdby = ' . $GLOBALS['DCLID'];
+			$sql .= '(' . $this->table . '.createdby = ' . DCLID;
 			$sql .= ' OR ' . $this->table . '.contact_id = ' . $g_oSession->Value('contact_id');
 			if ($sAccountSQL != '')
 				$sql .= ' OR ' . $sAccountSQL;

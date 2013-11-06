@@ -66,7 +66,7 @@ class ProjectDetailPresenter
 		$this->smartyHelper->assign('VAL_STATUS', $displayHelper->GetStatus($this->project->status));
 		$this->smartyHelper->assign('VAL_FILTERSTATUS', $woStatus);
 		$this->smartyHelper->assign('VAL_FILTERRESPONSIBLE', $woResponsible);
-		$this->smartyHelper->assign('VAL_FILTERGROUPBY', $_REQUEST['wogroupby']);
+		$this->smartyHelper->assign('VAL_FILTERGROUPBY', $woGroupBy);
 		$this->smartyHelper->assign('OPT_GROUPBY', array('none' => STR_CMMN_SELECTONE, '3' => STR_WO_RESPONSIBLE, '7' => STR_WO_STATUS, '4' => STR_WO_PRODUCT, '5' => STR_CMMN_MODULE, '2' => STR_WO_TYPE));
 
 		$this->smartyHelper->assign('PERM_AUDIT', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_AUDIT));

@@ -28,9 +28,6 @@ class AboutPresenter
 	{
 		global $dcl_info;
 
-		if (!empty($_SERVER))
-			extract($_SERVER);
-
 		commonHeader();
 
 		$template = new SmartyHelper();
@@ -47,18 +44,18 @@ class AboutPresenter
 		$template->assign('TXT_YOURBROWSER', STR_VER_YOURBROWSER);
 
 		$template->assign('VAL_DCLVERSION', $dcl_info['DCL_VERSION']);
-		$template->assign('VAL_SERVERNAME', $SERVER_NAME . '(' . $HTTP_HOST . ')');
-		$template->assign('VAL_SERVERSOFTWARE', $SERVER_SOFTWARE);
+		$template->assign('VAL_SERVERNAME', $_SERVER['SERVER_NAME'] . '(' . $_SERVER['HTTP_HOST'] . ')');
+		$template->assign('VAL_SERVERSOFTWARE', $_SERVER['SERVER_SOFTWARE']);
 		$template->assign('VAL_PHPVERSION', phpversion());
-		$template->assign('VAL_REMOTEADDR', $REMOTE_ADDR);
-		$template->assign('VAL_HTTPUSERAGENT', $HTTP_USER_AGENT);
+		$template->assign('VAL_REMOTEADDR', $_SERVER['REMOTE_ADDR']);
+		$template->assign('VAL_HTTPUSERAGENT', $_SERVER['HTTP_USER_AGENT']);
 
-		if (IsSet($OSTYPE) && IsSet($HOSTTYPE))
-			$template->assign('VAL_SERVEROS', $OSTYPE . '-' . $HOSTTYPE);
-		elseif (IsSet($OSTYPE))
-			$template->assign('VAL_SERVEROS', $OSTYPE);
-		elseif (IsSet($HOSTTYPE))
-			$template->assign('VAL_SERVEROS', $HOSTTYPE);
+		if (IsSet($_SERVER['OSTYPE']) && IsSet($_SERVER['HOSTTYPE']))
+			$template->assign('VAL_SERVEROS', $_SERVER['OSTYPE'] . '-' . $_SERVER['HOSTTYPE']);
+		elseif (IsSet($_SERVER['OSTYPE']))
+			$template->assign('VAL_SERVEROS', $_SERVER['OSTYPE']);
+		elseif (IsSet($_SERVER['HOSTTYPE']))
+			$template->assign('VAL_SERVEROS', $_SERVER['HOSTTYPE']);
 		else
 			$template->assign('VAL_SERVEROS', '');
 

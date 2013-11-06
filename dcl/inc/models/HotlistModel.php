@@ -54,7 +54,7 @@ class HotlistModel extends DbProvider
 		// Not found, so add it and return the new value
 		$this->hotlist_tag = $sTag;
 		$this->hotlist_desc = $sTag;
-		$this->created_by = $GLOBALS['DCLID'];
+		$this->created_by = DCLID;
 		$this->created_on = DCL_NOW;
 		$this->active = 'Y';
 		
@@ -72,7 +72,7 @@ class HotlistModel extends DbProvider
 			return '-1';
 			
 		$sTags = trim(strtolower($sTags));
-		$aTags = split(',', $sTags);
+		$aTags = explode(',', $sTags);
 		if (count($aTags) < 1)
 			return '-1';
 			

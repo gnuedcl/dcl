@@ -62,7 +62,7 @@ class TagModel extends DbProvider
 			return '-1';
 			
 		$sTags = trim(strtolower($sTags));
-		$aTags = split(',', $sTags);
+		$aTags = explode(',', $sTags);
 		if (count($aTags) < 1)
 			return '-1';
 			

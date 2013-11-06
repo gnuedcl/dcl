@@ -83,11 +83,11 @@ class boViews
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_DELETE, $iID))
 		{
 			// Users can delete their own saved searches
-			if ($obj->whoid != $GLOBALS['DCLID'])
+			if ($obj->whoid != DCLID)
 				throw new PermissionDeniedException();
 		}
 
-		if ($obj->whoid == $GLOBALS['DCLID'] || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
+		if ($obj->whoid == DCLID || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
 			ShowDeleteYesNo(STR_CMMN_VIEW, 'boViews.dbdelete', $obj->viewid, $obj->name, false);
 		else
 			throw new PermissionDeniedException();
@@ -110,11 +110,11 @@ class boViews
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_DELETE, $iID))
 		{
 			// Users can delete their own saved searches
-			if ($obj->whoid != $GLOBALS['DCLID'])
+			if ($obj->whoid != DCLID)
 				throw new PermissionDeniedException();
 		}
 			
-		if ($obj->whoid == $GLOBALS['DCLID'] || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
+		if ($obj->whoid == DCLID || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
 		{
 			$obj->Delete();
 			print(STR_BO_DELETED);
@@ -138,7 +138,7 @@ class boViews
 		if ($objDB->Load($iID) == -1)
 			return;
 
-		if ($objDB->ispublic == 'N' && $objDB->whoid != $GLOBALS['DCLID'])
+		if ($objDB->ispublic == 'N' && $objDB->whoid != DCLID)
 			throw new PermissionDeniedException();
 
 		if ($objDB->tablename == 'workorders')

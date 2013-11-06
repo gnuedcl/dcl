@@ -375,7 +375,13 @@ function Invoke($sClassMethod)
 			}
 		}
 
-		$oSecAuditDB->Add($menuAction, $values);
+        $oSecAuditDB->id = DCLID;
+        $oSecAuditDB->actionon = DCL_NOW;
+        $oSecAuditDB->actiontxt = $menuAction;
+        $oSecAuditDB->actionparam = $values;
+        $oSecAuditDB->Add();
+
+		$oSecAuditDB->Add();
 	}
 
 	list($class, $method) = explode(".", $sClassMethod);
@@ -551,7 +557,7 @@ function buildMenuArray()
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
 			$oDB = new SavedSearchesModel();
-			if ($oDB->ListByUser($GLOBALS['DCLID'], DCL_ENTITY_WORKORDER) !== -1)
+			if ($oDB->ListByUser(DCLID, DCL_ENTITY_WORKORDER) !== -1)
 			{
 				while ($oDB->next_record())
 				{
@@ -576,7 +582,7 @@ function buildMenuArray()
 	if ($dcl_info['DCL_MODULE_PROJECTS_ENABLED'])
 	{
 		$DCL_MENU[DCL_MENU_PROJECTS] = array(
-				DCL_MENU_MYPROJECTS => array('Project.Index&filterReportto=' . $GLOBALS['DCLID'], $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW)),
+				DCL_MENU_MYPROJECTS => array('Project.Index&filterReportto=' . DCLID, $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW)),
 				DCL_MENU_NEW => array('Project.Create', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD)),
 				DCL_MENU_VIEW => array('Project.Index', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
 			);
@@ -588,7 +594,7 @@ function buildMenuArray()
 		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 		{
 			$oDB = new SavedSearchesModel();
-			if ($oDB->ListByUser($GLOBALS['DCLID'], DCL_ENTITY_TICKET) !== -1)
+			if ($oDB->ListByUser(DCLID, DCL_ENTITY_TICKET) !== -1)
 			{
 				while ($oDB->next_record())
 				{
@@ -598,7 +604,7 @@ function buildMenuArray()
 		}
 		
 		$DCL_MENU[DCL_MENU_TICKETS] = array(
-				DCL_MENU_MYTICKETS => array('htmlTickets.show&filterReportto=' . $GLOBALS['DCLID'], $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION)),
+				DCL_MENU_MYTICKETS => array('htmlTickets.show&filterReportto=' . DCLID, $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION)),
 				DCL_MENU_NEW => array('boTickets.add', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD)),
 				DCL_MENU_ACTIVITY => array('reportTicketActivity.getparameters', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
 				DCL_MENU_GRAPH => array('boTickets.graph', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
@@ -847,6 +853,9 @@ function DclErrorLog($level, $message, $file, $line, $backTrace)
 {
 	try
 	{
+        if (empty($message))
+            return -1;
+
 		$logger = new ErrorLogModel();
 		$logger->server_name = $_SERVER['SERVER_NAME'];
 		$logger->script_name = $_SERVER['SCRIPT_NAME'];
@@ -958,7 +967,16 @@ function DclExceptionHandler(Exception $ex)
 	exit(255);
 }
 
-error_reporting(E_ALL);
-set_error_handler('DclErrorHandler');
-set_exception_handler('DclExceptionHandler');
+if (!defined('DCL_DEBUG'))
+{
+	error_reporting(E_ALL ^ E_STRICT);
+
+	set_error_handler('DclErrorHandler');
+	set_exception_handler('DclExceptionHandler');
+}
+else
+{
+	error_reporting(E_ALL ^ E_STRICT);
+}
+
 spl_autoload_register('DclClassAutoLoader');

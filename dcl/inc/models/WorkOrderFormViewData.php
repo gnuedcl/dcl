@@ -190,7 +190,7 @@ class WorkOrderFormViewData
 		$model->Description = $ticket->issue;
 		
 		$model->IsPublic = $ticket->is_public;
-		$model->ResponsibleId = $GLOBALS['DCLID'];
+		$model->ResponsibleId = DCLID;
 		$model->SourceId = $ticket->entity_source_id;
 		$model->ProductId = $ticket->product;
 		$model->ModuleId = $ticket->module_id;

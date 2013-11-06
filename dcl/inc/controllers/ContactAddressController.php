@@ -78,7 +78,7 @@ class ContactAddressController extends AbstractController
 						'country' => $_POST['country'],
 						'preferred' => isset($_POST['preferred']) ? 'Y' : 'N',
 						'created_on' => DCL_NOW,
-						'created_by' => $GLOBALS['DCLID']
+						'created_by' => DCLID
 						)
 					);
 

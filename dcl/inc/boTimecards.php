@@ -67,7 +67,7 @@ class boTimecards
 		$statusModel = new StatusModel();
 
 		$timeCardModel->InitFrom_POST();
-		$timeCardModel->actionby = $GLOBALS['DCLID'];
+		$timeCardModel->actionby = DCLID;
 		if ($g_oSec->IsPublicUser())
 			$timeCardModel->is_public = 'Y';
 		else
@@ -257,7 +257,7 @@ class boTimecards
 
 		$objTimecard = new TimeCardsModel();
 		$objTimecard->InitFrom_POST();
-		$objTimecard->actionby = $GLOBALS['DCLID'];
+		$objTimecard->actionby = DCLID;
 		if ($g_oSec->IsPublicUser())
 			$objTimecard->is_public = 'Y';
 		else

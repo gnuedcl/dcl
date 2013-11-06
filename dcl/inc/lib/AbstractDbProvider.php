@@ -456,7 +456,7 @@ abstract class AbstractDbProvider
 
 		$sColumns = join(', ', array_keys($GLOBALS['phpgw_baseline'][$this->TableName]['fd']));
 		$sSQL = 'INSERT INTO ' . $this->TableName . '_audit SELECT ';
-		$sSQL .= $sColumns . ', ' . $this->GetDateSQL() . ', ' . $GLOBALS['DCLID'];
+		$sSQL .= $sColumns . ', ' . $this->GetDateSQL() . ', ' . DCLID;
 		$sSQL .= ', ' . $sVersionSQL;
 		$sSQL .= ' FROM ' . $this->TableName . ' WHERE ' . $sPK;
 

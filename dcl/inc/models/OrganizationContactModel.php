@@ -44,6 +44,6 @@ class OrganizationContactModel extends DbProvider
 		$sOrgID = join(',', $aOrgID);
 		
 		$this->Execute("DELETE FROM dcl_org_contact WHERE contact_id = $contact_id AND org_id NOT IN ($sOrgID)");
-		$this->Execute("INSERT INTO dcl_org_contact (org_id, contact_id, created_on, created_by) SELECT org_id, $contact_id, " . $this->GetDateSQL() . ", " . $GLOBALS['DCLID'] . " FROM dcl_org WHERE org_id IN ($sOrgID) AND org_id NOT IN (SELECT org_id FROM dcl_org_contact WHERE contact_id = $contact_id)");
+		$this->Execute("INSERT INTO dcl_org_contact (org_id, contact_id, created_on, created_by) SELECT org_id, $contact_id, " . $this->GetDateSQL() . ", " . DCLID . " FROM dcl_org WHERE org_id IN ($sOrgID) AND org_id NOT IN (SELECT org_id FROM dcl_org_contact WHERE contact_id = $contact_id)");
 	}
 }

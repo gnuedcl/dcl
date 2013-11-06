@@ -20,189 +20,181 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-if (!IsSet($GLOBALS['LOGIN_PHP_INCLUDED']))
+// This should only be called from main.php or such.  Template files need to include config.php to get info before login
+include_once('inc/config.php');
+
+$bNoHeader = (IsSet($_REQUEST['menuAction']) && ($_REQUEST['menuAction'] == 'htmlTicketDetail.Download' || $_REQUEST['menuAction'] == 'WorkOrder.DownloadAttachment' || $_REQUEST['menuAction'] == 'LineGraphImageHelper.Show'));
+
+include_once(DCL_ROOT . 'inc/functions.inc.php');
+
+$g_oSec = new SecurityHelper();
+
+function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 {
-	$GLOBALS['LOGIN_PHP_INCLUDED'] = 1;
+    $bIsLogin = (substr($toHere, 0, 10) == 'logout.php');
 
-	// This should only be called from main.php or such.  Template files need to include config.php to get info before login
-	if (!defined('__DCL_CONFIG_INCLUDED__'))
-		include_once('inc/config.php');
+    if ($bIsLogin)
+    {
+        $theCookie = '';
+        if (IsSet($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '')
+            $toHere .= sprintf('%srefer_to=%s', strpos($toHere, '?') > 0 ? '&' : '?', urlencode($_SERVER['QUERY_STRING']));
+    }
+    else
+        $theCookie = $session_id . '/' . $domain;
 
-	$bNoHeader = (IsSet($menuAction) && ($menuAction == 'htmlTicketDetail.Download' || $menuAction == 'WorkOrder.DownloadAttachment' || $menuAction == 'LineGraphImageHelper.Show'));
+    if (DCL_COOKIE_METHOD == 'header')
+    {
+        $hdr = '';
+        if (DCL_REDIR_METHOD == 'php')
+            $hdr = "Location: $toHere\n";
 
-	if (!defined('DCL_ENTITY_GLOBAL'))
-		include_once(DCL_ROOT . 'inc/functions.inc.php');
+        $hdr .= "Set-Cookie: DCLINFO=$theCookie\n";
+        $hdr .= "\n";
 
-	$g_oSec = new SecurityHelper();
+        Header($hdr);
+        if ($bIsLogin)
+            exit;
+    }
 
-	function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
-	{
-		global $DCLINFO, $DCLUI;
-		if (!empty($_SERVER))
-			extract($_SERVER);
+    if (DCL_COOKIE_METHOD == 'php')
+    {
+        $httpDomain = '';
+        if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $_SERVER['HTTP_HOST']))
+        {
+            $httpDomain = $_SERVER['HTTP_HOST'];
+        }
+        else if (preg_match('/.*\..*$/', $_SERVER['HTTP_HOST']))
+        {
+            $httpDomain = preg_replace('/^www\./i', '', $_SERVER['HTTP_HOST']);
+            $httpDomain = '.' . $httpDomain;
+        }
 
-		$bIsLogin = (substr($toHere, 0, 10) == 'logout.php');
+        if (($p = strpos($httpDomain, ':')) !== false)
+            $httpDomain = substr($httpDomain, 0, $p);
 
-		if ($bIsLogin)
-		{
-			$theCookie = '';
-			if (IsSet($QUERY_STRING) && $QUERY_STRING != '')
-				$toHere .= sprintf('%srefer_to=%s', strpos($toHere, '?') > 0 ? '&' : '?', urlencode($QUERY_STRING));
-		}
-		else
-			$theCookie = $session_id . '/' . $domain;
+        SetCookie('DCLINFO', $theCookie, 0, '/', $httpDomain);
 
-		if (DCL_COOKIE_METHOD == 'header')
-		{
-			$hdr = '';
-			if (DCL_REDIR_METHOD == 'php')
-				$hdr = "Location: $toHere\n";
+        if (DCL_REDIR_METHOD == 'php')
+        {
+            Header("Location: $toHere\n\n");
+            if ($bIsLogin)
+                exit;
+        }
+    }
 
-			$hdr .= "Set-Cookie: DCLINFO=$theCookie\n";
-			$hdr .= "\n";
+    print('<html><head>');
 
-			Header($hdr);
-			if ($bIsLogin)
-				exit;
-		}
+    if (DCL_COOKIE_METHOD == 'meta')
+    {
+        print("<meta http-equiv=\"Set-Cookie\" content=\"DCLINFO=$theCookie\">");
+    }
 
-		if (DCL_COOKIE_METHOD == 'php')
-		{
-			$httpDomain = '';
-			if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $HTTP_HOST))
-			{
-				$httpDomain = $HTTP_HOST;
-			}
-			else if (preg_match('/.*\..*$/', $HTTP_HOST))
-			{
-				$httpDomain = preg_replace('/^www\./i', '', $HTTP_HOST);
-				$httpDomain = '.' . $httpDomain;
-			}
+    print("<meta http-equiv=\"refresh\" content=\"00;URL=$toHere\">");
+    print('</head>');
+    if ($bIsLogin)
+    {
+        print('<body bgcolor="#FFFFFF"></body></html>');
+        exit;
+    }
+}
 
-			if (($p = strpos($httpDomain, ':')) !== false)
-				$httpDomain = substr($httpDomain, 0, $p);
-			
-			SetCookie('DCLINFO', $theCookie, 0, '/', $httpDomain);
+if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
+{
+    $g_oSession = new SessionModel();
+    list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
+    if (strlen($dcl_session_id) != 32)
+        Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
 
-			if (DCL_REDIR_METHOD == 'php')
-			{
-				Header("Location: $toHere\n\n");
-				if ($bIsLogin)
-					exit;
-			}
-		}
+    if (!$g_oSession->conn)
+        Refresh(DCL_WWW_ROOT . 'logout.php?cd=3');
 
-		print('<html><head>');
+    if ($g_oSession->Load($dcl_session_id) == false)
+        Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
 
-		if (DCL_COOKIE_METHOD == 'meta')
-		{
-			print("<meta http-equiv=\"Set-Cookie\" content=\"DCLINFO=$theCookie\">");
-		}
+    if (!$g_oSession->conn)
+        Refresh(DCL_WWW_ROOT . 'logout.php?cd=3');
 
-		print("<meta http-equiv=\"refresh\" content=\"00;URL=$toHere\">");
-		print('</head>');
-		if ($bIsLogin)
-		{
-			print('<body bgcolor="#FFFFFF"></body></html>');
-			exit;
-		}
-	}
+    if (!$g_oSession->IsValidSession())
+        Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
 
-	if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
-	{
-		$g_oSession = new SessionModel();
-		list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
-		if (strlen($dcl_session_id) != 32)
-			Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
+    LoadStringResource('cmmn');
+}
+else
+{
+    $authenticateModel = new AuthenticateSqlModel();
+    $authInfo = array();
+    if ($authenticateModel->IsValidLogin($authInfo))
+    {
+        $oConfig = new ConfigurationModel();
+        $dcl_info = array();
+        $oConfig->Load();
 
-		if (!$g_oSession->conn)
-			Refresh(DCL_WWW_ROOT . 'logout.php?cd=3');
+        $g_oSession = new SessionModel();
+        if (!$g_oSession->conn)
+            Refresh('logout.php?cd=3');
 
-		if ($g_oSession->Load($dcl_session_id) == false)
-			Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
+        $g_oSession->personnel_id = $authInfo['id'];
+        $g_oSession->Add();
 
-		if (!$g_oSession->conn)
-			Refresh(DCL_WWW_ROOT . 'logout.php?cd=3');
+        $oPreferences = new PreferencesModel();
+        $oPreferences->Load($authInfo['id']);
 
-		if (!$g_oSession->IsValidSession())
-			Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
+        $g_oSession->Register('DCLID', $authInfo['id']);
+        define('DCLID', $authInfo['id']);
 
-		LoadStringResource('cmmn');
-	}
-	else
-	{
-		$authenticateModel = new AuthenticateSqlModel();
-		$authInfo = array();
-		if ($authenticateModel->IsValidLogin($authInfo))
-		{		
-			$oConfig = new ConfigurationModel();
-			$dcl_info = array();
-			$oConfig->Load();
+        $g_oSession->Register('DCLNAME', trim($authInfo['short']));
+        $g_oSession->Register('USEREMAIL', $authInfo['email']);
+        $g_oSession->Register('contact_id', $authInfo['contact_id']);
+        $g_oSession->Register('dcl_info', $dcl_info);
+        $g_oSession->Register('dcl_preferences', $oPreferences->preferences_data);
 
-			$g_oSession = new SessionModel();
-			if (!$g_oSession->conn)
-				Refresh('logout.php?cd=3');
+        // If we have org restrictions, cache the affiliated orgs for this contact record
+        if ($authInfo['contact_id'] != null && $authInfo['contact_id'] > 0)
+        {
+            if ($g_oSec->IsOrgUser())
+            {
+                $oContact = new ContactModel();
+                $aOrgs = $oContact->GetOrgArray($authInfo['contact_id']);
+                $g_oSession->Register('member_of_orgs', join(',', $aOrgs));
 
-			$g_oSession->personnel_id = $authInfo['id'];
-			$g_oSession->Add();
+                // Also grab the filtered product list for the orgs
+                $oOrg = new OrganizationModel();
+                $aProducts = $oOrg->GetProductArray($aOrgs);
+                if (count($aProducts) == 0)
+                    $aProducts = array('-1');
 
-			$oPreferences = new PreferencesModel();
-			$oPreferences->Load($authInfo['id']);
+                $g_oSession->Register('org_products', join(',', $aProducts));
+            }
+        }
 
-			// Save the user ID and copy it to global space so Security object can use the info
-			$g_oSession->Register('DCLID', $authInfo['id']);
-			$GLOBALS['DCLID'] = $authInfo['id'];
+        $g_oSession->Edit();
 
-			$g_oSession->Register('DCLNAME', trim($authInfo['short']));
-			$g_oSession->Register('USEREMAIL', $authInfo['email']);
-			$g_oSession->Register('contact_id', $authInfo['contact_id']);
-			$g_oSession->Register('dcl_info', $dcl_info);
-			$g_oSession->Register('dcl_preferences', $oPreferences->preferences_data);
+        if ($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
+        {
+            $oSecAuditDB = new SecurityAuditModel();
+            $oSecAuditDB->id = DCLID;
+            $oSecAuditDB->actionon = DCL_NOW;
+            $oSecAuditDB->actiontxt = 'login';
+            $oSecAuditDB->actionparam = '';
+            $oSecAuditDB->Add();
+        }
 
-			// If we have org restrictions, cache the affiliated orgs for this contact record
-			if ($authInfo['contact_id'] != null && $authInfo['contact_id'] > 0)
-			{
-				if ($g_oSec->IsOrgUser())
-				{
-					$oContact = new ContactModel();
-					$aOrgs = $oContact->GetOrgArray($authInfo['contact_id']);
-					$g_oSession->Register('member_of_orgs', join(',', $aOrgs));
-					
-					// Also grab the filtered product list for the orgs
-					$oOrg = new OrganizationModel();
-					$aProducts = $oOrg->GetProductArray($aOrgs);
-					if (count($aProducts) == 0)
-						$aProducts = array('-1');
-					
-					$g_oSession->Register('org_products', join(',', $aProducts));
-				}
-			}
+        $menuAction = 'menuAction=htmlMyDCL.show';
+        if ($g_oSec->IsPublicUser())
+            $menuAction = 'menuAction=htmlPublicMyDCL.show';
 
-			$g_oSession->Edit();
-			
-			if ($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
-			{
-				$oSecAuditDB = new SecurityAuditModel();
-				$oSecAuditDB->Add('login');
-			}
+        if (IsSet($_POST['refer_to']) && $_POST['refer_to'] != '')
+            $menuAction = urldecode($_POST['refer_to']);
 
-			$menuAction = 'menuAction=htmlMyDCL.show';
-			if ($g_oSec->IsPublicUser())
-				$menuAction = 'menuAction=htmlPublicMyDCL.show';
+        $tpl = $oPreferences->Value('DCL_PREF_TEMPLATE_SET');
+        if ($tpl == '')
+            $tpl = $dcl_info['DCL_DEF_TEMPLATE_SET'];
 
-			if (IsSet($_POST['refer_to']) && $_POST['refer_to'] != '')
-				$menuAction = urldecode($_POST['refer_to']);
-
-			$tpl = $oPreferences->Value('DCL_PREF_TEMPLATE_SET');
-			if ($tpl == '')
-				$tpl = $dcl_info['DCL_DEF_TEMPLATE_SET'];
-
-			if (file_exists('templates/' . $tpl . '/frameset.php'))
-				Refresh('templates/' . $tpl . '/frameset.php?' . $menuAction, $g_oSession->dcl_session_id, $_POST['DOMAIN']);
-			else
-				Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id, $_POST['DOMAIN']);
-		}
-		else
-			Refresh('logout.php?cd=1');
-	}
+        if (file_exists('templates/' . $tpl . '/frameset.php'))
+            Refresh('templates/' . $tpl . '/frameset.php?' . $menuAction, $g_oSession->dcl_session_id, $_POST['DOMAIN']);
+        else
+            Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id, $_POST['DOMAIN']);
+    }
+    else
+        Refresh('logout.php?cd=1');
 }

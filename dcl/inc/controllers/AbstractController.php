@@ -71,13 +71,13 @@ abstract class AbstractController
 			$this->model->{$this->sCreatedDateField} = DCL_NOW;
 
 		if ($this->sCreatedByField != '')
-			$this->model->{$this->sCreatedByField} = $GLOBALS['DCLID'];
+			$this->model->{$this->sCreatedByField} = DCLID;
 
 		if ($this->sModifiedDateField != '')
 			$this->model->{$this->sModifiedDateField} = DCL_NOW;
 
 		if ($this->sModifiedByField != '')
-			$this->model->{$this->sModifiedByField} = $GLOBALS['DCLID'];
+			$this->model->{$this->sModifiedByField} = DCLID;
 
 		if ($this->model->Add() == -1)
 		{
@@ -101,7 +101,7 @@ abstract class AbstractController
 			$this->model->{$this->sModifiedDateField} = DCL_NOW;
 
 		if ($this->sModifiedByField != '')
-			$this->model->{$this->sModifiedByField} = $GLOBALS['DCLID'];
+			$this->model->{$this->sModifiedByField} = DCLID;
 
 		if ($this->model->Edit($this->aIgnoreFieldsOnUpdate) == -1)
 		{

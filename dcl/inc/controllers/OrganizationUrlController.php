@@ -73,7 +73,7 @@ class OrganizationUrlController extends AbstractController
 						'url_addr' => $_POST['url_addr'],
 						'preferred' => @Filter::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
-						'created_by' => $GLOBALS['DCLID']
+						'created_by' => DCLID
 						)
 					);
 

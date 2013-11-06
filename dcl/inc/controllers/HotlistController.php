@@ -44,7 +44,7 @@ class HotlistController extends AbstractController
 		$model->hotlist_tag = $_POST['hotlist_tag'];
 		$model->hotlist_desc = $_POST['hotlist_desc'];
 		$model->active = @Filter::ToYN($_POST['active']);
-		$model->created_by = $GLOBALS['DCLID'];
+		$model->created_by = DCLID;
 		$model->created_on = DCL_NOW;
 		$model->Add();
 		
@@ -96,7 +96,7 @@ class HotlistController extends AbstractController
 			}
 			else
 			{
-				$model->closed_by = $GLOBALS['DCLID'];
+				$model->closed_by = DCLID;
 				$model->closed_on = DCL_NOW;
 			}
 		}
@@ -229,7 +229,7 @@ class HotlistController extends AbstractController
 		$aRemoveEntities = array();
 		foreach ($_POST['item'] as $entity)
 		{
-			$aEntity = @Filter::ToIntArray(split('_', $entity));
+			$aEntity = @Filter::ToIntArray(explode('_', $entity));
 			if (count($aEntity) === 3)
 			{
 				if (in_array($entity, $removeEntities))

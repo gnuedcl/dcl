@@ -54,7 +54,7 @@ class FaqTopicController extends AbstractController
 
 		$faqTopicsModel = new FaqTopicsModel();
 		$faqTopicsModel->InitFrom_POST();
-		$faqTopicsModel->createby = $GLOBALS['DCLID'];
+		$faqTopicsModel->createby = DCLID;
 		$faqTopicsModel->createon = DCL_NOW;
 		$faqTopicsModel->active = 'Y';
 		$faqTopicsModel->Add();
@@ -91,7 +91,7 @@ class FaqTopicController extends AbstractController
 		$faqTopicsModel = new FaqTopicsModel();
 		$faqTopicsModel->InitFrom_POST();
 		$faqTopicsModel->active = @Filter::ToYN($_REQUEST['active']);
-		$faqTopicsModel->modifyby = $GLOBALS['DCLID'];
+		$faqTopicsModel->modifyby = DCLID;
 		$faqTopicsModel->modifyon = DCL_NOW;
 		$faqTopicsModel->Edit();
 		

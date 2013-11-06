@@ -69,7 +69,7 @@ class boTicketresolutions
 			throw new PermissionDeniedException();
 
 		$this->oDB->InitFrom_POST();
-		$this->oDB->loggedby = $GLOBALS['DCLID'];
+		$this->oDB->loggedby = DCLID;
 		$this->oDB->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 		$this->oDB->is_public = @Filter::ToYN($_REQUEST['is_public']);
 
@@ -88,7 +88,7 @@ class boTicketresolutions
 			if ($oStatus->GetStatusType($this->oDB->status) == 2)
 			{
 				$notify .= ',2';
-				$obj->closedby = $GLOBALS['DCLID'];
+				$obj->closedby = DCLID;
 				$obj->closedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 			}
 			if ($oStatus->GetStatusType($this->oDB->status) == 1)
@@ -178,7 +178,7 @@ class boTicketresolutions
 				if ($oStatus->GetStatusType($this->oDB->status) == 2)
 				{
 					$notify .= ',2';
-					$oTicket->closedby = $GLOBALS['DCLID'];
+					$oTicket->closedby = DCLID;
 					$oTicket->closedon = DCL_NOW;
 				}
 				else if ($oStatus->GetStatusType($this->oDB->status) == 1)

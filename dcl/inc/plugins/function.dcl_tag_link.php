@@ -41,11 +41,11 @@ function smarty_function_dcl_tag_link($params, &$smarty)
 		$params['selected'] = '';
 	
 	$sSelected = trim($params['selected']);
-	$aSelected = split(',', $sSelected);
+	$aSelected = explode(',', $sSelected);
 	foreach ($aSelected as $iIndex => $sSelectedTag)
 		$aSelected[$iIndex] = trim($sSelectedTag);
 
-	$aTags = split(',', $sValue);
+	$aTags = explode(',', $sValue);
 	$bFirst = true;
 	foreach ($aTags as $sTag)
 	{

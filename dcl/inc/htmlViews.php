@@ -32,9 +32,9 @@ class htmlViews
 		$query = 'SELECT viewid,name FROM views WHERE ';
 
 		if ($includePublic)
-			$query .= '(whoid=' . $GLOBALS['DCLID'] . ' OR ispublic=\'Y\')';
+			$query .= '(whoid=' . DCLID . ' OR ispublic=\'Y\')';
 		else
-			$query .= 'whoid=' . $GLOBALS['DCLID'];
+			$query .= 'whoid=' . DCLID;
 
 		if ($forTable != '')
 			$query .= " AND tablename='$forTable'";
@@ -80,7 +80,7 @@ class htmlViews
 
 		$objDB = new SavedSearchesModel();
 
-		$objDB->Query('SELECT viewid,whoid,ispublic,name,tablename FROM views WHERE whoid=' . $GLOBALS['DCLID'] . " OR ispublic='Y' ORDER BY $orderBy");
+		$objDB->Query('SELECT viewid,whoid,ispublic,name,tablename FROM views WHERE whoid=' . DCLID . " OR ispublic='Y' ORDER BY $orderBy");
 		$allRecs = $objDB->FetchAllRows();
 
 		$oTable = new TableHtmlHelper();
@@ -106,7 +106,7 @@ class htmlViews
 			else if ($allRecs[$i][4] == 'tickets' )
 				$options .= '<a href="' . menuLink('', 'menuAction=htmlTicketSearches.ShowView&id=' . $allRecs[$i][0]) . '">' . STR_VW_SETUP . '</a>';
 
-			if ($allRecs[$i][1] == $GLOBALS['DCLID'] || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
+			if ($allRecs[$i][1] == DCLID || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
 			{
 				if ($options != '')
 					$options .= '&nbsp;|&nbsp;';
@@ -144,7 +144,7 @@ class htmlViews
 		$template->assign('VAL_FORMACTION', menuLink());
 		$template->assign('BTN_CANCEL', STR_CMMN_CANCEL);
 
-		$template->assign('VAL_DCLID', $GLOBALS['DCLID']);
+		$template->assign('VAL_DCLID', DCLID);
 		$template->assign('VAL_TABLENAME', $_REQUEST['vt']);
 
 		// Add the URL pieces

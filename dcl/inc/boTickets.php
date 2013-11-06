@@ -47,7 +47,7 @@ class boTickets
 
 		$obj = new TicketsModel();
 		$obj->InitFrom_POST();
-		$obj->createdby = $GLOBALS['DCLID'];
+		$obj->createdby = DCLID;
 		$obj->createdon = DCL_NOW;
 
 		// If responsible is set, InitFromGlobals would have fetched it above
@@ -69,7 +69,7 @@ class boTickets
 		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($obj->status) == 2)
 		{
-			$obj->closedby = $GLOBALS['DCLID'];
+			$obj->closedby = DCLID;
 			$obj->closedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 		}
 
@@ -111,7 +111,7 @@ class boTickets
 		{
 			$objR = new TicketResolutionsModel();
 			$objR->InitFrom_POST();
-			$objR->loggedby = $GLOBALS['DCLID'];
+			$objR->loggedby = DCLID;
 			$objR->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 			$objR->ticketid = $obj->ticketid;
 			$objR->is_public = ((isset($_REQUEST['is_public']) && $_REQUEST['is_public'] == 'Y') || $g_oSec->IsPublicUser() ? 'Y' : 'N');

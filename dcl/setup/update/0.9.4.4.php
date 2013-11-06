@@ -1353,7 +1353,7 @@ function dcl_upgrade0_9_4_4()
 			$iPos = strpos($sName, ',');
 			if ($iPos !== false)
 			{
-				$aName = split(',', $sName);
+				$aName = explode(',', $sName);
 				$sLastName = trim($aName[0]);
 				if (count($aName) > 1)
 				{
@@ -1371,7 +1371,7 @@ function dcl_upgrade0_9_4_4()
 				$iPos = strpos($sName, ' ');
 				if ($iPos !== false)
 				{
-					$aName = split(' ', $sName);
+					$aName = explode(' ', $sName);
 					$sFirstName = trim($aName[0]);
 					if (count($aName) > 1)
 					{

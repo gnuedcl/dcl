@@ -418,6 +418,6 @@ class DbProvider extends AbstractDbProvider
 		if (!IsSet($thisString) || $thisString == '')
 			return '';
 
-		return str_replace("'", "''", str_replace("\\", "\\\\", $thisString));
+        return pg_escape_string($this->conn, $thisString);
 	}
 }

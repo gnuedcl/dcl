@@ -131,7 +131,7 @@ class TicketsModel extends DbProvider
 		if ($oRetVal !== -1)
 		{
 			$bIsPublic = false;
-			if (($g_oSec->IsPublicUser() || $g_oSec->IsOrgUser()) && !$this->CanView($this, $GLOBALS['DCLID'], $bIsPublic))
+			if (($g_oSec->IsPublicUser() || $g_oSec->IsOrgUser()) && !$this->CanView($this, DCLID, $bIsPublic))
 			{
 				throw new PermissionDeniedException();
 			}

@@ -78,7 +78,7 @@ class ContactLicenseController extends AbstractController
 		                'expires_on' => $expiresOn,
 						'license_notes' => $_REQUEST['license_notes'],
 						'created_on' => DCL_NOW,
-						'created_by' => $GLOBALS['DCLID']
+						'created_by' => DCLID
 						)
 					);
 
@@ -130,7 +130,7 @@ class ContactLicenseController extends AbstractController
 		                'expires_on' => $expiresOn,
 						'license_notes' => $_REQUEST['license_notes'],
 						'modified_on' => DCL_NOW,
-						'modified_by' => $GLOBALS['DCLID']
+						'modified_by' => DCLID
 						));
 
 		SetRedirectMessage('Success', 'License updated successfully.');

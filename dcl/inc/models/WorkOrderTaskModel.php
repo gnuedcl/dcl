@@ -79,7 +79,7 @@ class WorkOrderTaskModel extends DbProvider
 	
 	public function CloseAllIncompleteTasksForWorkOrder($wo_id, $seq)
 	{
-		global $DCLID;
+		$userId = DCLID;
 		
 		if (($wo_id = Filter::ToInt($wo_id)) === null || ($seq = Filter::ToInt($seq)) === null)
 		{
@@ -88,7 +88,7 @@ class WorkOrderTaskModel extends DbProvider
 		
 		if ($this->GetCountIncompleteTasksForWorkOrder($wo_id, $seq) > 0)
 		{
-			$this->Execute("UPDATE dcl_wo_task SET task_complete = 'Y', task_complete_by = $DCLID, task_complete_dt = " . $this->GetDateSQL() . " WHERE wo_id = $wo_id AND seq = $seq AND task_complete = 'N'");
+			$this->Execute("UPDATE dcl_wo_task SET task_complete = 'Y', task_complete_by = $userId, task_complete_dt = " . $this->GetDateSQL() . " WHERE wo_id = $wo_id AND seq = $seq AND task_complete = 'N'");
 			return true;
 		}
 		

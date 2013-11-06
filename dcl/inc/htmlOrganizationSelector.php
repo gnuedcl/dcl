@@ -139,7 +139,7 @@ class htmlOrganizationSelector
 			$this->oView->AddDef('filter', 'org_id', $filterID);
 			
 		if ($g_oSec->IsOrgUser())
-			$this->oView->AddDef('filter', 'org_id', split(',', $g_oSession->Value('member_of_orgs')));
+			$this->oView->AddDef('filter', 'org_id', explode(',', $g_oSession->Value('member_of_orgs')));
 
 		if ($this->oDB->Query($this->oView->GetSQL(true)) == -1 || !$this->oDB->next_record())
 			exit();

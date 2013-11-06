@@ -24,7 +24,7 @@ class SecurityHelper
 {
 	function ValidateMenuAction()
 	{
-		global $menuAction;
+		$menuAction = $_REQUEST['menuAction'];
 
 		// public user URLs should all start with htmlPublic for now...
 		//if ($this->IsPublicUser())
@@ -56,7 +56,7 @@ class SecurityHelper
 		}
 		
 		$oDB = new UserRoleModel();
-		return $oDB->HasSpecificRole($GLOBALS['DCLID'], $role_id);
+		return $oDB->HasSpecificRole(DCLID, $role_id);
 	}
 
 	function HasPerm($entity, $perm, $id1 = 0, $id2 = 0)
@@ -159,7 +159,7 @@ class SecurityHelper
 			{
 				// Loading a specific ID, so let's get role permissions for this entity type
 				$aPermissions[$sGlobalKey] = array();
-				$oDB->ListPermissions($GLOBALS['DCLID'], $entity, 0, 0);
+				$oDB->ListPermissions(DCLID, $entity, 0, 0);
 				while ($oDB->next_record())
 				{
 					$aPermissions[$sGlobalKey][] = $oDB->f(0);
@@ -179,7 +179,7 @@ class SecurityHelper
 
 		// otherwise, Get role permissions for this entity and object ID (not cached in session)
 		$aPermissions = array();
-		$oDB->ListPermissions($GLOBALS['DCLID'], $entity, $id1, $id2);
+		$oDB->ListPermissions(DCLID, $entity, $id1, $id2);
 		while ($oDB->next_record())
 		{
 			$aPermissions[] = $oDB->f(0);

@@ -88,10 +88,10 @@ class htmlMyDCL
 			$objView->AddDef('columnhdrs', '', array(STR_TCK_TICKET, STR_TCK_PRODUCT, STR_TCK_STATUS, STR_TCK_PRIORITY, STR_TCK_TYPE, STR_TCK_RESPONSIBLE, STR_TCK_SUMMARY));
 		}
 
-		$objView->AddDef('filter', $forField, $GLOBALS['DCLID']);
+		$objView->AddDef('filter', $forField, DCLID);
 		$objView->AddDef('filternot', 'statuses.dcl_status_type', '2');
 		if ($forField == 'createdby')
-			$objView->AddDef('filternot', 'responsible', $GLOBALS['DCLID']);
+			$objView->AddDef('filternot', 'responsible', DCLID);
 		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'ticketid'));
 
 		$oTable = new TableHtmlHelper();
@@ -108,7 +108,7 @@ class htmlMyDCL
 		$oTable->setWidth('100%');
 		
 		if ($forField == 'responsible')
-			$oTable->addToolbar(menuLink('', 'menuAction=htmlTickets.show&filterReportto=' . $GLOBALS['DCLID']), STR_CMMN_VIEWALL);
+			$oTable->addToolbar(menuLink('', 'menuAction=htmlTickets.show&filterReportto=' . DCLID), STR_CMMN_VIEWALL);
 		else
 			$oTable->addToolbar(menuLink('', 'menuAction=htmlTickets.showSubmissions'), STR_CMMN_VIEWALL);
 		
@@ -161,10 +161,10 @@ class htmlMyDCL
 												STR_WO_SEVERITY, STR_WO_RESPONSIBLE, STR_WO_DEADLINE, STR_WO_SUMMARY));
 		}
 		
-		$objView->AddDef('filter', $forField, $GLOBALS['DCLID']);
+		$objView->AddDef('filter', $forField, DCLID);
 		$objView->AddDef('filternot', 'statuses.dcl_status_type', '2');
 		if ($forField == 'createby')
-			$objView->AddDef('filternot', 'responsible', $GLOBALS['DCLID']);
+			$objView->AddDef('filternot', 'responsible', DCLID);
 			
 		$objView->AddDef('order', '', array('priorities.weight', 'severities.weight', 'deadlineon', 'eststarton', 'jcn', 'seq'));
 
@@ -221,7 +221,7 @@ class htmlMyDCL
 		$oView->AddDef('columns', '', array('projectid', 'reportto.short', 'statuses.name', 'dcl_projects.name'));
 
 		$oView->AddDef('filternot', 'statuses.dcl_status_type', '2');
-		$oView->AddDef('filter', 'dcl_projects.reportto', $GLOBALS['DCLID']);
+		$oView->AddDef('filter', 'dcl_projects.reportto', DCLID);
 
 		$oView->AddDef('order', '', array('dcl_projects.name'));
 
@@ -237,7 +237,7 @@ class htmlMyDCL
 		$oTable->setShowRownum(false);
 		$oTable->setCaption($oView->title);
 		$oTable->setWidth('100%');
-		$oTable->addToolbar(menuLink('', 'menuAction=Project.Index&filterReportto=' . $GLOBALS['DCLID']), STR_CMMN_VIEWALL);
+		$oTable->addToolbar(menuLink('', 'menuAction=Project.Index&filterReportto=' . DCLID), STR_CMMN_VIEWALL);
 
 		$oDB = new DbProvider;
 		$oDB->LimitQuery($oView->GetSQL(), 0, 5);

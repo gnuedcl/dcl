@@ -173,7 +173,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 				$bHasPerm = $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWACCOUNT) || $g_oSec->IsOrgUser();
 				$bViewAll = !$g_oSec->IsOrgUser();
 				if ($bHasPerm)
-					$aOrgs = split(',', $g_oSession->Value('member_of_orgs'));
+					$aOrgs = explode(',', $g_oSession->Value('member_of_orgs'));
 	
 				$aOrgNames = array();
 				while ($oAcct->next_record())

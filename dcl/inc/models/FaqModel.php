@@ -37,14 +37,14 @@ class FaqModel extends DbProvider
 	public function Add()
 	{
 		$this->active = 'Y';
-		$this->createby = $GLOBALS['DCLID'];
+		$this->createby = DCLID;
 		$this->createon = DCL_NOW;
 		return parent::Add();
 	}
 
 	public function Edit()
 	{
-		$this->modifyby = $GLOBALS['DCLID'];
+		$this->modifyby = DCLID;
 		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}

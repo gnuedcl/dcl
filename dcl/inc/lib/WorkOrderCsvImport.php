@@ -131,7 +131,7 @@ class WorkOrderCsvImport
 					$workOrderModel->module_id = $this->LookupId($workOrderModelTemp, 'dcl_product_module', $moduleId, 'product_module_id', 'module_name', 'product_id', $workOrderModel->product);
 			}
 
-			$workOrderModel->createby = $GLOBALS['DCLID'];
+			$workOrderModel->createby = DCLID;
 			$workOrderModel->Add();
 
 			if ($workOrderModel->jcn > 0)

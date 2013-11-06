@@ -57,7 +57,7 @@ class SessionModel extends DbProvider
 		$this->m_IsValidSession = true;
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		$this->update_date = DCL_NOW;
 		$aSessionDataCopy = $this->session_data;
@@ -66,12 +66,12 @@ class SessionModel extends DbProvider
 		$this->session_data = $aSessionDataCopy;
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		parent::Delete(array('dcl_session_id' => $this->dcl_session_id));
 	}
 
-	public function Load($id)
+	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		global $dcl_info, $dcl_domain, $dcl_domain_info;
 
@@ -94,7 +94,7 @@ class SessionModel extends DbProvider
 
 		$this->session_data = unserialize($this->session_data);
 
-		$this->GlobalValue('DCLID');
+        define('DCLID', $this->Value('DCLID'));
 		$this->GlobalValue('DCLNAME');
 		$this->GlobalValue('USEREMAIL');
 		$this->GlobalValue('LANG');

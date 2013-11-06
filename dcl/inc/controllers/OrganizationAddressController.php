@@ -78,7 +78,7 @@ class OrganizationAddressController extends AbstractController
 						'country' => $_POST['country'],
 						'preferred' => @Filter::ToYN($_POST['preferred']),
 						'created_on' => DCL_NOW,
-						'created_by' => $GLOBALS['DCLID']
+						'created_by' => DCLID
 						)
 					);
 

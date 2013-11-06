@@ -45,7 +45,7 @@ class FaqController extends AbstractController
 
 		$model = new FaqModel();
 		$model->InitFrom_POST();
-		$model->createby = $GLOBALS['DCLID'];
+		$model->createby = DCLID;
 		$model->createon = DCL_NOW;
 		$model->Add();
 
@@ -76,7 +76,7 @@ class FaqController extends AbstractController
 		$model = new FaqModel();
 		$model->InitFrom_POST();
 		$model->active = @Filter::ToYN($_POST['active']);
-		$model->modifyby = $GLOBALS['DCLID'];
+		$model->modifyby = DCLID;
 		$model->modifyon = DCL_NOW;
 		$model->Edit();
 

@@ -95,7 +95,7 @@ class DCLNavBar
 		else if ($this->_isTicketGroup())
 		{
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION))
-				$aItems[] = array(DCL_MENU_MYTICKETS, 'htmlTickets.show&filterReportto=' . $GLOBALS['DCLID'], 'home-16.png');
+				$aItems[] = array(DCL_MENU_MYTICKETS, 'htmlTickets.show&filterReportto=' . DCLID, 'home-16.png');
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD))
 				$aItems[] = array(DCL_MENU_NEW, 'boTickets.add', 'new-16.png');
@@ -117,7 +117,7 @@ class DCLNavBar
 		else if ($this->_isProjectGroup())
 		{
 			if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
-				$aItems[] = array(DCL_MENU_MYPROJECTS, 'Project.Index&filterReportto=' . $GLOBALS['DCLID'], 'home-16.png');
+				$aItems[] = array(DCL_MENU_MYPROJECTS, 'Project.Index&filterReportto=' . DCLID, 'home-16.png');
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD))
 				$aItems[] = array(DCL_MENU_NEW, 'Project.Create', 'new-16.png');

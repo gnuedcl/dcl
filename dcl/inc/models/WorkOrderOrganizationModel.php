@@ -49,7 +49,7 @@ class WorkOrderOrganizationModel extends DbProvider
 			}
 			else
 			{
-				$this->Execute('INSERT INTO dcl_wo_account_audit VALUES (' . $sValues . ', ' . $this->GetDateSQL() . ', ' . $GLOBALS['DCLID'] . ', ' . DCL_EVENT_ADD . ')');
+				$this->Execute('INSERT INTO dcl_wo_account_audit VALUES (' . $sValues . ', ' . $this->GetDateSQL() . ', ' . DCLID . ', ' . DCL_EVENT_ADD . ')');
 			}
 		}
 	}
@@ -87,7 +87,7 @@ class WorkOrderOrganizationModel extends DbProvider
 		if ($account_id_keep != '')
 			$sWhere .= " AND account_id NOT IN ($account_id_keep)";
 
-		$this->Execute("INSERT INTO dcl_wo_account_audit SELECT wo_id, seq, account_id, " . $this->GetDateSQL() . ", " . $GLOBALS['DCLID'] . ", " . DCL_EVENT_DELETE . " FROM dcl_wo_account $sWhere");
+		$this->Execute("INSERT INTO dcl_wo_account_audit SELECT wo_id, seq, account_id, " . $this->GetDateSQL() . ", " . DCLID . ", " . DCL_EVENT_DELETE . " FROM dcl_wo_account $sWhere");
 
 		return $this->Execute("DELETE FROM dcl_wo_account $sWhere");
 	}

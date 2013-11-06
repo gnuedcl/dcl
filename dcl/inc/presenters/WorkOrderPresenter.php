@@ -192,7 +192,7 @@ class WorkOrderPresenter
 
 		$smartyHelper->assign('TXT_TITLE', STR_CMMN_REASSIGN);
 
-		$smartyHelper->assign('CMB_RESPONSIBLE', $personnelHtmlHelper->Select($GLOBALS['DCLID'], 'responsible', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
+		$smartyHelper->assign('CMB_RESPONSIBLE', $personnelHtmlHelper->Select(DCLID, 'responsible', 'lastfirst', 0, true, DCL_ENTITY_WORKORDER));
 		$smartyHelper->assign('CMB_PRIORITY', $priorityHtmlHelper->Select(0, 'priority', 'name', 0, false));
 		$smartyHelper->assign('CMB_SEVERITY', $severityHtmlHelper->Select(0, 'severity', 'name', 0, false));
 
@@ -339,7 +339,7 @@ class WorkOrderPresenter
 			$bHasPerm = $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWACCOUNT) || $g_oSec->IsOrgUser();
 			$bViewAll = !$g_oSec->IsOrgUser();
 			if ($bHasPerm)
-				$aOrgs = split(',', $g_oSession->Value('member_of_orgs'));
+				$aOrgs = explode(',', $g_oSession->Value('member_of_orgs'));
 
 			$aOrgNames = array();
 			$iOrgIndex = 0;
@@ -507,7 +507,7 @@ class WorkOrderPresenter
 		$projectHtmlHelper = new ProjectHtmlHelper();
 
 		$personnelModel = new PersonnelModel();
-		$personnelModel->Load($GLOBALS['DCLID']);
+		$personnelModel->Load(DCLID);
 		
 		$smartyHelper = new SmartyHelper();
 		
@@ -517,7 +517,7 @@ class WorkOrderPresenter
 			$smartyHelper->assign('VAL_REPORTTITLE', '');
 
 		$smartyHelper->assign('VAL_DEPARTMENT', $personnelModel->department);
-		$smartyHelper->assign('VAL_ID', $GLOBALS['DCLID']);
+		$smartyHelper->assign('VAL_ID', DCLID);
 
 		$aDefault = array();
 		$aDefault['product'] = array();
@@ -641,8 +641,8 @@ class WorkOrderPresenter
 			$aDefault['is_public'] = 0;
 			$aDefault['statuses.dcl_status_type'] = 1;
 			$aDefault['department'] = array($personnelModel->department);
-			$aDefault['personnel'] = $GLOBALS['DCLID'];
-			$sPersonnelKey = sprintf('%d,%d', $personnelModel->department, $GLOBALS['DCLID']);
+			$aDefault['personnel'] = DCLID;
+			$sPersonnelKey = sprintf('%d,%d', $personnelModel->department, DCLID);
 			$sStatusKey = '';
 			$sModuleKey = '';
 
@@ -935,7 +935,7 @@ class WorkOrderPresenter
 		$viewData->Action = 'WorkOrder.Insert';
 		$viewData->CanAddTask = $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK, $viewData->ProjectId);
 
-		$viewData->ResponsibleId = $GLOBALS['DCLID'];
+		$viewData->ResponsibleId = DCLID;
 		$viewData->ResponsibleName = $GLOBALS['DCLNAME'];
 		
 		if ($dcl_info['DCL_AUTO_DATE'] == 'Y')

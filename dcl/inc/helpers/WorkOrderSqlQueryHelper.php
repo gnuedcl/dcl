@@ -147,7 +147,7 @@ class WorkOrderSqlQueryHelper extends AbstractSqlQueryHelper
 		{
 			$aOrgFilter = array();
 			if ($g_oSec->IsOrgUser())
-				$aOrgFilter = split(',', $g_oSession->Value('member_of_orgs'));
+				$aOrgFilter = explode(',', $g_oSession->Value('member_of_orgs'));
 
 			if (isset($this->filter['dcl_wo_account.account_id']) && is_array($this->filter['dcl_wo_account.account_id']))
 			{
@@ -216,7 +216,7 @@ class WorkOrderSqlQueryHelper extends AbstractSqlQueryHelper
 			{
 				$sOrgs = $g_oSession->Value('member_of_orgs');
 				if ($sOrgs != '')
-					$values = split(',', $sOrgs);
+					$values = explode(',', $sOrgs);
 				else
 					$values = array('-1');
 
@@ -249,7 +249,7 @@ class WorkOrderSqlQueryHelper extends AbstractSqlQueryHelper
 			else
 				$sql .= ' AND ';
 
-			$sql .= '(' . $this->table . '.createby = ' . $GLOBALS['DCLID'];
+			$sql .= '(' . $this->table . '.createby = ' . DCLID;
 			$sql .= ' OR ' . $this->table . '.contact_id = ' . $g_oSession->Value('contact_id');
 			if ($sAccountSQL != '')
 				$sql .= ' OR ' . $sAccountSQL;

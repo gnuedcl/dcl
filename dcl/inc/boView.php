@@ -1124,7 +1124,7 @@ class boView
 						$sOrgs = $g_oSession->Value('member_of_orgs');
 						if ($sOrgs != '')
 						{
-							$aOrgs = split(',', $sOrgs);
+							$aOrgs = explode(',', $sOrgs);
 							$values = array_intersect($values, $aOrgs);
 							if (count($values) == 0)
 								$values = array('-1');
@@ -1151,7 +1151,7 @@ class boView
 						$sOrgs = $g_oSession->Value('member_of_orgs');
 						if ($sOrgs != '')
 						{
-							$aOrgs = split(',', $sOrgs);
+							$aOrgs = explode(',', $sOrgs);
 							$values = array_intersect($values, $aOrgs);
 							if (count($values) == 0)
 								$values = array('-1');
@@ -1368,7 +1368,7 @@ class boView
 			{
 				$aOrgFilter = array();
 				if ($g_oSec->IsOrgUser())
-					$aOrgFilter = split(',', $g_oSession->Value('member_of_orgs'));
+					$aOrgFilter = explode(',', $g_oSession->Value('member_of_orgs'));
 
 				if (isset($this->filter['dcl_wo_account.account_id']) && is_array($this->filter['dcl_wo_account.account_id']))
 				{
@@ -1459,7 +1459,7 @@ class boView
 				{
 					$sOrgs = $g_oSession->Value('member_of_orgs');
 					if ($sOrgs != '')
-						$values = split(',', $sOrgs);
+						$values = explode(',', $sOrgs);
 					else
 						$values = array('-1');
 	
@@ -1492,7 +1492,7 @@ class boView
 				else
 					$sql .= ' AND ';
 	
-				$sql .= '(' . $this->table . '.createby = ' . $GLOBALS['DCLID'];
+				$sql .= '(' . $this->table . '.createby = ' . DCLID;
 				$sql .= ' OR ' . $this->table . '.contact_id = ' . $g_oSession->Value('contact_id');
 				if ($sAccountSQL != '')
 					$sql .= ' OR ' . $sAccountSQL;
@@ -1543,7 +1543,7 @@ class boView
 				else
 					$sql .= ' AND ';
 	
-				$sql .= '(' . $this->table . '.createdby = ' . $GLOBALS['DCLID'];
+				$sql .= '(' . $this->table . '.createdby = ' . DCLID;
 				$sql .= ' OR ' . $this->table . '.contact_id = ' . $g_oSession->Value('contact_id');
 				if ($sAccountSQL != '')
 					$sql .= ' OR ' . $sAccountSQL;

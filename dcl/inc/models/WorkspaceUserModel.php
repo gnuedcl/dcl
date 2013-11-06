@@ -49,7 +49,7 @@ class WorkspaceUserModel extends DbProvider
 		// Add the new tags
 		if ($sUsers != '-1')
 		{
-			$personnel_id = $GLOBALS['DCLID'];
+			$personnel_id = DCLID;
 			$this->Execute("INSERT INTO dcl_workspace_user SELECT $workspace_id, id, " . $this->GetDateSQL() . ", $personnel_id FROM personnel WHERE id IN ($sUsers) AND id NOT IN (SELECT personnel_id FROM dcl_workspace_user WHERE workspace_id = $workspace_id)");
 		}
 	}

@@ -41,7 +41,11 @@ if (strlen($dcl_session_id) == 32)
 		if (isset($GLOBALS['dcl_info']) && isset($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']) && $GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
 		{
 			$oSecAuditDB = new SecurityAuditModel();
-			$oSecAuditDB->Add('logout');
+            $oSecAuditDB->id = DCLID;
+            $oSecAuditDB->actionon = DCL_NOW;
+            $oSecAuditDB->actiontxt = 'logout';
+            $oSecAuditDB->actionparam = '';
+            $oSecAuditDB->Add();
 		}
 	
 		$g_oSession->Delete($g_oSession->dcl_session_id);

@@ -33,12 +33,12 @@ class SavedSearchesModel extends DbProvider
 		parent::Clear();
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		return parent::Delete(array('viewid' => $this->viewid));
 	}
 
-	public function Load($id)
+	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		return parent::Load(array('viewid' => $id));
 	}

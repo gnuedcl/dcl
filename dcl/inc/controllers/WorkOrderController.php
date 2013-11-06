@@ -127,7 +127,7 @@ class WorkOrderController
 
 		$workOrderModel->InitFrom_POST();
 		$workOrderModel->etchours = $workOrderModel->esthours;
-		$workOrderModel->createby = $GLOBALS['DCLID'];
+		$workOrderModel->createby = DCLID;
 		$workOrderModel->is_public = ((isset($_REQUEST['is_public']) && $_REQUEST['is_public'] == 'Y') || $g_oSec->IsPublicUser() ? 'Y' : 'N');
 
 		PubSub::Publish('WorkOrder.Inserting', $workOrderModel);
@@ -225,7 +225,7 @@ class WorkOrderController
 			{
 				$ticketResolutionsModel = new TicketResolutionsModel();
 				$ticketResolutionsModel->ticketid = $iTicketID;
-				$ticketResolutionsModel->loggedby = $GLOBALS['DCLID'];
+				$ticketResolutionsModel->loggedby = DCLID;
 				$ticketResolutionsModel->loggedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 				$ticketResolutionsModel->startedon = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
 				$ticketResolutionsModel->is_public = $workOrderModel->is_public;
@@ -827,8 +827,8 @@ class WorkOrderController
 		$workOrderCriteriaModel->StartOn = @$_REQUEST['starton'];
 		$workOrderCriteriaModel->ModuleId = isset($_REQUEST['module_id']) && is_array($_REQUEST['module_id']) ? $_REQUEST['module_id'] : array();
 		$workOrderCriteriaModel->SearchText = $_REQUEST['searchText'];
-		$workOrderCriteriaModel->Tags = $_REQUEST['tags'] == '' ? array() : split(',', $_REQUEST['tags']);
-		$workOrderCriteriaModel->Hotlist = $_REQUEST['hotlist'] == '' ? array() :split(',', $_REQUEST['hotlist']);
+		$workOrderCriteriaModel->Tags = $_REQUEST['tags'] == '' ? array() : explode(',', $_REQUEST['tags']);
+		$workOrderCriteriaModel->Hotlist = $_REQUEST['hotlist'] == '' ? array() :explode(',', $_REQUEST['hotlist']);
 		$workOrderCriteriaModel->Columns = $_REQUEST['columns'];
 		$workOrderCriteriaModel->Groups = $_REQUEST['groups'];
 		$workOrderCriteriaModel->Order = $_REQUEST['order'];
@@ -877,7 +877,7 @@ class WorkOrderController
 		
 		$workOrderCriteriaModel = new WorkOrderCriteriaModel();
 		$currentUser = new PersonnelModel();
-		$currentUser->Load($GLOBALS['DCLID']);
+		$currentUser->Load(DCLID);
 		
 		$workOrderCriteriaModel->SearchResponsible = true;
 		$workOrderCriteriaModel->Title = STR_WO_MYWO;
@@ -910,7 +910,7 @@ class WorkOrderController
 		
 		$workOrderCriteriaModel = new WorkOrderCriteriaModel();
 		$currentUser = new PersonnelModel();
-		$currentUser->Load($GLOBALS['DCLID']);
+		$currentUser->Load(DCLID);
 		
 		$workOrderCriteriaModel->SearchCreateBy = true;
 		$workOrderCriteriaModel->Title = STR_WO_MYSUBMISSIONS;
@@ -943,7 +943,7 @@ class WorkOrderController
 		
 		$workOrderCriteriaModel = new WorkOrderCriteriaModel();
 		$currentUser = new PersonnelModel();
-		$currentUser->Load($GLOBALS['DCLID']);
+		$currentUser->Load(DCLID);
 		
 		$workOrderCriteriaModel->Title = STR_WO_BROWSEWO;
 		

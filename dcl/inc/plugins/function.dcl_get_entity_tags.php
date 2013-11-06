@@ -47,7 +47,7 @@ function smarty_function_dcl_get_entity_tags($params, &$smarty)
 	if ($sValue == '')
 		return;
 
-	$aTags = split(',', $sValue);
+	$aTags = explode(',', $sValue);
 	$bFirst = true;
 	foreach ($aTags as $sTag)
 	{
