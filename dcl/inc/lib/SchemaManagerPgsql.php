@@ -734,7 +734,7 @@
 						$iVersionPos = strpos($sVersion, ' ') + 1;
 						$sVersion = substr($sVersion, $iVersionPos, strpos($sVersion, ' ', $iVersionPos) - $iVersionPos + 1);
 						
-						$aVersion = split('.', $sVersion);
+						$aVersion = explode('.', $sVersion);
 						if (count($aVersion) > 0)
 							$iMajor = $aVersion[0];
 							
