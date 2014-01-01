@@ -74,7 +74,7 @@ class htmlContactBrowse
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
 		{
 			$oTable->addGroup($iColumn);
-			$oTable->addColumn('');
+			$oTable->addColumn('', 'string');
 		}
 		
 		foreach ($this->oView->columnhdrs as $sColumn)
