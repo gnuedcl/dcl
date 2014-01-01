@@ -34,7 +34,7 @@ abstract class AbstractSqlQueryHelper
 	protected $filterlike;
 	protected $filterstart;
 	protected $logicdate;
-	protected $logiclike;
+	public $logiclike;
 	protected $joins;
 	protected $urlpieces;
 	public $style;
