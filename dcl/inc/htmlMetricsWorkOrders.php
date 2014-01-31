@@ -181,6 +181,45 @@ class htmlMetricsWorkOrders
 		}
 	}
 
+	private function GetWorkOrderOrgWhereClause()
+	{
+		global $g_oSec, $g_oSession;
+
+		if (!$g_oSec->IsOrgUser())
+			return '';
+
+		$memberOfOrgs = $g_oSession->Value('member_of_orgs');
+		if ($memberOfOrgs != '')
+			$values = explode(',', $memberOfOrgs);
+		else
+			$values = array('-1');
+
+		$organizationIds = join(',', $values);
+
+		$sql = " AND (w.jcn in (select wo_id from dcl_wo_account where account_id in (" . $organizationIds . "))";
+		$sql .= " AND w.seq in (select seq from dcl_wo_account where w.jcn = wo_id And account_id in (" . $organizationIds . "))) ";
+
+		return $sql;
+	}
+
+	private function GetProductPublicClause()
+	{
+		global $g_oSec;
+
+		if (!$g_oSec->IsPublicUser())
+			return '';
+
+		return " AND p.is_public = 'Y'";
+	}
+
+	private function GetWorkOrderPublicClause()
+	{
+		if (!IsPublicUser())
+			return '';
+
+		return " AND w.is_public = 'Y'";
+	}
+
 	function executeStatus()
 	{
 		commonHeader();
@@ -189,6 +228,9 @@ class htmlMetricsWorkOrders
 
 		if (count($this->aProjects) > 0)
 			$sSQL .= ', projectmap pm';
+
+		if (IsPublicUser())
+			$sSQL .= ', products p';
 
 		$sSQL .= ' WHERE w.status = s.id ';
 		if (isset($_REQUEST['products']))
@@ -201,6 +243,13 @@ class htmlMetricsWorkOrders
 		if (count($this->aProjects) > 0)
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
+		if (IsPublicUser())
+			$sSQL .= ' AND w.product = p.id';
+
+		$sSQL .= $this->GetWorkOrderOrgWhereClause();
+		$sSQL .= $this->GetWorkOrderPublicClause();
+		$sSQL .= $this->GetProductPublicClause();
+
 		$sSQL .= ' GROUP BY s.id, s.name ORDER BY 2 DESC';
 		
 		$this->executeItem($sSQL, 'All Work Orders By Status', STR_WO_STATUS);
@@ -210,12 +259,15 @@ class htmlMetricsWorkOrders
 	{
 		commonHeader();
 
-		$sSQL = 'SELECT p.id, p.name, count(*) FROM workorders w, statuses s, priorities p';
+		$sSQL = 'SELECT pr.id, pr.name, count(*) FROM workorders w, statuses s, priorities pr';
 
 		if (count($this->aProjects) > 0)
 			$sSQL .= ', projectmap pm';
 
-		$sSQL .= ' WHERE w.priority = p.id AND w.status = s.id AND s.dcl_status_type != 2 ';
+		if (IsPublicUser())
+			$sSQL .= ', products p';
+
+		$sSQL .= ' WHERE w.priority = pr.id AND w.status = s.id AND s.dcl_status_type != 2 ';
 		if (isset($_REQUEST['products']))
 		{
 			$aProducts = Filter::ToIntArray($_REQUEST['products']);
@@ -226,7 +278,14 @@ class htmlMetricsWorkOrders
 		if (count($this->aProjects) > 0)
 			$sSQL .= ' AND w.jcn = pm.jcn AND pm.seq IN (0, w.seq) AND pm.projectid in (' . implode(',', $this->aProjects) . ')';
 
-		$sSQL .= ' GROUP BY p.id, p.name ORDER BY 2 DESC';
+		if (IsPublicUser())
+			$sSQL .= ' AND w.product = p.id';
+
+		$sSQL .= $this->GetWorkOrderOrgWhereClause();
+		$sSQL .= $this->GetWorkOrderPublicClause();
+		$sSQL .= $this->GetProductPublicClause();
+
+		$sSQL .= ' GROUP BY pr.id, pr.name ORDER BY 2 DESC';
 
 		$this->executeItem($sSQL, 'Current Work Orders By Priority', STR_WO_PRIORITY);
 	}
@@ -235,10 +294,13 @@ class htmlMetricsWorkOrders
 	{
 		commonHeader();
 
-		$sSQL = 'SELECT p.id, p.name, count(*) FROM workorders w, priorities p';
+		$sSQL = 'SELECT pr.id, pr.name, count(*) FROM workorders w, priorities pr';
 
 		if (count($this->aProjects) > 0)
 			$sSQL .= ', projectmap pm';
+
+		if (IsPublicUser())
+			$sSQL .= ', products p';
 
 		$sSQL .= ' WHERE w.priority = p.id ';
 		if (isset($_REQUEST['products']))
@@ -261,7 +323,14 @@ class htmlMetricsWorkOrders
 		else if ($endDate !== null)
 			$sSQL .= ' AND w.lastactionon <= ' . $oDB->DisplayToSQL($endDate . ' 23:59:59');
 
-		$sSQL .= ' GROUP BY p.id, p.name ORDER BY 2 DESC';
+		if (IsPublicUser())
+			$sSQL .= ' AND w.product = p.id';
+
+		$sSQL .= $this->GetWorkOrderOrgWhereClause();
+		$sSQL .= $this->GetWorkOrderPublicClause();
+		$sSQL .= $this->GetProductPublicClause();
+
+		$sSQL .= ' GROUP BY pr.id, pr.name ORDER BY 2 DESC';
 
 		$this->executeItem($sSQL, 'Work Orders Opened', STR_WO_PRIORITY);
 	}
@@ -270,12 +339,15 @@ class htmlMetricsWorkOrders
 	{
 		commonHeader();
 
-		$sSQL = 'SELECT p.id, p.name, count(*) FROM workorders w, priorities p, statuses s';
+		$sSQL = 'SELECT pr.id, pr.name, count(*) FROM workorders w, priorities pr, statuses s';
 
 		if (count($this->aProjects) > 0)
 			$sSQL .= ', projectmap pm';
 
-		$sSQL .= ' WHERE w.status = s.id AND w.priority = p.id AND s.dcl_status_type = 2 ';
+		if (IsPublicUser())
+			$sSQL .= ', products p';
+
+		$sSQL .= ' WHERE w.status = s.id AND w.priority = pr.id AND s.dcl_status_type = 2 ';
 		if (isset($_REQUEST['products']))
 		{
 			$aProducts = Filter::ToIntArray($_REQUEST['products']);
@@ -296,7 +368,14 @@ class htmlMetricsWorkOrders
 		else if ($endDate !== null)
 			$sSQL .= ' AND w.lastactionon <= ' . $oDB->DisplayToSQL($endDate . ' 23:59:59');
 
-		$sSQL .= ' GROUP BY p.id, p.name ORDER BY 2 DESC';
+		if (IsPublicUser())
+			$sSQL .= ' AND w.product = p.id';
+
+		$sSQL .= $this->GetWorkOrderOrgWhereClause();
+		$sSQL .= $this->GetWorkOrderPublicClause();
+		$sSQL .= $this->GetProductPublicClause();
+
+		$sSQL .= ' GROUP BY pr.id, pr.name ORDER BY 2 DESC';
 
 		$this->executeItem($sSQL, 'Work Orders Closed', STR_WO_PRIORITY);
 	}
@@ -309,6 +388,9 @@ class htmlMetricsWorkOrders
 
 		if (count($this->aProjects) > 0)
 			$sSQL .= ', projectmap pm';
+
+		if (IsPublicUser())
+			$sSQL .= ', products p';
 
 		$sSQL .= ' WHERE w.status = s.id ';
 		if (isset($_REQUEST['products']))
@@ -332,6 +414,13 @@ class htmlMetricsWorkOrders
 			$sSQL .= ' AND w.lastactionon <= ' . $oDB->DisplayToSQL($endDate . ' 23:59:59');
 		else
 			$sSQL .= ' AND w.lastactionon IS NOT NULL';
+
+		if (IsPublicUser())
+			$sSQL .= ' AND w.product = p.id';
+
+		$sSQL .= $this->GetWorkOrderOrgWhereClause();
+		$sSQL .= $this->GetWorkOrderPublicClause();
+		$sSQL .= $this->GetProductPublicClause();
 
 		$sSQL .= ' GROUP BY s.id, s.name ORDER BY 2 DESC';
 
