@@ -279,6 +279,13 @@ function IsPublicUser()
 	return $g_oSec->IsPublicUser();
 }
 
+function IsOrgUser()
+{
+	global $g_oSec;
+
+	return $g_oSec->IsOrgUser();
+}
+
 function UseHttps()
 {
 	global $dcl_info;
