@@ -23,7 +23,7 @@
 $setup_info['dcl'] = array(
     'name' => 'dcl',
     'title' => 'Double Choco Latte',
-    'version' => '0.9.5RC16',
+    'version' => '0.9.5RC17',
     'enable' => 1,
     'app_order' => 1,
     'author' => array(
@@ -62,6 +62,13 @@ $setup_info['dcl'] = array(
         'dcl_entity_perm',
         'dcl_entity_source',
         'dcl_entity_tag',
+		'dcl_environment',
+		'dcl_environment_org',
+		'dcl_environment_product',
+		'dcl_environment_wo',
+		'dcl_environment_outage_type',
+		'dcl_environment_outage',
+		'dcl_environment_outage_wo',
         'dcl_error_log',
         'dcl_hotlist',
         'dcl_note_type',
