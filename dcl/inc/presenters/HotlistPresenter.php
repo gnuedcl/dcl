@@ -43,7 +43,7 @@ class HotlistPresenter
 		$oTable->render();
 	}
 	
-	public function BrowseByTag(HotlistModel $model)
+	public function BrowseByTag(EntityHotlistModel $model)
 	{
 		commonHeader();
 
