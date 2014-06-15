@@ -32,7 +32,7 @@ class ProductModulesModel extends DbProvider
 		
 		LoadSchema($this->TableName);
 
-		$this->foreignKeys = array('products' => 'productid');
+		$this->foreignKeys = array('products' => 'id');
 		
 		parent::Clear();
 	}
