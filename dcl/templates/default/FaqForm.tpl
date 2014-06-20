@@ -26,6 +26,7 @@ function validateAndSubmitForm(form)
 </script>
 <form class="styled" name="FAQFORM" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
+	{dcl_anti_csrf_token}
 	{if $VAL_FAQID}<input type="hidden" name="faqid" value="{$VAL_FAQID}">{/if}
 	<fieldset>
 		<legend>{if $IS_EDIT}{$smarty.const.STR_FAQ_EDIT}{else}{$smarty.const.STR_FAQ_ADDNEW}{/if}</legend>

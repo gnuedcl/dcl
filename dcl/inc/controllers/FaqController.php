@@ -43,6 +43,8 @@ class FaqController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
+		AntiCsrf::ValidateToken();
+
 		$model = new FaqModel();
 		$model->InitFrom_POST();
 		$model->createby = DCLID;
@@ -72,6 +74,8 @@ class FaqController extends AbstractController
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
+
+		AntiCsrf::ValidateToken();
 
 		$model = new FaqModel();
 		$model->InitFrom_POST();
