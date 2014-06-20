@@ -5,7 +5,7 @@
 			var iPage = {$VAL_PAGE};
 			var iMaxPages = {$VAL_MAXPAGE};
 			var iInitAttempts = 0;
-{literal}
+
 			function init()
 			{
 				if (parent.topFrame && parent.topFrame.updatePageControl && parent.topFrame.bInitComplete)
@@ -57,21 +57,21 @@
 
 			function toggle(oControl)
 			{
-{/literal}
+
 {if $VAL_MULTISELECT}
-{literal}
+
 				parent.topFrame.aSelectedID[oControl.value] = oControl.checked;
 				if (oControl.checked)
 					parent.topFrame.aSelectedName[oControl.value] = document.getElementById("product_name_" + oControl.value).innerHTML;
-{/literal}
+
 {else}
 				parent.topFrame.aSelectedID = new Array();
 				parent.topFrame.aSelectedID[oControl.value] = true;
 				parent.topFrame.aSelectedName[oControl.value] = document.getElementById("product_name_" + oControl.value).innerHTML;
 {/if}
-{literal}
+
 			}
-{/literal}
+
 		</script>
 	</head>
 	<body onload="init();">

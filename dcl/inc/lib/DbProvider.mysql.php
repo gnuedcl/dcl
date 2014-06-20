@@ -34,9 +34,9 @@ class DbProvider extends AbstractDbProvider
 	public function mysql_die($error = '')
 	{
 		if (empty($error))
-			trigger_error(mysql_error());
+			LogError(mysql_error(), __FILE__, __LINE__, debug_backtrace());
 		else
-			trigger_error($error);
+			LogError($error, __FILE__, __LINE__, debug_backtrace());
 	}
 
 	public function Connect($conn = '')
@@ -156,7 +156,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error("Error executing query: $query");
+				LogError("Error executing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
@@ -181,7 +181,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error("Error executing query: $query");
+				LogError("Error executing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
@@ -234,13 +234,13 @@ class DbProvider extends AbstractDbProvider
 				return $this->oid = mysql_insert_id($this->conn);
 			else
 			{
-				trigger_error("Error executing query: $query");
+				LogError("Error executing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
 		else
 		{
-			trigger_error('No connection!');
+			LogError('No connection!', __FILE__, __LINE__, debug_backtrace());
 			return -1;
 		}
 	}

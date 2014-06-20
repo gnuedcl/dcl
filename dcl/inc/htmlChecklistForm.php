@@ -321,7 +321,7 @@ class htmlChecklistForm
 
 		$t = new SmartyHelper();
 		
-		$t->assign_by_ref('root', $this->xml->root);
+		$t->assignByRef('root', $this->xml->root);
 
 		$t->Render('ChecklistForm.tpl');
 

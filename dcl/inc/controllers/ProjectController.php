@@ -131,7 +131,7 @@ class ProjectController
 		{
 			if (!$model->ParentIsNotChild($model->projectid, $model->parentprojectid))
 			{
-				trigger_error(STR_BO_PARENTISCHILD);
+				ShowError(STR_BO_PARENTISCHILD);
 
 				$model->parentprojectid = $originalParentId;
 
@@ -194,22 +194,6 @@ class ProjectController
 
 		$presenter = new ProjectDetailPresenter();
 		$presenter->Show($id, $statusFilter, $responsibleFilter, $groupBy);
-	}
-
-	public function Tree()
-	{
-		$project = @Filter::RequireInt($_REQUEST['project']);
-
-		if ($project > 0)
-		{
-			RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $project);
-
-			$presenter = new ProjectDetailPresenter();
-			$woStatus = @Filter::ToInt($_REQUEST['wostatus'], 0);
-			$woResponsible = @Filter::ToInt($_REQUEST['woresponsible'], 0);
-
-			$presenter->ShowTree($project, $woStatus, $woResponsible);
-		}
 	}
 
 	public function AddTask()

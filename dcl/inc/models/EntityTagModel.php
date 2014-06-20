@@ -139,7 +139,7 @@ class EntityTagModel extends DbProvider
 		$sID = $oDB->getExistingIdsByName(trim($sTags));
 		if ($sID == '-1')
 		{
-			trigger_error('No such tag.');
+			ShowError('No such tag.');
 			return;
 		}
 

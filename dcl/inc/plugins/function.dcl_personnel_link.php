@@ -22,7 +22,15 @@
 
 function smarty_function_dcl_personnel_link($params, &$smarty)
 {
-	require_once($smarty->_get_plugin_filepath('shared', 'escape_special_chars'));
+	foreach ($smarty->getPluginsDir() as $pluginDir)
+	{
+		$pluginPath = $pluginDir . '/shared.escape_special_chars.php';
+		if (file_exists($pluginPath))
+		{
+			require_once($pluginPath);
+			break;
+		}
+	}
 
 	if (!isset($params['text']))
 	{

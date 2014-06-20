@@ -7,13 +7,6 @@ DCL_MAX_UPLOAD_FILE_SIZE	dcl_config_int	1048576
 DCL_DEFAULT_LANGUAGE	dcl_config_varchar					en
 DCL_PRIVATE_KEY	dcl_config_varchar					IloveDCL
 DCL_ROOT	dcl_config_varchar					http://localhost/dcl/
-DCL_ADD_USER	dcl_config_int	9
-DCL_DEL_WO	dcl_config_int	8
-DCL_MOD_WO	dcl_config_int	7
-DCL_ASSIGN_WO	dcl_config_int	5
-DCL_ADD_WO	dcl_config_int	3
-DCL_HAVE_WO	dcl_config_int	4
-DCL_CHG_PWD	dcl_config_int	2
 DCL_DEF_STATUS_ASSIGN_WO	dcl_config_int	1
 DCL_DEF_STATUS_UNASSIGN_WO	dcl_config_int	4
 DCL_DEF_PRIORITY	dcl_config_int	1
@@ -27,8 +20,6 @@ DCL_CQQ_FROM	dcl_config_varchar					Somebody <someone@somewhere.org>
 DCL_CQQ_SUBJECT	dcl_config_varchar					Thank You For Calling
 DCL_CQQ_TEMPLATE	dcl_config_varchar					cqqmail.tpl
 DCL_DEF_TEMPLATE_SET	dcl_config_varchar					default
-DCL_COLOR_LIGHT	dcl_config_varchar					#eeeef8
-DCL_COLOR_DARK	dcl_config_varchar					#000065
 DCL_SMTP_SERVER	dcl_config_varchar					localhost
 DCL_SMTP_ENABLED	dcl_config_varchar					Y
 DCL_SMTP_AUTH_REQUIRED	dcl_config_varchar					N
@@ -74,8 +65,6 @@ DCL_WO_SECONDARY_ACCOUNTS_ENABLED	dcl_config_varchar					N
 LAST_CONFIG_UPDATE	dcl_config_datetime				2003-05-26 00:00:00
 DCL_SESSION_TIMEOUT	dcl_config_int	20
 DCL_WIKI_ENABLED	dcl_config_varchar						N
-DCL_WIKI_VIEW	dcl_config_int	4
-DCL_WIKI_EDIT	dcl_config_int	5
 DCL_SCCS_ENABLED	dcl_config_varchar						N
 DCL_BUILD_MANAGER_ENABLED	dcl_config_varchar					N
 DCL_APP_NAME	dcl_config_varchar					GNUe DCL

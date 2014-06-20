@@ -1,14 +1,14 @@
 <html><head>
 	<title>DCL Notification</title>
 	<style type="text/css">
-{literal}
-		a {text-decoration: none; font-weight: bold;}
-		a:hover {text-decoration: underline; color: #FF6666;}
+
+		a { text-decoration: none; font-weight: bold; }
+		a:hover { text-decoration: underline; color: #FF6666; }
 		.header { border-bottom: solid black 2px; }
 		body { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
 		th { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
 		td { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
-{/literal}
+
 	</style>
 </head><body>
 <table border="0">
@@ -18,36 +18,36 @@
 <tr><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Work Order</th></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_RESPONSIBLE|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value="`$obj->responsible`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_TYPE|escape}</b></td><td nowrap>{dcl_metadata_display type='wotype' value="`$obj->wo_type_id`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_STATUS|escape}</b></td><td nowrap>{dcl_metadata_display type='status' value="`$obj->status`"|escape} ({$obj->statuson|escape})</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_PRIORITY|escape}</b></td><td nowrap>{dcl_metadata_display type='priority' value="`$obj->priority`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_SEVERITY|escape}</b></td><td nowrap>{dcl_metadata_display type='severity' value="`$obj->severity`"|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_RESPONSIBLE|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value=$obj->responsible|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_TYPE|escape}</b></td><td nowrap>{dcl_metadata_display type='wotype' value=$obj->wo_type_id|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_STATUS|escape}</b></td><td nowrap>{dcl_metadata_display type='status' value=$obj->status|escape} ({$obj->statuson|escape})</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_PRIORITY|escape}</b></td><td nowrap>{dcl_metadata_display type='priority' value=$obj->priority|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_SEVERITY|escape}</b></td><td nowrap>{dcl_metadata_display type='severity' value=$obj->severity|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_WO_DEADLINE|escape}</b></td><td nowrap>{$obj->deadlineon}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_PROJECT|escape}</b></td><td nowrap>{dcl_metadata_display type='wo_project' value="`$obj->jcn`" value2="`$obj->seq`"|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_PROJECT|escape}</b></td><td nowrap>{dcl_metadata_display type='wo_project' value=$obj->jcn value2=$obj->seq|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_WO_LASTACTION|escape}</b></td><td nowrap>{$obj->lastactionon}</td></tr>
 	</table>
 </td><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Product Info</th></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_PRODUCT|escape}</b></td><td nowrap>{dcl_metadata_display type='product' value="`$obj->product`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_CMMN_MODULE|escape}</b></td><td nowrap>{dcl_metadata_display type='module' value="`$obj->module_id`"|escape}</td></tr>
-	<tr><td nowrap><b>Reported Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value="`$obj->reported_version_id`"|escape}</td></tr>
-	<tr><td nowrap><b>Targeted Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value="`$obj->targeted_version_id`"|escape}</td></tr>
-	<tr><td nowrap><b>Fixed Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value="`$obj->fixed_version_id`"|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_PRODUCT|escape}</b></td><td nowrap>{dcl_metadata_display type='product' value=$obj->product|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_CMMN_MODULE|escape}</b></td><td nowrap>{dcl_metadata_display type='module' value=$obj->module_id|escape}</td></tr>
+	<tr><td nowrap><b>Reported Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value=$obj->reported_version_id|escape}</td></tr>
+	<tr><td nowrap><b>Targeted Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value=$obj->targeted_version_id|escape}</td></tr>
+	<tr><td nowrap><b>Fixed Version:</b></td><td nowrap>{dcl_metadata_display type='product_version' value=$obj->fixed_version_id|escape}</td></tr>
 	</table><br>
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Contact Info</th></tr>
-	<tr><td><b>{$smarty.const.STR_WO_ACCOUNT|escape}</b></td><td>{dcl_metadata_display type='wo_org' value="`$obj->jcn`" value2="`$obj->seq`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_CONTACT|escape}</b></td><td nowrap>{dcl_metadata_display type='contact_name' value="`$obj->contact_id`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_CONTACTPHONE|escape}</b></td><td nowrap>{dcl_metadata_display type='contact_phone' value="`$obj->contact_id`"|escape}</td></tr>
+	<tr><td><b>{$smarty.const.STR_WO_ACCOUNT|escape}</b></td><td>{dcl_metadata_display type='wo_org' value=$obj->jcn value2=$obj->seq|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_CONTACT|escape}</b></td><td nowrap>{dcl_metadata_display type='contact_name' value=$obj->contact_id|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_CONTACTPHONE|escape}</b></td><td nowrap>{dcl_metadata_display type='contact_phone' value=$obj->contact_id|escape}</td></tr>
 	</table>
 </td></tr>
 <tr><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Dates</th></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_OPENBY|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value="`$obj->createby`"|escape} ({$obj->createdon|escape})</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_WO_CLOSEBY|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value="`$obj->closedby`"|escape} ({$obj->closedon|escape})</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_OPENBY|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value=$obj->createby|escape} ({$obj->createdon|escape})</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_WO_CLOSEBY|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value=$obj->closedby|escape} ({$obj->closedon|escape})</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_WO_ESTSTART|escape}</b></td><td nowrap>{$obj->eststarton|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_WO_START|escape}</b></td><td nowrap>{$obj->starton|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_WO_ESTEND|escape}</b></td><td nowrap>{$obj->estendon|escape}</td></tr>

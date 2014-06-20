@@ -1,5 +1,5 @@
 <script language="JavaScript">
-{literal}
+
 function validateTicket(f)
 {
 	var reg = /\d+/;
@@ -46,7 +46,7 @@ function validateView(f)
 	alert('You must select a valid view first.');
 	return false;
 }
-{/literal}
+
 </script>
 <h3>{$VAL_LOGGEDINAS}</h3>
 <table border="0" width="100%">

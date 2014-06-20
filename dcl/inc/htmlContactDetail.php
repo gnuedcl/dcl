@@ -47,13 +47,10 @@ class htmlContactDetail
 
 		$oContact = new ContactModel();
 		if ($oContact->Load((int)$_REQUEST['contact_id']) == -1)
-		{
-			trigger_error('Could not load contact ID [' . $id . ']', E_USER_ERROR);
-			return;
-		}
+			throw new InvalidEntityException();
 
 		$t = new SmartyHelper();
-		$t->register_object('Contact', $oContact);
+		$t->registerObject('Contact', $oContact);
 
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_DELETE));
@@ -69,7 +66,7 @@ class htmlContactDetail
 			$aTypes[] = $oContactType->Record;
 		}
 
-		$t->assign_by_ref('ContactType', $aTypes);
+		$t->assignByRef('ContactType', $aTypes);
 		$oContactType->FreeResult();
 
 		// Get addresses
@@ -81,7 +78,7 @@ class htmlContactDetail
 			$aAddresses[] = $oContactAddress->Record;
 		}
 
-		$t->assign_by_ref('ContactAddress', $aAddresses);
+		$t->assignByRef('ContactAddress', $aAddresses);
 		$oContactAddress->FreeResult();
 
 		// Get phone numbers
@@ -93,7 +90,7 @@ class htmlContactDetail
 			$aPhoneNumbers[] = $oContactPhone->Record;
 		}
 
-		$t->assign_by_ref('ContactPhone', $aPhoneNumbers);
+		$t->assignByRef('ContactPhone', $aPhoneNumbers);
 		$oContactPhone->FreeResult();
 
 		// Get e-mail addresses
@@ -105,7 +102,7 @@ class htmlContactDetail
 			$aEmails[] = $oContactEmail->Record;
 		}
 
-		$t->assign_by_ref('ContactEmail', $aEmails);
+		$t->assignByRef('ContactEmail', $aEmails);
 		$oContactEmail->FreeResult();
 
 		// Get e-mail addresses
@@ -119,7 +116,7 @@ class htmlContactDetail
 			$aLicenses[] = $oContactLicenses->Record;
 		}
 
-		$t->assign_by_ref('ContactLicense', $aLicenses);
+		$t->assignByRef('ContactLicense', $aLicenses);
 		$oContactLicenses->FreeResult();
 
 		// Get URLs
@@ -131,7 +128,7 @@ class htmlContactDetail
 			$aURL[] = $oContactURL->Record;
 		}
 
-		$t->assign_by_ref('ContactURL', $aURL);
+		$t->assignByRef('ContactURL', $aURL);
 		$oContactURL->FreeResult();
 		
 		// Get orgs for this contact
@@ -159,8 +156,8 @@ class htmlContactDetail
 
 			$oOrgs->FreeResult();
 
-			$t->assign_by_ref('ViewOrg', $oViewOrg);
-			$t->assign_by_ref('Orgs', $aOrgs);
+			$t->assignByRef('ViewOrg', $oViewOrg);
+			$t->assignByRef('Orgs', $aOrgs);
 		}
 
 		// Get last 10 tickets
@@ -195,8 +192,8 @@ class htmlContactDetail
 			array_push($aTickets, $aData);
 		}
 
-		$t->assign_by_ref('ViewTicket', $oViewTicket);
-		$t->assign_by_ref('Tickets', $aTickets);
+		$t->assignByRef('ViewTicket', $oViewTicket);
+		$t->assignByRef('Tickets', $aTickets);
 		$oTickets->FreeResult();
 
 		// Get last 10 work orders
@@ -236,8 +233,8 @@ class htmlContactDetail
 			array_push($aWO, $aData);
 		}
 
-		$t->assign_by_ref('ViewWorkOrder', $oViewWO);
-		$t->assign_by_ref('WorkOrders', $aWO);
+		$t->assignByRef('ViewWorkOrder', $oViewWO);
+		$t->assignByRef('WorkOrders', $aWO);
 		$oWO->FreeResult();
 
 		$t->Render('ContactDetail.tpl');

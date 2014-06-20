@@ -2,14 +2,14 @@
 {dcl_selector_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-{literal}
+
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorString(form.elements["hotlist_tag"], "{$smarty.const.STR_CMMN_NAME}"),
 			new ValidatorString(form.elements["hotlist_desc"], "{$smarty.const.STR_WO_DESCRIPTION}")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -23,7 +23,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$menuAction}">

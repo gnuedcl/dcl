@@ -71,10 +71,7 @@ class htmlProductDashboard
 
 		$this->oProduct = new ProductModel();
 		if ($this->oProduct->Load($productid) == -1)
-		{
-			trigger_error('Could not find a product with an id of ' . $productid, E_USER_ERROR);
-			return;
-		}
+			throw new InvalidEntityException();
 
 		$this->oSmarty->assign('VAL_ID', $this->oProduct->id);
 		$this->oSmarty->assign('VAL_NAME', $this->oProduct->name);

@@ -1,13 +1,13 @@
 {dcl_selector_init}
 {dcl_validator_init}
 <script language="JavaScript">
-{literal}
+
 if (!document.body.onload)
 	document.body.onload = function() { document.forms['userInputForm'].elements['short'].focus(); }
 
 function validateAndSubmitForm(form)
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorString(form.elements["short"], "{$smarty.const.STR_USR_LOGIN}"),
 			new ValidatorString(form.elements["pwd"], "{$smarty.const.STR_USR_PASSWORD}"),
@@ -17,7 +17,7 @@ function validateAndSubmitForm(form)
 			new ValidatorSelector(form.elements["contact_id"], "{$smarty.const.STR_CMMN_CONTACT}")
 		);
 
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -43,7 +43,7 @@ function validateAndSubmitForm(form)
 	
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" name="userInputForm" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{if $IS_EDIT}Personnel.Update{else}Personnel.Insert{/if}">

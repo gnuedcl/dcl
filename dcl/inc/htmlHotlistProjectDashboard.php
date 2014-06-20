@@ -49,10 +49,7 @@ class htmlHotlistProjectDashboard
 
 		$this->hotlist = new HotlistModel();
 		if ($this->hotlist->Load($id) == -1)
-		{
-			trigger_error('Could not find a hotlist with an id of ' . $id, E_USER_ERROR);
-			return;
-		}
+			throw new InvalidEntityException();
 
 		$this->oSmarty->assign('VAL_HOTLISTID', $id);
 		$this->oSmarty->assign('VAL_NAME', $this->hotlist->hotlist_desc);

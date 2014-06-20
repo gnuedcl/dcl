@@ -243,7 +243,7 @@ class Smtp
 
 	public function SocketFail()
 	{
-		trigger_error('<b>SMTP Error:</b> ' . $this->oSocket->sResponse);
+		LogError('SMTP Error: ' . $this->oSocket->sResponse, __FILE__, __LINE__, debug_backtrace());
 		$this->oSocket->Disconnect();
 		return false;
 	}

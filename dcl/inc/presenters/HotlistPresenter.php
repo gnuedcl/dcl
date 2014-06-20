@@ -91,7 +91,7 @@ class HotlistPresenter
 
 		$smartyHelper = new SmartyHelper();
 		$items = $entityHotlistModel->FetchAllRows();
-		$smartyHelper->assign_by_ref('items', $items);
+		$smartyHelper->assignByRef('items', $items);
 		$smartyHelper->assign('VAL_HOTLIST_ID', $hotlistModel->hotlist_id);
 		$smartyHelper->assign('VAL_HOTLIST_NAME', $hotlistModel->hotlist_tag);
 		$smartyHelper->Render('HotlistPrioritize.tpl');

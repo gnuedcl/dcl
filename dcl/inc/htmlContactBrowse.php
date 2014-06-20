@@ -36,13 +36,10 @@ class htmlContactBrowse
 
 	function Render(&$oView)
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
 		if (!is_object($oView))
-		{
-			trigger_error('[htmlContactBrowse::Render] ' . STR_VW_VIEWOBJECTNOTPASSED);
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();

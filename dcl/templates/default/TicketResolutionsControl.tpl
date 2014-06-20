@@ -77,7 +77,7 @@
 		</tr>
 		<tr>
 			<th>{$smarty.const.STR_TCK_RESOLUTION}:</th>
-			<td colspan="3">{$VAL_RESOLUTIONS[tr].resolution|escape:"link"}</td>
+			<td colspan="3">{$VAL_RESOLUTIONS[tr].resolution|escape|dcl_link}</td>
 		</tr>
 {/if}
 {/section}

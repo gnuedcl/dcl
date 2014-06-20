@@ -12,7 +12,7 @@
 			var aSelectedName = new Array();
 			var bInitComplete = false;
 
-{literal}
+
 			function doSave()
 			{
 				var oOpener = parent.window.opener;
@@ -81,18 +81,18 @@
 
 			function getFilter()
 			{
-{/literal}
+
 				var sURL = '{$smarty.const.DCL_WWW_ROOT}main.php?menuAction=htmlProductSelector.showBrowseFrame';
-{literal}
+
 				return sURL + getFilterParams();
 			}
 			
 			function getFilterParams()
 			{
-{/literal}
+
 				var sParams = '&filterStartsWith=' + sStartsWith;
 				sParams += '&multiple={$VAL_MULTIPLE}';
-{literal}
+
 				if (sActiveFilter == "S")
 				{
 					if (aSelectedID.length > 0)
@@ -236,9 +236,9 @@
 						aSelectedName[aID[i]] = aText[i];
 					}
 				}
-{/literal}
+
 				var sFilterStart = "{$VAL_FILTERSTART}";
-{literal}
+
 				if (sFilterStart == "")
 					sFilterStart = "All";
 
@@ -246,7 +246,7 @@
 				
 				bInitComplete = true;
 			}
-{/literal}
+
 		</script>
 	</head>
 	<body onload="init();">

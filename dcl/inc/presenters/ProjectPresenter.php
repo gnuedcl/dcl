@@ -69,7 +69,7 @@ class ProjectPresenter
 		$oHtml->Render($oView);
 	}
 
-	public function Dashboard($id, array $children)
+	public function Dashboard($id, array $children = null)
 	{
 		commonHeader();
 
@@ -135,7 +135,7 @@ class ProjectPresenter
 			}
 		}
 
-		$t->assign_by_ref('ViewData', $viewData);
+		$t->assignByRef('ViewData', $viewData);
 
 		$t->assign('IS_EDIT', false);
 
@@ -168,7 +168,7 @@ class ProjectPresenter
 			$viewData->ParentName = $metadata->GetProject($model->parentprojectid);
 		}
 
-		$t->assign_by_ref('ViewData', $viewData);
+		$t->assignByRef('ViewData', $viewData);
 
 		$t->assign('IS_EDIT', true);
 

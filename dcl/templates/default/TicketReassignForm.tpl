@@ -1,15 +1,15 @@
 {dcl_validator_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-{literal}
+
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorSelection(form.elements["responsible"], "{$smarty.const.STR_TCK_RESPONSIBLE}"),
 			new ValidatorSelection(form.elements["type"], "{$smarty.const.STR_TCK_TYPE}"),
 			new ValidatorSelection(form.elements["priority"], "{$smarty.const.STR_TCK_PRIORITY}")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -23,7 +23,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" name="reassign" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="boTickets.dbreassign">

@@ -145,8 +145,8 @@ class htmlTimeCardForm
 			$oHotlist = new EntityHotlistModel();
 			$oSmarty->assign('VAL_HOTLISTS', $oHotlist->getTagsForEntity(DCL_ENTITY_WORKORDER, $jcn, $seq));
 
-			$oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
-			$oSmarty->assign_by_ref('VAL_ORGNAME', $aOrgName);
+			$oSmarty->assignByRef('VAL_ORGID', $aOrgID);
+			$oSmarty->assignByRef('VAL_ORGNAME', $aOrgName);
 		}
 		
 		if (isset($_REQUEST['return_to']))

@@ -1,4 +1,4 @@
-<script language="JavaScript">{literal}
+<script language="JavaScript">
 function submitForm(f) {
 	f.elements["keyidset"].value = "";
 	_selectAll(f.elements["used"], f.elements["keyidset"], null);
@@ -171,7 +171,7 @@ function removeAll(f) {
 	
 	_moveAll(f.elements["used"], f.elements["src"]);
 }
-{/literal}</script>
+</script>
 <form class="styled" name="mapping" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="AttributeSetMap.Update">
 	<input type="hidden" name="setid" value="{$VAL_SETID}">

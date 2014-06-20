@@ -3,12 +3,10 @@
 {dcl_validator_init}
 {dcl_xmlhttp_init}
 <script language="JavaScript">
-{literal}
 var productVersionRequired = false;
 function validateAndSubmitForm(form)
 {
-{/literal}
-	var aValidators = new Array(
+	var aValidators = [
 			new ValidatorInteger(form.elements["jcn"], "{$smarty.const.STR_WO_JCN}"),
 			new ValidatorSelection(form.elements["product"], "{$smarty.const.STR_WO_PRODUCT}"),
 			new ValidatorSelection(form.elements["module_id"], "{$smarty.const.STR_CMMN_MODULE}"),
@@ -23,11 +21,10 @@ function validateAndSubmitForm(form)
 			new ValidatorSelection(form.elements["severity"], "{$smarty.const.STR_WO_SEVERITY}"),
 			new ValidatorString(form.elements["summary"], "{$smarty.const.STR_WO_SUMMARY}"),
 			new ValidatorString(form.elements["description"], "{$smarty.const.STR_WO_DESCRIPTION}")
-		);
+		];
 		
 	if (productVersionRequired)
 		aValidators.push(new ValidatorInteger(form.elements["projectid"], "{$smarty.const.STR_WO_PROJECT}", true));
-{literal}
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -99,12 +96,9 @@ function UpdateOptions()
 	var oProduct = document.getElementById("product");
 	if (oProduct == null || oProduct.selectedIndex == 0)
 		return;
-{/literal}
 	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.ListVersions{if !$ViewData->IsEdit}&active=Y{/if}&product_id=" + oProduct.options[oProduct.selectedIndex].value, UpdateVersionsCallback);
 	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.IsProjectRequired&product_id=" + oProduct.options[oProduct.selectedIndex].value, IsProjectRequiredCallback);
-{literal}
 }
-{/literal}
 </script>
 <form class="styled" name="woform" method="post" action="{$smarty.const.DCL_WWW_ROOT}main.php" enctype="multipart/form-data">
 	<input type="hidden" name="menuActionExExExExEx" value="{$ViewData->Action}">
@@ -123,24 +117,24 @@ function UpdateOptions()
 		<legend>{$ViewData->Title}</legend>
 		<div class="required">
 			<label for="product">{$smarty.const.STR_WO_PRODUCT}:</label>
-			{dcl_select_product default="`$ViewData->ProductId`" active="$ACTIVE_ONLY"}
+			{dcl_select_product default=$ViewData->ProductId active=$ACTIVE_ONLY}
 		</div>
 		<div class="required">
 			<label for="module_id">{$smarty.const.STR_CMMN_MODULE}:</label>
-			{if $ViewData->IsEdit}{dcl_select_module default="`$ViewData->ModuleId`" active="$ACTIVE_ONLY" product="`$ViewData->ProductId`"}{else}{dcl_select_module default="`$ViewData->ModuleId`" active="$ACTIVE_ONLY"}{/if}
+			{if $ViewData->IsEdit}{dcl_select_module default=$ViewData->ModuleId active=$ACTIVE_ONLY product=$ViewData->ProductId}{else}{dcl_select_module default=$ViewData->ModuleId active=$ACTIVE_ONLY}{/if}
 		</div>
 		<div>
 			<label for="revision">Reported Version:</label>
-			{dcl_select_product_version name=reported_version_id active="$ACTIVE_ONLY" default="`$ViewData->ReportedVersionId`" product="`$ViewData->ProductId`"}
+			{dcl_select_product_version name=reported_version_id active=$ACTIVE_ONLY default=$ViewData->ReportedVersionId product=$ViewData->ProductId}
 		</div>
 {if $ViewData->IsEdit}
 		<div>
 			<label for="revision">Targeted Version:</label>
-			{dcl_select_product_version name=targeted_version_id active="$ACTIVE_ONLY" default="`$ViewData->TargetedVersionId`" product="`$ViewData->ProductId`"}
+			{dcl_select_product_version name=targeted_version_id active=$ACTIVE_ONLY default=$ViewData->TargetedVersionId product=$ViewData->ProductId}
 		</div>
 		<div>
 			<label for="revision">Fixed Version:</label>
-			{dcl_select_product_version name=fixed_version_id active="$ACTIVE_ONLY" default="`$ViewData->FixedVersionId`" product="`$ViewData->ProductId`"}
+			{dcl_select_product_version name=fixed_version_id active=$ACTIVE_ONLY default=$ViewData->FixedVersionId product=$ViewData->ProductId}
 		</div>
 {/if}
 {if !$ViewData->IsPublicUser}
@@ -151,28 +145,28 @@ function UpdateOptions()
 {/if}
 		<div class="required">
 			<label for="wo_type_id">{$smarty.const.STR_WO_TYPE}:</label>
-			{dcl_select_wo_type default="`$ViewData->TypeId`" active="$ACTIVE_ONLY"}
+			{dcl_select_wo_type default=$ViewData->TypeId active=$ACTIVE_ONLY}
 		</div>
 		<div class="required">
 			<label for="entity_source_id">{$smarty.const.STR_CMMN_SOURCE}:</label>
-			{dcl_select_source default="`$ViewData->SourceId`" active="$ACTIVE_ONLY"}
+			{dcl_select_source default=$ViewData->SourceId active=$ACTIVE_ONLY}
 		</div>
 {if $ViewData->CanAssignWorkOrder}
 		<div class="required">
 			<label for="responsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label>
-			{dcl_select_personnel name="responsible" default="`$ViewData->ResponsibleId`" entity=$smarty.const.DCL_ENTITY_WORKORDER perm=$smarty.const.DCL_PERM_ACTION}
+			{dcl_select_personnel name="responsible" default=$ViewData->ResponsibleId entity=$smarty.const.DCL_ENTITY_WORKORDER perm=$smarty.const.DCL_PERM_ACTION}
 		</div>
 		<div class="required">
 			<label for="deadlineon">{$smarty.const.STR_WO_DEADLINE}:</label>
-			{dcl_calendar name="deadlineon" value="`$ViewData->DeadlineDate`"}
+			{dcl_calendar name="deadlineon" value=$ViewData->DeadlineDate}
 		</div>
 		<div class="required">
 			<label for="eststarton">{$smarty.const.STR_WO_ESTSTART}:</label>
-			{dcl_calendar name="eststarton" value="`$ViewData->EstStartDate`"}
+			{dcl_calendar name="eststarton" value=$ViewData->EstStartDate}
 		</div>
 		<div class="required">
 			<label for="estendon">{$smarty.const.STR_WO_ESTEND}:</label>
-			{dcl_calendar name="estendon" value="`$ViewData->EstEndDate`"}
+			{dcl_calendar name="estendon" value=$ViewData->EstEndDate}
 		</div>
 		<div class="required">
 			<label for="esthours">{$smarty.const.STR_WO_ESTHOURS}:</label>
@@ -187,22 +181,22 @@ function UpdateOptions()
 {if $ViewData->CanAssignWorkOrder}
 		<div class="required">
 			<label for="priority">{$smarty.const.STR_WO_PRIORITY}:</label>
-			{dcl_select_priority default="`$ViewData->PriorityId`" active="$ACTIVE_ONLY" setid="`$ViewData->AttributeSetId`"}
+			{dcl_select_priority default=$ViewData->PriorityId active=$ACTIVE_ONLY setid=$ViewData->AttributeSetId}
 		</div>
 		<div class="required">
 			<label for="severity">{$smarty.const.STR_WO_SEVERITY}:</label>
-			{dcl_select_severity default="`$ViewData->SeverityId`" active="$ACTIVE_ONLY" setid="`$ViewData->AttributeSetId`"}
+			{dcl_select_severity default=$ViewData->SeverityId active=$ACTIVE_ONLY setid=$ViewData->AttributeSetId}
 		</div>
 	</tr>
 {/if}
 {if !$ViewData->IsPublicUser}
 		<div>
 			<label for="contact_id">{$smarty.const.STR_WO_CONTACT}:</label>
-			{dcl_selector_contact name="contact_id" value="`$ViewData->ContactId`" decoded="`$ViewData->ContactName`" orgselector="secaccounts"}
+			{dcl_selector_contact name="contact_id" value=$ViewData->ContactId decoded=$ViewData->ContactName orgselector="secaccounts"}
 		</div>
 		<div>
 			<label for="secaccounts">{$smarty.const.STR_CMMN_ORGANIZATION}:</label>
-			{dcl_selector_org name="secaccounts" value="`$ViewData->OrganizationIdCollection`" decoded="`$ViewData->OrganizationNameCollection`" multiple="`$ViewData->MultiOrganizationEnabled`"}
+			{dcl_selector_org name="secaccounts" value=$ViewData->OrganizationIdCollection decoded=$ViewData->OrganizationNameCollection multiple=$ViewData->MultiOrganizationEnabled}
 		</div>
 		<div class="noinput">
 			<div id="div_secaccounts" style="width: 100%;"></div>
@@ -241,7 +235,7 @@ function UpdateOptions()
 {elseif !$ViewData->HideProject}
 		<div>
 			<label for="projectid">{$smarty.const.STR_WO_PROJECT}:</label>
-			{dcl_selector_project name="projectid" value="`$ViewData->ProjectId`" decoded="`$ViewData->ProjectName`"}
+			{dcl_selector_project name="projectid" value=$ViewData->ProjectId decoded=$ViewData->ProjectName}
 		</div>
 		<div>
 			<label for="addall">{$smarty.const.STR_WO_ADDALLSEQ}</label>
@@ -266,7 +260,7 @@ function UpdateOptions()
 </form>
 <script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
 <script type="text/javascript">
-	//<![CDATA[{literal}
+	//<![CDATA[
 	$(document).ready(function() {
 		$("#product").change(function() {
 			productSelChange(this.form);
@@ -300,7 +294,7 @@ function UpdateOptions()
 			.autocomplete({
 				minLength: 2,
 				source: function( request, response ) {
-					$.getJSON("{/literal}{$URL_MAIN_PHP}{literal}?menuAction=Tag.Autocomplete", { term: extractLast(request.term) }, response);
+					$.getJSON("{$URL_MAIN_PHP}?menuAction=Tag.Autocomplete", { term: extractLast(request.term) }, response);
 				},
 				search: function() {
 					var term = extractLast(this.value);
@@ -330,7 +324,7 @@ function UpdateOptions()
 			.autocomplete({
 				minLength: 2,
 				source: function( request, response ) {
-					$.getJSON("{/literal}{$URL_MAIN_PHP}{literal}?menuAction=Hotlist.Autocomplete", { term: extractLast(request.term) }, response);
+					$.getJSON("{$URL_MAIN_PHP}?menuAction=Hotlist.Autocomplete", { term: extractLast(request.term) }, response);
 				},
 				search: function() {
 					var term = extractLast(this.value);
@@ -351,5 +345,5 @@ function UpdateOptions()
 				}
 			});
 	});
-	//]]>{/literal}
+	//]]>
 </script>

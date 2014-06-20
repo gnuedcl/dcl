@@ -3,9 +3,9 @@
 {dcl_validator_init}
 <script language="JavaScript">
 function validate(form, status)
-{literal}
+
 {
-{/literal}
+
 	form.elements["status"].value=status;
 	var aValidators = new Array(
 			new ValidatorSelection(form.elements["entity_source_id"], "{$smarty.const.STR_CMMN_SOURCE}"),
@@ -22,7 +22,7 @@ function validate(form, status)
 
 	if (status == "2" && form.elements["resolution"])
 		aValidators.push(new ValidatorString(form.elements["resolution"], "{$smarty.const.STR_TCK_RESOLUTION}"));
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -36,7 +36,7 @@ function validate(form, status)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 {if $IS_EDIT}{assign var=ACTIVE_ONLY value=N}{else}{assign var=ACTIVE_ONLY value=Y}{/if}
 {if $PERM_ACTION && !$IS_EDIT}
@@ -147,7 +147,7 @@ function validate(form, status)
 </form>
 <script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
 <script type="text/javascript">
-	//<![CDATA[{literal}
+	//<![CDATA[
 	$(document).ready(function() {
 		$("textarea").BetterGrow();
 			
@@ -168,7 +168,7 @@ function validate(form, status)
 			.autocomplete({
 				minLength: 2,
 				source: function( request, response ) {
-					$.getJSON("{/literal}{$URL_MAIN_PHP}{literal}?menuAction=Tag.Autocomplete", { term: extractLast(request.term) }, response);
+					$.getJSON("{$URL_MAIN_PHP}?menuAction=Tag.Autocomplete", { term: extractLast(request.term) }, response);
 				},
 				search: function() {
 					var term = extractLast(this.value);
@@ -189,5 +189,5 @@ function validate(form, status)
 				}
 			});
 	});
-	//]]>{/literal}
+	//]]>
 </script>

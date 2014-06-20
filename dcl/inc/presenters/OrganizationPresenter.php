@@ -110,7 +110,7 @@ class OrganizationPresenter
 			throw new PermissionDeniedException();
 
 		$t = new SmartyHelper();
-		$t->register_object('Org', $model);
+		$t->registerObject('Org', $model);
 
 		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
 		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE));
@@ -132,7 +132,7 @@ class OrganizationPresenter
 			$aAliases[] = $oOrgAlias->Record;
 		}
 
-		$t->assign_by_ref('OrgAlias', $aAliases);
+		$t->assignByRef('OrgAlias', $aAliases);
 		$oOrgAlias->FreeResult();
 
 		// Get types for this org
@@ -144,7 +144,7 @@ class OrganizationPresenter
 			$aTypes[] = $oOrgType->Record;
 		}
 
-		$t->assign_by_ref('OrgType', $aTypes);
+		$t->assignByRef('OrgType', $aTypes);
 		$oOrgType->FreeResult();
 
 		// Get products for this org
@@ -156,7 +156,7 @@ class OrganizationPresenter
 			$aProducts[] = $oOrgProduct->Record;
 		}
 
-		$t->assign_by_ref('OrgProduct', $aProducts);
+		$t->assignByRef('OrgProduct', $aProducts);
 		$oOrgProduct->FreeResult();
 
 		// Get addresses
@@ -168,7 +168,7 @@ class OrganizationPresenter
 			$aAddresses[] = $oOrgAddress->Record;
 		}
 
-		$t->assign_by_ref('OrgAddress', $aAddresses);
+		$t->assignByRef('OrgAddress', $aAddresses);
 		$oOrgAddress->FreeResult();
 
 		// Get phone numbers
@@ -180,7 +180,7 @@ class OrganizationPresenter
 			$aPhoneNumbers[] = $oOrgPhone->Record;
 		}
 
-		$t->assign_by_ref('OrgPhone', $aPhoneNumbers);
+		$t->assignByRef('OrgPhone', $aPhoneNumbers);
 		$oOrgPhone->FreeResult();
 
 		// Get e-mail addresses
@@ -192,7 +192,7 @@ class OrganizationPresenter
 			$aEmails[] = $oOrgEmail->Record;
 		}
 
-		$t->assign_by_ref('OrgEmail', $aEmails);
+		$t->assignByRef('OrgEmail', $aEmails);
 		$oOrgEmail->FreeResult();
 
 		// Get URLs
@@ -204,7 +204,7 @@ class OrganizationPresenter
 			$aURL[] = $oOrgURL->Record;
 		}
 
-		$t->assign_by_ref('OrgURL', $aURL);
+		$t->assignByRef('OrgURL', $aURL);
 		$oOrgURL->FreeResult();
 		
 		// Get main contacts
@@ -231,7 +231,7 @@ class OrganizationPresenter
 			$aContacts[] = $aRow;
 		}
 		
-		$t->assign_by_ref('OrgContacts', $aContacts);
+		$t->assignByRef('OrgContacts', $aContacts);
 		$oOrgContacts->FreeResult();
 
 		// Get last 10 tickets
@@ -264,8 +264,8 @@ class OrganizationPresenter
 			array_push($aTickets, $aData);
 		}
 
-		$t->assign_by_ref('ViewTicket', $oViewTicket);
-		$t->assign_by_ref('Tickets', $aTickets);
+		$t->assignByRef('ViewTicket', $oViewTicket);
+		$t->assignByRef('Tickets', $aTickets);
 		$oTickets->FreeResult();
 
 		// Get last 10 work orders
@@ -303,8 +303,8 @@ class OrganizationPresenter
 			array_push($aWO, $aData);
 		}
 
-		$t->assign_by_ref('ViewWorkOrder', $oViewWO);
-		$t->assign_by_ref('WorkOrders', $aWO);
+		$t->assignByRef('ViewWorkOrder', $oViewWO);
+		$t->assignByRef('WorkOrders', $aWO);
 		$oWO->FreeResult();
 
 		$t->Render('OrgDetail.tpl');

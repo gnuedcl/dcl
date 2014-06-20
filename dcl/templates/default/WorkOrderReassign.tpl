@@ -1,10 +1,10 @@
 {dcl_calendar_init}
 {dcl_validator_init}
 <script language="JavaScript">
-{literal}
+
 function validateAndSubmitForm(form)
 {
-	{/literal}
+
 	var aValidators = new Array(
 			new ValidatorInteger(form.elements["responsible"], "{$smarty.const.STR_WO_RESPONSIBLE}", true),
 			new ValidatorSelection(form.elements["priority"], "{$smarty.const.STR_WO_PRIORITY}", true),
@@ -15,7 +15,7 @@ function validateAndSubmitForm(form)
 			new ValidatorDate(form.elements["eststarton"], "{$smarty.const.STR_WO_ESTSTART}", true),
 			new ValidatorDate(form.elements["estendon"], "{$smarty.const.STR_WO_ESTEND}", true)
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -29,7 +29,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" name="reassign" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$menuAction}">

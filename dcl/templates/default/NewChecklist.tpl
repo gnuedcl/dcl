@@ -1,13 +1,13 @@
 {dcl_validator_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-{literal}
+
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorString(form.elements["dcl_chklst_summary"], "{$smarty.const.STR_CHK_SUMMARY}")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -21,7 +21,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="boChecklists.dbadd">

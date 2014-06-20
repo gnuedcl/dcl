@@ -1,5 +1,5 @@
 <script language="JavaScript">
-{literal}
+
 function toggle(btnSender)
 {
 	var bChk = btnSender.checked;
@@ -46,7 +46,7 @@ function submitBatch()
 function jumpToPage(iPage)
 {
 }
-{/literal}
+
 </script>
 <div class="dcl_filter">
 	<form name="pager" method="post" action="{$URL_MAIN_PHP}">

@@ -1,8 +1,8 @@
 <script language="JavaScript">
-{literal}
+
 	$(document).ready(function() {
-		var urlMainPhp = {/literal}"{$URL_MAIN_PHP}"{literal};
-		var orgId = {/literal}{Org->org_id}{literal};
+		var urlMainPhp = "{$URL_MAIN_PHP}";
+		var orgId = {Org->org_id};
 		$(".dcl-delete-org-address").click(function() {
 			if (confirm("Are you sure you want to delete this address?")) {
 				var id = $(this).attr("data-id");
@@ -10,7 +10,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "OrganizationAddress.Destroy", org_id: orgId, org_addr_id: id},
+					data: { menuAction: "OrganizationAddress.Destroy", org_id: orgId, org_addr_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -19,7 +19,7 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "Address was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "Address was not deleted successfully." });
 					}
 				});
 			}
@@ -32,7 +32,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "OrganizationAlias.Destroy", org_id: orgId, org_alias_id: id},
+					data: { menuAction: "OrganizationAlias.Destroy", org_id: orgId, org_alias_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -41,7 +41,7 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "Alias was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "Alias was not deleted successfully." });
 					}
 				});
 			}
@@ -54,7 +54,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "OrganizationEmail.Destroy", org_id: orgId, org_email_id: id},
+					data: { menuAction: "OrganizationEmail.Destroy", org_id: orgId, org_email_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -63,7 +63,7 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "Email was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "Email was not deleted successfully." });
 					}
 				});
 			}
@@ -76,7 +76,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "OrganizationPhone.Destroy", org_id: orgId, org_phone_id: id},
+					data: { menuAction: "OrganizationPhone.Destroy", org_id: orgId, org_phone_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -85,7 +85,7 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "Phone number was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "Phone number was not deleted successfully." });
 					}
 				});
 			}
@@ -98,7 +98,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "OrganizationUrl.Destroy", org_id: orgId, org_url_id: id},
+					data: { menuAction: "OrganizationUrl.Destroy", org_id: orgId, org_url_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -107,13 +107,13 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "URL was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "URL was not deleted successfully." });
 					}
 				});
 			}
 		});
 	});
-{/literal}
+
 </script>
 <table width="100%" class="dcl_results">
 	<caption>Organization [{Org->org_id}] {Org->name}</caption>
@@ -266,7 +266,7 @@ No organization types!
 		{cycle values="odd,even" assign="rowClass"}
 	<tr class="{$rowClass}">
 		<td class="rowheader">{$OrgURL[url].url_type_name}{if $OrgURL[url].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
-		<td>{$OrgURL[url].url_addr|escape:link}</td>
+		<td>{$OrgURL[url].url_addr|escape|dcl_link}</td>
 		<td class="options">
 {strip}
 		{if $PERM_MODIFY}
@@ -293,8 +293,8 @@ No organization types!
 		<td><a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$OrgContacts[contact].contact_id}">{$OrgContacts[contact].name}</a></td>
 		<td>{$OrgContacts[contact].type|escape}</td>
 		<td>{$OrgContacts[contact].phone|escape}</td>
-		<td>{$OrgContacts[contact].email|escape:link}</td>
-		<td>{$OrgContacts[contact].url|escape:link}</td>
+		<td>{$OrgContacts[contact].email|escape|dcl_link}</td>
+		<td>{$OrgContacts[contact].url|escape|dcl_link}</td>
 	</tr>
 {/section}
 	</tbody>

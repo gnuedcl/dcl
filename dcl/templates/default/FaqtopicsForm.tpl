@@ -1,15 +1,15 @@
 {dcl_validator_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-{literal}
+
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorInteger(form.elements["seq"], "{$smarty.const.STR_FAQ_DISPLAYSEQ}", true),
 			new ValidatorString(form.elements["name"], "{$smarty.const.STR_FAQ_NAME}"),
 			new ValidatorString(form.elements["description"], "{$smarty.const.STR_FAQ_DESCRIPTION}")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -23,7 +23,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" name="FAQFORM" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{if $IS_EDIT}FaqTopic.Update{else}FaqTopic.Insert{/if}">

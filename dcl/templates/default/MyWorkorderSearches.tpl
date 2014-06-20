@@ -1,5 +1,5 @@
 <script language="JavaScript">
-{literal}
+
 function validateWorkorder(f)
 {
 	var reg = /\d+/;
@@ -33,7 +33,7 @@ function validateView(f)
 	alert('You must select a valid view first.');
 	return false;
 }
-{/literal}
+
 </script>
 <fieldset>
 <legend><span style="font-weight: bold;">{$smarty.const.STR_WO_MYWOSEARCHES}</span></legend>

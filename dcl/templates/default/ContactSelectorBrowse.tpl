@@ -5,19 +5,19 @@
 			var iPage = {$VAL_PAGE};
 			var iMaxPages = {$VAL_MAXPAGE};
 			var iInitAttempts = 0;
-{literal}
+
 			function init()
 			{
 				if (parent.topFrame && parent.topFrame.updatePageControl && parent.topFrame.bInitComplete)
 				{
-{/literal}
+
 {if $updateTop && $filterID}
 					iPage = 1;
 					iMaxPages = 1;
 					parent.topFrame.aSelectedID = new Array();
 					var oContact = document.getElementById('contact_select_{$filterID}');
 					if (oContact)
-					{literal}{{/literal}
+					{
 						toggle(oContact);
 						var oControl = parent.topFrame.document.getElementById('filterActiveSelected');
 						if (oControl)
@@ -25,15 +25,15 @@
 
 						oControl = parent.topFrame.document.getElementById('btnStartsWithAll');
 						if (oControl && parent.topFrame.oLastButton != oControl)
-						{literal}{{/literal}
+						{
 							if (parent.topFrame.oLastButton)
 								parent.topFrame.oLastButton.className = 'dcl_startsWith';
 							parent.topFrame.oLastButton = oControl;
 							oControl.className = 'dcl_startsWithSelected';
-						{literal}}{/literal}
-					{literal}}{/literal}
+						}
+					}
 {/if}
-{literal}
+
 					parent.topFrame.iPage = iPage;
 					parent.topFrame.iMaxPages = iMaxPages;
 					parent.topFrame.updatePageControl();
@@ -64,22 +64,22 @@
 				}
 			}
 			
-			var aData = {{/literal}{section name=contact loop=$VAL_CONTACTS}
-"{$VAL_CONTACTS[contact].contact_id|escape:javascript}":{literal}{{/literal}"n":"{$VAL_CONTACTS[contact].last_name|escape:javascript}, {$VAL_CONTACTS[contact].first_name|escape:javascript}","oid":"{$VAL_CONTACTS[contact].org_id|escape:javascript}","on":"{$VAL_CONTACTS[contact].org_name|escape:javascript}"{literal}}{/literal}{if !$smarty.section.contact.last},
+			var aData = {{section name=contact loop=$VAL_CONTACTS}
+"{$VAL_CONTACTS[contact].contact_id|escape:javascript}":{"n":"{$VAL_CONTACTS[contact].last_name|escape:javascript}, {$VAL_CONTACTS[contact].first_name|escape:javascript}","oid":"{$VAL_CONTACTS[contact].org_id|escape:javascript}","on":"{$VAL_CONTACTS[contact].org_name|escape:javascript}"}{if !$smarty.section.contact.last},
 {/if}
-{/section}{literal}};
+{/section}};
 
 			function toggle(oControl)
 			{
-{/literal}
+
 {if $VAL_MULTISELECT}
 				parent.topFrame.aSelectedID[oControl.value] = oControl.checked;
 				parent.topFrame.aSelectedOrgID[oControl.value] = aData[oControl.value].oid;
-				{literal}if (oControl.checked)
+				if (oControl.checked)
 				{
 					parent.topFrame.aSelectedName[oControl.value] = aData[oControl.value].n;
 					parent.topFrame.aSelectedOrgName[oControl.value] = aData[oControl.value].on;
-				}{/literal}
+				}
 {else}
 				parent.topFrame.aSelectedID = new Array();
 				parent.topFrame.aSelectedID[oControl.value] = true;
@@ -90,9 +90,9 @@
 				parent.topFrame.aSelectedOrgName = new Array();
 				parent.topFrame.aSelectedOrgName[oControl.value] = aData[oControl.value].on;
 {/if}
-{literal}
+
 			}
-{/literal}
+
 		</script>
 	</head>
 	<body onload="init();">

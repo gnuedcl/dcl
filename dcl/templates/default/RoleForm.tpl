@@ -1,8 +1,8 @@
-<style type="text/css">{literal}
+<style type="text/css">
 	label.role-label { padding: 2px; border-radius: 5px; }
-{/literal}</style>
+</style>
 <script language="JavaScript">
-{literal}
+
 $(document).ready(function() {
 	$("input.permission").on("change", function() {
 		if ($(this).prop("checked")) {
@@ -18,7 +18,7 @@ function validateAndSubmit(f)
 {
 	f.submit();
 }
-{/literal}
+
 </script>
 <form method="post" action="{$WWW_ROOT}main.php">
 <table cellpadding="2" cellspacing="0">

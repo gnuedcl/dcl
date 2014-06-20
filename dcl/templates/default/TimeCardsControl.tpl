@@ -61,7 +61,7 @@
 		<dd>Reassign <strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].reassign_from_id id=$VAL_TIMECARDS[tc].reassign_from_id_int}</strong> to <strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].reassign_to_id id=$VAL_TIMECARDS[tc].reassign_to_id_int}</strong></dd>
 {/if}
 		</dl>
-		{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}<blockquote>{$VAL_TIMECARDS[tc].description|escape:"link"}</blockquote>{/if}
+		{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}<blockquote>{$VAL_TIMECARDS[tc].description|escape|dcl_link}</blockquote>{/if}
 	</td>
 </tr>
 {/if}

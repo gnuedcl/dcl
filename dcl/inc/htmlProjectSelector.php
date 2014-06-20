@@ -170,7 +170,7 @@ class htmlProjectSelector
 				
 			$this->oDB->FreeResult();
 			
-			$this->oSmarty->assign_by_ref('VAL_PROJECTS', $aProjects);
+			$this->oSmarty->assignByRef('VAL_PROJECTS', $aProjects);
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_FILTERID', $filterID);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));

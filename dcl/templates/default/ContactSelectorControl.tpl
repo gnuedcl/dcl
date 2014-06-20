@@ -12,7 +12,7 @@
 			var aSelectedOrgID = new Array();
 			var aSelectedOrgName = new Array();			
 			var bInitComplete = false;
-{literal}
+
 			function doSave()
 			{
 				var oOpener = parent.window.opener;
@@ -40,11 +40,11 @@
 					}
 
 					if (oOpener.oSecondaryValue != null && oOpener.aSecondaryText != null && aSelectedOrgID.length > 0)
-					{{/literal}
+					{
 						{if $VAL_MULTIPLE == "false"}
 						oOpener.oSecondaryValue.value = "";
 						oOpener.aSecondaryText.length = 0;
-						{/if}{literal}
+						{/if}
 						
 						var bFirst = true;
 						for (var sKey in aSelectedID)
@@ -71,9 +71,9 @@
 
 			function doNew()
 			{
-{/literal}
+
 				parent.mainFrame.location.href = "{$URL_MAIN_PHP}?menuAction=htmlContactForm.add&hideMenu=true&fromBrowse=true&return_to=" + escape("menuAction=htmlContactSelector.showBrowseFrame" + getFilterParams());
-{literal}
+
 			}
 
 			function doCancel()
@@ -111,18 +111,18 @@
 			
 			function getFilter()
 			{
-{/literal}
+
 				var sURL = '{$URL_MAIN_PHP}?menuAction=htmlContactSelector.showBrowseFrame';
-{literal}
+
 				return sURL + getFilterParams();
 			}
 			
 			function getFilterParams()
 			{
-{/literal}
+
 				var sParams = '&filterStartsWith=' + sStartsWith;
 				sParams += '&multiple={$VAL_MULTIPLE}';
-{literal}
+
 				if (sActiveFilter == "S")
 				{
 					if (aSelectedID.length > 0)
@@ -271,7 +271,7 @@
 				
 				bInitComplete = true;
 			}
-{/literal}
+
 		</script>
 	</head>
 	<body onload="init();">

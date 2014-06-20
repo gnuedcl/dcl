@@ -86,10 +86,7 @@ class FaqTopicPresenter
 
 		commonHeader();
 		if (!is_object($obj))
-		{
-			trigger_error('[htmlFaqtopics::ShowTopic] ' . STR_FAQ_TOPICOBJECTNOTPASSED);
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $obj->faqid))
 			throw new PermissionDeniedException();

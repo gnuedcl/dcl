@@ -71,12 +71,9 @@ class htmlOrganizationDashboard
 
 		$this->oOrg = new OrganizationModel();
 		if ($this->oOrg->Load($orgId) == -1)
-		{
-			trigger_error('Could not find an organization with an id of ' . $orgId, E_USER_ERROR);
-			return;
-		}
+			throw new InvalidEntityException();
 
-		$this->oSmarty->register_object('Org', $this->oOrg);
+		$this->oSmarty->registerObject('Org', $this->oOrg);
 
 		$this->oSmarty->assign('PERM_VIEWWO', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW));
 		$this->oSmarty->assign('PERM_VIEWTCK', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW));

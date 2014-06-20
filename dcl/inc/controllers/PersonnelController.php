@@ -191,7 +191,7 @@ class PersonnelController
 
 		if ($_POST['confirm'] != $_POST['new'] || $_POST['new'] == '')
 		{
-			trigger_error(STR_BO_PASSWORDERR);
+			ShowError(STR_BO_PASSWORDERR);
 			$presenter = new PersonnelPresenter();
 			$presenter->EditPassword();
 		}

@@ -2,10 +2,10 @@
 {dcl_calendar_init}
 {dcl_validator_init}
 <script language="JavaScript">
-{literal}
+
 function validateAndSubmitForm(form)
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorDate(form.elements["actionon"], "{$smarty.const.STR_TC_DATE}"),
 			new ValidatorSelection(form.elements["action"], "{$smarty.const.STR_TC_ACTION}"),
@@ -13,7 +13,7 @@ function validateAndSubmitForm(form)
 			new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}"),
 			new ValidatorString(form.elements["summary"], "{$smarty.const.STR_WO_SUMMARY}")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -27,11 +27,11 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 {/if}
 <script language="JavaScript">
-{literal}
+
 function submitAction(sFormName, sAction)
 {
 	var oForm = document.getElementById(sFormName);
@@ -41,7 +41,7 @@ function submitAction(sFormName, sAction)
 	oForm.menuAction.value = sAction;
 	oForm.submit();
 }
-{/literal}
+
 </script>
 
 <div class="dcl_detail">
@@ -84,7 +84,7 @@ function submitAction(sFormName, sAction)
 				</td>
 			</tr>
 	{/if}
-		<tr><th>{$smarty.const.STR_WO_DESCRIPTION}:</th><td colspan="3">{$VAL_DESCRIPTION|escape:"link"}</td></tr>
+		<tr><th>{$smarty.const.STR_WO_DESCRIPTION}:</th><td colspan="3">{$VAL_DESCRIPTION|escape|dcl_link}</td></tr>
 	</tbody>
 	</table>
 {include file="AttachmentsControl.tpl"}

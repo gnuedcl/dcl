@@ -67,8 +67,8 @@ class OrganizationProductPresenter
 		$oSmarty->assign('URL_BACK', menuLink('', 'menuAction=Organization.Detail&org_id=' . $oOrg->org_id));
 		$oSmarty->assign('VAL_ORGNAME', $oOrg->name);
 
-		$oSmarty->assign_by_ref('VAL_PRODUCTID', $aProducts);
-		$oSmarty->assign_by_ref('VAL_PRODUCTNAME', $aProductsNames);
+		$oSmarty->assignByRef('VAL_PRODUCTID', $aProducts);
+		$oSmarty->assignByRef('VAL_PRODUCTNAME', $aProductsNames);
 
 		$oSmarty->Render('OrgProducts.tpl');
 	}

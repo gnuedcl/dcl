@@ -288,8 +288,6 @@ function IsOrgUser()
 
 function UseHttps()
 {
-	global $dcl_info;
-
 	// These values may or may not fill in and depend on the web server, so we'll check the common settings
 	// To force secure Gravatar request (if this function doesn't work), set DCL_FORCE_SECURE_GRAVATAR = Y in configuration
 	return (IsSet($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' && $_SERVER['HTTPS'] != '0') || $_SERVER['SERVER_PORT'] == 443;
@@ -397,7 +395,7 @@ function Invoke($sClassMethod)
 		$class .= 'Controller';
 		if (!class_exists($class))
 		{
-			trigger_error('Invoke could not find class: ' . $class, E_USER_ERROR);
+			ShowError('Invoke could not find class: ' . $class);
 			return;
 		}
 	}
@@ -405,7 +403,7 @@ function Invoke($sClassMethod)
 	$obj = new $class();
 	if (!method_exists($obj, $method))
 	{
-		trigger_error('Class ' . $class . ' does not contain a definition for method ' . $method, E_USER_ERROR);
+		ShowError('Class ' . $class . ' does not contain a definition for method ' . $method);
 		return;
 	}
 	
@@ -426,7 +424,7 @@ function InvokePlugin($sPluginName, &$aParams = null, $method = 'Invoke')
 	$obj = new $class();
 	if (!method_exists($obj, $method))
 	{
-		trigger_error('Plugin class ' . $class . ' does not contain a definition for method ' . $method, E_USER_ERROR);
+		ShowError('Plugin class ' . $class . ' does not contain a definition for method ' . $method);
 		return;
 	}
 

@@ -1,6 +1,6 @@
 {if $MESSAGE->bIsFirst && count($MESSAGE->aBacktrace) > 0}
 <script language="JavaScript">
-{literal}
+
 function toggleBacktrace(sUUID)
 {
 	var o = document.getElementById("div" + sUUID);
@@ -19,7 +19,7 @@ function toggleBacktrace(sUUID)
 		}
 	}
 }
-{/literal}
+
 </script>
 {/if}
 <div class="dcl_message_warn">

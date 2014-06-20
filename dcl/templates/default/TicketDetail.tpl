@@ -3,15 +3,15 @@
 {dcl_validator_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-{literal}
+
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_TCK_STATUS}"),
 			new ValidatorString(form.elements["resolution"], "{$smarty.const.STR_TCK_RESOLUTION}")
 		);
 
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -25,17 +25,17 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 {/if}
 <script language="JavaScript">
-{literal}
+
 	function submitAction(sAction)
 	{
 		document.actionForm.menuAction.value = sAction;
 		document.actionForm.submit();
 	}
-{/literal}
+
 </script>
 <div class="dcl_detail">
 	<table class="styled" width="100%">
@@ -68,7 +68,7 @@ function validateAndSubmitForm(form)
 				<th>{$smarty.const.STR_CMMN_PUBLIC}:</th><td>{$VAL_PUBLIC|escape}</td>
 			</tr>
 			<tr><th>{$smarty.const.STR_CMMN_TAGS}:</th><td colspan="3">{dcl_tag_link value=$VAL_TAGS}</td></tr>
-			<tr><th>{$smarty.const.STR_TCK_ISSUE}:</th><td colspan="3">{$VAL_ISSUE|escape:"link"}</td></tr>
+			<tr><th>{$smarty.const.STR_TCK_ISSUE}:</th><td colspan="3">{$VAL_ISSUE|escape|dcl_link}</td></tr>
 		</tbody>
 	</table>
 {include file="AttachmentsTicketsControl.tpl"}

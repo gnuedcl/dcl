@@ -1,9 +1,9 @@
 {dcl_calendar_init}
 <script language="JavaScript" src="js/ticketsearch.js"></script>
 <script language="JavaScript">
-{literal}
+
 	var iSection = 0;
-	var sLastLayer = '{/literal}{if !$IS_PUBLIC}divPersonnel{else}divProduct{/if}{literal}';
+	var sLastLayer = '{if !$IS_PUBLIC}divPersonnel{else}divProduct{/if}';
 	function showHide(sLayer)
 	{
 		if (sLastLayer == sLayer)
@@ -30,7 +30,7 @@
 			f.elements["statuson"].checked ||
 			f.elements["lastactionon"].checked)
 		{
-			{/literal}
+
 			sSummary += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">Dates*:</th><td>';
 			sSummary += '{$smarty.const.STR_CMMN_FROM} ' + f.elements["dateFrom"].value + ' {$smarty.const.STR_CMMN_TO} ' + f.elements["dateTo"].value + ': ';
 			if (f.elements["createdon"].checked) sSummary += "{$smarty.const.STR_TCK_OPENEDON}; ";
@@ -38,7 +38,7 @@
 			if (f.elements["statuson"].checked) sSummary += "{$smarty.const.STR_TCK_STATUSON}; ";
 			if (f.elements["lastactionon"].checked) sSummary += "{$smarty.const.STR_TCK_LASTACTION}; ";
 			sSummary += '</td></tr>';
-			{literal}
+
 		}
 
 		return sSummary;
@@ -50,11 +50,11 @@
 		var sTags = "";
 		if (f.elements["tags"].value != "")
 		{
-{/literal}
+
 			sTags += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">{$smarty.const.STR_CMMN_TAGS}:</th><td>';
 			sTags += f.elements["tags"].value;
 			sTags += '</td></tr>';
-{literal}
+
 		}
 		
 		return sTags;
@@ -73,7 +73,7 @@
 
 		return sSummary;
 	}
-{/literal}{if !$IS_PUBLIC}{literal}
+{if !$IS_PUBLIC}
 	function getPersonnel()
 	{
 		var f = document.forms["mondosearchform"];
@@ -88,13 +88,13 @@
 			{
 				sSummary += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">Department:</th><td><b>';
 				if (f.elements["responsible"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_TCK_RESPONSIBLE}, ';{literal}
+					sSummary += '{$smarty.const.STR_TCK_RESPONSIBLE}, ';
 
 				if (f.elements["createdby"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_TCK_OPENEDBY}, ';{literal}
+					sSummary += '{$smarty.const.STR_TCK_OPENEDBY}, ';
 
 				if (f.elements["closedby"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_TCK_CLOSEDBY}';{literal}
+					sSummary += '{$smarty.const.STR_TCK_CLOSEDBY}';
 
 				sSummary += ':&nbsp;</b>';
 
@@ -110,13 +110,13 @@
 			{
 				sSummary += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">Personnel:</th><td><b>';
 				if (f.elements["responsible"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_TCK_RESPONSIBLE}, ';{literal}
+					sSummary += '{$smarty.const.STR_TCK_RESPONSIBLE}, ';
 
 				if (f.elements["createdby"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_TCK_OPENEDBY}, ';{literal}
+					sSummary += '{$smarty.const.STR_TCK_OPENEDBY}, ';
 
 				if (f.elements["closedby"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_TCK_CLOSEDBY}';{literal}
+					sSummary += '{$smarty.const.STR_TCK_CLOSEDBY}';
 
 				sSummary += ':&nbsp;</b>';
 
@@ -131,7 +131,7 @@
 
 		return sSummary;
 	}
-{/literal}{/if}{literal}
+{/if}
 	function getSelections(c, sTitle)
 	{
 		if (!c)
@@ -163,7 +163,7 @@
 		var f = document.forms["mondosearchform"];
 		if (f)
 		{
-			{/literal}
+
 			{if !$IS_PUBLIC}sSummary += getPersonnel();{/if}
 			sSummary += getSelections(f.elements["product[]"], "{$smarty.const.STR_TCK_PRODUCT}");
 			sSummary += getSelections(f.elements["module_id[]"], "{$smarty.const.STR_CMMN_MODULE}");
@@ -177,14 +177,14 @@
 			sSummary += getDates();
 			sSummary += getTags();
 			sSummary += getTextSearch();
-			{literal}
+
 		}
 
 		sSummary += "</table>";
 
 		oDiv.innerHTML = sSummary;
 	}
-{/literal}
+
 </script>
 <form class="styled" name="mondosearchform" action="{$URL_MAIN_PHP}" method="post">
 	<input type="hidden" name="menuAction" value="boTickets.dbsearch">
@@ -389,7 +389,7 @@
 	<fieldset><div class="submit"><input type="button" onclick="doSearch(this.form);" value="{$smarty.const.STR_CMMN_SEARCH}"><input type="reset" value="{$smarty.const.STR_CMMN_RESET}"></div></fieldset>
 </form>
 <script type="text/javascript">
-{literal}
+
 	var f = document.forms["mondosearchform"];
 	function setOnChangeEventHandler(c)
 	{
@@ -432,15 +432,15 @@
 	if (f)
 	{
 		// Select boxen
-		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["personnel[]"]);{/if}{literal}
+		{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["personnel[]"]);{/if}
 		setOnChangeEventHandler(f.elements["priority[]"]);
 		setOnChangeEventHandler(f.elements["type[]"]);
 		setOnChangeEventHandler(f.elements["account[]"]);
 		setOnChangeEventHandler(f.elements["status[]"]);
 		setOnChangeEventHandler(f.elements["dcl_status_type[]"]);
 		setOnChangeEventHandler(f.elements["module_id[]"]);
-		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["department[]"]);{/if}{literal}
-		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["is_public[]"]);{/if}{literal}
+		{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["department[]"]);{/if}
+		{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["is_public[]"]);{/if}
 		setOnChangeEventHandler(f.elements["entity_source_id[]"]);
 
 		// Modules are dependent on selected products, so we handle it a little differently
@@ -450,7 +450,7 @@
 		f.elements['dcl_status_type[]'].onchange = function() { if (typeof(chgStatusType) == "function") chgStatusType(f); updateSummary(); }
 
 		// Personnel now filter by department to reduce available selections
-		{/literal}{if !$IS_PUBLIC}f.elements['department[]'].onchange = function() {literal}{ if (typeof(chgDepartment) == "function") chgDepartment(f); updateSummary(); }{/literal}{/if}{literal}
+		{if !$IS_PUBLIC}f.elements['department[]'].onchange = function() { if (typeof(chgDepartment) == "function") chgDepartment(f); updateSummary(); }{/if}
 
 		// Text boxen
 		setOnChangeEventHandler(f.elements["searchText"]);
@@ -459,9 +459,9 @@
 		setOnChangeEventHandler(f.elements["tags"]);
 
 		// Checkboxen
-		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["responsible"]);{/if}{literal}
-		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["createdby"]);{/if}{literal}
-		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["closedby"]);{/if}{literal}
+		{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["responsible"]);{/if}
+		{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["createdby"]);{/if}
+		{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["closedby"]);{/if}
 		setOnClickEventHandler(f.elements["createdon"]);
 		setOnClickEventHandler(f.elements["closedon"]);
 		setOnClickEventHandler(f.elements["statuson"]);
@@ -470,22 +470,22 @@
 		if (typeof(chgStatusType) == "function")
 		{
 			chgStatusType(f);
-			{/literal}selectDefault("{$VAL_SELECTSTATUSKEY}", "status[]", "dcl_status_type[]", chgStatusType);{literal}
+			selectDefault("{$VAL_SELECTSTATUSKEY}", "status[]", "dcl_status_type[]", chgStatusType);
 		}
-{/literal}{if !$IS_PUBLIC}{literal}
+{if !$IS_PUBLIC}
 		if (typeof(chgDepartment) == "function")
 		{
 			chgDepartment(f);
-			{/literal}selectDefault("{$VAL_SELECTPERSONNELKEY}", "personnel[]", "department[]", chgDepartment);{literal}
+			selectDefault("{$VAL_SELECTPERSONNELKEY}", "personnel[]", "department[]", chgDepartment);
 		}
-{/literal}{/if}{literal}
+{/if}
 		if (typeof(chgModule) == "function")
 		{
 			chgModule(f);
-			{/literal}selectDefault("{$VAL_SELECTMODULEKEY}", "module_id[]", "product[]", chgModule);{literal}
+			selectDefault("{$VAL_SELECTMODULEKEY}", "module_id[]", "product[]", chgModule);
 		}
 
 		updateSummary();
 	}
-{/literal}
+
 </script>

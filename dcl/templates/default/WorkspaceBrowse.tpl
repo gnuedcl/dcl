@@ -4,7 +4,7 @@
 	var iMaxPages = {$VAL_MAXPAGE};
 	var sStartsWith = '{$VAL_FILTERSTART}';
 	var sActiveFilter = '{$VAL_FILTERACTIVE}';
-{literal}
+
 	var oLastButton = null;
 
 	function selectStartsWith(oButton, sLetter)
@@ -31,9 +31,9 @@
 
 	function getFilter()
 	{
-{/literal}
+
 		var sURL = '{$URL_MAIN_PHP}?menuAction=htmlOrgBrowse.show';
-{literal}
+
 		sURL += '&filterStartsWith=' + sStartsWith;
 		sURL += '&filterActive=' + sActiveFilter;
 
@@ -140,9 +140,9 @@
 	{
 		document.getElementById('jumptopage').onkeydown = jumpToPage;
 		document.getElementById('filterName').onkeydown = searchName;
-{/literal}
+
 		var sFilterStart = "{$VAL_FILTERSTART}";
-{literal}
+
 		if (sFilterStart == "")
 			sFilterStart = "All";
 
@@ -151,7 +151,7 @@
 	}
 
 	window.onload = init;
-{/literal}
+
 </script>
 <table style="width: 100%;" cellspacing="0">
 	<tr>

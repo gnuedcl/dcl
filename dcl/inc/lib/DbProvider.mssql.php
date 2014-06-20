@@ -144,7 +144,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error("Error executing query: $query");
+				LogError("Error executing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
@@ -176,7 +176,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error('Server Returned: [' . mssql_get_last_message() . '] for query: ' . $query);
+				LogError('Server Returned: [' . mssql_get_last_message() . '] for query: ' . $query, __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
@@ -232,19 +232,19 @@ class DbProvider extends AbstractDbProvider
 				if ($oidRes)
 					$this->oid = mssql_result($oidRes, 0, 0);
 				else
-					trigger_error('Could not retrieve @@identity of newly inserted record!!  Query: ' . $query);
+					LogError('Could not retrieve @@identity of newly inserted record!!  Query: ' . $query, __FILE__, __LINE__, debug_backtrace());
 
 				return $this->oid;
 			}
 			else
 			{
-				trigger_error("Error executing query: $query");
+				LogError("Error executing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
 		else
 		{
-			trigger_error('No connection!');
+			LogError('No connection!', __FILE__, __LINE__, debug_backtrace());
 			return -1;
 		}
 	}
@@ -345,7 +345,7 @@ class DbProvider extends AbstractDbProvider
 			return $Record[0];
 		}
 
-		trigger_error('Could not retrieve @@identity of newly inserted record!!');
+		LogError('Could not retrieve @@identity of newly inserted record!!', __FILE__, __LINE__, debug_backtrace());
 		return -1;
 	}
 

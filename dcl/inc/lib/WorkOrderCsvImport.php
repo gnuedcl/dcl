@@ -88,7 +88,7 @@ class WorkOrderCsvImport
 					if ($newVal == -1)
 					{
 						// An error on mapping
-						trigger_error(sprintf(STR_BO_CSVMAPERR, $fields[$i], $line), E_USER_ERROR);
+						ShowError(sprintf(STR_BO_CSVMAPERR, $fields[$i], $line));
 						continue 2;       // On to next line in the file
 					}
 
@@ -104,7 +104,7 @@ class WorkOrderCsvImport
 					if ($val === null || !$this->EntityExists($fields[$i], $val))
 					{
 						// An error on mapping
-						trigger_error(sprintf(STR_BO_CSVMAPERR, $fields[$i], $line), E_USER_ERROR);
+						ShowError(sprintf(STR_BO_CSVMAPERR, $fields[$i], $line));
 						continue 2;       // On to next line in the file
 					}
 				}

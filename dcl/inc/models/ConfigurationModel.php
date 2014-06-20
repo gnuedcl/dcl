@@ -45,7 +45,7 @@ class ConfigurationModel extends DbProvider
 
 		if ($this->Insert($query) == -1)
 		{
-			trigger_error(sprintf(STR_DB_CFGINSERTERR, $query));
+			LogError(sprintf(STR_DB_CFGINSERTERR, $query), __FILE__, __LINE__, debug_backtrace());
 		}
 	}
 

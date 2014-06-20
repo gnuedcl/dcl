@@ -204,7 +204,7 @@ class ProjectDetailPresenter
 					$this->smartyHelper->assign('VAL_GROUPBY', $sGroupBy);
 				}
 
-				$this->smartyHelper->assign_by_ref('VAL_TASKS', $aTasks);
+				$this->smartyHelper->assignByRef('VAL_TASKS', $aTasks);
 			}
 		}
 	}
@@ -297,129 +297,5 @@ class ProjectDetailPresenter
 			$this->smartyHelper->assign('VAL_PCTCOMP', sprintf('%0.2f%%', ($arrayStats['totalhours'] / ($arrayStats['totalhours'] + $arrayStats['etchours'])) * 100));
 		else
 			$this->smartyHelper->assign('VAL_PCTCOMP', '0.00%');
-	}
-
-	public function ShowTree($projectid, $wostatus, $woresponsible)
-	{
-		global $dcl_info, $g_oSec;
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectid))
-			throw new PermissionDeniedException();
-
-		$obj = new ProjectsModel();
-		if ($obj->Load($projectid) == -1)
-			return;
-			
-		echo '<center>';
-		echo '<h3>Tree View of Project: ', $obj->name, '</h3>';
-		if ($obj->parentprojectid > 0)
-		{
-			$oParent = $obj;
-			$oParent->Load($obj->parentprojectid);
-			echo 'Parent Project: ', $this->GetTreeLink($oParent->projectid, $oParent->name, $wostatus, $woresponsible);
-		}
-
-		echo '<form action="' . menuLink('') . '" method="post">';
-		echo GetHiddenVar('project', $projectid);
-		echo GetHiddenVar('menuAction', 'Project.Tree');
-
-		$objStat = new StatusHtmlHelper();
-		$objPersonnel = new PersonnelHtmlHelper();
-
-		echo '<b>', STR_PRJ_FILTERWOBYSTATUS, ':</b>';
-		echo $objStat->Select($wostatus, 'wostatus');
-
-		echo '&nbsp;&nbsp;<b>', STR_PRJ_FILTERWOBYRESPONSIBLE, ':</b>';
-		echo $objPersonnel->Select($woresponsible, 'woresponsible', 'short', 0, false, $dcl_info['DCL_HAVE_WO']);
-
-		echo '<input type="submit" value="', STR_CMMN_FILTER, '"></form><p>';
-
-		echo '<table border="0">';
-		$this->DisplayProjectTasks($projectid, $wostatus, $woresponsible);
-		$this->DisplayChildProjects($projectid, $wostatus, $woresponsible, 1);
-		echo '</table></center>';
-	}
-
-	private function GetTreeLink($projectid, $name, $wostatus, $woresponsible)
-	{
-		$link = '<a href="';
-		$link .= menuLink('', sprintf('menuAction=Project.Tree&project=%d&wostatus=%d&woresponsible=%d',
-					$projectid,
-					$wostatus,
-					$woresponsible));
-		$link .= '">' . $name . '</a>';
-
-		return $link;
-	}
-
-	private function DisplayChildProjects($childOfID, $wostatus, $woresponsible, $level = 0)
-	{
-		$oPM = new ProjectMapModel();
-		$oPM->Query('SELECT projectid,name FROM dcl_projects WHERE parentprojectid=' . $childOfID);
-		$a = $oPM->FetchAllRows();
-		$oPM->FreeResult();
-		if (is_array($a) && count($a) > 0)
-		{
-			for ($i = 0; $i < count($a); $i++)
-			{
-				echo '<tr><td colspan="6" style="background-color: #cecece;">';
-				echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $level);
-				echo $this->GetTreeLink($a[$i][0], $a[$i][1], $wostatus, $woresponsible);
-				$this->DisplayProjectTasks($a[$i][0], $wostatus, $woresponsible, $level);
-				$this->DisplayChildProjects($a[$i][0], $wostatus, $woresponsible, $level + 1);
-			}
-		}
-	}
-
-	private function DisplayProjectTasks($projectid, $wostatus, $woresponsible, $level = 0)
-	{
-		global $dcl_info;
-
-		$db = new DbProvider;
-		$sql = 'SELECT a.jcn,a.seq,c.short,d.name,a.summary FROM workorders a, projectmap b,personnel c,statuses d WHERE ';
-		$sql .= "a.jcn=b.jcn AND (b.seq=0 OR a.seq=b.seq) AND a.responsible=c.id AND a.status=d.id AND b.projectid=$projectid ";
-
-		if ($wostatus > 0)
-			$sql .= "AND a.status=$wostatus ";
-		if ($woresponsible > 0)
-			$sql .= "AND a.responsible=$woresponsible ";
-
-		$sql .= 'ORDER BY a.jcn,a.seq';
-		$db->Query($sql);
-
-		if ($db->next_record())
-		{
-			echo '<tr><td>', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $level), '</td>';
-			echo '<td style="border-bottom: 2px solid black;"><b>WO#</b></td>';
-			echo '<td style="border-bottom: 2px solid black;"><b>Seq</b></td>';
-			echo '<td style="border-bottom: 2px solid black;"><b>Responsible</b></td>';
-			echo '<td style="border-bottom: 2px solid black;"><b>Status</b></td>';
-			echo '<td style="border-bottom: 2px solid black;"><b>Summary</b></td>';
-			echo '</tr>';
-
-			$hilite = false;
-
-			do
-			{
-				echo '<tr><td>', str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $level), '</td>';
-				for ($i = 0; $i < 5; $i++)
-				{
-					echo '<td>';
-					if ($i == 4)
-						echo '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $db->f(0) . '&seq=' . $db->f(1)), '">';
-					echo $db->f($i);
-					if ($i == 4)
-						echo '</a>';
-					echo '</td>';
-				}
-				$hilite = !$hilite;
-				echo '</tr>';
-			}
-			while ($db->next_record());
-		}
-		else
-			echo '<tr><td colspan="6">This project has no tasks that match your filter.</td></tr>';
-
-		$db->FreeResult();
 	}
 }

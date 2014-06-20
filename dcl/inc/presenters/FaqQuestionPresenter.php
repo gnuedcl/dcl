@@ -83,10 +83,7 @@ class FaqQuestionPresenter
 
 		commonHeader();
 		if (!is_object($model))
-		{
-			trigger_error('[htmlFaqquestions::ShowQuestion] ' . STR_FAQ_QUESTIONOBJECTNOTPASSED);
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		$faqTopicsModel = new FaqTopicsModel();
 		if ($faqTopicsModel->Load($model->topicid) == -1)

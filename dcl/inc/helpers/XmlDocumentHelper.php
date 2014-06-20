@@ -22,8 +22,6 @@
 
 class XmlDocumentHelper
 {
-	// PHP 4 required due to passing/setting objects by reference
-	// and use of xml_set_object
 	var $root;
 	var $parser;
 	var $currentNode;
@@ -49,11 +47,12 @@ class XmlDocumentHelper
 
 		if (!xml_parse($this->parser, $sXML, true))
 		{
-			trigger_error(sprintf(STR_CMMN_PARSEERR, 'XML string',
+			LogError(sprintf(STR_CMMN_PARSEERR, 'XML string',
 					xml_error_string(xml_get_error_code($this->parser)),
-					xml_get_current_line_number($this->parser)));
+					xml_get_current_line_number($this->parser)),
+				__FILE__, __LINE__, debug_backtrace());
 					
-			return;
+			throw new InvalidDataException();
 		}
 
 		xml_parser_free($this->parser);
@@ -69,18 +68,16 @@ class XmlDocumentHelper
 		xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, 0);
 		xml_parser_set_option($this->parser, XML_OPTION_SKIP_WHITE, 1);
 
-		if (!($fp = fopen($sFileName, 'r')))
-			die(sprintf(STR_CMMN_FILEOPENERR, $sFileName));
+		if (!($fp = @fopen($sFileName, 'r')))
+			throw new InvalidDataException(sprintf(STR_CMMN_FILEOPENERR, $sFileName));
 
 		while ($sXML = fread($fp, 4096))
 		{
 			if (!xml_parse($this->parser, $sXML, feof($fp)))
 			{
-				trigger_error(sprintf(STR_CMMN_PARSEERR, $sFileName,
+				throw new InvalidDataException(sprintf(STR_CMMN_PARSEERR, $sFileName,
 						xml_error_string(xml_get_error_code($this->parser)),
 						xml_get_current_line_number($this->parser)));
-
-				return;
 			}
 		}
 
@@ -209,16 +206,10 @@ class XmlDocumentHelper
 	public function ToFile($sFileName)
 	{
 		if (!($fp = fopen($sFileName, 'w+')))
-		{
-			trigger_error(sprintf(STR_CMMN_FILEOPENERR, $sFileName));
-			return false;
-		}
+			throw new NullReferenceException(sprintf(STR_CMMN_FILEOPENERR, $sFileName));
 
 		if (!fwrite($fp, $this->ToXML()))
-		{
-			trigger_error(sprintf('Could not write to file %s', $sFileName));
-			return false;
-		}
+			throw new InvalidDataException(sprintf('Could not write to file %s', $sFileName));
 
 		fclose($fp);
 

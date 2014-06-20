@@ -50,7 +50,7 @@ class Socket
 		$this->hSocket = fsockopen($this->sHost, $this->iPort, $this->iErr, $this->sErr, $this->iTimeout);
 		if (!$this->hSocket)
 		{
-			trigger_error('fsockopen(' . $this->sHost . ', ' .  $this->iPort . ', &$this->iErr, &$this->sErr, ' . $this->iTimeout . '):&nbsp;' . '(' . $this->iErr . ')&nbsp;' . $this->sErr);
+			LogError('fsockopen(' . $this->sHost . ', ' .  $this->iPort . ', &$this->iErr, &$this->sErr, ' . $this->iTimeout . '):&nbsp;' . '(' . $this->iErr . ')&nbsp;' . $this->sErr, __FILE__, __LINE__, debug_backtrace());
 			return -1;
 		}
 

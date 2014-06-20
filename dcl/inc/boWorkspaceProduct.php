@@ -55,12 +55,12 @@ class boWorkspaceProduct extends boAdminObject
 	
 	function modify(&$aSource)
 	{
-		trigger_error('boWorkspaceProduct::modify unsupported');
+		throw new PermissionDeniedException();
 	}
 	
 	function delete(&$aSource)
 	{
-		trigger_error('boWorkspaceProduct::delete unsupported');
+		throw new PermissionDeniedException();
 	}
 	
 	function deleteByWorkspace($workspace_id)

@@ -1,5 +1,5 @@
 <script language="JavaScript">
-{literal}
+
 function toggle(btnSender)
 {
 	var bChk = btnSender.checked;
@@ -46,7 +46,7 @@ function submitBatch()
 $(document).ready(function() {
 	/*$("#menuAction").val("WorkOrderService.GetData");
 	$("#results").jqAjaxTable({
-		url: "{/literal}{$URL_MAIN_PHP}{literal}",
+		url: "{$URL_MAIN_PHP}",
 		form: "#searchAction"
 	});*/
 });
@@ -65,7 +65,7 @@ $(document).ready(function() {
 			id: "",
 			pagerId: "",
 			table: $([]),
-			response: {count: 0, records: [], total: 0},
+			response: { count: 0, records: [], total: 0 },
 			init: function(id) {
 				this.id = id;
 				this.pagerId = id + "Pager";
@@ -124,7 +124,7 @@ $(document).ready(function() {
 		});
 	};
 })(jQuery);
-{/literal}
+
 </script>
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}

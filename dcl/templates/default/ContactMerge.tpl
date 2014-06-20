@@ -37,15 +37,15 @@
 {dcl_selector_init}
 {dcl_validator_init}
 <script language="JavaScript">
-{literal}
+
 function validateAndSubmitForm(form)
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorSelector(form.elements["merge_contact_id"], "{$smarty.const.STR_CMMN_CONTACT}")
 		);
 
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -59,7 +59,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" method="post" name="contactMergeForm" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="htmlContact.doMerge">

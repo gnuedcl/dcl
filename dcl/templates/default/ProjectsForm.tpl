@@ -2,17 +2,17 @@
 {dcl_selector_init}
 {dcl_validator_init}
 <script type="text/javascript">
-{literal}
+
 function validateAndSubmitForm(form)
 {
-{/literal}
+
 		var aValidators = new Array(
 			new ValidatorInteger(form.elements["reportto"], "{$smarty.const.STR_PRJ_LEAD}"),
 			new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_PRJ_STATUS}"),
 			new ValidatorString(form.elements["name"], "{$smarty.const.STR_PRJ_NAME}"),
 			new ValidatorString(form.elements["description"], "{$smarty.const.STR_PRJ_DESCRIPTION}")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -26,7 +26,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" name="PROJECTFORM" method="post" action="{$URL_MAIN_PHP}">
 {if $IS_EDIT}
@@ -46,20 +46,20 @@ function validateAndSubmitForm(form)
 {if $IS_EDIT}
 		<div class="required">
 			<label for="status">{$smarty.const.STR_PRJ_STATUS}:</label>
-			{dcl_select_status default=`$ViewData->StatusId`}
+			{dcl_select_status default=$ViewData->StatusId}
 		</div>
 {/if}
 		<div class="required">
 			<label for="reportto">{$smarty.const.STR_PRJ_LEAD}:</label>
-			{dcl_select_personnel name=reportto default=`$ViewData->ResponsibleId`}
+			{dcl_select_personnel name=reportto default=$ViewData->ResponsibleId}
 		</div>
 		<div>
 			<label for="deadline">{$smarty.const.STR_PRJ_DEADLINE}:</label>
-			{dcl_calendar name="projectdeadline" value="`$ViewData->Deadline`"}
+			{dcl_calendar name="projectdeadline" value=$ViewData->Deadline}
 		</div>
 		<div>
 			<label for="parentprojectid">{$smarty.const.STR_PRJ_PARENTPRJ}:</label>
-			{dcl_selector_project name="parentprojectid" value="`$ViewData->ParentId`" decoded="`$ViewData->ParentName`"}
+			{dcl_selector_project name="parentprojectid" value=$ViewData->ParentId decoded=$ViewData->ParentName}
 		</div>
 		<div class="required">
 			<label for="description">{$smarty.const.STR_PRJ_DESCRIPTION}:</label>
@@ -73,8 +73,8 @@ function validateAndSubmitForm(form)
 		</div>
 	</fieldset>
 </form>
-<script type="text/javascript">{literal}
+<script type="text/javascript">
 	$(function() {
 		$("#name").focus();
     });
-{/literal}</script>
+</script>

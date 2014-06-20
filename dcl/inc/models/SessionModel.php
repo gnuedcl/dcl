@@ -49,7 +49,7 @@ class SessionModel extends DbProvider
 
 		if (parent::Add() == -1)
 		{
-			trigger_error('Could not start session!', E_USER_ERROR);
+			LogError('Could not start session!', __FILE__, __LINE__, debug_backtrace());
 			exit;
 		}
 

@@ -217,7 +217,7 @@ abstract class Filter
 	public static function IsValidFileName($sFileName)
 	{
 		// no file system separators in file names
-		return !preg_match("#[/\\]#", $sFileName);
+		return !preg_match("#[/\\\\]#", $sFileName);
 	}
 	
 	public static function IsValidPathName($sPathName)

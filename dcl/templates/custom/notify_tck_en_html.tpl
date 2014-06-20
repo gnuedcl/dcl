@@ -1,14 +1,14 @@
 <html><head>
 	<title>DCL Notification</title>
 	<style type="text/css">
-{literal}
-		a {text-decoration: none; font-weight: bold;}
-		a:hover {text-decoration: underline; color: #FF6666;}
+
+		a { text-decoration: none; font-weight: bold; }
+		a:hover { text-decoration: underline; color: #FF6666; }
 		.header { border-bottom: solid black 2px; }
 		body { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
 		th { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
 		td { font-family: Tahoma, Verdana, Arial, Helvetica; font-size: 11px; }
-{/literal}
+
 	</style>
 </head><body>
 <table border="0" width="400px">
@@ -18,33 +18,33 @@
 <tr><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Ticket</th></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_RESPONSIBLE|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value="`$obj->responsible`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_STATUS|escape}</b></td><td nowrap>{dcl_metadata_display type='status' value="`$obj->status`"|escape} <b>on</b> {$obj->statuson|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_PRIORITY|escape}</b></td><td nowrap>{dcl_metadata_display type='priority' value="`$obj->priority`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_TYPE|escape}</b></td><td nowrap>{dcl_metadata_display type='severity' value="`$obj->type`"|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_RESPONSIBLE|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value=$obj->responsible|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_STATUS|escape}</b></td><td nowrap>{dcl_metadata_display type='status' value=$obj->status|escape} <b>on</b> {$obj->statuson|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_PRIORITY|escape}</b></td><td nowrap>{dcl_metadata_display type='priority' value=$obj->priority|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_TYPE|escape}</b></td><td nowrap>{dcl_metadata_display type='severity' value=$obj->type|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_TCK_TIME|escape}</b></td><td nowrap>{$obj->time|escape}</td></tr>
 	</table>
 </td><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Product Info</th></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_PRODUCT|escape}</b></td><td nowrap>{dcl_metadata_display type='product' value="`$obj->product`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_MODULE|escape}</b></td><td nowrap>{dcl_metadata_display type='module' value="`$obj->module`"|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_PRODUCT|escape}</b></td><td nowrap>{dcl_metadata_display type='product' value=$obj->product|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_MODULE|escape}</b></td><td nowrap>{dcl_metadata_display type='module' value=$obj->module|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_TCK_VERSION|escape}</b></td><td nowrap>{$obj->version|escape}</td></tr>
 	</table>
 </td></tr>
 <tr><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Dates</th></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_OPENEDBY|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value="`$obj->createdby`"|escape} <b>on</b> {$obj->createdon|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_CLOSEDBY|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value="`$obj->closedby`"|escape} on {$obj->closedon|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_OPENEDBY|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value=$obj->createdby|escape} <b>on</b> {$obj->createdon|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_CLOSEDBY|escape}</b></td><td nowrap>{dcl_metadata_display type='personnel' value=$obj->closedby|escape} on {$obj->closedon|escape}</td></tr>
 	<tr><td nowrap><b>{$smarty.const.STR_TCK_LASTACTIONON|escape}</b></td><td nowrap>{$obj->lastactionon|escape}</td></tr>
 	</table>
 </td><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">
 	<tr><th colspan="2" bgcolor="#cecece">Contact Info</th></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_ACCOUNT|escape}</b></td><td nowrap>{dcl_metadata_display type='org_name' value="`$obj->account`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_CONTACT|escape}</b></td><td nowrap>{dcl_metadata_display type='contact_name' value="`$obj->contact_id`"|escape}</td></tr>
-	<tr><td nowrap><b>{$smarty.const.STR_TCK_CONTACTPHONE|escape}</b></td><td nowrap>{dcl_metadata_display type='contact_phone' value="`$obj->contact_id`"|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_ACCOUNT|escape}</b></td><td nowrap>{dcl_metadata_display type='org_name' value=$obj->account|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_CONTACT|escape}</b></td><td nowrap>{dcl_metadata_display type='contact_name' value=$obj->contact_id|escape}</td></tr>
+	<tr><td nowrap><b>{$smarty.const.STR_TCK_CONTACTPHONE|escape}</b></td><td nowrap>{dcl_metadata_display type='contact_phone' value=$obj->contact_id|escape}</td></tr>
 	</table>
 </td></tr>
 <tr><td colspan="2">

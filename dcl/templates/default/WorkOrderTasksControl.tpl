@@ -1,14 +1,14 @@
 {if $VAL_STATUS_TYPE != 2}
-{literal}
+
 <script language="javascript">
 function toggleTaskComplete(iTaskID, oCheckBox)
 {
-{/literal}
+
 	location.href = "{$URL_MAIN_PHP}?menuAction=htmlWorkOrderTask.submitToggle&wo_task_id=" + iTaskID + "&task_complete=" + (oCheckBox.checked ? "Y" : "N");
-{literal}
+
 }
 </script>
-{/literal}
+
 {/if}
 {strip}
 	<table width="100%" class="dcl_results">

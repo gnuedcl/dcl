@@ -2,18 +2,18 @@
 {dcl_calendar_init}
 {dcl_validator_init}
 <script language="JavaScript">
-{literal}
+
 function validateAndSubmitForm(form)
 {
-{/literal}
-	var aValidators = new Array(
+
+	var aValidators = [
 			new ValidatorDate(form.elements["actionon"], "{$smarty.const.STR_TC_DATE}"),
 			new ValidatorSelection(form.elements["action"], "{$smarty.const.STR_TC_ACTION}"),
 			new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_TC_STATUS}"),
 			new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}"),
 			new ValidatorString(form.elements["summary"], "{$smarty.const.STR_WO_SUMMARY}")
-		);
-{literal}
+		];
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -27,11 +27,11 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 {/if}
 <script language="JavaScript">
-{literal}
+
 function submitAction(sFormName, sAction)
 {
 	var oForm = document.getElementById(sFormName);
@@ -41,7 +41,7 @@ function submitAction(sFormName, sAction)
 	oForm.menuAction.value = sAction;
 	oForm.submit();
 }
-{/literal}
+
 </script>
 <div class="dcl_detail">
 	<table class="styled">
@@ -71,10 +71,10 @@ function submitAction(sFormName, sAction)
 			<tr><th>{$smarty.const.STR_WO_LASTACTION}:</th><td>{$VAL_LASTACTIONON|escape}</td>
 				<th>Targeted Version:</th><td>{$VAL_TARGETED_VERSION|escape}</td>
 			</tr>
-			<tr><th>{$smarty.const.STR_WO_OPENBY}:</th><td>{dcl_personnel_link text=$VAL_CREATEBY id=`$WorkOrder->createby`} ({$VAL_CREATEDON|escape})</td>
+			<tr><th>{$smarty.const.STR_WO_OPENBY}:</th><td>{dcl_personnel_link text=$VAL_CREATEBY id=$WorkOrder->createby} ({$VAL_CREATEDON|escape})</td>
 				<th>Fixed Version:</th><td>{$VAL_FIXED_VERSION|escape}</td>
 			</tr>
-			<tr><th>{$smarty.const.STR_WO_CLOSEBY}:</th><td>{dcl_personnel_link text=$VAL_CLOSEDBY id=`$WorkOrder->closedby`} ({$VAL_CLOSEDON|escape})</td>
+			<tr><th>{$smarty.const.STR_WO_CLOSEBY}:</th><td>{dcl_personnel_link text=$VAL_CLOSEDBY id=$WorkOrder->closedby} ({$VAL_CLOSEDON|escape})</td>
 				<th>{$smarty.const.STR_WO_CONTACT}:</th><td>{if $VAL_CONTACTID}{if $PERM_VIEWCONTACT}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$VAL_CONTACTID}">{/if}{$VAL_CONTACT|escape}{if $PERM_VIEWCONTACT}</a>{/if}{/if}</td>
 			</tr>
 			<tr><th>{$smarty.const.STR_WO_ESTSTART}:</th><td>{$VAL_ESTSTARTON|escape}</td>
@@ -101,11 +101,11 @@ function submitAction(sFormName, sAction)
 				</td>
 			</tr>
 	{/if}
-		{if $VAL_NOTES != ""}<tr><th>{$smarty.const.STR_WO_NOTES}:</th><td colspan="3">{$VAL_NOTES|escape:"link"}</td></tr>{/if}
-		<tr><th>{$smarty.const.STR_WO_DESCRIPTION}:</th><td colspan="3">{$VAL_DESCRIPTION|escape:"link"}</td></tr>
+		{if $VAL_NOTES != ""}<tr><th>{$smarty.const.STR_WO_NOTES}:</th><td colspan="3">{$VAL_NOTES|escape|dcl_link}</td></tr>{/if}
+		<tr><th>{$smarty.const.STR_WO_DESCRIPTION}:</th><td colspan="3">{$VAL_DESCRIPTION|escape|dcl_link}</td></tr>
 	</tbody>
 	</table>
-{dcl_publish topic="WorkOrder.Detail" param="`$WorkOrder`"}
+{dcl_publish topic="WorkOrder.Detail" param=$WorkOrder}
 {include file="AttachmentsControl.tpl"}
 {include file="WorkOrderTasksControl.tpl"}
 </div>

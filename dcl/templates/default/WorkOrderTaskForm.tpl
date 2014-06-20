@@ -1,6 +1,6 @@
 {dcl_validator_init}
 <script language="JavaScript">
-{if !$IS_EDIT}{literal}
+{if !$IS_EDIT}
 	var _iCurrentID = 1;
 	function canAddNewTask()
 	{
@@ -45,7 +45,7 @@
 		var oNewFileLink = document.createElement("A");
 		oNewFileLink.rowNumber = _iCurrentID;
 		oNewFileLink.onclick = function() { toggleFile(this.rowNumber); }
-		oNewFileLink.innerHTML = "{/literal}File{literal}";
+		oNewFileLink.innerHTML = "File";
 		oNewFileLink.style.hover = "cursor: pointer; cursor: hand;";
 		oNewFileLink.id = "link_file_" + String(_iCurrentID);
 		oNewFileLink.href = "javascript:;";
@@ -54,7 +54,7 @@
 		var oNewRemove = document.createElement("A");
 		oNewRemove.rowNumber = _iCurrentID;
 		oNewRemove.onclick = function() { removeTask(this.rowNumber); }
-		oNewRemove.innerHTML = " {/literal}{$smarty.const.STR_CMMN_DELETE}{literal}";
+		oNewRemove.innerHTML = " {$smarty.const.STR_CMMN_DELETE}";
 		oNewRemove.style.hover = "cursor: pointer; cursor: hand;";
 		oNewRemove.id = "link_summary_" + String(_iCurrentID);
 		oNewRemove.href = "javascript:;";
@@ -101,15 +101,15 @@
 		if (oFileDiv)
 			oFileDiv.style.display = oFileDiv.style.display == "none" ? "" : "none";
 	}
-{/literal}{/if}
-{literal}
+{/if}
+
 	function validateAndSubmitForm(form){
 		form.submit();
 	}
 	window.onload = function() {
 		document.getElementById("task_summary_1").focus();
 	}
-{/literal}
+
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 {if $IS_EDIT}

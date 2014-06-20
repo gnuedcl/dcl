@@ -2,15 +2,15 @@
 {dcl_validator_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-{literal}
+
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorString(form.elements["first_name"], "{$VAL_FIRSTNAME|escape}"),
 			new ValidatorString(form.elements["last_name"], "{$VAL_LASTNAME|escape}"),
 			new ValidatorInteger(form.elements["org_id"], "Organization", true)
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -24,7 +24,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" name="submitForm" method="POST" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="htmlContactForm.submitAdd">

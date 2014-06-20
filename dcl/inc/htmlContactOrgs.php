@@ -114,8 +114,8 @@ class htmlContactOrgs
 		$oSmarty->assign('VAL_MIDDLENAME', $oContact->middle_name);
 		$oSmarty->assign('VAL_LASTNAME', $oContact->last_name);
 
-		$oSmarty->assign_by_ref('VAL_ORGID', $aOrgID);
-		$oSmarty->assign_by_ref('VAL_ORGNAME', $aOrgName);
+		$oSmarty->assignByRef('VAL_ORGID', $aOrgID);
+		$oSmarty->assignByRef('VAL_ORGNAME', $aOrgName);
 
 		$oSmarty->Render('ContactOrgs.tpl');
 	}

@@ -2,14 +2,14 @@
 {dcl_validator_init}
 {if !$IS_BATCH && (($PERM_MODIFYWORKORDER && $VAL_MULTIORG && !$PERM_ISPUBLIC) || ($PERM_ADDTASK))}{dcl_selector_init}{/if}
 <script language="JavaScript">
-{literal}
+
 function updateEtc(form)
 {
-	{/literal}var bUpdateEtc = {$VAL_UPDATEWOETCHOURS};
-	var oValidator = new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}");{literal}
+	var bUpdateEtc = {$VAL_UPDATEWOETCHOURS};
+	var oValidator = new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}");
 	if (bUpdateEtc && oValidator.isValid() && form.elements["etchours"].value == "")
 	{
-		{/literal}var fHours = {$VAL_WOETCHOURS} - form.elements["hours"].value;{literal}
+		var fHours = {$VAL_WOETCHOURS} - form.elements["hours"].value;
 		if (fHours < 0)
 			fHours = 0.0;
 
@@ -19,7 +19,7 @@ function updateEtc(form)
 
 function validateAndSubmitForm(form)
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorDate(form.elements["actionon"], "{$smarty.const.STR_TC_DATE}", true),
 			new ValidatorSelection(form.elements["action"], "{$smarty.const.STR_TC_ACTION}"),
@@ -28,7 +28,7 @@ function validateAndSubmitForm(form)
 			new ValidatorDecimal(form.elements["etchours"], "{$smarty.const.STR_TC_ETC}", {if !$IS_BATCH}true{else}false{/if}),
 			new ValidatorString(form.elements["summary"], "{$smarty.const.STR_TC_SUMMARY}")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -42,7 +42,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" name="NewAction" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
 	<input type="hidden" name="menuActionExExExExEx" value="{$VAL_MENUACTION}">
@@ -170,7 +170,7 @@ function validateAndSubmitForm(form)
 </form>
 <script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
 <script type="text/javascript">
-	//<![CDATA[{literal}
+	//<![CDATA[
 	$(document).ready(function() {
 		$("textarea").BetterGrow();
 
@@ -195,7 +195,7 @@ function validateAndSubmitForm(form)
 			.autocomplete({
 				minLength: 2,
 				source: function( request, response ) {
-					$.getJSON("{/literal}{$URL_MAIN_PHP}{literal}?menuAction=Tag.Autocomplete", { term: extractLast(request.term) }, response);
+					$.getJSON("{$URL_MAIN_PHP}?menuAction=Tag.Autocomplete", { term: extractLast(request.term) }, response);
 				},
 				search: function() {
 					var term = extractLast(this.value);
@@ -225,7 +225,7 @@ function validateAndSubmitForm(form)
 			.autocomplete({
 				minLength: 2,
 				source: function( request, response ) {
-					$.getJSON("{/literal}{$URL_MAIN_PHP}{literal}?menuAction=Hotlist.Autocomplete", { term: extractLast(request.term) }, response);
+					$.getJSON("{$URL_MAIN_PHP}?menuAction=Hotlist.Autocomplete", { term: extractLast(request.term) }, response);
 				},
 				search: function() {
 					var term = extractLast(this.value);
@@ -246,5 +246,5 @@ function validateAndSubmitForm(form)
 				}
 			});
 	});
-	//]]>{/literal}
+	//]]>
 </script>

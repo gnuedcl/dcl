@@ -147,7 +147,7 @@ class reportPersonnelActivity
 			if ($bExport)
 				commonHeader();
 
-			trigger_error(STR_WOST_DATEERR, E_USER_ERROR);
+			ShowError(STR_WOST_DATEERR);
 			$this->GetParameters(false);
 			return;
 		}
@@ -167,19 +167,19 @@ class reportPersonnelActivity
 			if ($bExport)
 				commonHeader();
 
-			trigger_error('Timesheet report must by grouped by project, action, action by, or product.', E_USER_ERROR);
+			ShowError('Timesheet report must by grouped by project, action, action by, or product.');
 			$this->GetParameters(false);
 			return;
 		}
 		
 		if ($_REQUEST['groupby'] == '5' && $_REQUEST['bytype'] != '2')
 		{
-			trigger_error('Grouping by Action By must use report by department.', E_USER_ERROR);
+			ShowError('Grouping by Action By must use report by department.');
 			$this->GetParameters(false);
 			return;
 		}
 		
-		$aStatuses = Filter::ToIntArray($_REQUEST['status']);
+		$aStatuses = @Filter::ToIntArray($_REQUEST['status']);
 
 		$objDB = new DbProvider;
 		
@@ -510,7 +510,7 @@ class reportPersonnelActivity
 				if ($bExport)
 					commonHeader();
 
-				trigger_error(STR_WOST_NOACTIVITY, E_USER_NOTICE);
+				ShowInfo(STR_WOST_NOACTIVITY);
 				$this->getparameters(false);
 			}
 		}
@@ -974,7 +974,7 @@ class reportPersonnelActivity
 				if ($bExport)
 					commonHeader();
 
-				trigger_error(STR_WOST_NOACTIVITY, E_USER_NOTICE);
+				ShowInfo(STR_WOST_NOACTIVITY);
 				$this->getparameters(false);
 			}
 		}
@@ -983,7 +983,7 @@ class reportPersonnelActivity
 			if ($bExport)
 				commonHeader();
 
-			trigger_error(STR_WOST_QUERYERR, E_USER_ERROR);
+			ShowError(STR_WOST_QUERYERR);
 		}
 	}
 }

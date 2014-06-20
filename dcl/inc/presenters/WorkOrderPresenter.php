@@ -254,7 +254,7 @@ class WorkOrderPresenter
 		$oMeta = new DisplayHelper();
 		$smarty = new SmartyHelper();
 		
-		$smarty->assign_by_ref('WorkOrder', $workOrder);
+		$smarty->assignByRef('WorkOrder', $workOrder);
 		$smarty->assign('IS_PUBLIC', $g_oSec->IsPublicUser());
 
 		$smarty->assign('VAL_FORMACTION', menuLink());
@@ -992,7 +992,7 @@ class WorkOrderPresenter
 			$viewData->WorkOrderId = 0;
 
 		$smartyHelper = new SmartyHelper();
-		$smartyHelper->assign_by_ref('ViewData', $viewData);
+		$smartyHelper->assignByRef('ViewData', $viewData);
 		$smartyHelper->Render('WorkOrderForm.tpl');
 	}
 	
@@ -1029,7 +1029,7 @@ class WorkOrderPresenter
 		}
 		
 		$smartyHelper = new SmartyHelper();
-		$smartyHelper->assign_by_ref('ViewData', $viewData);
+		$smartyHelper->assignByRef('ViewData', $viewData);
 		$smartyHelper->Render('WorkOrderForm.tpl');
 	}
 	

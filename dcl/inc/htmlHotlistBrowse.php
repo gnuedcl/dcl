@@ -39,10 +39,7 @@ class htmlHotlistBrowse
 		global $g_oSec;
 
 		if (!is_object($oView))
-		{
-			trigger_error('[htmlHotlistBrowse::Render] ' . STR_VW_VIEWOBJECTNOTPASSED);
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();

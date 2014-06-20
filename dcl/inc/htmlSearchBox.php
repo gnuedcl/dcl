@@ -69,7 +69,7 @@ class htmlSearchBox
 				$this->searchHotlists($search_text);
 				break;
 			default:
-				trigger_error('Error');
+				throw new InvalidArgumentException();
 				break;
 		}
 	}
@@ -80,10 +80,7 @@ class htmlSearchBox
 
 		commonHeader();
 		if ($sWorkOrders == '' || $sWorkOrders < 1)
-		{
-			trigger_error(STR_WO_NEEDJCNERR);
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		if (strpos($sWorkOrders, '-') > 0 && strpos($sWorkOrders, ',') === false)
 		{

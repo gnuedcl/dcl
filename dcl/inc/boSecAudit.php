@@ -60,7 +60,7 @@ class boSecAudit
 		{
 			commonHeader();
 
-			trigger_error(STR_SEC_DATEERR, E_USER_ERROR);
+			ShowError(STR_SEC_DATEERR);
 			$this->Show(false);
 			return;
 		}
@@ -113,7 +113,7 @@ class boSecAudit
 			}
 			else
 			{
-				trigger_error(STR_SEC_RPTNODATA, E_USER_ERROR);
+				ShowInfo(STR_SEC_RPTNODATA);
 				$this->Show(false);
 				return;
 			}
@@ -124,7 +124,7 @@ class boSecAudit
 		$obj = new htmlSecAudit();
 		if (!$obj->Render($reportAr, $begindate, $enddate, $respname))
 		{
-			trigger_error(STR_SEC_RPTERROR, E_USER_ERROR);
+			ShowError(STR_SEC_RPTERROR);
 			$this->Show(false);
 			return;
 		}

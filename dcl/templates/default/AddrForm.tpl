@@ -1,5 +1,4 @@
 <script language="JavaScript">
-{literal}
 	function validateAndSubmitForm(form)
 	{
 		if (form.elements["addr_type_id"].selectedIndex < 1)
@@ -9,7 +8,7 @@
 		}
 
 		var bSubmit = false;
-		var aCheck = new Array("add1", "add2", "city", "state", "zip", "country");
+		var aCheck = ["add1", "add2", "city", "state", "zip", "country"];
 		for (var sID in aCheck)
 		{
 			if (form.elements[sID].value != "")
@@ -24,7 +23,6 @@
 		else
 			alert("At least one of the address fields needs is required to be populated.");
 	}
-{/literal}
 </script>
 <form class="styled" method="post" name="submitForm" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">

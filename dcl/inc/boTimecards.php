@@ -50,7 +50,7 @@ class boTimecards
 		$oTasks = new WorkOrderTaskModel();
 		if ($oTasks->CloseAllIncompleteTasksForWorkOrder($wo_id, $seq))
 		{
-			trigger_error('Remaining incomplete tasks have been marked as closed by you.', E_USER_WARNING);
+			ShowInfo('Remaining incomplete tasks have been marked as closed by you.');
 		}
 	}
 
@@ -212,11 +212,11 @@ class boTimecards
 			$aSelected = array();
 			foreach ($_REQUEST['selected'] as $key => $val)
 			{
-				list($objTimecard->jcn, $objTimecard->seq) = explode('.', $val);
+				list($jcn, $seq) = explode('.', $val);
 				
-				$objTimecard->jcn = Filter::ToInt($objTimecard->jcn);
-				$objTimecard->seq = Filter::ToInt($objTimecard->seq);
-				if ($objTimecard->jcn === null || $objTimecard->seq === null)
+				$jcn = Filter::ToInt($jcn);
+				$seq = Filter::ToInt($seq);
+				if ($jcn === null || $seq === null)
 					continue;
 
 				$aSelected[] = $val;
@@ -575,7 +575,7 @@ class boTimecards
 			$objTC->RollbackTransaction();
 		}
 
-		trigger_error(sprintf(STR_BO_TIMECARDDELETED, $objTC->id, $objWO->jcn, $objWO->seq), E_USER_NOTICE);
+		ShowInfo(sprintf(STR_BO_TIMECARDDELETED, $objTC->id, $objWO->jcn, $objWO->seq));
 
 		$workOrderPresenter = new WorkOrderPresenter();
 		$workOrderPresenter->Detail($objWO);

@@ -42,7 +42,7 @@ class WorkOrderTimesheetModel extends DbProvider
 			$query  = 'INSERT INTO dcl_wo_account (personnel_id, wo_id, seq) Values (' . $sValues . ')';
 			if ($this->Insert($query) == -1)
 			{
-				trigger_error(sprintf('Error updating timesheet for work order.  %s', $query), E_USER_ERROR);
+				LogError(sprintf('Error updating timesheet for work order.  %s', $query), __FILE__, __LINE__, debug_backtrace());
 			}
 		}
 	}

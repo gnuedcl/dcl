@@ -89,11 +89,9 @@ class htmlWatches
 		$obj = new WatchesModel();
 
 		$obj->Query(sprintf('SELECT * FROM watches WHERE whoid=%d ORDER BY typeid,watchid', DCLID));
-		$bGotSome = true;
 		if (!$obj->next_record())
 		{
-			$bGotSome = false;
-			trigger_error(STR_WTCH_YOUHAVENONE, E_USER_NOTICE);
+			ShowInfo(STR_WTCH_YOUHAVENONE);
 			return;
 		}
 

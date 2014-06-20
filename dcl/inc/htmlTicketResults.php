@@ -32,11 +32,8 @@ class htmlTicketResults
 		global $dcl_info, $g_oSec;
 
 		if (!is_object($oView))
-		{
-			trigger_error('[htmlTicketResults::Render] ' . STR_VW_VIEWOBJECTNOTPASSED);
-			return;
-		}
-		
+			throw new InvalidArgumentException();
+
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 			throw new PermissionDeniedException();
 

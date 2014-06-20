@@ -6,7 +6,7 @@
 	<caption>Prioritize Hotlist [{$VAL_HOTLIST_NAME|escape}]</caption>
 </table>
 <style type="text/css">
-{literal}
+
 ol { padding: 0px; }
 ol li { display: block;	float: left; width: 140px; margin-right: 4px; margin-bottom: 4px; background-color: #efefef; border: solid #999999 1px; padding: 4px; cursor: move; }
 ol li.remove-item { background-color: #ffe6e6; }
@@ -14,7 +14,7 @@ ol li h2 { float: left; text-decoration: none; border: 0px none; padding: 4px; c
 ol li.remove-item h2 { color: #650000; }
 ol li p { border: solid #cecece 1px; height: 60px; background-color: #ffffff; text-overflow: ellipsis; overflow: hidden; margin: 0px; padding: 2px; }
 .clear-left { float: left; clear: left; }
-{/literal}
+
 </style>
 <p>Drag and drop the items to define your priority order.</p>
 <ol id="item_list">
@@ -31,7 +31,7 @@ ol li p { border: solid #cecece 1px; height: 60px; background-color: #ffffff; te
 <div class="clear"></div>
 <script language="javascript">
 //<![CDATA[
-{literal}
+
 $(document).ready(function() {
 	function updateIndexes() {
 		var index = 0;
@@ -42,7 +42,7 @@ $(document).ready(function() {
 		
 	function getData() {
 		var regEx = /^[^_\-](?:[A-Za-z0-9\-]*)[_](.*)$/;
-		var retVal = "menuAction=Hotlist.SavePriority&hotlist_id={/literal}{$VAL_HOTLIST_ID}{literal}&" + 
+		var retVal = "menuAction=Hotlist.SavePriority&hotlist_id={$VAL_HOTLIST_ID}&" +
 			$("#item_list").sortable("serialize", { key: "item[]", expression: regEx });
 				
 		var $removeItems = $("#item_list li.remove-item");
@@ -65,10 +65,10 @@ $(document).ready(function() {
 	$("#ItemSave").click(function() {
 		$.ajax({
 			type: 'POST',
-			url: "{/literal}{$URL_MAIN_PHP}{literal}",
+			url: "{$URL_MAIN_PHP}",
 			data: getData(),
 			success: function() {
-				location.href = "{/literal}{$URL_MAIN_PHP}{literal}?menuAction=htmlHotlistBrowse.show";
+				location.href = "{$URL_MAIN_PHP}?menuAction=htmlHotlistBrowse.show";
 			},
 			error: function() {
 				alert("Could not save hotlist priority order.");
@@ -100,6 +100,6 @@ $(document).ready(function() {
 		});
 	});
 });
-{/literal}
+
 //]]>
 </script>

@@ -145,7 +145,7 @@ class FaqPresenter
 
 		$objF = new FaqTopicsModel();
 		$objF->LoadByFaqID($model->faqid);
-		$oSmarty->assign_by_ref('VAL_TOPICS', $objF->ResultToArray());
+		$oSmarty->assignByRef('VAL_TOPICS', $objF->ResultToArray());
 
 		$oSmarty->Render('FaqDetail.tpl');
 	}

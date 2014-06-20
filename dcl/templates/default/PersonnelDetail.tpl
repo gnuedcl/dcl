@@ -1,4 +1,4 @@
-<h1>{dcl_gravatar userId=`$Personnel->id` style="margin-right:4px;"} {$Contact->first_name|escape} {$Contact->last_name|escape} ({$Personnel->short|escape})</h1>
+<h1>{dcl_gravatar userId=$Personnel->id style="margin-right:4px;"} {$Contact->first_name|escape} {$Contact->last_name|escape} ({$Personnel->short|escape})</h1>
 <div id="tabs">
 	<ul>
 		<li><a href="#tab-1">Dashboard</a></li>
@@ -22,8 +22,8 @@
 		{$VAL_RECENTACTIVITY}
 	</div>
 </div>
-<script type="text/javascript">{literal}
+<script type="text/javascript">
 	$(document).ready(function() {
 		$("#tabs").tabs();
 	});
-{/literal}</script>
+</script>

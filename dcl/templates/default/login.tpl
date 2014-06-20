@@ -5,21 +5,21 @@
 	<meta http-equiv="Set-Cookie" content="DCLINFO=;expires=Sunday, 31-Dec-2000 23:59:59 GMT">
 	<meta http-equiv="Expires" content="-1">
 	<title>{$TXT_TITLE}</title>
-	<script language="JavaScript">{literal}
+	<script language="JavaScript">
 	function init()
 	{
 		document.forms[0].elements['UID'].focus();
 	}
-	{/literal}</script>
+	</script>
 	<link rel="stylesheet" href="{$DIR_CSS}default.css" type="text/css"></link>
 </head>
 <body onload="init();">
 <h3>{$VAL_WELCOME}</h3>
 <form class="styled login" method="post" action="login.php" autocomplete="off">
-{if $VAL_REFERTO}<input type="hidden" name="refer_to" value="{$VAL_REFERTO|escape:"rawurl"}">{/if}
+{if isset($VAL_REFERTO)}<input type="hidden" name="refer_to" value="{$VAL_REFERTO|escape:"rawurl"}">{/if}
 	<fieldset>
 		<legend>{$TXT_LOGIN}</legend>
-{if $VAL_ERROR}
+{if isset($VAL_ERROR)}
 		<div class="help">{$VAL_ERROR}</div>
 {/if}
 		<div class="required">

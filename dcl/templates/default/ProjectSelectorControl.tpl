@@ -2,7 +2,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="{$DIR_CSS}default.css" />
 		<script language="JavaScript">
-{literal}
+
 			var oLastButton = null;
 			var sStartsWith = '';
 			var sActiveFilter = '';
@@ -80,11 +80,11 @@
 			
 			function getFilter()
 			{
-{/literal}
+
 				var sURL = '{$smarty.const.DCL_WWW_ROOT}main.php?menuAction=htmlProjectSelector.showBrowseFrame';
 				sURL += '&filterStartsWith=' + sStartsWith;
 				sURL += '&multiple={$VAL_MULTIPLE}';
-{literal}
+
 				var oStatus = document.getElementById('filterStatus');
 				if (oStatus)
 				{
@@ -212,7 +212,7 @@
 				
 				bInitComplete = true;
 			}
-{/literal}
+
 		</script>
 	</head>
 	<body onload="init();">

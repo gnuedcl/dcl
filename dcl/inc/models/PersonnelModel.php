@@ -104,7 +104,7 @@ class PersonnelModel extends DbProvider
 		{
 			if ($this->IsPasswordOK($userID, $oldPassword) == false)
 			{
-				trigger_error(STR_DB_WRONGPWD, E_USER_ERROR);
+				ShowError(STR_DB_WRONGPWD);
 				$presenter = new PersonnelPresenter();
 				$presenter->EditPassword();
 				return;
@@ -113,7 +113,7 @@ class PersonnelModel extends DbProvider
 
 		$query = 'UPDATE personnel SET pwd=' . $this->Quote(md5($newPassword)) . ' WHERE id=' . $userID;
 		$this->Execute($query);
-		trigger_error(STR_DB_PWDCHGSUCCESS, E_USER_NOTICE);
+		ShowInfo(STR_DB_PWDCHGSUCCESS, E_USER_NOTICE);
 	}
 
 	public function Encrypt()

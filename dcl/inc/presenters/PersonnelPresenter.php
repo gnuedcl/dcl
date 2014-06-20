@@ -135,8 +135,8 @@ class PersonnelPresenter
 		$contactModel->Load($personnelModel->contact_id);
 		
 		$smarty = new SmartyHelper();
-		$smarty->assign_by_ref('Personnel', $personnelModel);
-		$smarty->assign_by_ref('Contact', $contactModel);
+		$smarty->assignByRef('Personnel', $personnelModel);
+		$smarty->assignByRef('Contact', $contactModel);
 		
 		$sSQL = '';
 	    $sSQL = $this->GetScopeSQL($personnelId);

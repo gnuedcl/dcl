@@ -77,7 +77,7 @@ class DbProvider extends AbstractDbProvider
 		{
 			if (!($this->res = OCIParse($this->conn, $query)))
 			{
-				trigger_error("Error parsing query: $query");
+				LogError("Error parsing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return $this->ReportError($this->conn);
 			}
 
@@ -88,7 +88,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error("Error executing query: $query");
+				LogError("Error executing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return $this->ReportError($this->res);
 			}
 		}
@@ -108,7 +108,7 @@ class DbProvider extends AbstractDbProvider
 		{
 			if (!($this->res = OCIParse($this->conn, $query)))
 			{
-				trigger_error("Error parsing query: $query");
+				LogError("Error parsing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return $this->ReportError($this->conn);
 			}
 
@@ -128,7 +128,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error("Error executing query: $query");
+				LogError("Error executing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
@@ -142,7 +142,7 @@ class DbProvider extends AbstractDbProvider
 		{
 			if (!($res = OCIParse($this->conn, $query)))
 			{
-				trigger_error("Error parsing query: $query");
+				LogError("Error parsing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return $this->ReportError($this->conn);
 			}
 
@@ -152,7 +152,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error("Error executing query: $query");
+				LogError("Error executing query: $query", __FILE__, __LINE__, debug_backtrace());
 				return $this->ReportError($res);
 			}
 		}
@@ -169,7 +169,7 @@ class DbProvider extends AbstractDbProvider
 
 		if (!($res = OCIParse($this->conn, $sql)))
 		{
-			trigger_error("Error parsing query: $sql");
+			LogError("Error parsing query: $sql", __FILE__, __LINE__, debug_backtrace());
 			return $this->ReportError($this->conn);
 		}
 
@@ -342,7 +342,7 @@ class DbProvider extends AbstractDbProvider
 	{
 		if (!($res = OCIParse($this->conn, "select currval(seq_$sTable)")))
 		{
-			trigger_error("Error parsing insert ID query!");
+			LogError("Error parsing insert ID query!", __FILE__, __LINE__, debug_backtrace());
 			return $this->ReportError($this->conn);
 		}
 
@@ -353,7 +353,7 @@ class DbProvider extends AbstractDbProvider
 			return $Record[0];
 		}
 
-		trigger_error("Error executing insert ID query!");
+		LogError("Error executing insert ID query!", __FILE__, __LINE__, debug_backtrace());
 		return $this->ReportError($res);
 	}
 

@@ -1,11 +1,11 @@
 {dcl_validator_init}
 <script language="JavaScript">
-{literal}
+
 function validateAndSubmit(f)
 {
 	f.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="htmlPreferences.submitModify">

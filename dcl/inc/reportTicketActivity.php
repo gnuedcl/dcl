@@ -59,7 +59,7 @@ class reportTicketActivity
 			($responsible = Filter::ToInt($_REQUEST['responsible'])) === null
 			)
 		{
-			trigger_error('All fields are required.');
+			ShowError('All fields are required.');
 			$this->GetParameters(false);
 			return;
 		}
@@ -129,12 +129,12 @@ class reportTicketActivity
 			}
 			else
 			{
-				trigger_error(STR_WOST_NOACTIVITY, E_USER_NOTICE);
+				ShowInfo(STR_WOST_NOACTIVITY);
 			}
 		}
 		else
 		{
-			trigger_error(STR_WOST_QUERYERR, E_USER_ERROR);
+			ShowError(STR_WOST_QUERYERR);
 		}
 	}
 }

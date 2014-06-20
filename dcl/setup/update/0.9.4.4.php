@@ -1679,7 +1679,7 @@ function dcl_upgrade0_9_4_4()
 		array('lastname', 'firstname', 'security', 'email')
 	);
 
-	$phpgw_setup->oProc->Query("DELETE FROM dcl_config WHERE dcl_config_name IN ('DCL_ADD_USER', 'DCL_DEL_WO', 'DCL_MOD_WO', 'DCL_ASSIGN_WO', 'DCL_ADD_WO', 'DCL_HAVE_WO', 'DCL_CHG_PWD', 'DCL_COLOR_DARK', 'DCL_COLOR_LIGHT', 'DCL_WIKI_VIEW', 'DCL_WIKI_VIEW')");
+	$phpgw_setup->oProc->Query("DELETE FROM dcl_config WHERE dcl_config_name IN ('DCL_ADD_USER', 'DCL_DEL_WO', 'DCL_MOD_WO', 'DCL_ASSIGN_WO', 'DCL_ADD_WO', 'DCL_HAVE_WO', 'DCL_CHG_PWD', 'DCL_COLOR_DARK', 'DCL_COLOR_LIGHT', 'DCL_WIKI_VIEW', 'DCL_WIKI_EDIT')");
 	$phpgw_setup->oProc->Query("insert into dcl_config (dcl_config_name, dcl_config_field, dcl_config_int) values ('DCL_GATEWAY_WO_ACCOUNT', 'dcl_config_int', 0)");
 	$phpgw_setup->oProc->Query("insert into dcl_config (dcl_config_name, dcl_config_field, dcl_config_int) values ('DCL_GATEWAY_WO_REPLY_LOGGED_BY', 'dcl_config_int', 0)");
 	$phpgw_setup->oProc->Query("UPDATE dcl_config SET dcl_config_varchar='0.9.5RC1' WHERE dcl_config_name='DCL_VERSION'");

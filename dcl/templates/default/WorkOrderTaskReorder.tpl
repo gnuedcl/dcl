@@ -11,17 +11,17 @@
 </ul>
 <script language="javascript">
 //<![CDATA[
-{literal}
+
 $(document).ready(function() {
 	$("#task_list").sortable();
 	$("#task_list").disableSelection();
 	$("#TaskSave").click(function() {
 		$.ajax({
 			type: 'POST',
-			url: "{/literal}{$URL_MAIN_PHP}{literal}",
-			data: "menuAction=htmlWorkOrderTask.submitReorder&wo_id={/literal}{$VAL_JCN}&seq={$VAL_SEQ}{literal}&" + $("#task_list").sortable("serialize"),
+			url: "{$URL_MAIN_PHP}",
+			data: "menuAction=htmlWorkOrderTask.submitReorder&wo_id={$VAL_JCN}&seq={$VAL_SEQ}&" + $("#task_list").sortable("serialize"),
 			success: function() {
-				location.href = "{/literal}{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_JCN}&seq={$VAL_SEQ}{literal}";
+				location.href = "{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_JCN}&seq={$VAL_SEQ}";
 			},
 			error: function() {
 				alert("Could not save task order.");
@@ -30,6 +30,6 @@ $(document).ready(function() {
 		});
 	});
 });
-{/literal}
+
 //]]>
 </script>

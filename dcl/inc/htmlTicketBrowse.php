@@ -41,10 +41,7 @@ class htmlTicketBrowse
 		global $dcl_info, $g_oSec;
 
 		if (!is_object($oView))
-		{
-			trigger_error('[htmlTicketBrowse::Render] ' . STR_VW_VIEWOBJECTNOTPASSED);
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
 			throw new PermissionDeniedException();

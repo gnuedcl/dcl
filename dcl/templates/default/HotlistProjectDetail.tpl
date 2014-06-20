@@ -1,5 +1,5 @@
 <script language="JavaScript">
-{literal}
+
 function forceSubmit(sAction)
 {
 	var f = document.frmProject;
@@ -54,7 +54,7 @@ function showAccounts(iWOID, iSeq)
 	var sURL = 'main.php?menuAction=htmlWindowList.FrameRender&what=dcl_wo_account.wo_id&wo_id=' + iWOID + '&seq=' + iSeq;
 	var newWin = window.open(sURL, '_dcl_selector_', 'width=500,height=255');
 }
-{/literal}
+
 </script>
 <div class="dcl_detail">
 	<form style="display:none;" method="post" action="{$URL_MAIN_PHP}" id="frmProject" name="frmProject" onsubmit="return processSubmit(this);">
@@ -80,7 +80,7 @@ function showAccounts(iWOID, iSeq)
 				<th>{$smarty.const.STR_PRJ_HOURSREM}:</th><td>{$VAL_ETCHOURS|escape}</td>
 			</tr>
 			<tr><th>{$smarty.const.STR_PRJ_DESCRIPTION}:</th>
-				<td colspan="3">{$VAL_DESCRIPTION|escape:"link"}</td>
+				<td colspan="3">{$VAL_DESCRIPTION|escape|dcl_link}</td>
 			</tr>
 		</tbody>
 	</table>

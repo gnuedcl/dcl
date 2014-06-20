@@ -2,14 +2,14 @@
 {dcl_calendar_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-{literal}
+
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorDate(form.elements["endon"], "Ending On"),
 			new ValidatorInteger(form.elements["days"], "Show for # Days", true)
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -23,7 +23,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="htmlProjectTimeline.Render">

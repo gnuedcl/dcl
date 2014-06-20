@@ -164,7 +164,7 @@ class htmlPersonnelSelector
 
 			$this->oDB->FreeResult();
 
-			$this->oSmarty->assign_by_ref('VAL_USERS', $aUsers);
+			$this->oSmarty->assignByRef('VAL_USERS', $aUsers);
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 

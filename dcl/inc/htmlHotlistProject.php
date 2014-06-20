@@ -78,10 +78,7 @@ class htmlHotlistProject
 			throw new PermissionDeniedException();
 
 		if ($this->hotlist->Load($id) == -1)
-		{
-			trigger_error('Could not find a hotlist with an id of ' . $id, E_USER_ERROR);
-			return;
-		}
+			throw new InvalidEntityException();
 
 		$oMeta = new DisplayHelper();
 
@@ -220,7 +217,7 @@ class htmlHotlistProject
 					$this->oSmarty->assign('VAL_GROUPBY', $sGroupBy);
 				}
 
-				$this->oSmarty->assign_by_ref('VAL_TASKS', $aTasks);
+				$this->oSmarty->assignByRef('VAL_TASKS', $aTasks);
 			}
 		}
 	}

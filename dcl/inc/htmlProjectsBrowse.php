@@ -41,10 +41,7 @@ class htmlProjectsBrowse
 		global $dcl_info, $g_oSec;
 
 		if (!is_object($oView))
-		{
-			trigger_error('[htmlProjectsBrowse::Render] ' . STR_VW_VIEWOBJECTNOTPASSED);
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();

@@ -29,10 +29,7 @@ class htmlTicketDetail
 		global $dcl_info, $g_oSec;
 
 		if ($obj == null)
-		{
-			trigger_error('A TicketsModel object was not passed to htmlTicketDetail::Show()!');
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		if (!$g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW, $obj->ticketid), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT, $obj->ticketid), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED, $obj->ticketid)))))
 			throw new PermissionDeniedException();

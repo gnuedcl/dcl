@@ -1,7 +1,7 @@
 <tr>
 	<td>
 		<dl>
-			<dt><strong>{dcl_personnel_link text=$VAL_ACTIONBY id=`$TimeCard->actionby`}</strong> {$VAL_SUMMARY|escape}</dt>
+			<dt><strong>{dcl_personnel_link text=$VAL_ACTIONBY id=$TimeCard->actionby}</strong> {$VAL_SUMMARY|escape}</dt>
 			<dd><strong>{$VAL_ACTION|escape}</strong> @ <strong>{$VAL_ACTIONON}</strong> for <strong>{$VAL_HOURS}</strong> Hours
 {if $IS_DELETE}
 		<form method="post" action="{$URL_MAIN_PHP}">
@@ -25,5 +25,5 @@
 {/if}
 		</dl>
 	</td>
-	{if $VAL_DESCRIPTION != ""}<td>{$VAL_DESCRIPTION|escape:"link"}</td>{/if}
+	{if $VAL_DESCRIPTION != ""}<td>{$VAL_DESCRIPTION|escape|dcl_link}</td>{/if}
 </tr>

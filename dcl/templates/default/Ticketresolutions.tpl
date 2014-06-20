@@ -25,6 +25,6 @@
 		<td class="detailBox"><b>{$smarty.const.STR_CMMN_PUBLIC}:</b> {$VAL_PUBLIC}</td>
 		<td class="detailBox"><b>{$smarty.const.STR_TCK_APPROXTIME}:</b> {$VAL_HOURSTEXT}</td>
 	</tr>
-	<tr><td colspan="2"><b>{$smarty.const.STR_TCK_RESOLUTION}:</b> {$VAL_RESOLUTION|escape:"link"}</td></tr>
+	<tr><td colspan="2"><b>{$smarty.const.STR_TCK_RESOLUTION}:</b> {$VAL_RESOLUTION|escape|dcl_link}</td></tr>
 	</table>
 </td></tr>

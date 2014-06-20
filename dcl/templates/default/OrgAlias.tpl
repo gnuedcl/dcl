@@ -1,13 +1,13 @@
 {dcl_validator_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-{literal}
+
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorString(form.elements["alias"], "Alias")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -21,7 +21,7 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" method="post" name="submitForm" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">

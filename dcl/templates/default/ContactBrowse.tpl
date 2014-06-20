@@ -4,7 +4,7 @@
 	var iMaxPages = {$VAL_MAXPAGE};
 	var sStartsWith = '{$VAL_FILTERSTART}';
 	var sActiveFilter = '{$VAL_FILTERACTIVE}';
-{literal}
+
 	var oLastButton = null;
 
 	function selectStartsWith(oButton, sLetter)
@@ -31,9 +31,9 @@
 
 	function getFilter()
 	{
-{/literal}
+
 		var sURL = '{$URL_MAIN_PHP}?menuAction=htmlContactBrowse.show';
-{literal}
+
 		sURL += '&filterStartsWith=' + sStartsWith;
 		sURL += '&filterActive=' + sActiveFilter;
 
@@ -156,21 +156,21 @@
 				iCount++;
 			}
 		}
-{/literal}
+
 		if (iCount < 2)
 			alert("You must select 2 or more contacts to merge");
 		else
 			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContact.merge&contact_id=" + sID;
-{literal}
+
 	}
 
 	function init()
 	{
 		document.getElementById('jumptopage').onkeydown = jumpToPage;
 		document.getElementById('filterName').onkeydown = searchName;
-{/literal}
+
 		var sFilterStart = "{$VAL_FILTERSTART}";
-{literal}
+
 		if (sFilterStart == "")
 			sFilterStart = "All";
 
@@ -179,7 +179,7 @@
 	}
 
 	window.onload = init;
-{/literal}
+
 </script>
 <table style="width: 100%;" cellspacing="0">
 	<tr>
@@ -231,7 +231,7 @@
 		<td>{$VAL_CONTACTS[contact].org_name|escape}</td>
 		<td>{$VAL_CONTACTS[contact].phone_number|escape}</td>
 		<td>{if $VAL_CONTACTS[contact].email_addr != ""}{mailto address=$VAL_CONTACTS[contact].email_addr}{else}&nbsp;{/if}</td>
-		<td>{$VAL_CONTACTS[contact].url_addr|escape:link}</td>
+		<td>{$VAL_CONTACTS[contact].url_addr|escape|dcl_link}</td>
 		</tr>
 	{sectionelse}
 		<tr><td colspan="2">No matches.</td></tr>

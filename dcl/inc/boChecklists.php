@@ -247,11 +247,11 @@ class boChecklists
 			{
 				// couldn't copy it, so remove the record...
 				$o->Delete();
-				trigger_error(STR_CHK_COULDNOTCOPYTPL);
+				ShowError(STR_CHK_COULDNOTCOPYTPL);
 			}
 		}
 		else
-			trigger_error(STR_CHK_ERRORDATABASEENTRY);
+			ShowError(STR_CHK_ERRORDATABASEENTRY);
 	}
 
 	function modify()

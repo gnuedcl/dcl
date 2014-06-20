@@ -54,16 +54,19 @@
 </ul></div>{/strip}
 <div style="clear: both;"></div>
 <script type="text/javascript">
-//<![CDATA[{literal}
+//<![CDATA[
 $(document).ready(function() {
 	$(".sf-menu").supersubs().superfish();
 	var $notification = $("div.dcl-notification");
 	if ($notification.length > 0) {
-		$.gritter.add({title: $notification.attr("title"), text: $notification.text()});
+		$.gritter.add({
+			title: $notification.attr("title"),
+			text: $notification.text()
+		});
 	}
-{/literal}{if $PERM_WORKSPACE}{literal}$("#workspace_id").change(function() { location.href = "{/literal}{$URL_MAIN_PHP}{literal}?menuAction=htmlWorkspaceForm.changeWorkspace&workspace_id=" + $(this).val(); });{/literal}{/if}{literal}
+{if $PERM_WORKSPACE}$("#workspace_id").change(function() { location.href = "{$URL_MAIN_PHP}?menuAction=htmlWorkspaceForm.changeWorkspace&workspace_id=" + $(this).val(); });{/if}
 });
-{/literal}//]]>
+//]]>
 </script>
 <div id="left">{$NAV_BOXEN}</div>
 <div id="content"><div style="width:100%;">

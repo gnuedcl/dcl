@@ -1,7 +1,7 @@
 <script language="JavaScript">
 	var sStartsWith = '{$VAL_FILTERSTART}';
 	var sActiveFilter = '{$VAL_FILTERACTIVE}';
-{literal}
+
 	var oLastButton = null;
 
 	function selectStartsWith(oButton, sLetter)
@@ -85,20 +85,20 @@
 				iCount++;
 			}
 		}
-{/literal}
+
 		if (iCount < 2)
 			alert("You must select 2 or more contacts to merge");
 		else
 			location.href = "{$URL_MAIN_PHP}?menuAction=htmlContact.merge&contact_id=" + sID;
-{literal}
+
 	}
 
 	function init()
 	{
 		document.getElementById('filterSearch').onkeydown = searchName;
-{/literal}
+
 		var sFilterStart = "{$VAL_FILTERSTART}";
-{literal}
+
 		if (sFilterStart == "")
 			sFilterStart = "All";
 
@@ -106,7 +106,7 @@
 	}
 
 	window.onload = init;
-{/literal}
+
 </script>
 <div class="dcl_filter">
 	<form name="pager" method="post" action="{$URL_MAIN_PHP}">

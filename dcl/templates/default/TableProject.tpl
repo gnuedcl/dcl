@@ -1,5 +1,5 @@
 <script language="JavaScript">
-{literal}
+
 function toggle(btnSender)
 {
 	var bChk = btnSender.checked;
@@ -41,7 +41,7 @@ function submitBatch()
 function jumpToPage(iPage)
 {
 }
-{/literal}
+
 </script>
 <div class="dcl_filter">
 	<form name="pager" method="post" action="{$URL_MAIN_PHP}">
@@ -137,7 +137,6 @@ function jumpToPage(iPage)
 			{if $smarty.section.item.last}
 			<td>
 				<a href="{$URL_MAIN_PHP}?menuAction=Project.Detail&id={$records[row][0]}">Detail</a>
-				&nbsp;|&nbsp;<a href="{$URL_MAIN_PHP}?menuAction=Project.Tree&project={$records[row][0]}">Tree</a>
 				{if $VAL_WIKIUSED}&nbsp;|&nbsp;<a href="{$URL_MAIN_PHP}?menuAction=Project.Detail&id={$records[row][0]}">{$smarty.const.STR_CMMN_WIKI}</a>{/if}
 			</td>
 			{/if}

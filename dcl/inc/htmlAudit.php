@@ -92,10 +92,10 @@ class htmlAudit
 
 		$this->prepareForDisplay();
 
-		$oSmarty->assign_by_ref('VAL_AUDITTRAIL', $this->aAudit);
-		$oSmarty->assign_by_ref('VAL_AUDITACCOUNT', $this->aAuditAccount);
-		$oSmarty->assign_by_ref('VAL_AUDITPROJECT', $this->aAuditProject);
-		$oSmarty->assign_by_ref('VAL_AUDITWORKORDER', $this->aAuditWorkOrder);
+		$oSmarty->assignByRef('VAL_AUDITTRAIL', $this->aAudit);
+		$oSmarty->assignByRef('VAL_AUDITACCOUNT', $this->aAuditAccount);
+		$oSmarty->assignByRef('VAL_AUDITPROJECT', $this->aAuditProject);
+		$oSmarty->assignByRef('VAL_AUDITWORKORDER', $this->aAuditWorkOrder);
 
 		$oSmarty->Render('AuditTrail.tpl');
 	}

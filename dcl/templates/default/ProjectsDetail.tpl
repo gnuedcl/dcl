@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{$DIR_JS}fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" />
 <script language="JavaScript">
-{literal}
+
 function forceSubmit(sAction)
 {
 	var f = document.frmProject;
@@ -49,7 +49,7 @@ function submitActionIfValid(sAction){
 
 	return bHasChecks;
 }
-{/literal}
+
 </script>
 <div class="dcl_detail">
 	<form style="display:none;" method="post" action="{$URL_MAIN_PHP}" id="frmProject" name="frmProject" onsubmit="return processSubmit(this);">
@@ -88,7 +88,7 @@ function submitActionIfValid(sAction){
 			</tr>
 			<tr><th>{$smarty.const.STR_PRJ_CLOSEDON}:</th><td>{$VAL_FINALCLOSE|escape}</td>
 			</tr>
-{if $VAL_PROJECTS && @count($VAL_PROJECTS) > 0}
+{if $VAL_PROJECTS && count($VAL_PROJECTS) > 0}
 			<tr><th>{$smarty.const.STR_PRJ_PARENTPRJ}:</th>
 				<td colspan="3">/&nbsp;{section name=project loop=$VAL_PROJECTS}
 &nbsp;<a href="{$VAL_MENULINK}?menuAction=Project.Detail&id={$VAL_PROJECTS[project].project_id}">{$VAL_PROJECTS[project].name|escape}</a>{if !$smarty.section.project.last}&nbsp;/{/if}
@@ -97,7 +97,7 @@ function submitActionIfValid(sAction){
 			</tr>
 {/if}
 			<tr><th>{$smarty.const.STR_PRJ_DESCRIPTION}:</th>
-				<td colspan="3">{$VAL_DESCRIPTION|escape:"link"}</td>
+				<td colspan="3">{$VAL_DESCRIPTION|escape|dcl_link}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -108,12 +108,12 @@ function submitActionIfValid(sAction){
 {include file="ProjectTasksControl.tpl"}
 <script type="text/javascript" src="{$DIR_JS}fancybox/jquery.fancybox-1.3.1.pack.js"></script>
 <script type="text/javascript">
-	//<![CDATA[{literal}
+	//<![CDATA[
 	$(document).ready(function() {
 		$("a.dcl-lightbox").fancybox({
 			type: "iframe"
 
 		});
 	});
-	//]]>{/literal}
+	//]]>
 </script>

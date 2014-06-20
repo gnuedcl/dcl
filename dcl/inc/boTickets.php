@@ -197,10 +197,7 @@ class boTickets
 			return;
 			
 		if ($obj->is_public == 'N' && $g_oSec->IsPublicUser())
-		{
-			trigger_error('Cannot modify private item.', E_USER_ERROR);
-			return;
-		}
+			throw new PermissionDeniedException();
 
 		$bHasChanges = false;
 		$aFields = array('product', 'module_id', 'account', 'priority', 'type', 'contact_id', 'entity_source_id');
@@ -301,10 +298,7 @@ class boTickets
 			return;
 
 		if ($obj->is_public == 'N' && $g_oSec->IsPublicUser())
-		{
-			trigger_error('Cannot access private item.', E_USER_ERROR);
-			return;
-		}
+			throw new PermissionDeniedException();
 
 		ShowDeleteYesNo('Delete Ticket [' . $iID . ']', 'boTickets.dbdelete', $iID, $obj->summary, false, 'ticketid');
 	}
@@ -327,10 +321,7 @@ class boTickets
 			return;
 
 		if ($obj->is_public == 'N' && $g_oSec->IsPublicUser())
-		{
-			trigger_error('Cannot access private item.', E_USER_ERROR);
-			return;
-		}
+			throw new PermissionDeniedException();
 
 		$obj->Delete();
 
@@ -351,7 +342,7 @@ class boTickets
 			closedir($hDir);
 		}
 
-		trigger_error(sprintf(STR_BO_TICKETDELETED, $iID), E_USER_NOTICE);
+		ShowInfo(sprintf(STR_BO_TICKETDELETED, $iID));
 
 		$objMy = new htmlMyDCL();
 		$objMy->showMy();
@@ -378,7 +369,7 @@ class boTickets
 		}
 		else
 		{
-			trigger_error(sprintf(STR_TCK_COULDNOTFIND, $iID));
+			ShowError(sprintf(STR_TCK_COULDNOTFIND, $iID));
 
 			if ($g_oSec->IsPublicUser())
 				$objMy = new htmlPublicMyDCL();
@@ -396,7 +387,7 @@ class boTickets
 		// GD is required, so short-circuit if not installed
 		if (!extension_loaded('gd'))
 		{
-			trigger_error(STR_BO_GRAPHNEEDSGD);
+			ShowError(STR_BO_GRAPHNEEDSGD);
 			return;
 		}
 
@@ -411,7 +402,7 @@ class boTickets
 		// GD is required, so short-circuit if not installed
 		if (!extension_loaded('gd'))
 		{
-			trigger_error(STR_BO_GRAPHNEEDSGD);
+			ShowError(STR_BO_GRAPHNEEDSGD);
 			return;
 		}
 

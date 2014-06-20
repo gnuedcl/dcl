@@ -191,7 +191,7 @@ class htmlContactSelector
 
 			$this->oDB->FreeResult();
 
-			$this->oSmarty->assign_by_ref('VAL_CONTACTS', $aContacts);
+			$this->oSmarty->assignByRef('VAL_CONTACTS', $aContacts);
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 

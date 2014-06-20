@@ -1,7 +1,7 @@
 <script language="JavaScript">
 	var sStartsWith = '{$VAL_FILTERSTART}';
 	var sActiveFilter = '{$VAL_FILTERACTIVE}';
-{literal}
+
 	var oLastButton = null;
 
 	function selectStartsWith(oButton, sLetter)
@@ -56,9 +56,9 @@
 	function init()
 	{
 		document.getElementById('filterSearch').onkeydown = searchName;
-{/literal}
+
 		var sFilterStart = "{$VAL_FILTERSTART}";
-{literal}
+
 		if (sFilterStart == "")
 			sFilterStart = "All";
 
@@ -66,7 +66,7 @@
 	}
 
 	window.onload = init;
-{/literal}
+
 </script>
 <div class="dcl_filter">
 	<form name="pager" method="post" action="{$URL_MAIN_PHP}">

@@ -4,7 +4,7 @@
 	var iMaxPages = {$VAL_MAXPAGE};
 	var sStartsWith = '{$VAL_FILTERSTART}';
 	var sActiveFilter = '{$VAL_FILTERACTIVE}';
-{literal}
+
 	var oLastButton = null;
 
 	function selectStartsWith(oButton, sLetter)
@@ -31,9 +31,9 @@
 
 	function getFilter()
 	{
-{/literal}
+
 		var sURL = '{$URL_MAIN_PHP}?menuAction=htmlOrgBrowse.show';
-{literal}
+
 		sURL += '&filterStartsWith=' + sStartsWith;
 		sURL += '&filterActive=' + sActiveFilter;
 
@@ -140,9 +140,9 @@
 	{
 		document.getElementById('jumptopage').onkeydown = jumpToPage;
 		document.getElementById('filterName').onkeydown = searchName;
-{/literal}
+
 		var sFilterStart = "{$VAL_FILTERSTART}";
-{literal}
+
 		if (sFilterStart == "")
 			sFilterStart = "All";
 
@@ -151,7 +151,7 @@
 	}
 
 	window.onload = init;
-{/literal}
+
 </script>
 <table style="width: 100%;" cellspacing="0">
 	<tr>
@@ -199,7 +199,7 @@
 		<td><a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGS[org].org_id}">{$VAL_ORGS[org].name|escape}</a></td>
 		<td>{$VAL_ORGS[org].phone_number|escape}</td>
 		<td>{if $VAL_ORGS[org].email_addr != ""}{mailto address=$VAL_ORGS[org].email_addr}{else}&nbsp;{/if}</td>
-		<td>{$VAL_ORGS[org].url_addr|escape:link}</td>
+		<td>{$VAL_ORGS[org].url_addr|escape|dcl_link}</td>
 		</tr>
 	{sectionelse}
 		<tr><td colspan="2">No matches.</td></tr>

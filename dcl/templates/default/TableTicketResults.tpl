@@ -1,10 +1,10 @@
 <script language="JavaScript">
-{literal}
+
 function submitBatch()
 {
 	document.forms.searchAction.submit();
 }
-{/literal}
+
 </script>
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}

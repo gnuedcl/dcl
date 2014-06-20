@@ -175,7 +175,7 @@ class htmlChangeLog
 
 	function ShowFileCommits()
 	{
-		global $g_oSec, $dcl_sccs_id, $personnel_id, $sccs_project_path;
+		global $g_oSec, $dcl_sccs_id, $sccs_project_path;
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
@@ -200,7 +200,7 @@ class htmlChangeLog
 		$aRecords = $this->oDB->FetchAllRows();
 		for ($i = 0; $i < count($aRecords); $i++)
 		{
-			$aDisplayRecords[$i] = array($this->GetLink('menuAction=htmlChangeLog.ShowVersionCommits&dcl_sccs_id=' . $dcl_sccs_id . '&personnel_id=' . $id . '&sccs_project_path=' . rawurlencode($sccs_project_path) . '&sccs_file_name=' . rawurlencode($aRecords[$i][0]), $aRecords[$i][0]), $aRecords[$i][1]);
+			$aDisplayRecords[$i] = array($this->GetLink('menuAction=htmlChangeLog.ShowVersionCommits&dcl_sccs_id=' . $sccs_id . '&personnel_id=' . $id . '&sccs_project_path=' . rawurlencode($sccs_project_path) . '&sccs_file_name=' . rawurlencode($aRecords[$i][0]), $aRecords[$i][0]), $aRecords[$i][1]);
 		}
 
 		$oTable = new TableHtmlHelper();

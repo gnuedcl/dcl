@@ -39,7 +39,7 @@ class FileHelper
 	public function Download()
 	{
 		if (!$this->IsValid())
-			return trigger_error('Invalid attachment type.');
+			throw new InvalidDataException();
 
 		if (file_exists($this->GetFilePath()))
 		{
@@ -72,7 +72,7 @@ class FileHelper
 			return;
 
 		if (!copy($this->sTempFileName, $this->GetFilePath()))
-			trigger_error(STR_BO_UPLOADERR);
+			ShowError(STR_BO_UPLOADERR);
 	}
 
 	public function AddPath($sPath, $sDir)
@@ -99,7 +99,7 @@ class FileHelper
 					return sprintf('%s/%s/%s/%s', $this->sRoot, 'wotask', substr($this->iKey1, -1), $this->iKey1);
 			}
 
-			return trigger_error('Invalid attachment type.');;
+			throw new InvalidDataException('Invalid attachment type.');;
 		}
 
 		$retVal = $this->sRoot;
@@ -137,7 +137,7 @@ class FileHelper
 	{
 		// don't even bother
 		if (!Filter::IsValidFileName($this->sFileName))
-			return trigger_error('Invalid characters detected in filename.');
+			throw new InvalidDataException('Invalid characters detected in filename.');
 
 		return $this->GetFileDir() . '/' . $this->sFileName;
 	}

@@ -1,6 +1,6 @@
 {dcl_calendar_init}
 <script language="JavaScript">
-{literal}
+
 function onChangeByType()
 {
 	var oP = document.searchForm.responsible;
@@ -16,7 +16,7 @@ function onChangeByType()
 		oD.style.display = '';
 	}
 }
-{/literal}
+
 </script>
 <form class="styled" name="searchForm" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="reportPersonnelActivity.execute">

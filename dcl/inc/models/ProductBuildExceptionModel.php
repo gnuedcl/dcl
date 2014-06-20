@@ -36,7 +36,7 @@ class ProductBuildExceptionModel extends DbProvider
 	{
 		if (!is_string($session_id) || !is_int($product_build_id))
 		{
-			trigger_error('Invalid parameters supplied to dbProductBuildException::DeleteBySession', E_USER_ERROR);
+			LogError('Invalid parameters supplied to dbProductBuildException::DeleteBySession', __FILE__, __LINE__, debug_backtrace());
 			return;
 		}
 			

@@ -1,8 +1,8 @@
 <script language="JavaScript">
-{literal}
+
 	$(document).ready(function() {
-		var urlMainPhp = {/literal}"{$URL_MAIN_PHP}"{literal};
-		var contactId = {/literal}{Contact->contact_id}{literal};
+		var urlMainPhp = "{$URL_MAIN_PHP}";
+		var contactId = {Contact->contact_id};
 		$(".dcl-delete-contact-address").click(function() {
 			if (confirm("Are you sure you want to delete this address?")) {
 				var id = $(this).attr("data-id");
@@ -10,7 +10,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "ContactAddress.Destroy", contact_id: contactId, contact_addr_id: id},
+					data: { menuAction: "ContactAddress.Destroy", contact_id: contactId, contact_addr_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -19,7 +19,7 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "Address was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "Address was not deleted successfully." });
 					}
 				});
 			}
@@ -32,7 +32,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "ContactEmail.Destroy", contact_id: contactId, contact_email_id: id},
+					data: { menuAction: "ContactEmail.Destroy", contact_id: contactId, contact_email_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -41,7 +41,7 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "Email was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "Email was not deleted successfully." });
 					}
 				});
 			}
@@ -55,7 +55,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "ContactLicense.Destroy", contact_id: contactId, contact_license_id: id},
+					data: { menuAction: "ContactLicense.Destroy", contact_id: contactId, contact_license_id: id },
 					success: function() {
 						$row.remove();
 						$notesRow.remove();
@@ -65,7 +65,7 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "License was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "License was not deleted successfully." });
 					}
 				});
 			}
@@ -78,7 +78,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "ContactPhone.Destroy", contact_id: contactId, contact_phone_id: id},
+					data: { menuAction: "ContactPhone.Destroy", contact_id: contactId, contact_phone_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -87,7 +87,7 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "Phone number was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "Phone number was not deleted successfully." });
 					}
 				});
 			}
@@ -100,7 +100,7 @@
 				$.ajax({
 					type: "POST",
 					url: urlMainPhp,
-					data: {menuAction: "ContactUrl.Destroy", contact_id: contactId, contact_url_id: id},
+					data: { menuAction: "ContactUrl.Destroy", contact_id: contactId, contact_url_id: id },
 					success: function() {
 						$row.remove();
 						$.gritter.add({
@@ -109,13 +109,13 @@
 						});
 					},
 					error: function() {
-						$.gritter.add({title: "Error", text: "URL was not deleted successfully."});
+						$.gritter.add({ title: "Error", text: "URL was not deleted successfully." });
 					}
 				});
 			}
 		});
 	});
-{/literal}
+
 </script>
 <table width="100%" class="dcl_results">
 	<caption>Contact [{Contact->contact_id}] {Contact->first_name} {Contact->last_name}</caption>
@@ -263,7 +263,7 @@ No contact types!
 	{if is_numeric($key)}<td>
 		{if $smarty.foreach.org.iteration == 2}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$record.org_id}">{$data}</a>
 		{elseif $smarty.foreach.org.iteration == 4 && $data != ""}{mailto address=$data}
-		{elseif $smarty.foreach.org.iteration == 5}{$data|escape:"link"}
+		{elseif $smarty.foreach.org.iteration == 5}{$data|escape|dcl_link}
 		{else}{$data}
 		{/if}</td>
 	{/if}

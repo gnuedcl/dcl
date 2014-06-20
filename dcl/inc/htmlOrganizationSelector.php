@@ -158,7 +158,7 @@ class htmlOrganizationSelector
 
 			$this->oDB->FreeResult();
 
-			$this->oSmarty->assign_by_ref('VAL_ORGS', $aOrgs);
+			$this->oSmarty->assignByRef('VAL_ORGS', $aOrgs);
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 

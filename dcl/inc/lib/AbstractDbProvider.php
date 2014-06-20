@@ -448,7 +448,7 @@ abstract class AbstractDbProvider
 				if ($oDB->next_record())
 					$sVersionSQL = $oDB->f(0);
 				else
-					trigger_error('Could not get next version for audit record.');
+					ShowError('Could not get next version for audit record.');
 			}
 			else
 				return;
@@ -550,7 +550,7 @@ abstract class AbstractDbProvider
 		$sql = 'INSERT INTO ' . $this->TableName . ' (' . $sFieldList . ') VALUES (' . $sValueList . ')';
 		if ($this->Insert($sql) == -1)
 		{
-			trigger_error("Query failed: $sql", E_USER_ERROR);
+			LogError("Query failed: $sql", __FILE__, __LINE__, debug_backtrace());
 			return -1;
 		}
 
@@ -934,9 +934,9 @@ abstract class AbstractDbProvider
 			if ($bTriggerErrorIfNotFound)
 			{
 				if (is_array($id))
-					trigger_error('Could not find id (' . join(', ', $id) . ') in table ' . $this->TableName, E_USER_ERROR);
+					LogError('Could not find id (' . join(', ', $id) . ') in table ' . $this->TableName, __FILE__, __LINE__, debug_backtrace());
 				else
-					trigger_error('Could not find id (' . $id . ') in table ' . $this->TableName, E_USER_ERROR);
+					LogError('Could not find id (' . $id . ') in table ' . $this->TableName, __FILE__, __LINE__, debug_backtrace());
 			}
 					
 			return -1;

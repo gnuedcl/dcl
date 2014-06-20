@@ -1,4 +1,3 @@
-<center>
 <table border="0" cellspacing="0" cellpadding="2">
 <tr><th class="formTitle">{$TXT_TITLE}</th></tr>
 <tr><td class="formContainer">
@@ -32,4 +31,3 @@
 	</table>
 </td></tr>
 </table>
-</center>

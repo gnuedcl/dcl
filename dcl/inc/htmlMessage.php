@@ -59,7 +59,7 @@ class htmlMessage
 	function Show()
 	{
 		$this->sUUID = md5(uniqid(rand(), true));
-		$this->t->assign_by_ref('MESSAGE', $this);
+		$this->t->assignByRef('MESSAGE', $this);
 		
 		if (!defined('__DCL_MESSAGE__'))
 			define('__DCL_MESSAGE__', 1);

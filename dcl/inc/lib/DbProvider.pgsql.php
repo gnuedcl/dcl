@@ -144,7 +144,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error(pg_ErrorMessage() . " " . $query, E_USER_ERROR);
+				LogError(pg_ErrorMessage() . " " . $query, __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
@@ -171,7 +171,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				trigger_error(pg_ErrorMessage() . " " . $query, E_USER_ERROR);
+				LogError(pg_ErrorMessage() . " " . $query, __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
@@ -185,7 +185,7 @@ class DbProvider extends AbstractDbProvider
 		{
 			if (!pg_Exec($this->conn, $query))
 			{
-				trigger_error(pg_ErrorMessage() . " " . $query, E_USER_ERROR);
+				LogError(pg_ErrorMessage() . " " . $query, __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 			return 1;
@@ -224,13 +224,13 @@ class DbProvider extends AbstractDbProvider
 				return $this->oid = pg_GetLastOid($this->res);
 			else
 			{
-				trigger_error(pg_ErrorMessage() . " " . $query, E_USER_ERROR);
+				LogError(pg_ErrorMessage() . " " . $query, __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
 		}
 		else
 		{
-			trigger_error('No connection!');
+			LogError('No connection!', __FILE__, __LINE__, debug_backtrace());
 			return -1;
 		}
 	}
@@ -349,7 +349,7 @@ class DbProvider extends AbstractDbProvider
 			return $Record[0];
 		}
 
-		trigger_error("Error getting last insert ID for table $sTable! " . pg_ErrorMessage());
+		LogError("Error getting last insert ID for table $sTable! " . pg_ErrorMessage(), __FILE__, __LINE__, debug_backtrace());
 		return -1;
 	}
 

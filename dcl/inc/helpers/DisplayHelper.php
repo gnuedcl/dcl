@@ -83,9 +83,9 @@ class DisplayHelper
 		return (isset($id) && $id !== null && $id != '' && is_numeric($id) && $id > 0);
 	}
 	
-	public function TriggerError($sMessage)
+	public function ShowError($sMessage)
 	{
-		trigger_error($sMessage, E_USER_ERROR);
+		ShowError($sMessage);
 		return null;
 	}
 
@@ -98,7 +98,7 @@ class DisplayHelper
 			$this->oStatus = new StatusModel();
 
 		if ($this->oStatus->Load($id, false) == -1)
-			return $this->TriggerError("Could not find status ID $id");
+			return $this->ShowError("Could not find status ID $id");
 
 		return $this->oStatus->name;
 	}
@@ -112,7 +112,7 @@ class DisplayHelper
 			$this->oPersonnel = new PersonnelModel();
 
 		if ($this->oPersonnel->Load($id, false) == -1)
-			return $this->TriggerError("Could not find personnel ID $id");
+			return $this->ShowError("Could not find personnel ID $id");
 
 		return $this->oPersonnel->short;
 	}
@@ -126,7 +126,7 @@ class DisplayHelper
 			$this->oSeverity = new SeverityModel();
 
 		if ($this->oSeverity->Load($id, false) == -1)
-			return $this->TriggerError("Could not find severity ID $id");
+			return $this->ShowError("Could not find severity ID $id");
 
 		return $this->oSeverity->name;
 	}
@@ -140,7 +140,7 @@ class DisplayHelper
 			$this->oPriority = new PriorityModel();
 
 		if ($this->oPriority->Load($id, false) == -1)
-			return $this->TriggerError("Could not find priority ID $id");
+			return $this->ShowError("Could not find priority ID $id");
 
 		return $this->oPriority->name;
 	}
@@ -154,7 +154,7 @@ class DisplayHelper
 			$this->oProduct = new ProductModel();
 
 		if ($this->oProduct->Load($id, false) == -1)
-			return $this->TriggerError("Could not find product ID $id");
+			return $this->ShowError("Could not find product ID $id");
 
 		return $this->oProduct->name;
 	}
@@ -168,7 +168,7 @@ class DisplayHelper
 			$this->oProductVersion = new ProductVersionModel();
 
 		if ($this->oProductVersion->Load($id, false) == -1)
-			return $this->TriggerError("Could not find product version ID $id");
+			return $this->ShowError("Could not find product version ID $id");
 
 		return $this->oProductVersion->product_version_text;
 	}
@@ -182,7 +182,7 @@ class DisplayHelper
 			$this->oProject = new ProjectsModel();
 
 		if ($this->oProject->Load($id, false) == -1)
-			return $this->TriggerError("Could not find project ID $id");
+			return $this->ShowError("Could not find project ID $id");
 
 		return $this->oProject->name;
 	}
@@ -196,7 +196,7 @@ class DisplayHelper
 			$this->oWorkOrderType = new WorkOrderTypeModel();
 
 		if ($this->oWorkOrderType->Load(array('wo_type_id' => $id)) == -1)
-			return $this->TriggerError("Could not find work order type ID $id");
+			return $this->ShowError("Could not find work order type ID $id");
 
 		return $this->oWorkOrderType->type_name;
 	}
@@ -210,7 +210,7 @@ class DisplayHelper
 			$this->oModule = new ProductModulesModel();
 
 		if ($this->oModule->Load($id, false) == -1)
-			return $this->TriggerError("Could not find module ID $id");
+			return $this->ShowError("Could not find module ID $id");
 
 		return $this->oModule->module_name;
 	}
@@ -224,7 +224,7 @@ class DisplayHelper
 			$this->oSource = new EntitySourceModel();
 
 		if ($this->oSource->Load(array('entity_source_id' => $id)) == -1)
-			return $this->TriggerError("Could not find source ID $id");
+			return $this->ShowError("Could not find source ID $id");
 
 		return $this->oSource->entity_source_name;
 	}
@@ -363,7 +363,7 @@ class DisplayHelper
 			$this->oAction = new ActionModel();
 
 		if ($this->oAction->Load($id) == -1)
-			return $this->TriggerError("Could not find action ID $id");
+			return $this->ShowError("Could not find action ID $id");
 
 		return $this->oAction->name;
 	}
@@ -377,7 +377,7 @@ class DisplayHelper
 			$this->oWorkOrder = new WorkOrderModel();
 
 		if ($this->oWorkOrder->Load($jcn, $seq) == -1)
-			return $this->TriggerError("Could not find workorder ID $jcn-$seq");
+			return $this->ShowError("Could not find workorder ID $jcn-$seq");
 
 		return $this->oWorkOrder->summary;
 	}
@@ -391,7 +391,7 @@ class DisplayHelper
 			$this->oTicket = new TicketsModel();
 
 		if ($this->oTicket->Load($id) == -1)
-			return $this->TriggerError("Could not find ticket ID $id");
+			return $this->ShowError("Could not find ticket ID $id");
 
 		return $this->oTicket->summary;
 	}
@@ -405,7 +405,7 @@ class DisplayHelper
 			$this->oDepartment = new DepartmentModel();
 
 		if ($this->oDepartment->Load($id) == -1)
-			return $this->TriggerError("Could not find department ID $id");
+			return $this->ShowError("Could not find department ID $id");
 
 		return $this->oDepartment->name;
 	}

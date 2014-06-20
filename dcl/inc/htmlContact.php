@@ -189,14 +189,14 @@ class htmlContact
 			$aContact =& $oMeta->GetContact($contact_id);
 			
 			$oSmarty->assign('VAL_CONTACTID', $contact_id);
-			$oSmarty->assign_by_ref('VAL_CONTACT', $aContact);
+			$oSmarty->assignByRef('VAL_CONTACT', $aContact);
 		}
 
 		global $g_oSession;
 		$aLastContactBrowsePage = $g_oSession->Value('LAST_CONTACT_BROWSE_PAGE');
 		if ($aLastContactBrowsePage !== null && is_array($aLastContactBrowsePage))
 		{
-			$oSmarty->assign_by_ref('VAL_LASTPAGE', $aLastContactBrowsePage);
+			$oSmarty->assignByRef('VAL_LASTPAGE', $aLastContactBrowsePage);
 		}
 		
 		$oSmarty->Render('ContactMerge.tpl');

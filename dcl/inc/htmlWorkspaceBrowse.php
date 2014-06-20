@@ -1,14 +1,14 @@
 <?php
 /*
- * Double Choco Latte - Source Configuration Management System
- * Copyright (C) 1999  Michael L. Dean & Tim R. Norman
+ * This file is part of Double Choco Latte.
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
- * This program is free software; you can redistribute it and/or
+ * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * Double Choco Latte is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -39,10 +39,7 @@ class htmlWorkspaceBrowse
 		global $g_oSec;
 
 		if (!is_object($oView))
-		{
-			trigger_error('[htmlWorkspaceBrowse::Render] ' . STR_VW_VIEWOBJECTNOTPASSED);
-			return;
-		}
+			throw new InvalidArgumentException();
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
@@ -62,7 +59,7 @@ class htmlWorkspaceBrowse
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
 		{
 			$oTable->addGroup($iColumn);
-			$oTable->addColumn('');
+			$oTable->addColumn('', 'string');
 		}
 		
 		foreach ($this->oView->columnhdrs as $sColumn)
@@ -232,8 +229,7 @@ class htmlWorkspaceBrowse
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
-		$oView = new WorkOrderSqlQueryHelper();
-		$oView->table = 'dcl_workspace';
+		$oView = new WorkspaceSqlQueryHelper();
 		$oView->AddDef('columnhdrs', '', array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_CMMN_NAME));
 		$oView->AddDef('columns', '', array('workspace_id', 'active', 'workspace_name'));
 		$oView->AddDef('order', '', array('workspace_name'));

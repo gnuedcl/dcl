@@ -1,9 +1,9 @@
 {dcl_calendar_init}
 <script language="JavaScript" src="js/wosearch.js"></script>
 <script language="JavaScript">
-{literal}
+
 	var iSection = 0;
-	var sLastLayer = '{/literal}{if !$IS_PUBLIC}divPersonnel{else}divType{/if}{literal}';
+	var sLastLayer = '{if !$IS_PUBLIC}divPersonnel{else}divType{/if}';
 	function showHide(sLayer)
 	{
 		if (sLastLayer == sLayer)
@@ -34,7 +34,7 @@
 			f.elements["estendon"].checked ||
 			f.elements["starton"].checked)
 		{
-{/literal}
+
 			sSummary += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">Dates*:</th><td>';
 			sSummary += '{$smarty.const.STR_CMMN_FROM} ' + f.elements["dateFrom"].value + ' {$smarty.const.STR_CMMN_TO} ' + f.elements["dateTo"].value + ': ';
 			if (f.elements["createdon"].checked) sSummary += "{$smarty.const.STR_WO_OPENEDON}; ";
@@ -46,7 +46,7 @@
 			if (f.elements["estendon"].checked) sSummary += "{$smarty.const.STR_WO_ESTEND}; ";
 			if (f.elements["starton"].checked) sSummary += "{$smarty.const.STR_WO_START}; ";
 			sSummary += '</td></tr>';
-{literal}
+
 		}
 
 		return sSummary;
@@ -54,12 +54,12 @@
 	
 	function getTags()
 	{
-		return getTagsFromElement(document.forms["mondosearchform"].elements["tags"], "{/literal}{$smarty.const.STR_CMMN_TAGS}{literal}");
+		return getTagsFromElement(document.forms["mondosearchform"].elements["tags"], "{$smarty.const.STR_CMMN_TAGS}");
 	}
 	
 	function getHotlists()
 	{
-		{/literal}{if !$IS_PUBLIC}return getTagsFromElement(document.forms["mondosearchform"].elements["hotlist"], "Hotlists");{/if}{literal}
+		{if !$IS_PUBLIC}return getTagsFromElement(document.forms["mondosearchform"].elements["hotlist"], "Hotlists");{/if}
 	}
 	
 	function getTagsFromElement(e, title)
@@ -80,11 +80,11 @@
 		var f = document.forms["mondosearchform"];
 		var sSummary = "";
 		if ((f.elements["summary"].checked ||
-			{/literal}{if !$IS_PUBLIC}f.elements["notes"].checked ||{/if}{literal}
+			{if !$IS_PUBLIC}f.elements["notes"].checked ||{/if}
 			f.elements["description"].checked) &&
 			f.elements["searchText"].value != "")
 		{
-{/literal}
+
 			sSummary += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">Text*:</th><td>';
 			sSummary += '<b>';
 			if (f.elements["summary"].checked) sSummary += "{$smarty.const.STR_WO_SUMMARY}, ";
@@ -93,7 +93,7 @@
 
 			sSummary += ':</b> ' + f.elements["searchText"].value;
 			sSummary += '</td></tr>';
-{literal}
+
 		}
 
 		return sSummary;
@@ -113,13 +113,13 @@
 			{
 				sSummary += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">Department:</th><td><b>';
 				if (f.elements["responsible"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_WO_RESPONSIBLE}, ';{literal}
+					sSummary += '{$smarty.const.STR_WO_RESPONSIBLE}, ';
 
 				if (f.elements["createby"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_WO_OPENBY}, ';{literal}
+					sSummary += '{$smarty.const.STR_WO_OPENBY}, ';
 
 				if (f.elements["closedby"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_WO_CLOSEBY}';{literal}
+					sSummary += '{$smarty.const.STR_WO_CLOSEBY}';
 
 				sSummary += ':&nbsp;</b>';
 
@@ -135,13 +135,13 @@
 			{
 				sSummary += '<tr><th nowrap style="width: 5%; text-align: left; vertical-align: top;">Personnel:</th><td><b>';
 				if (f.elements["responsible"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_WO_RESPONSIBLE}, ';{literal}
+					sSummary += '{$smarty.const.STR_WO_RESPONSIBLE}, ';
 
 				if (f.elements["createby"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_WO_OPENBY}, ';{literal}
+					sSummary += '{$smarty.const.STR_WO_OPENBY}, ';
 
 				if (f.elements["closedby"].checked)
-					{/literal}sSummary += '{$smarty.const.STR_WO_CLOSEBY}';{literal}
+					sSummary += '{$smarty.const.STR_WO_CLOSEBY}';
 
 				sSummary += ':&nbsp;</b>';
 
@@ -188,7 +188,7 @@
 		var f = document.forms["mondosearchform"];
 		if (f)
 		{
-{/literal}
+
 			{if !$IS_PUBLIC}sSummary += getPersonnel();{/if}
 			sSummary += getSelections(f.elements["wo_type_id[]"], "{$smarty.const.STR_WO_TYPE}");
 			sSummary += getSelections(f.elements["product[]"], "{$smarty.const.STR_WO_PRODUCT}");
@@ -205,14 +205,14 @@
 			sSummary += getTags();
 			{if !$IS_PUBLIC}sSummary += getHotlists();{/if}
 			sSummary += getTextSearch();
-{literal}
+
 		}
 
 		sSummary += "</table>";
 
 		oDiv.innerHTML = sSummary;
 	}
-{/literal}
+
 </script>
 <form class="styled" name="mondosearchform" action="{$URL_MAIN_PHP}" method="post">
 	<input type="hidden" name="menuAction" value="WorkOrder.Search">
@@ -449,7 +449,7 @@
 	<fieldset><div class="submit"><input type="button" onclick="doSearch(this.form);" value="{$smarty.const.STR_CMMN_SEARCH}"><input type="reset" value="{$smarty.const.STR_CMMN_RESET}"></div></fieldset>
 </form>
 <script type="text/javascript">
-{literal}
+
 	var f = document.forms["mondosearchform"];
 	function setOnChangeEventHandler(c)
 	{
@@ -492,17 +492,17 @@
 	if (f)
 	{
 		// Select boxen
-		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["personnel[]"]);{/if}{literal}
+		{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["personnel[]"]);{/if}
 		setOnChangeEventHandler(f.elements["priority[]"]);
 		setOnChangeEventHandler(f.elements["severity[]"]);
 		setOnChangeEventHandler(f.elements["account[]"]);
 		setOnChangeEventHandler(f.elements["status[]"]);
 		setOnChangeEventHandler(f.elements["dcl_status_type[]"]);
-		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["project[]"]);{/if}{literal}
+		{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["project[]"]);{/if}
 		setOnChangeEventHandler(f.elements["module_id[]"]);
 		setOnChangeEventHandler(f.elements["wo_type_id[]"]);
-		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["department[]"]);{/if}{literal}
-		{/literal}{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["is_public[]"]);{/if}{literal}
+		{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["department[]"]);{/if}
+		{if !$IS_PUBLIC}setOnChangeEventHandler(f.elements["is_public[]"]);{/if}
 		setOnChangeEventHandler(f.elements["entity_source_id[]"]);
 
 		// Modules are dependent on selected products, so we handle it a little differently
@@ -512,7 +512,7 @@
 		f.elements['dcl_status_type[]'].onchange = function() { if (typeof(chgStatusType) == "function") chgStatusType(f); updateSummary(); }
 
 		// Personnel now filter by department to reduce available selections
-		{/literal}{if !$IS_PUBLIC}f.elements['department[]'].onchange = function() {literal}{ if (typeof(chgDepartment) == "function") chgDepartment(f); updateSummary(); }{/literal}{/if}{literal}
+		{if !$IS_PUBLIC}f.elements['department[]'].onchange = function() { if (typeof(chgDepartment) == "function") chgDepartment(f); updateSummary(); }{/if}
 
 		// Text boxen
 		setOnChangeEventHandler(f.elements["searchText"]);
@@ -524,9 +524,9 @@
 		setOnChangeEventHandler(f.elements["hotlist"]);
 
 		// Checkboxen
-		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["responsible"]);{/if}{literal}
-		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["createby"]);{/if}{literal}
-		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["closedby"]);{/if}{literal}
+		{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["responsible"]);{/if}
+		{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["createby"]);{/if}
+		{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["closedby"]);{/if}
 		setOnClickEventHandler(f.elements["createdon"]);
 		setOnClickEventHandler(f.elements["closedon"]);
 		setOnClickEventHandler(f.elements["statuson"]);
@@ -536,28 +536,28 @@
 		setOnClickEventHandler(f.elements["estendon"]);
 		setOnClickEventHandler(f.elements["starton"]);
 		setOnClickEventHandler(f.elements["summary"]);
-		{/literal}{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["notes"]);{/if}{literal}
+		{if !$IS_PUBLIC}setOnClickEventHandler(f.elements["notes"]);{/if}
 		setOnClickEventHandler(f.elements["description"]);
 
 		if (typeof(chgStatusType) == "function")
 		{
 			chgStatusType(f);
-			{/literal}selectDefault("{$VAL_SELECTSTATUSKEY}", "status[]", "dcl_status_type[]", chgStatusType);{literal}
+			selectDefault("{$VAL_SELECTSTATUSKEY}", "status[]", "dcl_status_type[]", chgStatusType);
 		}
-{/literal}{if !$IS_PUBLIC}{literal}
+{if !$IS_PUBLIC}
 		if (typeof(chgDepartment) == "function")
 		{
 			chgDepartment(f);
-			{/literal}selectDefault("{$VAL_SELECTPERSONNELKEY}", "personnel[]", "department[]", chgDepartment);{literal}
+			selectDefault("{$VAL_SELECTPERSONNELKEY}", "personnel[]", "department[]", chgDepartment);
 		}
-{/literal}{/if}{literal}
+{/if}
 		if (typeof(chgModule) == "function")
 		{
 			chgModule(f);
-			{/literal}selectDefault("{$VAL_SELECTMODULEKEY}", "module_id[]", "product[]", chgModule);{literal}
+			selectDefault("{$VAL_SELECTMODULEKEY}", "module_id[]", "product[]", chgModule);
 		}
 
 		updateSummary();
 	}
-{/literal}
+
 </script>

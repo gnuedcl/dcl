@@ -120,7 +120,7 @@ class WorkOrderController
 			$workOrderModel->Query('SELECT jcn FROM workorders where jcn=' . $workOrderId);
 			if (!$workOrderModel->next_record())
 			{
-				trigger_error(sprintf(STR_BO_NOJCNFORSEQWARNING, $workOrderId));
+				ShowWarning(sprintf(STR_BO_NOJCNFORSEQWARNING, $workOrderId));
 				$workOrderId = 0;
 			}
 		}

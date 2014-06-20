@@ -196,7 +196,7 @@ class boWatches
 		if ($obj->Load($iID) != -1)
 		{
 			$obj->Delete();
-			trigger_error(STR_BO_DELETED, E_USER_NOTICE);
+			ShowInfo(STR_BO_DELETED);
 		}
 
 		$objHTML = new htmlWatches();
@@ -250,7 +250,7 @@ class boWatches
 		global $dcl_info;
 		
 		$t = new SmartyHelper();
-		$t->assign_by_ref('obj', $obj);
+		$t->assignByRef('obj', $obj);
 
 		$dbEntityTag = new EntityTagModel();
 		$t->assign('VAL_TAGS', str_replace(',', ', ', $dbEntityTag->getTagsForEntity(DCL_ENTITY_WORKORDER, $obj->jcn, $obj->seq)));
@@ -437,7 +437,7 @@ class boWatches
 		global $dcl_info;
 		
 		$t = new SmartyHelper();
-		$t->assign_by_ref('obj', $obj);
+		$t->assignByRef('obj', $obj);
 		
 		$objTR = new TicketResolutionsModel();
 		$t->assign('VAL_RESOLUTIONS', $objTR->GetResolutionsArray($obj->ticketid, $bIsPublic));
@@ -577,9 +577,9 @@ class boWatches
 			if ($bShowNotifyMsg && $toAddr != '')
 			{
 				if ($bSuccess)
-					trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
+					ShowInfo(sprintf(STR_BO_MAILSENT, $toAddr));
 				else
-					trigger_error('Could not send email notification.', E_USER_ERROR);
+					ShowError('Could not send email notification.');
 			}
 		}
 		
@@ -604,9 +604,9 @@ class boWatches
 			if ($bShowNotifyMsg && $toAddr != '')
 			{
 				if ($bSuccess)
-					trigger_error(sprintf(STR_BO_MAILSENT, $toAddr), E_USER_NOTICE);
+					ShowInfo(sprintf(STR_BO_MAILSENT, $toAddr));
 				else
-					trigger_error('Could not send email notification.', E_USER_ERROR);
+					ShowError('Could not send email notification.');
 			}
 		}
 	}

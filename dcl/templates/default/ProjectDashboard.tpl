@@ -1,9 +1,9 @@
 <link type="text/css" rel="stylesheet" href="{$DIR_JS}tagedit/css/jquery.tagedit.css" />
-<style type="text/css">{literal}
+<style type="text/css">
 	#autocomplete-form p button, #autocomplete-form p ul { float: left; margin-right: 4px; }
 	#autocomplete-form p { margin: 0px; }
 	#autocomplete-form p ul { margin-top: 2px; }
-{/literal}</style>
+</style>
 <div class="dcl_detail">
 	<table class="styled">
 		<caption>[{$VAL_PROJECTID}] {$VAL_NAME|escape}</caption>
@@ -36,10 +36,10 @@
 </div>
 <script type="text/javascript" src="{$DIR_JS}tagedit/js/jquery.autoGrowInput.js"></script>
 <script type="text/javascript" src="{$DIR_JS}tagedit/js/jquery.tagedit.js"></script>
-<script type="text/javascript">{literal}
+<script type="text/javascript">
 	$(document).ready(function() {
 		$("#autocomplete-form").find("input.tag").tagedit({
-				autocompleteURL: "{/literal}{dcl_url_action controller=ProjectService action=Autocomplete}{literal}",
+				autocompleteURL: "{dcl_url_action controller=ProjectService action=Autocomplete}",
 				allowEdit: false,
 				allowAdd: false
 		});
@@ -63,4 +63,4 @@
 			$("#post-form").submit();
 		});
 	});
-{/literal}</script>
+</script>

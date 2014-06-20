@@ -1,14 +1,14 @@
 {dcl_selector_init}
 {dcl_validator_init}
 <script language="JavaScript">
-{literal}
+
 function validateAndSubmitForm(form)
 {
-{/literal}
+
 	var aValidators = new Array(
 			new ValidatorSelector(form.elements["org_id"], "{$smarty.const.STR_CMMN_ORGANIZATION}")
 		);
-{literal}
+
 	for (var i in aValidators)
 	{
 		if (!aValidators[i].isValid())
@@ -21,7 +21,7 @@ function validateAndSubmitForm(form)
 	}
 	form.submit();
 }
-{/literal}
+
 </script>
 <form class="styled" name="theForm" method="post" action="{$smarty.const.DCL_WWW_ROOT}main.php">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">

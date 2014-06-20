@@ -5,7 +5,7 @@
 	var sStartsWith = '{$VAL_FILTERSTART}';
 	var sActiveFilter = '{$VAL_FILTERACTIVE}';
 	var sDeptFilter = '{$VAL_FILTERDEPT}';
-{literal}
+
 	var oLastButton = null;
 
 	function selectStartsWith(oButton, sLetter)
@@ -32,9 +32,9 @@
 
 	function getFilter()
 	{
-{/literal}
+
 		var sURL = '{$URL_MAIN_PHP}?menuAction=Personnel.Index';
-{literal}
+
 		sURL += '&filterStartsWith=' + sStartsWith;
 		sURL += '&filterActive=' + sActiveFilter;
 		sURL += '&filterDepartment=' + document.getElementById('filterDepartment').value;
@@ -143,9 +143,9 @@
 		document.getElementById('jumptopage').onkeydown = jumpToPage;
 		document.getElementById('filterName').onkeydown = searchName;
 		document.getElementById('filterDepartment').onchange = applyFilter;
-{/literal}
+
 		var sFilterStart = "{$VAL_FILTERSTART}";
-{literal}
+
 		if (sFilterStart == "")
 			sFilterStart = "All";
 
@@ -154,7 +154,7 @@
 	}
 
 	window.onload = init;
-{/literal}
+
 </script>
 <table style="width: 100%;" cellspacing="0">
 	<tr>
@@ -205,7 +205,7 @@
 		<td>{$VAL_USERS[user].name|escape}</td>
 		<td>{$VAL_USERS[user].phone_number|escape}</td>
 		<td>{if $VAL_USERS[user].email_addr != ""}{mailto address=$VAL_USERS[user].email_addr}{else}&nbsp;{/if}</td>
-		<td>{$VAL_USERS[user].url_addr|escape:link}</td>
+		<td>{$VAL_USERS[user].url_addr|escape|dcl_link}</td>
 {if $PERM_MODIFY || $PERM_DELETE}
 		<td>{if $PERM_MODIFY}<a href="{$URL_MAIN_PHP}?menuAction=Personnel.Edit&id={$VAL_USERS[user].id}">{$smarty.const.STR_CMMN_EDIT}</a>{if $PERM_DELETE}&nbsp;|&nbsp;{/if}{/if}{if $PERM_DELETE}<a href="{$URL_MAIN_PHP}?menuAction=Personnel.Delete&id={$VAL_USERS[user].id}">{$smarty.const.STR_CMMN_DELETE}</a>{/if}</td>
 {/if}

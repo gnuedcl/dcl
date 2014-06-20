@@ -215,7 +215,7 @@ class EntityHotlistModel extends DbProvider
 		$sID = $oDB->getExistingIdsByName(trim($sHotlists));
 		if ($sID == '-1')
 		{
-			trigger_error('No such hotlist.');
+			ShowError('No such hotlist.');
 			return -1;
 		}
 		

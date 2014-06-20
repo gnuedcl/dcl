@@ -155,7 +155,7 @@ class htmlProductSelector
 
 			$this->oDB->FreeResult();
 
-			$this->oSmarty->assign_by_ref('VAL_PRODUCTS', $aProducts);
+			$this->oSmarty->assignByRef('VAL_PRODUCTS', $aProducts);
 			$this->oSmarty->assign('VAL_HEADERS', $aColumnHeaders);
 			$this->oSmarty->assign('VAL_MULTISELECT', (isset($_REQUEST['multiple']) && $_REQUEST['multiple'] == 'true'));
 
