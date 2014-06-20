@@ -131,8 +131,8 @@ class htmlWiki
 		$this->t->assign('TXT_RESET', STR_CMMN_RESET);
 		$this->t->assign('TXT_CANCEL', STR_CMMN_CANCEL);
 		$this->t->assign('TXT_VIEW', STR_CMMN_VIEW);
-		$this->t->assign('LNK_CANCEL', menuLink('', "menuAction=htmlWiki.show&name=$name&$extraParams"));
-		$this->t->assign('LNK_EDITTHISPAGE', menuLink('', "menuAction=htmlWiki.show&editmode=edit&name=$name&$extraParams"));
+		$this->t->assign('LNK_CANCEL', menuLink('', "menuAction=htmlWiki.show&name=" . urlencode($name) . "&$extraParams"));
+		$this->t->assign('LNK_EDITTHISPAGE', menuLink('', "menuAction=htmlWiki.show&editmode=edit&name=" . urlencode($name) . "&$extraParams"));
 		$this->t->assign('TXT_EDITTHISPAGE', DCL_WIKI_EDITTHISPAGE);
 		$this->t->assign('LNK_RETURNTOFRONTPAGE', menuLink('', "menuAction=htmlWiki.show&name=FrontPage&$extraParams"));
 		$this->t->assign('TXT_RETURNTOFRONTPAGE', DCL_WIKI_RETURNTOFRONTPAGE);
