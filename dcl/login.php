@@ -58,6 +58,8 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 
 	setcookie('DCLINFO', $theCookie, 0, '/', $httpDomain, UseHttps(), true);
 	header("Location: $toHere\n\n");
+
+	exit;
 }
 
 if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
@@ -72,9 +74,6 @@ if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
 
     if ($g_oSession->Load($dcl_session_id) == false)
         Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
-
-    if (!$g_oSession->conn)
-        Refresh(DCL_WWW_ROOT . 'logout.php?cd=3');
 
     if (!$g_oSession->IsValidSession())
         Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');

@@ -86,7 +86,7 @@ class SessionModel extends DbProvider
 
 		if ($this->Query($sql) == -1 || !$this->next_record())
 		{
-			return -1;
+			return false;
 		}
 
 		$retVal = ($this->GetRow() != -1);
@@ -107,7 +107,7 @@ class SessionModel extends DbProvider
 
 		// Did session expire?
 		if ($iMinutesElapsed > $dcl_info['DCL_SESSION_TIMEOUT'])
-			return -2;
+			return false;
 
 		// Check for config refresh
 		global $dcl_info;
