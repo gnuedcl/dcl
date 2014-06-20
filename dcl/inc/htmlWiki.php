@@ -33,81 +33,52 @@ class htmlWiki
 
 	function htmlWiki()
 	{
-		$this->t = CreateTemplate(array('hForm' => 'Wiki.tpl'));
-
-		$this->t->set_block('hForm', 'display', 'hDisplay');
-		$this->t->set_block('hForm', 'edit', 'hEdit');
-		$this->t->set_block('hForm', 'editlink', 'hEditlink');
-		$this->t->set_block('hForm', 'noedit', 'hNoedit');
-		$this->t->set_block('hForm', 'wiki', 'hWiki');
-
-		$this->t->set_var('hDisplay', '');
-		$this->t->set_var('hEdit', '');
-		$this->t->set_var('hEditlink', '');
-		$this->t->set_var('hNoedit', '');
-		$this->t->set_var('hWiki', '');
+		$this->t = new SmartyHelper();
 
 		$this->aLockedPages = array('RecentChanges');
 	}
 
-	function ParseDescriptionBlock()
+	function SetDescription($type)
 	{
-		global $dcl_info, $type;
-			
-		if (($type = Filter::ToInt($_REQUEST['type'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-
 		if ($type == DCL_ENTITY_GLOBAL)
 			return;
 		
-		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-
+		$id = Filter::RequireInt($_REQUEST['id']);
 
 		$oMeta = new DisplayHelper();
 
-		$sHTML = '';
 		switch ($type)
 		{
 			case DCL_ENTITY_PROJECT:
-				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_PROJECTWIKI, $id, $oMeta->GetProject($id)));
-				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=Project.Detail&id=' . $id));
+				$this->t->assign('VAL_DESCRIPTION', sprintf(DCL_WIKI_PROJECTWIKI, $id, $oMeta->GetProject($id)));
+				$this->t->assign('LNK_DESCRIPTION', menuLink('', 'menuAction=Project.Detail&id=' . $id));
 				break;
 			case DCL_ENTITY_PRODUCT:
-				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_PRODUCTWIKI, $oMeta->GetProduct($id)));
-				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=Product.Detail&id=' . $id));
+				$this->t->assign('VAL_DESCRIPTION', sprintf(DCL_WIKI_PRODUCTWIKI, $oMeta->GetProduct($id)));
+				$this->t->assign('LNK_DESCRIPTION', menuLink('', 'menuAction=Product.Detail&id=' . $id));
 				break;
 			case DCL_ENTITY_ORG:
 				$aOrg = $oMeta->GetOrganization($id);
-				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_ACCOUNTWIKI, $aOrg['name']));
-				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=Organization.Detail&org_id=' . $id));
+				$this->t->assign('VAL_DESCRIPTION', sprintf(DCL_WIKI_ACCOUNTWIKI, $aOrg['name']));
+				$this->t->assign('LNK_DESCRIPTION', menuLink('', 'menuAction=Organization.Detail&org_id=' . $id));
 				break;
 			case DCL_ENTITY_WORKORDER:
-				if (($id2 = Filter::ToInt($_REQUEST['id2'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
+				$id2 = Filter::RequireInt($_REQUEST['id2']);
+
 				$o = new WorkOrderModel();
 				$o->Load($id, $id2);
-				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_WOWIKI, $id, $id2, $o->summary));
-				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $id . '&seq=' . $id2));
+				$this->t->assign('VAL_DESCRIPTION', sprintf(DCL_WIKI_WOWIKI, $id, $id2, $o->summary));
+				$this->t->assign('LNK_DESCRIPTION', menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $id . '&seq=' . $id2));
 				break;
 			case DCL_ENTITY_TICKET:
 				$o = new TicketsModel();
 				$o->Load($id);
-				$this->t->set_var('VAL_DESCRIPTION', sprintf(DCL_WIKI_TICKETWIKI, $id, $o->summary));
-				$this->t->set_var('LNK_DESCRIPTION', menuLink('', 'menuAction=boTickets.view&ticketid=' . $id));
+				$this->t->assign('VAL_DESCRIPTION', sprintf(DCL_WIKI_TICKETWIKI, $id, $o->summary));
+				$this->t->assign('LNK_DESCRIPTION', menuLink('', 'menuAction=boTickets.view&ticketid=' . $id));
 				break;
 			default:
 				return;
 		}
-
-		$this->t->parse('hWiki', 'wiki');
 	}
 
 	function show()
@@ -116,16 +87,11 @@ class htmlWiki
 
 		commonHeader();
 
-		if (($type = Filter::ToInt($_REQUEST['type'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
+		$type = Filter::RequireInt($_REQUEST['type']);
+
 		if (($id = @Filter::ToInt($_REQUEST['id'])) === null && $type != DCL_ENTITY_GLOBAL)
-		{
 			throw new InvalidDataException();
-		}
-		
+
 		if ($type == DCL_ENTITY_GLOBAL)
 			$id = 0;
 		
@@ -154,27 +120,27 @@ class htmlWiki
 		if ($type == DCL_ENTITY_WORKORDER)
 			$extraParams .= "&id2=$id2";
 
-		$this->t->set_var('VAL_TITLE', (isset($editmode) && $editmode == 'edit') ? sprintf(DCL_WIKI_EDITINGFORMAT, $name) : $name);
-		$this->t->set_var('VAL_TEXT', $text);
-		$this->t->set_var('LNK_ACTION', menuLink());
-		$this->t->set_var('VAL_PAGENAME', $name);
-		$this->t->set_var('VAL_ENTITYTYPEID', $type);
-		$this->t->set_var('VAL_ENTITYID', $id);
-		$this->t->set_var('VAL_ENTITYID2', $id2);
-		$this->t->set_var('TXT_SAVE', STR_CMMN_SAVE);
-		$this->t->set_var('TXT_RESET', STR_CMMN_RESET);
-		$this->t->set_var('TXT_CANCEL', STR_CMMN_CANCEL);
-		$this->t->set_var('TXT_VIEW', STR_CMMN_VIEW);
-		$this->t->set_var('LNK_CANCEL', menuLink('', "menuAction=htmlWiki.show&name=$name&$extraParams"));
-		$this->t->set_var('LNK_EDITTHISPAGE', menuLink('', "menuAction=htmlWiki.show&editmode=edit&name=$name&$extraParams"));
-		$this->t->set_var('TXT_EDITTHISPAGE', DCL_WIKI_EDITTHISPAGE);
-		$this->t->set_var('LNK_RETURNTOFRONTPAGE', menuLink('', "menuAction=htmlWiki.show&name=FrontPage&$extraParams"));
-		$this->t->set_var('TXT_RETURNTOFRONTPAGE', DCL_WIKI_RETURNTOFRONTPAGE);
-		$this->t->set_var('LNK_RECENTCHANGES', menuLink('', "menuAction=htmlWiki.show&name=RecentChanges&$extraParams"));
-		$this->t->set_var('TXT_VIEWRECENTCHANGES', DCL_WIKI_VIEWRECENTCHANGES);
-		$this->t->set_var('TXT_THISPAGECANNOTBEEDITED', DCL_WIKI_THISPAGECANNOTBEEDITED);
+		$this->t->assign('VAL_TITLE', (isset($editmode) && $editmode == 'edit') ? sprintf(DCL_WIKI_EDITINGFORMAT, $name) : $name);
+		$this->t->assign('VAL_TEXT', $text);
+		$this->t->assign('LNK_ACTION', menuLink());
+		$this->t->assign('VAL_PAGENAME', $name);
+		$this->t->assign('VAL_ENTITYTYPEID', $type);
+		$this->t->assign('VAL_ENTITYID', $id);
+		$this->t->assign('VAL_ENTITYID2', $id2);
+		$this->t->assign('TXT_SAVE', STR_CMMN_SAVE);
+		$this->t->assign('TXT_RESET', STR_CMMN_RESET);
+		$this->t->assign('TXT_CANCEL', STR_CMMN_CANCEL);
+		$this->t->assign('TXT_VIEW', STR_CMMN_VIEW);
+		$this->t->assign('LNK_CANCEL', menuLink('', "menuAction=htmlWiki.show&name=$name&$extraParams"));
+		$this->t->assign('LNK_EDITTHISPAGE', menuLink('', "menuAction=htmlWiki.show&editmode=edit&name=$name&$extraParams"));
+		$this->t->assign('TXT_EDITTHISPAGE', DCL_WIKI_EDITTHISPAGE);
+		$this->t->assign('LNK_RETURNTOFRONTPAGE', menuLink('', "menuAction=htmlWiki.show&name=FrontPage&$extraParams"));
+		$this->t->assign('TXT_RETURNTOFRONTPAGE', DCL_WIKI_RETURNTOFRONTPAGE);
+		$this->t->assign('LNK_RECENTCHANGES', menuLink('', "menuAction=htmlWiki.show&name=RecentChanges&$extraParams"));
+		$this->t->assign('TXT_VIEWRECENTCHANGES', DCL_WIKI_VIEWRECENTCHANGES);
+		$this->t->assign('TXT_THISPAGECANNOTBEEDITED', DCL_WIKI_THISPAGECANNOTBEEDITED);
 
-		$this->ParseDescriptionBlock();
+		$this->SetDescription($type);
 
 		if ($obj->page_name != '' || $name == 'RecentChanges')
 		{
@@ -197,22 +163,20 @@ class htmlWiki
 					$tf = $this->format_html($tf);
 				}
 
-				$this->t->set_var('VAL_TEXT', $tf);
-				$this->t->parse('hDisplay', 'display');
+				$this->t->assign('VAL_TEXT', $tf);
+				$this->t->assign('VAL_MODE', 'view');
 	        }
 			else
 			{
-				$this->t->set_var('VAL_TEXT', $tf);
-				$this->t->parse('hEdit', 'edit');
+				$this->t->assign('VAL_TEXT', $tf);
+				$this->t->assign('VAL_MODE', 'edit');
 	        }
 		}
 
 		if (in_array($name, $this->aLockedPages))
-			$this->t->parse('hNoedit', 'noedit');
-		else if (!isset($editmode) || $editmode != 'edit')
-			$this->t->parse('hEditlink', 'editlink');
+			$this->t->assign('VAL_MODE', 'locked');
 
-		$this->t->pparse('out', 'hForm');
+		$this->t->Render('Wiki.tpl');
 	}
 
 	function _list($on, $list_type, $numtype="", $close="")
@@ -356,7 +320,7 @@ class htmlWiki
 			$line = preg_replace("/^=(.*)=/", "<h1 class=\"wiki\">\\1</h1>", $line);
 
 			// TwoWords crammed together for internal links
-			$twoWordsPattern = "/([\s;<>'\(]|^)(([A-Z][a-z]+){2,})([\s.,!?&<>\)]|$)/";
+			$twoWordsPattern = '/([\s;<>\'\(]|^)(([A-Z][a-z]+){2,})([\s.,!?&<>\)]|$)/';
 			if ($type == DCL_ENTITY_GLOBAL)
 			{
 				$line = preg_replace($twoWordsPattern, "\\1<a class=\"wiki\" href=\"".menuLink()."?menuAction=htmlWiki.show&type=".$type."&name=\\2\">\\2</a>\\4", $line);
@@ -381,10 +345,10 @@ class htmlWiki
 			$line = preg_replace("/\[http:\/\/([^[:space:]]*)([[:alnum:]#?\/&=])\]/i", "<img src=\"http://\\1\\2\" alt=\"http://\\1\\2\">", $line);
 
 			// New syntax for wiki pages ((name|desc)) Where desc can be anything
-			$line = preg_replace("/\(\((([A-Z][a-z������������]+){2,})\|([^\~]+)\)\)/","<a class=\"wiki\" title='$3' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$3</a>",$line);
+			$line = preg_replace('/\(\((([A-Z][a-z]+){2,})\|([^\~]+)\)\)/',"<a class=\"wiki\" title='$3' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$3</a>",$line);
 
 			// And just plain ((name))
-			$line = preg_replace("/\(\(([^\)\(\|]+)\)\)/","<a class=\"wiki\" title='$1' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$1</a>",$line);
+			$line = preg_replace('/\(\(([^\)\(\|]+)\)\)/',"<a class=\"wiki\" title='$1' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$1</a>",$line);
 
 			// Replace colors ~~color:text~~
 			$line = preg_replace("/\~\~([^\:]+):([^\~]+)\~\~/","<span style='color:$1;'>$2</span>",$line);
@@ -475,8 +439,8 @@ class htmlWiki
 
 			if ($in_table)
 			{
-				$line = preg_replace('/^((?:\|\|)+)(.*)\|\|$/e',"'<tr class=\"wiki\"><td class=\"wiki\"'.\$this->_table_span('\\1').'>\\2</td></tr>'", $line);
-				$line = preg_replace('/((\|\|)+)/e',"'</td><td class=\"wiki\"'.\$this->_table_span('\\1').'>'", $line);
+				$line = preg_replace_callback('/^((?:\|\|)+)(.*)\|\|$/', 'self::TableRow', $line);
+				$line = preg_replace_callback('/((\|\|)+)/', 'self::TableCell', $line);
 				$line = str_replace('\"', '"' ,$line);
 			}
 
@@ -484,7 +448,9 @@ class htmlWiki
 			$open = "";
 			$close = "";
 
-			$retVal .= $line . '<br>';
+			$retVal .= $line;
+			if (!$in_table)
+				$retVal .= '<br>';
 		}
 
 		// Tidy up any loose ends
@@ -503,6 +469,16 @@ class htmlWiki
 		return $retVal . $close;
 	}
 
+	function TableRow($matches)
+	{
+		return '<tr class=\"wiki\"><td class=\"wiki\"' . $this->_table_span($matches[1]) . '>' . $matches[2] . '</td></tr>';
+	}
+
+	function TableCell($matches)
+	{
+		return '</td><td class=\"wiki\"' . $this->_table_span($matches[1]) . '>';
+	}
+
 	function RecentChanges()
 	{
 		if (($type = Filter::ToInt($_REQUEST['type'])) === null)
@@ -518,22 +494,26 @@ class htmlWiki
 		$list .= "'''||'''" . DCL_WIKI_LASTMODIFIED;
 		$list .= "'''||'''" . DCL_WIKI_LASTMODIFIEDBY . "'''||\n";
 
-		$theList = array();
-
 		$obj = new WikiModel();
 		$obj->ListRecentChanges($type, $id, $id2);
 
 		$count = 0;
+		$twoWordsPattern = '/([\s;<>\'\(]|^)(([A-Z][a-z]+){2,})([\s.,!?&<>\)]|$)/';
+
 		while ($obj->next_record())
 		{
 			$count++;
-			$list .= sprintf("||((%s))||%s||%s||\n",
-								$obj->f(0),
-								$obj->FormatTimestampForDisplay($obj->f(1)),
-								$obj->f(2));
+			$pageLink = $obj->f(0);
+			if (preg_match($twoWordsPattern, $pageLink) !== 1)
+				$pageLink = "(($pageLink))";
+
+			$list .= sprintf("|| %s ||%s||%s||\n",
+				$pageLink,
+				$obj->FormatTimestampForDisplay($obj->f(1)),
+				$obj->f(2));
 		}
 
-		$list .= "||||||'''" . sprintf(DCL_WIKI_TOTALPAGESFORMAT, $count) . "'''||\n\n";
+		$list .= "||||||'''" . sprintf(DCL_WIKI_TOTALPAGESFORMAT, $count) . "'''||";
 
 		return $list;
 	}
