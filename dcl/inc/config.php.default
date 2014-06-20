@@ -48,15 +48,6 @@ define('DCL_ROOT', '{VAL_dcl_root}');
 // Path to DCL from web root
 define('DCL_WWW_ROOT', '{VAL_dcl_www_root}');
 
-// Method used to redirect browser to different URL
-// Valid options: meta (use meta http-equiv refresh) or php (php header function)
-// Note: if cookieMethod is meta, it will override a redir of php with meta.
-define('DCL_REDIR_METHOD', '{VAL_redirMethod}');
-
-// Method used to set cookies
-// Valid options: meta (use meta http-equiv setcookie), php (php setcookie function), or header (php header function)
-define('DCL_COOKIE_METHOD', '{VAL_cookieMethod}');
-
 /***********************************************************************************************
  * Do NOT edit this section!!!  This sets up the environment for DCL.                          *
  ***********************************************************************************************/

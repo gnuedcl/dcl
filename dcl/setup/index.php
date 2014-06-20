@@ -222,8 +222,6 @@ case "dbsave":
     $mm->setRewrite('dbName', $myts->stripSlashesGPC($_POST['dbName']));
     $mm->setRewrite('dcl_root', $myts->stripSlashesGPC($_POST['dcl_root']));
     $mm->setRewrite('dcl_www_root', $myts->stripSlashesGPC($_POST['dcl_www_root']));
-    $mm->setRewrite('cookieMethod', $myts->stripSlashesGPC($_POST['cookieMethod']));
-    $mm->setRewrite('redirMethod', $myts->stripSlashesGPC($_POST['redirMethod']));
 
     $ret = $mm->doRewrite();
     if(! $ret){

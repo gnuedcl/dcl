@@ -42,8 +42,6 @@ class setting_manager {
     var $dbName;
     var $dcl_root;
     var $dcl_www_root;
-	var $redirMethod;
-	var $cookieMethod;
 
     var $sanitizer;
 
@@ -73,8 +71,6 @@ class setting_manager {
             }
 
 			$this->dcl_www_root = "/" . $filepath . "/";
-			$this->redirMethod = 'php';
-			$this->cookieMethod = 'php';
         }
     }
 
@@ -95,10 +91,6 @@ class setting_manager {
             $this->dcl_root = $this->sanitizer->stripSlashesGPC($_POST['dcl_root']);
         if(isset($_POST['dcl_www_root']))
             $this->dcl_www_root = $this->sanitizer->stripSlashesGPC($_POST['dcl_www_root']);
-        if(isset($_POST['redirMethod']))
-            $this->redirMethod = $this->sanitizer->stripSlashesGPC($_POST['redirMethod']);
-        if(isset($_POST['cookieMethod']))
-            $this->cookieMethod = $this->sanitizer->stripSlashesGPC($_POST['cookieMethod']);
     }
 
     function readConstant(){
@@ -120,10 +112,6 @@ class setting_manager {
 			$this->dcl_root = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dcl_root']);
 		if(isset($dcl_domain_info['default']['dcl_www_root']))
 			$this->dcl_www_root = $this->sanitizer->stripSlashesGPC($dcl_domain_info['default']['dcl_www_root']);
-        if(isset($GLOBALS['redirMethod']))
-            $this->redirMethod = $this->sanitizer->stripSlashesGPC($GLOBALS['redirMethod']);
-        if(isset($GLOBALS['cookieMethod']))
-            $this->cookieMethod = $this->sanitizer->stripSlashesGPC($GLOBALS['cookieMethod']);
     }
 
     function checkData(){
@@ -185,9 +173,6 @@ class setting_manager {
         $ret .= $this->editform_sub(_INSTALL_L29, _INSTALL_L64, 'dbName', $this->sanitizer->htmlSpecialChars($this->dbName));
         $ret .= $this->editform_sub(_INSTALL_L55, _INSTALL_L59, 'dcl_root', $this->sanitizer->htmlSpecialChars($this->dcl_root));
         $ret .= $this->editform_sub(_INSTALL_L56, _INSTALL_L58, 'dcl_www_root', $this->sanitizer->htmlSpecialChars($this->dcl_www_root));
-
-		$ret .= $this->GetMethodCombo('Cookie Method', 'How should DCL set the session cookie?  PHP with IIS in CGI mode should use meta.', 'cookieMethod', $this->cookieMethod);
-		$ret .= $this->GetMethodCombo('Redirect Method', 'How should DCL redirect to other pages?  PHP with IIS in CGI mode should use meta.', 'redirMethod', $this->redirMethod);
 
         $ret .= "</table>";
         return $ret;
@@ -270,14 +255,6 @@ class setting_manager {
                         <td class='bg3'><b>"._INSTALL_L56."</b></td>
                         <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dcl_www_root)."</td>
                     </tr>
-                    <tr>
-                        <td class='bg3'><b>".'Cookie Method'."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->cookieMethod)."</td>
-                    </tr>
-                    <tr>
-                        <td class='bg3'><b>".'Redirect Method'."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->redirMethod)."</td>
-                    </tr>
                 </table></td></tr>
             </table>
             <input type='hidden' name='dbType' value='".$this->sanitizer->htmlSpecialChars($this->dbType)."' />
@@ -288,8 +265,6 @@ class setting_manager {
             <input type='hidden' name='dbName' value='".$this->sanitizer->htmlSpecialChars($this->dbName)."' />
             <input type='hidden' name='dcl_root' value='".$this->sanitizer->htmlSpecialChars($this->dcl_root)."' />
             <input type='hidden' name='dcl_www_root' value='".$this->sanitizer->htmlSpecialChars($this->dcl_www_root)."' />
-            <input type='hidden' name='cookieMethod' value='".$this->sanitizer->htmlSpecialChars($this->cookieMethod)."' />
-            <input type='hidden' name='redirMethod' value='".$this->sanitizer->htmlSpecialChars($this->redirMethod)."' />
             ";
         return $ret;
     }

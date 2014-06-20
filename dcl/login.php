@@ -42,60 +42,22 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
     else
         $theCookie = $session_id . '/' . $domain;
 
-    if (DCL_COOKIE_METHOD == 'header')
-    {
-        $hdr = '';
-        if (DCL_REDIR_METHOD == 'php')
-            $hdr = "Location: $toHere\n";
+	$httpDomain = '';
+	if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $_SERVER['HTTP_HOST']))
+	{
+		$httpDomain = $_SERVER['HTTP_HOST'];
+	}
+	else if (preg_match('/.*\..*$/', $_SERVER['HTTP_HOST']))
+	{
+		$httpDomain = preg_replace('/^www\./i', '', $_SERVER['HTTP_HOST']);
+		$httpDomain = '.' . $httpDomain;
+	}
 
-        $hdr .= "Set-Cookie: DCLINFO=$theCookie\n";
-        $hdr .= "\n";
+	if (($p = strpos($httpDomain, ':')) !== false)
+		$httpDomain = substr($httpDomain, 0, $p);
 
-        Header($hdr);
-        if ($bIsLogin)
-            exit;
-    }
-
-    if (DCL_COOKIE_METHOD == 'php')
-    {
-        $httpDomain = '';
-        if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $_SERVER['HTTP_HOST']))
-        {
-            $httpDomain = $_SERVER['HTTP_HOST'];
-        }
-        else if (preg_match('/.*\..*$/', $_SERVER['HTTP_HOST']))
-        {
-            $httpDomain = preg_replace('/^www\./i', '', $_SERVER['HTTP_HOST']);
-            $httpDomain = '.' . $httpDomain;
-        }
-
-        if (($p = strpos($httpDomain, ':')) !== false)
-            $httpDomain = substr($httpDomain, 0, $p);
-
-        SetCookie('DCLINFO', $theCookie, 0, '/', $httpDomain);
-
-        if (DCL_REDIR_METHOD == 'php')
-        {
-            Header("Location: $toHere\n\n");
-            if ($bIsLogin)
-                exit;
-        }
-    }
-
-    print('<html><head>');
-
-    if (DCL_COOKIE_METHOD == 'meta')
-    {
-        print("<meta http-equiv=\"Set-Cookie\" content=\"DCLINFO=$theCookie\">");
-    }
-
-    print("<meta http-equiv=\"refresh\" content=\"00;URL=$toHere\">");
-    print('</head>');
-    if ($bIsLogin)
-    {
-        print('<body bgcolor="#FFFFFF"></body></html>');
-        exit;
-    }
+	SetCookie('DCLINFO', $theCookie, 0, '/', $httpDomain, UseHttps(), true);
+	Header("Location: $toHere\n\n");
 }
 
 if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
