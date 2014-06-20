@@ -395,7 +395,7 @@ function Invoke($sClassMethod)
 		$class .= 'Controller';
 		if (!class_exists($class))
 		{
-			ShowError('Invoke could not find class: ' . $class);
+			ShowError('Invalid request.');
 			return;
 		}
 	}
@@ -403,7 +403,7 @@ function Invoke($sClassMethod)
 	$obj = new $class();
 	if (!method_exists($obj, $method))
 	{
-		ShowError('Class ' . $class . ' does not contain a definition for method ' . $method);
+		ShowError('Invalid request.');
 		return;
 	}
 	
@@ -424,7 +424,7 @@ function InvokePlugin($sPluginName, &$aParams = null, $method = 'Invoke')
 	$obj = new $class();
 	if (!method_exists($obj, $method))
 	{
-		ShowError('Plugin class ' . $class . ' does not contain a definition for method ' . $method);
+		ShowError('Invalid request.');
 		return;
 	}
 
@@ -830,28 +830,28 @@ function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOptio
 	return $str;
 }
 
-function ShowInfo($sMessage, $sFile = '', $iLine = 0, $aBacktrace = null)
+function ShowInfo($sMessage)
 {
 	commonHeader();
 
 	$o = htmlMessageInfo::GetInstance();
-	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
+	$o->SetShow($sMessage);
 }
 
-function ShowWarning($sMessage, $sFile = '', $iLine = 0, $aBacktrace = null)
+function ShowWarning($sMessage)
 {
 	commonHeader();
 
 	$o = htmlMessageWarning::GetInstance();
-	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
+	$o->SetShow($sMessage);
 }
 
-function ShowError($sMessage, $sFile = '', $iLine = 0, $aBacktrace = null)
+function ShowError($sMessage)
 {
 	commonHeader();
 
 	$o = htmlMessageError::GetInstance();
-	$o->SetShow($sMessage, $sFile, $iLine, $aBacktrace);
+	$o->SetShow($sMessage);
 }
 
 function DclErrorLog($level, $message, $file, $line, $backTrace)

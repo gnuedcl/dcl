@@ -132,7 +132,7 @@ class htmlSearchBox
 		commonHeader();
 		if ($g_oSec->IsPublicUser() && !$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			ShowInfo('You must provide a work order ID and sequence.', __FILE__, __LINE__, null);
+			ShowError('You must provide a work order ID and sequence.');
 			return;
 		}
 
@@ -184,7 +184,7 @@ class htmlSearchBox
 		commonHeader();
 		if ($g_oSec->IsPublicUser() && !$g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 		{
-			ShowInfo('You must provide a ticket ID.', __FILE__, __LINE__, null);
+			ShowError('You must provide a ticket ID.');
 			return;
 		}
 

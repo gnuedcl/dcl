@@ -25,10 +25,6 @@ class htmlMessage
 	var $sTemplate;
 	var $sMessage;
 	var $sTitle;
-	var $sFile;
-	var $iLine;
-	var $aBacktrace;
-	var $sUUID;
 	var $bIsFirst;
 	var $t;
 	
@@ -58,7 +54,6 @@ class htmlMessage
 	
 	function Show()
 	{
-		$this->sUUID = md5(uniqid(rand(), true));
 		$this->t->assignByRef('MESSAGE', $this);
 		
 		if (!defined('__DCL_MESSAGE__'))
@@ -67,12 +62,9 @@ class htmlMessage
 		$this->t->Render($this->sTemplate);
 	}
 	
-	function SetShow($sMessage, $sFile, $iLine, &$aBacktrace)
+	function SetShow($sMessage)
 	{
-		$this->sFile = $sFile;
 		$this->sMessage = $sMessage;
-		$this->iLine = $iLine;
-		$this->aBacktrace = $aBacktrace;
 		$this->Show();
 	}
 }

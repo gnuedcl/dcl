@@ -113,7 +113,7 @@ class PersonnelModel extends DbProvider
 
 		$query = 'UPDATE personnel SET pwd=' . $this->Quote(md5($newPassword)) . ' WHERE id=' . $userID;
 		$this->Execute($query);
-		ShowInfo(STR_DB_PWDCHGSUCCESS, E_USER_NOTICE);
+		ShowInfo(STR_DB_PWDCHGSUCCESS);
 	}
 
 	public function Encrypt()

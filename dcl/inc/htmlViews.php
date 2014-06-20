@@ -75,7 +75,7 @@ class htmlViews
 			
 		if ($g_oSession->IsInWorkspace())
 		{
-			ShowWarning('You are currently in a workspace.  It is possible for results to be mutually exclusive if a search contains a product filter.  If you do not see the results you expect, switch to "No Workspace" or another workspace that has the products contained in the search.', '', '', array());
+			ShowWarning('You are currently in a workspace.  It is possible for results to be mutually exclusive if a search contains a product filter.  If you do not see the results you expect, switch to "No Workspace" or another workspace that has the products contained in the search.');
 		}
 
 		$objDB = new SavedSearchesModel();

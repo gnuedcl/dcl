@@ -86,7 +86,7 @@ class htmlProjectTimeline
 		
 		if ($sSQL == '')
 		{
-		    ShowError('No options selected.', __FILE__, __LINE__, null);
+		    ShowError('No options selected.');
 		    return;
 		}
 		

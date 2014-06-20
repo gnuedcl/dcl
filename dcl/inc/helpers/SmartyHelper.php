@@ -75,7 +75,7 @@ class SmartyHelper extends Smarty
 			$this->setTemplateDir(DCL_ROOT . "templates/default/");
 			if (!$this->templateExists($sTemplateName))
 			{
-				ShowError("Cannot find template [$sTemplateName]");
+				ShowError("Invalid view name.");
 				return;
 			}
 		}
