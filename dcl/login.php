@@ -56,8 +56,8 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 	if (($p = strpos($httpDomain, ':')) !== false)
 		$httpDomain = substr($httpDomain, 0, $p);
 
-	SetCookie('DCLINFO', $theCookie, 0, '/', $httpDomain, UseHttps(), true);
-	Header("Location: $toHere\n\n");
+	setcookie('DCLINFO', $theCookie, 0, '/', $httpDomain, UseHttps(), true);
+	header("Location: $toHere\n\n");
 }
 
 if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))

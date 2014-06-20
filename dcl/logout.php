@@ -25,31 +25,34 @@ if (!defined('__DCL_CONFIG_INCLUDED__'))
 
 include_once(DCL_ROOT . 'inc/functions.inc.php');
 
-$g_oSession = new SessionModel();
-list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
-if (strlen($dcl_session_id) == 32)
+if (isset($_COOKIE['DCLINFO']))
 {
-	$g_oSession->Connect();
-	if (!$g_oSession->conn)
-		Refresh(DCL_WWW_ROOT . 'index.php?cd=3');
-
-	if ($g_oSession->Load($dcl_session_id) == false)
-		Refresh(DCL_WWW_ROOT . 'index.php?cd=2');
-
-	if ($g_oSession->IsValidSession())
+	$g_oSession = new SessionModel();
+	list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
+	if (strlen($dcl_session_id) == 32)
 	{
-		if (isset($GLOBALS['dcl_info']) && isset($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']) && $GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
+		$g_oSession->Connect();
+		if (!$g_oSession->conn)
+			Refresh(DCL_WWW_ROOT . 'index.php?cd=3');
+
+		if ($g_oSession->Load($dcl_session_id) == false)
+			Refresh(DCL_WWW_ROOT . 'index.php?cd=2');
+
+		if ($g_oSession->IsValidSession())
 		{
-			$oSecAuditDB = new SecurityAuditModel();
-            $oSecAuditDB->id = DCLID;
-            $oSecAuditDB->actionon = DCL_NOW;
-            $oSecAuditDB->actiontxt = 'logout';
-            $oSecAuditDB->actionparam = '';
-            $oSecAuditDB->Add();
+			if (isset($GLOBALS['dcl_info']) && isset($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']) && $GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
+			{
+				$oSecAuditDB = new SecurityAuditModel();
+				$oSecAuditDB->id = DCLID;
+				$oSecAuditDB->actionon = DCL_NOW;
+				$oSecAuditDB->actiontxt = 'logout';
+				$oSecAuditDB->actionparam = '';
+				$oSecAuditDB->Add();
+			}
+
+			$g_oSession->Delete($g_oSession->dcl_session_id);
+			$g_oSession->Clear();
 		}
-	
-		$g_oSession->Delete($g_oSession->dcl_session_id);
-		$g_oSession->Clear();
 	}
 }
 
@@ -58,17 +61,30 @@ if (isset($_REQUEST['cd']) && ($_REQUEST['cd'] == '1' || $_REQUEST['cd'] == '2' 
 else
 	Refresh(DCL_WWW_ROOT . 'index.php?cd=4');
 
-function Refresh($toHere = 'index.php', $session_id = '', $domain = 'default')
+function Refresh($toHere = 'index.php')
 {
-	$oSmarty = new SmartyHelper();
+	$httpDomain = '';
+	if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $_SERVER['HTTP_HOST']))
+	{
+		$httpDomain = $_SERVER['HTTP_HOST'];
+	}
+	else if (preg_match('/.*\..*$/', $_SERVER['HTTP_HOST']))
+	{
+		$httpDomain = preg_replace('/^www\./i', '', $_SERVER['HTTP_HOST']);
+		$httpDomain = '.' . $httpDomain;
+	}
+
+	if (($p = strpos($httpDomain, ':')) !== false)
+		$httpDomain = substr($httpDomain, 0, $p);
+
+	setcookie('DCLINFO', null, -1, '/', $httpDomain, UseHttps(), true);
 
 	if (isset($_REQUEST['refer_to']) && $_REQUEST['refer_to'] != '')
 	{
 		$toHere .= sprintf('%srefer_to=%s', strpos($toHere, '?') > 0 ? '&' : '?', urlencode(urldecode($_REQUEST['refer_to'])));
 	}
-	
-	$oSmarty->assign('URL', $toHere);
-	$oSmarty->Render('logout.tpl');
-	
+
+	header("Location: $toHere\n\n");
+
 	exit;
 }
