@@ -32,6 +32,7 @@ function validateAndSubmitForm(form)
 {if $IS_EDIT}
 	<input type="hidden" name="menuAction" value="Project.Update">
 	<input type="hidden" name="projectid" value="{$ViewData->Id}">
+	{dcl_anti_csrf_token}
 	<fieldset>
 		<legend>{$smarty.const.STR_PRJ_EDIT}</legend>
 {else}

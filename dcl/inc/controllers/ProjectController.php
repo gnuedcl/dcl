@@ -56,6 +56,7 @@ class ProjectController
 
 		RequirePost();
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_ADD);
+		AntiCsrf::ValidateToken();
 
 		$model = new ProjectsModel();
 		$model->InitFrom_POST();
@@ -102,6 +103,7 @@ class ProjectController
 		$id = @Filter::RequireInt($_POST['projectid']);
 
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $id);
+		AntiCsrf::ValidateToken();
 
 		$model = new ProjectsModel();
 		if ($model->Load($id) == -1)
