@@ -108,6 +108,7 @@ else
         $g_oSession->Register('contact_id', $authInfo['contact_id']);
         $g_oSession->Register('dcl_info', $dcl_info);
         $g_oSession->Register('dcl_preferences', $oPreferences->preferences_data);
+		$g_oSession->Register('CSRF_TOKEN', AntiCsrf::GenerateToken());
 
         // If we have org restrictions, cache the affiliated orgs for this contact record
         if ($authInfo['contact_id'] != null && $authInfo['contact_id'] > 0)

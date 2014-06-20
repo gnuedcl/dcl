@@ -71,6 +71,8 @@ class htmlPreferences
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
+
+		AntiCsrf::ValidateToken();
 			
 		$bHasChanges = false;
 		$o = new PreferencesModel();

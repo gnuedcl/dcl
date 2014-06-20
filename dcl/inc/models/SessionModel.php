@@ -39,10 +39,8 @@ class SessionModel extends DbProvider
 
 	public function Add()
 	{
-		global $dcl_info;
-
-		srand((double)microtime() * 1000000);
-		$this->dcl_session_id = md5(uniqid(rand()));
+		mt_srand();
+		$this->dcl_session_id = md5(uniqid(mt_rand()));
 		$this->create_date = DCL_NOW;
 		$this->update_date = DCL_NOW;
 		$this->session_data = serialize($this->session_data);

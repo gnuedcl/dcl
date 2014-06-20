@@ -9,6 +9,7 @@ function validateAndSubmit(f)
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="htmlPreferences.submitModify">
+	{dcl_anti_csrf_token}
 	<fieldset>
 		<legend>{$smarty.const.DCL_MENU_PREFERENCES}</legend>
 {if $PERM_MODIFYCONTACT}
