@@ -106,6 +106,7 @@ class WorkOrderController
 	{
 		RequirePost();
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ADD);
+		AntiCsrf::ValidateToken();
 
 		global $dcl_info, $g_oSec;
 
@@ -281,6 +282,7 @@ class WorkOrderController
 		$seq = Filter::RequireInt($_REQUEST['seq']);
 
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $id, $seq);
+		AntiCsrf::ValidateToken();
 
 		$workOrderModel = new WorkOrderModel();
 		if ($workOrderModel->Load($id, $seq) == -1)

@@ -103,6 +103,7 @@ function UpdateOptions()
 <form class="styled" name="woform" method="post" action="{$smarty.const.DCL_WWW_ROOT}main.php" enctype="multipart/form-data">
 	<input type="hidden" name="menuActionExExExExEx" value="{$ViewData->Action}">
 	<input type="hidden" name="menuAction" value="{$ViewData->Action}">
+	{dcl_anti_csrf_token}
 	{if $ViewData->WorkOrderId}<input type="hidden" name="jcn" value="{$ViewData->WorkOrderId}">{/if}
 	{if $ViewData->Sequence}<input type="hidden" name="seq" value="{$ViewData->Sequence}">{/if}
 	{if $ViewData->TicketId}<input type="hidden" name="ticketid" value="{$ViewData->TicketId}">{/if}
