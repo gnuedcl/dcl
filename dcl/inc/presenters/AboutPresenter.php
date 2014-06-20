@@ -36,28 +36,12 @@ class AboutPresenter
 		$template->assign('TXT_YOURVER', STR_VER_YOURVER);
 
 		$template->assign('TXT_DCL', STR_VER_DCL);
-		$template->assign('TXT_SERVEROS', STR_VER_SERVEROS);
-		$template->assign('TXT_SERVERNAME', STR_VER_SERVERNAME);
-		$template->assign('TXT_WEBSERVER', STR_VER_WEBSERVER);
-		$template->assign('TXT_PHPVER', STR_VER_PHPVER);
 		$template->assign('TXT_YOURIP', STR_VER_YOURIP);
 		$template->assign('TXT_YOURBROWSER', STR_VER_YOURBROWSER);
 
 		$template->assign('VAL_DCLVERSION', $dcl_info['DCL_VERSION']);
-		$template->assign('VAL_SERVERNAME', $_SERVER['SERVER_NAME'] . '(' . $_SERVER['HTTP_HOST'] . ')');
-		$template->assign('VAL_SERVERSOFTWARE', $_SERVER['SERVER_SOFTWARE']);
-		$template->assign('VAL_PHPVERSION', phpversion());
 		$template->assign('VAL_REMOTEADDR', $_SERVER['REMOTE_ADDR']);
 		$template->assign('VAL_HTTPUSERAGENT', $_SERVER['HTTP_USER_AGENT']);
-
-		if (IsSet($_SERVER['OSTYPE']) && IsSet($_SERVER['HOSTTYPE']))
-			$template->assign('VAL_SERVEROS', $_SERVER['OSTYPE'] . '-' . $_SERVER['HOSTTYPE']);
-		elseif (IsSet($_SERVER['OSTYPE']))
-			$template->assign('VAL_SERVEROS', $_SERVER['OSTYPE']);
-		elseif (IsSet($_SERVER['HOSTTYPE']))
-			$template->assign('VAL_SERVEROS', $_SERVER['HOSTTYPE']);
-		else
-			$template->assign('VAL_SERVEROS', '');
 
 		$template->Render('About.tpl');
 	}
