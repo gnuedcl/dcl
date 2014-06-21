@@ -43,7 +43,7 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
         $theCookie = $session_id . '/' . $domain;
 
 	$httpDomain = '';
-	if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $_SERVER['HTTP_HOST']))
+	if (preg_match('/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(:[0-9]+)*$/', $_SERVER['HTTP_HOST']))
 	{
 		$httpDomain = $_SERVER['HTTP_HOST'];
 	}
