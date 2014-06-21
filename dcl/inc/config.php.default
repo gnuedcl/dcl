@@ -39,7 +39,6 @@ $dcl_domain_info['default'] = array(
 		'dbVersionExt' => ''
 	);
 
-// Should match one of the indexes specified in $dcl_domain_info
 $dcl_domain = 'default';
 
 // Fully qualified path to DCL doc root
@@ -56,17 +55,6 @@ define('DCL_WWW_ROOT', '{VAL_dcl_www_root}');
 
 if (function_exists('date_default_timezone_set'))
 	@date_default_timezone_set(@date_default_timezone_get());
-
-$reg = array();
-if (IsSet($_REQUEST['DCLINFO']) && !IsSet($_REQUEST['UID']))
-{
-	if (preg_match('/^([a-z0-9]{32})\/(.+)$/i', $_REQUEST['DCLINFO'], $reg))
-		$dcl_domain = $reg[2];
-}
-elseif (IsSet($_REQUEST['UID']) && IsSet($_REQUEST['DOMAIN']))
-{
-	$dcl_domain = $_REQUEST['DOMAIN'];
-}
 
 include_once(sprintf('%sinc/lib/DbProvider.%s.php', DCL_ROOT, $dcl_domain_info[$dcl_domain]['dbType']));
 include_once(sprintf('%sinc/lib/Filter.php', DCL_ROOT));

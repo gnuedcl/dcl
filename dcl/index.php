@@ -31,25 +31,6 @@ if (!isset($dcl_info))
 	$oConfig->Load();
 }
 
-function GetDomainCombo()
-{
-	global $dcl_domain_info;
-
-	if (count($dcl_domain_info) > 1)
-	{
-		$retVal = '<select name="DOMAIN">';
-		reset($dcl_domain_info);
-		while (list($key, $val) = each($dcl_domain_info))
-			$retVal .= '<option value="' . $key . '">' . $val['name'] . '</option>';
-
-		$retVal .= '</select>';
-	}
-	else
-		$retVal = '<input type="hidden" name="DOMAIN" value="default">' . $dcl_domain_info['default']['name'];
-
-	return $retVal;
-}
-
 $t = new SmartyHelper();
 
 if (IsSet($_REQUEST['cd']))
@@ -79,10 +60,8 @@ $t->assign('TXT_VERSION', $dcl_info['DCL_VERSION']);
 $t->assign('TXT_LOGIN', 'Please Login');
 $t->assign('TXT_USER', 'User');
 $t->assign('TXT_PASSWORD', 'Password');
-$t->assign('TXT_DOMAIN', 'Domain');
 $t->assign('BTN_LOGIN', 'Login');
 $t->assign('BTN_CLEAR', 'Clear');
-$t->assign('CMB_DOMAIN', GetDomainCombo());
 
 if (IsSet($_REQUEST['refer_to']))
 	$t->assign('VAL_REFERTO', urldecode($_REQUEST['refer_to']));

@@ -22,8 +22,6 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-//error_reporting (E_ALL);
-
 include_once './passwd.php';
 if(INSTALL_USER != '' || INSTALL_PASSWD != '')
 {
@@ -86,6 +84,7 @@ define('_NGIMG',"<img src='img/no.gif' width='6' height='12' border='0' alt='' /
 $b_back = '';
 $b_reload = '';
 $b_next = '';
+$dcl_domain = 'default';
 
 // options for mainfile.php
 $xoopsOption['nocommon'] = true;

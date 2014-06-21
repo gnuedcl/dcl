@@ -152,10 +152,8 @@ else
         if ($tpl == '')
             $tpl = $dcl_info['DCL_DEF_TEMPLATE_SET'];
 
-        if (file_exists('templates/' . $tpl . '/frameset.php'))
-            Refresh('templates/' . $tpl . '/frameset.php?' . $menuAction, $g_oSession->dcl_session_id, $_POST['DOMAIN']);
-        else
-            Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id, $_POST['DOMAIN']);
+		$domain = 'default';
+        Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id, $domain);
     }
     else
         Refresh('logout.php?cd=1');
