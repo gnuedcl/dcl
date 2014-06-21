@@ -18,12 +18,12 @@
 				'{$smarty.const.STR_CMMN_NAME|escape:"javascript"}',
 				'{$smarty.const.STR_CMMN_OPTIONS|escape:"javascript"}'
 			],
-			cmTemplate: {title: false},
+			cmTemplate: { title: false },
 		   	colModel:[
-		   		{name: 'role_id', index: 'role_id', width: 35, align: "right"},
-		   		{name: 'active', index: 'active', width: 35, formatter: formatYN, stype: "select", searchoptions: {value: ":All;Y:Yes;N:No"}},
-		   		{name: 'role_desc', index: 'role_desc', width: 100},
-		   		{name: 'options', index: 'options', width: 80, search: false, sortable: false, formatter: formatOptions}
+		   		{ name: 'role_id', index: 'role_id', width: 35, align: "right" },
+		   		{ name: 'active', index: 'active', width: 35, formatter: formatYN, stype: "select", searchoptions: { value: ":All;Y:Yes;N:No" } },
+		   		{ name: 'role_desc', index: 'role_desc', width: 100 },
+		   		{ name: 'options', index: 'options', width: 80, search: false, sortable: false, formatter: formatOptions }
 		   	],
 		   	rowNum: 25,
 		   	rowList: [25, 50, 100],
@@ -33,7 +33,7 @@
 			hidegrid: false,
 		    caption: "Roles"
 		})
-		.jqGrid('navGrid', '#pager', {edit: false, add: false, del: false, search: false})
+		.jqGrid('navGrid', '#pager', { edit: false, add: false, del: false, search: false })
 		.jqGrid('filterToolbar');
 
 		$(window).on('resize', function() {
