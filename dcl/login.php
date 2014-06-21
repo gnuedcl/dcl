@@ -57,7 +57,7 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 		$httpDomain = substr($httpDomain, 0, $p);
 
 	setcookie('DCLINFO', $theCookie, 0, '/', $httpDomain, UseHttps(), true);
-	header("Location: $toHere\n\n");
+	header("Location: $toHere");
 
 	exit;
 }

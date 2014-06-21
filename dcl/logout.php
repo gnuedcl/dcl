@@ -84,7 +84,7 @@ function Refresh($toHere = 'index.php')
 		$toHere .= sprintf('%srefer_to=%s', strpos($toHere, '?') > 0 ? '&' : '?', urlencode(urldecode($_REQUEST['refer_to'])));
 	}
 
-	header("Location: $toHere\n\n");
+	header("Location: $toHere");
 
 	exit;
 }
