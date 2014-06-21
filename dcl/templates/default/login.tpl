@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Set-Cookie" content="DCLINFO=;expires=Sunday, 31-Dec-2000 23:59:59 GMT">
 	<meta http-equiv="Expires" content="-1">
 	<title>{$TXT_TITLE}</title>
-	<script language="JavaScript">
-	function init()
-	{
-		document.forms[0].elements['UID'].focus();
-	}
-	</script>
+	<script language="JavaScript">function init(){ document.getElementById("UID").focus(); }</script>
 	<link rel="stylesheet" href="{$DIR_CSS}default.css" type="text/css"></link>
 </head>
 <body onload="init();">
