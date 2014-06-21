@@ -1,6 +1,4 @@
-<TABLE BORDER=0 CELLSPACING="0" CELLPADDING="2">
-<TR><TH class="formTitle">Double Choco Latte, Copyright (C) 1999-2012 Free Software Foundation
-</TH></TR><TR><TD class="formContainer">
+<h2>Double Choco Latte, Copyright (C) 1999-2014 Free Software Foundation</h2>
 <TABLE BORDER=0>
 <TR><TD>
 Double Choco Latte comes with ABSOLUTELY NO WARRANTY; for details see below.<BR>
@@ -382,5 +380,4 @@ POSSIBILITY OF SUCH DAMAGES.
 
 
 <H2>END OF TERMS AND CONDITIONS</H2>
-</TD></TR></TABLE>
 </TD></TR></TABLE>
