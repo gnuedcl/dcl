@@ -42,15 +42,6 @@
 		oNewTask.id = oNewLabel.getAttribute("for");
 		oDiv.appendChild(oNewTask);
 		
-		var oNewFileLink = document.createElement("A");
-		oNewFileLink.rowNumber = _iCurrentID;
-		oNewFileLink.onclick = function() { toggleFile(this.rowNumber); }
-		oNewFileLink.innerHTML = "File";
-		oNewFileLink.style.hover = "cursor: pointer; cursor: hand;";
-		oNewFileLink.id = "link_file_" + String(_iCurrentID);
-		oNewFileLink.href = "javascript:;";
-		oDiv.appendChild(oNewFileLink);
-		
 		var oNewRemove = document.createElement("A");
 		oNewRemove.rowNumber = _iCurrentID;
 		oNewRemove.onclick = function() { removeTask(this.rowNumber); }
@@ -84,22 +75,12 @@
 	{
 		if (iTaskID < 2) return;
 		var sLabelID = "label_summary_" + iTaskID;
-		var sLabelFileID = "label_file_" + iTaskID;
 		var sSummaryID = "task_summary_" + iTaskID;
-		var sFileID = "user_file_" + iTaskID;
 		var sLinkID = "link_summary_" + iTaskID;
 		var oDiv = document.getElementById("div_task_summary");
 		oDiv.removeChild(document.getElementById(sLabelID));
 		oDiv.removeChild(document.getElementById(sSummaryID));
 		oDiv.removeChild(document.getElementById(sLinkID));
-		oDiv.removeChild(document.getElementById(sLabelFileID));
-		oDiv.removeChild(document.getElementById(sFileID));
-	}
-	function toggleFile(iTaskID)
-	{
-		var oFileDiv = document.getElementById("div_file_" + iTaskID);
-		if (oFileDiv)
-			oFileDiv.style.display = oFileDiv.style.display == "none" ? "" : "none";
 	}
 {/if}
 
@@ -126,11 +107,7 @@
 {/if}
 		<div id="div_task_summary">
 			<label for="task_summary_1" id="label_summary_1">Summary:</label>
-			<input type="text" size="50" maxlength="255" name="task_summary{if !$IS_EDIT}[]{/if}" id="task_summary_1" value="{$VAL_SUMMARY}"><a href="javascript:;" onclick="toggleFile(1);">File</a>
-			<div style="display:none;" id="div_file_1">
-				<label for="user_file_1" id="label_file_1">File:</label>
-				<input style="display:block;margin-left:126px;" type="file" name="user_file{if !$IS_EDIT}[]{/if}" id="user_file_1">
-			</div>
+			<input type="text" size="50" maxlength="255" name="task_summary{if !$IS_EDIT}[]{/if}" id="task_summary_1" value="{$VAL_SUMMARY|escape}">
 		</div>
 	</fieldset>
 	<fieldset>

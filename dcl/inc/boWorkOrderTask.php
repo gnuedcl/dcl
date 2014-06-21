@@ -43,9 +43,7 @@ class boWorkOrderTask extends boAdminObject
 	function add($aSource)
 	{
 		$aSource['task_complete'] = 'N';
-		
-		if (parent::add($aSource) != -1)
-			$this->attachFile($aSource);
+		return parent::add($aSource);
 	}
 
 	function modify($aSource)
@@ -78,28 +76,6 @@ class boWorkOrderTask extends boAdminObject
 		}
 
 		parent::modify($aSource);
-	}
-	
-	function attachFile($aSource, $iIndex = -1)
-	{
-		if (($wo_task_id = Filter::ToInt($aSource['wo_task_id'])) === null)
-		{
-			throw new InvalidDataException();
-		}
-		
-		if ($this->oDB->Load($wo_task_id) == -1)
-			return;
-			
-		if (($sFileName = Filter::ToFileName('userfile')) !== null)
-		{
-			$o = new FileHelper();
-			$o->iType = DCL_ENTITY_WORKORDER_TASK;
-			$o->iKey1 = $wo_task_id;
-			$o->sFileName = Filter::ToActualFileName('userfile');
-			$o->sTempFileName = $sFileName;
-			$o->sRoot = $dcl_info['DCL_FILE_PATH'] . '/attachments';
-			$o->Upload();
-		}
 	}
 	
 	function toggleComplete($aSource)
