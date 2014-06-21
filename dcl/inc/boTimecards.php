@@ -62,6 +62,8 @@ class boTimecards
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION))
 			throw new PermissionDeniedException();
 
+		AntiCsrf::ValidateToken();
+
 		$timeCardModel = new TimeCardsModel();
 		$workOrderModel = new WorkOrderModel();
 		$statusModel = new StatusModel();
@@ -255,6 +257,8 @@ class boTimecards
 			throw new PermissionDeniedException();
 		}
 
+		AntiCsrf::ValidateToken();
+
 		$objTimecard = new TimeCardsModel();
 		$objTimecard->InitFrom_POST();
 		$objTimecard->actionby = DCLID;
@@ -377,6 +381,8 @@ class boTimecards
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
+
+		AntiCsrf::ValidateToken();
 
 		$objTC = new TimeCardsModel();
 		$objOldTC = new TimeCardsModel();

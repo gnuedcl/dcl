@@ -46,6 +46,7 @@ function validateAndSubmitForm(form)
 </script>
 <form class="styled" name="NewAction" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
 	<input type="hidden" name="menuActionExExExExEx" value="{$VAL_MENUACTION}">
+	{dcl_anti_csrf_token}
 	{if $IS_BATCH}<input type="hidden" name="menuAction" value="boTimecards.dbbatchadd">
 	{elseif $IS_EDIT}<input type="hidden" name="menuAction" value="boTimecards.dbmodify">
 	{else}<input type="hidden" name="menuAction" value="boTimecards.dbadd">
