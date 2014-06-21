@@ -114,7 +114,7 @@ class PersonnelPresenter
 
 			$model->FreeResult();
 
-			$template->assign_by_ref('VAL_USERS', $aUsers);
+			$template->assignByRef('VAL_USERS', $aUsers);
 			$template->assign('VAL_HEADERS', $aColumnHeaders);
 		}
 

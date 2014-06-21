@@ -19,13 +19,13 @@
 				'{$smarty.const.STR_DEPT_NAME|escape:"javascript"}',
 				'{$smarty.const.STR_CMMN_OPTIONS|escape:"javascript"}'
 			],
-			cmTemplate: {title: false},
+			cmTemplate: { title: false },
 		   	colModel:[
-		   		{name: 'id', index: 'id', width: 35, align: "right"},
-		   		{name: 'active', index: 'active', width: 35, formatter: formatYN, stype: "select", searchoptions: {value: ":All;Y:Yes;N:No"}},
-		   		{name: 'short', index: 'short', width: 55},
-		   		{name: 'name', index: 'name', width: 100},
-		   		{name: 'options', index: 'options', width: 80, search: false, sortable: false, formatter: formatOptions}
+		   		{ name: 'id', index: 'id', width: 35, align: "right" },
+		   		{ name: 'active', index: 'active', width: 35, formatter: formatYN, stype: "select", searchoptions: { value: ":All;Y:Yes;N:No" } },
+		   		{ name: 'short', index: 'short', width: 55 },
+		   		{ name: 'name', index: 'name', width: 100 },
+		   		{ name: 'options', index: 'options', width: 80, search: false, sortable: false, formatter: formatOptions }
 		   	],
 		   	rowNum: 25,
 		   	rowList: [25, 50, 100],
@@ -35,7 +35,7 @@
 			hidegrid: false,
 		    caption: "{$smarty.const.STR_DEPT_TABLETITLE|escape:"javascript"}"
 		})
-		.jqGrid('navGrid', '#pager', {edit: false, add: false, del: false, search: false})
+		.jqGrid('navGrid', '#pager', { edit: false, add: false, del: false, search: false })
 		.jqGrid('filterToolbar');
 
 		$(window).on('resize', function() {

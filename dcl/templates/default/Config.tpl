@@ -1,10 +1,8 @@
 <script language="JavaScript">
 function validateAndSubmit(f)
-
 {
 	f.submit();
 }
-
 </script>
 <form class="styled" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="Configuration.Update">

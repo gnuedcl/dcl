@@ -1,6 +1,6 @@
-Thank you for calling customer support on {VAL_CLOSEDON}. Hopefully, your
+Thank you for calling customer support on {$VAL_CLOSEDON}. Hopefully, your
 issue was resolved in a timely manner.  The ticket number assigned to your
-call is {VAL_TICKETID}. Please refer to this ticket number if you call
+call is {$VAL_TICKETID}. Please refer to this ticket number if you call
 back about this same issue again. 
 
 In an effort to better serve your needs could you please answer the
