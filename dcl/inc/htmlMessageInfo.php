@@ -22,12 +22,12 @@
 
 class htmlMessageInfo extends htmlMessage
 {
-	function htmlMessageInfo()
+	public function __construct()
 	{
-		parent::htmlMessage();
+		parent::__construct();
 	}
 	
-	function &GetInstance()
+	public static function &GetInstance()
 	{
 		static $oInstance;
 		

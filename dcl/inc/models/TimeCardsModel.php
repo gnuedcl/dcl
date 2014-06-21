@@ -44,7 +44,7 @@ class TimeCardsModel extends DbProvider
 		}
 
 		$objWO = new WorkOrderModel();
-		if ($objWO->Load($this->jcn, $this->seq) == -1)
+		if ($objWO->LoadByIdSeq($this->jcn, $this->seq) == -1)
 		{
 			ShowError(printf(STR_DB_WORKORDERLOADERR, $this->jcn, $this->seq));
 			return;

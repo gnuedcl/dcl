@@ -131,7 +131,7 @@ class htmlWorkOrderTask
 		$seq = Filter::RequireInt($_REQUEST['seq']);
 		
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($wo_id, $seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($wo_id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		$obj = new boWorkOrderTask();
@@ -171,7 +171,7 @@ class htmlWorkOrderTask
 		$obj->modify($_REQUEST);
 		
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($obj->oDB->wo_id, $obj->oDB->seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($obj->oDB->wo_id, $obj->oDB->seq) == -1)
 			throw new InvalidEntityException();
 		
 		$workOrderPresenter = new WorkOrderPresenter();
@@ -193,7 +193,7 @@ class htmlWorkOrderTask
 		$obj->toggleComplete($aSource);
 
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($obj->oDB->wo_id, $obj->oDB->seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($obj->oDB->wo_id, $obj->oDB->seq) == -1)
 			throw new InvalidEntityException();
 		
 		$workOrderPresenter = new WorkOrderPresenter();
@@ -216,7 +216,7 @@ class htmlWorkOrderTask
 			$obj->delete(array('wo_task_id' => $wo_task_id));
 	
 			$workOrderModel = new WorkOrderModel();
-			if ($workOrderModel->Load($obj->oDB->wo_id, $obj->oDB->seq) == -1)
+			if ($workOrderModel->LoadByIdSeq($obj->oDB->wo_id, $obj->oDB->seq) == -1)
 				throw new InvalidEntityException();
 
 			$workOrderPresenter = new WorkOrderPresenter();

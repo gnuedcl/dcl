@@ -666,7 +666,7 @@ class reportPersonnelActivity
 						}
 						
 						$arrayIndex++;
-						$objW->Load($thisJCN, $thisSeq);
+						$objW->LoadByIdSeq($thisJCN, $thisSeq);
 						$objS->Load($objW->status);
 						$objPr->Load($objW->priority);
 						$objSe->Load($objW->severity);

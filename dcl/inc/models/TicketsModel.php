@@ -67,7 +67,7 @@ class TicketsModel extends DbProvider
 		return $this->Load($this->ticketid);
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		$oStatus = new StatusModel();
 		if ($oStatus->GetStatusType($this->status) == 2)
@@ -90,15 +90,15 @@ class TicketsModel extends DbProvider
 		$this->hoursText = $this->GetHoursText();
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		$this->BeginTransaction();
 
-		$query = 'DELETE FROM ticketresolutions WHERE ticketid=' . (int)$this->ticketid;
+		$query = 'DELETE FROM ticketresolutions WHERE ticketid=' . (int)$aID['ticketid'];
 		$this->Execute($query);
 
-		$this->Audit(array('ticketid' => $this->ticketid));
-		$query = 'DELETE FROM tickets WHERE ticketid=' . (int)$this->ticketid;
+		$this->Audit($aID);
+		$query = 'DELETE FROM tickets WHERE ticketid=' . (int)$aID['ticketid'];
 		$this->Execute($query);
 
 		return $this->EndTransaction();
@@ -123,11 +123,11 @@ class TicketsModel extends DbProvider
 		return sprintf('%01d:%02d:%02d', $hh, $mm, $ss);
 	}
 
-	public function Load($ticketid)
+	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		global $g_oSec;
 		
-		$oRetVal = parent::Load(array('ticketid' => $ticketid));
+		$oRetVal = parent::Load(array('ticketid' => $id));
 		if ($oRetVal !== -1)
 		{
 			$bIsPublic = false;

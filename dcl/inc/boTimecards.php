@@ -35,7 +35,7 @@ class boTimecards
 		$seq = Filter::RequireInt($_REQUEST['seq']);
 		
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($id, $seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		$obj = new htmlTimeCardForm();
@@ -74,7 +74,7 @@ class boTimecards
 			$timeCardModel->is_public = @Filter::ToYN($_REQUEST['is_public']);
 
 		$timeCardModel->inputon = DCL_NOW;
-		if ($workOrderModel->Load($timeCardModel->jcn, $timeCardModel->seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($timeCardModel->jcn, $timeCardModel->seq) == -1)
 		    return;
 		
 		$originalWorkOrder = clone $workOrderModel;
@@ -188,7 +188,7 @@ class boTimecards
 			$o->Upload();
 		}
 
-		$workOrderModel->Load($timeCardModel->jcn, $timeCardModel->seq);
+		$workOrderModel->LoadByIdSeq($timeCardModel->jcn, $timeCardModel->seq);
 		
 		PubSub::Publish('TimeCard.Inserted', $originalWorkOrder, $workOrderModel);
 
@@ -291,7 +291,7 @@ class boTimecards
 				if ($objTimecard->jcn === null || $objTimecard->seq === null)
 					continue;
 					
-				if ($workOrderModel->Load($objTimecard->jcn, $objTimecard->seq) == -1)
+				if ($workOrderModel->LoadByIdSeq($objTimecard->jcn, $objTimecard->seq) == -1)
 				    continue;
 				
 				$originalWorkOrder = clone $workOrderModel;
@@ -331,7 +331,7 @@ class boTimecards
 				}
 
 				// Reload before sending since time card modifies the work order
-				if ($workOrderModel->Load($objTimecard->jcn, $objTimecard->seq) != -1)
+				if ($workOrderModel->LoadByIdSeq($objTimecard->jcn, $objTimecard->seq) != -1)
 				{
 					PubSub::Publish('TimeCard.Inserted', $originalWorkOrder, $workOrderModel);
 					$objWtch->sendNotification($workOrderModel, $notify, false);
@@ -363,7 +363,7 @@ class boTimecards
 			throw new InvalidEntityException();
 		
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($objTC->jcn, $objTC->seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($objTC->jcn, $objTC->seq) == -1)
 			throw new InvalidEntityException();
 
 		$workOrderPresenter = new WorkOrderPresenter();
@@ -397,7 +397,7 @@ class boTimecards
 		$hoursDiff = $objTC->hours - $objOldTC->hours;
 
 		$objWO = new WorkOrderModel();
-		if ($objWO->Load($objTC->jcn, $objTC->seq) == -1)
+		if ($objWO->LoadByIdSeq($objTC->jcn, $objTC->seq) == -1)
 			return;
 		
 		$woChanged = false;
@@ -480,7 +480,7 @@ class boTimecards
 			throw new InvalidEntityException();
 		
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($objTC->jcn, $objTC->seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($objTC->jcn, $objTC->seq) == -1)
 			throw new InvalidEntityException();
 
 		$workOrderPresenter = new WorkOrderPresenter();
@@ -506,7 +506,7 @@ class boTimecards
 			throw new PermissionDeniedException();
 
 		$objWO = new WorkOrderModel();
-		if ($objWO->Load($objTC->jcn, $objTC->seq) == -1)
+		if ($objWO->LoadByIdSeq($objTC->jcn, $objTC->seq) == -1)
 			return;
 
 		// Get the next time card issued after this one.  If not, assume

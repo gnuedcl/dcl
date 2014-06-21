@@ -43,7 +43,7 @@ function smarty_function_dcl_select_product_version($params, &$smarty)
 	if ($params['active'] == 'Y')
 		$sFilter = "active = 'Y'";
 		
-	if (isset($params['product']))
+	if (isset($params['product']) && $params['product'] != '')
 	{
 		if ($sFilter != '')
 			$sFilter .= ' AND ';

@@ -88,7 +88,7 @@ class htmlSearchBox
 			if ($seq > 0)
 			{
 				$workOrderModel = new WorkOrderModel();
-				if ($workOrderModel->Load($woid, $seq) == -1)
+				if ($workOrderModel->LoadByIdSeq($woid, $seq) == -1)
 					throw new InvalidEntityException();
 				
 				$workOrderPresenter = new WorkOrderPresenter();

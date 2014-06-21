@@ -195,7 +195,7 @@ class boWatches
 		$obj = new WatchesModel();
 		if ($obj->Load($iID) != -1)
 		{
-			$obj->Delete();
+			$obj->Delete(array('watchid' => $iID));
 			ShowInfo(STR_BO_DELETED);
 		}
 
@@ -227,7 +227,7 @@ class boWatches
 			case 3:
 				if ($obj->whatid2 > 0)
 				{
-					$objW->Load($obj->whatid1, $obj->whatid2);
+					$objW->LoadByIdSeq($obj->whatid1, $obj->whatid2);
 					$summary = sprintf('[%d-%d] %s', $obj->whatid1, $obj->whatid2, $objW->summary);
 				}
 				else

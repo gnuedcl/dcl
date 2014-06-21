@@ -66,7 +66,7 @@ class htmlWiki
 				$id2 = Filter::RequireInt($_REQUEST['id2']);
 
 				$o = new WorkOrderModel();
-				$o->Load($id, $id2);
+				$o->LoadByIdSeq($id, $id2);
 				$this->t->assign('VAL_DESCRIPTION', sprintf(DCL_WIKI_WOWIKI, $id, $id2, $o->summary));
 				$this->t->assign('LNK_DESCRIPTION', menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $id . '&seq=' . $id2));
 				break;

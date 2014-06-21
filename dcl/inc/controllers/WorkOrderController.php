@@ -80,7 +80,7 @@ class WorkOrderController
 		$seq = @Filter::RequireInt($_REQUEST['seq']);
 		
 		$workOrder = new WorkOrderModel();
-		if ($workOrder->Load($id, $seq) == -1)
+		if ($workOrder->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		$presenter = new WorkOrderPresenter();
@@ -95,7 +95,7 @@ class WorkOrderController
 		$seq = @Filter::RequireInt($_REQUEST['seq']);
 		
 		$workOrder = new WorkOrderModel();
-		if ($workOrder->Load($id, $seq) == -1)
+		if ($workOrder->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		$presenter = new WorkOrderPresenter();
@@ -245,7 +245,7 @@ class WorkOrderController
 		}
 
 		// Reload work order to update fields now that we have it all stored
-		$workOrderModel->Load($workOrderModel->jcn, $workOrderModel->seq);
+		$workOrderModel->LoadByIdSeq($workOrderModel->jcn, $workOrderModel->seq);
 
 		PubSub::Publish('WorkOrder.Inserted', $workOrderModel);
 
@@ -266,7 +266,7 @@ class WorkOrderController
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_MODIFY, $id, $seq);
 		
 		$model = new WorkOrderModel();
-		if ($model->Load($id, $seq) == -1)
+		if ($model->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new WorkOrderPresenter();
@@ -285,7 +285,7 @@ class WorkOrderController
 		AntiCsrf::ValidateToken();
 
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($id, $seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($id, $seq) == -1)
 			return;
 
 		$updateableFields = array('product', 'module_id', 'wo_type_id', 'deadlineon', 'eststarton', 'estendon', 'esthours', 'priority', 'severity',
@@ -390,7 +390,7 @@ class WorkOrderController
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $id, $seq);
 		
 		$model = new WorkOrderModel();
-		if ($model->Load($id, $seq) == -1)
+		if ($model->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new WorkOrderPresenter();
@@ -428,7 +428,7 @@ class WorkOrderController
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $id, $seq);
 
 		$model = new WorkOrderModel();
-		if ($model->Load($id, $seq) == -1)
+		if ($model->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		$presenter = new WorkOrderPresenter();
@@ -469,7 +469,7 @@ class WorkOrderController
 		$productId = @Filter::ToInt($_REQUEST['product']);
 		
 		$model = new WorkOrderModel();
-		if ($model->Load($id, $seq) == -1)
+		if ($model->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		$presenter = new WorkOrderPresenter();
@@ -497,7 +497,7 @@ class WorkOrderController
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN, $id, $seq);
 
 		$workOrder = new WorkOrderModel();
-		if ($workOrder->Load($id, $seq) == -1)
+		if ($workOrder->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		if ($workOrder->responsible != $responsibleId ||
@@ -578,7 +578,7 @@ class WorkOrderController
 				if (($jcn = Filter::ToInt($jcn)) === null || ($seq = Filter::ToInt($seq)) === null)
 					throw new InvalidDataException();
 
-				if ($workOrderModel->Load($jcn, $seq) == -1)
+				if ($workOrderModel->LoadByIdSeq($jcn, $seq) == -1)
 					continue;
 					
 				if ($workOrderModel->responsible != $responsibleId || ($priorityId > 0 && $workOrderModel->priority != $priorityId) || ($severityId > 0 && $workOrderModel->severity != $severityId))
@@ -617,7 +617,7 @@ class WorkOrderController
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $id, $seq);
 		
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($id, $seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException ();
 		
 		$presenter = new WorkOrderPresenter();
@@ -637,7 +637,7 @@ class WorkOrderController
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ATTACHFILE, $id, $seq);
 
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($id, $seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 
 		$fileName = Filter::RequireFileName('userfile');
@@ -689,7 +689,7 @@ class WorkOrderController
 			throw new InvalidDataException();
 		
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($id, $seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		$presenter = new WorkOrderPresenter();
@@ -713,7 +713,7 @@ class WorkOrderController
 			throw new InvalidDataException();
 		
 		$workOrderModel = new WorkOrderModel();
-		if ($workOrderModel->Load($id, $seq) == -1)
+		if ($workOrderModel->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		$attachmentPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/wo/' . substr($id, -1) . '/' . $id . '/' . $seq . '/' . $fileName;

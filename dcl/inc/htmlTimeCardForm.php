@@ -66,7 +66,7 @@ class htmlTimeCardForm
 		else
 		{
 			$oWO = new WorkOrderModel();
-			$oWO->Load($jcn, $seq);
+			$oWO->LoadByIdSeq($jcn, $seq);
 
 			$oProduct = new ProductModel();
 			$oProduct->Load($oWO->product);

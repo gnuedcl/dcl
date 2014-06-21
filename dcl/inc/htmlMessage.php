@@ -28,7 +28,7 @@ class htmlMessage
 	var $bIsFirst;
 	var $t;
 	
-	function htmlMessage()
+	public function __construct()
 	{
 		$this->t = new SmartyHelper();
 		$this->sTemplate = 'MessageInfo.tpl';
@@ -40,7 +40,7 @@ class htmlMessage
 		$this->bIsFirst = !defined('__DCL_MESSAGE__');
 	}
 	
-	function &GetInstance()
+	public static function &GetInstance()
 	{
 		static $oInstance;
 		
@@ -52,7 +52,7 @@ class htmlMessage
 		return $oInstance;
 	}
 	
-	function Show()
+	public function Show()
 	{
 		$this->t->assignByRef('MESSAGE', $this);
 		
@@ -62,7 +62,7 @@ class htmlMessage
 		$this->t->Render($this->sTemplate);
 	}
 	
-	function SetShow($sMessage)
+	public function SetShow($sMessage)
 	{
 		$this->sMessage = $sMessage;
 		$this->Show();

@@ -173,7 +173,7 @@ class WorkOrderModel extends DbProvider
 		}
 	}
 
-	public function Load($jcn, $seq)
+	public function LoadByIdSeq($jcn, $seq)
 	{
 		global $g_oSec;
 

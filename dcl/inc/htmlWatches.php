@@ -65,7 +65,7 @@ class htmlWatches
 			case 3:
 				if ($key2 > 0)
 				{
-					$this->objW->Load($key1, $key2);
+					$this->objW->LoadByIdSeq($key1, $key2);
 					return '(' . $key1 . '-' . $key2 . ') ' . $this->objW->summary;
 				}
 

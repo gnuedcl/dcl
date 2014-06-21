@@ -323,7 +323,7 @@ class boTickets
 		if ($obj->is_public == 'N' && $g_oSec->IsPublicUser())
 			throw new PermissionDeniedException();
 
-		$obj->Delete();
+		$obj->Delete(array('ticketid' => $iID));
 
 		// Remove tags
 		$oTag = new EntityTagModel();

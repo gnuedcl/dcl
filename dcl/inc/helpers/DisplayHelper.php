@@ -376,7 +376,7 @@ class DisplayHelper
 		if ($this->oWorkOrder == null)
 			$this->oWorkOrder = new WorkOrderModel();
 
-		if ($this->oWorkOrder->Load($jcn, $seq) == -1)
+		if ($this->oWorkOrder->LoadByIdSeq($jcn, $seq) == -1)
 			return $this->ShowError("Could not find workorder ID $jcn-$seq");
 
 		return $this->oWorkOrder->summary;

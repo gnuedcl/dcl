@@ -231,7 +231,7 @@ class WorkOrderPresenter
 
 			if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW, $id, $seq))
 			{
-				if ($workOrderModel->Load($id, $seq) == -1)
+				if ($workOrderModel->LoadByIdSeq($id, $seq) == -1)
 					continue;
 
 				$this->Detail($workOrderModel);

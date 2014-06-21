@@ -54,18 +54,13 @@ class WatchesModel extends DbProvider
 		parent::Clear();
 	}
 
-	public function Delete()
-	{
-		return parent::Delete(array('watchid' => $this->watchid));
-	}
-
 	public function DeleteByObjectID($type, $key1, $key2 = 0)
 	{
 		$query = "DELETE FROM watches WHERE typeid=$type AND whatid1=$key1 AND whatid2=$key2";
 		return $this->Execute($query);
 	}
 
-	public function SetActive($active)
+	public function SetActive($id, $active, $sField = 'active')
 	{
 		return 0;
 	}

@@ -22,9 +22,9 @@
 
 class htmlMessageError extends htmlMessage
 {
-	function htmlMessageError()
+	public function __construct()
 	{
-		parent::htmlMessage();
+		parent::__construct();
 		
 		if (!defined('STR_CMMN_ERROR'))
 			define('STR_CMMN_ERROR', 'Error');
@@ -33,7 +33,7 @@ class htmlMessageError extends htmlMessage
 		$this->sTemplate = 'MessageError.tpl';
 	}
 	
-	function &GetInstance()
+	public static function &GetInstance()
 	{
 		static $oInstance;
 		

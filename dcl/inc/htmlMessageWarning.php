@@ -22,9 +22,9 @@
 
 class htmlMessageWarning extends htmlMessage
 {
-	function htmlMessageWarning()
+	public function __construct()
 	{
-		parent::htmlMessage();
+		parent::__construct();
 		
 		if (!defined('STR_CMMN_WARNING'))
 			define('STR_CMMN_WARNING', 'Warning');
@@ -33,7 +33,7 @@ class htmlMessageWarning extends htmlMessage
 		$this->sTemplate = 'MessageWarning.tpl';
 	}
 	
-	function &GetInstance()
+	public static function &GetInstance()
 	{
 		static $oInstance;
 		
@@ -45,4 +45,3 @@ class htmlMessageWarning extends htmlMessage
 		return $oInstance;
 	}
 }
-?>
