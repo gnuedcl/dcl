@@ -12,7 +12,7 @@
 	<style>body { padding-top: 20px; background: url('{$DIR_IMG}login.jpg') no-repeat center center fixed; background-size: cover; }</style>
 </head>
 <body onload="init();">
-<div class="container-fluid vcenter">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-4 col-sm-offset-4">
 			<div class="panel panel-default">

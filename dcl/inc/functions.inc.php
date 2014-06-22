@@ -501,8 +501,6 @@ function GetDefaultTemplateSet()
 
 function CreateTemplate($arrTemplate)
 {
-	global $dcl_info, $phpgw;
-
 	// Create a template object and hook it up to the template in the
 	// configured template set
 	$Template = new TemplateDeprecated();
@@ -543,146 +541,6 @@ function GetJSDateFormat()
 	return str_replace('Y', 'y', $calDateFormat);
 }
 
-function buildMenuArray()
-{
-	global $dcl_info, $DCL_MENU, $g_oSec;
-
-	// TODO: remove after implementing module enable/disable
-	$dcl_info['DCL_MODULE_WO_ENABLED'] = true;
-	$dcl_info['DCL_MODULE_PROJECTS_ENABLED'] = true;
-	$dcl_info['DCL_MODULE_TICKETS_ENABLED'] = true;
-	$dcl_info['DCL_MODULE_TESTS_ENABLED'] = false;
-	$dcl_info['DCL_MODULE_SPECS_ENABLED'] = false;
-
-	$DCL_MENU = array();
-
-	if ($dcl_info['DCL_MODULE_WO_ENABLED'])
-	{
-		$aViews = array();
-		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
-		{
-			$oDB = new SavedSearchesModel();
-			if ($oDB->ListByUser(DCLID, DCL_ENTITY_WORKORDER) !== -1)
-			{
-				while ($oDB->next_record())
-				{
-					$aViews[$oDB->f('name')] = array('boViews.exec&viewid=' . $oDB->f('viewid'), true);
-				}
-			}
-		}
-		
-		$DCL_MENU[DCL_MENU_WORKORDERS] = array(
-				DCL_MENU_MYWOS => array('WorkOrder.SearchMy', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION)),
-				DCL_MENU_NEW => array('WorkOrder.Create', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD)),
-				DCL_MENU_IMPORT => array('WorkOrder.Import', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_IMPORT)),
-				DCL_MENU_ACTIVITY => array('reportPersonnelActivity.getparameters', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
-				DCL_MENU_GRAPH => array('WorkOrder.GraphCriteria', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
-				'Metrics' => array('htmlMetricsWorkOrders.getparameters', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT)),
-				DCL_MENU_SEARCH => array('WorkOrder.Criteria', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH)),
-				DCL_MENU_VIEWS => array($aViews, count($aViews) > 0),
-				DCL_MENU_BROWSE => array('WorkOrder.Browse', $g_oSec->HasAnyPerm(array(DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
-			);
-	}
-
-	if ($dcl_info['DCL_MODULE_PROJECTS_ENABLED'])
-	{
-		$DCL_MENU[DCL_MENU_PROJECTS] = array(
-				DCL_MENU_MYPROJECTS => array('Project.Index&filterReportto=' . DCLID, $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW)),
-				DCL_MENU_NEW => array('Project.Create', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADD)),
-				DCL_MENU_VIEW => array('Project.Index', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_VIEW))
-			);
-	}
-
-	if ($dcl_info['DCL_MODULE_TICKETS_ENABLED'])
-	{
-		$aViews = array();
-		if ($g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
-		{
-			$oDB = new SavedSearchesModel();
-			if ($oDB->ListByUser(DCLID, DCL_ENTITY_TICKET) !== -1)
-			{
-				while ($oDB->next_record())
-				{
-					$aViews[$oDB->f('name')] = array('boViews.exec&viewid=' . $oDB->f('viewid'), true);
-				}
-			}
-		}
-		
-		$DCL_MENU[DCL_MENU_TICKETS] = array(
-				DCL_MENU_MYTICKETS => array('htmlTickets.show&filterReportto=' . DCLID, $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ACTION)),
-				DCL_MENU_NEW => array('boTickets.add', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD)),
-				DCL_MENU_ACTIVITY => array('reportTicketActivity.getparameters', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
-				DCL_MENU_GRAPH => array('boTickets.graph', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_REPORT)),
-				DCL_MENU_SEARCH => array('htmlTicketSearches.Show', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH)),
-				DCL_MENU_VIEWS => array($aViews, count($aViews) > 0),
-				DCL_MENU_BROWSE => array('htmlTickets.show', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)))))
-			);
-	}
-	
-	if ($dcl_info['DCL_MODULE_TESTS_ENABLED'])
-	{
-		$DCL_MENU['Testing'] = array(
-				'New Test Case' => array('', true),
-				'Search Test Cases' => array('', true),
-				'New Test Condition' => array('', true),
-				'Run Test Conditions' => array('', true),
-				'Browse Test Conditions' => array('', true),
-				'Search Test Conditions' => array('', true)
-			);
-	}
-	
-	if ($dcl_info['DCL_MODULE_SPECS_ENABLED'])
-	{
-		$DCL_MENU['Specs'] = array(
-				'New Functional Spec' => array('', true),
-				'Browse Functional Specs' => array('', true),
-				'Search Functional Specs' => array('', true),
-				'New Use Case' => array('', true),
-				'Browse Use Cases' => array('', true),
-				'Search Use Cases' => array('', true)
-		);
-	}
-	
-	$DCL_MENU[DCL_MENU_MANAGE] = array(
-			'Organizations' => array('htmlOrgBrowse.show&filterActive=Y', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW)),
-			'Contacts' => array('htmlContactBrowse.show&filterActive=Y', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW)),
-			STR_CMMN_TAGS => array('htmlTags.browse', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) || $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_SEARCH)),
-			DCL_MENU_CHECKLISTS => array('boChecklists.show', $g_oSec->HasPerm(DCL_ENTITY_FORMS, DCL_PERM_VIEW)),
-			'Workspaces' => array('htmlWorkspaceBrowse.show', $g_oSec->HasPerm(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW)),
-			'Hotlists' => array('htmlHotlistBrowse.show', $g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW)),
-			DCL_MENU_PRODUCTS => array('Product.Index', $g_oSec->HasPerm(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW)),
-			DCL_MENU_VIEWS => array('htmlViews.PrintAll', $g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_VIEW)),
-			DCL_MENU_WATCHES => array('boWatches.showall', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT)),
-																					DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_VIEW), $g_oSec->PermArray(DCL_PERM_VIEWSUBMITTED), $g_oSec->PermArray(DCL_PERM_VIEWACCOUNT))))),
-			'Metrics' => array('htmlMetrics.show', $g_oSec->HasAnyPerm(array(DCL_ENTITY_TICKET => array($g_oSec->PermArray(DCL_PERM_REPORT)), DCL_ENTITY_WORKORDER => array($g_oSec->PermArray(DCL_PERM_REPORT))))),
-			DCL_MENU_MAINWIKI => array('htmlWiki.show&name=FrontPage&type=0', $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_VIEWWIKI))
-		);
-
-	$DCL_MENU[DCL_MENU_ADMIN] = array(
-			DCL_MENU_CHANGEPASSWORD => array('Personnel.EditPassword', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD)),
-			DCL_MENU_PREFERENCES => array('htmlPreferences.modify', $g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_MODIFY)),
-			DCL_MENU_SYSTEMSETUP => array('SystemSetup.Index', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW)),
-			DCL_MENU_SESSIONS => array('Session.Index', $g_oSec->HasPerm(DCL_ENTITY_SESSION, DCL_PERM_VIEW)),
-			DCL_MENU_SEC_AUDITING => array('boSecAudit.Show', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
-		);
-
-	if ($dcl_info['DCL_WIKI_ENABLED'] != 'Y' && isset($DCL_MENU[DCL_MENU_ADMIN][DCL_MENU_MAINWIKI]))
-		unset($DCL_MENU[DCL_MENU_ADMIN][DCL_MENU_MAINWIKI]);
-
-	if ($dcl_info['DCL_SCCS_ENABLED'] != 'Y' && isset($DCL_MENU[DCL_MENU_ADMIN]['Metrics']))
-		unset($DCL_MENU[DCL_MENU_ADMIN]['Metrics']);
-
-	InvokePlugin('UI.Menu', $DCL_MENU);
-
-	$DCL_MENU[DCL_MENU_HELP] = array(
-			DCL_MENU_FAQS => array('Faq.Index', $g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW)),
-			DCL_MENU_DCLHOMEPAGE => array('http://dcl.sourceforge.net/index.php', true),
-			'GNU Enterprise' => array('http://www.gnuenterprise.org/index.php', true),
-			DCL_MENU_LICENSEINFO => array('License.Index', true),
-			DCL_MENU_VERSIONINFO => array('About.Detail', true)
-		);
-}
-
 function commonHeader()
 {
 	if (defined('HTML_HEADER_GENERATED'))
@@ -701,12 +559,6 @@ function commonHeader()
 	if ($dcl_info['DCL_HTML_TITLE'] != '')
 		$title .= '&nbsp;-&nbsp;' . $dcl_info['DCL_HTML_TITLE'];
 
-	if (!$bHideMenu)
-	{
-		LoadStringResource('menu');
-		buildMenuArray();
-	}
-	
 	$t = new SmartyHelper();
 	$t->assign('VAL_TITLE', $title);
 	$t->Render('index.tpl');

@@ -22,7 +22,7 @@
 
 function renderDCLMenu()
 {
-	global $dcl_info, $g_oSec, $g_oSession;
+	global $g_oSec, $g_oSession;
 
 	$sTemplateSet = GetDefaultTemplateSet();
 	
@@ -56,8 +56,9 @@ function renderDCLMenu()
 	$t->assign('PERM_HOTLISTVIEW', $g_oSec->HasPerm(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW));
 	$t->assign('VAL_WORKSPACE', $g_oSession->Value('workspace'));
 
-	$t->assign('VAL_DCL_MENU', $GLOBALS['DCL_MENU']);
-	
+	$menu = DclMainMenuHelper::GetMenu();
+	$t->assignByRef('VAL_DCL_MENU', $menu);
+
 	$oNav = new DCLNavBar;
 	$t->assign('NAV_BOXEN', $oNav->getHtml());
 

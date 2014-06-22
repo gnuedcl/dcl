@@ -32,26 +32,8 @@
 			<a href="{$LNK_HOME}">{$TXT_HOME}</a>&nbsp;|&nbsp;{if $PERM_PREFS}<a href="{$LNK_PREFERENCES}">{$TXT_PREFERENCES}</a>&nbsp;|&nbsp;{/if}{if $PERM_WORKSPACE}{dcl_select_workspace default=$VAL_WORKSPACE}&nbsp;|&nbsp;{/if}<a href="{$LNK_LOGOFF}">{$TXT_LOGOFF}</a>
 		</div>
 	</div>
-</div>{strip}
-<div class="sf-menu-container"><ul class="sf-menu">
-{foreach from=$VAL_DCL_MENU key=menu item=menuItems}
-	<li><a href="javascript:;">{$menu|escape}</a><ul>
-	{foreach from=$menuItems key=label item=menuItem name=mainMenuItems}
-		{if $menuItem[1]}
-			{if is_array($menuItem[0])}
-			<ul>
-				{foreach from=$menuItem[0] key=subLabel item=subMenuItem}
-				<li><a href="{if substr($subMenuItem[0], 0, 7) != 'http://' && substr($subMenuItem[0], 0, strlen(DCL_WWW_ROOT)) != DCL_WWW_ROOT}{$URL_MAIN_PHP}?menuAction={/if}{$subMenuItem[0]|escape}"{if substr($subMenuItem[0], 0, 7) == 'http://'} target="_blank"{/if}>{$subLabel}</a></li>
-				{/foreach}
-			</ul>
-			{else}{if !$smarty.foreach.mainMenuItems.first}</li>{/if}
-			<li><a href="{if substr($menuItem[0], 0, 7) != 'http://' && substr($menuItem[0], 0, strlen(DCL_WWW_ROOT)) != DCL_WWW_ROOT}{$URL_MAIN_PHP}?menuAction={/if}{$menuItem[0]|escape}"{if substr($menuItem[0], 0, 7) == 'http://'} target="_blank"{/if}>{$label}</a>
-			{/if}
-		{/if}
-	{/foreach}
-	</ul></li>
-{/foreach}
-</ul></div>{/strip}
+</div>
+{if $VAL_DCL_MENU}{dcl_menu menu=$VAL_DCL_MENU}{/if}
 <div style="clear: both;"></div>
 <script type="text/javascript">
 //<![CDATA[
