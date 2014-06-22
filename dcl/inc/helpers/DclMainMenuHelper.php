@@ -43,6 +43,10 @@ class DclMainMenuHelper
 		if ($manageMenu->HasItems())
 			$menu->Add($manageMenu);
 
+		$adminMenu = DclAdminMenuHelper::GetMenu();
+		if ($adminMenu->HasItems())
+			$menu->Add($adminMenu);
+
 		InvokePlugin('UI.Menu', $menu);
 
 		$helpMenu = DclHelpMenuHelper::GetMenu();
