@@ -7,6 +7,7 @@
 			<div class="panel-heading">{$smarty.const.STR_CMMN_EDIT|escape}</div>
 			<div class="panel-body">
 				<form class="form-horizontal" role="form" name="timeCardForm" id="timeCardForm" method="POST" action="{$URL_MAIN_PHP}">
+					{dcl_anti_csrf_token}
 					<input type="hidden" name="menuAction" value="boTimecards.dbmodify">
 					<input type="hidden" name="actionby" value="{$VAL_TIMECARDS[tc].actionby_id}">
 					<input type="hidden" name="id" value="{$VAL_EDITTCID}">
