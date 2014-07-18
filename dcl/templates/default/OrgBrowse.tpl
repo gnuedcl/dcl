@@ -1,9 +1,8 @@
-<link rel="stylesheet" type="text/css" href="{$DIR_CSS}default.css" />
 <script language="JavaScript">
-	var iPage = {$VAL_PAGE};
+	var iPage = {$VAL_PAGE|escape:"javascript"};
 	var iMaxPages = {$VAL_MAXPAGE};
-	var sStartsWith = '{$VAL_FILTERSTART}';
-	var sActiveFilter = '{$VAL_FILTERACTIVE}';
+	var sStartsWith = '{$VAL_FILTERSTART|escape:"javascript"}';
+	var sActiveFilter = '{$VAL_FILTERACTIVE|escape:"javascript"}';
 
 	var oLastButton = null;
 
