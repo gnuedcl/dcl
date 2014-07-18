@@ -193,7 +193,7 @@ abstract class AbstractSqlQueryHelper
 
 	protected function GetFormElement($var, $val)
 	{
-		return sprintf('<input type="hidden" name="%s" value="%s">', $var, $val);
+		return sprintf('<input type="hidden" name="%s" value="%s">', htmlspecialchars($var, ENT_QUOTES), htmlspecialchars($val, ENT_QUOTES));
 	}
 
 	public function GetForm()
@@ -201,7 +201,7 @@ abstract class AbstractSqlQueryHelper
 		$retVal = $this->GetFormElement('vt', $this->table);
 		$retVal .= $this->GetFormElement('vs', $this->style);
 		if ($this->title != '')
-			$retVal .= $this->GetFormElement('vti', htmlspecialchars($this->title));
+			$retVal .= $this->GetFormElement('vti', $this->title);
 
 		$arrItems = array('vc' => 'columns', 'vch' => 'columnhdrs', 'vg' => 'groups', 'vo' => 'order',
 				'vf' => 'filter', 'vfn' => 'filternot', 'vfd' => 'filterdate', 'vfl' => 'filterlike', 'vfs' => 'filterstart');
@@ -210,7 +210,7 @@ abstract class AbstractSqlQueryHelper
 			if (count($this->$arr) > 0)
 			{
 				list($var, $val) = explode('=', $this->GetURLArray($attr, $this->$arr, false));
-				$retVal .= $this->GetFormElement($var, htmlspecialchars($val));
+				$retVal .= $this->GetFormElement($var, $val);
 			}
 		}
 
