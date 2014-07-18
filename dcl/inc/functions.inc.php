@@ -716,10 +716,15 @@ function DclErrorLog($level, $message, $file, $line, $backTrace)
         if (empty($message))
             return -1;
 
+		$requestUri = $_SERVER['REQUEST_URI'];
+		$queryStringStart = strpos($requestUri, '?');
+		if ($queryStringStart !== false)
+			$requestUri = substr($requestUri, 0, $queryStringStart);
+
 		$logger = new ErrorLogModel();
 		$logger->server_name = $_SERVER['SERVER_NAME'];
 		$logger->script_name = $_SERVER['SCRIPT_NAME'];
-		$logger->request_uri = $_SERVER['REQUEST_URI'];
+		$logger->request_uri = $requestUri;
 		$logger->query_string = $_SERVER['QUERY_STRING'];
 		$logger->error_file = $file;
 		$logger->error_line = $line;
