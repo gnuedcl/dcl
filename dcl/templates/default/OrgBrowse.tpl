@@ -166,7 +166,7 @@
 						<input type="radio" name="filterActive" id="filterActiveAll" value="" onclick="selectActive('');"{if $VAL_FILTERACTIVE == ""} checked{/if}><label for="filterActiveAll"><b>All</b></label>&nbsp;
 						<input type="radio" name="filterActive" id="filterActiveYes" value="Y" onclick="selectActive('Y');"{if $VAL_FILTERACTIVE == "Y"} checked{/if}><label for="filterActiveYes"><b>Active</b></label>&nbsp;
 						<input type="radio" name="filterActive" id="filterActiveNo" value="N" onclick="selectActive('N');"{if $VAL_FILTERACTIVE == "N"} checked{/if}><label for="filterActiveNo"><b>Inactive</b></label>&nbsp;|&nbsp;
-						<input type="text" name="filterName" id="filterName" value="{$VAL_FILTERSEARCH}" size="10">
+						<input type="text" name="filterName" id="filterName" value="{$VAL_FILTERSEARCH|escape}" size="10">
 						<br />
 {strip}
 						<table style="border: none 0px; margin-bottom: 0px;" cellpadding="0"><tr>
