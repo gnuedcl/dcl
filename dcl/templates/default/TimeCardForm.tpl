@@ -1,50 +1,8 @@
-{dcl_calendar_init}
 {dcl_validator_init}
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
 {if !$IS_BATCH && (($PERM_MODIFYWORKORDER && $VAL_MULTIORG && !$PERM_ISPUBLIC) || ($PERM_ADDTASK))}{dcl_selector_init}{/if}
-<script language="JavaScript">
-
-function updateEtc(form)
-{
-	var bUpdateEtc = {$VAL_UPDATEWOETCHOURS};
-	var oValidator = new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}");
-	if (bUpdateEtc && oValidator.isValid() && form.elements["etchours"].value == "")
-	{
-		var fHours = {$VAL_WOETCHOURS} - form.elements["hours"].value;
-		if (fHours < 0)
-			fHours = 0.0;
-
-		form.elements["etchours"].value = fHours;
-	}
-}
-
-function validateAndSubmitForm(form)
-{
-
-	var aValidators = new Array(
-			new ValidatorDate(form.elements["actionon"], "{$smarty.const.STR_TC_DATE}", true),
-			new ValidatorSelection(form.elements["action"], "{$smarty.const.STR_TC_ACTION}"),
-			{if !$IS_BATCH}new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_TC_STATUS}"),{/if}
-			new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}", true),
-			new ValidatorDecimal(form.elements["etchours"], "{$smarty.const.STR_TC_ETC}", {if !$IS_BATCH}true{else}false{/if}),
-			new ValidatorString(form.elements["summary"], "{$smarty.const.STR_TC_SUMMARY}")
-		);
-
-	for (var i in aValidators)
-	{
-		if (!aValidators[i].isValid())
-		{
-			alert(aValidators[i].getError());
-			if (typeof(aValidators[i]._Element.focus) == "function")
-				aValidators[i]._Element.focus();
-			return;
-		}
-	}
-
-	form.submit();
-}
-
-</script>
-<form class="styled" name="NewAction" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
+<form class="form-horizontal" name="NewAction" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
 	<input type="hidden" name="menuActionExExExExEx" value="{$VAL_MENUACTION}">
 	{dcl_anti_csrf_token}
 	{if $IS_BATCH}<input type="hidden" name="menuAction" value="boTimecards.dbbatchadd">
@@ -59,121 +17,103 @@ function validateAndSubmitForm(form)
 	{$VAL_VIEWFORM}
 	{section name=selected loop=$VAL_SELECTED}<input type="hidden" name="selected[]" value="{$VAL_SELECTED[selected]}">{/section}
 	<fieldset>
-		<legend>{if $IS_BATCH}{$smarty.const.STR_TC_BATCHUPDATE}{elseif $IS_EDIT}{$smarty.const.STR_TC_EDIT}{else}Add New Time Card{/if}</legend>
-		<div class="required">
-			<label for="actionon">{$smarty.const.STR_TC_DATE}:</label>
-			{dcl_calendar name="actionon" value="$VAL_ACTIONON"}
-		</div>
+		<legend>{if $IS_BATCH}{$smarty.const.STR_TC_BATCHUPDATE|escape}{elseif $IS_EDIT}{$smarty.const.STR_TC_EDIT|escape}{else}Add New Time Card{/if}</legend>
+		{dcl_form_control id=actionon controlsize=2 label=$smarty.const.STR_TC_DATE required=true}
+		{dcl_input_date id=actionon value=$VAL_ACTIONON}
+		{/dcl_form_control}
 		{if !$PERM_ISPUBLIC && $VAL_ENABLEPUBLIC == 'Y'}
-		<div class="required">
-			<label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label>
-			<input type="checkbox" id="is_public" name="is_public" value="Y"{if $VAL_ISPUBLIC == 'Y'} checked{/if}>
-		</div>
+			{dcl_form_control id=is_public controlsize=10 label=$smarty.const.STR_CMMN_PUBLIC}
+				<input type="checkbox" id="is_public" name="is_public" value="Y"{if $VAL_ISPUBLIC == 'Y'} checked{/if}>
+			{/dcl_form_control}
 		{/if}
-		<div class="required">
-			<label for="copy_me_on_notification">Copy Me on Notification:</label>
+		{dcl_form_control id=copy_me_on_notification controlsize=10 label="Copy Me on Notification"}
 			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
-		</div>
-		<div{if !$IS_BATCH} class="required"{/if}>
-			<label for="status">{$smarty.const.STR_TC_STATUS}:</label>
-			{$CMB_STATUS}
-			<span>{if !$IS_BATCH}The current status is selected for you.  If your action put this work order in a new status, please select it.{else}If you want to change all selected work orders to the same status, please select it.{/if}</span>
-		</div>
-		<div class="required">
-			<label for="action">{$smarty.const.STR_TC_ACTION}:</label>
-			{dcl_select_action name="action" active=$IS_EDIT setid=$VAL_SETID}
-			<span>Select the description that best describes the action taken.</span>
-		</div>
-		<div class="required">
-			<label for="hours">{$smarty.const.STR_TC_HOURS}:</label>
-			<input type="text" name="hours" size="6" maxlength="6" value="{$VAL_HOURS}" onblur="javascript:updateEtc(this.form)">
-			<span>Enter the number of hours spent on this action.  Fractional hours are allowed (i.e., 2.5 is 2 and one-half hours).</span>
-		</div>
-		<div{if !$IS_BATCH} class="required"{/if}>
-			<label for="etchours">{$smarty.const.STR_TC_ETC}:</label>
-			<input type="text" name="etchours" size="6" maxlength="6" value="{$VAL_ETCHOURS}">
-			<span>{if !$IS_BATCH}Enter an estimate of how many hours remain for this work order to be completed.{else}If you want to change all selected work orders to the same ETC, enter it here.{/if}</span>
-		</div>
-		<div class="required">
-			<label for="summary">{$smarty.const.STR_TC_SUMMARY}:</label>
-			<input type="text" name="summary" size="50" maxlength="100" value="{$VAL_SUMMARY|escape}">
-			<span>Enter a short summary of the work performed.</span>
-		</div>
-		<div>
-			<label for="description">{$smarty.const.STR_TC_DESCRIPTION}:</label>
-			<textarea name="description" rows="4" cols="50" wrap valign="top">{$VAL_DESCRIPTION|escape}</textarea>
-		</div>
+		{/dcl_form_control}
+		{dcl_form_control id=status controlsize=4 label=$smarty.const.STR_TC_STATUS required=!$IS_BATCH help="{if !$IS_BATCH}The current status is selected for you.  If your action put this work order in a new status, please select it.{else}If you want to change all selected work orders to the same status, please select it.{/if}"}
+		{$CMB_STATUS}
+		{/dcl_form_control}
+		{dcl_form_control id=action controlsize=4 label=$smarty.const.STR_TC_ACTION required=true help="Select the description that best describes the action taken."}
+		{dcl_select_action name="action" active=$IS_EDIT setid=$VAL_SETID}
+		{/dcl_form_control}
+		{dcl_form_control id=2 controlsize=2 label=$smarty.const.STR_TC_HOURS required=true help="Enter the number of hours spent on this action.  Fractional hours are allowed (i.e., 2.5 is 2 and one-half hours)."}
+		{dcl_input_text id=hours maxlength=6 value=$VAL_HOURS}
+		{/dcl_form_control}
+		{dcl_form_control id=etchours controlsize=2 label=$smarty.const.STR_TC_ETC required=!$IS_BATCH help="{if !$IS_BATCH}Enter an estimate of how many hours remain for this work order to be completed.{else}If you want to change all selected work orders to the same ETC, enter it here.{/if}"}
+		{dcl_input_text id=etchours maxlength=6 value=$VAL_ETCHOURS}
+		{/dcl_form_control}
+		{dcl_form_control id=summary controlsize=10 label=$smarty.const.STR_TC_SUMMARY required=true help="Enter a short summary of the work performed."}
+		{dcl_input_text id=summary maxlength=100 value=$VAL_SUMMARY}
+		{/dcl_form_control}
+		{dcl_form_control id=description controlsize=10 label=$smarty.const.STR_TC_DESCRIPTION required=true}
+			<textarea class="form-control" name="description" rows="4" wrap valign="top">{$VAL_DESCRIPTION|escape}</textarea>
+		{/dcl_form_control}
 	</fieldset>
 {if !$IS_EDIT}
 	<fieldset>
 		<legend>{$smarty.const.STR_CMMN_OPTIONS}</legend>
 	{if $PERM_REASSIGN}
-		<div>
-			<label for="reassign">{$smarty.const.STR_CMMN_REASSIGN}:</label>
-			{$CMB_REASSIGN}
-			<span>You can reassign this work order to another person by selecting their user name here.</span>
-		</div>
+		{dcl_form_control id=reassign controlsize=4 label=$smarty.const.STR_CMMN_REASSIGN help="You can reassign this work order to another person by selecting their user name here."}
+		{$CMB_REASSIGN}
+		{/dcl_form_control}
 	{/if}
 	{if $PERM_MODIFYWORKORDER}
-	<div>
-		<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
-		<input type="text" name="tags" id="tags" size="50" value="{$VAL_TAGS|escape}">
-		<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
-	</div>
-	<div>
-		<label for="hotlist">Hotlists:</label>
-		<input type="text" name="hotlist" id="hotlist" size="50" value="{$VAL_HOTLISTS|escape}">
-		<span>Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
-	</div>
+		{dcl_form_control id=tags controlsize=10 label=$smarty.const.STR_CMMN_TAGS help=$smarty.const.STR_CMMN_TAGSHELP}
+		{dcl_input_text id=tags value=$VAL_TAGS}
+		{/dcl_form_control}
+		{dcl_form_control id=hotlist controlsize=10 label=Hotlists help="Separate multiple hotlists with commas (example: \"customer critical,risk\"). Maximum 20 characters per hotlist."}
+		{dcl_input_text id=hotlist value=$VAL_HOTLISTS}
+		{/dcl_form_control}
 	{/if}
 	{if $VAL_PRODUCT && $VAL_ISVERSIONED}
-	<div>
-		<label for="revision">Targeted Version:</label>
+		{dcl_form_control id=targeted_version_id controlsize=4 label="Targeted Version"}
 		{dcl_select_product_version name=targeted_version_id active="Y" default="$VAL_TARGETED_VERSION" product="$VAL_PRODUCT"}
-	</div>
-	<div>
-		<label for="revision">Fixed Version:</label>
+		{/dcl_form_control}
+		{dcl_form_control id=fixed_version_id controlsize=4 label="Fixed Version"}
 		{dcl_select_product_version name=fixed_version_id active="Y" default="$VAL_FIXED_VERSION" product="$VAL_PRODUCT"}
-	</div>
+		{/dcl_form_control}
 	{/if}
 	{if !$IS_BATCH}
 		{if $PERM_ADDTASK}
-		<div>
-			<label for="projectid">{$smarty.const.STR_WO_PROJECT}:</label>
+			{dcl_form_control id=projectid controlsize=10 label=$smarty.const.STR_WO_PROJECT}
 			{dcl_selector_project name="projectid" value="$VAL_PROJECTS" decoded="$VAL_PROJECT"}
-		</div>
+			{/dcl_form_control}
 		{/if}
 		{if $PERM_MODIFYWORKORDER && $VAL_MULTIORG && !$PERM_ISPUBLIC}
-		<div>
-			<label for="secaccounts">{$smarty.const.STR_CMMN_ORGANIZATION}:</label>
+			{dcl_form_control id=secaccounts controlsize=10 label=$smarty.const.STR_CMMN_ORGANIZATION}
 			{dcl_selector_org name="secaccounts" value="$VAL_ORGID" decoded="$VAL_ORGNAME" multiple="$VAL_MULTIORG"}
-		</div>
-		<div class="noinput">
-			<div id="div_secaccounts" style="width: 100%;"></div>
-		</div>
+				<div class="noinput">
+					<div id="div_secaccounts""></div>
+				</div>
+			{/dcl_form_control}
 		{/if}
 		{if $PERM_ATTACHFILE && $VAL_MAXUPLOADFILESIZE > 0}
 		<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">
-		<div>
-			<label for="userfile">{$smarty.const.STR_WO_ATTACHFILE}:</label>
-			<input type="file" id="userfile" name="userfile">
-		</div>
+			{dcl_form_control id=userfile controlsize=10 label=$smarty.const.STR_WO_ATTACHFILE required=true}
+				<input type="file" id="userfile" name="userfile">
+			{/dcl_form_control}
 		{/if}
 	{/if}
 	</fieldset>
 {/if}
 	<fieldset>
-		<div class="submit">
-			<input type="button" class="inputSubmit" value="{$smarty.const.STR_CMMN_SAVE}" onclick="validateAndSubmitForm(this.form);">
-			<input type="button" class="inputSubmit" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_JCN}&seq={$VAL_SEQ}';">
+		<div class="row">
+			<div class="col-sm-offset-2">
+				<input class="btn btn-primary" type="button" class="inputSubmit" value="{$smarty.const.STR_CMMN_SAVE}" onclick="validateAndSubmitForm(this.form);">
+				<input class="btn btn-link" type="button" class="inputSubmit" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_JCN}&seq={$VAL_SEQ}';">
+			</div>
 		</div>
 	</fieldset>
 </form>
 <script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
 <script type="text/javascript">
-	//<![CDATA[
 	$(document).ready(function() {
 		$("textarea").BetterGrow();
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+		$("input[data-input-type=date]").datepicker();
+		$("#hours").on("blur", function() {
+			updateEtc($(this).get(0).form);
+		});
 
 		if (typeof render_a_secaccounts == "function") {
 			render_a_secaccounts();
@@ -247,5 +187,44 @@ function validateAndSubmitForm(form)
 				}
 			});
 	});
-	//]]>
+
+	function updateEtc(form)
+	{
+		var bUpdateEtc = {$VAL_UPDATEWOETCHOURS};
+		var oValidator = new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}");
+		if (bUpdateEtc && oValidator.isValid() && form.elements["etchours"].value == "")
+		{
+			var fHours = {$VAL_WOETCHOURS} - form.elements["hours"].value;
+			if (fHours < 0)
+				fHours = 0.0;
+
+			form.elements["etchours"].value = fHours;
+		}
+	}
+
+	function validateAndSubmitForm(form)
+	{
+
+		var aValidators = [
+				new ValidatorDate(form.elements["actionon"], "{$smarty.const.STR_TC_DATE}", true),
+				new ValidatorSelection(form.elements["action"], "{$smarty.const.STR_TC_ACTION}"),
+				{if !$IS_BATCH}new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_TC_STATUS}"),{/if}
+				new ValidatorDecimal(form.elements["hours"], "{$smarty.const.STR_TC_HOURS}", true),
+				new ValidatorDecimal(form.elements["etchours"], "{$smarty.const.STR_TC_ETC}", {if !$IS_BATCH}true{else}false{/if}),
+				new ValidatorString(form.elements["summary"], "{$smarty.const.STR_TC_SUMMARY}")
+		];
+
+		for (var i in aValidators)
+		{
+			if (!aValidators[i].isValid())
+			{
+				alert(aValidators[i].getError());
+				if (typeof(aValidators[i]._Element.focus) == "function")
+					aValidators[i]._Element.focus();
+				return;
+			}
+		}
+
+		form.submit();
+	}
 </script>

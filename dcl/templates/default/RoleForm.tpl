@@ -1,56 +1,51 @@
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
 <style type="text/css">
 	label.role-label { padding: 2px; border-radius: 5px; }
 </style>
-<script language="JavaScript">
-
-$(document).ready(function() {
-	$("input.permission").on("change", function() {
-		if ($(this).prop("checked")) {
-			$("#" + $(this).attr("id") + "_label").css({color: "#ffffff", backgroundColor: "#006500"});
-		}
-		else {
-			$("#" + $(this).attr("id") + "_label").css({color: "#555555", backgroundColor: "transparent"});
-		}
-	}).trigger("change");
-});
-
-function validateAndSubmit(f)
-{
-	f.submit();
-}
-
-</script>
-<form method="post" action="{$WWW_ROOT}main.php">
-<table cellpadding="2" cellspacing="0">
+<form class="form-horizontal" method="post" action="{$WWW_ROOT}main.php">
 <input type="hidden" name="menuAction" value="{$menuAction}">
 <input type="hidden" name="role_id" value="{$VAL_ROLEID}">
-<tr><th class="formTitle">{$VAL_TITLE}: <input style="font-weight: normal;" type="text" size="50" maxlength="50" name="role_desc" id="role_desc" value="{$VAL_ROLEDESC}"/></th>
-	<th class="formLinks"><input type="checkbox" name="active" id="active" value="Y"{if $VAL_ROLEACTIVE == "Y"} checked{/if}><label for="active">Active</label></th>
-</tr>
-<tr><td class="formContainer" colspan="2">
-	<table cellpadding="2" cellspacing="0" style="height: 400px; width: 600px;">
+	<fieldset>
+		<legend>{$VAL_TITLE|escape}</legend>
+		{dcl_form_control id=role_desc controlsize=1 label=$smarty.const.STR_CMMN_ACTIVE}
+			<input type="checkbox" name="active" id="active" value="Y"{if $VAL_ROLEACTIVE == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=role_desc controlsize=5 label=$smarty.const.STR_CMMN_NAME required=true}
+			<input type="text" class="form-control" maxlength="50" name="role_desc" id="role_desc" value="{$VAL_ROLEDESC|escape}">
+		{/dcl_form_control}
+	</fieldset>
+	<fieldset>
+		<legend>Permissions</legend>
 		{foreach item=entityPerms key=entityName from=$Permissions name=entity}
-		<tr style="color: #000065; background-color: {cycle values="#dedee9,#ffffff"};">
-			<td style="vertical-align: top; font-weight: bold;">{$entityName}:</td><td valign="top">
-			{foreach item=permItem key=entityPerm from=$entityPerms}
-				{strip}
-				<span style="white-space: nowrap;">
-				<input type="checkbox" class="permission" name="rolePerms[]" id="rolePerm{$entityPerm}" value="{$entityPerm}"{if $permItem.selected == "true"} checked{/if}>
-				<label class="role-label" id="rolePerm{$entityPerm}_label" for="rolePerm{$entityPerm}">{$permItem.desc}</label>&nbsp;
-				</span>
-				{/strip}
-			{/foreach}
-			</td>
-		</tr>
+			{dcl_form_control id="role_desc$entityPerm" controlsize=10 label=$entityName}
+				<select multiple class="form-control" name="rolePerms[]" id="rolePerm{$smarty.foreach.entity.index}">
+				{foreach item=permItem key=entityPerm from=$entityPerms}
+					<option value="{$entityPerm}"{if $permItem.selected == "true"} selected{/if}>{$permItem.desc|escape}</option>
+				{/foreach}
+				</select>
+			{/dcl_form_control}
 		{/foreach}
-		<tr class="formFooter">
-			<td style="text-align: right;" colspan="2">
-				<input type="button" onclick="validateAndSubmit(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-				<input type="button" onclick="location.href='{$WWW_ROOT}main.php?menuAction=Role.Index';" value="{$smarty.const.STR_CMMN_CANCEL}">
-			</td>
-		</tr>
-	</table>
-	</td>
-</tr>
-</table>
+	</fieldset>
+	<fieldset>
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="button" class="btn btn-primary" onclick="validateAndSubmit(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input type="button" class="btn btn-link" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=Role.Index';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
+		</div>
+	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+	});
+
+	function validateAndSubmit(f)
+	{
+		f.submit();
+	}
+
+</script>

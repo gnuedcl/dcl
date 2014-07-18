@@ -1,33 +1,30 @@
-<table border="0" cellspacing="0" cellpadding="2">
-<tr><th class="formTitle">{$TXT_TITLE}</th></tr>
-<tr><td class="formContainer">
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-	<form name="AddOption" method="post" action="{$VAL_FORMACTION}">
+<form class="form-horizontal" method="post" action="{$VAL_FORMACTION}">
 	<input type="hidden" name="menuAction" value="boViews.dbadd">
 	<input type="hidden" name="whoid" value="{$VAL_DCLID}">
 	<input type="hidden" name="tablename" value="{$VAL_TABLENAME}">
 	{$VAL_VIEWURL}
-	<tr><td><span class="highlight">{$TXT_PUBLIC}:</span></td>
-		<td>{$CMB_ISPUBLIC}</td>
-	</tr>
-	<tr><td><span class="highlight">{$TXT_NAME}:</span></td>
-		<td><input type="text" size="50" maxlength="100" name="name"></td>
-	</tr>
-	<tr class="formFooter">
-		<td colspan="2">
-			<table style="border: 0px none; width: 100%" cellspacing="0" cellpadding="0">
-				<tr>
-					<td><span class="highlight">{$TXT_HIGHLIGHTEDNOTE}</span></td>
-					<td style="text-align: right;">
-						<input type="submit" value="{$BTN_SAVE}">
-						&nbsp;
-						<input type="button" onclick="history.back();" value="{$BTN_CANCEL}">
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	</form>
-	</table>
-</td></tr>
-</table>
+	<fieldset>
+		<legend>{$smarty.const.STR_VW_ADDVIEW|escape}</legend>
+		{dcl_form_control id=ispublic controlsize=1 label=$smarty.const.STR_VW_PUBLIC}
+			<input type="checkbox" name="ispublic" id="ispublic" value="Y"{if $VAL_ISPUBLIC == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=name controlsize=8 label=$smarty.const.STR_VW_NAME}
+			<input class="form-control" type="text" maxlength="100" name="name" id="name">
+		{/dcl_form_control}
+	</fieldset>
+	<fieldset>
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="submit" id="btn-save" class="btn btn-primary" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input type="button" id="btn-cancel" class="btn btn-link" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
+		</div>
+	</fieldset>
+</form>
+<script type="text/javascript">
+	$(function() {
+		$("#btn-cancel").click(function() {
+			history.back();
+		});
+	});
+</script>

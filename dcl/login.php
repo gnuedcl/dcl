@@ -31,6 +31,8 @@ $g_oSec = new SecurityHelper();
 
 function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 {
+	global $dcl_info;
+
     $bIsLogin = (substr($toHere, 0, 10) == 'logout.php');
 
     if ($bIsLogin)
@@ -56,7 +58,7 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 	if (($p = strpos($httpDomain, ':')) !== false)
 		$httpDomain = substr($httpDomain, 0, $p);
 
-	setcookie('DCLINFO', $theCookie, 0, '/', $httpDomain, UseHttps(), true);
+	setcookie('DCLINFO', $theCookie, 0, '/', $httpDomain, UseHttps() || $dcl_info['DCL_FORCE_SECURE_COOKIE'] == 'Y', true);
 	header("Location: $toHere");
 
 	exit;

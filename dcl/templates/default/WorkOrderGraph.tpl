@@ -1,22 +1,31 @@
-{dcl_calendar_init}
-<form class="styled" name="theForm" method="post" action="{$URL_MAIN_PHP}">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<form class="form form-horizontal" name="theForm" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="WorkOrder.Graph">
 	<fieldset>
 		<legend>{$smarty.const.STR_WO_ACTIVITYGRAPH}</legend>
-		<div>
-			<label for="product">{$smarty.const.STR_WO_PRODUCT}:</label>
-			{$CMB_PRODUCTS}
-		</div>
-		<div>
-			<label for="days">{$smarty.const.STR_WO_SHOWGRAPHFOR}:</label>
-			{$CMB_DAYS}
-		</div>
-		<div>
-			<label for="dateFrom">{$smarty.const.STR_WO_ENDINGON}:</label>
-			{dcl_calendar name="dateFrom" value="$VAL_TODAY"}
-		</div>
+		{dcl_form_control id=product controlsize=4 label=$smarty.const.STR_WO_PRODUCT}
+		{$CMB_PRODUCTS}
+		{/dcl_form_control}
+		{dcl_form_control id=days controlsize=2 label=$smarty.const.STR_WO_SHOWGRAPHFOR}
+		{$CMB_DAYS}
+		{/dcl_form_control}
+		{dcl_form_control id=dateFrom controlsize=2 label=$smarty.const.STR_WO_ENDINGON}
+			<input type="text" class="form-control" data-input-type="date" maxlength="10" id="dateFrom" name="dateFrom" value="{$VAL_TODAY|escape}">
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit"><input type="submit" value="{$smarty.const.STR_CMMN_GO}"></div>
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="submit" class="btn btn-primary" value="{$smarty.const.STR_CMMN_GO}">
+			</div>
+		</div>
 	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+		$("input[data-input-type=date]").datepicker();
+	});
+</script>

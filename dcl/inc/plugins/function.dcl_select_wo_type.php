@@ -49,6 +49,7 @@ function smarty_function_dcl_select_wo_type($params, &$smarty)
 	$oSelect->Size = $params['size'];
 	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetOptionsFromDb('dcl_wo_type', 'wo_type_id', 'type_name', $sFilter, 'type_name');
+	$oSelect->CssClass = 'form-control';
 
 	return $oSelect->GetHTML();
 }

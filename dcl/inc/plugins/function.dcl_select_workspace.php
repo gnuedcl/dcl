@@ -44,6 +44,9 @@ function smarty_function_dcl_select_workspace($params, &$smarty)
 	
 	if (isset($params['onchange']))
 		$oSelect->OnChange = $params['onchange'];
+
+	if (isset($params['class']))
+		$oSelect ->CssClass = $params['class'];
 	
 	$oSelect->SetOptionsFromDb('dcl_workspace', 'workspace_id', 'workspace_name', "active = 'Y'");
 	

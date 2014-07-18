@@ -1,8 +1,7 @@
 {strip}
-	<table width="100%" class="dcl_results">
-		<caption class="spacer">{$VAL_ATTACHMENTS|@count} Attachments</caption>
+	<table class="table table-striped">
 		<thead>
-			{if $PERM_ATTACHFILE}<tr class="toolbar"><th colspan="{if $PERM_REMOVEFILE}4{else}3{/if}"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Attachment&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
+			{if $PERM_ATTACHFILE}<tr class="toolbar"><th colspan="{if $PERM_REMOVEFILE}4{else}3{/if}"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Attachment&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>{/if}
 			<tr><th>Attachment</th><th>Size</th><th>Date</th>{if $PERM_REMOVEFILE}<th>Options</th>{/if}</tr>
 		</thead>
 {section name=file loop=$VAL_ATTACHMENTS}

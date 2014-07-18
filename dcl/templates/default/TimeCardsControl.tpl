@@ -1,73 +1,110 @@
-<div class="dcl_detail">
-<table width="100%" class="styled timecard">
-	<caption class="spacer">{$VAL_TIMECARDS|@count} Time Cards</caption>
-	{if $PERM_ACTION}<thead>
-		<tr class="toolbar"><th><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTimecards.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
-	</thead>{/if}
-	<tbody>{strip}
+<h4>Time Cards <span class="badge{if count($VAL_TIMECARDS) > 0} alert-info{/if}">{$VAL_TIMECARDS|@count}</span>{if $PERM_ACTION}<a href="{$URL_MAIN_PHP}?menuAction=boTimecards.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}" class="pull-right btn btn-success btn-xs" title="{$smarty.const.STR_CMMN_NEW|escape}">
+		<span class="glyphicon glyphicon-plus"></span>
+	</a>{/if}</h4>
 {section name=tc loop=$VAL_TIMECARDS}
-{if $PERM_MODIFY_TC && !$VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
-	<tr><td>
-	<form class="styled" name="timeCardForm" id="timeCardForm" method="POST" action="{$URL_MAIN_PHP}">
-		<input type="hidden" name="menuAction" value="boTimecards.dbmodify">
-		<input type="hidden" name="actionby" value="{$VAL_TIMECARDS[tc].actionby_id}">
-		<input type="hidden" name="id" value="{$VAL_EDITTCID}">
-		<input type="hidden" name="jcn" value="{$VAL_JCN}">
-		<input type="hidden" name="seq" value="{$VAL_SEQ}">
-		<fieldset>
-			<legend>Edit Time Card</legend>
-			<div><label for="actionon">{$smarty.const.STR_TC_DATE}:</label>{dcl_calendar name="actionon" value=$VAL_TIMECARDS[tc].actionon}</div>
-			<div><label for="actionbytext">{$smarty.const.STR_TC_BY}:</label><input type="text" size="20" id="actionbytext" name="actionbytext" value="{$VAL_TIMECARDS[tc].actionby|escape}" disabled="true"></div>
-			<div><label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label><input type="checkbox" name="is_public" id="is_public" value="Y"{if $VAL_TIMECARDS[tc].public == "Y"} checked{/if}></div>
-			<div><label for="action">{$smarty.const.STR_TC_ACTION}:</label>{dcl_select_action active="N" setid=$VAL_SETID default=$VAL_TIMECARDS[tc].action_id}</div>
-			<div><label for="status">{$smarty.const.STR_TC_STATUS}:</label>{dcl_select_status active="N" setid=$VAL_SETID default=$VAL_TIMECARDS[tc].status_id}</div>
-			<div><label for="hours">{$smarty.const.STR_TC_HOURS}:</label><input type="text" size="6" maxlength="6" id="hours" name="hours" value="{$VAL_TIMECARDS[tc].hours|escape}"></div>
-			<div><label for="summary">{$smarty.const.STR_TC_SUMMARY}:</label><input type="text" size="50" maxlength="100" id="summary" name="summary" value="{$VAL_TIMECARDS[tc].summary|escape}"></div>
-			<div><label for="description">{$smarty.const.STR_TC_DESCRIPTION}:</label><textarea style="width:100%;" rows="6" id="description" name="description">{$VAL_TIMECARDS[tc].description|escape}</textarea></div>
-		</fieldset>
-		<fieldset>
-			<div class="submit">
-				<input type="button" value="{$smarty.const.STR_CMMN_SAVE}" onclick="validateAndSubmitForm(this.form);">
-				<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="history.back();">
+	<div class="panel panel-info">
+		{if $PERM_MODIFY_TC && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
+			<div class="panel-heading">{$smarty.const.STR_CMMN_EDIT|escape}</div>
+			<div class="panel-body">
+				<form class="form-horizontal" role="form" name="timeCardForm" id="timeCardForm" method="POST" action="{$URL_MAIN_PHP}">
+					<input type="hidden" name="menuAction" value="boTimecards.dbmodify">
+					<input type="hidden" name="actionby" value="{$VAL_TIMECARDS[tc].actionby_id}">
+					<input type="hidden" name="id" value="{$VAL_EDITTCID}">
+					<input type="hidden" name="jcn" value="{$VAL_JCN}">
+					<input type="hidden" name="seq" value="{$VAL_SEQ}">
+					<div class="form-group">
+						<label for="actionon" class="col-sm-2 control-label">{$smarty.const.STR_TC_DATE}:</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control input-sm" maxlength="10" id="actionon" name="actionon" value="{$VAL_TIMECARDS[tc].actionon|escape}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="actionbytext" class="col-sm-2 control-label">{$smarty.const.STR_TC_BY}:</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control input-sm" id="actionbytext" name="actionbytext" value="{$VAL_TIMECARDS[tc].actionby|escape}" disabled="true">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="is_public" class="col-sm-2 control-label">{$smarty.const.STR_CMMN_PUBLIC}:</label>
+						<div class="col-sm-1">
+							<input type="checkbox" class="form-control input-sm" name="is_public" id="is_public" value="Y"{if $VAL_TIMECARDS[tc].public == "Y"} checked{/if}>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="action" class="col-sm-2 control-label">{$smarty.const.STR_TC_ACTION}:</label>
+						<div class="col-sm-3">
+							{dcl_select_action active="N" setid=$VAL_SETID default=$VAL_TIMECARDS[tc].action_id}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="status" class="col-sm-2 control-label">{$smarty.const.STR_TC_STATUS}:</label>
+						<div class="col-sm-3">
+							{dcl_select_status active="N" setid=$VAL_SETID default=$VAL_TIMECARDS[tc].status_id}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="hours" class="col-sm-2 control-label">{$smarty.const.STR_TC_HOURS}:</label>
+						<div class="col-sm-1">
+							<input type="text" class="form-control input-sm" size="6" maxlength="6" id="hours" name="hours" value="{$VAL_TIMECARDS[tc].hours|escape}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="summary" class="col-sm-2 control-label">{$smarty.const.STR_TC_SUMMARY}:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control input-sm" size="50" maxlength="100" id="summary" name="summary" value="{$VAL_TIMECARDS[tc].summary|escape}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="description" class="col-sm-2 control-label">{$smarty.const.STR_TC_DESCRIPTION}:</label>
+						<div class="col-sm-5">
+							<textarea class="form-control input-sm" rows="6" id="description" name="description">{$VAL_TIMECARDS[tc].description|escape}</textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-3">
+							<input type="button" class="btn btn-primary" value="{$smarty.const.STR_CMMN_SAVE}" onclick="validateAndSubmitForm(this.form);">
+							<input type="button" class="btn btn-link" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="history.back();">
+						</div>
+					</div>
+				</form>
+				<script>
+					$(function() {
+						$("#actionon").datepicker();
+					});
+				</script>
 			</div>
-		</fieldset>
-	</form>
-	</td></tr>
-{else}
-<tr>
-	<td>
-		<dl>
-			<dt>{dcl_gravatar userId=$VAL_TIMECARDS[tc].actionby_id style="float:left;margin-right:2px;"}<strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].actionby id=$VAL_TIMECARDS[tc].actionby_id}</strong> <span class="status-type-{$VAL_TIMECARDS[tc].dcl_status_type}">{$VAL_TIMECARDS[tc].status|escape}</span> {$VAL_TIMECARDS[tc].summary|escape}</dt>
-			<dd><strong>{$VAL_TIMECARDS[tc].action|escape}</strong> on <strong>{$VAL_TIMECARDS[tc].actionon}</strong> for <strong>{$VAL_TIMECARDS[tc].hours}</strong> Hours
-{if $VAL_FORDELETE && $VAL_EDITTCID == $VAL_TIMECARDS[tc].id}
-		<form method="post" action="{$URL_MAIN_PHP}">
-		<input type="hidden" name="menuAction" value="boTimecards.dbdelete">
-		<input type="hidden" name="id" VALUE="{$VAL_TIMECARDS[tc].id}">
-		<input type="submit" value="{$smarty.const.STR_CMMN_DELETE}">
-		<input type="button" value="{$smarty.const.STR_CMMN_CANCEL}" onclick="location.href='{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$VAL_JCN}&seq={$VAL_SEQ}';">
-		</form>
-{else}{if $PERM_MODIFY_TC || $PERM_DELETE_TC}
-	&nbsp;|&nbsp;
-	{if $PERM_MODIFY_TC}
-		<a href="{$URL_MAIN_PHP}?menuAction=boTimecards.modify&id={$VAL_TIMECARDS[tc].id}">{$smarty.const.STR_CMMN_EDIT}</a>
-		{if $PERM_DELETE}&nbsp;|&nbsp;{/if}
-	{/if}
-	{if $PERM_DELETE_TC}
-		<a href="{$URL_MAIN_PHP}?menuAction=boTimecards.delete&id={$VAL_TIMECARDS[tc].id}">{$smarty.const.STR_CMMN_DELETE}</a>
-	{/if}{/if}
-{/if}
-			</dd>
-{if !$IS_PUBLIC && ($VAL_TIMECARDS[tc].reassign_from_id || $VAL_TIMECARDS[tc].reassign_to_id)}
-		<dd>Reassign <strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].reassign_from_id id=$VAL_TIMECARDS[tc].reassign_from_id_int}</strong> to <strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].reassign_to_id id=$VAL_TIMECARDS[tc].reassign_to_id_int}</strong></dd>
-{/if}
-		</dl>
-		{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}<blockquote>{$VAL_TIMECARDS[tc].description|escape|dcl_link}</blockquote>{/if}
-	</td>
-</tr>
-{/if}
-{sectionelse}
-{if !$PERM_ACTION}<tr><td>No Time Cards Found</td></tr>{/if}
+		{else}
+		<div class="panel-heading">
+			{dcl_gravatar userId=$VAL_TIMECARDS[tc].actionby_id size=24 class="img-rounded"} {dcl_personnel_link text=$VAL_TIMECARDS[tc].actionby id=$VAL_TIMECARDS[tc].actionby_id}: {if !$IS_PUBLIC}{if $VAL_TIMECARDS[tc].is_public == "Y"}<span class="glyphicon glyphicon-eye-open"></span>{else}<span class="glyphicon glyphicon-lock"></span>{/if}{/if} {$VAL_TIMECARDS[tc].action|escape} on {$VAL_TIMECARDS[tc].actionon}{if $VAL_TIMECARDS[tc].hours > 0} for {$VAL_TIMECARDS[tc].hours} Hours{/if}
+			{if $PERM_MODIFY_TC || $PERM_DELETE_TC}<div class="pull-right">
+				{if $PERM_MODIFY_TC}<a href="{$URL_MAIN_PHP}?menuAction=boTimecards.modify&id={$VAL_TIMECARDS[tc].id}" class="btn btn-primary btn-xs" title="{$smarty.const.STR_CMMN_EDIT|escape}">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>{/if}
+				{if $PERM_DELETE_TC}<a href="javascript:;" class="btn btn-danger btn-xs dcl-delete-tc" data-tc-id="{$VAL_TIMECARDS[tc].id}" title="{$smarty.const.STR_CMMN_DELETE|escape}">
+						<span class="glyphicon glyphicon-trash"></span>
+					</a>{/if}
+				</div>{/if}
+		</div>
+		<div class="panel-body">
+			<div><strong>{$VAL_TIMECARDS[tc].summary|escape}</strong></div>
+			{if $VAL_TIMECARDS[tc].description != "" && (!$PERM_MODIFY_TC || $VAL_EDITTCID != $VAL_TIMECARDS[tc].id)}<div>{$VAL_TIMECARDS[tc].description|escape|dcl_link}</div>{/if}
+		</div>
+		<div class="panel-footer">
+			<div><span class="status-type-{$VAL_TIMECARDS[tc].dcl_status_type}">{$VAL_TIMECARDS[tc].status|escape}</span></div>
+			{if !$IS_PUBLIC && ($VAL_TIMECARDS[tc].reassign_from_id || $VAL_TIMECARDS[tc].reassign_to_id)}
+				<div>Reassign <strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].reassign_from_id id=$VAL_TIMECARDS[tc].reassign_from_id_int}</strong> to <strong>{dcl_personnel_link text=$VAL_TIMECARDS[tc].reassign_to_id id=$VAL_TIMECARDS[tc].reassign_to_id_int}</strong></div>
+			{/if}
+		</div>{/if}
+	</div>
 {/section}
-	{/strip}</tbody>
-</table>
-</div>
+{if $PERM_DELETE_TC && count($VAL_TIMECARDS) > 0}<script>
+	$(function() {
+		$(".dcl-delete-tc").click(function(event) {
+			event.preventDefault();
+			if (confirm('Are you sure you want to delete this time card?')) {
+				var id = $(this).attr('data-tc-id');
+				$('<form method="POST" action="{$URL_MAIN_PHP}"><input type="hidden" name="menuAction" value="boTimecards.dbdelete"><input type="hidden" name="id" value="' + id + '"></form>').submit();
+			}
+		});
+	});
+</script>{/if}

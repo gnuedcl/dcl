@@ -1,22 +1,18 @@
-<center>
-<table border="0" cellpadding="2" cellspacing="0">
-<tr><th class="formTitle">{$TXT_TITLE}</th></tr>
-<tr><td class="formContainer">
-	<table border="0" cellpadding="2" cellspacing="0" width="100%">
-	<form method="post" action="{$VAL_FORMACTION}">
+<form class="form-horizontal" method="post" action="{$VAL_FORMACTION}">
 	<input type="hidden" name="menuAction" value="WorkOrder.DestroyAttachment">
-	<input type="hidden" name="filename" value="{$VAL_FILENAME}">
+	<input type="hidden" name="filename" value="{$VAL_FILENAME|escape}">
 	<input type="hidden" name="jcn" value="{$VAL_JCN}">
 	<input type="hidden" name="seq" value="{$VAL_SEQ}">
-	<tr><td>{$TXT_DELATTCONFIRM}<br></td></tr>
-	<tr class="formFooter"><td style="text-align: right;">
-			<input type="submit" value="{$BTN_YES}">
-			&nbsp;
-			<input type="reset" value="{$BTN_NO}" onclick="history.back();">
-		</td>
-	</tr>
-	</form>
-	</table>
-</td></tr>
-</table>
-</center>
+	<fieldset>
+		<legend>{$TXT_TITLE|escape}</legend>
+		<p class="alert alert-warning">{$TXT_DELATTCONFIRM|escape}</p>
+	</fieldset>
+	<fieldset>
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="submit" class="btn btn-danger" value="{$BTN_YES|escape}">
+				<a class="btn btn-success" href="{dcl_url_action controller=WorkOrder action=Detail params="jcn={$VAL_JCN}&seq={$VAL_SEQ}"}#files">{$BTN_NO|escape}</a>
+			</div>
+		</div>
+	</fieldset>
+</form>

@@ -1,60 +1,60 @@
 {dcl_validator_init}
-{dcl_calendar_init}
-<script language="JavaScript">
-function validateAndSubmitForm(form)
-
-{
-
-	var aValidators = new Array(
-			new ValidatorDate(form.elements["endon"], "Ending On"),
-			new ValidatorInteger(form.elements["days"], "Show for # Days", true)
-		);
-
-	for (var i in aValidators)
-	{
-		if (!aValidators[i].isValid())
-		{
-			alert(aValidators[i].getError());
-			if (typeof(aValidators[i]._Element.focus) == "function")
-				aValidators[i]._Element.focus();
-			return;
-		}
-	}
-
-	form.submit();
-}
-
-</script>
-<form class="styled" method="post" action="{$URL_MAIN_PHP}">
+<form class="form-horizontal" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="htmlProjectTimeline.Render">
 	<input type="hidden" name="projectid" value="{$VAL_PROJECTID}">
 	<fieldset>
 		<legend>Show Project Timeline</legend>
-		<div class="help">{$VAL_PROJECTNAME|escape}</div>
-		<div class="required">
-			<label for="days">Show for # Days:</label>
-			<input type="text" maxlength="3" size="3" name="days" id="days" value="{$VAL_DAYS}">
-		</div>
-		<div class="required">
-			<label for="endon">Ending On:</label>
-			{dcl_calendar name="endon" value="$VAL_ENDON"}
-		</div>
-		<div class="required">
-			<label for="scope">Scope Changes:</label>
+		{dcl_form_control controlsize=10 label="Project"}
+		<span>{$VAL_PROJECTNAME|escape}</span>
+		{/dcl_form_control}
+		{dcl_form_control id=days controlsize=1 label="Show for # Days" required=true}
+		{dcl_input_text id=days maxlength=3 value=$VAL_DAYS}
+		{/dcl_form_control}
+		{dcl_form_control id=endon controlsize=2 label="Ending On" required=true}
+		{dcl_input_date id=endon value=$VAL_ENDON}
+		{/dcl_form_control}
+		{dcl_form_control id=scope controlsize=10 label="Scope Changes" required=true}
 			<input type="checkbox" name="scope" id="scope"{if $VAL_SCOPE == "Y"} checked{/if}>
-		</div>
-		<div class="required">
-			<label for="timecards">Time Cards:</label>
+		{/dcl_form_control}
+		{dcl_form_control id=timecards controlsize=10 label="Time Cards" required=true}
 			<input type="checkbox" name="timecards" id="timecards"{if $VAL_TIMECARDS == "Y"} checked{/if}>
-		</div>
-		<div class="required">
-			<label for="code">Code Changes:</label>
+		{/dcl_form_control}
+		{dcl_form_control id=code controlsize=10 label="Code Changes" required=true}
 			<input type="checkbox" name="code" id="code"{if $VAL_CODE == "Y"} checked{/if}>
-		</div>
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_GO}">
+		<div class="row">
+			<div class="col-sm-offset-2">
+				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_GO}">
+				<a class="btn btn-link" href="{dcl_url_action controller=Project action=Detail params="id={$VAL_PROJECTID}"}">{$smarty.const.STR_CMMN_CANCEL|escape}</a>
+			</div>
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript">
+	$(function() {
+		$("input[data-input-type=date]").datepicker();
+	});
+
+	function validateAndSubmitForm(form)
+	{
+		var aValidators = [
+				new ValidatorDate(form.elements["endon"], "Ending On"),
+				new ValidatorInteger(form.elements["days"], "Show for # Days", true)
+		];
+
+		for (var i in aValidators)
+		{
+			if (!aValidators[i].isValid())
+			{
+				alert(aValidators[i].getError());
+				if (typeof(aValidators[i]._Element.focus) == "function")
+					aValidators[i]._Element.focus();
+				return;
+			}
+		}
+
+		form.submit();
+	}
+</script>

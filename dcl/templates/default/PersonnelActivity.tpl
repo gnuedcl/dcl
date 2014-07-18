@@ -1,57 +1,54 @@
-{dcl_calendar_init}
-<script language="JavaScript">
-
-function onChangeByType()
-{
-	var oP = document.searchForm.responsible;
-	var oD = document.searchForm.department;
-	if (document.searchForm.bytype.selectedIndex == 0)
-	{
-		oP.style.display = '';
-		oD.style.display = 'none';
-	}
-	else
-	{
-		oP.style.display = 'none';
-		oD.style.display = '';
-	}
-}
-
-</script>
-<form class="styled" name="searchForm" method="post" action="{$URL_MAIN_PHP}">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<form class="form form-horizontal" name="searchForm" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="reportPersonnelActivity.execute">
 	<fieldset>
 		<legend>{$smarty.const.STR_WOST_PERSONNELACTIVITY}</legend>
-		<div>
-			<label for="bytype">{$smarty.const.STR_WOST_GENERATEREPORTFOR}:</label>
-			{$CMB_BYTYPE}{$CMB_RESPONSIBLE}{$CMB_DEPARTMENTS}
-		</div>
-		<div>
-			<label for="status">Statuses:</label>
-			{$CMB_STATUSES}
-		</div>
-		<div>
-			<label for="groupby">{$smarty.const.STR_CMMN_GROUPING}:</label>
-			{$CMB_GROUPBY}
-		</div>
-		<div>
-			<label for="timesheet">{$smarty.const.STR_WOST_FORMATASTIMESHEET}:</label>
+		{dcl_form_control id=bytype controlsize=4 label=$smarty.const.STR_WOST_GENERATEREPORTFOR}
+		{$CMB_BYTYPE}{$CMB_RESPONSIBLE}{$CMB_DEPARTMENTS}
+		{/dcl_form_control}
+		{dcl_form_control id=status controlsize=10 label="Statuses"}
+		{$CMB_STATUSES}
+		{/dcl_form_control}
+		{dcl_form_control id=groupby controlsize=4 label=$smarty.const.STR_CMMN_GROUPING}
+		{$CMB_GROUPBY}
+		{/dcl_form_control}
+		{dcl_form_control id=timesheet controlsize=1 label=$smarty.const.STR_WOST_FORMATASTIMESHEET}
 			<input type="checkbox" name="timesheet" id="timesheet" value="Y"{if $VAL_TIMESHEET == 'Y'} checked="true"{/if}>
-		</div>
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
 		<legend>{$smarty.const.STR_WOST_DATERANGE}</legend>
-		<div>
-			<label for="begindate">{$smarty.const.STR_WOST_BEGIN}:</label>
-			{dcl_calendar name="begindate" value="$VAL_BEGINDATE"}
-		</div>
-		<div>
-			<label for="enddate">{$smarty.const.STR_WOST_ENDING}:</label>
-			{dcl_calendar name="enddate" value="$VAL_ENDDATE"}
-		</div>
+		{dcl_form_control id=begindate controlsize=2 label=$smarty.const.STR_WOST_BEGIN}
+			<input type="text" class="form-control" data-input-type="date" maxlength="10" id="begindate" name="begindate" value="{$VAL_BEGINDATE|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=enddate controlsize=2 label=$smarty.const.STR_WOST_ENDING}
+			<input type="text" class="form-control" data-input-type="date" maxlength="10" id="enddate" name="enddate" value="{$VAL_ENDDATE|escape}">
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit"><input type="submit" value="{$smarty.const.STR_CMMN_GO}"></div>
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="submit" class="btn btn-primary" value="{$smarty.const.STR_CMMN_GO}">
+			</div>
+		</div>
 	</fieldset>
 </form>
-<script language="JavaScript">onChangeByType();</script>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+		$("input[data-input-type=date]").datepicker();
+
+		$("#bytype").change(function() {
+			if ($(this).val() == "1") {
+				$("#responsible").select2("container").show();
+				$("#department").select2("container").hide();
+			}
+			else {
+				$("#department").select2("container").show();
+				$("#responsible").select2("container").hide();
+			}
+		}).triggerChange();
+	});
+</script>

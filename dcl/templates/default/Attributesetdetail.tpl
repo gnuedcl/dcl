@@ -1,1 +1,1 @@
-<h2>{$smarty.const.STR_ATTR_ATTRIBUTESET}: {$VAL_ATTRIBUTESETNAME}</h2>
+<h2>{$smarty.const.STR_ATTR_ATTRIBUTESET|escape}: {$VAL_ATTRIBUTESETNAME|escape}</h2>

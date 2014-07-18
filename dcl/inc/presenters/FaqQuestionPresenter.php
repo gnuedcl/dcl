@@ -74,7 +74,7 @@ class FaqQuestionPresenter
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQQUESTION, DCL_PERM_DELETE))
 			throw new PermissionDeniedException();
 			
-		ShowDeleteYesNo(STR_FAQ_QUESTION, 'FaqQuestion.Destroy', $questionId, $model->questiontext, false, 'questionid');
+		ShowDeleteYesNo(STR_FAQ_QUESTION, 'FaqQuestion.Destroy', $model->questionid, $model->questiontext, false, 'questionid');
 	}
 
 	public function Index(FaqQuestionsModel $model)

@@ -20,20 +20,21 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
+LoadStringResource('menu');
 function renderDCLMenu()
 {
 	global $g_oSec, $g_oSession;
 
 	$sTemplateSet = GetDefaultTemplateSet();
 	
-	include(DCL_ROOT . 'templates/' . $sTemplateSet . '/navbar.php');
-
 	$t = new SmartyHelper();
 
 	$t->assign('DIR_IMAGES', 'templates/' . $sTemplateSet . '/img');
 	$t->assign('DIR_CSS', 'templates/' . $sTemplateSet . '/css');
 	$t->assign('DIR_JS', 'js');
 	$t->assign('LNK_LOGOFF', menuLink('logout.php'));
+	$t->assign('DCLID', DCLID);
+	$t->assign('DCLNAME', $g_oSession->Value('DCLNAME'));
 
 	if ($g_oSec->IsPublicUser())
 		$t->assign('LNK_HOME', menuLink('', 'menuAction=htmlPublicMyDCL.show'));
@@ -58,9 +59,6 @@ function renderDCLMenu()
 
 	$menu = DclMainMenuHelper::GetMenu();
 	$t->assignByRef('VAL_DCL_MENU', $menu);
-
-	$oNav = new DCLNavBar;
-	$t->assign('NAV_BOXEN', $oNav->getHtml());
 
 	$t->Render('menu.tpl');
 }

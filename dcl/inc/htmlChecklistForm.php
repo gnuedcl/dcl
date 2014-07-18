@@ -92,7 +92,7 @@ class htmlChecklistForm
 
 	function RenderDate(&$node)
 	{
-		echo '<input type="text" size="10" maxlength="10" ';
+		echo '<input data-input-type="date" type="text" size="10" maxlength="10" ';
 		echo 'name="' . $node->attributes['name'] . '" ';
 		echo 'id="' . $node->attributes['name'] . '" ';
 		$sValue = $this->GetNodeValue($node);
@@ -102,7 +102,6 @@ class htmlChecklistForm
 			echo ' value="' . $this->oDate->ToDisplay() . '"';
 		}
 		echo '>';
-		echo '<a href="javascript:;" onclick="showCalendar(\'' . $node->attributes['name'] . '\');"><img src="img/calendar.gif" border="0"></a>';
 	}
 
 	function RenderPersonnel(&$node)
@@ -294,7 +293,7 @@ class htmlChecklistForm
 		$this->xml->ListNodes($this->xml->root, 'State', 'name', '*');
 		if (count($this->xml->nodes) > 0)
 		{
-			echo '<div><label for="dcl_chklst_status">', STR_CHK_STATE, '</label><select id="dcl_chklst_status" name="dcl_chklst_status">';
+			echo '<div class="form-group"><label for="dcl_chklst_status">', STR_CHK_STATE, '</label><div class="col-sm-4"><select class="form-control" id="dcl_chklst_status" name="dcl_chklst_status">';
 			for ($i = 0; $i < count($this->xml->nodes); $i++)
 			{
 				echo '<option value="', htmlentities($this->xml->nodes[$i]->attributes['name']), '"';
@@ -304,7 +303,7 @@ class htmlChecklistForm
 				echo '>', htmlentities($this->xml->nodes[$i]->attributes['name']), '</option>';
 			}
 			
-			echo '</select></div>';
+			echo '</select></div></div>';
 		}
 	}
 
@@ -325,7 +324,7 @@ class htmlChecklistForm
 
 		$t->Render('ChecklistForm.tpl');
 
-		echo '<form class="styled" method="post" action="' . menuLink() . '">';
+		echo '<form class="form-horizontal" method="post" action="' . menuLink() . '">';
 		if (!$bIsView)
 		{
 			echo GetHiddenVar('menuAction', 'boChecklists.dbmodify');
@@ -340,9 +339,9 @@ class htmlChecklistForm
 			
 		echo '<fieldset><div class="submit">';
 		if (!$bIsView)
-			echo '<input type="submit" value="' . STR_CMMN_SAVE . '">';
+			echo '<input class="btn btn-primary" type="submit" value="' . STR_CMMN_SAVE . '">';
 
-		echo '<input type="button" value="' . STR_CMMN_CANCEL . '" onclick="location.href=\'' . menuLink('', 'menuAction=boChecklists.show') . '\';"></div></fieldset></form>';
+		echo '<input class="btn btn-link" type="button" value="' . STR_CMMN_CANCEL . '" onclick="location.href=\'' . menuLink('', 'menuAction=boChecklists.show') . '\';"></div></fieldset></form>';
 	}
 
 	function UpdateNodes(&$node)

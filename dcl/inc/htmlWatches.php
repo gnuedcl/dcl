@@ -39,7 +39,7 @@ class htmlWatches
 	{
 		$obj = new WatchesModel();
 
-		$retVal = "<select id=\"$id\" name=\"$id\">";
+		$retVal = "<select class=\"form-control\" id=\"$id\" name=\"$id\">";
 		while (list($key, $val) = each($obj->arrActions))
 		{
 			$retVal .= "<option value=\"$key\"";

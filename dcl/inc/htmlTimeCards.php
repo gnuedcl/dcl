@@ -72,6 +72,8 @@ class htmlTimeCards
 
 	function GetTimeCards($jcn, $seq, $editID = 0, $forDelete = false)
 	{
+		return 'NOPE';
+		/*
 		global $dcl_info, $g_oSec;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_VIEW, (int)$jcn, (int)$seq))
@@ -130,5 +132,6 @@ class htmlTimeCards
 		}
 
 		return $retVal;
+		*/
 	}
 }

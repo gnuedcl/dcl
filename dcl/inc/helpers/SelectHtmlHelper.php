@@ -30,6 +30,7 @@ class SelectHtmlHelper
 	public $Options;
 	public $CastToInt;
 	public $IsHidden;
+	public $CssClass;
 
 	private $_dbProvider;
 
@@ -44,6 +45,7 @@ class SelectHtmlHelper
 		$this->CastToInt = false;
 		$this->IsHidden = false;
 		$this->_dbProvider = NULL;
+		$this->CssClass = 'form-control';
 	}
 
 	private function GetOption($sValue, $sDisplay)
@@ -75,6 +77,9 @@ class SelectHtmlHelper
 
 		if ($this->IsHidden)
 			$sHtml .= ' style="display: none;"';
+
+		if ($this->CssClass != '')
+			$sHtml .= ' class="' . $this->CssClass . '"';
 
 		$sHtml .= '>';
 

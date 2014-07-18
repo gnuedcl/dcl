@@ -33,8 +33,11 @@ function smarty_function_dcl_calendar($params, &$smarty)
 
 	if (!isset($params['value']))
 		$params['value'] = '';
+
+	$class = '';
+	if (isset($params['class']))
+		$class = 'class="' . htmlspecialchars($params['class']) . '"';
 ?>
-<input type="text" name="<?php echo $params['name']; ?>" id="<?php echo $params['id']; ?>" size="10" maxlength="10" value="<?php echo $params['value']; ?>">&nbsp;<a href="javascript:;" onclick="showCalendar('<?php echo $params['id']; ?>');"><img src="img/calendar.gif" border="0"></a>
+<input type="text" <?php echo $class ?> name="<?php echo $params['name']; ?>" id="<?php echo $params['id']; ?>" size="10" maxlength="10" value="<?php echo $params['value']; ?>">&nbsp;<a href="javascript:;" onclick="showCalendar('<?php echo $params['id']; ?>');"><img src="img/calendar.gif" border="0"></a>
 <?php
 }
-?>

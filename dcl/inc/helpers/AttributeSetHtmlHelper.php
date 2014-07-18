@@ -37,7 +37,7 @@ class AttributeSetHtmlHelper
 		$query .= "ORDER BY $longShort";
 		$obj->Query($query);
 
-		$str = "<select name=\"$cbName";
+		$str = "<select class=\"form-control\" name=\"$cbName";
 		if ($size > 0)
 			$str .= '[]" multiple size="' . $size;
 

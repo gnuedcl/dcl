@@ -1,16 +1,57 @@
-{dcl_calendar_init}
 {dcl_validator_init}
-<script language="JavaScript">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<form class="form-horizontal" method="post" name="submitForm" action="{$URL_MAIN_PHP}">
+	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
+	{if $VAL_CONTACTID}<input type="hidden" name="contact_id" value="{$VAL_CONTACTID}">{/if}
+	{if $VAL_CONTACTLICENSEID}<input type="hidden" name="contact_license_id" value="{$VAL_CONTACTLICENSEID}">{/if}
+	<fieldset>
+		<legend>{$TXT_FUNCTION|escape}</legend>
+		{if $VAL_CONTACTID}<div class="help">{$VAL_FIRSTNAME|escape} {$VAL_LASTNAME|escape}</div>{/if}
+		{dcl_form_control id=product_id controlsize=10 label="Product" required=true}
+		{dcl_select_product default="$VAL_PRODUCTID" active="$ACTIVE_ONLY" name="product_id"}
+		{/dcl_form_control}
+		{dcl_form_control id=product_version controlsize=4 label="Version" required=false}
+		{dcl_input_text id=product_version maxlength=20 value=$VAL_VERSION}
+		{/dcl_form_control}
+		{dcl_form_control id=license_id controlsize=10 label="License #" required=true}
+		{dcl_input_text id=license_id maxlength=50 value=$VAL_LICENSEID}
+		{/dcl_form_control}
+		{dcl_form_control id=registered_on controlsize=2 label="Registration Date" required=true}
+		{dcl_input_date id=registered_on value=$VAL_REGISTERDON}
+		{/dcl_form_control}
+		{dcl_form_control id=expires_on controlsize=2 label="Expiration Date" required=true}
+		{dcl_input_date id=expires_on value=$VAL_EXPIRESON}
+		{/dcl_form_control}
+		{dcl_form_control id=license_notes controlsize=10 label="Notes" required=false}
+			<textarea class="form-control" name="license_notes" id="license_notes" rows="4" wrap valign="top">{$VAL_NOTES|escape}</textarea>
+		{/dcl_form_control}
+	</fieldset>
+	<fieldset>
+		<div class="row">
+			<div class="col-sm-offset-2">
+				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input class="btn btn-link" type="button" onclick="location.href = '{$URL_BACK}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
+		</div>
+	</fieldset>
+</form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#product_version").focus();
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+		$("input[data-input-type=date]").datepicker();
+	});
+
 function validateAndSubmitForm(form)
-
 {
-
-	var aValidators = new Array(
+	var aValidators = [
 			new ValidatorSelection(form.elements["product_id"], "Product"),
 			new ValidatorString(form.elements["license_id"], "License #"),
 			new ValidatorDate(form.elements["registered_on"], "Registration Date"),
 			new ValidatorDate(form.elements["expires_on"], "Expiration Date")
-		);
+	];
 
 	for (var i in aValidators)
 	{
@@ -26,47 +67,4 @@ function validateAndSubmitForm(form)
 	form.submit();
 }
 
-</script>
-<form class="styled" method="post" name="submitForm" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
-	{if $VAL_CONTACTID}<input type="hidden" name="contact_id" value="{$VAL_CONTACTID}">{/if}
-	{if $VAL_CONTACTLICENSEID}<input type="hidden" name="contact_license_id" value="{$VAL_CONTACTLICENSEID}">{/if}
-	<fieldset>
-		<legend>{$TXT_FUNCTION}</legend>
-		{if $VAL_CONTACTID}<div class="help">{$VAL_FIRSTNAME|escape} {$VAL_LASTNAME|escape}</div>{/if}
-		<div class="required">
-			<label for="product_id">Product:</label>
-			{dcl_select_product default="$VAL_PRODUCTID" active="$ACTIVE_ONLY" name="product_id"}
-		</div>
-		<div>
-			<label for="product_version">Version:</label>
-			<input type="text" id="product_version" name="product_version" size="20" maxlength="20" value="{$VAL_VERSION|escape}">
-		</div>
-		<div class="required">
-			<label for="version">License #:</label>
-			<input type="text" id="license_id" name="license_id" size="50" maxlength="50" value="{$VAL_LICENSEID|escape}">
-		</div>
-		<div class="required">
-			<label for="registered_on">Registration Date:</label>
-			{dcl_calendar name="registered_on" value="$VAL_REGISTEREDON"}
-		</div>
-		<div class="required">
-			<label for="expires_on">Expiration Date:</label>
-			{dcl_calendar name="expires_on" value="$VAL_EXPIRESON"}
-		</div>
-		<div>
-			<label for="license_notes">Notes:</label>
-			<textarea name="license_notes" id="license_notes" rows="4" cols="70" wrap valign="top">{$VAL_NOTES|escape}</textarea>
-		</div>
-	</fieldset>
-	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href = '{$URL_BACK}';" value="{$smarty.const.STR_CMMN_CANCEL}">
-		</div>
-	</fieldset>
-</form>
-<script language="JavaScript">
-if (document.forms["submitForm"].elements["email_addr"])
-	document.forms["submitForm"].elements["email_addr"].focus();
 </script>

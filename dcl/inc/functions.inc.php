@@ -655,7 +655,7 @@ function ShowDeleteYesNo($title, $action, $id, $name, $canBeDeactivated = true, 
 
 function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOption = true)
 {
-	$str = "<select id=\"$cbName\" name=\"$cbName";
+	$str = "<select class=\"form-control\" id=\"$cbName\" name=\"$cbName";
 	if ($size > 0)
 		$str .= '[]" multiple size=' . $size;
 	else

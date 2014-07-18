@@ -1,13 +1,53 @@
 {dcl_validator_init}
-<script language="JavaScript">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<form class="form-horizontal" method="post" name="submitForm" action="{$URL_MAIN_PHP}">
+	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
+	{if $VAL_CONTACTID}<input type="hidden" name="contact_id" value="{$VAL_CONTACTID}">{/if}
+	<fieldset>
+		<legend>{$TXT_FUNCTION|escape}</legend>
+		{dcl_form_control id=active controlsize=10 label=$smarty.const.STR_CMMN_ACTIVE}
+			<input type="checkbox" id="active" name="active" value="Y"{if $VAL_ACTIVE == 'Y'} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=first_name controlsize=10 label=$smarty.const.STR_CMMN_FIRSTNAME required=true}
+		{dcl_input_text id=first_name maxlength=50 value=$VAL_FIRSTNAME}
+		{/dcl_form_control}
+		{dcl_form_control id=middle_name controlsize=10 label="Middle Name" required=false}
+		{dcl_input_text id=middle_name maxlength=50 value=$VAL_MIDDLENAME}
+		{/dcl_form_control}
+		{dcl_form_control id=last_name controlsize=10 label=$smarty.const.STR_CMMN_LASTNAME required=true}
+		{dcl_input_text id=last_name maxlength=50 value=$VAL_LASTNAME}
+		{/dcl_form_control}
+		{dcl_form_control id=contact_type_id controlsize=10 label="Type"}
+			<select class="form-control" id="contact_type_id" name="contact_type_id[]" multiple>
+				{foreach item=typeItem key=typeItemID from=$contactTypes}
+					<option value="{$typeItemID|escape}"{if $typeItem.selected == "true"} selected{/if}>{$typeItem.desc|escape}</option>
+				{/foreach}
+			</select>
+		{/dcl_form_control}
+	</fieldset>
+	<fieldset>
+		<div class="row">
+			<div class="col-sm-offset-2">
+				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input class="btn btn-link" type="button" onclick="location.href = '{$URL_BACK}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
+		</div>
+	</fieldset>
+</form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#first_name").focus();
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+	});
 
 function validateAndSubmitForm(form)
 {
-
-	var aValidators = new Array(
-			new ValidatorString(form.elements["first_name"], "First Name"),
-			new ValidatorString(form.elements["last_name"], "Last Name")
-		);
+	var aValidators = [
+		new ValidatorString(form.elements["first_name"], "First Name"),
+		new ValidatorString(form.elements["last_name"], "Last Name")
+	];
 
 	for (var i in aValidators)
 	{
@@ -23,47 +63,4 @@ function validateAndSubmitForm(form)
 	form.submit();
 }
 
-</script>
-<form class="styled" method="post" name="submitForm" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
-	{if $VAL_CONTACTID}<input type="hidden" name="contact_id" value="{$VAL_CONTACTID}">{/if}
-	<fieldset>
-		<legend>{$TXT_FUNCTION}</legend>
-		<div class="required">
-			<label for="active">{$smarty.const.STR_CMMN_ACTIVE}:</label>
-			<input type="checkbox" id="active" name="active" value="Y"{if $VAL_ACTIVE == 'Y'} checked{/if}>
-		</div>
-		<div class="required">
-			<label for="">{$smarty.const.STR_CMMN_FIRSTNAME}:</label>
-			<input type="text" size="50" maxlength="50" id="first_name" name="first_name" value="{$VAL_FIRSTNAME|escape}">
-		</div>
-		<div>
-			<label for="">Middle Name:</label>
-			<input type="text" size="50" maxlength="50" id="middle_name" name="middle_name" value="{$VAL_MIDDLENAME|escape}">
-		</div>
-		<div class="required">
-			<label for="">{$smarty.const.STR_CMMN_LASTNAME}:</label>
-			<input type="text" size="50" maxlength="50" id="last_name" name="last_name" value="{$VAL_LASTNAME|escape}">
-		</div>
-		<div>
-			<fieldset>
-				<legend>Type</legend>
-				<div>
-					{foreach item=typeItem key=typeItemID from=$contactTypes}
-						<span style="white-space: nowrap;"><label for="contact_type_id_{$typeItemID}"><input type="checkbox" name="contact_type_id[]" value="{$typeItemID}" id="contact_type_id_{$typeItemID}"{if $typeItem.selected == "true"} checked{/if}> {$typeItem.desc}</label></span>
-					{/foreach}
-				</div>
-			</fieldset>
-		</div>
-	</fieldset>
-	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_OK}">
-			<input type="button" onclick="location.href = '{$URL_BACK}';" value="{$smarty.const.STR_CMMN_CANCEL}">
-		</div>
-	</fieldset>
-</form>
-<script language="JavaScript">
-if (document.forms["submitForm"].elements["first_name"])
-	document.forms["submitForm"].elements["first_name"].focus();
 </script>

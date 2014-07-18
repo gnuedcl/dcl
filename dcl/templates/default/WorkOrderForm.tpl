@@ -1,8 +1,9 @@
-{dcl_calendar_init}
 {dcl_selector_init}
 {dcl_validator_init}
 {dcl_xmlhttp_init}
-<script language="JavaScript">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<script type="text/javascript">
 var productVersionRequired = false;
 function validateAndSubmitForm(form)
 {
@@ -100,7 +101,7 @@ function UpdateOptions()
 	RequestJSON("{$smarty.const.DCL_WWW_ROOT}main.php", "menuAction=Product.IsProjectRequired&product_id=" + oProduct.options[oProduct.selectedIndex].value, IsProjectRequiredCallback);
 }
 </script>
-<form class="styled" name="woform" method="post" action="{$smarty.const.DCL_WWW_ROOT}main.php" enctype="multipart/form-data">
+<form class="form form-horizontal" name="woform" method="post" action="{$smarty.const.DCL_WWW_ROOT}main.php" enctype="multipart/form-data">
 	<input type="hidden" name="menuActionExExExExEx" value="{$ViewData->Action}">
 	<input type="hidden" name="menuAction" value="{$ViewData->Action}">
 	{dcl_anti_csrf_token}
@@ -116,150 +117,126 @@ function UpdateOptions()
 {/if}
 	<fieldset>
 		<legend>{$ViewData->Title}</legend>
-		<div class="required">
-			<label for="product">{$smarty.const.STR_WO_PRODUCT}:</label>
+		{dcl_form_control id=product controlsize=4 label=$smarty.const.STR_WO_PRODUCT required=true}
 			{dcl_select_product default=$ViewData->ProductId active=$ACTIVE_ONLY}
-		</div>
-		<div class="required">
-			<label for="module_id">{$smarty.const.STR_CMMN_MODULE}:</label>
+		{/dcl_form_control}
+		{dcl_form_control id=module_id controlsize=4 label=$smarty.const.STR_CMMN_MODULE required=true}
 			{if $ViewData->IsEdit}{dcl_select_module default=$ViewData->ModuleId active=$ACTIVE_ONLY product=$ViewData->ProductId}{else}{dcl_select_module default=$ViewData->ModuleId active=$ACTIVE_ONLY}{/if}
-		</div>
-		<div>
-			<label for="revision">Reported Version:</label>
+		{/dcl_form_control}
+		{dcl_form_control id=reported_version_id controlsize=4 label="Reported Version"}
 			{dcl_select_product_version name=reported_version_id active=$ACTIVE_ONLY default=$ViewData->ReportedVersionId product=$ViewData->ProductId}
-		</div>
+		{/dcl_form_control}
 {if $ViewData->IsEdit}
-		<div>
-			<label for="revision">Targeted Version:</label>
-			{dcl_select_product_version name=targeted_version_id active=$ACTIVE_ONLY default=$ViewData->TargetedVersionId product=$ViewData->ProductId}
-		</div>
-		<div>
-			<label for="revision">Fixed Version:</label>
-			{dcl_select_product_version name=fixed_version_id active=$ACTIVE_ONLY default=$ViewData->FixedVersionId product=$ViewData->ProductId}
-		</div>
+	{dcl_form_control id=reported_version_id controlsize=4 label="Targeted Version"}
+	{dcl_select_product_version name=reported_version_id active=$ACTIVE_ONLY default=$ViewData->TargetedVersionId product=$ViewData->ProductId}
+	{/dcl_form_control}
+	{dcl_form_control id=fixed_version_id controlsize=4 label="Fixed Version"}
+	{dcl_select_product_version name=fixed_version_id active=$ACTIVE_ONLY default=$ViewData->FixedVersionId product=$ViewData->ProductId}
+	{/dcl_form_control}
 {/if}
 {if !$ViewData->IsPublicUser}
-		<div class="required">
-			<label for="is_public">{$smarty.const.STR_CMMN_PUBLIC}:</label>
-			<input type="checkbox" name="is_public" id="is_public" value="Y"{if $ViewData->IsPublic == 'Y'} checked{/if}>
-		</div>
+	{dcl_form_control id=is_public controlsize=1 label=$smarty.const.STR_CMMN_PUBLIC required=true}
+		<input type="checkbox" name="is_public" id="is_public" value="Y"{if $ViewData->IsPublic == 'Y'} checked{/if}>
+	{/dcl_form_control}
 {/if}
-		<div class="required">
-			<label for="wo_type_id">{$smarty.const.STR_WO_TYPE}:</label>
-			{dcl_select_wo_type default=$ViewData->TypeId active=$ACTIVE_ONLY}
-		</div>
-		<div class="required">
-			<label for="entity_source_id">{$smarty.const.STR_CMMN_SOURCE}:</label>
-			{dcl_select_source default=$ViewData->SourceId active=$ACTIVE_ONLY}
-		</div>
+		{dcl_form_control id=wo_type_id controlsize=4 label=$smarty.const.STR_WO_TYPE required=true}
+		{dcl_select_wo_type default=$ViewData->TypeId active=$ACTIVE_ONLY}
+		{/dcl_form_control}
+		{dcl_form_control id=entity_source_id controlsize=4 label=$smarty.const.STR_CMMN_SOURCE required=true}
+		{dcl_select_source default=$ViewData->SourceId active=$ACTIVE_ONLY}
+		{/dcl_form_control}
 {if $ViewData->CanAssignWorkOrder}
-		<div class="required">
-			<label for="responsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label>
-			{dcl_select_personnel name="responsible" default=$ViewData->ResponsibleId entity=$smarty.const.DCL_ENTITY_WORKORDER perm=$smarty.const.DCL_PERM_ACTION}
-		</div>
-		<div class="required">
-			<label for="deadlineon">{$smarty.const.STR_WO_DEADLINE}:</label>
-			{dcl_calendar name="deadlineon" value=$ViewData->DeadlineDate}
-		</div>
-		<div class="required">
-			<label for="eststarton">{$smarty.const.STR_WO_ESTSTART}:</label>
-			{dcl_calendar name="eststarton" value=$ViewData->EstStartDate}
-		</div>
-		<div class="required">
-			<label for="estendon">{$smarty.const.STR_WO_ESTEND}:</label>
-			{dcl_calendar name="estendon" value=$ViewData->EstEndDate}
-		</div>
-		<div class="required">
-			<label for="esthours">{$smarty.const.STR_WO_ESTHOURS}:</label>
-			<input type="text" name="esthours" id="esthours" size="6" maxlength="6" value="{$ViewData->EstHours}">
-		</div>
+	{dcl_form_control id=responsible controlsize=4 label=$smarty.const.STR_WO_RESPONSIBLE required=true}
+	{dcl_select_personnel name="responsible" default=$ViewData->ResponsibleId entity=$smarty.const.DCL_ENTITY_WORKORDER perm=$smarty.const.DCL_PERM_ACTION}
+	{/dcl_form_control}
+	{dcl_form_control id=deadlineon controlsize=2 label=$smarty.const.STR_WO_DEADLINE required=true}
+		<input type="text" class="form-control" data-input-type="date" maxlength="10" id="deadlineon" name="deadlineon" value="{$ViewData->DeadlineDate|escape}">
+	{/dcl_form_control}
+	{dcl_form_control id=eststarton controlsize=2 label=$smarty.const.STR_WO_ESTSTART required=true}
+		<input type="text" class="form-control" data-input-type="date" maxlength="10" id="eststarton" name="eststarton" value="{$ViewData->EstStartDate|escape}">
+	{/dcl_form_control}
+	{dcl_form_control id=estendon controlsize=2 label=$smarty.const.STR_WO_ESTEND required=true}
+		<input type="text" class="form-control" data-input-type="date" maxlength="10" id="estendon" name="estendon" value="{$ViewData->EstEndDate|escape}">
+	{/dcl_form_control}
+	{dcl_form_control id=esthours controlsize=2 label=$smarty.const.STR_WO_ESTHOURS required=true}
+		<input type="text" name="esthours" id="esthours" class="form-control" maxlength="6" value="{$ViewData->EstHours}">
+	{/dcl_form_control}
 {elseif $ViewData->CanAction && !$ViewData->IsPublicUser}
-		<div>
-			<label for="responsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label>
-			<input type="checkbox" name="responsible" id="responsible" value="{$ViewData->ResponsibleId}"{$CHK_DCLID}>
-		</div>
+	{dcl_form_control id=responsible controlsize=1 label=$smarty.const.STR_WO_RESPONSIBLE}
+		<input type="checkbox" class="form-control" name="responsible" id="responsible" value="{$ViewData->ResponsibleId}"{$CHK_DCLID}>
+	{/dcl_form_control}
 {/if}
 {if $ViewData->CanAssignWorkOrder}
-		<div class="required">
-			<label for="priority">{$smarty.const.STR_WO_PRIORITY}:</label>
-			{dcl_select_priority default=$ViewData->PriorityId active=$ACTIVE_ONLY setid=$ViewData->AttributeSetId}
-		</div>
-		<div class="required">
-			<label for="severity">{$smarty.const.STR_WO_SEVERITY}:</label>
-			{dcl_select_severity default=$ViewData->SeverityId active=$ACTIVE_ONLY setid=$ViewData->AttributeSetId}
-		</div>
-	</tr>
+	{dcl_form_control id=priority controlsize=2 label=$smarty.const.STR_WO_PRIORITY required=true}
+	{dcl_select_priority default=$ViewData->PriorityId active=$ACTIVE_ONLY setid=$ViewData->AttributeSetId}
+	{/dcl_form_control}
+	{dcl_form_control id=severity controlsize=2 label=$smarty.const.STR_WO_SEVERITY required=true}
+	{dcl_select_severity default=$ViewData->SeverityId active=$ACTIVE_ONLY setid=$ViewData->AttributeSetId}
+	{/dcl_form_control}
 {/if}
 {if !$ViewData->IsPublicUser}
-		<div>
-			<label for="contact_id">{$smarty.const.STR_WO_CONTACT}:</label>
-			{dcl_selector_contact name="contact_id" value=$ViewData->ContactId decoded=$ViewData->ContactName orgselector="secaccounts"}
-		</div>
-		<div>
-			<label for="secaccounts">{$smarty.const.STR_CMMN_ORGANIZATION}:</label>
-			{dcl_selector_org name="secaccounts" value=$ViewData->OrganizationIdCollection decoded=$ViewData->OrganizationNameCollection multiple=$ViewData->MultiOrganizationEnabled}
-		</div>
-		<div class="noinput">
-			<div id="div_secaccounts" style="width: 100%;"></div>
-		</div>
-	</tr>
+	{dcl_form_control id=contact_id controlsize=2 label=$smarty.const.STR_WO_CONTACT}
+	{dcl_selector_contact name="contact_id" value=$ViewData->ContactId decoded=$ViewData->ContactName orgselector="secaccounts"}
+	{/dcl_form_control}
+	{dcl_form_control id=secaccounts controlsize=2 label=$smarty.const.STR_CMMN_ORGANIZATION}
+	{dcl_selector_org name="secaccounts" value=$ViewData->OrganizationIdCollection decoded=$ViewData->OrganizationNameCollection multiple=$ViewData->MultiOrganizationEnabled}
+	{/dcl_form_control}
+	<div class="col-xs-offset-2 col-xs-10">
+		<div id="div_secaccounts"></div>
+	</div>
 {/if}
-		<div class="required">
-			<label for="summary">{$smarty.const.STR_WO_SUMMARY}:</label>
-			<input type="text" name="summary" id="summary" size="50" maxlength="100" value="{$ViewData->Summary|escape}">
-		</div>
-		<div>
-			<label for="tags">{$smarty.const.STR_CMMN_TAGS|escape}:</label>
-			<input type="text" name="tags" id="tags" size="50" value="{$ViewData->Tags|escape}">
-			<span>{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
-		</div>
-		<div>
-			<label for="hotlist">Hotlist:</label>
-			<input type="text" name="hotlist" id="hotlist" size="50" value="{$ViewData->Hotlists|escape}">
-			<span>Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
-		</div>
-		<div>
-			<label for="notes">{$smarty.const.STR_WO_NOTES}:</label>
-			<textarea name="notes" id="notes" rows="4" cols="70" wrap valign="top">{$ViewData->Notes|escape}</textarea>
-		</div>
-		<div class="required">
-			<label for="description">{$smarty.const.STR_WO_DESCRIPTION}:</label>
-			<textarea name="description" id="description" rows="4" cols="70" wrap valign="top">{$ViewData->Description|escape}</textarea>
-		</div>
-		<div class="required">
-			<label for="copy_me_on_notification">Copy Me on Notification:</label>
-			<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
-		</div>
+	{dcl_form_control id=summary controlsize=10 label=$smarty.const.STR_WO_SUMMARY required=true}
+		<input type="text" class="form-control" name="summary" id="summary" maxlength="100" value="{$ViewData->Summary|escape}">
+	{/dcl_form_control}
+	{dcl_form_control id=tags controlsize=10 label=$smarty.const.STR_CMMN_TAGS}
+		<input type="text" class="form-control" name="tags" id="tags" value="{$ViewData->Tags|escape}">
+		<span class="help-block">{$smarty.const.STR_CMMN_TAGSHELP|escape}</span>
+	{/dcl_form_control}
+	{dcl_form_control id=tags controlsize=10 label=Hotlist}
+		<input type="text" class="form-control" name="hotlist" id="hotlist" value="{$ViewData->Hotlists|escape}">
+		<span class="help-block">Separate multiple hotlists with commas (example: "customer critical,risk"). Maximum 20 characters per hotlist.</span>
+	{/dcl_form_control}
+	{dcl_form_control id=notes controlsize=10 label=$smarty.const.STR_WO_NOTES}
+		<textarea class="form-control" name="notes" id="notes" rows="4" wrap valign="top">{$ViewData->Notes|escape}</textarea>
+	{/dcl_form_control}
+	{dcl_form_control id=description controlsize=10 label=$smarty.const.STR_WO_DESCRIPTION}
+		<textarea class="form-control" name="description" id="description" rows="4" wrap valign="top">{$ViewData->Description|escape}</textarea>
+	{/dcl_form_control}
+	{dcl_form_control id=copy_me_on_notification controlsize=1 label="Copy Me on Notification"}
+		<input type="checkbox" class="form-control" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
+	{/dcl_form_control}
 {if $ViewData->CanAddTask}
 {if $ViewData->ProjectLabel}
-		<div class="noinput">{$ViewData->ProjectLabel|escape}<input type="hidden" name="projectid" value="{$ViewData->ProjectId}"></div>
+	{dcl_form_control id=projectid controlsize=10 label=$smarty.const.STR_WO_PROJECT}
+		<p class="form-control-static">{$ViewData->ProjectLabel|escape}<input type="hidden" name="projectid" value="{$ViewData->ProjectId}"></p>
+	{/dcl_form_control}
 {elseif !$ViewData->HideProject}
-		<div>
-			<label for="projectid">{$smarty.const.STR_WO_PROJECT}:</label>
-			{dcl_selector_project name="projectid" value=$ViewData->ProjectId decoded=$ViewData->ProjectName}
-		</div>
-		<div>
-			<label for="addall">{$smarty.const.STR_WO_ADDALLSEQ}</label>
-			<input type="checkbox" name="addall" id="addall" value="1">
-		</div>
+	{dcl_form_control id=projectid controlsize=10 label=$smarty.const.STR_WO_PROJECT}
+	<p class="form-control-static">{dcl_selector_project name="projectid" value=$ViewData->ProjectId decoded=$ViewData->ProjectName}</p>
+	{/dcl_form_control}
+	{dcl_form_control id=addall controlsize=1 label=$smarty.const.STR_WO_ADDALLSEQ}
+		<input type="checkbox" class="form-control" id="addall" name="addall" value="1">
+	{/dcl_form_control}
 {/if}
 {/if}
 {if $ViewData->CanAttachFile}
-		<input type="hidden" name="MAX_FILE_SIZE" value="{$ViewData->MaxUploadFileSize}">
-		<div>
-			<label for="userfile">{$smarty.const.STR_WO_ATTACHFILE}:</label>
-			<input type="file" id="userfile" name="userfile">
-		</div>
+	<input type="hidden" name="MAX_FILE_SIZE" value="{$ViewData->MaxUploadFileSize}">
+	{dcl_form_control id=userfile controlsize=10 label=$smarty.const.STR_WO_ATTACHFILE}
+		<input type="file" id="userfile" name="userfile">
+	{/dcl_form_control}
 {/if}
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="reset" value="{$smarty.const.STR_CMMN_RESET}">
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="button" class="btn btn-primary" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input type="reset" class="btn btn-link" value="{$smarty.const.STR_CMMN_RESET}">
+			</div>
 		</div>
 	</fieldset>
 </form>
 <script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
 <script type="text/javascript">
 	//<![CDATA[
 	$(document).ready(function() {
@@ -268,11 +245,14 @@ function UpdateOptions()
 			UpdateOptions();
 		});
 
+		$("input[data-input-type=date]").datepicker();
+
 		if ($("#product").val() != "0") {
 			$("#product").change();
 		}
 
 		$("textarea").BetterGrow();
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
 
 		if (typeof render_a_secaccounts == "function") {
 			render_a_secaccounts();

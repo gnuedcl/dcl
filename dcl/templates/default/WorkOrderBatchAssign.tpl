@@ -1,5 +1,6 @@
-{dcl_calendar_init}
 {dcl_validator_init}
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
 <script language="JavaScript">
 
 function validateAndSubmitForm(form)
@@ -24,7 +25,7 @@ function validateAndSubmitForm(form)
 }
 
 </script>
-<form class="styled" name="reassign" method="post" action="{$URL_MAIN_PHP}">
+<form class="form form-horizontal" name="reassign" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$menuAction}">
 	{if $VAL_VIEW}{$VAL_VIEW}{/if}
 	{section loop=$selected name=item}<input type="hidden" name="selected[]" value="{$selected[item]}">{/section}
@@ -34,23 +35,28 @@ function validateAndSubmitForm(form)
 	{if $project}<input type="hidden" name="project" value="{$project|escape}">{/if}
 	<fieldset>
 		<legend>{$TXT_TITLE}</legend>
-		<div>
-			<label for="responsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label>
-			{$CMB_RESPONSIBLE}
-		</div>
-		<div>
-			<label for="priority">{$smarty.const.STR_WO_PRIORITY}:</label>
-			{$CMB_PRIORITY}
-		</div>
-		<div>
-			<label for="severity">{$smarty.const.STR_WO_SEVERITY}:</label>
-			{$CMB_SEVERITY}
-		</div>
+		{dcl_form_control id=responsible controlsize=4 label=$smarty.const.STR_WO_RESPONSIBLE}
+		{$CMB_RESPONSIBLE}
+		{/dcl_form_control}
+		{dcl_form_control id=priority controlsize=4 label=$smarty.const.STR_WO_PRIORITY}
+		{$CMB_PRIORITY}
+		{/dcl_form_control}
+		{dcl_form_control id=severity controlsize=4 label=$smarty.const.STR_WO_SEVERITY}
+		{$CMB_SEVERITY}
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="reset" value="{$smarty.const.STR_CMMN_RESET}">
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="button" class="btn btn-primary" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input type="reset" class="btn btn-link" value="{$smarty.const.STR_CMMN_RESET}">
+			</div>
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+	});
+</script>

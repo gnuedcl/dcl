@@ -1,20 +1,14 @@
 {if $VAL_STATUS_TYPE != 2}
-
-<script language="javascript">
-function toggleTaskComplete(iTaskID, oCheckBox)
-{
-
+<script type="text/javascript">
+function toggleTaskComplete(iTaskID, oCheckBox) {
 	location.href = "{$URL_MAIN_PHP}?menuAction=htmlWorkOrderTask.submitToggle&wo_task_id=" + iTaskID + "&task_complete=" + (oCheckBox.checked ? "Y" : "N");
-
 }
 </script>
-
 {/if}
 {strip}
-	<table width="100%" class="dcl_results">
-		<caption class="spacer">{$VAL_TASKS|@count} Tasks</caption>
+	<table class="table table-striped">
 		<thead>
-			{if $PERM_ACTION && $VAL_STATUS_TYPE != 2}<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlWorkOrderTask.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a></li><li><a href="{$URL_MAIN_PHP}?menuAction=htmlWorkOrderTask.reorder&jcn={$VAL_JCN}&seq={$VAL_SEQ}">Reorder</a></li></ul></th></tr>{/if}
+			{if $PERM_ACTION && $VAL_STATUS_TYPE != 2}<tr class="toolbar"><th colspan="3"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlWorkOrderTask.add&jcn={$VAL_JCN}&seq={$VAL_SEQ}">{$smarty.const.STR_CMMN_NEW}</a><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlWorkOrderTask.reorder&jcn={$VAL_JCN}&seq={$VAL_SEQ}">Reorder</a></div></th></tr>{/if}
 			<tr>{if $PERM_ACTION && $VAL_STATUS_TYPE != 2}<th style="width:2%;"></th>{/if}<th>Summary</th>{if $PERM_ACTION && $VAL_STATUS_TYPE != 2}<th style="width:10%;">{$smarty.const.STR_CMMN_OPTIONS}</th>{/if}</tr>
 		</thead>
 {section name=task loop=$VAL_TASKS}

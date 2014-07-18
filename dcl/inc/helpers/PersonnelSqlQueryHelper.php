@@ -32,7 +32,7 @@ class PersonnelSqlQueryHelper extends AbstractSqlQueryHelper
 	{
 		if (!IsSet($this->joins[$table]))
 		{
-			if ($table == 'dcl_contact_email' && !isset($this->joins['dcl_contact']))
+			if (($table == 'dcl_contact_email' || $table == 'dcl_contact_phone' || $table == 'dcl_contact_url') && !isset($this->joins['dcl_contact']))
 				$this->joins['dcl_contact'] = 2;
 
 			$this->joins[$table] = $joinType;

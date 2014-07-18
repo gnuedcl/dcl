@@ -845,7 +845,11 @@ class WorkOrderPresenter
 					$colName = 'createby.short';
 				else if ($colName == 'g.short')
 					$colName = 'actionby.short';
-					
+				else if ($colName == 'priorities.weight')
+					$colName = 'priorities.name';
+				else if ($colName == 'severities.weight')
+					$colName = 'severities.name';
+
 				$aGroup[$colName] = $aCols[$colName];
 			}
 			

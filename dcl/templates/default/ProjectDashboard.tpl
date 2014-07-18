@@ -4,35 +4,35 @@
 	#autocomplete-form p { margin: 0px; }
 	#autocomplete-form p ul { margin-top: 2px; }
 </style>
-<div class="dcl_detail">
-	<table class="styled">
-		<caption>[{$VAL_PROJECTID}] {$VAL_NAME|escape}</caption>
-		<thead>{include file="ProjectOptionsControl.tpl"}</thead>
-		<tbody>
-			<tr><td colspan="4">
-					<form method="POST" action="" id="post-form">
-						<input type="hidden" name="children" id="children" />
-					</form>
-					<form method="POST" action="" id="autocomplete-form">
-						<p>
-							<button class="btn" id="include-children">Include Projects</button>
-							{section name=project loop=$VAL_INCLUDEDPROJECTS}<input type="text" name="children-ac[{$VAL_INCLUDEDPROJECTS[project].id}-a]" value="[{$VAL_INCLUDEDPROJECTS[project].id}] {$VAL_INCLUDEDPROJECTS[project].name|escape}" class="tag" />{/section}
-							<input type="text" name="children-ac[]" class="tag" />
-						</p>
-					</form>
-				</td>
-			</tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.StatusChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.DepartmentChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></td>
-			</tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.SeverityChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.PriorityChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></td>
-			<tr>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.ModuleChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.TypeChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></td>
-			<tr>
-		</tbody>
-	</table>
+<h4>[{$VAL_PROJECTID}] {$VAL_NAME|escape}</h4>
+{include file="ProjectOptionsControl.tpl"}
+<div class="container">
+	<div class="row top12">
+		<div class="col-xs-12">
+			<form method="POST" action="" id="post-form">
+				<input type="hidden" name="children" id="children" />
+			</form>
+			<form class="form-inline" method="POST" action="" id="autocomplete-form">
+				<p>
+					<button class="btn btn-default" id="include-children">Include Projects</button>
+					{section name=project loop=$VAL_INCLUDEDPROJECTS}<input type="text" name="children-ac[{$VAL_INCLUDEDPROJECTS[project].id}-a]" value="[{$VAL_INCLUDEDPROJECTS[project].id}] {$VAL_INCLUDEDPROJECTS[project].name|escape}" class="tag" />{/section}
+					<input type="text" name="children-ac[]" class="tag" />
+				</p>
+			</form>
+		</div>
+	</div>
+	<div class="row top12">
+		<div class="col-xs-6"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.StatusChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></div>
+		<div class="col-xs-6"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.DepartmentChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></div>
+	</div>
+	<div class="row top12">
+		<div class="col-xs-6"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.SeverityChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></div>
+		<div class="col-xs-6"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.PriorityChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></div>
+	</div>
+	<div class="row top12">
+		<div class="col-xs-6"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.ModuleChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></div>
+		<div class="col-xs-6"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.TypeChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></div>
+	</div>
 </div>
 <script type="text/javascript" src="{$DIR_JS}tagedit/js/jquery.autoGrowInput.js"></script>
 <script type="text/javascript" src="{$DIR_JS}tagedit/js/jquery.tagedit.js"></script>

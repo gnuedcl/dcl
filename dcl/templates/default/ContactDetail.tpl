@@ -117,19 +117,19 @@
 	});
 
 </script>
-<table width="100%" class="dcl_results">
-	<caption>Contact [{Contact->contact_id}] {Contact->first_name} {Contact->last_name}</caption>
+<h4>Contact [{Contact->contact_id}] {Contact->first_name} {Contact->last_name}</h4>
+<table width="100%" class="table table-striped">
 	<thead>
-		<tr class="toolbar">
+		<tr>
 			<th>
-				<ul>
-					<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlContactBrowse.show&filterActive=Y">Browse</a></li>
-					<li><a href="{$URL_MAIN_PHP}?menuAction=htmlContact.viewWorkOrders&id={Contact->contact_id}">Work Orders</a></li>
-					<li><a href="{$URL_MAIN_PHP}?menuAction=htmlContact.viewTickets&id={Contact->contact_id}">Tickets</a></li>
-					{if $PERM_MODIFY}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlContact.merge&contact_id={Contact->contact_id}">Merge</a></li>{/if}
-					{if $PERM_MODIFY}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlContactForm.modify&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_EDIT}</a></li>{/if}
-					{if $PERM_DELETE}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlContactForm.delete&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_DELETE}</a></li>{/if}
-				</ul>
+				<div class="btn-group">
+					<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlContactBrowse.show&filterActive=Y">Browse</a>
+					<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlContact.viewWorkOrders&id={Contact->contact_id}">Work Orders</a>
+					<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlContact.viewTickets&id={Contact->contact_id}">Tickets</a>
+					{if $PERM_MODIFY}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlContact.merge&contact_id={Contact->contact_id}">Merge</a>{/if}
+					{if $PERM_MODIFY}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlContactForm.modify&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_EDIT}</a>{/if}
+					{if $PERM_DELETE}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlContactForm.delete&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_DELETE}</a>{/if}
+				</div>
 			</th>
 		</tr>
 	</thead>
@@ -143,16 +143,19 @@ No contact types!
 		</td></tr>
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_ADDR}Addresses</caption>
+<h4>{$smarty.const.STR_CM_ADDR}Addresses</h4>
+<table width="100%" class="table table-striped">
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactAddress.Create&contact_id={Contact->contact_id}" class="adark">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr>
+			<th colspan="3">
+				<div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=ContactAddress.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a>
+			</th>
+		</tr>
 	</thead>
 	<tbody>
 		{section name=address loop=$ContactAddress}
-		{cycle values="odd,even" assign="rowClass"}
-		<tr class="{$rowClass}">
-		<td class="rowheader">{$ContactAddress[address].addr_type_name}{if $ContactAddress[address].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
+		<tr>
+		<td class="rowheader">{$ContactAddress[address].addr_type_name}{if $ContactAddress[address].preferred == "Y"} <span class="glyphicon glyphicon-flag"></span>{/if}</td>
 		<td>
 		{$ContactAddress[address].add1}<br />
 		{if $ContactAddress[address].add2 != ""}
@@ -176,16 +179,19 @@ No contact types!
 		{/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_PHONENUMBERS}Phone Numbers</caption>
+<h4>{$smarty.const.STR_CM_PHONENUMBERS}Phone Numbers</h4>
+<table width="100%" class="table table-striped">
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactPhone.Create&contact_id={Contact->contact_id}" class="adark">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr>
+			<th colspan="3">
+				<div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=ContactPhone.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></div>
+			</th>
+		</tr>
 	</thead>
 	<tbody>
 {section name=phone loop=$ContactPhone}
-		{cycle values="odd,even" assign="rowClass"}
-		<tr class="{$rowClass}">
-		<td class="rowheader">{$ContactPhone[phone].phone_type_name}{if $ContactPhone[phone].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
+		<tr">
+		<td class="rowheader">{$ContactPhone[phone].phone_type_name}{if $ContactPhone[phone].preferred == "Y"} <span class="glyphicon glyphicon-flag"></span>{/if}</td>
 		<td>{$ContactPhone[phone].phone_number}</td>
 		<td class="options">
 {strip}
@@ -200,16 +206,19 @@ No contact types!
 {/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_EMAILADDRESSES}E-Mail Addresses</caption>
+<h4>{$smarty.const.STR_CM_EMAILADDRESSES}E-Mail Addresses</h4>
+<table width="100%" class="table table-striped">
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactEmail.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr>
+			<th colspan="3">
+				<div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=ContactEmail.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></div>
+			</th>
+		</tr>
 	</thead>
 	<tbody>
 {section name=email loop=$ContactEmail}
-		{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
-		<td class="rowheader">{$ContactEmail[email].email_type_name}{if $ContactEmail[email].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
+	<tr>
+		<td class="rowheader">{$ContactEmail[email].email_type_name}{if $ContactEmail[email].preferred == "Y"} <span class="glyphicon glyphicon-flag"></span>{/if}</td>
 		<td><a href="mailto:{$ContactEmail[email].email_addr|escape}">{$ContactEmail[email].email_addr|escape}</a></td>
 		<td class="options">
 {strip}
@@ -224,16 +233,19 @@ No contact types!
 {/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_URL}URLs</caption>
+<h4>{$smarty.const.STR_CM_URL}URLs</h4>
+<table width="100%" class="table table-striped">
 	<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactUrl.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr>
+			<th colspan="3">
+				<div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=ContactUrl.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></div>
+			</th>
+		</tr>
 	</thead>
 	<tbody>
 {section name=url loop=$ContactURL}
-		{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
-		<td class="rowheader">{$ContactURL[url].url_type_name}{if $ContactURL[url].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
+	<tr>
+		<td class="rowheader">{$ContactURL[url].url_type_name}{if $ContactURL[url].preferred == "Y"} <span class="glyphicon glyphicon-flag"></span>{/if}</td>
 		<td><a target="_blank" href="{$ContactURL[url].url_addr|escape}">{$ContactURL[url].url_addr|escape}</a></td>
 		<td class="options">
 {strip}
@@ -248,17 +260,16 @@ No contact types!
 {/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_ORGANIZATIONS}Organizations</caption>
+<h4>{$smarty.const.STR_CM_ORGANIZATIONS}Organizations</h4>
+<table width="100%" class="table table-striped">
 	<thead>
-		{if $PERM_MODIFY}<tr class="toolbar"><th colspan="5"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlContactOrgs.modify&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_EDIT}</a></li></ul></th></tr>{/if}
+		{if $PERM_MODIFY}<tr><th colspan="5"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlContactOrgs.modify&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_EDIT}</a></div></th></tr>{/if}
 		<tr>{foreach item=col from=$ViewOrg->columnhdrs}<th>{$col}</th>{/foreach}</tr>
 	</thead>
 	<tbody>
 {foreach name=orgs item=record from=$Orgs}
 {strip}
-	{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
+	<tr>
 	{foreach name=org key=key item=data from=$record}
 	{if is_numeric($key)}<td>
 		{if $smarty.foreach.org.iteration == 2}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$record.org_id}">{$data}</a>
@@ -273,16 +284,15 @@ No contact types!
 {/foreach}
 	</tbody>	
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_PRODUCTLICENSES}Product Licenses</caption>
+<h4>{$smarty.const.STR_CM_PRODUCTLICENSES}Product Licenses</h4>
+<table width="100%" class="table table-striped">
 	<thead>
-		{if $PERM_MODIFY}<tr class="toolbar"><th colspan="{if $PERM_MODIFY}6{else}5{/if}"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=ContactLicense.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
+		{if $PERM_MODIFY}<tr><th colspan="{if $PERM_MODIFY}6{else}5{/if}"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=ContactLicense.Create&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>{/if}
 		<tr><th>Product</th><th>Version</th><th>License #</th><th>Registered On</th><th>Expires On</th>{if $PERM_MODIFY}<th>Options</th>{/if}</tr>
 	</thead>
 	<tbody>
 {section name=license loop=$ContactLicense}
-		{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
+	<tr>
 		<td>{$ContactLicense[license].name|escape}</td>
 		<td>{$ContactLicense[license].product_version|escape}</td>
 		<td>{$ContactLicense[license].license_id|escape}</td>
@@ -307,15 +317,14 @@ No contact types!
 {/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_LAST10TICKETS}Last 10 Tickets</caption>
-	<thead><tr class="toolbar"><th colspan="7"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTickets.add&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+<h4>{$smarty.const.STR_CM_LAST10TICKETS}Last 10 Tickets</h4>
+<table width="100%" class="table table-striped">
+	<thead><tr><th colspan="7"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=boTickets.add&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>
 		<tr>{foreach item=col from=$ViewTicket->columnhdrs}<th>{$col}</th>{/foreach}</tr>
 	</thead>
 	<tbody>
 {foreach name=tickets item=record from=$Tickets}
-	{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
+	<tr>
 	{foreach name=ticket key=key item=data from=$record}
 	{if is_numeric($key)}<td>{if $smarty.foreach.ticket.first}<a href="{$URL_MAIN_PHP}?menuAction=boTickets.view&ticketid={$record.ticketid}">{$data}</a>{else}{$data}{/if}</td>{/if}
 	{/foreach}
@@ -323,15 +332,14 @@ No contact types!
 {/foreach}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_LAST10WORKORDERS}Last 10 Work Orders</caption>
-	<thead><tr class="toolbar"><th colspan="9"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateForContact&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+<h4>{$smarty.const.STR_CM_LAST10WORKORDERS}Last 10 Work Orders</h4>
+<table width="100%" class="table table-striped">
+	<thead><tr><th colspan="9"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateForContact&contact_id={Contact->contact_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>
 		<tr>{foreach item=col from=$ViewWorkOrder->columnhdrs}<th>{$col}</th>{/foreach}</tr>
 	</thead>
 	<tbody>
 {foreach name=workorders item=record from=$WorkOrders}
-	{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
+	<tr>
 	{foreach name=wo item=data key=key from=$record}
 	{if is_numeric($key)}
 	<td>{if $smarty.foreach.wo.iteration < 3}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$record.jcn}&seq={$record.seq}">{$data}</a>{else}{$data}{/if}</td>

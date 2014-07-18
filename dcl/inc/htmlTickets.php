@@ -87,7 +87,7 @@ class htmlTickets
 
 		$t = new SmartyHelper();
 
-		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_WO_DAYS . '</option><option value="14">14 ' . STR_WO_DAYS . '</option></select>');
+		$t->assign('CMB_DAYS', '<select id="days" name="days"><option value="7">7 ' . STR_TCK_DAYS . '</option><option value="14">14 ' . STR_TCK_DAYS . '</option></select>');
 		$t->assign('VAL_TODAY', date($dcl_info['DCL_DATE_FORMAT']));
 
 		$o = new ProductHtmlHelper();

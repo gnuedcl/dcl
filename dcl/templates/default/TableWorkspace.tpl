@@ -1,4 +1,4 @@
-<script language="JavaScript">
+<script type="text/javascript">
 	var sStartsWith = '{$VAL_FILTERSTART}';
 	var sActiveFilter = '{$VAL_FILTERACTIVE}';
 
@@ -113,19 +113,17 @@
 {if $checks}{assign var=colcount value=$colcount+1}
 	<form name="searchAction" method="post" action="{$URL_MAIN_PHP}"><input type="hidden" name="menuAction" value="" />{$VAL_VIEWSETTINGS}
 {/if}
-<table class="dcl_results{if $inline} inline{/if}">
-{if $caption ne ""}<caption>{$caption|escape}</caption>{/if}
+{if $caption ne ""}<h4>{$caption|escape}</h4>{/if}
+<table class="table table-striped">
 {strip}
 {section loop=$columns name=col}
 	{if $smarty.section.col.first}<thead>
 	{if $toolbar}
-	<tr class="toolbar"><th colspan="{$colcount}">
+	<tr><th colspan="{$colcount}"><div class="btn-group">
 	{section loop=$toolbar name=tb}
-	{if $smarty.section.tb.first}<ul>{/if}
-	<li{if $smarty.section.tb.first} class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction={$toolbar[tb].link}">{$toolbar[tb].text|escape}</a></li>
-	{if $smarty.section.tb.last}</ul>{/if}
+	<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction={$toolbar[tb].link}">{$toolbar[tb].text|escape}</a>
 	{/section}
-	</th></tr>
+			</div></th></tr>
 	{/if}
 	<tr>{if $checks}<th>{if $groupcount == 0}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}</th>{/if}{if $rownum}<th></th>{/if}{/if}{if !in_array($smarty.section.col.index, $groups)}<th>{$columns[col].title|escape}</th>{/if}{if $smarty.section.col.last}</tr></thead>{/if}
 {/section}
@@ -161,7 +159,7 @@
 			{/section}
 		{/if}{/strip}
 	{/if}
-	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+	<tr>
 	{if $checks}{assign var=ticketid value=$groupcount}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$ticketid]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
 	{section loop=$records[row] name=item}{if !in_array($smarty.section.item.index, $groups)}<td class="{$columns[$smarty.section.item.index].type}">{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}{else}{$records[row][item]|escape}{/if}</td>{/if}{/section}

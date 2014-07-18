@@ -1,98 +1,5 @@
 {dcl_validator_init}
-<script language="JavaScript">
-{if !$IS_EDIT}
-	var _iCurrentID = 1;
-	function canAddNewTask()
-	{
-		var oDiv = document.getElementById("div_task_summary");
-		var oSummaries = oDiv.getElementsByTagName("INPUT");
-		var aValidators = new Array();
-		for (var i in oSummaries)
-		{
-			if (typeof(oSummaries[i]) != "object") continue;
-			if (oSummaries[i].type != "text") continue;
-			aValidators.push(new ValidatorString(oSummaries[i], "Summary"));
-		}
-
-		for (var i in aValidators)
-		{
-			if (!aValidators[i].isValid())
-			{
-				aValidators[i]._Element.focus();
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	function addTask(form){
-		if (!canAddNewTask()) return;
-		var oDiv = document.getElementById("div_task_summary");
-		var oNewLabel = document.createElement("LABEL");
-		oNewLabel.setAttribute("for", "task_summary_" + String(++_iCurrentID));
-		oNewLabel.innerHTML = document.getElementById("label_summary_1").innerHTML;
-		oNewLabel.id = "label_summary_" + String(_iCurrentID);
-		oDiv.appendChild(oNewLabel);
-		
-		var oNewTask = document.createElement("INPUT");
-		oNewTask.type = "text";
-		oNewTask.size = 50;
-		oNewTask.maxLength = 255;
-		oNewTask.name = "task_summary[]";
-		oNewTask.id = oNewLabel.getAttribute("for");
-		oDiv.appendChild(oNewTask);
-		
-		var oNewRemove = document.createElement("A");
-		oNewRemove.rowNumber = _iCurrentID;
-		oNewRemove.onclick = function() { removeTask(this.rowNumber); }
-		oNewRemove.innerHTML = " {$smarty.const.STR_CMMN_DELETE}";
-		oNewRemove.style.hover = "cursor: pointer; cursor: hand;";
-		oNewRemove.id = "link_summary_" + String(_iCurrentID);
-		oNewRemove.href = "javascript:;";
-		oDiv.appendChild(oNewRemove);
-		
-		var oNewFileDiv = document.createElement("DIV");
-		oNewFileDiv.id = "div_file_" + String(_iCurrentID);
-		oNewFileDiv.style.display = "none";
-		
-		var oNewFileLabel = document.createElement("LABEL");
-		oNewFileLabel.setAttribute("for", "user_file_" + String(_iCurrentID));
-		oNewFileLabel.innerHTML = document.getElementById("label_file_1").innerHTML;
-		oNewFileLabel.id = "label_file_" + String(_iCurrentID);
-		oNewFileDiv.appendChild(oNewFileLabel);
-		
-		var oNewFile = document.createElement("INPUT");
-		oNewFile.type = "file";
-		oNewFile.name = "user_file[]";
-		oNewFile.id = oNewFileLabel.getAttribute("for");
-		oNewFileDiv.appendChild(oNewFile);
-		
-		oDiv.appendChild(oNewFileDiv);
-
-		oNewTask.focus();
-	}
-	function removeTask(iTaskID)
-	{
-		if (iTaskID < 2) return;
-		var sLabelID = "label_summary_" + iTaskID;
-		var sSummaryID = "task_summary_" + iTaskID;
-		var sLinkID = "link_summary_" + iTaskID;
-		var oDiv = document.getElementById("div_task_summary");
-		oDiv.removeChild(document.getElementById(sLabelID));
-		oDiv.removeChild(document.getElementById(sSummaryID));
-		oDiv.removeChild(document.getElementById(sLinkID));
-	}
-{/if}
-
-	function validateAndSubmitForm(form){
-		form.submit();
-	}
-	window.onload = function() {
-		document.getElementById("task_summary_1").focus();
-	}
-
-</script>
-<form class="styled" method="post" action="{$URL_MAIN_PHP}">
+<form class="form-horizontal" id="theForm" method="post" action="{$URL_MAIN_PHP}">
 {if $IS_EDIT}
 	<input type="hidden" name="menuAction" value="htmlWorkOrderTask.submitModify">
 	<input type="hidden" name="wo_task_id" value="{$VAL_WO_TASK_ID}">
@@ -105,16 +12,67 @@
 	<fieldset>
 		<legend>Add Work Order Task</legend>
 {/if}
-		<div id="div_task_summary">
-			<label for="task_summary_1" id="label_summary_1">Summary:</label>
-			<input type="text" size="50" maxlength="255" name="task_summary{if !$IS_EDIT}[]{/if}" id="task_summary_1" value="{$VAL_SUMMARY|escape}">
-		</div>
+	{dcl_form_control id=label_summary_1 controlsize=4 label="Summary" required=true}
+		<input type="text" class="form-control" maxlength="255" name="task_summary{if !$IS_EDIT}[]{/if}" id="task_summary_1" value="{$VAL_SUMMARY|escape}">
+	{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			{if !$IS_EDIT}<input type="button" onclick="addTask(this.form);" value="{$smarty.const.STR_CMMN_NEW}">{/if}
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_OK}">
-			<input type="button" onclick="location.href = '{$URL_BACK}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+		<div class="row">
+			<div class="col-xs-offset-2">
+				{if !$IS_EDIT}<input class="btn btn-success" type="button" onclick="addTask(this.form);" value="{$smarty.const.STR_CMMN_NEW}">{/if}
+				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_OK}">
+				<input class="btn btn-link" type="button" onclick="location.href = '{$URL_BACK}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript">
+	{if !$IS_EDIT}
+	var _iCurrentID = 1;
+	function canAddNewTask() {
+		var $emptyInputs = $("#theForm").find("input:text[id^=task_summary_]").filter(function() { return $.trim($(this).val()) == ""; });
+		if ($emptyInputs.length == 0)
+			return true;
+
+		$emptyInputs.get(0).focus();
+	}
+
+	function addTask(form) {
+		if (!canAddNewTask())
+			return;
+
+		_iCurrentID++;
+
+		var html = '<div class="form-group" data-required="required" id="div-task-id-';
+		html += _iCurrentID;
+		html += '"><label for="task_summary_';
+		html += _iCurrentID;
+		html += '" class="col-sm-2 control-label">Summary</label>';
+		html += '<div class="col-sm-4"><div class="input-group"><input type="text" class="form-control" maxlength="255" name="task_summary[]" id="task_summary_';
+		html += _iCurrentID;
+		html += '" value="">';
+		html += '<span class="input-group-btn"><button class="btn btn-danger remove-task" data-remove-id="';
+		html += _iCurrentID;
+		html += '"><span class="glyphicon glyphicon-trash"></span></button></span>';
+		html += '</div></div></div>';
+
+		$("#theForm").find("fieldset:first").append(html);
+		$("#task_summary_" + _iCurrentID).focus();
+	}
+	{/if}
+
+	function validateAndSubmitForm(form) {
+		form.submit();
+	}
+
+	$(function() {
+		$("#task_summary_1").focus();
+
+		$(document).on("click", "button.remove-task", function() {
+			var idToRemove = $(this).attr("data-remove-id");
+			if (idToRemove != "") {
+				$("div#div-task-id-" + idToRemove).remove();
+			}
+		});
+	});
+</script>

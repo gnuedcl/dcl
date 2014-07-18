@@ -172,42 +172,48 @@ function removeAll(f) {
 	_moveAll(f.elements["used"], f.elements["src"]);
 }
 </script>
-<form class="styled" name="mapping" method="post" action="{$URL_MAIN_PHP}">
+<form class="form" name="mapping" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="AttributeSetMap.Update">
 	<input type="hidden" name="setid" value="{$VAL_SETID}">
 	<input type="hidden" name="typeid" value="{$VAL_TYPEID}">
 	<input type="hidden" name="keyidset" value="">
 	<fieldset>
-		<legend>{$smarty.const.STR_ATTR_EDITATTRIBUTESET} [{$VAL_NAME}] {$smarty.const.STR_ATTR_TYPE} [{$VAL_TYPE}]</legend>
-		<div class="input">
-			<label for="src">{$smarty.const.STR_ATTR_AVAILABLEVALUES}</label>
-			<select multiple size="20" name="src">
-			{$OPT_AVAILABLE}
-			</select>
+		<legend>{$smarty.const.STR_ATTR_EDITATTRIBUTESET|escape} [{$VAL_NAME|escape}] {$smarty.const.STR_ATTR_TYPE|escape} [{$VAL_TYPE|escape}]</legend>
+		<div class="col-md-8">
+			<div class="col-md-4"><label for="src">{$smarty.const.STR_ATTR_AVAILABLEVALUES|escape}</label></div>
+			<div class="col-md-4 col-md-offset-2"><label for="used">{$smarty.const.STR_ATTR_USEDVALUES|escape}</label></div>
 		</div>
-		<div class="command">
-			<input type="button" onclick="addAll(this.form);" value="{$smarty.const.STR_CMMN_ALL} &gt;&gt;">
-			<input type="button" onclick="addValue(this.form);" value="{$smarty.const.STR_CMMN_SEL} &gt;">
-			<input type="button" onclick="removeValue(this.form);" value="{$smarty.const.STR_CMMN_SEL} &lt;">
-			<input type="button" onclick="removeAll(this.form);" value="{$smarty.const.STR_CMMN_ALL} &lt;&lt;">
-		</div>
-		<div class="input">
-			<label for="used">{$smarty.const.STR_ATTR_USEDVALUES}</label>
-			<select multiple size="20" name="used">
-			{$OPT_SELECTED}
-			</select>
-		</div>
+		<div class="col-md-8">
+			<div class="col-md-4">
+				<select class="form-control" multiple size="20" name="src">
+				{$OPT_AVAILABLE}
+				</select>
+			</div>
+			<div class="col-md-2">
+				<input class="btn btn-default btn-block" type="button" onclick="addAll(this.form);" value="{$smarty.const.STR_CMMN_ALL|escape} &gt;&gt;">
+				<input class="btn btn-default btn-block" type="button" onclick="addValue(this.form);" value="{$smarty.const.STR_CMMN_SEL|escape} &gt;">
+				<input class="btn btn-default btn-block" type="button" onclick="removeValue(this.form);" value="{$smarty.const.STR_CMMN_SEL|escape} &lt;">
+				<input class="btn btn-default btn-block" type="button" onclick="removeAll(this.form);" value="{$smarty.const.STR_CMMN_ALL|escape} &lt;&lt;">
+			</div>
+			<div class="col-md-4">
+				<select class="form-control" multiple size="20" name="used">
+				{$OPT_SELECTED}
+				</select>
+			</div>
 {if $IS_WEIGHTED}
-		<div class="command">
-			<input type="button" onclick="moveUp(this.form);" value="{$smarty.const.STR_CMMN_UP}">
-			<input type="button" onclick="moveDown(this.form);" value="{$smarty.const.STR_CMMN_DN}">
-		</div>
+			<div class="col-md-2">
+				<input class="btn btn-default btn-block" type="button" onclick="moveUp(this.form);" value="{$smarty.const.STR_CMMN_UP|escape}">
+				<input class="btn btn-default btn-block" type="button" onclick="moveDown(this.form);" value="{$smarty.const.STR_CMMN_DN|escape}">
+			</div>
 {/if}
+		</div>
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="submitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=AttributeSetMap.Index&id={$VAL_SETID}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+		<div class="row">
+			<div class="col-md-offset-1">
+				<input class="btn btn-primary" type="button" onclick="submitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE|escape}">
+				<input class="btn btn-link" type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=AttributeSetMap.Index&id={$VAL_SETID}';" value="{$smarty.const.STR_CMMN_CANCEL|escape}">
+			</div>
 		</div>
 	</fieldset>
 </form>

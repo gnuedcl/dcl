@@ -1,38 +1,12 @@
-{dcl_calendar_init}
 {dcl_selector_init}
 {dcl_validator_init}
-<script type="text/javascript">
-
-function validateAndSubmitForm(form)
-{
-
-		var aValidators = new Array(
-			new ValidatorInteger(form.elements["reportto"], "{$smarty.const.STR_PRJ_LEAD}"),
-			new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_PRJ_STATUS}"),
-			new ValidatorString(form.elements["name"], "{$smarty.const.STR_PRJ_NAME}"),
-			new ValidatorString(form.elements["description"], "{$smarty.const.STR_PRJ_DESCRIPTION}")
-		);
-
-	for (var i in aValidators)
-	{
-		if (!aValidators[i].isValid())
-		{
-			alert(aValidators[i].getError());
-			if (typeof(aValidators[i]._Element.focus) == "function")
-				aValidators[i]._Element.focus();
-			return;
-		}
-	}
-
-	form.submit();
-}
-
-</script>
-<form class="styled" name="PROJECTFORM" method="post" action="{$URL_MAIN_PHP}">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<form class="form-horizontal" name="PROJECTFORM" method="post" action="{$URL_MAIN_PHP}">
+	{dcl_anti_csrf_token}
 {if $IS_EDIT}
 	<input type="hidden" name="menuAction" value="Project.Update">
 	<input type="hidden" name="projectid" value="{$ViewData->Id}">
-	{dcl_anti_csrf_token}
 	<fieldset>
 		<legend>{$smarty.const.STR_PRJ_EDIT}</legend>
 {else}
@@ -40,42 +14,69 @@ function validateAndSubmitForm(form)
 	<fieldset>
 		<legend>{$smarty.const.STR_PRJ_ADD}</legend>
 {/if}
-		<div class="required">
-			<label for="name">{$smarty.const.STR_PRJ_NAME}:</label>
-			<input type="text" size="50" maxlength="100" id="name" name="name" value="{$ViewData->Name|escape}">
-		</div>
+		{dcl_form_control id=name controlsize=4 label=$smarty.const.STR_PRJ_NAME required=true}
+		<input class="form-control" type="text" maxlength="100" id="name" name="name" value="{$ViewData->Name|escape}">
+		{/dcl_form_control}
 {if $IS_EDIT}
-		<div class="required">
-			<label for="status">{$smarty.const.STR_PRJ_STATUS}:</label>
-			{dcl_select_status default=$ViewData->StatusId}
-		</div>
+	{dcl_form_control id=status controlsize=4 label=$smarty.const.STR_PRJ_STATUS required=true}
+	{dcl_select_status default=$ViewData->StatusId}
+	{/dcl_form_control}
 {/if}
-		<div class="required">
-			<label for="reportto">{$smarty.const.STR_PRJ_LEAD}:</label>
-			{dcl_select_personnel name=reportto default=$ViewData->ResponsibleId}
-		</div>
-		<div>
-			<label for="deadline">{$smarty.const.STR_PRJ_DEADLINE}:</label>
-			{dcl_calendar name="projectdeadline" value=$ViewData->Deadline}
-		</div>
-		<div>
-			<label for="parentprojectid">{$smarty.const.STR_PRJ_PARENTPRJ}:</label>
-			{dcl_selector_project name="parentprojectid" value=$ViewData->ParentId decoded=$ViewData->ParentName}
-		</div>
-		<div class="required">
-			<label for="description">{$smarty.const.STR_PRJ_DESCRIPTION}:</label>
+		{dcl_form_control id=reportto controlsize=4 label=$smarty.const.STR_PRJ_LEAD required=true}
+		{dcl_select_personnel name=reportto default=$ViewData->ResponsibleId}
+		{/dcl_form_control}
+		{dcl_form_control id=projectdeadline controlsize=2 label=$smarty.const.STR_PRJ_DEADLINE required=true}
+			<input type="text" class="form-control" data-input-type="date" maxlength="10" id="projectdeadline" name="projectdeadline" value="{$ViewData->Deadline|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=parentprojectid controlsize=4 label=$smarty.const.STR_PRJ_PARENTPRJ required=true}
+		{dcl_selector_project name="parentprojectid" value=$ViewData->ParentId decoded=$ViewData->ParentName}
+		{/dcl_form_control}
+		{dcl_form_control id=description controlsize=4 label=$smarty.const.STR_PRJ_DESCRIPTION required=true}
 			<textarea name="description" rows="4" cols="70" wrap valign="top">{$ViewData->Description|escape}</textarea>
-		</div>
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="history.go(-1);" value="{$smarty.const.STR_CMMN_CANCEL}">
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="button" id="btn-save" class="btn btn-primary" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input type="button" id="btn-cancel" class="btn btn-link" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#name").focus();
-    });
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+		$("input[data-input-type=date]").datepicker();
+
+		$("#btn-cancel").click(function() {
+			history.go(-1);
+		});
+
+		$("#btn-save").click(function() {
+			validateAndSubmitForm($("form[name=PROJECTFORM]").get(0));
+		});
+	});
+
+	function validateAndSubmitForm(form) {
+		var aValidators = [
+				new ValidatorInteger(form.elements["reportto"], "{$smarty.const.STR_PRJ_LEAD}"),
+				new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_PRJ_STATUS}"),
+				new ValidatorString(form.elements["name"], "{$smarty.const.STR_PRJ_NAME}"),
+				new ValidatorString(form.elements["description"], "{$smarty.const.STR_PRJ_DESCRIPTION}")
+		];
+
+		for (var i in aValidators) {
+			if (!aValidators[i].isValid()) {
+				alert(aValidators[i].getError());
+				if (typeof(aValidators[i]._Element.focus) == "function")
+					aValidators[i]._Element.focus();
+				return;
+			}
+		}
+
+		form.submit();
+	}
 </script>

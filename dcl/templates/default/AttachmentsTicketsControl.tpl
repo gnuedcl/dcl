@@ -1,8 +1,8 @@
 {strip}
-	<table width="100%" class="dcl_results">
-		<caption class="spacer">Attachments</caption>
+	<h4>Attachments</h4>
+	<table width="100%" class="table table-striped">
 		<thead>
-			{if $PERM_ATTACHFILE}<tr class="toolbar"><th colspan="4"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTickets.upload&ticketid={$VAL_TICKETID}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
+			{if $PERM_ATTACHFILE}<tr><th colspan="4"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=boTickets.upload&ticketid={$VAL_TICKETID}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>{/if}
 			<tr><th>Attachment</th><th>Size</th><th>Date</th><th>Options</th></tr>
 		</thead>
 {section name=file loop=$VAL_ATTACHMENTS}

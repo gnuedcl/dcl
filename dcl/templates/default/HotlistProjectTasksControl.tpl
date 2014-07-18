@@ -22,32 +22,33 @@
 			</ul></div>{/strip}
 		{/if}
 	</div>
-	<table class="dcl_results"><caption>{$smarty.const.STR_PRJ_TASKLIST}</caption>
+	<h4>{$smarty.const.STR_PRJ_TASKLIST}</h4>
+	<table class="table table-striped">
 		<thead>
-			<tr class="toolbar"><th colspan="17"><ul>
+			<tr><th colspan="17"><div class="btn-group">
 				{if count($VAL_TASKS) > 0}
-				<li class="first"><a href="javascript:forceSubmit('WorkOrder.BatchDetail');">Detail</a></li>
-				<li><a href="javascript:forceSubmit('boTimecards.batchadd');">Time Card</a></li>
-				<li><a href="javascript:forceSubmit('WorkOrder.BatchReassign');">Assign</a></li>
+				<a class="btn btn-default" href="javascript:forceSubmit('WorkOrder.BatchDetail');">Detail</a>
+				<a class="btn btn-default" href="javascript:forceSubmit('boTimecards.batchadd');">Time Card</a>
+				<a class="btn btn-default" href="javascript:forceSubmit('WorkOrder.BatchReassign');">Assign</a>
 				{/if}
-			</ul></th></tr>
+			</div></th></tr>
 			<tr><th>{if $VAL_FILTERGROUPBY == "none"}<input type="checkbox" name="group_check" onclick="javascript: toggleCheckGroup(this);">{/if}</th>
 			<th>#</th>
-			<th>{$smarty.const.STR_WO_JCN}</th>
-			<th>{$smarty.const.STR_WO_SEQ}</th>
-			<th>{$smarty.const.STR_WO_TYPE}</th>
-			<th>{$smarty.const.STR_WO_RESPONSIBLE}</th>
-			<th>{$smarty.const.STR_WO_PRODUCT}</th>
-			<th>{$smarty.const.STR_CMMN_MODULE}</th>
-			<th>{$smarty.const.STR_WO_ACCOUNT}</th>
-			<th>{$smarty.const.STR_WO_STATUS}</th>
-			<th>{$smarty.const.STR_WO_DEADLINE}</th>
-			<th>{$smarty.const.STR_WO_HOURSABB}</th>
-			<th>{$smarty.const.STR_WO_ETC}</th>
-			<th>{$smarty.const.STR_WO_PRJHRSABB}</th>
+			<th>{$smarty.const.STR_WO_JCN|escape}</th>
+			<th>{$smarty.const.STR_WO_SEQ|escape}</th>
+			<th>{$smarty.const.STR_WO_TYPE|escape}</th>
+			<th>{$smarty.const.STR_WO_RESPONSIBLE|escape}</th>
+			<th>{$smarty.const.STR_WO_PRODUCT|escape}</th>
+			<th>{$smarty.const.STR_CMMN_MODULE|escape}</th>
+			<th>{$smarty.const.STR_WO_ACCOUNT|escape}</th>
+			<th>{$smarty.const.STR_WO_STATUS|escape}</th>
+			<th>{$smarty.const.STR_WO_DEADLINE|escape}</th>
+			<th>{$smarty.const.STR_WO_HOURSABB|escape}</th>
+			<th>{$smarty.const.STR_WO_ETC|escape}</th>
+			<th>{$smarty.const.STR_WO_PRJHRSABB|escape}</th>
 			<th>+/-</th>
 			<th>% Complete</th>
-			<th>{$smarty.const.STR_WO_SUMMARY}</th>
+			<th>{$smarty.const.STR_WO_SUMMARY|escape}</th>
 		</tr></thead>
 {section loop=$VAL_TASKS name=row}
 	{if $smarty.section.row.first}{strip}
@@ -83,7 +84,7 @@
 			{/if}
 		{/if}{/strip}
 	{/if}
-		<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+		<tr>
 			{assign var=woid value=$groupcount}
 			{assign var=seq value=$groupcount+1}
 			<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$VAL_TASKS[row].woid}.{$VAL_TASKS[row].seq}"></td>
@@ -94,7 +95,7 @@
 			<td class="string">{$VAL_TASKS[row].responsible|escape}</td>
 			<td class="string">{$VAL_TASKS[row].product|escape}</td>
 			<td class="string">{$VAL_TASKS[row].module|escape}</td>
-			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs}<img src="{$DIR_IMG}/jump-to-16.png" style="cursor: hand; cursor: pointer;" onclick="showAccounts({$VAL_TASKS[row].woid}, {$VAL_TASKS[row].seq});">{/if}</td>
+			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs > 1} <a href="{$URL_MAIN_PHP}?menuAction=htmlWindowList.Main&what=dcl_wo_account.wo_id&wo_id={$VAL_TASKS[row].woid}&seq={$VAL_TASKS[row].seq}" class="dcl-lightbox"><span class="badge">{$VAL_TASKS[row].secorgs}</span></a>{/if}</td>
 			<td class="string">{$VAL_TASKS[row].status|escape}</td>
 			<td class="string">{$VAL_TASKS[row].deadline|escape}</td>
 			<td class="numeric">{$VAL_TASKS[row].hours}</td>

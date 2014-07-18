@@ -78,7 +78,7 @@ class FaqTopicController extends AbstractController
 
 	public function Update()
 	{
-		RequirePersmission(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY);
+		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_MODIFY);
 
 		$faqId = @Filter::RequireInt($_POST['faqid']);
 		$faqModel = new FaqModel();
@@ -105,9 +105,6 @@ class FaqTopicController extends AbstractController
 		
 		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId);
 		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId))
-			throw new PermissionDeniedException();
-
 		$faqTopicsModel = new FaqTopicsModel();
 		if ($faqTopicsModel->Load($topicId) == -1)
 			return;

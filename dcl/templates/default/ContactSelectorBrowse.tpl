@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="{$DIR_CSS}default.css" />
+		<style>body{ padding-top:0px; }</style>
 		<script language="JavaScript">
 			var iPage = {$VAL_PAGE};
 			var iMaxPages = {$VAL_MAXPAGE};
@@ -64,8 +65,8 @@
 				}
 			}
 			
-			var aData = {{section name=contact loop=$VAL_CONTACTS}
-"{$VAL_CONTACTS[contact].contact_id|escape:javascript}":{"n":"{$VAL_CONTACTS[contact].last_name|escape:javascript}, {$VAL_CONTACTS[contact].first_name|escape:javascript}","oid":"{$VAL_CONTACTS[contact].org_id|escape:javascript}","on":"{$VAL_CONTACTS[contact].org_name|escape:javascript}"}{if !$smarty.section.contact.last},
+			var aData = { {section name=contact loop=$VAL_CONTACTS}
+"{$VAL_CONTACTS[contact].contact_id|escape:javascript}":{ "n":"{$VAL_CONTACTS[contact].last_name|escape:javascript}, {$VAL_CONTACTS[contact].first_name|escape:javascript}","oid":"{$VAL_CONTACTS[contact].org_id|escape:javascript}","on":"{$VAL_CONTACTS[contact].org_name|escape:javascript}"}{if !$smarty.section.contact.last},
 {/if}
 {/section}};
 

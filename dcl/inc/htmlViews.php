@@ -135,14 +135,7 @@ class htmlViews
 
 		$template = new SmartyHelper();
 
-		$template->assign('TXT_TITLE', STR_VW_ADDVIEW);
-		$template->assign('TXT_PUBLIC', STR_VW_PUBLIC);
-		$template->assign('TXT_NAME', STR_VW_NAME);
-		$template->assign('BTN_SAVE', STR_CMMN_SAVE);
-		$template->assign('BTN_RESET', STR_CMMN_RESET);
-		$template->assign('TXT_HIGHLIGHTEDNOTE', STR_CMMN_HIGHLIGHTEDNOTE);
 		$template->assign('VAL_FORMACTION', menuLink());
-		$template->assign('BTN_CANCEL', STR_CMMN_CANCEL);
 
 		$template->assign('VAL_DCLID', DCLID);
 		$template->assign('VAL_TABLENAME', $_REQUEST['vt']);

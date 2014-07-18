@@ -121,9 +121,6 @@ class htmlWorkOrderTask
 
 	function submitAdd()
 	{
-		global $g_oSec;
-		
-		commonHeader();
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION);
 
 		CleanArray($_REQUEST);
@@ -153,15 +150,11 @@ class htmlWorkOrderTask
 			}
 		}
 
-		$workOrderPresenter = new WorkOrderPresenter();
-		$workOrderPresenter->Detail($workOrderModel);
+		RedirectToAction('WorkOrder', 'Detail', "jcn=$wo_id&seq=$seq#tasks");
 	}
 
 	function submitModify()
 	{
-		global $g_oSec;
-		
-		commonHeader();
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION);
 		
 		$wo_task_id = Filter::RequireInt($_REQUEST['wo_task_id']);
@@ -173,9 +166,8 @@ class htmlWorkOrderTask
 		$workOrderModel = new WorkOrderModel();
 		if ($workOrderModel->LoadByIdSeq($obj->oDB->wo_id, $obj->oDB->seq) == -1)
 			throw new InvalidEntityException();
-		
-		$workOrderPresenter = new WorkOrderPresenter();
-		$workOrderPresenter->Detail($workOrderModel);
+
+		RedirectToAction('WorkOrder', 'Detail', "jcn=$wo_id&seq=$seq#tasks");
 	}
 	
 	function submitToggle()

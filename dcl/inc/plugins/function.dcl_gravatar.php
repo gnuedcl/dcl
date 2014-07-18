@@ -72,6 +72,9 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 	echo '<img src="', $gravitarUrl, '"';
 	if (isset($params['style']) && $params['style'] != '')
 		echo ' style="', $params['style'], '"';
-		
+
+	if (isset($params['class']) && $params['class'] != '')
+		echo ' class="', $params['class'], '"';
+
 	echo ' />';
 }

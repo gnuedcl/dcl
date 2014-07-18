@@ -49,6 +49,7 @@ function smarty_function_dcl_select_source($params, &$smarty)
 	$oSelect->Size = $params['size'];
 	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetOptionsFromDb('dcl_entity_source', 'entity_source_id', 'entity_source_name', $sFilter, 'entity_source_name');
+	$oSelect->CssClass = 'form-control';
 
 	return $oSelect->GetHTML();
 }

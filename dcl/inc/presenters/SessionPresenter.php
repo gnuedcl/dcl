@@ -53,8 +53,7 @@ class SessionPresenter
 		$tableHelper->addColumn('Session ID', 'string');
 		
 		$tableHelper->addToolbar(menuLink('', 'menuAction=Session.Index'), 'Refresh');
-		$tableHelper->addToolbar(menuLink('', 'menuAction=Session.Detail'), STR_CMMN_VIEW);
-			
+
 		if (count($allRecs) > 0 && $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_ENTITY_ADMIN))
 		{
 			$tableHelper->addColumn(STR_CMMN_OPTIONS, 'html');
@@ -71,16 +70,5 @@ class SessionPresenter
 		$tableHelper->setData($allRecs);
 		$tableHelper->setShowRownum(true);
 		$tableHelper->render();
-	}
-	
-	public function Detail()
-	{
-		global $g_oSession;
-		
-		commonHeader();
-		
-		echo '<pre>';
-		print_r($g_oSession->session_data);
-		echo '</pre>';
 	}
 }

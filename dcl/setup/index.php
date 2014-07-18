@@ -376,7 +376,9 @@ case "createTables":
 	ob_start();
 	$bSuccess = $oProc->ExecuteScripts($phpgw_baseline, true);
 	$content .= ob_get_contents();
-	ob_end_clean();
+
+	if (ob_get_length())
+		ob_end_clean();
 
 	if (!$bSuccess)
 	{

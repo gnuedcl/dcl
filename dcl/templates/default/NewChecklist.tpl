@@ -1,12 +1,10 @@
 {dcl_validator_init}
 <script language="JavaScript">
 function validateAndSubmitForm(form)
-
 {
-
-	var aValidators = new Array(
+	var aValidators = [
 			new ValidatorString(form.elements["dcl_chklst_summary"], "{$smarty.const.STR_CHK_SUMMARY}")
-		);
+		];
 
 	for (var i in aValidators)
 	{
@@ -21,23 +19,22 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-
 </script>
-<form class="styled" method="post" action="{$URL_MAIN_PHP}">
+<form class="form-horizontal" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="boChecklists.dbadd">
 	<input type="hidden" name="dcl_chklst_tpl_id" value="{$dcl_chklst_tpl_id}">
 	<fieldset>
-		<legend>{$smarty.const.STR_CHK_INITIATECHECKLIST}</legend>
-		<div class="help">{$smarty.const.STR_CHK_TEMPLATE}: {$VAL_TPLNAME|escape}</div>
-		<div class="required">
-			<label for="dcl_chklst_summary">{$smarty.const.STR_CHK_SUMMARY}:</label>
-			<input type="text" size="50" maxlength="255" id="dcl_chklst_summary" name="dcl_chklst_summary" value="{$VAL_SUMMARY|escape}">
-		</div>
+		<legend>{$smarty.const.STR_CHK_INITIATECHECKLIST|escape}: {$VAL_TPLNAME|escape}</legend>
+		{dcl_form_control id=dcl_chklst_summary controlsize=10 label=$smarty.const.STR_CHK_SUMMARY required=true}
+			<input class="form-control" type="text" maxlength="255" id="dcl_chklst_summary" name="dcl_chklst_summary" value="{$VAL_SUMMARY|escape}">
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=boChecklistTpl.show';" value="{$smarty.const.STR_CMMN_CANCEL}">
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE|escape}">
+				<input class="btn btn-link" type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=boChecklistTpl.show';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
 		</div>
 	</fieldset>
 </form>

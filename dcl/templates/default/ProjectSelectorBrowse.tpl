@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="{$DIR_CSS}/default.css" />
+		<style>body{ padding-top:0px; }</style>
 		<script language="JavaScript">
 			var iPage = {$VAL_PAGE};
 			var iMaxPages = {$VAL_MAXPAGE};

@@ -67,6 +67,7 @@ function smarty_function_dcl_select_module($params, &$smarty)
 	$oSelect->Size = $params['size'];
 	$oSelect->OnChange = $params['onchange'];
 	$oSelect->FirstOption = STR_CMMN_SELECTONE;
+	$oSelect->CssClass = 'form-control';
 	
 	if ($g_oSec->IsPublicUser())
 	{

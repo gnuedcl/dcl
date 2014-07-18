@@ -29,96 +29,23 @@ class PersonnelPresenter
 		global $g_oSec;
 
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_VIEW))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_PERSONNEL, DCL_PERM_VIEW);
 
 		$template = new SmartyHelper();
-		$template->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
 		$template->assign('PERM_ADD', $g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_ADD));
 		$template->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_MODIFY));
 		$template->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_PERSONNEL, DCL_PERM_DELETE));
 		$template->assign('PERM_SETUP', $g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW));
 
-		$filterActive = '';
-		if (IsSet($_REQUEST['filterActive']))
-			$filterActive = $_REQUEST['filterActive'];
+		$deptModel = new DepartmentModel();
+		$deptModel->Query('SELECT id, name FROM departments ORDER BY name');
+		$deptOptions = ':All';
+		while ($deptModel->next_record())
+			$deptOptions .= ';' . $deptModel->f(0) . ':' . $deptModel->f(1);
 
-		$filterStartsWith = '';
-		if (IsSet($_REQUEST['filterStartsWith']))
-			$filterStartsWith = $_REQUEST['filterStartsWith'];
+		$template->assign('VAL_DEPARTMENTOPTIONS', $deptOptions);
 
-		$filterSearch = '';
-		if (IsSet($_REQUEST['filterSearch']))
-			$filterSearch = $_REQUEST['filterSearch'];
-
-		$filterDepartment = 0;
-		if (IsSet($_REQUEST['filterDepartment']))
-			$filterDepartment = Filter::ToInt($_REQUEST['filterDepartment']);
-
-		$template->assign('VAL_FILTERACTIVE', $filterActive);
-		$template->assign('VAL_FILTERSTART', $filterStartsWith);
-		$template->assign('VAL_FILTERSEARCH', $filterSearch);
-		$template->assign('VAL_FILTERDEPT', $filterDepartment);
-
-		$aColumnHeaders = array(STR_CMMN_ID, STR_CMMN_ACTIVE, STR_USR_LOGIN, STR_CMMN_NAME, STR_USR_DEPARTMENT, 'Phone', 'Email', 'Internet');
-		$aColumns = array('id', 'active', 'short', 'dcl_contact.last_name', 'dcl_contact.first_name', 'departments.name', 'dcl_contact_phone.phone_number', 'dcl_contact_email.email_addr', 'dcl_contact_url.url_addr');
-
-		$queryHelper = new PersonnelSqlQueryHelper();
-		$model = new PersonnelModel();
-		$model = new DbProvider;
-
-		$iPage = 1;
-		$queryHelper->startrow = 0;
-		$queryHelper->numrows = 25;
-		if (isset($_REQUEST['page']))
-		{
-			$iPage = (int)$_REQUEST['page'];
-			if ($iPage < 1)
-				$iPage = 1;
-
-			$queryHelper->startrow = ($iPage - 1) * $queryHelper->numrows;
-			if ($queryHelper->startrow < 0)
-				$queryHelper->startrow = 0;
-		}
-
-		$queryHelper->AddDef('columnhdrs', '', $aColumnHeaders);
-		$queryHelper->AddDef('columns', '', $aColumns);
-		$queryHelper->AddDef('order', '', array('short', 'id'));
-
-		if ($filterActive == 'Y' || $filterActive == 'N')
-			$queryHelper->AddDef('filter', 'active', "'$filterActive'");
-
-		if ($filterSearch != '')
-			$queryHelper->AddDef('filterlike', 'short', $filterSearch);
-
-		if ($filterStartsWith != '')
-			$queryHelper->AddDef('filterstart', 'short', $filterStartsWith);
-
-		if ($filterDepartment > 0)
-			$queryHelper->AddDef('filter', 'department', $filterDepartment);
-
-		if ($model->Query($queryHelper->GetSQL(true)) == -1 || !$model->next_record())
-			return;
-
-		$iRecords = (int)$model->f(0);
-		$template->assign('VAL_COUNT', $iRecords);
-		$template->assign('VAL_PAGE', $iPage);
-		$template->assign('VAL_MAXPAGE', ceil($iRecords / $queryHelper->numrows));
-		$model->FreeResult();
-
-		if ($model->LimitQuery($queryHelper->GetSQL(), $queryHelper->startrow, $queryHelper->numrows) != -1)
-		{
-			$aUsers = array();
-			while ($model->next_record())
-				$aUsers[] = $model->Record;
-
-			$model->FreeResult();
-
-			$template->assignByRef('VAL_USERS', $aUsers);
-			$template->assign('VAL_HEADERS', $aColumnHeaders);
-		}
-
-		$template->Render('PersonnelBrowse.tpl');
+		$template->Render('PersonnelGrid.tpl');
 	}
 	
 	public function Detail()

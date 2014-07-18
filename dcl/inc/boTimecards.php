@@ -21,6 +21,8 @@
  */
 
 LoadStringResource('bo');
+LoadStringResource('tc');
+LoadStringResource('wo');
 
 class boTimecards
 {

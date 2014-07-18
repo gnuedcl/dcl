@@ -20,6 +20,9 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
+LoadStringResource('tck');
+LoadStringResource('wo');
+
 class htmlOrg
 {
 	function GetCombo($default = 0, $cbName = 'org_id', $size = 0, $activeOnly = true)

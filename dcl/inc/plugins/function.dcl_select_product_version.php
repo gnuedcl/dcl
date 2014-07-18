@@ -58,6 +58,7 @@ function smarty_function_dcl_select_product_version($params, &$smarty)
 	$oSelect->OnChange = $params['onchange'];
 	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetOptionsFromDb('dcl_product_version', 'product_version_id', 'product_version_text', $sFilter, 'product_version_actual_date desc, product_version_text');
+	$oSelect->CssClass = 'form-control';
 
 	return $oSelect->GetHTML();
 }

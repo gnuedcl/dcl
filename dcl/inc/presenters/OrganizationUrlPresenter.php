@@ -70,6 +70,7 @@ class OrganizationUrlPresenter
 		$oSmarty->assign('VAL_URLADDR', $model->url_addr);
 		$oSmarty->assign('CMB_URLTYPE', $oUrlType->Select($model->url_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Organization URL');
+		$oSmarty->assign('VAL_PREFERRED', $model->preferred);
 
 		$oSmarty->Render('UrlForm.tpl');
 	}

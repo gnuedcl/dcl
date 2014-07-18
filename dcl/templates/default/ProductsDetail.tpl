@@ -1,32 +1,41 @@
-<div class="dcl_detail" style="width:100%;">
-	<table class="styled">
-		<caption>[{$VAL_ID}] {$VAL_NAME}</caption>
-		<thead>
-			<tr class="toolbar"><th colspan="4"><ul>{strip}
-				<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=Product.Detail&id={$VAL_ID}">Summary</a></li>
-				<li><a href="{$URL_MAIN_PHP}?menuAction=htmlProductDashboard.Show&id={$VAL_ID}">Dashboard</a> (<a href="{$URL_MAIN_PHP}?menuAction=htmlProductDashboard.ShowTicket&id={$VAL_ID}">Tickets</a>)</li>
-				{if $PERM_VIEWWO}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.DetailWorkOrder&id={$VAL_ID}">{$smarty.const.STR_PROD_VIEWWO}</a>
-					&nbsp;(<a href="{$URL_MAIN_PHP}?menuAction=boWatches.addWorkorder&typeid=1&whatid1={$VAL_ID}">Watch</a>)</li>
-				{/if}
-				{if $PERM_VIEWTCK}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.DetailTicket&id={$VAL_ID}">{$smarty.const.STR_PROD_VIEWTICKETS}</a>
-					&nbsp;(<a href="{$URL_MAIN_PHP}?menuAction=boWatches.addTicket&typeid=4&whatid1={$VAL_ID}">Watch</a>)</li>
-				{/if}
-				<li><a href="{$URL_MAIN_PHP}?menuAction=htmlProductModules.PrintAll&product_id={$VAL_ID}">{$smarty.const.STR_PROD_VIEWMODULES}</a></li>
-				{if $PERM_WIKI}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlWiki.show&name=FrontPage&type={$smarty.const.DCL_ENTITY_PRODUCT}&id={$VAL_ID}">{$smarty.const.STR_CMMN_WIKI}</a></li>{/if}
-				{if $PERM_EDIT}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.Edit&id={$VAL_ID}">{$smarty.const.STR_CMMN_EDIT}</a></li>{/if}
-				{if $PERM_DELETE}<li><a href="{$URL_MAIN_PHP}?menuAction=Product.Delete&id={$VAL_ID}">{$smarty.const.STR_CMMN_DELETE}</a></li>{/if}
-{/strip}</ul></th></tr></thead>
-		<tbody>
-			<tr><th>{$smarty.const.STR_CMMN_ACTIVE}:</th><td>{if $VAL_ACTIVE == "Y"}{$smarty.const.STR_CMMN_YES}{else}{$smarty.const.STR_CMMN_NO}{/if}</td>
-				<th>{$smarty.const.STR_PROD_REPORTTO}:</th><td>{$VAL_REPORTTO|escape}</td>
-			</tr>
-			<tr><th>{$smarty.const.STR_CMMN_PUBLIC}:</th><td>{if $VAL_PUBLIC == "Y"}{$smarty.const.STR_CMMN_YES}{else}{$smarty.const.STR_CMMN_NO}{/if}</td>
-				<th>{$smarty.const.STR_PROD_TICKETSTO}:</th><td>{$VAL_TICKETSTO|escape}</td>
-			</tr>
-			<tr><th>Project Required:</th><td>{if $VAL_ISPROJECTREQUIRED == "Y"}{$smarty.const.STR_CMMN_YES}{else}{$smarty.const.STR_CMMN_NO}{/if}</td>
-				<th>&nbsp;</th><td>&nbsp;</td>
-			</tr>
-		</tbody>
-	</table>
+<div class="panel panel-info">
+	<div class="panel-heading"><h3>[{$VAL_ID}] {$VAL_NAME|escape}</h3></div>
+	<div class="panel-body">
+		<div class="btn-group">
+			<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Product.Detail&id={$VAL_ID}">Summary</a></li>
+			<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlProductDashboard.Show&id={$VAL_ID}">Dashboard</a>
+			<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlProductDashboard.ShowTicket&id={$VAL_ID}">(Tickets)</a>
+			{if $PERM_VIEWWO}
+				<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Product.DetailWorkOrder&id={$VAL_ID}">{$smarty.const.STR_PROD_VIEWWO}</a>
+				<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=boWatches.addWorkorder&typeid=1&whatid1={$VAL_ID}">(Watch)</a>
+			{/if}
+			{if $PERM_VIEWTCK}
+				<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Product.DetailTicket&id={$VAL_ID}">{$smarty.const.STR_PROD_VIEWTICKETS}</a>
+				<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=boWatches.addTicket&typeid=4&whatid1={$VAL_ID}">(Watch)</a>
+			{/if}
+			<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlProductModules.PrintAll&product_id={$VAL_ID}">{$smarty.const.STR_PROD_VIEWMODULES}</a>
+			{if $PERM_WIKI}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlWiki.show&name=FrontPage&type={$smarty.const.DCL_ENTITY_PRODUCT}&id={$VAL_ID}">{$smarty.const.STR_CMMN_WIKI}</a>{/if}
+			{if $PERM_EDIT}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Product.Edit&id={$VAL_ID}">{$smarty.const.STR_CMMN_EDIT}</a>{/if}
+			{if $PERM_DELETE}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Product.Delete&id={$VAL_ID}">{$smarty.const.STR_CMMN_DELETE}</a>{/if}
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-6">
+					<h4>Details</h4>
+					<ul class="list-unstyled">
+						<li><span class="glyphicon glyphicon-cog"></span> {$smarty.const.STR_CMMN_ACTIVE|escape}: {if $VAL_ACTIVE == "Y"}{$smarty.const.STR_CMMN_YES|escape}{else}{$smarty.const.STR_CMMN_NO|escape}{/if}</li>
+						<li><span class="glyphicon glyphicon-cog"></span> {$smarty.const.STR_CMMN_PUBLIC|escape}: {if $VAL_PUBLIC == "Y"}{$smarty.const.STR_CMMN_YES|escape}{else}{$smarty.const.STR_CMMN_NO|escape}{/if}</li>
+						<li><span class="glyphicon glyphicon-cog"></span> Project Required: {if $VAL_ISPROJECTREQUIRED == "Y"}{$smarty.const.STR_CMMN_YES|escape}{else}{$smarty.const.STR_CMMN_NO|escape}{/if}</li>
+					</ul>
+				</div>
+				<div class="col-xs-6">
+					<h4>Owners</h4>
+					<ul class="list-unstyled">
+						<li><span class="glyphicon glyphicon-user"></span> {$smarty.const.STR_PROD_REPORTTO|escape}: {$VAL_REPORTTO|escape}</li>
+						<li><span class="glyphicon glyphicon-user"></span> {$smarty.const.STR_PROD_TICKETSTO|escape}: {$VAL_TICKETSTO|escape}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="clear"></div>

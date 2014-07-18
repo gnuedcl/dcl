@@ -115,25 +115,25 @@
 	});
 
 </script>
-<table width="100%" class="dcl_results">
-	<caption>Organization [{Org->org_id}] {Org->name}</caption>
+<h4>Organization [{Org->org_id}] {Org->name}</h4>
+<table width="100%" class="table table-striped">
 	<thead>
-		<tr class="toolbar"><th>
-			<ul>
-				{if $PERM_VIEW}<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=htmlOrgBrowse.show&filterActive=Y">Browse</a></li>{/if}
-				{if $PERM_VIEW_CONTACT}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlContactBrowse.show&filterActive=Y&org_id={Org->org_id}">Contacts</a></li>{/if}
-				{if $PERM_VIEW_WORKORDER || $PERM_VIEW_TICKET}<li>{if $PERM_VIEW_WORKORDER}<a href="{$URL_MAIN_PHP}?menuAction=htmlOrganizationDashboard.Show&id={Org->org_id}">Dashboard</a>{/if}{if $PERM_VIEW_TICKET} (<a href="{$URL_MAIN_PHP}?menuAction=htmlOrganizationDashboard.ShowTicket&id={Org->org_id}">Tickets</a>){/if}</li>{/if}
-				{if $PERM_VIEW_WORKORDER}<li>
-					<a href="{$URL_MAIN_PHP}?menuAction=htmlOrg.viewWorkOrders&id={Org->org_id}">Work Orders</a>
-					&nbsp;(<a href="{$URL_MAIN_PHP}?menuAction=boWatches.add&typeid=6&whatid1={Org->org_id}">Watch</a>)
-				</li>{/if}
-				{if $PERM_VIEW_TICKET}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlOrg.viewTickets&id={Org->org_id}">Tickets</a>
-					&nbsp;(<a href="{$URL_MAIN_PHP}?menuAction=boWatches.add&typeid=7&whatid1={Org->org_id}">Watch</a>)
-				</li>{/if}
-				{if $PERM_WIKI}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlWiki.show&type=5&id={Org->org_id}">Wiki</a></li>{/if}
-				{if $PERM_MODIFY}<li><a href="{$URL_MAIN_PHP}?menuAction=Organization.Edit&org_id={Org->org_id}">Edit</a></li>{/if}
-				{if $PERM_DELETE}<li><a href="{$URL_MAIN_PHP}?menuAction=Organization.Delete&org_id={Org->org_id}">Delete</a></li>{/if}
-			</ul>
+		<tr><th>
+			<div class="btn-group">
+				{if $PERM_VIEW}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlOrgBrowse.show&filterActive=Y">Browse</a>{/if}
+				{if $PERM_VIEW_CONTACT}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlContactBrowse.show&filterActive=Y&org_id={Org->org_id}">Contacts</a>{/if}
+				{if $PERM_VIEW_WORKORDER || $PERM_VIEW_TICKET}{if $PERM_VIEW_WORKORDER}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlOrganizationDashboard.Show&id={Org->org_id}">Dashboard</a>{/if}{if $PERM_VIEW_TICKET} <a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlOrganizationDashboard.ShowTicket&id={Org->org_id}">(Tickets)</a>{/if}{/if}
+				{if $PERM_VIEW_WORKORDER}
+					<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlOrg.viewWorkOrders&id={Org->org_id}">Work Orders</a>
+					<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=boWatches.add&typeid=6&whatid1={Org->org_id}">(Watch)</a>
+				{/if}
+				{if $PERM_VIEW_TICKET}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlOrg.viewTickets&id={Org->org_id}">Tickets</a>
+					<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=boWatches.add&typeid=7&whatid1={Org->org_id}">(Watch)</a>
+				{/if}
+				{if $PERM_WIKI}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlWiki.show&type=5&id={Org->org_id}">Wiki</a>{/if}
+				{if $PERM_MODIFY}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Organization.Edit&org_id={Org->org_id}">Edit</a>{/if}
+				{if $PERM_DELETE}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Organization.Delete&org_id={Org->org_id}">Delete</a>{/if}
+			</div>
 		</th></tr>
 	</thead>
 	<tbody>
@@ -146,13 +146,12 @@ No organization types!
 		</td></tr>
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_ALIASES}Aliases</caption>
-	{if $PERM_MODIFY}<thead><tr class="toolbar"><th colspan="2"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationAlias.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>{/if}
+<h4>{$smarty.const.STR_CM_ALIASES}Aliases</h4>
+<table width="100%" class="table table-striped">
+	{if $PERM_MODIFY}<thead><tr><th colspan="2"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=OrganizationAlias.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr></thead>{/if}
 	<tbody>
 {section name=aliasitem loop=$OrgAlias}
-{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
+	<tr>
 		<td class="string">{$OrgAlias[aliasitem].alias}</td>
 {strip}
 		<td class="options">
@@ -167,27 +166,25 @@ No organization types!
 {/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CMMN_PRODUCTS}Products</caption>
-	{if $PERM_MODIFY}<thead><tr class="toolbar"><th colspan="2"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationProduct.Edit&org_id={Org->org_id}">{$smarty.const.STR_CMMN_EDIT}</a></li></ul></th></tr></thead>{/if}
+<h4>{$smarty.const.STR_CMMN_PRODUCTS}Products</h4>
+<table width="100%" class="table table-striped">
+	{if $PERM_MODIFY}<thead><tr><th colspan="2"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=OrganizationProduct.Edit&org_id={Org->org_id}">{$smarty.const.STR_CMMN_EDIT}</a></div></th></tr></thead>{/if}
 	<tbody>
 {section name=productitem loop=$OrgProduct}
-{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}"><td class="string">{$OrgProduct[productitem].name}</td></tr>
+	<tr><td class="string">{$OrgProduct[productitem].name}</td></tr>
 {/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_ADDR}Addresses</caption>
+<h4>{$smarty.const.STR_CM_ADDR}Addresses</h4>
+<table width="100%" class="table table-striped">
 	{if $PERM_MODIFY}<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationAddress.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr><th colspan="3"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=OrganizationAddress.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>
 	</thead>{/if}
 	<tbody>
 		{assign var="rowClass" value=""}
 		{section name=address loop=$OrgAddress}
-		{cycle values="odd,even" assign="rowClass"}
-		<tr class="{$rowClass}">
-		<td class="string rowheader">{$OrgAddress[address].addr_type_name}{if $OrgAddress[address].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
+			<tr>
+		<td class="string rowheader">{$OrgAddress[address].addr_type_name}{if $OrgAddress[address].preferred == "Y"} <span class="glyphicon glyphicon-flag"></span>{/if}</td>
 		<td class="string">
 		{$OrgAddress[address].add1}<br />
 		{if $OrgAddress[address].add2 != ""}
@@ -211,17 +208,16 @@ No organization types!
 		{/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_PHONENUMBERS}Phone Numbers</caption>
+<h4>{$smarty.const.STR_CM_PHONENUMBERS}Phone Numbers</h4>
+<table width="100%" class="table table-striped">
 	{if $PERM_MODIFY}<thead>
-		<tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationPhone.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>
+		<tr><th colspan="3"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=OrganizationPhone.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>
 	</thead>{/if}
 	<tbody>
 {assign var="rowClass" value=""}
 {section name=phone loop=$OrgPhone}
-		{cycle values="odd,even" assign="rowClass"}
-		<tr class="{$rowClass}">
-		<td class="rowheader">{$OrgPhone[phone].phone_type_name}{if $OrgPhone[phone].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
+	<tr>
+		<td class="rowheader">{$OrgPhone[phone].phone_type_name}{if $OrgPhone[phone].preferred == "Y"} <span class="glyphicon glyphicon-flag"></span>{/if}</td>
 		<td>{$OrgPhone[phone].phone_number}</td>
 		<td class="options">
 {strip}
@@ -236,14 +232,13 @@ No organization types!
 {/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_EMAILADDRESSES}E-Mail Addresses</caption>
-	{if $PERM_MODIFY}<thead><tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationEmail.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>{/if}
+<h4>{$smarty.const.STR_CM_EMAILADDRESSES}E-Mail Addresses</h4>
+<table width="100%" class="table table-striped">
+	{if $PERM_MODIFY}<thead><tr><th colspan="3"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=OrganizationEmail.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr></thead>{/if}
 	<tbody>
 {section name=email loop=$OrgEmail}
-		{cycle values="odd,even" assign="rowClass"}
-		<tr class="{$rowClass}">
-		<td class="rowheader">{$OrgEmail[email].email_type_name}{if $OrgEmail[email].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
+	<tr>
+		<td class="rowheader">{$OrgEmail[email].email_type_name}{if $OrgEmail[email].preferred == "Y"} <span class="glyphicon glyphicon-flag"></span>{/if}</td>
 		<td>{mailto address=$OrgEmail[email].email_addr}</td>
 		<td class="options">
 {strip}
@@ -258,21 +253,20 @@ No organization types!
 {/section}
 	</tbody>
 </table>
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_URL}URLs</caption>
-	{if $PERM_MODIFY}<thead><tr class="toolbar"><th colspan="3"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=OrganizationUrl.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr></thead>{/if}
+<h4>{$smarty.const.STR_CM_URL}URLs</h4>
+<table width="100%" class="table table-striped">
+	{if $PERM_MODIFY}<thead><tr><th colspan="3"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=OrganizationUrl.Create&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr></thead>{/if}
 	<tbody>
 {section name=url loop=$OrgURL}
-		{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
-		<td class="rowheader">{$OrgURL[url].url_type_name}{if $OrgURL[url].preferred == "Y"}<span style="color:#a00000;">*</span>{/if}</td>
+	<tr>
+		<td class="rowheader">{$OrgURL[url].url_type_name}{if $OrgURL[url].preferred == "Y"} <span class="glyphicon glyphicon-flag"></span>{/if}</td>
 		<td>{$OrgURL[url].url_addr|escape|dcl_link}</td>
 		<td class="options">
 {strip}
 		{if $PERM_MODIFY}
 			<a href="{$URL_MAIN_PHP}?menuAction=OrganizationUrl.Edit&org_id={Org->org_id}&org_url_id={$OrgURL[url].org_url_id}">{$smarty.const.STR_CMMN_EDIT}</a>
 			&nbsp;|&nbsp;
-			<a href="javascript:;" class="dcl-delete-org-url" data-id="{$OrgURL[url].org_url_id}"">{$smarty.const.STR_CMMN_DELETE}</a>
+			<a href="javascript:;" class="dcl-delete-org-url" data-id="{$OrgURL[url].org_url_id}">{$smarty.const.STR_CMMN_DELETE}</a>
 		{/if}
 {/strip}
 		</td>
@@ -281,15 +275,14 @@ No organization types!
 	</tbody>
 </table>
 {if $PERM_VIEW_CONTACT}
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CMMN_CONTACTS}Contacts</caption>
+<h4>{$smarty.const.STR_CMMN_CONTACTS}Contacts</h4>
+<table width="100%" class="table table-striped">
 	<thead>
 		<tr><th>{$smarty.const.STR_CMMN_NAME}</th><th>{$smarty.const.STR_CMMN_TYPE}Type</th><th>Phone</th><th>Email</th><th>URL</th></tr>
 	</thead>
 	<tbody>
 {section name=contact loop=$OrgContacts}
-		{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
+	<tr>
 		<td><a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$OrgContacts[contact].contact_id}">{$OrgContacts[contact].name}</a></td>
 		<td>{$OrgContacts[contact].type|escape}</td>
 		<td>{$OrgContacts[contact].phone|escape}</td>
@@ -301,15 +294,14 @@ No organization types!
 </table>
 {/if}
 {if $PERM_VIEW_TICKET}
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_LAST10TICKETS}Last 10 Tickets</caption>
-	<thead>{if $PERM_MODIFY}<tr class="toolbar"><th colspan="7"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=boTickets.add&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
+<h4>{$smarty.const.STR_CM_LAST10TICKETS}Last 10 Tickets</h4>
+<table width="100%" class="table table-striped">
+	<thead>{if $PERM_MODIFY}<tr><th colspan="7"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=boTickets.add&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>{/if}
 		<tr>{foreach item=col from=$ViewTicket->columnhdrs}<th>{$col}</th>{/foreach}</tr>
 	</thead>
 	<tbody>
 {foreach name=tickets item=record from=$Tickets}
-	{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
+	<tr>
 	{foreach name=ticket key=key item=data from=$record}
 	{if is_numeric($key)}<td>{if $smarty.foreach.ticket.first}<a href="{$URL_MAIN_PHP}?menuAction=boTickets.view&ticketid={$record.ticketid}">{$data}</a>{else}{$data}{/if}</td>{/if}
 	{/foreach}
@@ -319,15 +311,14 @@ No organization types!
 </table>
 {/if}
 {if $PERM_VIEW_WORKORDER}
-<table width="100%" class="dcl_results">
-	<caption class="spacer">{$smarty.const.STR_CM_LAST10WORKORDERS}Last 10 Work Orders</caption>
-	<thead>{if $PERM_MODIFY}<tr class="toolbar"><th colspan="9"><ul><li class="first"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateForOrg&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></li></ul></th></tr>{/if}
+<h4>{$smarty.const.STR_CM_LAST10WORKORDERS}Last 10 Work Orders</h4>
+<table width="100%" class="table table-striped">
+	<thead>{if $PERM_MODIFY}<tr><th colspan="9"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateForOrg&org_id={Org->org_id}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>{/if}
 		<tr>{foreach item=col from=$ViewWorkOrder->columnhdrs}<th>{$col}</th>{/foreach}</tr>
 	</thead>
 	<tbody>
 {foreach name=workorders item=record from=$WorkOrders}
-	{cycle values="odd,even" assign="rowClass"}
-	<tr class="{$rowClass}">
+	<tr>
 	{foreach name=wo item=data key=key from=$record}
 	{if is_numeric($key)}
 	<td>{if $smarty.foreach.wo.iteration < 3}<a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Detail&jcn={$record.jcn}&seq={$record.seq}">{$data}</a>{else}{$data}{/if}</td>

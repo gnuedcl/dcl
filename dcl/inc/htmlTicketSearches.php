@@ -21,6 +21,7 @@
  */
 
 LoadStringResource('wo');
+LoadStringResource('tck');
 
 class htmlTicketSearches
 {
@@ -407,17 +408,5 @@ class htmlTicketSearches
 		}
 
 		$t->Render('TicketSearch.tpl');
-	}
-
-	function my()
-	{
-		global $dcl_info;
-		
-		$t = new SmartyHelper();
-
-		$obj = new htmlViews();
-		$t->assign('CMB_VIEWS', $obj->GetCombo(0, 'viewid', 0, true, 'tickets'));
-		
-		$t->Render('MyTicketSearches.tpl');
 	}
 }

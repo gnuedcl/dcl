@@ -35,7 +35,9 @@ function smarty_function_dcl_publish($params, &$smarty)
 	ob_start();
 	call_user_func_array('PubSub::Publish', array_merge(array($topic), $params));
 	$content = ob_get_contents();
-	ob_end_clean();
+
+	if (ob_get_length())
+		ob_end_clean();
 	
 	return $content;
 }

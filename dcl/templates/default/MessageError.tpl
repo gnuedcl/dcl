@@ -1,4 +1,4 @@
-<div class="dcl_message_error">
-	<span>{$MESSAGE->sTitle|escape}:</span>
-	{$MESSAGE->sMessage|escape}
+<div class="alert alert-danger fade in" role="alert">
+	<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	<strong>{$MESSAGE->sTitle|escape}</strong> {$MESSAGE->sMessage|escape}
 </div>

@@ -20,13 +20,13 @@
 				<div class="panel-body">
 					<form class="form-horizontal" role="form" method="post" action="login.php" autocomplete="off">
 						<div class="form-group">
-							<label for="login" class="col-sm-3 control-label">{$TXT_USER|escape}</label>
+							<label for="UID" class="col-sm-3 control-label">{$TXT_USER|escape}</label>
 							<div class="col-sm-9">
 								<input class="form-control" id="UID" name="UID" placeholder="{$TXT_USER|escape}" required>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputPassword3" class="col-sm-3 control-label">{$TXT_PASSWORD|escape}</label>
+							<label for="PWD" class="col-sm-3 control-label">{$TXT_PASSWORD|escape}</label>
 							<div class="col-sm-9">
 								<input class="form-control" id="PWD" name="PWD" placeholder="{$TXT_PASSWORD|escape}" required type="password">
 							</div>

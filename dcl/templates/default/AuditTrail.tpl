@@ -1,20 +1,19 @@
-<table class="dcl_results">
-	<caption>Audit: [{$VAL_ID}] {$VAL_SUMMARY|escape:"htmlall"}</caption>
+<h4>Audit: [{$VAL_ID}] {$VAL_SUMMARY|escape:"htmlall"}</h4>
+<table class="table table-striped">
 	<thead>
 		<tr class="toolbar"><th colspan="5"><a href="{$LNK_BACK}">Back</a></th></tr>
 		<tr><th>By</th><th>On</th><th>Field</th><th>Old Value</th><th>New Value</th></tr>
 	</thead>
 	<tbody>
 {section name=version loop=$VAL_AUDITTRAIL}
-{cycle values="odd,even" assign=rowClass}
 {strip}
-		<tr class="group"><td colspan="5">Changes for Version: {$VAL_AUDITTRAIL[version].audit_version}</td></tr>
-		<tr class="{$rowClass}">
+		<tr><td colspan="5">Changes for Version: {$VAL_AUDITTRAIL[version].audit_version}</td></tr>
+		<tr>
 			<td>{$VAL_AUDITTRAIL[version].audit_by|escape:"htmlall"}</td>
 			<td>{$VAL_AUDITTRAIL[version].audit_on}</td>
 			{section name=change loop=$VAL_AUDITTRAIL[version].changes}
 				{if !$smarty.section.change.first}
-					</tr><tr class="{$rowClass}"><td></td><td></td>
+					</tr><tr><td></td><td></td>
 				{/if}
 				<td>{$VAL_AUDITTRAIL[version].changes[change].field|escape:"htmlall"}</td>
 				<td>{$VAL_AUDITTRAIL[version].changes[change].old|escape:"htmlall"}</td>
@@ -26,8 +25,8 @@
 	</tbody>
 </table>
 {if (count($VAL_AUDITPROJECT) > 0)}
-<table class="dcl_results">
-	<caption class="spacer">Project Audit</caption>
+<h4>Project Audit</h4>
+<table class="table table-striped">
 	<thead>
 		<tr class="toolbar"><th colspan="4"><a href="{$LNK_BACK}">Back</a></th></tr>
 		<tr><th>By</th><th>On</th><th>Action</th><th>Project</th></tr>
@@ -35,8 +34,7 @@
 	<tbody>
 {section name=project loop=$VAL_AUDITPROJECT}
 {strip}
-{cycle values="odd,even" assign=rowClass}
-		<tr class="{$rowClass}">
+		<tr>
 			<td>{$VAL_AUDITPROJECT[project].audit_by|escape:"htmlall"}</td>
 			<td>{$VAL_AUDITPROJECT[project].audit_on}</td>
 			<td>{$VAL_AUDITPROJECT[project].audit_type|escape:"htmlall"}</td>
@@ -48,8 +46,8 @@
 </table>
 {/if}
 {if (count($VAL_AUDITACCOUNT) > 0)}
-<table class="dcl_results">
-	<caption class="spacer">Account Audit</caption>
+<h4>Account Audit</h4>
+<table class="table table-striped">
 	<thead>
 		<tr class="toolbar"><th colspan="4"><a href="{$LNK_BACK}">Back</a></th></tr>
 		<tr><th>By</th><th>On</th><th>Action</th><th>Account</th></tr>
@@ -57,8 +55,7 @@
 	<tbody>
 {section name=account loop=$VAL_AUDITACCOUNT}
 {strip}
-{cycle values="odd,even" assign=rowClass}
-		<tr class="{$rowClass}">
+		<tr>
 			<td>{$VAL_AUDITACCOUNT[account].audit_by|escape:"htmlall"}</td>
 			<td>{$VAL_AUDITACCOUNT[account].audit_on}</td>
 			<td>{$VAL_AUDITACCOUNT[account].audit_type|escape:"htmlall"}</td>
@@ -70,8 +67,8 @@
 </table>
 {/if}
 {if (count($VAL_AUDITWORKORDER) > 0)}
-<table class="dcl_results">
-	<caption class="spacer">Task Audit</caption>
+<h4>Task Audit</h4>
+<table class="table table-striped">
 	<thead>
 		<tr class="toolbar"><th colspan="4"><a href="{$LNK_BACK}">Back</a></th></tr>
 		<tr><th>By</th><th>On</th><th>Action</th><th>Task</th></tr>
@@ -79,8 +76,7 @@
 	<tbody>
 {section name=wo loop=$VAL_AUDITWORKORDER}
 {strip}
-{cycle values="odd,even" assign=rowClass}
-		<tr class="{$rowClass}">
+		<tr>
 			<td>{$VAL_AUDITWORKORDER[wo].audit_by|escape:"htmlall"}</td>
 			<td>{$VAL_AUDITWORKORDER[wo].audit_on}</td>
 			<td>{$VAL_AUDITWORKORDER[wo].audit_type|escape:"htmlall"}</td>

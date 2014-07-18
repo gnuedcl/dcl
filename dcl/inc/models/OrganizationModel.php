@@ -32,7 +32,7 @@ class OrganizationModel extends DbProvider
 		parent::Clear();
 	}
 	
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_MODIFY);
 		

@@ -1,14 +1,10 @@
-<div class="dcl_detail" style="width:100%;">
-	<table class="styled">
-		<caption>Products</caption>
-		<thead>
-			<tr class="toolbar"><th colspan="4"><ul>{strip}
-				<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=Product.Index">Browse</a></li>
-{/strip}</ul></th></tr></thead>
-		<tbody>
-			<tr><td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderProductChart"></td>
-				<td colspan="2"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.TicketProductChart"></td>
-			</tr>
-		</tbody>
-	</table>
+<h4>Products</h4>
+<div class="btn-group">
+	<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Product.Index">Browse</a></li>
+</div>
+<div class="container">
+	<div class="row top12">
+		<div class="col-lg-6"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.WorkOrderProductChart"></div>
+		<div class="col-lg-6"><img src="{$URL_MAIN_PHP}?menuAction=ProductImage.TicketProductChart"></div>
+	</div>
 </div>

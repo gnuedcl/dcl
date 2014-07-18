@@ -70,6 +70,7 @@ class OrganizationPhonePresenter
 		$oSmarty->assign('VAL_PHONENUMBER', $model->phone_number);
 		$oSmarty->assign('CMB_PHONETYPE', $oPhoneType->Select($model->phone_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Organization Phone Number');
+		$oSmarty->assign('VAL_PREFERRED', $model->preferred);
 
 		$oSmarty->Render('PhoneForm.tpl');
 	}

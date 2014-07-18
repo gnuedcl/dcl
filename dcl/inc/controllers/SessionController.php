@@ -45,12 +45,4 @@ class SessionController
 		$presenter = new SessionPresenter();
 		$presenter->Index();
 	}
-
-	public function Detail()
-	{
-		RequirePermission(DCL_ENTITY_SESSION, DCL_PERM_VIEW);
-		
-		$presenter = new SessionPresenter();
-		$presenter->Detail();
-	}
 }

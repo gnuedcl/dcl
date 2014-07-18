@@ -1,12 +1,36 @@
 {dcl_validator_init}
-<script language="JavaScript">
+<form class="form-horizontal" method="post" action="{$URL_MAIN_PHP}">
+	<input type="hidden" name="menuAction" value="{$menuAction}">
+	<input type="hidden" name="product_id" value="{$product_id}">
+	{if $product_module_id}<input type="hidden" name="product_module_id" value="{$product_module_id}">{/if}
+	<fieldset>
+		<legend>{$TXT_FUNCTION|escape}</legend>
+		{dcl_form_control id=active controlsize=2 label=$smarty.const.STR_CMMN_ACTIVE}
+		{$CMB_ACTIVE}
+		{/dcl_form_control}
+		{dcl_form_control id=module_name controlsize=5 label=$smarty.const.STR_CMMN_NAME required=true}
+		{dcl_input_text id=module_name maxlength=50 value=$VAL_NAME}
+		{/dcl_form_control}
+	</fieldset>
+	<fieldset>
+		<div class="row">
+			<div class="col-sm-offset-2">
+				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input class="btn btn-link" type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=htmlProductModules.PrintAll&product_id={$product_id}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
+		</div>
+	</fieldset>
+</form>
+<script type="text/javascript">
+	$(function() {
+		$("#module_name").focus();
+	});
+
 function validateAndSubmitForm(form)
-
 {
-
 	var aValidators = new Array(
 			new ValidatorString(form.elements["module_name"], "{$smarty.const.STR_CMMN_NAME}")
-		);
+	);
 
 	for (var i in aValidators)
 	{
@@ -21,31 +45,4 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-
-</script>
-<form class="styled" method="post" action="{$URL_MAIN_PHP}">
-	<input type="hidden" name="menuAction" value="{$menuAction}">
-	<input type="hidden" name="product_id" value="{$product_id}">
-	{if $product_module_id}<input type="hidden" name="product_module_id" value="{$product_module_id}">{/if}
-	<fieldset>
-		<legend>{$TXT_FUNCTION}</legend>
-		<div class="required">
-			<label for="active">{$smarty.const.STR_CMMN_ACTIVE}:</label>
-			{$CMB_ACTIVE}
-		</div>
-		<div class="required">
-			<label for="module_name">{$smarty.const.STR_CMMN_NAME}:</label>
-			<input type="text" size="50" maxlength="50" id="module_name" name="module_name" value="{$VAL_NAME|escape}">
-		</div>
-	</fieldset>
-	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=htmlProductModules.PrintAll&product_id={$product_id}';" value="{$smarty.const.STR_CMMN_CANCEL}">
-		</div>
-	</fieldset>
-</form>
-<script language="JavaScript">
-if (document.getElementById("module_name"))
-	document.getElementById("module_name").focus();
 </script>

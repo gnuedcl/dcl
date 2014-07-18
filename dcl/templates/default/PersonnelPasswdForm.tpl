@@ -1,34 +1,41 @@
-{dcl_selector_init}
-<form class="styled" method="post" action="{$URL_MAIN_PHP}">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<form class="form-horizontal" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="Personnel.UpdatePassword">
 	<fieldset>
 		<legend>{$smarty.const.STR_USR_CHGPWD}</legend>
-		<div>
 		{if $PERM_ADMIN}
-			<label class="required" for="userid">{$smarty.const.STR_USR_USER}:</label>
-			{dcl_selector_personnel name="userid" value="$VAL_USERID" decoded="$VAL_USERNAME"}
-			<span>Select the user you want to change the password for.</span>
+			{dcl_form_control id=product controlsize=4 label=$smarty.const.STR_USR_USER required=true}
+			{dcl_select_personnel name=userid default=$VAL_USERID}
+				<span class="help-block">Select the user you want to change the password for.</span>
+			{/dcl_form_control}
 		{else}
-			<label for="original">{$smarty.const.STR_USR_CURRPWD}:</label>
-			<input type="password" size="15" name="original" id="original">
-			<span>Enter your current password here.</span>
+			{dcl_form_control id=original controlsize=4 label=$smarty.const.STR_USR_CURRPWD required=true}
+				<input class="form-control" type="password" size="15" name="original" id="original">
+				<span class="help-block">Enter your current password here.</span>
+			{/dcl_form_control}
 		{/if}
-		</div>
-		<div>
-			<label class="required" for="new">{$smarty.const.STR_USR_NEWPWD}:</label>
-			<input type="password" size="15" name="new" id="new">
-			<span>Enter your new password here.</span>
-		</div>
-		<div>
-			<label class="required" for="confirm">{$smarty.const.STR_USR_CONFIRMPWD}:</label>
-			<input type="password" size="15" name="confirm" id="confirm">
-			<span>Confirm your new password.</span>
-		</div>
+		{dcl_form_control id=new controlsize=4 label=$smarty.const.STR_USR_NEWPWD required=true}
+			<input class="form-control" type="password" size="15" name="new" id="new">
+			<span class="help-block">Enter your new password here.</span>
+		{/dcl_form_control}
+		{dcl_form_control id=confirm controlsize=4 label=$smarty.const.STR_USR_CONFIRMPWD required=true}
+			<input class="form-control" type="password" size="15" name="confirm" id="confirm">
+			<span class="help-block">Confirm your new password.</span>
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			<input type="submit" value="{$smarty.const.STR_USR_CHANGE}">
-			<input type="reset" value="{$smarty.const.STR_USR_CLEAR}">
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input type="submit" class="btn btn-primary" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input type="reset" class="btn btn-link" value="{$smarty.const.STR_CMMN_RESET}">
+			</div>
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+	});
+</script>

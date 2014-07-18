@@ -1,30 +1,12 @@
 /* The basic elements */
-body {
-	margin: 0px;
-	padding: 0px;
-	background-color: #ffffff;
-}
-
 button.jq-ajax-table-pager
 {
 	margin-top: 12px;
 }
 
-div#left ul
-{
-	margin: 0px;
-	padding: 0px;
-}
-
 div.dcl-notification
 {
 	display: none;
-}
-
-div.sf-menu-container
-{
-	height: 28px;
-	background-color: #555555;
 }
 
 a.dcl-tag, span.dcl-tag
@@ -59,113 +41,19 @@ a.dcl-tag, span.dcl-tag, a.dcl-hotlist, span.dcl-hotlist
 	padding: 1px 3px 2px;
 }
 
-form
-{
-	margin: 0px;
-}
-
-td, 
-th, 
-select, 
-input, 
-textarea, 
-body, 
-caption {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 11px;
-}
-
-td, th {
-	padding: 2px;
-}
-
-select {
-	min-width: 100px;
-}
-
-img {
-	border: 0px;
-}
-
-a {
-	color: #000065;
-}
-
-a:hover {
-	color: #a00000;
-}
-
-a:hover img {
-	border: none;
-}
-
-thead {
-	display: table-header-group;
-}
-
-tfoot {
-	display: table-footer-group;
-}
-
-/* hr and h* from MediaWiki monobook style cause I like it */
-hr {
-    height: 1px;
-    color: #aaa;
-    background-color: #aaa;
-    border: 0;
-    margin: .2em 0 .2em 0;
-}
-
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
-h6 {
-    color: black;
-    background: none;
-    font-weight: normal;
-    padding-top: .5em;
-    padding-bottom: .17em;
-    border-bottom: 1px solid #aaa;
-    margin-bottom: .17em;
-}
-
-h4, 
-h5, 
-h6 {
-    border-bottom: none;
-    font-weight: bold;
-}
-
-h1 { font-size: 188%; }
-
-h2 { font-size: 150%; }
-
-h3 { font-size: 132%; }
-
-h4 { font-size: 116%; }
-
-h5 { font-size: 100%; }
-
-h6 { font-size: 80%;  }
-
 .status-type-1
 {
 	color: #990000;
-	border-bottom: dotted 1px #990000;
 }
 
 .status-type-2
 {
 	color: #009900;
-	border-bottom: dotted 1px #009900;
 }
 
 .status-type-3
 {
 	color: #ff7400;
-	border-bottom: dotted 1px #ff7400;
 }
 
 dd.status-type-1, dd.status-type-2, dd.status-type-3
@@ -173,303 +61,14 @@ dd.status-type-1, dd.status-type-2, dd.status-type-3
 	border-bottom: none 0px;
 }
 
-/* The page layout */
-#header {
-	background-color: #ffffff;
-	background-image: url(../img/header.jpg);
-	background-position: top right;
-	background-repeat: no-repeat;
-	height: 56px;
-}
-
-#headerleft {
-	float: left;
-	width: 50%;
-}
-
-#headerright {
-	float: right;
-	width: 50%;
-}
-
-#apptitle {
-	color: #3a81c1;
-	width: 50%;
-	font-size: 150%;
-	font-weight: bold;
-	right: 0px;
-}
-
-#search {
-	margin-top: 5px;
-	margin-right: 5px;
-	text-align: right;
-}
-
-#quicknav {
-	margin-top: 5px;
-	margin-right: 5px;
-	color: white;
-	text-align: right;
-	font-weight: bold;
-}
-
-#quicknav a {
-	color: white;
-	text-decoration: none;
-}
-
-#quicknav a:hover {
-	text-decoration: underline;
-}
-
-#left {
-	padding: 10px;
-	left: 0px;
-	width: 150px;
-	background: #F7F6F0;
-	border: 1px solid #D3D1C7;
-	position: absolute;
-}
-
 #content {
-	margin-left: 178px;
-	padding-top: 1px;
-}
-
-/* List menus */
-div.listmenu {
-	padding-top: 15px;
-	padding-bottom: 15px;
-	background-color: #ececec;
-	border: solid #aeaeae 1px;
-	width: 125px;
-	float: right;
-	margin-left: 2px;
-}
-
-#left ul, 
-div.listmenu ul
-{
-	margin: 0px 0px 10px 4px;
-	list-style-type: none;
-}
-
-#left>ul+ul {
-	margin-top: 10px;
-}
-
-#left ul li h3, 
-div.listmenu ul li h3 {
-	font-size: 100%;
-	font-weight: bold;
-	color: #333333;
-	padding: 6px 10px;
-	background: url(../img/feed-title-white.jpg) repeat-x top #efefef;
-	border: 1px solid #cccccc;
-	margin: 0px;
-}
-
-#left ul li ul, 
-div.listmenu ul li ul {
-	margin-top: 0px;
-	padding: 15px;
-	list-style-type: square;
-	border-left: 1px solid #cccccc;
-	border-right: 1px solid #cccccc;
-	border-bottom: 1px solid #cccccc;
-	background-color: #ffffff;
-}
-
-#left ul li ul li, 
-div.listmenu ul li ul li {
-	border: none;
-	margin-left: 5px;
-}
-
-#left ul li ul li a, 
-div.listmenu ul li ul li a {
-	color: #333333;
-	display: block;
-	width: 100%;
-	font-weight: normal;
-	font-size: 100%;
-}
-
-#left ul li ul li a:hover, 
-div.listmenu ul li ul li a:hover {
-	text-decoration: underline;
-	color: #3a81c1;
-}
-
-#poweredby {
-	bottom: 0px;
-	color: #555;
-	border-top: solid 1px #aeaeae;
-	background-color: #ececec;
-	padding: 4px;
-	position: absolute;
-	display: block;
-	right: 0px;
-	left: 0px;
+	height: 100%;
+	overflow: auto;
 }
 
 /* for clearing stuff on the side */
 div.clear {
 	clear: both;
-}
-
-/* A new table style */
-table.dcl_results {
-	border-collapse: collapse;
-}
-
-table.inline {
-	float: left;
-	margin-right: 10px;
-}
-
-table.dcl_results caption {
-	color: #333333;
-	font-size: 17px;
-	margin-bottom: 2px;
-	text-align: left;
-	white-space: nowrap;
-}
-
-table.dcl_results caption.spacer, 
-div.dcl_detail table.styled caption.spacer {
-	/*margin-top: 16px;*/
-}
-
-table.inline caption {
-	margin-right: 10px;
-}
-
-table.dcl_results thead tr {
-	background-color: #ececec;
-}
-
-table.dcl_results tfoot tr {
-	background-color: #ececec;
-	font-weight: bold;
-}
-
-table.dcl_results tbody tr.even {
-	background-color: #efefef;
-}
-
-table.dcl_results tbody td, 
-table.dcl_results thead th, 
-table.dcl_results tfoot td {
-	border-top: solid #aeaeae 1px;
-	border-bottom: solid #aeaeae 1px;
-	padding-left: 4px;
-	padding-right: 4px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	text-align: left;
-}
-
-table.dcl_results tbody td.problem
-{
-	background-color: #ffe6e6;
-	color: #990000;
-}
-
-table.dcl_results tbody td.noproblem
-{
-	background-color: #e6ffe6;
-	color: #006600;
-}
-
-table.dcl_results tbody td.notes
-{
-	background-color: #ffffee;
-}
-
-table.dcl_results thead tr.toolbar th, 
-div.dcl_detail table.styled thead tr.toolbar th {
-	background-color: #eeeeff;
-}
-
-table.dcl_results thead tr.toolbar th, 
-div.dcl_detail table.styled thead tr.toolbar th {
-	text-align: left;
-	font-weight: normal;
-}
-
-table.dcl_results thead tr.toolbar th a, 
-div.dcl_detail table.styled thead tr.toolbar th a {
-	color: #000065;
-}
-
-table.dcl_results thead tr.toolbar th a:hover, 
-div.dcl_detail table.styled thead tr.toolbar th a:hover {
-	color: #650000;
-}
-
-form.styled fieldset div.menu ul, 
-table.dcl_results thead tr.toolbar ul, 
-div.dcl_detail table.styled thead tr.toolbar ul, 
-div.dcl_detail table.styled tbody tr.group ul {
-	display: inline;
-	margin: 0px;
-	padding: 0px;
-}
-
-form.styled fieldset div.menu ul li, 
-table.dcl_results thead tr.toolbar ul li, 
-div.dcl_detail table.styled thead tr.toolbar ul li, 
-div.dcl_detail table.styled tbody tr.group ul li {
-	display: inline;
-	border-left: solid #967117 1px;
-	list-style: none;
-	padding-left: 4px;
-	padding-right: 4px;
-}
-
-form.styled fieldset div.menu ul li.first, 
-table.dcl_results thead tr.toolbar ul li.first, 
-div.dcl_detail table.styled thead tr.toolbar ul li.first, 
-div.dcl_detail table.styled tbody tr.group ul li.first {
-	border-left: none;
-}
-
-table.dcl_results tbody tr.group {
-	font-weight: bold;
-	/*background-color: #ffffe6;*/
-	background-color: #cbcbcb;
-	color: #000000;
-}
-
-table.dcl_results tbody td.rownum {
-	text-align: right;
-	background-color: #ececec;
-	width: 25px;
-}
-
-table.dcl_results tbody td.rowcheck {
-	background-color: #ececec;
-	width: 15px;
-}
-
-table.dcl_results tbody td.numeric, 
-table.dcl_results tfoot td.numeric {
-	text-align: right;
-}
-
-table.dcl_results tbody td.rowheader {
-	width: 1%;
-	font-weight: bold;
-	white-space: nowrap;
-}
-
-table.dcl_results tbody td.options, 
-div.dcl_detail table.styled tbody td.options {
-	text-align: right;
-	width: 1%;
-	white-space: nowrap;
 }
 
 /* filter control style */
@@ -571,13 +170,6 @@ div.dcl_detail table.styled tr.styled-summary td table tbody tr td { width: 20%;
 div.dcl_detail table.styled tr.styled-summary td table tbody tr td dl { margin: 0; }
 div.dcl_detail table.styled tr.styled-summary td table tbody tr td dt { padding: 0; margin: 0; color: #666666; }
 div.dcl_detail table.styled tr.styled-summary td table tbody tr td dd { padding: 0; font-size: 125%; margin: 0; font-weight: bold; }
-table.timecard tbody td { background-color: #ffffff; border: solid 1px #666666; }
-table.timecard tbody blockquote { margin-left: 4px; border: none 0px; background-color: #ffffff; border-left: solid 4px #666666; }
-table.timecard tbody img { margin: 2px; border: solid 1px #cecece; }
-table.timecard tbody tr dl { margin-bottom: 0; margin-top: 4px; }
-table.timecard tbody tr dt { font-size: 13px; }
-table.timecard tbody tr dl dd { color: #666666; margin: 2px 0px 0px 24px; }
-table.timecard tbody tr td.timecard-description { padding: 2px 24px 2px 24px; }
 
 div.dcl_detail table.styled caption {
 	color: #333333;
@@ -703,181 +295,6 @@ td.task_complete {
 span.task_audit {
 	font-style: italic;
 	color: #888888;
-}
-
-/* A new form style */
-form.styled {
-	width: 550px;
-	border: solid 1px #000065;
-	background-color: #eeeef9;
-	/*border: solid 1px #3a81c1;
-	background-color: #eeeef9;*/
-}
-
-form.styled fieldset {
-	/*border-top: solid 1px #3a81c1;*/
-	border-top: solid 1px #3a81c1;
-	border-left: none;
-	border-right: none;
-	border-bottom: none;
-	padding: 4px 4px 4px 10px;
-	margin-left: 4px;
-	margin-right: 4px;
-}
-
-form.styled fieldset legend {
-	font-size: 125%;
-	color: #3a81c1;
-	/*color: #ff7400;*/
-	padding: 0px 2px 0px 2px;
-}
-
-form.styled fieldset div {
-	margin: 2px;
-	padding: 2px;
-	clear: left;
-}
-
-form.styled fieldset div div {
-	border: none;
-}
-
-form.styled fieldset div.help {
-	background-color: #ffffee;
-	border: solid 1px #999999;
-}
-
-form.styled fieldset div.confirm {
-	padding: 4px 4px 4px 50px;
-	background-color: #eeeef9;
-	border: solid 1px #3a81c1;
-	background-image: url(../img/dialog-question3-stroke.png);
-	background-repeat: no-repeat;
-	height: 44px;
-	font-weight: bold;
-}
-
-form.styled fieldset div label {
-	float: left;
-	width: 125px;
-	text-align: right;
-	margin: 2px 2px 0px 0px;
-	/**/
-	color: #666666;
-}
-
-form.styled fieldset div.required label {
-	font-weight: bold;
-}
-
-form.styled fieldset div input, 
-form.styled fieldset div select, 
-form.styled fieldset div textarea {
-}
-
-form.styled fieldset div textarea {
-	width: 350px;
-}
-
-form.styled fieldset div span {
-	display: block;
-	margin-left: 130px;
-	font-size: 90%;
-}
-
-form.styled fieldset div.submit {
-	padding-top: 2px;
-	text-align: right;
-	border: none;
-}
-
-form.styled fieldset div.submit input {
-	margin-right: 5px;
-	/*background-color: #ececec;*/
-}
-
-/* fieldset in form */
-form.styled fieldset div fieldset {
-	border: groove #eeeef9 2px;
-}
-
-form.styled fieldset div fieldset legend {
-	font-size: 14px;
-	color: #3a81c1;
-}
-
-form.styled fieldset div fieldset div label {
-	width: auto;
-	float: none;
-	text-align: left;
-	font-weight: normal;
-	display: inline;
-	white-space: nowrap;
-	line-height: 1.6em;
-}
-
-form.styled fieldset div fieldset div span {
-	display: inline;
-	margin-left: 0px;
-	margin-right: 8px;
-}
-
-form.styled fieldset div fieldset div.scrollable {
-	height: 60px;
-	overflow: auto;
-}
-
-form.styled fieldset div.noinput {
-	border: solid 1px #aeaeae;
-	background-color: #eeeef9;
-	padding: 2px;
-	margin-left: 60px;
-}
-
-form.styled fieldset div.noinput span.selecteditem {
-	display: inline;
-	margin-left: 0px;
-	font-size: 100%;
-	border-bottom: dotted 1px #555;
-}
-
-/* selector */
-form.styled fieldset div.input, 
-form.styled fieldset div.command {
-	float: left;
-	clear: none;
-}
-
-form.styled fieldset div.input {
-	width: 184px;
-}
-
-form.styled fieldset div.command {
-	padding-top: 30px;
-	width: 56px;
-}
-
-form.styled fieldset div.input label {
-	display: block;
-	float: none;
-	text-align: left;
-	font-weight: normal;
-	width: 180px;
-	clear: none;
-}
-
-form.styled fieldset div.input select {
-	width: 180px;
-}
-
-form.styled fieldset div.command input {
-	width: 52px;
-}
-
-form.login {
-	margin-left: 10px;
-	margin-top: 10px;
-	width: 420px;
 }
 
 ul.sortable {
@@ -1055,12 +472,6 @@ th.groupLevel1
 	font-size: 14px;
 }
 
-label
-{
-	cursor: pointer;
-	cursor: hand;
-}
-
 div.sectionTitle
 {
 	background-color: #000000;
@@ -1080,169 +491,6 @@ span.error
 {
 	font-weight: bold;
 	color: #aa0000;
-}
-
-.go
-{
-	font-family: sans-serif;
-	font-size: 14px;
-	border: solid black 1px;
-}
-
-.apptitle
-{
-	font-size: 17px;
-	font-weight: bold;
-	color: #ffffff;
-}
-
-.title
-{
-	font-weight: bold;
-	color: #ffffff;
-}
-
-.navpanel
-{
-	width: 129px;
-	text-align: center;
-	vertical-align: top;
-	white-space: nowrap;
-}
-
-.sectionHeader
-{
-	background-image: url(../img/gray-gradient.png);
-	background-repeat: repeat-x;
-	border-bottom: solid #3a81c1 1px;
-	font-weight: bold;
-}
-
-
-a.menu
-{
-	font-weight: bold;
-	color: #ffffff;
-}
-
-a.menu:hover
-{
-	color: #ffffff;
-	border-top: solid #ffffff 1px;
-	border-bottom: solid #ffffff 1px;
-}
-
-a.navboxhover
-{
-	color: #000065;
-	text-decoration: none;
-}
-
-a.navboxhover:hover
-{
-	color: #0000ff;
-}
-
-th.formLinks a
-{
-	text-decoration: none;
-	color: #a00000;
-}
-
-th.detailLinks a
-{
-	text-decoration: none;
-	color: #a00000;
-}
-
-th.formLinks a:hover
-{
-	text-decoration: none;
-	color: #000065;
-	border-top: solid #000065 1px;
-	border-bottom: solid #000065 1px;
-}
-
-th.detailLinks a:hover
-{
-	text-decoration: none;
-	color: #000065;
-	border-top: solid #000065 1px;
-	border-bottom: solid #000065 1px;
-}
-
-div.dcl_message_error,
-div.dcl_message_warn,
-div.dcl_message_info
-{
-	margin-top: 4px;
-	margin-bottom: 4px;
-	padding: 2px;
-	width:99%;
-	color:#111111;
-}
-
-div.dcl_message_error
-{
-	background-color: #ffe6e6;
-	border-top: solid 1px #bf6060;
-	border-bottom: solid 1px #bf6060;
-}
-
-div.dcl_message_info
-{
-	background-color: #e6ffe6;
-	border-top: solid 1px #60bf60;
-	border-bottom: solid 1px #60bf60;
-}
-
-div.dcl_message_warn
-{
-	background-color: #ffffe6;
-	border-top: solid 1px #bfbf60;
-	border-bottom: solid 1px #bfbf60;
-}
-
-div.dcl_message_error span,
-div.dcl_message_warn span,
-div.dcl_message_info span
-{
-	font-weight: bold;
-}
-
-div.dcl_message_error div,
-div.dcl_message_warn div,
-div.dcl_message_info div
-{
-	height: 150px;
-	overflow: auto;
-	border: solid #333333 1px;
-	color: #333333;
-}
-
-table.wikiPage
-{
-	background-color: #ffffff;
-	width: 90%;
-}
-
-.light
-{
-	color: #eeeef9;
-}
-
-.header
-{
-	border-bottom: solid black 2px;
-}
-
-.footer
-{
-	border-top: solid black 2px;
-}
-
-.noprint
-{
 }
 
 tt, pre
@@ -1266,61 +514,6 @@ tt, pre
 	width:99%;
 }
 
-h1.wiki, h2.wiki, h3.wiki, h4.wiki, h5.wiki
-{
-	font-family: sans-serif;
-	margin-top:2pt;
-	margin-bottom:8pt;
-	width:99%;
-	border-bottom: solid #666666 1px;
-	/*color: #ff7400;*/
-}
-
-h1.wiki
-{
-	font-size: 17px;
-	padding-left: 3pt;
-}
-
-h2.wiki
-{
-	font-size: 15px;
-	padding-left:6pt;
-}
-
-h3.wiki
-{
-	font-size: 13px;
-	padding-left:9pt;
-}
-
-h4.wiki
-{
-	font-size: 11px;
-	padding-left:12pt;
-}
-
-h5.wiki
-{
-	font-size: 11px;
-	padding-left:15pt;
-}
-
-table.wiki
-{
-	background-color: black;
-}
-
-td.wiki
-{
-	background-color: white;
-}
-
-input.wiki
-{
-	color: #a00000;
-}
-
 .scrollable
 {
 	height: 200px;
@@ -1329,6 +522,14 @@ input.wiki
 
 @media print
 {
+	body, html, .row-offcanvas {
+		height: auto;
+	}
+
+	body {
+		padding-top: 0px;
+	}
+
 	.noprint
 	{
 		display: none;
@@ -1339,9 +540,20 @@ input.wiki
 		color: black;
 		font-weight: normal;
 	}
+
+	#sidebar {
+		display: none;
+	}
 	
 	#content {
 		margin-left: 0px;
+		overflow: visible;
+		height: auto;
+		padding-top: 0px;
+	}
+
+	#content p.visible-xs {
+		display: none;
 	}
 
 	#header
@@ -1363,5 +575,67 @@ input.wiki
 	{
 		height: auto;
 		overflow: visible;
+	}
+}
+
+/* Post-bootstrap changes */
+body, html, .row-offcanvas {
+	height: 100%;
+}
+
+body {
+	padding-top: 50px;
+}
+
+#content {
+	padding-top: 8px;
+}
+
+#sidebar {
+	float: left;
+	width: inherit;
+	min-width: 220px;
+	max-width: 220px;
+	background-color: #eceaec;
+	height: 100%;
+	position: relative;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.row.top12 {
+	margin-top: 12px;
+}
+
+div.panel div.panel-heading h3 {
+	margin-top: 1px;
+	margin-bottom: 5px;
+}
+
+#dcl-main-nav-bar.navbar {
+	margin-bottom: 0px;
+}
+
+@media screen and (max-width: 768px) {
+	.row-offcanvas {
+		position: relative;
+		-webkit-transition: all 0.25s ease-out;
+		-moz-transition: all 0.25s ease-out;
+		transition: all 0.25s ease-out;
+		width: calc(100% + 220px);
+	}
+
+	.row-offcanvas-left
+	{
+		left: -220px;
+	}
+
+	.row-offcanvas-left.active {
+		left: 0;
+	}
+
+	.sidebar-offcanvas {
+		position: absolute;
+		top: 0;
 	}
 }

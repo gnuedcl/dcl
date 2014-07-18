@@ -52,7 +52,8 @@ class ConfigurationPresenter
 		$t->assign('VAL_SECAUDITENABLED', $dcl_info['DCL_SEC_AUDIT_ENABLED']);
 		$t->assign('VAL_SECAUDITLOGINONLY', $dcl_info['DCL_SEC_AUDIT_LOGIN_ONLY']);
 		$t->assign('VAL_FORCESECUREGRAVATAR', $dcl_info['DCL_FORCE_SECURE_GRAVATAR']);
-		
+		$t->assign('VAL_FORCESECURECOOKIE', $dcl_info['DCL_FORCE_SECURE_COOKIE']);
+
 		// SMTP Server
 		$t->assign('VAL_SMTPENABLED', $dcl_info['DCL_SMTP_ENABLED']);
 		$t->assign('VAL_SMTPSERVER', $dcl_info['DCL_SMTP_SERVER']);
@@ -130,7 +131,7 @@ class ConfigurationPresenter
 
 	private function Select($sName, $aOptions, $sDefault)
 	{
-		$retVal = '<select name="' . $sName . '">';
+		$retVal = '<select class="form-control" name="' . $sName . '">';
 
 		if (is_array($aOptions))
 		{

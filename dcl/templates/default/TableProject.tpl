@@ -43,8 +43,8 @@ function jumpToPage(iPage)
 }
 
 </script>
-<div class="dcl_filter">
-	<form name="pager" method="post" action="{$URL_MAIN_PHP}">
+<p>
+	<form class="form-inline" name="pager" method="post" action="{$URL_MAIN_PHP}">
 		{$VAL_VIEWSETTINGS}
 		<input type="hidden" name="menuAction" value="{$VAL_FILTERMENUACTION}" />
 		<input type="hidden" name="startrow" value="{$VAL_FILTERSTARTROW}" />
@@ -55,30 +55,26 @@ function jumpToPage(iPage)
 		<span><label for="filterReportto">{$smarty.const.STR_PRJ_NAME}:</label> <input type="text" size="15" maxlength="100" name="filterName" id="filterName" value="{$VAL_FILTERNAME|escape}"></span>
 		<input type="submit" name="filter" value="Filter">
 		{if $VAL_PAGES > 1}
-			{strip}<div><ul>
-			{if $VAL_PAGE > 1}
-			<li class="first"><a href="#" onclick="forms.pager.jumptopage.value={$VAL_PAGE-1};forms.pager.submit();">&lt;&lt;</a></li>
-			{/if}
+			{strip}<div><ul class="pagination">
+			<li{if $VAL_PAGE < 2} class="disabled"{/if}><a href="javascript:;"{if $VAL_PAGE > 1} onclick="forms.pager.jumptopage.value={$VAL_PAGE-1};forms.pager.submit();"{/if}>&laquo;</a></li>
 			{if $VAL_PAGE > 5}{assign var=startpage value=$VAL_PAGE-5}{else}{assign var=startpage value=1}{/if}
 			{if $VAL_PAGE < ($VAL_PAGES-6)}{assign var=endpage value=$VAL_PAGE+6}{else}{assign var=endpage value=$VAL_PAGES+1}{/if}
 			{section name=iPage start=$startpage loop=$endpage step=1}
-			<li{if $smarty.section.iPage.first && $VAL_PAGE < 2} class="first"{/if}>{if $smarty.section.iPage.index == $VAL_PAGE}<strong>{$VAL_PAGE}</strong>{else}<a href="#" onclick="forms.pager.jumptopage.value={$smarty.section.iPage.index};forms.pager.submit();">{$smarty.section.iPage.index}</a>{/if}</li>
+			<li{if $smarty.section.iPage.index == $VAL_PAGE} class="active"{/if}><a href="javascript:;"{if $smarty.section.iPage.index != $VAL_PAGE} onclick="forms.pager.jumptopage.value={$smarty.section.iPage.index};forms.pager.submit();"{/if}>{$smarty.section.iPage.index}</a></li>
 			{/section}
-			{if $VAL_PAGE < $VAL_PAGES}
-			<li><a href="#" onclick="forms.pager.jumptopage.value={$VAL_PAGE+1};forms.pager.submit();">&gt;&gt;</a></li>
-			{/if}
+			<li{if $VAL_PAGE >= $VAL_PAGES} class="disabled"{/if}><a href="javascript:;"{if $VAL_PAGE < $VAL_PAGES} onclick="forms.pager.jumptopage.value={$VAL_PAGE+1};forms.pager.submit();"{/if}>&raquo;</a></li>
 			</ul></div>{/strip}
 		{/if}
 	</form>
-</div>
+</p>
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}
 {if $rownum}{assign var=colcount value=$colcount+1}{/if}
 {if $checks}{assign var=colcount value=$colcount+1}
 	<form name="searchAction" method="post" action="{$URL_MAIN_PHP}"><input type="hidden" name="menuAction" value="" />{$VAL_VIEWSETTINGS}
 {/if}
-<table class="dcl_results{if $inline} inline{/if}">
-{if $caption ne ""}<caption>{$caption|escape}</caption>{/if}
+{if $caption ne ""}<h4>{$caption|escape}</h4>{/if}
+<table class="table table-striped{if $inline} inline{/if}">
 {strip}
 {section loop=$columns name=col}
 	{if $smarty.section.col.first}<thead>
@@ -125,7 +121,7 @@ function jumpToPage(iPage)
 			{/section}
 		{/if}{/strip}
 	{/if}
-	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+	<tr>
 	{if $checks}{assign var=ticketid value=$groupcount}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$ticketid]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
 	{section loop=$records[row] name=item}

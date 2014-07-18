@@ -66,7 +66,6 @@ class reportPersonnelActivity
 		// By department or responsible
 		$oSelect->FirstOption = '';
 		$oSelect->Id = 'bytype';
-		$oSelect->OnChange = 'onChangeByType();';
 		$oSelect->Options = array(array('1', 'By Responsible'), array('2', 'By Department'));
 		if (isset($_REQUEST['bytype']))
 			$oSelect->DefaultValue = $_REQUEST['bytype'];

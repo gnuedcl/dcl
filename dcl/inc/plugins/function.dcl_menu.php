@@ -37,25 +37,30 @@ function smarty_function_dcl_menu($params, &$smarty)
 
 	function renderMenuItem(DclMenuItem $menuItem)
 	{
-		$myRetVal = '<li><a href="';
-		if ($menuItem->Url == '')
-			$myRetVal .= 'javascript:;';
-		else
-			$myRetVal .= htmlspecialchars($menuItem->Url);
-
-		$myRetVal .= '"';
-
-		if ($menuItem->Target != '')
-			$myRetVal .= ' target="' . htmlspecialchars($menuItem->Target) . '"';
-
-		$myRetVal .= '>' . htmlspecialchars($menuItem->Title) . '</a>';
+		$myRetVal = '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">';
+		$myRetVal .= htmlspecialchars($menuItem->Title) . ' <b class="caret"></b></a>';
 
 		if ($menuItem->HasItems())
 		{
-			$myRetVal .= '<ul>';
+			$myRetVal .= '<ul class="dropdown-menu">';
 
 			foreach ($menuItem->GetItems() as $menuSubItem)
-				$myRetVal .= renderMenuItem($menuSubItem);
+			{
+				$myRetVal .= '<li><a href="';
+				if ($menuSubItem->Url == '')
+					$myRetVal .= 'javascript:;';
+				else
+					$myRetVal .= htmlspecialchars($menuSubItem->Url);
+
+				$myRetVal .= '"';
+
+				if ($menuSubItem->Target != '')
+					$myRetVal .= ' target="' . htmlspecialchars($menuSubItem->Target) . '"';
+
+				$myRetVal .= '>';
+				$myRetVal .= htmlspecialchars($menuSubItem->Title);
+				$myRetVal .= '</a></li>';
+			}
 
 			$myRetVal .= '</ul>';
 		}
@@ -65,12 +70,12 @@ function smarty_function_dcl_menu($params, &$smarty)
 		return $myRetVal;
 	}
 
-	$retVal = '<div class="sf-menu-container"><ul class="sf-menu">';
+	$retVal = '<ul class="nav navbar-nav">';
 
 	foreach ($menu->GetItems() as $menuItem)
 		$retVal .= renderMenuItem($menuItem);
 
-	$retVal .= '</ul></div>';
+	$retVal .= '</ul>';
 
 	return $retVal;
 }

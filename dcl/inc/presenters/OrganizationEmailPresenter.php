@@ -70,6 +70,7 @@ class OrganizationEmailPresenter
 		$oSmarty->assign('VAL_EMAILADDR', $model->email_addr);
 		$oSmarty->assign('CMB_EMAILTYPE', $oEmailType->Select($model->email_type_id));
 		$oSmarty->assign('TXT_FUNCTION', 'Edit Organization E-Mail');
+		$oSmarty->assign('VAL_PREFERRED', $model->preferred);
 
 		$oSmarty->Render('EmailForm.tpl');
 	}

@@ -47,7 +47,9 @@ class FileHelper
 			if ($hFile)
 			{
 				// Output the file and nothing else
-				ob_end_clean();
+				if (ob_get_length())
+					ob_end_clean();
+
 				ob_start();
 				header('Content-Type: application/binary; name="' . $this->sFileName . '"');
 				header('Content-Disposition: attachment; filename="' . $this->sFileName . '"');

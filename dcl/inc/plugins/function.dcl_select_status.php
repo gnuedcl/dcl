@@ -49,6 +49,7 @@ function smarty_function_dcl_select_status($params, &$smarty)
 	$oSelect->Size = $params['size'];
 	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetOptionsFromDb('statuses', 'id', 'name', $sFilter, 'name');
+	$oSelect->CssClass = 'form-control';
 
 	if (isset($params['allowHideOrOnlyClosed']) && $params['allowHideOrOnlyClosed'] == 'Y')
 	{

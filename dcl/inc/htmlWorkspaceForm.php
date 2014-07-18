@@ -228,7 +228,9 @@ class htmlWorkspaceForm
 		if ($g_oSec->IsPublicUser())
 			$menuAction = 'menuAction=htmlPublicMyDCL.show';
 
-		ob_end_clean();
+		if (ob_get_length())
+			ob_end_clean();
+
 		header("Location: main.php?$menuAction");
 		exit;
 	}

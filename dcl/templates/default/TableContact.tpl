@@ -154,19 +154,19 @@
 {if $checks}{assign var=colcount value=$colcount+1}
 	<form name="searchAction" method="post" action="{$URL_MAIN_PHP}"><input type="hidden" name="menuAction" value="" />{$VAL_VIEWSETTINGS}
 {/if}
-<table class="dcl_results{if $inline} inline{/if}">
-{if $caption ne ""}<caption>{$caption|escape}</caption>{/if}
+{if $caption ne ""}<h4>{$caption|escape}</h4>{/if}
+<table class="table table-striped{if $inline} inline{/if}">
 {strip}
 {section loop=$columns name=col}
 	{if $smarty.section.col.first}<thead>
 	{if $toolbar}
-	<tr class="toolbar"><th colspan="{$colcount}">
+	<tr class="toolbar"><td colspan="{$colcount}">
 	{section loop=$toolbar name=tb}
-	{if $smarty.section.tb.first}<ul>{/if}
-	<li{if $smarty.section.tb.first} class="first"{/if}><a {if (substr($toolbar[tb].link, 0, 11) == "javascript:")}href="#" onclick="{$toolbar[tb].link}"{else}href="{$URL_MAIN_PHP}?menuAction={$toolbar[tb].link}"{/if}>{$toolbar[tb].text|escape}</a></li>
-	{if $smarty.section.tb.last}</ul>{/if}
+	{if $smarty.section.tb.first}<div class="btn-group">{/if}
+	<a class="btn btn-default" {if (substr($toolbar[tb].link, 0, 11) == "javascript:")}href="#" onclick="{$toolbar[tb].link}"{else}href="{$URL_MAIN_PHP}?menuAction={$toolbar[tb].link}"{/if}>{$toolbar[tb].text|escape}</a>
+	{if $smarty.section.tb.last}</div>{/if}
 	{/section}
-	</th></tr>
+	</td></tr>
 	{/if}
 	<tr>{if $checks}<th>{if $groupcount == 0}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}</th>{/if}{if $rownum}<th></th>{/if}{/if}{if !in_array($smarty.section.col.index, $groups)}<th>{$columns[col].title|escape}</th>{/if}{if $smarty.section.col.last}</tr></thead>{/if}
 {/section}
@@ -202,7 +202,7 @@
 			{/section}
 		{/if}{/strip}
 	{/if}
-	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+	<tr>
 	{if $checks}{assign var=contactid value=$groupcount}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$contactid]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
 	{section loop=$records[row] name=item}{if !in_array($smarty.section.item.index, $groups)}<td class="{$columns[$smarty.section.item.index].type}">{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}{else}{if $columns[$smarty.section.item.index].title == $smarty.const.STR_CMMN_LASTNAME || $columns[$smarty.section.item.index].title == $smarty.const.STR_CMMN_FIRSTNAME}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$records[row][0]}">{$records[row][item]|escape}</a>{else}{$records[row][item]|escape}{/if}{/if}</td>{/if}{/section}

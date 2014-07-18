@@ -1,5 +1,7 @@
 {dcl_validator_init}
-<script language="JavaScript">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<script type="text/javascript">
 
 function validateAndSubmitForm(form)
 {
@@ -23,104 +25,98 @@ function validateAndSubmitForm(form)
 }
 
 </script>
-<form class="styled" name="submitForm" method="POST" action="{$URL_MAIN_PHP}">
+<form class="form-horizontal" name="submitForm" method="POST" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
 	{if $org_id}<input type="hidden" name="org_id" value="{$org_id}">{/if}
 	{if $hideMenu}<input type="hidden" name="hideMenu" value="{$hideMenu}">{/if}
 	{if $return_to}<input type="hidden" name="return_to" value="{$return_to|escape}">{/if}
 	<fieldset>
 		<legend>{$TXT_FUNCTION}</legend>
-		<div class="required">
-			<label for="name">{$smarty.const.STR_CMMN_NAME}:</label>
-			<input type="text" size="50" maxlength="50" name="name" value="{$VAL_NAME|escape}">
-		</div>
-		<div>
-			<label for="alias">Alias:</label>
-			<input type="text" name="alias" id="alias" size="50" maxlength="50" value="{$VAL_ALIAS|escape}">
-		</div>
-		<div>
-			<fieldset>
-				<legend>Type</legend>
-				<div>
-					{foreach item=typeItem key=typeItemID from=$orgTypes}
-						<span style="white-space: nowrap;"><label for="org_type_id_{$typeItemID}"><input type="checkbox" name="org_type_id[]" value="{$typeItemID}" id="org_type_id_{$typeItemID}"{if $typeItem.selected == "true"} checked{/if}> {$typeItem.desc}</label></span>
-					{/foreach}
-				</div>
-			</fieldset>
-		</div>
+		{dcl_form_control id=name controlsize=5 label=$smarty.const.STR_CMMN_NAME required=true}
+			<input class="form-control" type="text" maxlength="50" name="name" value="{$VAL_NAME|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=name controlsize=5 label="Alias"}
+			<input class="form-control" type="text" name="alias" id="alias" maxlength="50" value="{$VAL_ALIAS|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=org_type_id controlsize=10 label="Type"}
+			<select class="form-control" multiple name="org_type_id[]" id="org_type_id">
+				{foreach item=typeItem key=typeItemID from=$orgTypes}
+					<option value="{$typeItemID}"{if $typeItem.selected == "true"} selected{/if}>{$typeItem.desc|escape}</option>
+				{/foreach}
+			</select>
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
 		<legend>Primary Address</legend>
-		<div>
-			<label for="addr_type_id">Type:</label>
-			{$CMB_ADDRTYPE}
-		</div>
-		<div>
-			<label for="add1">Address:</label>
-			<input type="text" name="add1" id="add1" size="30" maxlength="50" value="{$VAL_ADD1|escape}">
-		</div>
-		<div>
-			<label for="add2">Address 2:</label>
-			<input type="text" name="add2" id="add2" size="30" maxlength="50" value="{$VAL_ADD2|escape}">
-		</div>
-		<div>
-			<label for="city">City:</label>
-			<input type="text" name="city" id="city" size="30" maxlength="50" value="{$VAL_CITY|escape}">
-		</div>
-		<div>
-			<label for="state">State:</label>
-			<input type="text" name="state" id="state" size="30" maxlength="30" value="{$VAL_STATE|escape}">
-		</div>
-		<div>
-			<label for="zip">Zip:</label>
-			<input type="text" name="zip" id="zip" size="20" maxlength="20" value="{$VAL_ZIP|escape}">
-		</div>
-		<div>
-			<label for="country">Country:</label>
-			<input type="text" name="country" id="country" size="30" maxlength="40" value="{$VAL_COUNTRY|escape}">
-		</div>
+		{dcl_form_control id=addr_type_id controlsize=4 label="Type"}
+		{$CMB_ADDRTYPE}
+		{/dcl_form_control}
+		{dcl_form_control id=add1 controlsize=5 label="Address"}
+			<input type="text" name="add2" id="add1" class="form-control" maxlength="50" value="{$VAL_ADD1|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=add1 controlsize=5 label="Address 2"}
+			<input type="text" name="add2" id="add2" class="form-control" maxlength="50" value="{$VAL_ADD2|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=city controlsize=5 label="City"}
+			<input type="text" name="city" id="city" class="form-control" maxlength="50" value="{$VAL_CITY|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=state controlsize=3 label="State"}
+			<input type="text" name="state" id="state" class="form-control" maxlength="30" value="{$VAL_STATE|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=zip controlsize=3 label="Zip"}
+			<input type="text" name="zip" id="zip" class="form-control" maxlength="20" value="{$VAL_ZIP|escape}">
+		{/dcl_form_control}
+		{dcl_form_control id=country controlsize=3 label="Country"}
+			<input type="text" name="country" id="country" class="form-control" maxlength="40" value="{$VAL_COUNTRY|escape}">
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
 		<legend>Primary Phone</legend>
-		<div>
-			<label for="phone_type_id">Type:</label>
-			{$CMB_PHONETYPE}
-		</div>
-		<div>
-			<label for="phone_number">Number:</label>
-			<input type="text" name="phone_number" id="phone_number" size="30" maxlength="30" value="{$VAL_PHONE|escape}">
-		</div>
+		{dcl_form_control id=phone_type_id controlsize=3 label="Type"}
+		{$CMB_PHONETYPE}
+		{/dcl_form_control}
+		{dcl_form_control id=phone_number controlsize=3 label="Number"}
+			<input type="text" name="phone_number" id="phone_number" class="form-control" maxlength="30" value="{$VAL_PHONE|escape}">
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
 		<legend>Primary Email</legend>
-		<div>
-			<label for="email_type_id">Type:</label>
-			{$CMB_EMAILTYPE}
-		</div>
-		<div>
-			<label for="email_addr">Address:</label>
-			<input type="text" name="email_addr" id="email_addr" size="30" maxlength="100" value="{$VAL_EMAIL|escape}">
-		</div>
+		{dcl_form_control id=email_type_id controlsize=3 label="Type"}
+		{$CMB_EMAILTYPE}
+		{/dcl_form_control}
+		{dcl_form_control id=email_addr controlsize=5 label="Address"}
+			<input type="text" name="email_addr" id="email_addr" class="form-control" maxlength="100" value="{$VAL_EMAIL|escape}">
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
 		<legend>Primary URL</legend>
-		<div>
-			<label for="url_type_id">Type:</label>
-			{$CMB_URLTYPE}
-		</div>
-		<div>
-			<label for="url_addr">URL:</label>
-			<input type="text" name="url_addr" id="url_addr" size="30" maxlength="150" value="{$VAL_URL|escape}">
-		</div>
+		{dcl_form_control id=url_type_id controlsize=3 label="Type"}
+		{$CMB_URLTYPE}
+		{/dcl_form_control}
+		{dcl_form_control id=url_addr controlsize=10 label="URL"}
+			<input type="text" name="url_addr" id="url_addr" class="form-control" maxlength="100" value="{$VAL_URL|escape}">
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_OK}">
-			<input type="button" onclick="location.href = '{$URL_BACK}';" value="{$smarty.const.STR_CMMN_CANCEL}">
+		<div class="row">
+			<div class="col-xs-offset-2">
+				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_OK|escape}">
+				<input class="btn btn-link" type="button" onclick="location.href = '{$URL_BACK}';" value="{$smarty.const.STR_CMMN_CANCEL|escape}">
+			</div>
 		</div>
 	</fieldset>
 </form>
-<script language="JavaScript">
-if (document.forms["submitForm"].elements["name"])
-	document.forms["submitForm"].elements["name"].focus();
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#name").focus();
+		$("#content").find("#org_type_id").select2({ minimumResultsForSearch: 10 });
+	});
+
+	function validateAndSubmit(f)
+	{
+		f.submit();
+	}
+
 </script>

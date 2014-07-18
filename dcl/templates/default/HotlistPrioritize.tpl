@@ -1,30 +1,28 @@
-{strip}<a class="left button" href="{$URL_MAIN_PHP}?menuAction=Hotlist.Prioritize&hotlist_id={$VAL_HOTLIST_ID}">Reload</a>
-<a class="middle button" id="select-all-closed" href="javascript:;">Remove All Closed</a>
-<a class="positive middle button" id="ItemSave" href="javascript:;">{$smarty.const.STR_CMMN_SAVE}</a>
-<a class="negative right button" href="{$URL_MAIN_PHP}?menuAction=htmlHotlistBrowse.show">{$smarty.const.STR_CMMN_CANCEL}</a>{/strip}
-<table width="100%" class="dcl_results">
-	<caption>Prioritize Hotlist [{$VAL_HOTLIST_NAME|escape}]</caption>
-</table>
+{strip}
+	<div class="btn-group">
+		<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Hotlist.Prioritize&hotlist_id={$VAL_HOTLIST_ID}">Reload</a>
+		<a class="btn btn-default" id="select-all-closed" href="javascript:;">Select All Closed</a>
+		<a class="btn btn-success" id="ItemSave" href="javascript:;">{$smarty.const.STR_CMMN_SAVE}</a>
+		<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlHotlistBrowse.show">Browse</a>
+		<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlHotlistProject.View&id={$VAL_HOTLIST_ID}">View as Project</a>
+	</div>
+{/strip}
+<h4>Prioritize Hotlist [{$VAL_HOTLIST_NAME|escape}]</h4>
 <style type="text/css">
-
-ol { padding: 0px; }
-ol li { display: block;	float: left; width: 140px; margin-right: 4px; margin-bottom: 4px; background-color: #efefef; border: solid #999999 1px; padding: 4px; cursor: move; }
-ol li.remove-item { background-color: #ffe6e6; }
-ol li h2 { float: left; text-decoration: none; border: 0px none; padding: 4px; color: #333333; margin: 0px; }
-ol li.remove-item h2 { color: #650000; }
-ol li p { border: solid #cecece 1px; height: 60px; background-color: #ffffff; text-overflow: ellipsis; overflow: hidden; margin: 0px; padding: 2px; }
-.clear-left { float: left; clear: left; }
-
+ol { padding: 0px; list-style-type: none; }
+ol li { margin-bottom: 4px; background-color: #efefef; border: solid #999999 1px; padding: 4px; cursor: move; }
+ol li input.item-index { width: 50px; }
+ol li span.item-description { border: solid #cecece 1px; background-color: #ffffff; margin: 0px; padding: 2px; }
 </style>
 <p>Drag and drop the items to define your priority order.</p>
 <ol id="item_list">
 {section loop=$items name=row}
 <li id="item_{$items[row][0]}_{$items[row][1]}{if $items[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}_{$items[row][2]}{/if}">
-	<h2><a class="move-top" href="javascript:;" title="Move to Top"><span class="ui-icon ui-icon-circle-triangle-n"></span></a><span class="clear-left item-index">{counter}</span><a class="remove-item" href="javascript:;" title="Remove"><span class="ui-icon ui-icon-circle-close"></span></a></h2>
-	<p><span class="status-type-{$items[row][11]}">{if $items[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}{$items[row][1]|escape}-{$items[row][2]|escape}
+	<input type="text" class="item-index" value="{counter}"> <a class="move-top" href="javascript:;" title="Move to Top"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="remove-item" href="javascript:;" title="Remove"><span class="glyphicon glyphicon-trash"></span></a></h2>
+	<span class="item-description"><span class="status-type-{$items[row][11]}">{if $items[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}<a href="{dcl_url_action controller=WorkOrder action=Detail params="jcn=`$items[row][1]`&seq=`$items[row][2]`"}">{$items[row][1]|escape}-{$items[row][2]|escape}</a>
 		{elseif $items[row][0] == $smarty.const.DCL_ENTITY_TICKET}{$items[row][1]|escape}
 		{/if} ({$items[row][6]|escape})</span>
-	    {$items[row][3]|escape}</p>
+	    {$items[row][3]|escape} <span class="hidden text-danger">{dcl_get_entity_hotlist entity=$items[row][0] key_id=$items[row][1] key_id2=$items[row][2] link=N}</span></span>
 </li>
 {/section}
 </ol>
@@ -35,8 +33,8 @@ ol li p { border: solid #cecece 1px; height: 60px; background-color: #ffffff; te
 $(document).ready(function() {
 	function updateIndexes() {
 		var index = 0;
-		$("#item_list li h2 span.item-index").each(function() {
-			$(this).text(++index);
+		$("#item_list").find("li input.item-index").each(function() {
+			$(this).val(++index);
 		});
 	}
 		
@@ -45,7 +43,7 @@ $(document).ready(function() {
 		var retVal = "menuAction=Hotlist.SavePriority&hotlist_id={$VAL_HOTLIST_ID}&" +
 			$("#item_list").sortable("serialize", { key: "item[]", expression: regEx });
 				
-		var $removeItems = $("#item_list li.remove-item");
+		var $removeItems = $("#item_list").find("li.remove-item");
 		if ($removeItems.length > 0) {
 			$removeItems.each(function() {
 				var match = regEx.exec($(this).attr("id"));
@@ -61,7 +59,7 @@ $(document).ready(function() {
 			updateIndexes();
 		}
 	});
-	$("#item_list").disableSelection();
+
 	$("#ItemSave").click(function() {
 		$.ajax({
 			type: 'POST',
@@ -76,26 +74,58 @@ $(document).ready(function() {
 			dataType: "json"
 		});
 	});
+
+	function moveItemToPosition($li, index) {
+		var $current = $("#item_list").find("li").eq(index);
+		if ($current.length > 0) {
+			$li.insertBefore($current);
+		}
+	}
 	
 	$("a.move-top").click(function() {
 		var $listItem = $(this).parents("li:first");
-		var $list = $listItem.parent();
-		var $newItem = $listItem.clone(true);
-		$listItem.fadeOut("fast", function() { 
-			$(this).remove(); 
-			$list.prepend($newItem.fadeIn("fast", function() {
-				updateIndexes();
-			}));
-		});
+		moveItemToPosition($listItem, 0);
+		updateIndexes();
+	});
+
+	$("input.item-index").on("blur", function() {
+		$(this).val($(this).parents("li:first").index() + 1);
+		$(this).removeClass("bg-warning");
+	});
+
+	$("input.item-index").keydown(function (e) {
+		if (e.keyCode == 13) {
+			e.preventDefault();
+			var targetIndex = parseInt($(this).val(), 10) - 1;
+			if (targetIndex > -1) {
+				moveItemToPosition($(this).parents("li:first"), targetIndex);
+			}
+
+			updateIndexes();
+			$(this).removeClass("bg-warning");
+			return;
+		}
+
+		if ($.inArray(e.keyCode, [46, 8, 9, 27, 110, 190]) !== -1 ||
+				(e.keyCode == 65 && e.ctrlKey === true) ||
+				(e.keyCode >= 35 && e.keyCode <= 39)) {
+			return;
+		}
+
+		if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+			e.preventDefault();
+		}
+
+		$(this).addClass("bg-warning");
 	});
 	
 	$("a.remove-item").click(function() {
 		var $list = $(this).parents("li:first");
-		$list.toggleClass("remove-item");
+		$list.toggleClass("remove-item bg-danger");
 	});
 		
 	$("a#select-all-closed").click(function() {
-		$("#item_list li:not(.remove-item) span.status-type-2").each(function() {
+		$("#item_list").find("li:not(.remove-item) span.status-type-2").each(function() {
 			$(this).parents("li:first").find("a.remove-item").click();
 		});
 	});

@@ -134,21 +134,21 @@ $(document).ready(function() {
 	<input type="hidden" name="menuAction" id="menuAction" value="" />
 	<input type="hidden" name="product" value="{$HID_PRODUCT}" />
 	{$VAL_VIEWSETTINGS}
-<table id="results" class="dcl_results{if $inline} inline{/if}"{if $width > 0} style="width:{$width};"{/if}>
-{if $caption ne ""}<caption{if $spacer} class="spacer"{/if}>{$caption|escape}</caption>{/if}
+	{if $caption ne ""}<h4>{$caption|escape}</h4>{/if}
+<table id="results" class="table table-striped{if $inline} inline{/if}"{if $width > 0} style="width:{$width};"{/if}>
 {strip}
 {section loop=$columns name=col}
 {if $columns[col].title == $smarty.const.STR_WO_ID}{assign var=wo_id value=$smarty.section.col.index}{/if}
 {if $columns[col].title == $smarty.const.STR_WO_SEQ}{assign var=seq value=$smarty.section.col.index}{/if}
 	{if $smarty.section.col.first}<thead>
 	{if $toolbar}
-	<tr class="toolbar"><th colspan="{$colcount}">
+	<tr><td colspan="{$colcount}">
 	{section loop=$toolbar name=tb}
-	{if $smarty.section.tb.first}<ul>{/if}
-	<li{if $smarty.section.tb.first} class="first"{/if}><a href="#" onclick="document.forms.searchAction.elements.menuAction.value='{$toolbar[tb].link}'; submitBatch();">{$toolbar[tb].text|escape}</a></li>
-	{if $smarty.section.tb.last}</ul>{/if}
+	{if $smarty.section.tb.first}<div class="btn-group">{/if}
+	<a class="btn btn-default" href="#" onclick="document.forms.searchAction.elements.menuAction.value='{$toolbar[tb].link}'; submitBatch();">{$toolbar[tb].text|escape}</a>
+	{if $smarty.section.tb.last}</div>{/if}
 	{/section}
-	</th></tr>
+	</td></tr>
 	{/if}
 	<tr>{if $checks}<th>{if $groupcount == 0}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}</th>{/if}{if $rownum}<th></th>{/if}{/if}{if !in_array($smarty.section.col.index, $groups)}<th>{$columns[col].title|escape}</th>{/if}{if $smarty.section.col.last}</tr></thead>{/if}
 {/section}
@@ -186,7 +186,7 @@ $(document).ready(function() {
 			{/section}
 		{/if}{/strip}
 	{/if}
-	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+	<tr>
 	{if $checks}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$wo_id_ordinal]}.{$records[row][$seq_ordinal]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
 	{strip}

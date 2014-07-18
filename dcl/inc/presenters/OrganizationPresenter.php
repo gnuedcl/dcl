@@ -104,6 +104,8 @@ class OrganizationPresenter
 		global $dcl_info, $g_oSec, $g_oSession;
 
 		commonHeader();
+		LoadStringResource('wo');
+		LoadStringResource('tck');
 
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_VIEW, $model->org_id);
 		if ($g_oSec->IsOrgUser() && !in_array($model->org_id, explode(',', $g_oSession->Value('member_of_orgs'))))

@@ -1,40 +1,43 @@
-<form method="POST" action="{$URL_MAIN_PHP}" name="frmWorkorders">
+<form class="form-inline" method="POST" action="{$URL_MAIN_PHP}" name="frmWorkorders">
 	<input type="hidden" name="menuAction" value="">
 	<input type="hidden" name="return_to" value="menuAction=Project.Detail">
 	<input type="hidden" name="project" value="{$VAL_PROJECTID}">
 	<input type="hidden" name="id" value="{$VAL_PROJECTID}">
-	<div class="dcl_filter">
-		<span><label for="wostatus">{$smarty.const.STR_PRJ_FILTERWOBYSTATUS}:</label> {dcl_select_status default=$VAL_FILTERSTATUS name=wostatus allowHideOrOnlyClosed=Y}</span>
-		<span><label for="woresponsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label> {dcl_select_personnel default=$VAL_FILTERRESPONSIBLE name=woresponsible project=$VAL_PROJECTID}</span>
-		<span><label for="wogroupby">Group By:</label> {html_options name=wogroupby options=$OPT_GROUPBY selected=$VAL_FILTERGROUPBY}</span>
-		<input type="button" value="{$smarty.const.STR_CMMN_FILTER}" onclick="this.form.elements['menuAction'].value='Project.Detail';this.form.submit();">
-		{if $VAL_PAGES > 1}
-			{strip}<div><ul>
-			{if $VAL_PAGE > 1}
-			<li class="first"><a href="#" onclick="forms.pager.jumptopage.value={$VAL_PAGE-1};forms.pager.submit();">&lt;&lt;</a></li>
-			{/if}
-			{if $VAL_PAGE > 5}{assign var=startpage value=$VAL_PAGE-5}{else}{assign var=startpage value=1}{/if}
-			{if $VAL_PAGE < ($VAL_PAGES-6)}{assign var=endpage value=$VAL_PAGE+6}{else}{assign var=endpage value=$VAL_PAGES+1}{/if}
-			{section name=iPage start=$startpage loop=$endpage step=1}
-			<li{if $smarty.section.iPage.first && $VAL_PAGE < 2} class="first"{/if}>{if $smarty.section.iPage.index == $VAL_PAGE}<strong>{$VAL_PAGE}</strong>{else}<a href="#" onclick="forms.pager.jumptopage.value={$smarty.section.iPage.index};forms.pager.submit();">{$smarty.section.iPage.index}</a>{/if}</li>
-			{/section}
-			{if $VAL_PAGE < $VAL_PAGES}
-			<li><a href="#" onclick="forms.pager.jumptopage.value={$VAL_PAGE+1};forms.pager.submit();">&gt;&gt;</a></li>
-			{/if}
-			</ul></div>{/strip}
-		{/if}
-	</div>
-	<table class="dcl_results"><caption>{$smarty.const.STR_PRJ_TASKLIST}</caption>
-		<thead>
-			<tr class="toolbar"><th colspan="17"><ul>
-				<li class="first"><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateTask&projectid={$VAL_PROJECTID}">{$smarty.const.STR_CMMN_NEW}</a></li>
-				{if count($VAL_TASKS) > 0}
-				<li><a href="javascript:forceSubmit('WorkOrder.BatchDetail');">Detail</a></li>
-				<li><a href="javascript:forceSubmit('boTimecards.batchadd');">Time Card</a></li>
-				<li><a href="javascript:forceSubmit('WorkOrder.BatchReassign');">Assign</a></li>
-				<li><a href="javascript:forceSubmit('Project.BatchMove');">Move</a></li>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<span><label for="wostatus">{$smarty.const.STR_PRJ_FILTERWOBYSTATUS}:</label> {dcl_select_status default=$VAL_FILTERSTATUS name=wostatus allowHideOrOnlyClosed=Y}</span>
+			<span><label for="woresponsible">{$smarty.const.STR_WO_RESPONSIBLE}:</label> {dcl_select_personnel default=$VAL_FILTERRESPONSIBLE name=woresponsible project=$VAL_PROJECTID}</span>
+			<span><label for="wogroupby">Group By:</label> {html_options class="form-control" name=wogroupby options=$OPT_GROUPBY selected=$VAL_FILTERGROUPBY}</span>
+			<input class="btn btn-default" type="button" value="{$smarty.const.STR_CMMN_FILTER}" onclick="this.form.elements['menuAction'].value='Project.Detail';this.form.submit();">
+			{if $VAL_PAGES > 1}
+				{strip}<div><ul>
+				{if $VAL_PAGE > 1}
+				<li class="first"><a href="#" onclick="forms.pager.jumptopage.value={$VAL_PAGE-1};forms.pager.submit();">&lt;&lt;</a></li>
 				{/if}
-			</ul></th></tr>
+				{if $VAL_PAGE > 5}{assign var=startpage value=$VAL_PAGE-5}{else}{assign var=startpage value=1}{/if}
+				{if $VAL_PAGE < ($VAL_PAGES-6)}{assign var=endpage value=$VAL_PAGE+6}{else}{assign var=endpage value=$VAL_PAGES+1}{/if}
+				{section name=iPage start=$startpage loop=$endpage step=1}
+				<li{if $smarty.section.iPage.first && $VAL_PAGE < 2} class="first"{/if}>{if $smarty.section.iPage.index == $VAL_PAGE}<strong>{$VAL_PAGE}</strong>{else}<a href="#" onclick="forms.pager.jumptopage.value={$smarty.section.iPage.index};forms.pager.submit();">{$smarty.section.iPage.index}</a>{/if}</li>
+				{/section}
+				{if $VAL_PAGE < $VAL_PAGES}
+				<li><a href="#" onclick="forms.pager.jumptopage.value={$VAL_PAGE+1};forms.pager.submit();">&gt;&gt;</a></li>
+				{/if}
+				</ul></div>{/strip}
+			{/if}
+		</div>
+	</div>
+	<h4>{$smarty.const.STR_PRJ_TASKLIST}</h4>
+	<table class="table table-striped">
+		<thead>
+			<tr><th colspan="17"><div class="btn-group">
+				<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=WorkOrder.CreateTask&projectid={$VAL_PROJECTID}">{$smarty.const.STR_CMMN_NEW}</a>
+				{if count($VAL_TASKS) > 0}
+				<a class="btn btn-default" href="javascript:forceSubmit('WorkOrder.BatchDetail');">Detail</a>
+				<a class="btn btn-default" href="javascript:forceSubmit('boTimecards.batchadd');">Time Card</a>
+				<a class="btn btn-default" href="javascript:forceSubmit('WorkOrder.BatchReassign');">Assign</a>
+				<a class="btn btn-default" href="javascript:forceSubmit('Project.BatchMove');">Move</a>
+				{/if}
+			</div></th></tr>
 			<tr><th>{if $VAL_FILTERGROUPBY == "none"}<input type="checkbox" name="group_check" onclick="javascript: toggleCheckGroup(this);">{/if}</th>
 			<th>{$smarty.const.STR_WO_JCN}</th>
 			<th>{$smarty.const.STR_WO_SEQ}</th>
@@ -86,7 +89,7 @@
 			{/if}
 		{/if}{/strip}
 	{/if}
-		<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+		<tr>
 			{assign var=woid value=$groupcount}
 			{assign var=seq value=$groupcount+1}
 			<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$VAL_TASKS[row].woid}.{$VAL_TASKS[row].seq}"></td>
@@ -96,7 +99,7 @@
 			<td class="string">{$VAL_TASKS[row].responsible|escape}</td>
 			<td class="string">{$VAL_TASKS[row].product|escape}</td>
 			<td class="string">{$VAL_TASKS[row].module|escape}</td>
-			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs}<a href="{$URL_MAIN_PHP}?menuAction=htmlWindowList.Main&what=dcl_wo_account.wo_id&wo_id={$VAL_TASKS[row].woid}&seq={$VAL_TASKS[row].seq}" class="dcl-lightbox"><img alt="Organizations for Work Order {$VAL_TASKS[row].woid}-{$VAL_TASKS[row].seq}" src="{$DIR_IMG}/jump-to-16.png" /></a>{/if}</td>
+			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs > 1} <a href="{$URL_MAIN_PHP}?menuAction=htmlWindowList.Main&what=dcl_wo_account.wo_id&wo_id={$VAL_TASKS[row].woid}&seq={$VAL_TASKS[row].seq}" class="dcl-lightbox"><span class="badge">{$VAL_TASKS[row].secorgs}</span></a>{/if}</td>
 			<td class="string">{$VAL_TASKS[row].status|escape}</td>
 			<td class="string">{$VAL_TASKS[row].deadline|escape}</td>
 			<td class="numeric">{$VAL_TASKS[row].hours}</td>

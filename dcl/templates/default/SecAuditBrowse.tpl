@@ -1,26 +1,31 @@
-{dcl_calendar_init}
-
-<form class="styled" name="searchForm" method="post" action="{$URL_MAIN_PHP}">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<form class="form-horizontal" name="searchForm" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="boSecAudit.ShowResults">
 	<fieldset>
-		<legend>{$smarty.const.STR_SEC_SECLOG}</legend>
-		<div>
-			<label for="bytype">{$smarty.const.STR_SEC_GENERATEREPORTFOR}:</label>
-			{$CMB_USERS}
-		</div>
+		<legend>{$smarty.const.STR_SEC_SECLOG|escape}</legend>
+		{dcl_form_control id=bytype controlsize=4 label=$smarty.const.STR_SEC_GENERATEREPORTFOR}
+		{$CMB_USERS}
+		{/dcl_form_control}
+		{dcl_form_control id=begindate controlsize=2 label=$smarty.const.STR_SEC_BEGIN required=true}
+		{dcl_input_date id=begindate value=$VAL_BEGINDATE}
+		{/dcl_form_control}
+		{dcl_form_control id=enddate controlsize=2 label=$smarty.const.STR_SEC_ENDING required=true}
+		{dcl_input_date id=enddate value=$VAL_ENDDATE}
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<legend>{$smarty.const.STR_SEC_DATERANGE}</legend>
-		<div>
-			<label for="begindate">{$smarty.const.STR_SEC_BEGIN}:</label>
-			{dcl_calendar name="begindate" value="$VAL_BEGINDATE"}
+		<div class="row">
+			<div class="col-sm-offset-2">
+				<input class="btn btn-primary" type="submit" value="{$smarty.const.STR_CMMN_GO|escape}">
+			</div>
 		</div>
-		<div>
-			<label for="enddate">{$smarty.const.STR_SEC_ENDING}:</label>
-			{dcl_calendar name="enddate" value="$VAL_ENDDATE"}
-		</div>
-	</fieldset>
-	<fieldset>
-		<div class="submit"><input type="submit" value="{$smarty.const.STR_CMMN_GO}"></div>
 	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("input[data-input-type=date]").datepicker();
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+	});
+</script>

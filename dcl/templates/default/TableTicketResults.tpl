@@ -1,11 +1,3 @@
-<script language="JavaScript">
-
-function submitBatch()
-{
-	document.forms.searchAction.submit();
-}
-
-</script>
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}
 {if $rownum}{assign var=colcount value=$colcount+1}{/if}
@@ -13,21 +5,19 @@ function submitBatch()
 <form name="searchAction" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="" />
 	{$VAL_VIEWSETTINGS}
-<table class="dcl_results{if $inline} inline{/if}"{if $width > 0} style="width:{$width};"{/if}>
-{if $caption ne ""}<caption{if $spacer} class="spacer"{/if}>{$caption|escape}</caption>{/if}
+{if $caption ne ""}<h4>{$caption|escape}</h4>{/if}
+<table class="table table-striped">
 {strip}
 {section loop=$columns name=col}
 {if $columns[col].title == $smarty.const.STR_WO_ID}{assign var=wo_id value=$smarty.section.col.index}{/if}
 {if $columns[col].title == $smarty.const.STR_WO_SEQ}{assign var=seq value=$smarty.section.col.index}{/if}
 	{if $smarty.section.col.first}<thead>
 	{if $toolbar}
-	<tr class="toolbar"><th colspan="{$colcount}">
+	<tr><th colspan="{$colcount}"><div class="btn-group">
 	{section loop=$toolbar name=tb}
-	{if $smarty.section.tb.first}<ul>{/if}
-	<li{if $smarty.section.tb.first} class="first"{/if}><a href="#" onclick="document.forms.searchAction.elements.menuAction.value='{$toolbar[tb].link}'; submitBatch();">{$toolbar[tb].text|escape}</a></li>
-	{if $smarty.section.tb.last}</ul>{/if}
+	<a class="btn btn-default" href="javascript:;" onclick="document.forms.searchAction.elements.menuAction.value='{$toolbar[tb].link}'; submitBatch();">{$toolbar[tb].text|escape}</a>
 	{/section}
-	</th></tr>
+	</div></th></tr>
 	{/if}
 	<tr>{if $checks}<th>{if $groupcount == 0}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}</th>{/if}{if $rownum}<th></th>{/if}{/if}{if !in_array($smarty.section.col.index, $groups)}<th>{$columns[col].title|escape}</th>{/if}{if $smarty.section.col.last}</tr></thead>{/if}
 {/section}
@@ -65,7 +55,7 @@ function submitBatch()
 			{/section}
 		{/if}{/strip}
 	{/if}
-	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+	<tr>
 	{if $checks}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$groupcount]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
 	{strip}
@@ -86,3 +76,9 @@ function submitBatch()
 {/section}
 </table>
 </form>
+<script type="text/javascript">
+	function submitBatch()
+	{
+		document.forms.searchAction.submit();
+	}
+</script>

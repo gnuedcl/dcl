@@ -20,6 +20,8 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
+LoadStringResource('wo');
+
 class HotlistPresenter
 {
 	public function Cloud(HotlistModel $model)

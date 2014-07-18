@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -112,13 +112,13 @@ class htmlSearchBox
 		}
 
 		$this->oView->AddDef('columns', '',
-			array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'eststarton', 'deadlineon',
+			array('jcn', 'seq', 'responsible.short', 'products.name', 'dcl_product_module.module_name', 'statuses.name', 'eststarton', 'deadlineon',
 				'etchours', 'totalhours', 'dcl_tag.tag_desc', 'summary'));
 
 		$this->oView->AddDef('order', '', array('jcn', 'seq'));
 
 		$this->oView->AddDef('columnhdrs', '',
-			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
+			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT, STR_CMMN_MODULE,
 				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_CMMN_TAGS, STR_WO_SUMMARY));
 
 		$presenter = new WorkOrderPresenter();
@@ -152,13 +152,13 @@ class htmlSearchBox
 		    $this->oView->AddDef('filternot', 'statuses.dcl_status_type', '2');
 
 		$this->oView->AddDef('columns', '',
-			array('jcn', 'seq', 'responsible.short', 'products.name', 'statuses.name', 'eststarton', 'deadlineon',
+			array('jcn', 'seq', 'responsible.short', 'products.name', 'dcl_product_module.module_name', 'statuses.name', 'eststarton', 'deadlineon',
 				'etchours', 'totalhours', 'dcl_tag.tag_desc', 'summary'));
 
 		$this->oView->AddDef('order', '', array('jcn', 'seq'));
 
 		$this->oView->AddDef('columnhdrs', '',
-			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT,
+			array(STR_WO_JCN, STR_WO_SEQ, STR_WO_RESPONSIBLE, STR_WO_PRODUCT, STR_CMMN_MODULE,
 				STR_WO_STATUS, STR_WO_ESTSTART, STR_WO_DEADLINE, STR_WO_ETCHOURS, STR_WO_ACTHOURS, STR_CMMN_TAGS, STR_WO_SUMMARY));
 
 		$presenter = new WorkOrderPresenter();
@@ -203,12 +203,12 @@ class htmlSearchBox
 		    $this->oView->AddDef('filternot', 'statuses.dcl_status_type', '2');
 
 		$this->oView->AddDef('columns', '',
-			array('ticketid', 'responsible.short', 'products.name', 'dcl_org.name', 'statuses.name', 'dcl_contact.last_name', 'dcl_contact.first_name', 'dcl_contact_phone.phone_number', 'dcl_tag.tag_desc', 'summary'));
+			array('ticketid', 'responsible.short', 'products.name', 'dcl_product_module.module_name', 'dcl_org.name', 'statuses.name', 'dcl_contact.last_name', 'dcl_contact.first_name', 'dcl_contact_phone.phone_number', 'dcl_tag.tag_desc', 'summary'));
 
 		$this->oView->AddDef('order', '', array('ticketid'));
 
 		$this->oView->AddDef('columnhdrs', '',
-			array(STR_TCK_TICKET, STR_TCK_RESPONSIBLE, STR_TCK_PRODUCT,
+			array(STR_TCK_TICKET, STR_TCK_RESPONSIBLE, STR_TCK_PRODUCT, STR_CMMN_MODULE,
 				STR_TCK_ACCOUNT, STR_TCK_STATUS, 'Last Name', 'First Name', STR_TCK_CONTACTPHONE, STR_CMMN_TAGS, STR_TCK_SUMMARY));
 
 		$objHV = new htmlTicketResults();

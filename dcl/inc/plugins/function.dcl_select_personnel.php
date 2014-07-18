@@ -94,6 +94,7 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 	$oSelect->Size = $params['size'];
 	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->SetFromQuery($sSQL);
+	$oSelect->CssClass = 'form-control';
 
 	return $oSelect->GetHTML();
 }

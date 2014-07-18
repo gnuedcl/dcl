@@ -57,7 +57,7 @@ class ConfigurationHtmlHelper
 
 	private function Select($sName, $aOptions, $sDefault)
 	{
-		$retVal = '<select name="' . $sName . '">';
+		$retVal = '<select class="form-control" name="' . $sName . '">';
 
 		if (is_array($aOptions))
 		{

@@ -72,3 +72,4 @@ DCL_LOGIN_MESSAGE	dcl_config_varchar					Welcome to GNUe DCL
 DCL_SEC_AUDIT_ENABLED	dcl_config_varchar					N
 DCL_SEC_AUDIT_LOGIN_ONLY	dcl_config_varchar					N
 DCL_FORCE_SECURE_GRAVATAR	dcl_config_varchar					N
+DCL_FORCE_SECURE_COOKIE	dcl_config_varchar					N

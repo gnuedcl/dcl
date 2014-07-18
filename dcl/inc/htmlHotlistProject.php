@@ -197,7 +197,7 @@ class htmlHotlistProject
 							'deadline' => $oDate->ToDisplay(),
 							'plusminus' => sprintf('%s%0.2f (%s%0.2f%%)', $sign, abs($ouHours), $sign, abs($ouPct)),
 							'pctcomplete' => sprintf("%0.2f%%", $fPctComplete),
-							'secorgs' => ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' && $allRecs[$i][15] > 1),
+							'secorgs' => ($dcl_info['DCL_WO_SECONDARY_ACCOUNTS_ENABLED'] == 'Y' ? $allRecs[$i][15] : 0),
 							'sort' => ($allRecs[$i][14] != 999999 ? $allRecs[$i][14] : '?')
 						);
 				}

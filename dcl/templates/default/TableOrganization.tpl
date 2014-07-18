@@ -113,17 +113,15 @@
 {if $checks}{assign var=colcount value=$colcount+1}
 	<form name="searchAction" method="post" action="{$URL_MAIN_PHP}"><input type="hidden" name="menuAction" value="" />{$VAL_VIEWSETTINGS}
 {/if}
-<table class="dcl_results{if $inline} inline{/if}">
-{if $caption ne ""}<caption>{$caption|escape}</caption>{/if}
+{if $caption ne ""}<h4>{$caption|escape}</h4>{/if}
+<table class="table table-striped">
 {strip}
 {section loop=$columns name=col}
 	{if $smarty.section.col.first}<thead>
 	{if $toolbar}
 	<tr class="toolbar"><th colspan="{$colcount}">
 	{section loop=$toolbar name=tb}
-	{if $smarty.section.tb.first}<ul>{/if}
-	<li{if $smarty.section.tb.first} class="first"{/if}><a href="{$URL_MAIN_PHP}?menuAction={$toolbar[tb].link}">{$toolbar[tb].text|escape}</a></li>
-	{if $smarty.section.tb.last}</ul>{/if}
+	<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction={$toolbar[tb].link}">{$toolbar[tb].text|escape}</a>
 	{/section}
 	</th></tr>
 	{/if}
@@ -161,7 +159,7 @@
 			{/section}
 		{/if}{/strip}
 	{/if}
-	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+	<tr>
 	{if $checks}{assign var=ticketid value=$groupcount}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$ticketid]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
 	{section loop=$records[row] name=item}{if !in_array($smarty.section.item.index, $groups)}<td class="{$columns[$smarty.section.item.index].type}">{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}{else}{if $columns[$smarty.section.item.index].title == $smarty.const.STR_CMMN_NAME}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$records[row][0]}">{$records[row][item]|escape}</a>{else}{$records[row][item]|escape}{/if}{/if}</td>{/if}{/section}

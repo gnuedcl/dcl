@@ -22,6 +22,7 @@
 
 LoadStringResource('bo');
 LoadStringResource('prj');
+LoadStringResource('pm');
 
 class ProjectPresenter
 {

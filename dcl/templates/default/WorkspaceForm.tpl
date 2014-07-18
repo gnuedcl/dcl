@@ -1,58 +1,54 @@
 {dcl_validator_init}
-{dcl_selector_init}
-<script language="JavaScript">
-function validateAndSubmitForm(form)
-
-{
-
-	var aValidators = new Array(
-			new ValidatorString(form.elements["name"], "{$smarty.const.STR_CMMN_NAME}")
-		);
-
-	for (var i in aValidators)
-	{
-		if (!aValidators[i].isValid())
-		{
-			alert(aValidators[i].getError());
-			if (typeof(aValidators[i]._Element.focus) == "function")
-				aValidators[i]._Element.focus();
-			return;
-		}
-	}
-
-	form.submit();
-}
-
-</script>
-<form class="styled" method="post" action="{$URL_MAIN_PHP}">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+<form class="form-horizontal" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$menuAction}">
 	{if $VAL_ID}<input type="hidden" name="workspace_id" value="{$VAL_ID}">{/if}
 	<fieldset>
-		<legend>{$VAL_TITLE}</legend>
-		<div class="required">
-			<label for="name">{$smarty.const.STR_CMMN_NAME}:</label>
-			<input type="text" size="50" maxlength="50" id="workspace_name" name="workspace_name" value="{$VAL_NAME|escape}">
-		</div>
-		<div class="required">
-			<label for="active">{$smarty.const.STR_CMMN_ACTIVE}:</label>
+		<legend>{$VAL_TITLE|escape}</legend>
+		{dcl_form_control id=active controlsize=10 label=$smarty.const.STR_CMMN_ACTIVE required=false}
 			<input type="checkbox" id="active" name="active" value="Y"{if $VAL_ACTIVE == 'Y'} checked{/if}>
-		</div>
+		{/dcl_form_control}
+		{dcl_form_control id=workspace_name controlsize=10 label=$smarty.const.STR_CMMN_NAME required=true}
+		{dcl_input_text id=workspace_name maxlength=50 value=$VAL_NAME}
+		{/dcl_form_control}
+		{dcl_form_control id=products controlsize=10 label="Products" required=false help="When a user switches to this workspace, all views will be limited to the products listed here."}
+		{dcl_select_product name="products" default=$VAL_PRODUCTS size=8}
+		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
-		<legend>Products</legend>
-		<div class="help">When a user switches to this workspace, all views will be limited to the products listed here.</div>
-		<div>
-			<label for="products">Products:</label>
-			{dcl_selector_product name="products" value="$VAL_PRODUCTS" decoded="$VAL_PRODUCTNAMES" multiple="Y"}
-		</div>
-		<div class="noinput">
-			<div id="div_products" style="width: 100%;"><script language="JavaScript">render_a_products();</script></div>
-		</div>
-	</fieldset>
-	<fieldset>
-		<div class="submit">
-			<input type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
-			<input type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=htmlWorkspaceBrowse.show';" value="{$smarty.const.STR_CMMN_CANCEL}">
+		<div class="row">
+			<div class="col-sm-offset-2">
+				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input class="btn btn-link" type="button" onclick="location.href = '{$URL_MAIN_PHP}?menuAction=htmlWorkspaceBrowse.show';" value="{$smarty.const.STR_CMMN_CANCEL}">
+			</div>
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#workspace_name").focus();
+		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+	});
+
+	function validateAndSubmitForm(form)
+	{
+		var aValidators = new Array(
+				new ValidatorString(form.elements["name"], "{$smarty.const.STR_CMMN_NAME}")
+		);
+
+		for (var i in aValidators)
+		{
+			if (!aValidators[i].isValid())
+			{
+				alert(aValidators[i].getError());
+				if (typeof(aValidators[i]._Element.focus) == "function")
+					aValidators[i]._Element.focus();
+				return;
+			}
+		}
+
+		form.submit();
+	}
+</script>

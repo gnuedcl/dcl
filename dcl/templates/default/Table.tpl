@@ -2,19 +2,19 @@
 {assign var=colcount value=$columns|@count}
 {if $rownum}{assign var=colcount value=$colcount+1}{/if}
 {if $checks}{assign var=colcount value=$colcount+1}{/if}
-<table class="dcl_results{if $inline} inline{/if}"{if $width > 0} style="width:{$width};"{/if}>
-{if $caption ne ""}<caption{if $spacer} class="spacer"{/if}>{$caption|escape}</caption>{/if}
+{if $caption ne ""}<h4>{$caption|escape}</h4>{/if}
+<table class="table table-striped{if $inline} inline{/if}"{if $width > 0} style="width:{$width};"{/if}>
 {strip}
 {section loop=$columns name=col}
 	{if $smarty.section.col.first}<thead>
 	{if $toolbar}
-	<tr class="toolbar"><th colspan="{$colcount}">
+	<tr><td colspan="{$colcount}">
 	{section loop=$toolbar name=tb}
-	{if $smarty.section.tb.first}<ul>{/if}
-	<li{if $smarty.section.tb.first} class="first"{/if}><a href="{$toolbar[tb].link}">{$toolbar[tb].text|escape}</a></li>
-	{if $smarty.section.tb.last}</ul>{/if}
+	{if $smarty.section.tb.first}<div class="btn-group">{/if}
+	<a class="btn btn-default" href="{$toolbar[tb].link}">{$toolbar[tb].text|escape}</a>
+	{if $smarty.section.tb.last}</div>{/if}
 	{/section}
-	</th></tr>
+	</td></tr>
 	{/if}
 	<tr>{if $checks}<th>{if $groupcount == 0}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}</th>{/if}{if $rownum}<th></th>{/if}{/if}{if !in_array($smarty.section.col.index, $groups)}<th>{$columns[col].title|escape}</th>{/if}{if $smarty.section.col.last}</tr></thead>{/if}
 {/section}
@@ -44,7 +44,7 @@
 			</tbody><tbody>
 			{section loop=$groups name=group}
 				{assign var=groupcol value=$groups[group]}
-				{if $smarty.section.group.first}<tr class="group"><td colspan="{$colcount}">
+				{if $smarty.section.group.first}<tr><td colspan="{$colcount}">
 					{if $checks}<input type="checkbox" name="group_check" onclick="javascript: toggle(this);">{/if}
 				{/if}
 				{$columns[$groupcol].title|escape}&nbsp;[&nbsp;{$records[row][$groupcol]|escape}&nbsp;]&nbsp;
@@ -52,7 +52,7 @@
 			{/section}
 		{/if}{/strip}
 	{/if}
-	<tr{if $smarty.section.row.iteration is even} class="even"{/if}>
+	<tr>
 	{if $checks}<td class="rowcheck"><input type="checkbox" name="selected[]" value="{$records[row][$groupcount]}"></td>{/if}
 	{if $rownum}<td class="rownum">{$smarty.section.row.iteration}</td>{/if}
 	{section loop=$records[row] name=item}{if !in_array($smarty.section.item.index, $groups)}<td class="{$columns[$smarty.section.item.index].type}">{if $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}{else}{$records[row][item]|escape}{/if}</td>{/if}{/section}
