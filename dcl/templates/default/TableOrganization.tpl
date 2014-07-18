@@ -75,7 +75,7 @@
 		<input type="hidden" id="startrow" name="startrow" value="{$VAL_FILTERSTARTROW}" />
 		<input type="hidden" id="numrows" name="numrows" value="{$VAL_FILTERNUMROWS}" />
 		<input type="hidden" id="jumptopage" name="jumptopage" value="{$VAL_PAGE}" />
-		<input type="hidden" id="filterStartsWith" name="filterStartsWith" value="{$VAL_FILTERSTART}" />
+		<input type="hidden" id="filterStartsWith" name="filterStartsWith" value="{$VAL_FILTERSTART|escape}" />
 		<span>
 			<label><input type="radio" name="filterActive" id="filterActiveA" onclick="selectActive('');" value=""{if ($VAL_FILTERACTIVE == "" )} checked="checked"{/if}>&nbsp;{$smarty.const.STR_CMMN_ALL}</label>
 			<label><input type="radio" name="filterActive" id="filterActiveY" onclick="selectActive('Y');" value="Y"{if ($VAL_FILTERACTIVE == "Y" )} checked="checked"{/if}>&nbsp;{$smarty.const.STR_CMMN_YES}</label>
