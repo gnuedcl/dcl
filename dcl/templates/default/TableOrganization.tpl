@@ -1,6 +1,6 @@
 <script language="JavaScript">
-	var sStartsWith = '{$VAL_FILTERSTART}';
-	var sActiveFilter = '{$VAL_FILTERACTIVE}';
+	var sStartsWith = '{$VAL_FILTERSTART|escape:"javascript"}';
+	var sActiveFilter = '{$VAL_FILTERACTIVE|escape:"javascript"}';
 
 	var oLastButton = null;
 
@@ -71,7 +71,7 @@
 <div class="dcl_filter">
 	<form name="pager" method="post" action="{$URL_MAIN_PHP}">
 		{$VAL_VIEWSETTINGS}
-		<input type="hidden" id="menuAction" name="menuAction" value="{$VAL_FILTERMENUACTION}" />
+		<input type="hidden" id="menuAction" name="menuAction" value="{$VAL_FILTERMENUACTION|escape}" />
 		<input type="hidden" id="startrow" name="startrow" value="{$VAL_FILTERSTARTROW}" />
 		<input type="hidden" id="numrows" name="numrows" value="{$VAL_FILTERNUMROWS}" />
 		<input type="hidden" id="jumptopage" name="jumptopage" value="{$VAL_PAGE}" />
@@ -81,7 +81,7 @@
 			<label><input type="radio" name="filterActive" id="filterActiveY" onclick="selectActive('Y');" value="Y"{if ($VAL_FILTERACTIVE == "Y" )} checked="checked"{/if}>&nbsp;{$smarty.const.STR_CMMN_YES}</label>
 			<label><input type="radio" name="filterActive" id="filterActiveN" onclick="selectActive('N');" value="N"{if ($VAL_FILTERACTIVE == "N" )} checked="checked"{/if}>&nbsp;{$smarty.const.STR_CMMN_NO}</label>
 			&nbsp;|&nbsp;
-			<input type="text" size="12" name="filterSearch" id="filterSearch" value="{$VAL_FILTERSEARCH}">
+			<input type="text" size="12" name="filterSearch" id="filterSearch" value="{$VAL_FILTERSEARCH|escape}">
 			&nbsp;|&nbsp;
 			<input type="submit" name="filter" value="Filter">
 		</span>
