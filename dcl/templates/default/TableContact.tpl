@@ -1,6 +1,6 @@
 <script language="JavaScript">
-	var sStartsWith = '{$VAL_FILTERSTART}';
-	var sActiveFilter = '{$VAL_FILTERACTIVE}';
+	var sStartsWith = '{$VAL_FILTERSTART|escape:"javascript"}';
+	var sActiveFilter = '{$VAL_FILTERACTIVE|escape:"javascript"}';
 
 	var oLastButton = null;
 

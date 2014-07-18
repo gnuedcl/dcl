@@ -124,8 +124,6 @@ class htmlContactBrowse
 		$oTable->assign('VAL_VIEWSETTINGS', $this->oView->GetForm());
 
 		$filterActive = Filter::ToYN($_REQUEST['filterActive']);
-		if ($filterActive == 'Y' || $filterActive == 'N')
-			$filterActive = $_REQUEST['filterActive'];
 
 		$filterStartsWith = '';
 		if (IsSet($_REQUEST['filterStartsWith']))
