@@ -302,7 +302,7 @@ class htmlMetricsWorkOrders
 		if (IsPublicUser())
 			$sSQL .= ', products p';
 
-		$sSQL .= ' WHERE w.priority = p.id ';
+		$sSQL .= ' WHERE w.priority = pr.id ';
 		if (isset($_REQUEST['products']))
 		{
 			$aProducts = Filter::ToIntArray($_REQUEST['products']);
