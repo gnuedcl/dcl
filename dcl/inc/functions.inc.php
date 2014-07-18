@@ -341,6 +341,9 @@ function GetPrefLang()
 			$lang = 'en';
 	}
 
+	if (!in_array($lang, array('en', 'de', 'es', 'fr', 'it', 'ru', 'sl', 'sv')))
+		$lang = 'en';
+
 	return $lang;
 }
 
