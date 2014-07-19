@@ -364,7 +364,38 @@ function LoadSchema($sTableName)
 function Invoke($sClassMethod)
 {
 	global $dcl_info, $menuAction;
+
+	if (!is_string($sClassMethod))
+	{
+		ShowError('Invalid request.');
+		return;
+	}
+
+	$aClassMethod = explode('.', $sClassMethod);
+	if (count($aClassMethod) != 2)
+	{
+		ShowError('Invalid request.');
+		return;
+	}
 	
+	list($class, $method) = explode(".", $sClassMethod);
+	if (!class_exists($class))
+	{
+		$class .= 'Controller';
+		if (!class_exists($class))
+		{
+			ShowError('Invalid request.');
+			return;
+		}
+	}
+
+	$obj = new $class();
+	if (!method_exists($obj, $method))
+	{
+		ShowError('Invalid request.');
+		return;
+	}
+
 	if ($dcl_info['DCL_SEC_AUDIT_ENABLED']=='Y' && $dcl_info['DCL_SEC_AUDIT_LOGIN_ONLY'] == 'N')
 	{
 		$oSecAuditDB = new SecurityAuditModel();
@@ -384,33 +415,13 @@ function Invoke($sClassMethod)
 			}
 		}
 
-        $oSecAuditDB->id = DCLID;
-        $oSecAuditDB->actionon = DCL_NOW;
-        $oSecAuditDB->actiontxt = $menuAction;
-        $oSecAuditDB->actionparam = $values;
-        $oSecAuditDB->Add();
-
+		$oSecAuditDB->id = DCLID;
+		$oSecAuditDB->actionon = DCL_NOW;
+		$oSecAuditDB->actiontxt = $menuAction;
+		$oSecAuditDB->actionparam = $values;
 		$oSecAuditDB->Add();
 	}
 
-	list($class, $method) = explode(".", $sClassMethod);
-	if (!class_exists($class))
-	{
-		$class .= 'Controller';
-		if (!class_exists($class))
-		{
-			ShowError('Invalid request.');
-			return;
-		}
-	}
-
-	$obj = new $class();
-	if (!method_exists($obj, $method))
-	{
-		ShowError('Invalid request.');
-		return;
-	}
-	
 	$obj->$method();
 }
 
