@@ -78,7 +78,7 @@ class htmlTags
 			throw new PermissionDeniedException();
 		}
 		
-		if (!isset($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')
+		if (!isset($_REQUEST['tag']) || !is_string($_REQUEST['tag']) || trim($_REQUEST['tag']) == '')
 			return $this->cloud();
 			
 		$oDB = new EntityTagModel();
