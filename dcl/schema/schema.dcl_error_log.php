@@ -40,3 +40,7 @@ $GLOBALS['phpgw_baseline']['dcl_error_log'] = array(
 	'ix' => array(),
 	'uc' => array()
 );
+
+$GLOBALS['phpgw_baseline']['dcl_error_log']['joins'] = array(
+	'personnel' => 'dcl_error_log.user_id=personnel.id'
+);

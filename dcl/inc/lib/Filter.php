@@ -24,7 +24,7 @@ abstract class Filter
 {
     public static function ToSqlName($vValue)
     {
-        if (preg_match('/^[a-z][_a-z0-9]+(\.[_a-z0-9]+)?$/i', $vValue))
+        if (preg_match('/^[a-z][_a-z0-9]*(\.[_a-z0-9]+)?$/i', $vValue))
             return ($vValue);
 
         return null;

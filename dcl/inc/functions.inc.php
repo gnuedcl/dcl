@@ -82,6 +82,7 @@ define('DCL_ENTITY_WORKSPACE', 41);
 define('DCL_ENTITY_TEST_CASE', 42);
 define('DCL_ENTITY_FUNCTIONAL_SPEC', 43);
 define('DCL_ENTITY_HOTLIST', 44);
+define('DCL_ENTITY_ERRORLOG', 45);
 
 // Permissions
 define('DCL_PERM_ADMIN', 0);
@@ -824,7 +825,12 @@ function DclExceptionHandler(Exception $ex)
 {
 	global $g_oPage;
 
-	LogError($ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
+	// InvalidDataException will not be logged since it can generate too many entries under vulnerability scanning
+	// Normal application use should not encounter this exception (unless there's a bug!)
+	if (!($ex instanceof InvalidDataException))
+		LogError($ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
+	else
+		ShowError('An error occurred when processing your request due to invalid data.');
 
 	if (is_object($g_oPage))
 		$g_oPage->EndPage();

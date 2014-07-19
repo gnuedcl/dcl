@@ -41,6 +41,9 @@ class DclAdminMenuHelper
 		if (HasPermission(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
 			$menuItem->Add(new DclMenuItem(DCL_MENU_SEC_AUDITING, UrlAction('boSecAudit', 'Show')));
 
+		if (HasPermission(DCL_ENTITY_ERRORLOG, DCL_PERM_VIEW))
+			$menuItem->Add(new DclMenuItem('Error Log', UrlAction('ErrorLog', 'Index')));
+
 		return $menuItem;
 	}
 }

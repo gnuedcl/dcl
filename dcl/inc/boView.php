@@ -343,7 +343,7 @@ class boView
 				while (list($key, $field) = each($allFilters))
 				{
 					$field = $this->FixName($field);
-					
+
 					// Get how many are in there
 					list($key, $numValues) = each($allFilters);
 					for ($i = 0; $i < $numValues; $i++)
@@ -777,9 +777,49 @@ class boView
 		}
 	}
 
+	private function RequireValidCriteriaForMember(array &$member)
+	{
+		foreach ($member as $key => $field)
+		{
+			// If field is an array, then it contains values - $key is our real field
+			$bIsValues = is_array($field);
+			if ($bIsValues)
+				$field = $key;
+
+			// Valid for aliases or order by clause
+			$spaceIndex = strpos($field, ' ');
+			if ($spaceIndex > -1)
+			{
+				$field = trim(substr($field, $spaceIndex));
+
+				// Make sure there are no others, though
+				$aliasOrSortOrder = trim(substr($field, $spaceIndex + 1));
+				if (strpos($aliasOrSortOrder, ' ') > -1)
+					throw new InvalidDataException();
+			}
+
+			Filter::RequireSqlName($field);
+		}
+	}
+
+	private function RequireValidCriteria()
+	{
+		Filter::RequireSqlName($this->table);
+
+		$this->RequireValidCriteriaForMember($this->columns);
+		$this->RequireValidCriteriaForMember($this->order);
+		$this->RequireValidCriteriaForMember($this->groups);
+		$this->RequireValidCriteriaForMember($this->filter);
+		$this->RequireValidCriteriaForMember($this->filternot);
+		$this->RequireValidCriteriaForMember($this->filterlike);
+		$this->RequireValidCriteriaForMember($this->filterdate);
+	}
+
 	function GetSQL($bCount = false)
 	{
-		global $dcl_domain, $dcl_domain_info, $dcl_info, $g_oSec, $g_oSession;
+		global $dcl_info, $g_oSec, $g_oSession;
+
+		$this->RequireValidCriteria();
 
 		$this->joins = array();
 		$this->AppendJoins($this->order);

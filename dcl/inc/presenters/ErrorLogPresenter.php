@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2011 Free Software Foundation
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,30 +20,13 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-class SessionController
+class ErrorLogPresenter
 {
-	public function Kill()
-	{
-		global $g_oSession;
-
-		RequirePost();
-		RequirePermission(DCL_ENTITY_SESSION, DCL_PERM_DELETE);
-		if ($_REQUEST['session_id'] == $g_oSession->dcl_session_id)
-			throw new PermissionDeniedException();
-
-		$model = new SessionModel();
-		$model->dcl_session_id = $_REQUEST['session_id'];
-		$model->Delete();
-
-		SetRedirectMessage('Success', 'Session deleted.');
-		RedirectToAction('Session', 'Index');
-	}
-
 	public function Index()
 	{
-		RequirePermission(DCL_ENTITY_SESSION, DCL_PERM_VIEW);
+		commonHeader();
 
-		$presenter = new SessionPresenter();
-		$presenter->Index();
+		$smartyHelper = new SmartyHelper();
+		$smartyHelper->Render('ErrorLog.tpl');
 	}
 }

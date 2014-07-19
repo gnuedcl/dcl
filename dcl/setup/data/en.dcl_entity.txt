@@ -44,3 +44,4 @@ entity_id	entity_desc	active
 42	Test Case	Y
 43	Functional Spec	Y
 44	Hotlist	Y
+45	Error Log	Y
