@@ -80,7 +80,7 @@
 		{/if}
 		{if $PERM_MODIFYWORKORDER && $VAL_MULTIORG && !$PERM_ISPUBLIC}
 			{dcl_form_control id=secaccounts controlsize=10 label=$smarty.const.STR_CMMN_ORGANIZATION}
-			{dcl_selector_org name="secaccounts" value="$VAL_ORGID" decoded="$VAL_ORGNAME" multiple="$VAL_MULTIORG"}
+			{dcl_selector_org name=secaccounts value=$VAL_ORGID decoded=$VAL_ORGNAME multiple=$VAL_MULTIORG}
 				<div class="noinput">
 					<div id="div_secaccounts""></div>
 				</div>
