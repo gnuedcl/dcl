@@ -24,16 +24,7 @@ class SecurityHelper
 {
 	function ValidateMenuAction()
 	{
-		$menuAction = $_REQUEST['menuAction'];
-
-		// public user URLs should all start with htmlPublic for now...
-		//if ($this->IsPublicUser())
-		//{
-		//	return (substr($menuAction, 0, 10) == 'htmlPublic');
-		//}
-
-		// short out attempt to access db layer directly
-		return (substr($menuAction, 0, 2) != 'db');
+		return true;
 	}
 
 	function IsPublicUser()
