@@ -11,7 +11,7 @@
 	define('STR_FAQ_CREATEDBY', "Izdelal");
 	define('STR_FAQ_MODIFIEDON', "Spremenjen");
 	define('STR_FAQ_MODIFIEDBY', "Spremenil");
-	define('STR_FAQ_OPTIONS', "MoÃ?Â¾nosti");
+	define('STR_FAQ_OPTIONS', "Options");
 	define('STR_FAQ_ORDEREDBY', "FAQi");
 	define('STR_FAQ_NOTFOUND', "Ni nobenega FAQ v DCL!");
 	define('STR_FAQ_NOOBJECT', "A FAQ object was not passed to ShowFAQ!");
@@ -29,13 +29,12 @@
 	define('STR_FAQ_ADDFAQANSWER', "Dodaj FAQ odgovor");
 	define('STR_FAQ_ANSWER', "Odogovr");
 	define('STR_FAQ_ANSWERS', "Odogovori");
-	define('STR_FAQ_EDITFAQQUESTION', "Popravi FAQ vpraÃ?Â¹anje");
-	define('STR_FAQ_ADDFAQQUESTION', "Dodaj FAQ vpraÃ?Â¹anje");
-	define('STR_FAQ_QUESTION', "VpraÃ?Â¹anje");
-	define('STR_FAQ_QUESTIONS', "VpraÃ?Â¹anja");
-	define('STR_FAQ_QUESTIONFOR', "VpraÃ?Â¹anje za");
-	define('STR_FAQ_QUESTIONSFOR', "VpraÃ?Â¹anja za");
-	define('STR_FAQ_DISPLAYSEQ', "PrikaÃ?Â¾i sekvenco");
+	define('STR_FAQ_EDITFAQQUESTION', "Edit FAQ Question");
+	define('STR_FAQ_ADDFAQQUESTION', "Add FAQ Question");
+	define('STR_FAQ_QUESTION', "Question");
+	define('STR_FAQ_QUESTIONS', "Questions");
+	define('STR_FAQ_QUESTIONFOR', "Question For");
+	define('STR_FAQ_QUESTIONSFOR', "Questions For");
+	define('STR_FAQ_DISPLAYSEQ', "Display Seq");
 	define('STR_FAQ_QUESTIONOBJECTNOTPASSED', "A FAQ question object was not passed!");
 	define('STR_FAQ_TOPICOBJECTNOTPASSED', "A FAQ topic object was not passed!");
-?>

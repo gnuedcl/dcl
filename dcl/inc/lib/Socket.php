@@ -69,7 +69,7 @@ class Socket
 	public function Write($sValue, $bResponse = false)
 	{
 		if ($this->bDebug)
-			echo '&gt;&gt;&gt; ', htmlspecialchars($sValue), '<br>';
+			echo '&gt;&gt;&gt; ', htmlspecialchars($sValue, ENT_QUOTES, 'UTF-8'), '<br>';
 
 		fwrite($this->hSocket, $sValue);
 		if ($bResponse)
@@ -82,15 +82,15 @@ class Socket
 		{
 			$this->sResponse = fgets($this->hSocket, 1024);
 			if ($this->bDebug)
-				echo '&lt;&lt;&lt; ', htmlspecialchars($this->sResponse), '<br>';
+				echo '&lt;&lt;&lt; ', htmlspecialchars($this->sResponse, ENT_QUOTES, 'UTF-8'), '<br>';
 
 			if ($this->sResponseMode == 'smtp')
 			{
-				while (strlen($this->sResponse) > 3 && $this->sResponse[3] == '-')
+				while (mb_strlen($this->sResponse) > 3 && $this->sResponse[3] == '-')
 				{
 					$this->sResponse = fgets($this->hSocket, 1024);
 					if ($this->bDebug)
-						echo '&lt;&lt;&lt; ', htmlspecialchars($this->sResponse), '<br>';
+						echo '&lt;&lt;&lt; ', htmlspecialchars($this->sResponse, ENT_QUOTES, 'UTF-8'), '<br>';
 				}
 			}
 		}

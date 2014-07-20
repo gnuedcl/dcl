@@ -1,13 +1,13 @@
 <?php
-	define('STR_CMMN_ARRAYTABLEERR', "Ziemlich schwer heutzutage gute Hilfe zu finden: Non-arrays an PrintArrayAsChocoTable Ã?Â¼bergeben.");
-	define('STR_CMMN_ARRAYTABLEERRHELP', "Dies kÃ?Â¶nnte bedeuten, dass der %s Bericht keine EintrÃ?Â¤ge zu Anzeigen enthÃ?Â¤lt.");
-	define('STR_CMMN_DELETECONFIRM', "Wollen Sie %s: %s lÃ?Â¶schen?");
-	define('STR_CMMN_DEACTIVATENOTE', "Achtung: Wird dieser Eintrag von anderen Eintragungen benutzt, wird er deaktiviert um die DatenintegritÃ?Â¤t zu erhalten.");
+	define('STR_CMMN_ARRAYTABLEERR', "Hard to find good help these days: Non-arrays passed to PrintArrayAsChocoTable.");
+	define('STR_CMMN_ARRAYTABLEERRHELP', "This could mean that the %s report contains no entries to view.");
+	define('STR_CMMN_DELETECONFIRM', "Are you sure you want to delete %s: %s ???");
+	define('STR_CMMN_DEACTIVATENOTE', "NOTE: If any other tables reference this item, it will be deactivated to maintain data integrity.");
 	define('STR_CMMN_ERROR', "Error");
 	define('STR_CMMN_INFORMATION', "Information");
 	define('STR_CMMN_WARNING', "Warning");
 	define('STR_CMMN_BACKTRACE', "Backtrace");
-	define('STR_CMMN_HIGHLIGHTEDNOTE', "** Unterlegte Felder mÃ?Â¼ssen gefÃ?Â¼llt werden");
+	define('STR_CMMN_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
 	define('STR_CMMN_YES', "Ja");
 	define('STR_CMMN_NO', "Nein");
 	define('STR_CMMN_SELECTONE', "Auswahl.");
@@ -15,19 +15,19 @@
 	define('STR_CMMN_LOGGEDINAS', "Angemeldet als: %s");
 	define('STR_CMMN_ATTRIBUTENOTE', "Dieser Eintrag muss zur Benutzung mit einem Attribut verbunden werden.");
 	define('STR_CMMN_NOSELECTION', "Keine Auswahl");
-	define('STR_CMMN_DELETEITEM', "LÃ?Â¶sche %s");
+	define('STR_CMMN_DELETEITEM', "Delete %s");
 	define('STR_CMMN_INITGDERR', "Konnte GD Datenstrom nicht beginnen!");
 	define('STR_CMMN_ACCESSDENIED', "Zugriff wurde verweigert");
 	define('STR_CMMN_NEW', "Neu");
 	define('STR_CMMN_EDIT', "Bearbeiten");
-	define('STR_CMMN_DELETE', "LÃ?Â¶schen");
+	define('STR_CMMN_DELETE', "Delete");
 	define('STR_CMMN_UPLOAD', "Senden");
 	define('STR_CMMN_VIEW', "Anzeigen");
 	define('STR_CMMN_VIEWALL', "View All");
 	define('STR_CMMN_REFRESH', "Refresh");
 	define('STR_CMMN_SAVE', "Sichern");
 	define('STR_CMMN_CANCEL', "Abbrechen");
-	define('STR_CMMN_RESET', "ZurÃ?Â¼cksetzen");
+	define('STR_CMMN_RESET', "Reset");
 	define('STR_CMMN_SEARCH', "Suchen");
 	define('STR_CMMN_ALL', "Alles");
 	define('STR_CMMN_SEL', "Sel");
@@ -46,10 +46,10 @@
 	define('STR_CMMN_ON', "am");
 	define('STR_CMMN_BY', "von");
 	define('STR_CMMN_FROM', "von");
-	define('STR_CMMN_TO', "fÃ?Â¼r");
+	define('STR_CMMN_TO', "To");
 	define('STR_CMMN_TITLE', "Titel");
 	define('STR_CMMN_STYLE', "Stil");
-	define('STR_CMMN_AVAILCOLS', "VerfÃ?Â¼gbare Spalten");
+	define('STR_CMMN_AVAILCOLS', "Available Columns");
 	define('STR_CMMN_SHOWCOLS', "Zeige Spalten");
 	define('STR_CMMN_SORTING', "Sortieren");
 	define('STR_CMMN_GROUPING', "Gruppieren");
@@ -57,8 +57,8 @@
 	define('STR_CMMN_REPORT', "Bericht");
 	define('STR_CMMN_LOGIN', "Anmelden");
 	define('STR_CMMN_TOTALS', "Summe");
-	define('STR_CMMN_FILEOPENERR', "Konnte Datei %s nicht Ã?Â¶ffnen!");
-	define('STR_CMMN_PARSEERR', "Datei %s hat einen Ã?Å?bersetzungsfehler in %s bei Zeile %d!");
+	define('STR_CMMN_FILEOPENERR', "Could not open file %s!");
+	define('STR_CMMN_PARSEERR', "File %s parse error %s at line %d!");
 	define('STR_CMMN_NOPRIORITIESFORPRODUCT', "There are no priorities for the product you selected.  Go to Admin...System Setup...Attributes or contact your DCL administrator.");
 	define('STR_CMMN_NOSEVERITIESFORPRODUCT', "There are no severities for the product you selected.  Go to Admin...System Setup...Attributes or contact your DCL administrator.");
 	define('STR_CMMN_BROWSE', "Browse");
@@ -89,4 +89,3 @@
 	define('STR_CMMN_TAGSHELP', "Separate multiple tags with commas (example: \"php,write file,xml\").  Maximum 20 characters per tag.");
 	define('STR_CMMN_SHOWVERSION', "Versions");
 	define('STR_CMMN_SHOWFILES', "Files");
-?>

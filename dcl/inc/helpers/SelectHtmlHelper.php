@@ -53,7 +53,7 @@ class SelectHtmlHelper
 		$sValue = trim($sValue);
 		$sDisplay = trim($sDisplay);
 		$sSelected = ((is_array($this->DefaultValue) && in_array($sValue, $this->DefaultValue)) || (!is_array($this->DefaultValue) && $this->DefaultValue == $sValue)) ? ' selected' : '';
-		return sprintf('<option value="%s"%s>%s</option>', $this->CastToInt ? (int)$sValue : htmlspecialchars($sValue), $sSelected, htmlspecialchars($sDisplay));
+		return sprintf('<option value="%s"%s>%s</option>', $this->CastToInt ? (int)$sValue : htmlspecialchars($sValue, ENT_QUOTES, 'UTF-8'), $sSelected, htmlspecialchars($sDisplay, ENT_QUOTES, 'UTF-8'));
 	}
 
 	public function AddOption($sValue, $sDisplay)

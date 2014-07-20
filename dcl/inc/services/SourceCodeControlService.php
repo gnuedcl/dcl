@@ -89,8 +89,8 @@ class SourceCodeControlService
 		if ($oDB->Load($id) != -1)
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset>';
-			$sRetVal .= '<dcl_sccs><sccs_repository>' . htmlspecialchars($oDB->sccs_repository) . '</sccs_repository>';
-			$sRetVal .= '<sccs_descr>' . htmlspecialchars($oDB->sccs_descr) . '</sccs_descr></dcl_sccs>';
+			$sRetVal .= '<dcl_sccs><sccs_repository>' . htmlspecialchars($oDB->sccs_repository, ENT_QUOTES, 'UTF-8') . '</sccs_repository>';
+			$sRetVal .= '<sccs_descr>' . htmlspecialchars($oDB->sccs_descr, ENT_QUOTES, 'UTF-8') . '</sccs_descr></dcl_sccs>';
 			
 			echo $sRetVal, '</dataset>';
 			exit;
@@ -107,7 +107,7 @@ class SourceCodeControlService
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset><dcl_sccs>';
 			$sRetVal .= '<dcl_sccs_id>' . $oDB->dcl_sccs_id . '</dcl_sccs_id>';
-			$sRetVal .= '<sccs_descr>' . htmlspecialchars($oDB->sccs_descr) . '</sccs_descr>';
+			$sRetVal .= '<sccs_descr>' . htmlspecialchars($oDB->sccs_descr, ENT_QUOTES, 'UTF-8') . '</sccs_descr>';
 
 			echo $sRetVal, '</dcl_sccs></dataset>';
 			exit;
@@ -134,8 +134,8 @@ class SourceCodeControlService
 		if ($oDB->Query("SELECT summary, description, status, responsible, product, etchours FROM workorders WHERE jcn = $iWOID AND seq = $iSeq") != -1 && $oDB->next_record())
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset><workorders>';
-			$sRetVal .= '<summary>' . htmlspecialchars($oDB->f('summary')) . '</summary>';
-			$sRetVal .= '<description>' . htmlspecialchars($oDB->f('description')) . '</description>';
+			$sRetVal .= '<summary>' . htmlspecialchars($oDB->f('summary'), ENT_QUOTES, 'UTF-8') . '</summary>';
+			$sRetVal .= '<description>' . htmlspecialchars($oDB->f('description'), ENT_QUOTES, 'UTF-8') . '</description>';
 			$sRetVal .= '<status>' . $oDB->f('status') . '</status>';
 			$sRetVal .= '<responsible>' . $oDB->f('responsible') . '</responsible>';
 			$sRetVal .= '<product>' . $oDB->f('product') . '</product>';
@@ -159,8 +159,8 @@ class SourceCodeControlService
 		if ($oDB->Query("SELECT name, description FROM dcl_projects WHERE projectid = $iProjectID") != -1 && $oDB->next_record())
 		{
 			$sRetVal = '<?xml version="1.0" encoding="UTF-8"?><dataset><dcl_projects>';
-			$sRetVal .= '<name>' . htmlspecialchars($oDB->f('name')) . '</name>';
-			$sRetVal .= '<description>' . htmlspecialchars($oDB->f('description')) . '</description>';
+			$sRetVal .= '<name>' . htmlspecialchars($oDB->f('name'), ENT_QUOTES, 'UTF-8') . '</name>';
+			$sRetVal .= '<description>' . htmlspecialchars($oDB->f('description'), ENT_QUOTES, 'UTF-8') . '</description>';
 						
 			echo $sRetVal, '</dcl_projects></dataset>';
 			exit;

@@ -12,7 +12,7 @@
 	define('STR_ATTR_ACTIVE', "Activo");
 	define('STR_ATTR_SHORT', "Abrev.");
 	define('STR_ATTR_NAME', "Nombre");
-	define('STR_ATTR_ADDATTRIBUTESET', "AÃ?Â±adir conjunto de atributos");
+	define('STR_ATTR_ADDATTRIBUTESET', "Add Attribute Set");
 	define('STR_ATTR_EDITATTRIBUTESET', "Editar conjunto de atributos");
 	define('STR_ATTR_AVAILABLEVALUES', "Valores disponibles");
 	define('STR_ATTR_USEDVALUES', "Valores usados");
@@ -21,4 +21,3 @@
 	define('STR_ATTR_TYPE', "Tipo");
 	define('STR_ATTR_NOATTRIBUTESETS', "Conjunto de atributos no definidos!");
 	define('STR_ATTR_HIGHLIGHTEDNOTE', "**Los campos sombreados son oblgatorios!");
-?>

@@ -12,4 +12,3 @@
 	define('STR_PRIO_EDIT', "Modifica Priorita");
 	define('STR_PRIO_ADD', "Inserisci Priorita");
 	define('STR_PRIO_HIGHLIGHTEDNOTE', "** I campi evidenziati sono obbligatori!");
-?>

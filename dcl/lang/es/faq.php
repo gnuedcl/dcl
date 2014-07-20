@@ -1,6 +1,6 @@
 <?php
 	define('STR_FAQ_EDIT', "Editar FAQ");
-	define('STR_FAQ_ADDNEW', "AÃ?Â±adir nueva FAQ");
+	define('STR_FAQ_ADDNEW', "Add New FAQ");
 	define('STR_FAQ_DESCRIPTION', "Descripcion");
 	define('STR_FAQ_RESET', "Reset");
 	define('STR_FAQ_HIGHLIGHTEDNOTE', "** Los campos sombreados deben ser rellenados!");
@@ -24,13 +24,13 @@
 	define('STR_FAQ_FAQ', "FAQ");
 	define('STR_FAQ_TOPIC', "Tema");
 	define('STR_FAQ_EDITFAQTOPIC', "Editar FAQ Tema");
-	define('STR_FAQ_ADDFAQTOPIC', "AÃ?Â±adir FAQ Tema");
+	define('STR_FAQ_ADDFAQTOPIC', "Add FAQ Topic");
 	define('STR_FAQ_EDITFAQANSWER', "Editar FAQ Respuesta");
-	define('STR_FAQ_ADDFAQANSWER', "AÃ?Â±adir FAQ Respuesta");
+	define('STR_FAQ_ADDFAQANSWER', "Add FAQ Answer");
 	define('STR_FAQ_ANSWER', "Repuesta");
 	define('STR_FAQ_ANSWERS', "Repuestas");
 	define('STR_FAQ_EDITFAQQUESTION', "Editar FAQ Pregunta");
-	define('STR_FAQ_ADDFAQQUESTION', "AÃ?Â±adir FAQ Pregunta");
+	define('STR_FAQ_ADDFAQQUESTION', "Add FAQ Question");
 	define('STR_FAQ_QUESTION', "Pregunta");
 	define('STR_FAQ_QUESTIONS', "Preguntas");
 	define('STR_FAQ_QUESTIONFOR', "Pregunta Para");
@@ -38,4 +38,3 @@
 	define('STR_FAQ_DISPLAYSEQ', "Mostrar Seq");
 	define('STR_FAQ_QUESTIONOBJECTNOTPASSED', "La pregunta objetivo del   Faq no fue valida!");
 	define('STR_FAQ_TOPICOBJECTNOTPASSED', "A FAQ topic object was not passed!");
-?>

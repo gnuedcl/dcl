@@ -1350,7 +1350,7 @@ function dcl_upgrade0_9_4_4()
 			$sFirstName = '';
 	
 			// last, first, "first last", or just last
-			$iPos = strpos($sName, ',');
+			$iPos = mb_strpos($sName, ',');
 			if ($iPos !== false)
 			{
 				$aName = explode(',', $sName);
@@ -1368,7 +1368,7 @@ function dcl_upgrade0_9_4_4()
 			}
 			else
 			{
-				$iPos = strpos($sName, ' ');
+				$iPos = mb_strpos($sName, ' ');
 				if ($iPos !== false)
 				{
 					$aName = explode(' ', $sName);
@@ -1461,10 +1461,10 @@ function dcl_upgrade0_9_4_4()
 		while ($oDB->next_record())
 		{
 			// for case-sensitive databases, we'll skip multiple instances of same uppercase name/phone
-			if (strtoupper($oDB->f(0)) != $sLastLastName || strtoupper($oDB->f(1)) != $sLastFirstName || $oDB->f(2) != $sLastPhone)
+			if (mb_strtoupper($oDB->f(0)) != $sLastLastName || mb_strtoupper($oDB->f(1)) != $sLastFirstName || $oDB->f(2) != $sLastPhone)
 			{
-				$sLastLastName = strtoupper($oDB->f(0));
-				$sLastFirstName = strtoupper($oDB->f(1));
+				$sLastLastName = mb_strtoupper($oDB->f(0));
+				$sLastFirstName = mb_strtoupper($oDB->f(1));
 				$sLastPhone = $oDB->f(2);
 				
 				$sLastName = $phpgw_setup->oProc->m_odb->DBAddSlashes($oDB->f(0));

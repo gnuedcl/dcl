@@ -12,13 +12,12 @@
 	define('STR_ATTR_ACTIVE', "Aktiv");
 	define('STR_ATTR_SHORT', "Kortnamn");
 	define('STR_ATTR_NAME', "Namn");
-	define('STR_ATTR_ADDATTRIBUTESET', "LÃ?Â¤gg till attributgrupp");
-	define('STR_ATTR_EDITATTRIBUTESET', "Ã?â??ndra attributgrupp");
-	define('STR_ATTR_AVAILABLEVALUES', "TillgÃ?Â¤ngliga vÃ?Â¤rden");
-	define('STR_ATTR_USEDVALUES', "AnvÃ?Â¤nda vÃ?Â¤rden");
-	define('STR_ATTR_SELECTONE', "VÃ?Â¤lj en");
+	define('STR_ATTR_ADDATTRIBUTESET', "Add Attribute Set");
+	define('STR_ATTR_EDITATTRIBUTESET', "Edit Attribute Set");
+	define('STR_ATTR_AVAILABLEVALUES', "Available Values");
+	define('STR_ATTR_USEDVALUES', "Used Values");
+	define('STR_ATTR_SELECTONE', "Select One");
 	define('STR_ATTR_NEW', "Ny");
 	define('STR_ATTR_TYPE', "Typ");
 	define('STR_ATTR_NOATTRIBUTESETS', "Inga attributgrupper definierade!");
-	define('STR_ATTR_HIGHLIGHTEDNOTE', "** Obligatoriskt fÃ?Â¤lt.");
-?>
+	define('STR_ATTR_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");

@@ -21,4 +21,3 @@
 	define('STR_ATTR_TYPE', "Tip");
 	define('STR_ATTR_NOATTRIBUTESETS', "Ni definiranih sbirk atributov!");
 	define('STR_ATTR_HIGHLIGHTEDNOTE', "** Osvetljena polja so obvezna!");
-?>

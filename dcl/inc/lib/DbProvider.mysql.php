@@ -50,8 +50,11 @@ class DbProvider extends AbstractDbProvider
 				$connString = $dcl_domain_info[$dcl_domain]['dbHost'];
 				if ($dcl_domain_info[$dcl_domain]['dbPort'] != '')
 					$connString .= ':' . $dcl_domain_info[$dcl_domain]['dbPort'];
+
 				$this->conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
 						$dcl_domain_info[$dcl_domain]['dbPassword']) or $this->mysql_die();
+
+				mysql_set_charset('utf8mb4', $this->conn);
 
 				define('DCL_DB_CONN', $this->conn);
 			}
@@ -120,7 +123,7 @@ class DbProvider extends AbstractDbProvider
 		$conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
 				$dcl_domain_info[$dcl_domain]['dbPassword']);
 
-		$query = sprintf('Create Database %s', $dcl_domain_info[$dcl_domain]['dbName']);
+		$query = sprintf('Create Database %s CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci', $dcl_domain_info[$dcl_domain]['dbName']);
 
 		return (mysql_query($query, $conn) > 0);
 	}
@@ -256,23 +259,17 @@ class DbProvider extends AbstractDbProvider
 
 	public function BeginTransaction()
 	{
-        // Might as well be sending this to /dev/null
-		//return $this->Execute("BEGIN");
-		return 1;
+		return $this->Execute("BEGIN");
 	}
 
 	public function EndTransaction()
 	{
-        // Might as well be sending this to /dev/null
-		//return $this->Execute("COMMIT");
-		return 1;
+		return $this->Execute("COMMIT");
 	}
 
 	public function RollbackTransaction()
 	{
-        // Might as well be sending this to /dev/null
-		//return $this->Execute("ROLLBACK");
-		return 1;
+		return $this->Execute("ROLLBACK");
 	}
 
 	public function NumFields()

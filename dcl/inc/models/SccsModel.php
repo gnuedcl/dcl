@@ -35,7 +35,7 @@ class SccsModel extends DbProvider
 	public function LoadByPath($sPath)
 	{
 		$sSQL = 'SELECT ' . $this->SelectAllColumns() . ' FROM dcl_sccs WHERE ';
-		$sSQL .= $this->GetUpperSQL('sccs_repository') . ' = ' . $this->Quote(strtoupper($sPath));
+		$sSQL .= $this->GetUpperSQL('sccs_repository') . ' = ' . $this->Quote(mb_strtoupper($sPath));
 
 		if ($this->Query($sSQL) == -1 || !$this->next_record())
 			return -1;

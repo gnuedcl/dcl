@@ -48,7 +48,7 @@ foreach ($aCompileDir as $sDir)
 		while (($sFile = readdir($hDir)) !== false)
 		{
 				$sFullPath = $oSmarty->template_dir . $sFile;
-				if (is_file($sFullPath) && substr($sFullPath, -3, 3) == 'tpl')
+				if (is_file($sFullPath) && mb_substr($sFullPath, -3, 3) == 'tpl')
 				{
 						echo "$sFile...";
 						$oSmarty->fetch($sFile);

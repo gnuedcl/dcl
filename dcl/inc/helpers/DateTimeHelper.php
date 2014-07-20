@@ -87,12 +87,12 @@ class TimestampHelper
 	{
 		$sANSI = 'YYYY-MM-DD HH:II:SS';
 		$this->time = mktime(
-				substr($s, strpos($sANSI, 'H'), 2),	// hour
-				substr($s, strpos($sANSI, 'I'), 2),	// minute
-				substr($s, strpos($sANSI, 'S'), 2),	// second
-				substr($s, strpos($sANSI, 'M'), 2),	// month
-				substr($s, strpos($sANSI, 'D'), 2),	// day
-				substr($s, strpos($sANSI, 'Y'), 4));	// year
+			mb_substr($s, mb_strpos($sANSI, 'H'), 2),	// hour
+			mb_substr($s, mb_strpos($sANSI, 'I'), 2),	// minute
+			mb_substr($s, mb_strpos($sANSI, 'S'), 2),	// second
+			mb_substr($s, mb_strpos($sANSI, 'M'), 2),	// month
+			mb_substr($s, mb_strpos($sANSI, 'D'), 2),	// day
+			mb_substr($s, mb_strpos($sANSI, 'Y'), 4));	// year
 	}
 
 	// Returns the timestamp as UNIX time
@@ -105,12 +105,12 @@ class TimestampHelper
 	public function SetFromDB($s) 
 	{
 		$this->time = mktime(
-				substr($s, strpos($this->dbFormatEx, 'H'), 2),	// hour
-				substr($s, strpos($this->dbFormatEx, 'I'), 2),	// minute
-				substr($s, strpos($this->dbFormatEx, 'S'), 2),	// second
-				substr($s, strpos($this->dbFormatEx, 'M'), 2),	// month
-				substr($s, strpos($this->dbFormatEx, 'D'), 2),	// day
-				substr($s, strpos($this->dbFormatEx, 'Y'), 4));	// year
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'H'), 2),	// hour
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'I'), 2),	// minute
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'S'), 2),	// second
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'M'), 2),	// month
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'D'), 2),	// day
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'Y'), 4));	// year
 	}
 
 	// sets the timestamp from display/web string
@@ -144,7 +144,7 @@ class TimestampHelper
 
 		// Parse input string based on format string
 		$configFmt = $dcl_info['DCL_DATE_FORMAT'];
-		for($i = 0, $j = 1; $i < strlen($configFmt); $i++) 
+		for($i = 0, $j = 1; $i < mb_strlen($configFmt); $i++)
 		{
 			switch($configFmt[$i]) 
 			{
@@ -220,9 +220,9 @@ class DateHelper extends TimestampHelper
 				0,	// hour
 				0,	// minute
 				0,	// second
-				substr($s, strpos($this->dbFormatEx, 'M'), 2),	// month
-				substr($s, strpos($this->dbFormatEx, 'D'), 2),	// day
-				substr($s, strpos($this->dbFormatEx, 'Y'), 4));	// year
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'M'), 2),	// month
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'D'), 2),	// day
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'Y'), 4));	// year
 	}
 
 	public function SetFromDB($s) 
@@ -230,9 +230,9 @@ class DateHelper extends TimestampHelper
 		$this->time = mktime(
 				0, 
 				0, 
-				0, 
-				substr($s, strpos($this->dbFormatEx, 'M'), 2), 
-				substr($s, strpos($this->dbFormatEx, 'D'), 2), 
-				substr($s, strpos($this->dbFormatEx, 'Y'), 4));
+				0,
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'M'), 2),
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'D'), 2),
+			mb_substr($s, mb_strpos($this->dbFormatEx, 'Y'), 4));
 	}
 }

@@ -1,7 +1,7 @@
 <?php
-	define('STR_PROD_SELECTONE', "A SÃ?Â©lectionner One");
-	define('STR_PROD_TABLETITLE', "Produits - TriÃ?Â©s Par %s");
-	define('STR_PROD_NOPRODS', "Pas de produits trouvÃ?Â©s Ã?Â  afficher. Vous n\'avez peut-Ã?Âªtre pas encore de projets dÃ?Â©finis dans votre systÃ?Â¨me!");
+	define('STR_PROD_SELECTONE', "Select One");
+	define('STR_PROD_TABLETITLE', "Products - Ordered By %s");
+	define('STR_PROD_NOPRODS', "Products could not be found for display!  You may not have any products in your system yet!");
 	define('STR_PROD_ID', "ID");
 	define('STR_PROD_ACTIVEABB', "A");
 	define('STR_PROD_ACTIVE', "Actif");
@@ -14,7 +14,7 @@
 	define('STR_PROD_ADD', "Ajouter Produit");
 	define('STR_PROD_HIGHLIGHTEDNOTE', "** Les champs en surbrillance sont obligatoires!");
 	define('STR_PROD_MYPROD', "Mes Produits");
-	define('STR_PROD_NOTLEAD', "Vous n\'Ã?Âªtes le chef d\'aucun produit.");
+	define('STR_PROD_NOTLEAD', "You are not the lead of any products.");
 	define('STR_PROD_WOATTRIBUTESET', "Ensemble d\'attributs pour les OT");
 	define('STR_PROD_TICKETATTRIBUTESET', "Ensemble d\'attributs pour les Tickets");
 	define('STR_PROD_WODETAIL', "Detail des Ordres de Travail");
@@ -23,9 +23,9 @@
 	define('STR_PROD_VIEWTICKETS', "Voir les Tickets");
 	define('STR_PROD_NOWORKORDERS', "Pas d\'Ordres de Travail dans DCL.");
 	define('STR_PROD_NOTICKETS', "Pas de tickets dans DCL.");
-	define('STR_PROD_PREEXISTING', "PrÃ?Â©-existant");
-	define('STR_PROD_CREATED', "CrÃ?Â©Ã?Â©");
-	define('STR_PROD_CLOSED', "FermÃ?Â©");
+	define('STR_PROD_PREEXISTING', "Pre-existing");
+	define('STR_PROD_CREATED', "Created");
+	define('STR_PROD_CLOSED', "Closed");
 	define('STR_PROD_OUTSTANDING', "A fermer");
 	define('STR_PROD_WOTITLE', "Ordre de Travail %s");
 	define('STR_PROD_TICKETTITLE', "Tickets %s ");
@@ -53,4 +53,3 @@
 	define('STR_PROD_WOBUILDINFO', "Build: %s");
 	define('STR_PROD_ACTIVITYLAST7DAYS', "Activity Last 7 Days");
 	define('STR_PROD_VERSIONED', "Versioned");
-?>

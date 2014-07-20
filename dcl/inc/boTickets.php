@@ -330,7 +330,7 @@ class boTickets
 		$oTag->deleteByEntity(DCL_ENTITY_TICKET, $iID, 0);
 
 		// Remove all attachments
-		$attachPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/tck/' . substr($iID, -1) . '/' . $iID . '/';
+		$attachPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/tck/' . mb_substr($iID, -1) . '/' . $iID . '/';
 		if (is_dir($attachPath) && $hDir = opendir($attachPath))
 		{
 			while ($fileName = readdir($hDir))
@@ -666,7 +666,7 @@ class boTickets
 		if ($objTicket->Load($iID) == -1)
 			return;
 
-		$attachPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/tck/' . substr($iID, -1) . '/' . $iID . '/';
+		$attachPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/tck/' . mb_substr($iID, -1) . '/' . $iID . '/';
 		if (is_file($attachPath . $_REQUEST['filename']) && is_readable($attachPath . $_REQUEST['filename']))
 			unlink($attachPath . $_REQUEST['filename']);
 
@@ -706,22 +706,22 @@ class boTickets
 
 		$oDB = new DbProvider;
 
-		if (strlen($columnhdrs) > 0)
+		if (mb_strlen($columnhdrs) > 0)
 			$columnhdrs = explode(',', $columnhdrs);
 		else
 			$columnhdrs = array();
 
-		if (strlen($columns) > 0)
+		if (mb_strlen($columns) > 0)
 			$columns = explode(',', $columns);
 		else
 			$columns = array();
 
-		if (strlen($groups) > 0)
+		if (mb_strlen($groups) > 0)
 			$groups = explode(',', $groups);
 		else
 			$groups = array();
 
-		if (strlen($order) > 0)
+		if (mb_strlen($order) > 0)
 			$order = explode(',', $order);
 		else
 			$order = array();

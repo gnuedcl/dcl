@@ -716,7 +716,7 @@ class WorkOrderController
 		if ($workOrderModel->LoadByIdSeq($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
-		$attachmentPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/wo/' . substr($id, -1) . '/' . $id . '/' . $seq . '/' . $fileName;
+		$attachmentPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/wo/' . mb_substr($id, -1) . '/' . $id . '/' . $seq . '/' . $fileName;
 		if (is_file($attachmentPath) && is_readable($attachmentPath))
 			unlink($attachmentPath);
 		

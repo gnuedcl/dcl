@@ -673,7 +673,7 @@ class reportPersonnelActivity
 						if ($bExport)
 							$reportArray[$arrayIndex][0] = '[' . $thisJCN . '-' . $thisSeq . '] ' . $objW->summary;
 						else
-							$reportArray[$arrayIndex][0] = '[<a href="main.php?menuAction=WorkOrder.Detail&jcn=' . $thisJCN . '&seq=' . $thisSeq . '">' . $thisJCN . '-' . $thisSeq . '</a>] ' . htmlentities($objW->summary);
+							$reportArray[$arrayIndex][0] = '[<a href="main.php?menuAction=WorkOrder.Detail&jcn=' . $thisJCN . '&seq=' . $thisSeq . '">' . $thisJCN . '-' . $thisSeq . '</a>] ' . htmlspecialchars($objW->summary, ENT_QUOTES, 'UTF-8');
 
 						if ($groupBy != '1')
 						{
@@ -682,7 +682,7 @@ class reportPersonnelActivity
 								if ($bExport)
 									$reportArray[$arrayIndex][] = '[' . $oPM->projectid . '] ' . $oMeta->GetProject($oPM->projectid);
 								else
-									$reportArray[$arrayIndex][] = '[<a href="main.php?menuAction=Project.Detail&id=' . $oPM->projectid . '">' . $oPM->projectid . '</a>] ' . htmlentities($oMeta->GetProject($oPM->projectid));
+									$reportArray[$arrayIndex][] = '[<a href="main.php?menuAction=Project.Detail&id=' . $oPM->projectid . '">' . $oPM->projectid . '</a>] ' . htmlspecialchars($oMeta->GetProject($oPM->projectid), ENT_QUOTES, 'UTF-8');
 							}
 							else 
 							{

@@ -33,4 +33,3 @@
 	define('STR_WOST_SCHEDULETITLE', "WOs Abiertas Previstas Para");
 	define('STR_WOST_SCHEDULEFOR', "Prevista para");
 	define('STR_WOST_FORMATASTIMESHEET', "Format as Timesheet");
-?>

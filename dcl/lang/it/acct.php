@@ -25,4 +25,3 @@
 	define('STR_ACCT_SEARCHTEXT', "Search Text");
 	define('STR_ACCT_WATCHWO', "Watch WO");
 	define('STR_ACCT_WATCHTCK', "Watch Ticket");
-?>

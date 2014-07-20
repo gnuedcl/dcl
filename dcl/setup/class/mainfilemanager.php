@@ -103,9 +103,7 @@ class mainfile_manager
     }
 
     function report(){
-        $content = "<table align='center'><tr><td align='left'>\n";
-        $content .= $this->report;
-        $content .= "</td></tr></table>\n";
+        $content = $this->report;
         return $content;
     }
 

@@ -12,4 +12,3 @@
 	define('STR_STAT_ADD', "Inserisci uno Status");
 	define('STR_STAT_HIGHLIGHTEDNOTE', "** I campi evidenziati sono Obbligatori!");
 	define('STR_STAT_TYPE', "Type");
-?>

@@ -7,7 +7,7 @@
 	define('STR_TCK_STATUSON', "Stato il");
 	define('STR_TCK_PRODUCT', "Prodotto");
 	define('STR_TCK_ACCOUNT', "Cliente");
-	define('STR_TCK_PRIORITY', "PrioritÃ?Â ");
+	define('STR_TCK_PRIORITY', "Priority");
 	define('STR_TCK_CONTACT', "Contatto");
 	define('STR_TCK_CONTACTPHONE', "Telefono Contatto");
 	define('STR_TCK_CONTACTEMAIL', "E-Mail Contatto");
@@ -33,7 +33,7 @@
 	define('STR_TCK_SEARCHTITLE', "Cerca Richiesta");
 	define('STR_TCK_REPORTOPTIONS', "Opzioni Rapporto");
 	define('STR_TCK_STATTITLE', "Stato Richiesta - Vista Foglio Dati");
-	define('STR_TCK_SHOWACTIVITY', "Mostra AttivitÃ?Â  invece delle Statistiche");
+	define('STR_TCK_SHOWACTIVITY', "Show Activity Instead Of Statistics");
 	define('STR_TCK_SHOWACCOUNTS', "Mostra Clienti invece del Personale");
 	define('STR_TCK_STATSEARCHRESULTS', "Risultati della Ricerca di Statistiche Richiesta");
 	define('STR_TCK_ADDRESOLUTION', "Aggiungi Decisione per la Richiesta #%d");
@@ -43,7 +43,7 @@
 	define('STR_TCK_UPLOADATTACHMENT', "Carica Allegato");
 	define('STR_TCK_ATTACHFILE', "Allega File");
 	define('STR_TCK_CONFIRMDELATT', "Sei sicuro di voler cancellare il file allegato di nome %s?");
-	define('STR_TCK_ACTIVITYGRAPH', "Grafico delle AttivitÃ?Â ");
+	define('STR_TCK_ACTIVITYGRAPH', "Activity Graph");
 	define('STR_TCK_SHOWGRAPHFOR', "Mostra Grafico Per");
 	define('STR_TCK_DAYS', "Giorni");
 	define('STR_TCK_ENDINGON', "Fine il");
@@ -64,4 +64,3 @@
 	define('STR_TCK_MYSUBMISSIONS', "My Ticket Submissions");
 	define('STR_TCK_NOSUBMISSIONS', "You have no open tickets submitted by you that you are not responsible for.");
 	define('STR_TCK_LOGGEDBY', "Logged By");
-?>

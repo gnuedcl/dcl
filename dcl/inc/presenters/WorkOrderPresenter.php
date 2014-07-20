@@ -430,9 +430,9 @@ class WorkOrderPresenter
 		$smartyHelper->assign('TXT_TITLE', STR_WO_DELETEATTACHMENTTITLE);
 		$smartyHelper->assign('VAL_JCN', $workOrderModel->jcn);
 		$smartyHelper->assign('VAL_SEQ', $workOrderModel->seq);
-		$smartyHelper->assign('VAL_FILENAME', htmlspecialchars($fileName));
+		$smartyHelper->assign('VAL_FILENAME', htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8'));
 		$smartyHelper->assign('VAL_FORMACTION', menuLink());
-		$smartyHelper->assign('TXT_DELATTCONFIRM', sprintf(STR_WO_DELATTCONFIRM, htmlspecialchars($fileName)));
+		$smartyHelper->assign('TXT_DELATTCONFIRM', sprintf(STR_WO_DELATTCONFIRM, htmlspecialchars($fileName, ENT_QUOTES, 'UTF-8')));
 		$smartyHelper->assign('BTN_YES', STR_CMMN_YES);
 		$smartyHelper->assign('BTN_NO', STR_CMMN_NO);
 
@@ -549,7 +549,7 @@ class WorkOrderPresenter
 			$filter = $sqlQueryHelper->GetFilter();
 			foreach ($filter as $field => $values)
 			{
-				if (substr($field, 1) == '.department')
+				if (mb_substr($field, 1) == '.department')
 				{
 					if ($field[0] == 'a')
 						$smartyHelper->assign('CHK_RESPONSIBLE', ' checked');
@@ -563,7 +563,7 @@ class WorkOrderPresenter
 				}
 				else if ($field == 'responsible' || $field == 'createby' || $field == 'closedby')
 				{
-					$smartyHelper->assign('CHK_' . strtoupper($field), ' checked');
+					$smartyHelper->assign('CHK_' . mb_strtoupper($field), ' checked');
 					$field = 'personnel';
 					$sPersonnelKey = '';
 				}
@@ -719,7 +719,7 @@ class WorkOrderPresenter
 			{
 				if ($field == 'summary' || $field == 'notes' || $field == 'description')
 				{
-					$smartyHelper->assign('CHK_' . strtoupper($field), ' CHECKED');
+					$smartyHelper->assign('CHK_' . mb_strtoupper($field), ' CHECKED');
 					$searchText = $values[0];
 				}
 			}
@@ -737,7 +737,7 @@ class WorkOrderPresenter
 							'deadlineon', 'eststarton', 'estendon', 'starton');
 
 		for ($i = 0; $i < count($aDateChecks); $i++)
-			$smartyHelper->assign('CHK_' . strtoupper($aDateChecks[$i]), '');
+			$smartyHelper->assign('CHK_' . mb_strtoupper($aDateChecks[$i]), '');
 
 		if ($haveCriteria)
 		{
@@ -750,7 +750,7 @@ class WorkOrderPresenter
 
 				foreach ($filterDate as $field => $values)
 				{
-					$smartyHelper->assign('CHK_' . strtoupper($field), ' CHECKED');
+					$smartyHelper->assign('CHK_' . mb_strtoupper($field), ' CHECKED');
 					$fromDate = $values[0];
 					$toDate = $values[1];
 				}

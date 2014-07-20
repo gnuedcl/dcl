@@ -88,7 +88,7 @@ class TextSanitizer
 	*/
 	function &htmlSpecialChars($text)
 	{
-		$result = preg_replace("/&amp;/i", '&', htmlspecialchars($text, ENT_QUOTES));
+		$result = preg_replace("/&amp;/i", '&', htmlspecialchars($text, ENT_QUOTES, 'UTF-8'));
 		return $result;
 	}
 
@@ -205,7 +205,7 @@ class TextSanitizer
 
 	function makeTareaData4Edit($text)
 	{
-		return htmlSpecialChars($text, ENT_QUOTES);
+		return htmlSpecialChars($text, ENT_QUOTES, 'UTF-8');
 	}
 
 	function &makeTareaData4Preview(&$text, $html=1, $smiley=1, $xcode=1)
@@ -217,7 +217,7 @@ class TextSanitizer
 	{
 		//if magic_quotes_gpc is on, do stipslashes
 		$text = $this->stripSlashesGPC($text);
-		return htmlSpecialChars($text, ENT_QUOTES);
+		return htmlSpecialChars($text, ENT_QUOTES, 'UTF-8');
 	}
 
 	function makeTareaData4InsideQuotes($text)

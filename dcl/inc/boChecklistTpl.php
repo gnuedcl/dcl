@@ -190,7 +190,7 @@ class boChecklistTpl
 					$sName .= $oXML->currentNode->data;
 				}
 
-				echo htmlspecialchars($sName);
+				echo htmlspecialchars($sName, ENT_QUOTES, 'UTF-8');
 				$o = new ChecklistTemplateModel();
 				$o->dcl_chklst_tpl_name = $sName;
 				$o->Add();

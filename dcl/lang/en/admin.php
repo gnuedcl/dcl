@@ -59,4 +59,3 @@
 	define('STR_ADMIN_CONTACTTYPES', "Contact Types");
 	define('STR_ADMIN_CONTACTTYPESDESC', "Contact types are used to categorize contacts.  A contact can have more than one type.");
 	define('STR_ADMIN_CONTACTTYPESNOTE', "");
-?>

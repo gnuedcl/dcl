@@ -64,4 +64,3 @@
 	define('STR_TCK_MYSUBMISSIONS', "My Ticket Submissions");
 	define('STR_TCK_NOSUBMISSIONS', "You have no open tickets submitted by you that you are not responsible for.");
 	define('STR_TCK_LOGGEDBY', "Logged By");
-?>

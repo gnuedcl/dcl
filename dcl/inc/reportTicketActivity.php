@@ -101,7 +101,7 @@ class reportTicketActivity
 						$reportArray[$arrayIndex][5] = $obj->createdon;
 						$reportArray[$arrayIndex][6] = $obj->closedon;
 						$reportArray[$arrayIndex][7] = 1;
-						$reportArray[$arrayIndex][8] = '<a href="' . menuLink('', 'menuAction=boTickets.view&ticketid=' . $obj->f('ticketid')) . '">[' . $obj->f('ticketid') . '] ' . htmlentities($obj->summary) . '</a>';
+						$reportArray[$arrayIndex][8] = '<a href="' . menuLink('', 'menuAction=boTickets.view&ticketid=' . $obj->f('ticketid')) . '">[' . $obj->f('ticketid') . '] ' . htmlspecialchars($obj->summary, ENT_QUOTES, 'UTF-8') . '</a>';
 					}
 					else
 					{

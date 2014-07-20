@@ -1,27 +1,27 @@
 <?php
 	define('STR_ADMIN_STEP', "Etape %d.");
-	define('STR_ADMIN_SETUPTITLE', "Configuration SystÃ?Â¨me DCL");
-	define('STR_ADMIN_SETUPDESC', "Cet Ã?Â©cran vous permet de configurer votre configuration DCL.  Les Ã?Â©tapes sont prÃ?Â©vues pour vous guider dans l\'ordre requis de configuration du systÃ?Â¨me aprÃ?Â¨s l\'installation initiale.  Ensuite, vous pourrez accÃ?Â©der aux diffÃ?Â©rents Ã?Â©lÃ?Â©ments suivant le besoin.");
-	define('STR_ADMIN_PRIORITIES', "PrioritÃ?Â©s");
-	define('STR_ADMIN_PRIORITIESDESC', "Les prioritÃ?Â©s dÃ?Â©crivent l\'urgence attibuÃ?Â©e Ã?Â  un Ã?Â©lÃ?Â©ment particulier.");
-	define('STR_ADMIN_PRIORITIESNOTE', "Vous devrez ensuite ajouter ces prioritÃ?Â©s Ã?Â  un ensemble d\'attributs pour qu\'elles soient accessibles dans DCL.");
-	define('STR_ADMIN_SEVERITIES', "SÃ?Â©vÃ?Â©ritÃ?Â©s");
-	define('STR_ADMIN_SEVERITIESDESC', "Les sÃ?Â©vÃ?Â©ritÃ?Â©s indiquent le type ou l\'impact d\'un Ã?Â©lÃ?Â©ment.");
-	define('STR_ADMIN_SEVERITIESNOTE', "Vous devrez ensuite ajouter ces sÃ?Â©veritÃ?Â©s Ã?Â  un ensemble d\'attributs pour qu\'elles soient accessibles dans DCL.");
+	define('STR_ADMIN_SETUPTITLE', "DCL System Setup");
+	define('STR_ADMIN_SETUPDESC', "This screen allows you to configure your installation of DCL.  The steps are meant to guide you in the proper order of configuring the system after the initial installation.  Afterwards, you may access the items as needed.");
+	define('STR_ADMIN_PRIORITIES', "Priorities");
+	define('STR_ADMIN_PRIORITIESDESC', "Priorities describe how urgent a particular item is.");
+	define('STR_ADMIN_PRIORITIESNOTE', "You must add any new priorities to an attribute set to be accessible in DCL.");
+	define('STR_ADMIN_SEVERITIES', "Severities");
+	define('STR_ADMIN_SEVERITIESDESC', "Severities indicate the type or impact of an item.");
+	define('STR_ADMIN_SEVERITIESNOTE', "You must add any new severities to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_STATUSES', "Statuts");
-	define('STR_ADMIN_STATUSESDESC', "Les statuts indiquent l\'Ã?Â©tat d\'un Ã?Â©lÃ?Â©ment, gÃ?Â©nÃ?Â©ralement pour dÃ?Â©terminer s\'il est ouvert, fermÃ?Â© ou en attente.  Plusieurs statuts peuvent Ã?Âªtre ajoutÃ?Â© pour mieux dÃ?Â©crire votre maniÃ?Â¨re de travailler.");
-	define('STR_ADMIN_STATUSESNOTE', "Vous devrez ensuite ajouter ces statuts Ã?Â  un ensemble d\'attributs pour qu\'ils soient accessibles dans DCL.");
+	define('STR_ADMIN_STATUSESDESC', "Statuses indicate the state of an item, usually to determine if it is open, closed, or pending.  Several statuses can be added to better describe your work flow.");
+	define('STR_ADMIN_STATUSESNOTE', "You must add any new statuses to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_CONFIG', "Configuration");
-	define('STR_ADMIN_CONFIGDESC', "La configuration contient les diffÃ?Â©rents rÃ?Â©glages pour le fonctionnement de votre installation.");
+	define('STR_ADMIN_CONFIGDESC', "Configuration contains default settings and behaviors that can be modified for your installation.");
 	define('STR_ADMIN_CONFIGNOTE', "");
 	define('STR_ADMIN_DEPARTMENTS', "Utilisateurs");
-	define('STR_ADMIN_DEPARTMENTSDESC', "Gerez ici vos comptes utilisateurs pour leur rÃ?Â©gler leurs accÃ?Â¨s individuels Ã?Â  DCL.");
+	define('STR_ADMIN_DEPARTMENTSDESC', "Departments are used to associate users with different departments within DCL.  This can be used to mirror an organization chart, or you can enter just one department for all users.");
 	define('STR_ADMIN_DEPARTMENTSNOTE', "");
 	define('STR_ADMIN_ACTIONS', "Actions");
-	define('STR_ADMIN_ACTIONSDESC', "Les actions sont utilisÃ?Â©s pour les fiches de temps afin de dÃ?Â©crire le type de travail effectuÃ?Â© durant une phase d\'action corrective ou un ordre de travail.");
-	define('STR_ADMIN_ACTIONSNOTE', "Vous devrez ensuite ajouter ces actions Ã?Â  un ensemble d\'attributs pour qu\'ils soient accessibles dans DCL.");
+	define('STR_ADMIN_ACTIONSDESC', "Actions are used for time cards to describe the type of work done during the corrective action phase of a work order.");
+	define('STR_ADMIN_ACTIONSNOTE', "You must add any new actions to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_ATTRIBUTESETS', "Produits");
-	define('STR_ADMIN_ATTRIBUTESETSDESC', "Les produits sont les Ã?Â©lÃ?Â©ments que vous suivez avec DCL.  Un produit indique ne gÃ?Â©nÃ?Â©ral un logiciel particulier, mais vous pouvez gÃ?Â©rer Ã?Â  peu prÃ?Â¨s ce que vous voulez (mÃ?Âªme des Ã?Â©lÃ?Â©ments non relatifs Ã?Â  l\'informatique.)");
+	define('STR_ADMIN_ATTRIBUTESETSDESC', "Attribute sets contain actions, priorities, severities, and statuses.  You can create as many attribute sets as needed, and can associate them with a product.  Each product can have a different attribute set, and is further broken down into work order and ticket attributes.");
 	define('STR_ADMIN_ATTRIBUTESETSNOTE', "");
 	define('STR_ADMIN_WORKORDERTYPES', "Work Order Types");
 	define('STR_ADMIN_WORKORDERTYPESDESC', "Work order types represent a high level qualifier to the type of work order.  For example, these could be \"Bug\", \"Enhancement\", or \"Configuration\".");
@@ -59,4 +59,3 @@
 	define('STR_ADMIN_CONTACTTYPES', "Contact Types");
 	define('STR_ADMIN_CONTACTTYPESDESC', "Contact types are used to categorize contacts.  A contact can have more than one type.");
 	define('STR_ADMIN_CONTACTTYPESNOTE', "");
-?>

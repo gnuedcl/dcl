@@ -112,7 +112,7 @@
 					return "DEFAULT ($sDefault)";
 				case 'timestamp':
 				case 'date':
-					if (strtolower($sDefault) == 'now()')
+					if (mb_strtolower($sDefault) == 'now()')
 						return "DEFAULT ($sDefault)";
 			}
 
@@ -357,7 +357,7 @@
 				}
 			}
 			/* ugly as heck, but is here to chop the trailing comma on the last element (for php3) */
-			$this->sCol[count($this->sCol) - 1] = substr($this->sCol[count($this->sCol) - 1],0,-2) . "\n";
+			$this->sCol[count($this->sCol) - 1] = mb_substr($this->sCol[count($this->sCol) - 1],0,-2) . "\n";
 
 			return false;
 		}
@@ -731,8 +731,8 @@
 					if ($oProc->m_odb->next_record())
 					{
 						$sVersion = $oProc->m_odb->f(0);
-						$iVersionPos = strpos($sVersion, ' ') + 1;
-						$sVersion = substr($sVersion, $iVersionPos, strpos($sVersion, ' ', $iVersionPos) - $iVersionPos + 1);
+						$iVersionPos = mb_strpos($sVersion, ' ') + 1;
+						$sVersion = mb_substr($sVersion, $iVersionPos, mb_strpos($sVersion, ' ', $iVersionPos) - $iVersionPos + 1);
 						
 						$aVersion = explode('.', $sVersion);
 						if (count($aVersion) > 0)

@@ -99,10 +99,10 @@ class FaqQuestionPresenter
 		$smartyHelper = new SmartyHelper();
 		
 		$smartyHelper->assign('VAL_FAQID', $faqModel->faqid);
-		$smartyHelper->assign('VAL_FAQNAME', htmlspecialchars($faqModel->name));
+		$smartyHelper->assign('VAL_FAQNAME', htmlspecialchars($faqModel->name, ENT_QUOTES, 'UTF-8'));
 		$smartyHelper->assign('VAL_TOPICID', $faqTopicsModel->topicid);
-		$smartyHelper->assign('VAL_TOPICNAME', htmlspecialchars($faqTopicsModel->name));
-		$smartyHelper->assign('VAL_QUESTIONTEXT', htmlspecialchars($model->questiontext));
+		$smartyHelper->assign('VAL_TOPICNAME', htmlspecialchars($faqTopicsModel->name, ENT_QUOTES, 'UTF-8'));
+		$smartyHelper->assign('VAL_QUESTIONTEXT', htmlspecialchars($model->questiontext, ENT_QUOTES, 'UTF-8'));
 		$smartyHelper->assign('VAL_QUESTIONID', $model->f('questionid'));
 		$smartyHelper->assign('PERM_ADDANSWER', $g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_ADD, $faqModel->faqid));
 		$smartyHelper->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_FAQANSWER, DCL_PERM_MODIFY, $faqModel->faqid));

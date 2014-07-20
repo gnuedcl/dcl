@@ -11,4 +11,3 @@
 	define('STR_DEPT_EDIT', "Edit Department");
 	define('STR_DEPT_ADD', "Add Department");
 	define('STR_DEPT_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
-?>

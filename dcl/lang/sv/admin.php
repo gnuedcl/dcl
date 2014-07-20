@@ -1,27 +1,27 @@
 <?php
 	define('STR_ADMIN_STEP', "Step %d.");
-	define('STR_ADMIN_SETUPTITLE', "SysteminstÃ?Â¤llningar");
-	define('STR_ADMIN_SETUPDESC', "HÃ?Â¤r Ã?Â¥terfinns en liten kortfattad vÃ?Â¤gledning om vilka instÃ?Â¤llningar som behÃ?Â¶ver gÃ?Â¶ras och vad dessa avser.");
+	define('STR_ADMIN_SETUPTITLE', "DCL System Setup");
+	define('STR_ADMIN_SETUPDESC', "This screen allows you to configure your installation of DCL.  The steps are meant to guide you in the proper order of configuring the system after the initial installation.  Afterwards, you may access the items as needed.");
 	define('STR_ADMIN_PRIORITIES', "Prioriteter");
-	define('STR_ADMIN_PRIORITIESDESC', "Prioriteter anvÃ?Â¤nds fÃ?Â¶r att ange prioriteten fÃ?Â¶r ett Ã?Â¤rende. Med Ã?Â¤rende avses \"begÃ?Â¤ran\" eller \"arbetsorder\".");
-	define('STR_ADMIN_PRIORITIESNOTE', "Minst en prioritet mÃ?Â¥ste associeras till en attributgrupp fÃ?Â¶r att attributgruppen skall vara Ã?Â¥tkomlig.");
+	define('STR_ADMIN_PRIORITIESDESC', "Priorities describe how urgent a particular item is.");
+	define('STR_ADMIN_PRIORITIESNOTE', "You must add any new priorities to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_SEVERITIES', "Kategorier");
-	define('STR_ADMIN_SEVERITIESDESC', "Kategorier anvÃ?Â¤nds fÃ?Â¶r att kategorisera Ã?Â¤renden. Kategorier kan konfigureras av systemadministratÃ?Â¶ren");
-	define('STR_ADMIN_SEVERITIESNOTE', "Minst en kategori mÃ?Â¥ste associeras till en attributgrupp fÃ?Â¶r att attributgruppen skall vara Ã?Â¥tkomlig.");
+	define('STR_ADMIN_SEVERITIESDESC', "Severities indicate the type or impact of an item.");
+	define('STR_ADMIN_SEVERITIESNOTE', "You must add any new severities to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_STATUSES', "Status");
-	define('STR_ADMIN_STATUSESDESC', "Status anvÃ?Â¤nds fÃ?Â¶r att indikera om det aktuella lÃ?Â¤get fÃ?Â¶r ett Ã?Â¤rende tex \"Ã?Â¶ppen\", \"stÃ?Â¤ngd\" eller \"fÃ?Â¶rsenad\". Status konfigureras av systemadministratÃ?Â¶ren.");
-	define('STR_ADMIN_STATUSESNOTE', "Minst en status mÃ?Â¥ste associeras till en attributgrupp fÃ?Â¶r att attributgruppen skall vara Ã?Â¥tkomlig.");
-	define('STR_ADMIN_CONFIG', "InstÃ?Â¤llningar");
-	define('STR_ADMIN_CONFIGDESC', "InstÃ?Â¤llningar innehÃ?Â¥ller frÃ?Â¥n bÃ?Â¶rjan standardinstÃ?Â¤llningar som fÃ?Â¶ljer med installationen av systemet. InstÃ?Â¤llningar kan konfigureras av systemadministratÃ?Â¶ren.");
+	define('STR_ADMIN_STATUSESDESC', "Statuses indicate the state of an item, usually to determine if it is open, closed, or pending.  Several statuses can be added to better describe your work flow.");
+	define('STR_ADMIN_STATUSESNOTE', "You must add any new statuses to an attribute set to be accessible in DCL.");
+	define('STR_ADMIN_CONFIG', "Configuration");
+	define('STR_ADMIN_CONFIGDESC', "Configuration contains default settings and behaviors that can be modified for your installation.");
 	define('STR_ADMIN_CONFIGNOTE', "");
-	define('STR_ADMIN_DEPARTMENTS', "AnvÃ?Â¤ndare");
-	define('STR_ADMIN_DEPARTMENTSDESC', "StÃ?Â¤lla in anvÃ?Â¤ndare och ge individuella rÃ?Â¤ttigheter till DCL.");
+	define('STR_ADMIN_DEPARTMENTS', "Departments");
+	define('STR_ADMIN_DEPARTMENTSDESC', "Departments are used to associate users with different departments within DCL.  This can be used to mirror an organization chart, or you can enter just one department for all users.");
 	define('STR_ADMIN_DEPARTMENTSNOTE', "");
 	define('STR_ADMIN_ACTIONS', "Aktiviteter");
-	define('STR_ADMIN_ACTIONSDESC', "Aktiviteter anvÃ?Â¤nds fÃ?Â¶r tidsrapporter och beskriver den typ av arbete som utfÃ?Â¶rs fÃ?Â¶r en viss order.");
-	define('STR_ADMIN_ACTIONSNOTE', "Du mÃ?Â¥ste lÃ?Â¤gga till nÃ?Â¥gon aktivitet till en attributgrupp fÃ?Â¶r att attributgruppen ska vara Ã?Â¥tkomlig.");
+	define('STR_ADMIN_ACTIONSDESC', "Actions are used for time cards to describe the type of work done during the corrective action phase of a work order.");
+	define('STR_ADMIN_ACTIONSNOTE', "You must add any new actions to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_ATTRIBUTESETS', "Produkter");
-	define('STR_ADMIN_ATTRIBUTESETSDESC', "Produkter anvÃ?Â¤nds fÃ?Â¶r associera produkter eller tjÃ?Â¤nster till Ã?Â¤renden. Produkter kan konfigureras av systemadministratÃ?Â¶ren");
+	define('STR_ADMIN_ATTRIBUTESETSDESC', "Attribute sets contain actions, priorities, severities, and statuses.  You can create as many attribute sets as needed, and can associate them with a product.  Each product can have a different attribute set, and is further broken down into work order and ticket attributes.");
 	define('STR_ADMIN_ATTRIBUTESETSNOTE', "");
 	define('STR_ADMIN_WORKORDERTYPES', "Work Order Types");
 	define('STR_ADMIN_WORKORDERTYPESDESC', "Work order types represent a high level qualifier to the type of work order.  For example, these could be \"Bug\", \"Enhancement\", or \"Configuration\".");
@@ -59,4 +59,3 @@
 	define('STR_ADMIN_CONTACTTYPES', "Contact Types");
 	define('STR_ADMIN_CONTACTTYPESDESC', "Contact types are used to categorize contacts.  A contact can have more than one type.");
 	define('STR_ADMIN_CONTACTTYPESNOTE', "");
-?>

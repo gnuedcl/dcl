@@ -14,11 +14,11 @@
 	define('STR_USR_EMAIL', "e-Mail");
 	define('STR_USR_CHGPWD', "Spremeni geslo");
 	define('STR_USR_CHANGE', "Spremeni");
-	define('STR_USR_CLEAR', "PoÃ?Â¨isti");
+	define('STR_USR_CLEAR', "Clear");
 	define('STR_USR_NEWPWD', "Novo geslo");
 	define('STR_USR_CURRPWD', "Trenutno geslo");
 	define('STR_USR_CONFIRMPWD', "Potrdi geslo");
-	define('STR_USR_TABLETITLE', "Uporabniki - razvrÃ?Â¹Ã?Â¨eni po %s");
+	define('STR_USR_TABLETITLE', "Users - Ordered By %s");
 	define('STR_USR_NOUSERS', "Ne najdem uporabnikov za prikaz!");
 	define('STR_USR_ID', "ID");
 	define('STR_USR_USER', "Uporabnik");
@@ -26,11 +26,10 @@
 	define('STR_USR_ACTIVE', "Aktiven");
 	define('STR_USR_LASTNAME', "Priimek");
 	define('STR_USR_FIRSTNAME', "Ime");
-	define('STR_USR_OPTIONS', "MoÃ?Â¾nosti");
-	define('STR_USR_REPORTTO', "PoroÃ?Â¨ila k");
+	define('STR_USR_OPTIONS', "Options");
+	define('STR_USR_REPORTTO', "Report To");
 	define('STR_USR_DEPARTMENT', "Oddelek");
 	define('STR_USR_LOGIN', "Prijava");
 	define('STR_USR_EDIT', "Popravi uporabnika");
 	define('STR_USR_ADD', "Dodaj uporabnika");
 	define('STR_USR_HIGHLIGHTEDNOTE', "** Osvetljena polja so obvezna!");
-?>

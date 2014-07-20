@@ -33,4 +33,3 @@
 	define('STR_WOST_SCHEDULETITLE', "Schedule Open Tasks For Personnel");
 	define('STR_WOST_SCHEDULEFOR', "Schedule For");
 	define('STR_WOST_FORMATASTIMESHEET', "Format as Timesheet");
-?>

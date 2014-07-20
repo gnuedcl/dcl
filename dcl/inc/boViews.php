@@ -297,7 +297,7 @@ class boViews
 					{
 						$fieldValue = '';
 						$tags = $metadata->GetTags(DCL_ENTITY_TICKET, $obj->f('ticketid'));
-						if (strlen($tags) > 0)
+						if (mb_strlen($tags) > 0)
 							$fieldValue = str_replace(',', ', ', $tags);
 					}
 				}
@@ -322,7 +322,7 @@ class boViews
 					{
 						$fieldValue = '';
 						$tags = $metadata->GetTags(DCL_ENTITY_WORKORDER, $obj->f('jcn'), $obj->f('seq'));
-						if (strlen($tags) > 0)
+						if (mb_strlen($tags) > 0)
 							$fieldValue = str_replace(',', ', ', $tags);
 					}
 					else if ($objView->columns[$i] == 'dcl_org.name')

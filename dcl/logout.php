@@ -29,7 +29,7 @@ if (isset($_COOKIE['DCLINFO']))
 {
 	$g_oSession = new SessionModel();
 	list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
-	if (strlen($dcl_session_id) == 32)
+	if (mb_strlen($dcl_session_id) == 32)
 	{
 		$g_oSession->Connect();
 		if (!$g_oSession->conn)
@@ -74,14 +74,14 @@ function Refresh($toHere = 'index.php')
 		$httpDomain = '.' . $httpDomain;
 	}
 
-	if (($p = strpos($httpDomain, ':')) !== false)
-		$httpDomain = substr($httpDomain, 0, $p);
+	if (($p = mb_strpos($httpDomain, ':')) !== false)
+		$httpDomain = mb_substr($httpDomain, 0, $p);
 
 	setcookie('DCLINFO', null, -1, '/', $httpDomain, UseHttps(), true);
 
 	if (isset($_REQUEST['refer_to']) && $_REQUEST['refer_to'] != '')
 	{
-		$toHere .= sprintf('%srefer_to=%s', strpos($toHere, '?') > 0 ? '&' : '?', urlencode(urldecode($_REQUEST['refer_to'])));
+		$toHere .= sprintf('%srefer_to=%s', mb_strpos($toHere, '?') > 0 ? '&' : '?', urlencode(urldecode($_REQUEST['refer_to'])));
 	}
 
 	header("Location: $toHere");

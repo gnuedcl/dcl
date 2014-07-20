@@ -125,7 +125,7 @@
 					return "DEFAULT $sDefault";
 				case 'timestamp':
 				case 'date':
-					if (strtolower($sDefault) == 'now()')
+					if (mb_strtolower($sDefault) == 'now()')
 						return "DEFAULT '$sDefault'";
 			}
 
@@ -246,10 +246,10 @@
 					/* set prec to length of longest enum-value */
 					for($prec=0; list($nul,$name) = @each($scales);)
 					{
-						if($prec < (strlen($name) - 2))
+						if($prec < (mb_strlen($name) - 2))
 						{
 							/* -2 as name is like "'name'" */
-							$prec = (strlen($name) - 2);
+							$prec = (mb_strlen($name) - 2);
 						}
 					}
 				}
@@ -298,7 +298,7 @@
 				}
 			}
 			/* ugly as heck, but is here to chop the trailing comma on the last element (for php3) */
-			$this->sCol[count($this->sCol) - 1] = substr($this->sCol[count($this->sCol) - 1],0,-2) . "\n";
+			$this->sCol[count($this->sCol) - 1] = mb_substr($this->sCol[count($this->sCol) - 1],0,-2) . "\n";
 
 			return false;
 		}
@@ -320,7 +320,7 @@
 				$bRetVal = !!($oProc->query("ALTER TABLE $sTableName RENAME tmp_$sTableName"));
 
 			if ($bRetVal)
-				$bRetVal = !!($oProc->query("CREATE TABLE $sTableName ($sTableSQL)"));
+				$bRetVal = !!($oProc->query("CREATE TABLE $sTableName ($sTableSQL) ENGINE=InnoDB"));
 
 			if ($bRetVal)
 				$bRetVal = !!($oProc->query("INSERT INTO $sTableName SELECT " . join(',', array_keys($aTableDef['fd'])) . " FROM tmp_$sTableName"));
@@ -351,7 +351,7 @@
 			$aPK = array();
 			while ($oProc->m_odb->next_record())
 			{
-				if (strtoupper($oProc->m_odb->f(2)) == 'PRIMARY')
+				if (mb_strtoupper($oProc->m_odb->f(2)) == 'PRIMARY')
 				{
 					array_push($aPK, $oProc->m_odb->f(4));
 					continue;
@@ -476,7 +476,7 @@
 		{
 			if ($oProc->_GetTableSQL($sTableName, $aTableDef, $sTableSQL, $sSequenceSQL))
 			{
-				$query = "CREATE TABLE $sTableName ($sTableSQL)";
+				$query = "CREATE TABLE $sTableName ($sTableSQL) ENGINE=InnoDB";
 				$retVal = ($oProc->m_odb->query($query) !== -1);
 				if ($retVal)
 					$retVal = $this->CreateIndexes($oProc, $sTableName, $aTableDef['ix']);

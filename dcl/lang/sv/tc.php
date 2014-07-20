@@ -5,7 +5,7 @@
 	define('STR_TC_ACTION', "Aktivitet");
 	define('STR_TC_HOURS', "Timmar");
 	define('STR_TC_DESCRIPTION', "Beskrivning");
-	define('STR_TC_EDIT', "Ã?â??ndra aktivitetsrapport");
+	define('STR_TC_EDIT', "Editing Time Card");
 	define('STR_TC_JCN', "Ordernr#");
 	define('STR_TC_SEQ', "Delorder");
 	define('STR_TC_DETAILBELOW', "(Detaljer nedan)");
@@ -13,12 +13,11 @@
 	define('STR_TC_DATE', "Datum");
 	define('STR_TC_BY', "Av");
 	define('STR_TC_ETC', "kvar");
-	define('STR_TC_BTNADD', "LÃ?Â¤gg till");
-	define('STR_TC_BTNMOD', "Ã?â??ndra");
+	define('STR_TC_BTNADD', "Add");
+	define('STR_TC_BTNMOD', "Modify");
 	define('STR_TC_BTNCLR', "Rensa");
-	define('STR_TC_HIGHLIGHTEDNOTE', "** Obligatoriskt fÃ?Â¤lt.");
-	define('STR_TC_MODIFYNOTE', "NOTERA: Om nÃ?Â¥gon tidrapport visar sig efter denna som kommer status och tid kvar inte att Ã?Â¤ndras.");
-	define('STR_TC_MODIFY', "Ã?â??ndra");
+	define('STR_TC_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
+	define('STR_TC_MODIFYNOTE', "NOTE: If any time cards appear below this one, status and ETC hours will not be changed.");
+	define('STR_TC_MODIFY', "Modify");
 	define('STR_TC_DELETE', "Ta bort");
 	define('STR_TC_BATCHUPDATE', "Automatiserad uppdatering");
-?>

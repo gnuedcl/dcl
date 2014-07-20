@@ -1,16 +1,16 @@
 <?php
-	define('STR_WOST_SSTITLE', "Status der ArbeitsauftrÃ?Â¤ge - Tabellen Ansicht");
+	define('STR_WOST_SSTITLE', "Work Order Status - Spreadsheet View");
 	define('STR_WOST_PERSONNEL', "Einschliesslich Personal");
 	define('STR_WOST_PRODUCTS', "Einschliesslich Produkte");
-	define('STR_WOST_CLOSEDWO', "Geschlossene Jobs: Wenn Sie nach geschlossenen Jobs suchen, bitte eines oder beide Datumsfelder ausfÃ?Â¼llen");
+	define('STR_WOST_CLOSEDWO', "Closed Jobs: If searching closed jobs, fill in one or both of these dates");
 	define('STR_WOST_BEGIN', "Beginnt");
 	define('STR_WOST_ENDING', "Endet");
 	define('STR_WOST_ALL', "Alle");
 	define('STR_WOST_HOURSABBREV', "h");
-	define('STR_WOST_SEARCHRESULTS', "ArbeitsauftrÃ?Â¤ge Statistiken Suchergebnisse");
-	define('STR_WOST_TICKETACTIVITY', "Bericht Ã?Â¼ber Ticket AktivitÃ?Â¤ten");
-	define('STR_WOST_PERSONNELACTIVITY', "Mitarbeiter AktivitÃ?Â¤t");
-	define('STR_WOST_GENERATEREPORTFOR', "Erzeuge Bericht Ã?Â¼ber");
+	define('STR_WOST_SEARCHRESULTS', "Work Order Statistics Search Results");
+	define('STR_WOST_TICKETACTIVITY', "Ticket Activity Report");
+	define('STR_WOST_PERSONNELACTIVITY', "Personnel Activity Report");
+	define('STR_WOST_GENERATEREPORTFOR', "Generate Report For");
 	define('STR_WOST_DATERANGE', "Datenbereich");
 	define('STR_WOST_DATEERR', "Kann Bericht nicht ohne ein Start- und Endedatum drucken.");
 	define('STR_WOST_SUMMARY', "Zusammenfassung");
@@ -25,12 +25,11 @@
 	define('STR_WOST_START', "Start");
 	define('STR_WOST_END', "Ende");
 	define('STR_WOST_TIME', "Zeit");
-	define('STR_WOST_ACTIVITYTITLE', "Bericht Ã?Â¼ber AktivitÃ?Â¤t von %s bis %s Ã?Â¼ber %s");
-	define('STR_WOST_NOACTIVITY', "Keine AktivitÃ?Â¤ten gefunden!");
-	define('STR_WOST_QUERYERR', "Abfrage konnte nicht ausgefÃ?Â¼hrt werden!");
+	define('STR_WOST_ACTIVITYTITLE', "Activity Report For %s From %s To %s");
+	define('STR_WOST_NOACTIVITY', "No Activity Found!");
+	define('STR_WOST_QUERYERR', "Could not execute query!");
 	define('STR_WOST_NOTASKS', "Keine Aufgaben zu planen");
 	define('STR_WOST_SCHEDULEDTASK', "Geplant %d-%d von %s bis %s");
-	define('STR_WOST_SCHEDULETITLE', "Plane offene Aufgaben fÃ?Â¼r Mitarbeiter");
-	define('STR_WOST_SCHEDULEFOR', "Geplant fÃ?Â¼r");
+	define('STR_WOST_SCHEDULETITLE', "Schedule Open Tasks For Personnel");
+	define('STR_WOST_SCHEDULEFOR', "Schedule For");
 	define('STR_WOST_FORMATASTIMESHEET', "Format as Timesheet");
-?>

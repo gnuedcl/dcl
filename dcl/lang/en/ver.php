@@ -8,4 +8,3 @@
 	define('STR_VER_YOURVER', "Your Version Information");
 	define('STR_VER_YOURIP', "Your IP Address");
 	define('STR_VER_YOURBROWSER', "Your Browser");
-?>

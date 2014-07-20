@@ -11,4 +11,3 @@
 	define('STR_DEPT_EDIT', "Modifica Divisione");
 	define('STR_DEPT_ADD', "Nuova Divisione");
 	define('STR_DEPT_HIGHLIGHTEDNOTE', "** I campi evidenziati sono obbligatori!");
-?>

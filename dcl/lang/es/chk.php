@@ -15,4 +15,3 @@
 	define('STR_CHK_COULDNOTCOPYTPL', "Could not copy template to new checklist.  Operation aborted.");
 	define('STR_CHK_ERRORDATABASEENTRY', "Error creating database entry for checklist.");
 	define('STR_CHK_STATE', "State");
-?>

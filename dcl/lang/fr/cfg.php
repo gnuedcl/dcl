@@ -1,7 +1,7 @@
 <?php
 	define('STR_CFG_TITLE', "Configuration DCL");
-	define('STR_CFG_DESC', "Cet Ã?Â©cran vous permettra de configurer les diffÃ?Â©rents rÃ?Â©glages et le fonctionnement par dÃ?Â©faut de DCL.");
-	define('STR_CFG_SYSTEMTITLE', "Configuration SystÃ?Â¨me");
+	define('STR_CFG_DESC', "This screen will allow you to configure default settings and behaviors in DCL.");
+	define('STR_CFG_SYSTEMTITLE', "System Configuration");
 	define('STR_CFG_DATEFORMAT', "Format d Affichage de la date");
 	define('STR_CFG_DATEFORMATHELP', "The format to use for displaying dates.");
 	define('STR_CFG_DATEFORMATDB', "Format de date SQL Server");
@@ -11,10 +11,10 @@
 	define('STR_CFG_TIMESTAMPFORMATDB', "Format Date/Heure SQL Server");
 	define('STR_CFG_TIMESTAMPFORMATDBHELP', "The format the database uses for storing timestamps.");
 	define('STR_CFG_MAXUPLOADFILESIZE', "Taille maximum Upload pour les fichiers");
-	define('STR_CFG_MAXUPLOADFILESIZEHELP', "Maximum file size allowed for uploading attachments.  0 pour dÃ?Â©sactiver.  This value only takes effect up to the limit specified in php.ini.");
-	define('STR_CFG_LANGUAGE', "Langage par dÃ?Â©faut");
+	define('STR_CFG_MAXUPLOADFILESIZEHELP', "Maximum file size allowed for uploading attachments.  0 disables file uploads.  This value only takes effect up to the limit specified in php.ini.");
+	define('STR_CFG_LANGUAGE', "Default Language");
 	define('STR_CFG_LANGUAGEHELP', "The language that is used by default for users and the login page.");
-	define('STR_CFG_PRIVATEKEY', "ClÃ?Â© privÃ?Â©e");
+	define('STR_CFG_PRIVATEKEY', "Private Key");
 	define('STR_CFG_PRIVATEKEYHELP', "This key is appended to any values to be MD5 hashed.");
 	define('STR_CFG_ROOT', "Racine Web pour DCL");
 	define('STR_CFG_ROOTHELP', "This is the root URL of DCL for this installation. (Example: http://www.mydomain.com/dcl/)");
@@ -23,15 +23,15 @@
 	define('STR_CFG_LOOKNFEELTITLE', "Look And Feel");
 	define('STR_CFG_DEFTEMPLATESET', "Default Template Set");
 	define('STR_CFG_WORKORDERTITLE', "Ordres de Travail");
-	define('STR_CFG_DEFAULTSTATUSASSIGN', "Statut par dÃ?Â©faut pour les Ordres de Travail assignÃ?Â©s");
+	define('STR_CFG_DEFAULTSTATUSASSIGN', "Default Status For Assigned Work Orders");
 	define('STR_CFG_DEFAULTSTATUSASSIGNHELP', "The default status for new work orders.");
-	define('STR_CFG_DEFAULTSTATUSUNASSIGN', "Statut par dÃ?Â©faut pour les Ordres de Travail non assignÃ?Â©s");
+	define('STR_CFG_DEFAULTSTATUSUNASSIGN', "Default Status For Unassigned Work Orders");
 	define('STR_CFG_DEFAULTSTATUSUNASSIGNHELP', "The default status for new work orders where the originator is not able to assign it to another user.");
-	define('STR_CFG_DEFAULTPRIORITY', "PrioritÃ?Â© par dÃ?Â©faut pour les Ordres de Travail non assignÃ?Â©");
+	define('STR_CFG_DEFAULTPRIORITY', "Default Priority For Unassigned Work Orders");
 	define('STR_CFG_DEFAULTPRIORITYHELP', "The default priority for new unassigned work orders.");
-	define('STR_CFG_DEFAULTSEVERITY', "SÃ?Â©vÃ?Â©ritÃ?Â© par dÃ?Â©faut pour les Ordres de Travail non assignÃ?Â©s");
+	define('STR_CFG_DEFAULTSEVERITY', "Default Severity For Unassigned Work Orders");
 	define('STR_CFG_DEFAULTSEVERITYHELP', "The default severity for new unassigned work orders.");
-	define('STR_CFG_AUTODATE', "Auto-remplissage de la date de dÃ?Â©part/Deadline avec la date du prochain jour");
+	define('STR_CFG_AUTODATE', "Auto-Fill Dates");
 	define('STR_CFG_AUTODATEHELP', "This option will autofill the start date and deadline with tomorrow\'s date.");
 	define('STR_CFG_TIMECARDORDER', "Afficher l\'ordre des Fiches de Temps");
 	define('STR_CFG_TIMECARDORDERHELP', "The order that time cards are displayed.");
@@ -46,16 +46,16 @@
 	define('STR_CFG_WOSECONDARYACCOUNTSENABLED', "Multiple Organizations");
 	define('STR_CFG_WOSECONDARYACCOUNTSENABLEDHELP', "This allows users to associate more than one organization with a work order.  This is currently not compatible with MySQL.");
 	define('STR_CFG_PROJECTTITLE', "Projets");
-	define('STR_CFG_DCLPROJECTXMLTEMPLATES', "Utiliser les modÃ?Â¨les XML (NÃ?Â©cÃ?Â©ssite l\'utilisation du support XML)");
+	define('STR_CFG_DCLPROJECTXMLTEMPLATES', "Use XML Templates (Requires XML Support)");
 	define('STR_CFG_DCLPROJECTXMLTEMPLATESHELP', "Enables the option to use a project XML template when creating new projects.  Templates contain work orders and can accept parameters to change certain attributes of them.");
 	define('STR_CFG_TICKETTITLE', "Tickets");
-	define('STR_CFG_CQQPERCENT', "ProbabilitÃ?Â© d\'envoyer un questionnaire qualitÃ?Â©");
+	define('STR_CFG_CQQPERCENT', "Percent Chance to Send Quality Questionnaire");
 	define('STR_CFG_CQQPERCENTHELP', "The percentage of resolved tickets that will send a quality questionnaire to the contact associated with the ticket.");
-	define('STR_CFG_CQQFROM', "Adresse E-mail de l\'expÃ?Â©diteur du questionnaire qualitÃ?Â©");
+	define('STR_CFG_CQQFROM', "Quality Questionnaire From E-mail Address");
 	define('STR_CFG_CQQFROMHELP', "The e-mail address the quality questionnaire originates from.");
-	define('STR_CFG_CQQSUBJECT', "Sujet E-mail pour le questionnaire qualitÃ?Â©");
+	define('STR_CFG_CQQSUBJECT', "Quality Questionnaire E-mail Subject");
 	define('STR_CFG_CQQSUBJECTHELP', "The e-mail subject line for the quality questionnaire.");
-	define('STR_CFG_CQQTEMPLATE', "ModÃ?Â¨le E-mail pour le questionnaire qualitÃ?Â©");
+	define('STR_CFG_CQQTEMPLATE', "Quality Questionnaire E-mail Template");
 	define('STR_CFG_CQQTEMPLATEHELP', "The template file (located in templates/custom directory) to use for the questionnaire.  This is the body of the e-mail message.");
 	define('STR_CFG_EMAILSERVERTITLE', "E-Mail SMTP Server");
 	define('STR_CFG_SMTPSERVER', "SMTP Server");
@@ -152,4 +152,3 @@
 	define('STR_CFG_SECAUDITENABLEDHELP', "Enables security auditing. By default, security auditing tracks logins, logouts, and any time the user hits main.php.  Reports are available in the admin section to view a users history.");
 	define('STR_CFG_SECAUDITLOGINONLY', "Only audit login events");
 	define('STR_CFG_SECAUDITLOGINONLYHELP', "Restricts security auditing to login and logout events only. By default, security auditing tracks logins, logouts, and any time the user hits main.php.");
-?>

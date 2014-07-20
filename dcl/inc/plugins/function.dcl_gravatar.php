@@ -42,7 +42,7 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 			return;
 		}
 		
-		$gravitarHash = md5(strtolower($contactEmailModel->f('email_addr')));
+		$gravitarHash = md5(mb_strtolower($contactEmailModel->f('email_addr')));
 		$g_GravitarsByUserId[$userId] = $gravitarHash;
 	}
 	else 

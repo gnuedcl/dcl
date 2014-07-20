@@ -72,9 +72,9 @@ class EntityHotlistModel extends DbProvider
 			if ($sHotlist == '')
 				continue;
 			
-			if (strlen($sHotlist) > $GLOBALS['phpgw_baseline'][$oHotlist->TableName]['fd']['hotlist_tag']['precision'])
+			if (mb_strlen($sHotlist) > $GLOBALS['phpgw_baseline'][$oHotlist->TableName]['fd']['hotlist_tag']['precision'])
 			{
-				ShowError(sprintf(STR_DB_TAGLENGTHERR, htmlspecialchars($sHotlist), $GLOBALS['phpgw_baseline'][$oHotlist->TableName]['fd']['hotlist_tag']['precision']));
+				ShowError(sprintf(STR_DB_TAGLENGTHERR, htmlspecialchars($sHotlist, ENT_QUOTES, 'UTF-8'), $GLOBALS['phpgw_baseline'][$oHotlist->TableName]['fd']['hotlist_tag']['precision']));
 				continue;
 			}
 			

@@ -1,5 +1,5 @@
 <?php
-	define('STR_PROD_SELECTONE', "VÃ?Â¤lj en");
+	define('STR_PROD_SELECTONE', "Select One");
 	define('STR_PROD_TABLETITLE', "Produkter - ordnade efter %s");
 	define('STR_PROD_NOPRODS', "Inga produkter kunde hittas!");
 	define('STR_PROD_ID', "ID");
@@ -8,27 +8,27 @@
 	define('STR_PROD_SHORT', "Kort");
 	define('STR_PROD_NAME', "Namn");
 	define('STR_PROD_REPORTTO', "Rapportera till");
-	define('STR_PROD_TICKETSTO', "BegÃ?Â¤ran till");
-	define('STR_PROD_OPTIONS', "InstÃ?Â¤llningar");
-	define('STR_PROD_EDIT', "Ã?â??ndra produkt");
-	define('STR_PROD_ADD', "LÃ?Â¤gg till produkt");
-	define('STR_PROD_HIGHLIGHTEDNOTE', "** Obligatoriskt fÃ?Â¤lt.");
+	define('STR_PROD_TICKETSTO', "Tickets To");
+	define('STR_PROD_OPTIONS', "Options");
+	define('STR_PROD_EDIT', "Edit Product");
+	define('STR_PROD_ADD', "Add Product");
+	define('STR_PROD_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
 	define('STR_PROD_MYPROD', "Produkter");
-	define('STR_PROD_NOTLEAD', "Du ansvarar inte fÃ?Â¶r nÃ?Â¥gra produkter.");
-	define('STR_PROD_WOATTRIBUTESET', "Attributgrupp fÃ?Â¶r arbetsorder");
-	define('STR_PROD_TICKETATTRIBUTESET', "Attributgrupp fÃ?Â¶r begÃ?Â¤ran");
-	define('STR_PROD_WODETAIL', "Detaljer fÃ?Â¶r arbetsorder");
-	define('STR_PROD_TICKETDETAIL', "Detaljer fÃ?Â¶r begÃ?Â¤ran");
+	define('STR_PROD_NOTLEAD', "You are not the lead of any products.");
+	define('STR_PROD_WOATTRIBUTESET', "WO Attribute Set");
+	define('STR_PROD_TICKETATTRIBUTESET', "Ticket Attribute Set");
+	define('STR_PROD_WODETAIL', "Work Orders Detail");
+	define('STR_PROD_TICKETDETAIL', "Tickets Detail");
 	define('STR_PROD_VIEWWO', "Visa arbetsorder");
-	define('STR_PROD_VIEWTICKETS', "Visa begÃ?Â¤ran");
+	define('STR_PROD_VIEWTICKETS', "Tickets");
 	define('STR_PROD_NOWORKORDERS', "Inga arbetsordrar existerar.");
-	define('STR_PROD_NOTICKETS', "Inga begÃ?Â¤ran existerar");
-	define('STR_PROD_PREEXISTING', "FÃ?Â¶r-existerande");
+	define('STR_PROD_NOTICKETS', "No tickets in DCL.");
+	define('STR_PROD_PREEXISTING', "Pre-existing");
 	define('STR_PROD_CREATED', "Skapad den");
-	define('STR_PROD_CLOSED', "StÃ?Â¤ngd den");
-	define('STR_PROD_OUTSTANDING', "EnastÃ?Â¥ende");
+	define('STR_PROD_CLOSED', "Closed");
+	define('STR_PROD_OUTSTANDING', "Outstanding");
 	define('STR_PROD_WOTITLE', "%s arbetsorder");
-	define('STR_PROD_TICKETTITLE', "%s begÃ?Â¤ran");
+	define('STR_PROD_TICKETTITLE', "%s Tickets");
 	define('STR_PROD_WOATTR', "WO Attr");
 	define('STR_PROD_TCKATTR', "Tck Attr");
 	define('STR_PROD_WOWATCH', "Watch Work Orders");
@@ -53,4 +53,3 @@
 	define('STR_PROD_WOBUILDINFO', "Build: %s");
 	define('STR_PROD_ACTIVITYLAST7DAYS', "Activity Last 7 Days");
 	define('STR_PROD_VERSIONED', "Versioned");
-?>

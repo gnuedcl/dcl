@@ -149,7 +149,7 @@ class htmlWiki
 			if ($obj->page_text == '')
 		        $tf = sprintf(DCL_WIKI_NEWPAGEFORMAT, $name);
 			else
-				$tf =  htmlspecialchars($obj->page_text);
+				$tf =  htmlspecialchars($obj->page_text, ENT_QUOTES, 'UTF-8');
 
 			if (!isset($editmode) || $editmode != 'edit')
 			{
@@ -195,7 +195,7 @@ class htmlWiki
 		{
 			if ($numtype)
 			{
-				$start=substr($numtype,1);
+				$start=mb_substr($numtype,1);
 				if ($start)
 					return "<$list_type type='$numtype[0]' start='$start'>";
 
@@ -211,7 +211,7 @@ class htmlWiki
 
 	function _table_span($str)
 	{
-		$len = strlen($str) / 2;
+		$len = mb_strlen($str) / 2;
 		if ($len > 1)
 			return " align=\"center\" colspan=\"$len\"";
 
@@ -371,11 +371,11 @@ class htmlWiki
 				$open = "";
 				$close = "";
 				$indtype = "dd";
-				$indlen = strlen($match[0]);
+				$indlen = mb_strlen($match[0]);
 
 				if ($indlen > 0)
 				{
-					$line = substr($line, $indlen);
+					$line = mb_substr($line, $indlen);
 					if (preg_match("/^(\*\s*)/", $line, $limatch))
 					{
 						$line=preg_replace("/^(\*\s*)/", "<li>",$line);
@@ -393,7 +393,7 @@ class htmlWiki
 
 						$numtype=$limatch[2];
 						if (isset($limatch[3]))
-							$numtype .= substr($limatch[3], 1);
+							$numtype .= mb_substr($limatch[3], 1);
 						$indtype = "ol";
 					}
 				}

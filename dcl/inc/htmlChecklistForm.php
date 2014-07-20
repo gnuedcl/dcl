@@ -109,7 +109,7 @@ class htmlChecklistForm
 		if ($this->oSelect == NULL)
 			$this->oSelect = new SelectHtmlHelper();
 
-		if (substr($node->attributes['type'], -3, 3) == 'one')
+		if (mb_substr($node->attributes['type'], -3, 3) == 'one')
 			$this->oSelect->Size = 0;
 		else
 			$this->oSelect->Size = 8;
@@ -126,7 +126,7 @@ class htmlChecklistForm
 		if ($this->oSelect == NULL)
 			$this->oSelect = new SelectHtmlHelper();
 
-		if (substr($node->attributes['type'], -3, 3) == 'one')
+		if (mb_substr($node->attributes['type'], -3, 3) == 'one')
 			$this->oSelect->Size = 0;
 		else
 			$this->oSelect->Size = 8;
@@ -143,10 +143,10 @@ class htmlChecklistForm
 		$this->xml->FindChildNode($node, 'Options');
 		if ($this->xml->currentNode != NULL)
 		{
-			echo '<select id="' . htmlentities($node->attributes['name']) . '" name="' . htmlentities($node->attributes['name']) . '">';
+			echo '<select id="' . htmlspecialchars($node->attributes['name'], ENT_QUOTES, 'UTF-8') . '" name="' . htmlspecialchars($node->attributes['name'], ENT_QUOTES, 'UTF-8') . '">';
 			$o = &$this->xml->currentNode;
 			for ($i = 0; $i < count($o->childNodes); $i++)
-				echo '<option value="' . htmlentities($o->childNodes[$i]->data) . '">' . htmlentities($o->childNodes[$i]->data) . '</option>';
+				echo '<option value="' . htmlspecialchars($o->childNodes[$i]->data, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($o->childNodes[$i]->data, ENT_QUOTES, 'UTF-8') . '</option>';
 			echo '</select>';
 		}
 	}
@@ -154,7 +154,7 @@ class htmlChecklistForm
 	function RenderField(&$node)
 	{
 		echo '<div>';
-		echo '<label for="">', htmlentities($node->attributes['display']), ':</label>';
+		echo '<label for="">', htmlspecialchars($node->attributes['display'], ENT_QUOTES, 'UTF-8'), ':</label>';
 		if ($this->bIsView)
 		{
 			$sVal = $this->GetNodeValue($node);
@@ -163,7 +163,7 @@ class htmlChecklistForm
 				if ($sVal != '')
 				{
 					$this->oDate->SetFromANSI($sVal);
-					echo htmlentities($this->oDate->ToDisplay());
+					echo htmlspecialchars($this->oDate->ToDisplay(), ENT_QUOTES, 'UTF-8');
 				}
 			}
 			else
@@ -171,7 +171,7 @@ class htmlChecklistForm
 				if (is_array($sVal))
 					$sVal = implode(', ', $sVal);
 
-				echo htmlentities($sVal);
+				echo htmlspecialchars($sVal, ENT_QUOTES, 'UTF-8');
 			}
 
 			echo '</div>';
@@ -194,7 +194,7 @@ class htmlChecklistForm
 			case 'textarea':
 				echo '<textarea name="', $node->attributes['name'], '" rows="';
 				echo $node->attributes['rows'], '" cols="', $node->attributes['cols'], '">';
-				echo htmlentities($this->GetNodeValue($node));
+				echo htmlspecialchars($this->GetNodeValue($node), ENT_QUOTES, 'UTF-8');
 				echo '</textarea>';
 				break;
 			case 'date':
@@ -203,7 +203,7 @@ class htmlChecklistForm
 			case 'time':
 				echo '<input type="text" name="' . $node->attributes['name'];
 				echo '" size="5" maxlength="5" value="';
-				echo htmlentities($this->GetNodeValue($node));
+				echo htmlspecialchars($this->GetNodeValue($node), ENT_QUOTES, 'UTF-8');
 				echo '">';
 				break;
 			case 'phone':
@@ -214,7 +214,7 @@ class htmlChecklistForm
 					echo '" size="' . $node->attributes['size'];
 					
 				echo '" value="';
-				echo htmlentities($this->GetNodeValue($node));
+				echo htmlspecialchars($this->GetNodeValue($node), ENT_QUOTES, 'UTF-8');
 				echo '">';
 				break;
 			case 'createdate':
@@ -222,7 +222,7 @@ class htmlChecklistForm
 				if ($sVal != '')
 				{
 					$this->oDate->SetFromANSI($sVal);
-					echo htmlentities($this->oDate->ToDisplay());
+					echo htmlspecialchars($this->oDate->ToDisplay(), ENT_QUOTES, 'UTF-8');
 				}
 				echo GetHiddenVar($node->attributes['name'], $sVal);
 				break;
@@ -246,7 +246,7 @@ class htmlChecklistForm
 		$this->bFirstState = false;
 		
 		echo '<fieldset>';
-		echo '<legend>', htmlentities($node->attributes['name']), '</legend>';
+		echo '<legend>', htmlspecialchars($node->attributes['name'], ENT_QUOTES, 'UTF-8'), '</legend>';
 	}
 
 	function RenderNode(&$node)
@@ -261,7 +261,7 @@ class htmlChecklistForm
 				break;
 			case 'Name':
 				// Render title - show state combo beneath
-				echo '<fieldset><legend>' . htmlentities($node->data) . '</legend>';
+				echo '<fieldset><legend>' . htmlspecialchars($node->data, ENT_QUOTES, 'UTF-8') . '</legend>';
 				$this->RenderStateCombo();
 				echo '</fieldset>';
 				break;
@@ -296,11 +296,11 @@ class htmlChecklistForm
 			echo '<div class="form-group"><label for="dcl_chklst_status">', STR_CHK_STATE, '</label><div class="col-sm-4"><select class="form-control" id="dcl_chklst_status" name="dcl_chklst_status">';
 			for ($i = 0; $i < count($this->xml->nodes); $i++)
 			{
-				echo '<option value="', htmlentities($this->xml->nodes[$i]->attributes['name']), '"';
+				echo '<option value="', htmlspecialchars($this->xml->nodes[$i]->attributes['name'], ENT_QUOTES, 'UTF-8'), '"';
 				if ($this->xml->nodes[$i]->attributes['name'] == $currentState)
 					echo ' selected';
 					
-				echo '>', htmlentities($this->xml->nodes[$i]->attributes['name']), '</option>';
+				echo '>', htmlspecialchars($this->xml->nodes[$i]->attributes['name'], ENT_QUOTES, 'UTF-8'), '</option>';
 			}
 			
 			echo '</select></div></div>';

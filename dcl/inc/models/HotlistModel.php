@@ -46,7 +46,7 @@ class HotlistModel extends DbProvider
 
 	public function getIdByName($sTag)
 	{
-		$sTag = trim(strtolower($sTag));
+		$sTag = trim(mb_strtolower($sTag));
 		$iID = $this->ExecuteScalar('SELECT hotlist_id FROM dcl_hotlist WHERE hotlist_tag = ' . $this->Quote($sTag));
 		if ($iID !== null)
 			return $iID;
@@ -71,7 +71,7 @@ class HotlistModel extends DbProvider
 		if ($sTags === null || trim($sTags) == '')
 			return '-1';
 			
-		$sTags = trim(strtolower($sTags));
+		$sTags = trim(mb_strtolower($sTags));
 		$aTags = explode(',', $sTags);
 		if (count($aTags) < 1)
 			return '-1';

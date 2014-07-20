@@ -26,4 +26,3 @@
 	define('STR_WTCH_ANYTHING', "Anything");
 	define('STR_WTCH_ACCTWO', "Account Work Order");
 	define('STR_WTCH_ACCTTCK', "Account Ticket");
-?>

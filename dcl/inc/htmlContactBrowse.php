@@ -210,10 +210,10 @@ class htmlContactBrowse
 		$filterSearch = isset($_REQUEST['filterSearch']) ? $_REQUEST['filterSearch'] : '';
 		if ($filterSearch != '')
 		{
-			if (strpos($filterSearch, ',') === false)
+			if (mb_strpos($filterSearch, ',') === false)
 			{
-			    if ($filterSearch[0] == '#' && strlen($filterSearch) > 1)
-				    $oView->AddDef('filterlike', 'dcl_contact_license.license_id', substr($filterSearch, 1));
+			    if ($filterSearch[0] == '#' && mb_strlen($filterSearch) > 1)
+				    $oView->AddDef('filterlike', 'dcl_contact_license.license_id', mb_substr($filterSearch, 1));
 			    else
 				    $oView->AddDef('filterlike', 'last_name', $filterSearch);
 			}

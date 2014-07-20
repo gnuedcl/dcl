@@ -1,7 +1,7 @@
 <?php
-	define('STR_USR_SELECTONE', "A SÃ?Â©lectionner");
+	define('STR_USR_SELECTONE', "Select One");
 	define('STR_USR_PASSWORD', "Mot de passe");
-	define('STR_USR_SECLVL', "Niveau de sÃ?Â©curitÃ?Â©");
+	define('STR_USR_SECLVL', "Security Level");
 	define('STR_USR_MINLVL', "Min");
 	define('STR_USR_TODOTHIS', "Pour faire ceci...");
 	define('STR_USR_ADMIN', "Administrateur");
@@ -9,28 +9,27 @@
 	define('STR_USR_RESPONSIBLE', "Etre responsable du traitement d\'un appel");
 	define('STR_USR_CANCHGPWD', "Capable de changer son mot de passe");
 	define('STR_USR_ADDWO', "Peut ajouter des appels");
-	define('STR_USR_DELWO', "Peut dÃ?Â©truire un Ordre de Travail depuis le systÃ?Â¨me");
-	define('STR_USR_MODWO', "Peut modifier un Ordre de Travail dans le systÃ?Â¨me");
+	define('STR_USR_DELWO', "Can delete a work order from the system");
+	define('STR_USR_MODWO', "Can modify an existing work order in the system");
 	define('STR_USR_EMAIL', "e-Mail");
 	define('STR_USR_CHGPWD', "Changement Mot de passe");
 	define('STR_USR_CHANGE', "Changer");
-	define('STR_USR_CLEAR', "RafraÃ?Â®chir");
+	define('STR_USR_CLEAR', "Clear");
 	define('STR_USR_NEWPWD', "Nouveau Mot de passe");
 	define('STR_USR_CURRPWD', "Mot de passe actuel");
 	define('STR_USR_CONFIRMPWD', "Confirmer Mot de passe");
-	define('STR_USR_TABLETITLE', "Utilisateurs - TriÃ?Â©s Par %s");
-	define('STR_USR_NOUSERS', "Pas d\'utilisateur trouvÃ?Â©s Ã?Â  affichÃ?Â©er. Peut-Ã?Âªtre n\'avez vous pas encore d\'utilisateurs dÃ?Â©finis dans le systÃ?Â¨me!");
+	define('STR_USR_TABLETITLE', "Users - Ordered By %s");
+	define('STR_USR_NOUSERS', "Users could not be found for display!  You may not have any users in your system yet!");
 	define('STR_USR_ID', "ID");
 	define('STR_USR_USER', "Utilisateur");
 	define('STR_USR_ACTIVEABB', "A");
 	define('STR_USR_ACTIVE', "Actif");
 	define('STR_USR_LASTNAME', "Nom");
-	define('STR_USR_FIRSTNAME', "PrÃ?Â©nom");
+	define('STR_USR_FIRSTNAME', "First Name");
 	define('STR_USR_OPTIONS', "Options");
 	define('STR_USR_REPORTTO', "A pour responsable");
-	define('STR_USR_DEPARTMENT', "DÃ?Â©partement");
+	define('STR_USR_DEPARTMENT', "Department");
 	define('STR_USR_LOGIN', "Login");
 	define('STR_USR_EDIT', "Editer Utilisateur");
 	define('STR_USR_ADD', "Ajouter Utilisateur");
 	define('STR_USR_HIGHLIGHTEDNOTE', "** Les champs en surbrillance sont obligatoires!");
-?>

@@ -73,7 +73,7 @@ class PersonnelModel extends DbProvider
 	
 	public function LoadByLogin($sLogin)
 	{
-		if ($this->Query('SELECT ' . $this->SelectAllColumns() . ' FROM ' . $this->TableName . ' WHERE ' . $this->GetUpperSQL('short') . ' = ' . $this->Quote(strtoupper($sLogin))) != -1)
+		if ($this->Query('SELECT ' . $this->SelectAllColumns() . ' FROM ' . $this->TableName . ' WHERE ' . $this->GetUpperSQL('short') . ' = ' . $this->Quote(mb_strtoupper($sLogin))) != -1)
 		{
 			if ($this->next_record())
 				return $this->GetRow();

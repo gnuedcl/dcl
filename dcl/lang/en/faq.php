@@ -38,4 +38,3 @@
 	define('STR_FAQ_DISPLAYSEQ', "Display Seq");
 	define('STR_FAQ_QUESTIONOBJECTNOTPASSED', "A FAQ question object was not passed!");
 	define('STR_FAQ_TOPICOBJECTNOTPASSED', "A FAQ topic object was not passed!");
-?>

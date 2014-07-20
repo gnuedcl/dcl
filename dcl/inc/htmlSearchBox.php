@@ -82,7 +82,7 @@ class htmlSearchBox
 		if ($sWorkOrders == '' || $sWorkOrders < 1)
 			throw new InvalidArgumentException();
 
-		if (strpos($sWorkOrders, '-') > 0 && strpos($sWorkOrders, ',') === false)
+		if (mb_strpos($sWorkOrders, '-') > 0 && mb_strpos($sWorkOrders, ',') === false)
 		{
 			list($woid, $seq) = explode('-', $sWorkOrders);
 			if ($seq > 0)

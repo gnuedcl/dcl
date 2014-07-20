@@ -92,13 +92,13 @@ class FileHelper
 			switch($this->iType)
 			{
 				case DCL_ENTITY_WORKORDER:
-					return sprintf('%s/%s/%s/%s/%s', $this->sRoot, 'wo', substr($this->iKey1, -1), $this->iKey1, $this->iKey2);
+					return sprintf('%s/%s/%s/%s/%s', $this->sRoot, 'wo', mb_substr($this->iKey1, -1), $this->iKey1, $this->iKey2);
 				case DCL_ENTITY_TICKET:
-					return sprintf('%s/%s/%s/%s', $this->sRoot, 'tck', substr($this->iKey1, -1), $this->iKey1);
+					return sprintf('%s/%s/%s/%s', $this->sRoot, 'tck', mb_substr($this->iKey1, -1), $this->iKey1);
 				case DCL_ENTITY_PROJECT:
-					return sprintf('%s/%s/%s/%s', $this->sRoot, 'prj', substr($this->iKey1, -1), $this->iKey1);
+					return sprintf('%s/%s/%s/%s', $this->sRoot, 'prj', mb_substr($this->iKey1, -1), $this->iKey1);
 				case DCL_ENTITY_WORKORDER_TASK:
-					return sprintf('%s/%s/%s/%s', $this->sRoot, 'wotask', substr($this->iKey1, -1), $this->iKey1);
+					return sprintf('%s/%s/%s/%s', $this->sRoot, 'wotask', mb_substr($this->iKey1, -1), $this->iKey1);
 			}
 
 			throw new InvalidDataException('Invalid attachment type.');;
@@ -109,23 +109,23 @@ class FileHelper
 		{
 			case DCL_ENTITY_WORKORDER:
 				$retVal = $this->AddPath($retVal, 'wo');
-				$retVal = $this->AddPath($retVal, substr($this->iKey1, -1));
+				$retVal = $this->AddPath($retVal, mb_substr($this->iKey1, -1));
 				$retVal = $this->AddPath($retVal, $this->iKey1);
 				$retVal = $this->AddPath($retVal, $this->iKey2);
 				break;
 			case DCL_ENTITY_TICKET:
 				$retVal = $this->AddPath($retVal, 'tck');
-				$retVal = $this->AddPath($retVal, substr($this->iKey1, -1));
+				$retVal = $this->AddPath($retVal, mb_substr($this->iKey1, -1));
 				$retVal = $this->AddPath($retVal, $this->iKey1);
 				break;
 			case DCL_ENTITY_PROJECT:
 				$retVal = $this->AddPath($retVal, 'prj');
-				$retVal = $this->AddPath($retVal, substr($this->iKey1, -1));
+				$retVal = $this->AddPath($retVal, mb_substr($this->iKey1, -1));
 				$retVal = $this->AddPath($retVal, $this->iKey1);
 				break;
 			case DCL_ENTITY_WORKORDER_TASK:
 				$retVal = $this->AddPath($retVal, 'wotask');
-				$retVal = $this->AddPath($retVal, substr($this->iKey1, -1));
+				$retVal = $this->AddPath($retVal, mb_substr($this->iKey1, -1));
 				$retVal = $this->AddPath($retVal, $this->iKey1);
 				break;
 			default:

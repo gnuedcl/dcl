@@ -12,4 +12,3 @@
 	define('STR_ACTN_ADD', "Add Action");
 	define('STR_ACTN_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
 	define('STR_ACTN_ATTRIBUTENOTE', "This item will need to be associated with an attribute set to be used.  See Admin..Attributes menu item.");
-?>

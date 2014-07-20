@@ -152,4 +152,3 @@
 	define('STR_CFG_SECAUDITENABLEDHELP', "Enables security auditing. By default, security auditing tracks logins, logouts, and any time the user hits main.php.  Reports are available in the admin section to view a users history.");
 	define('STR_CFG_SECAUDITLOGINONLY', "Only audit login events");
 	define('STR_CFG_SECAUDITLOGINONLYHELP', "Restricts security auditing to login and logout events only. By default, security auditing tracks logins, logouts, and any time the user hits main.php.");
-?>

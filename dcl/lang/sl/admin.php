@@ -1,27 +1,27 @@
 <?php
 	define('STR_ADMIN_STEP', "Korak %d.");
 	define('STR_ADMIN_SETUPTITLE', "DCL Sistemska nastavitev");
-	define('STR_ADMIN_SETUPDESC', "Ta zaslon omogoÃ?Â¨a konfiguracijo DCL programa. Koraki so namenjeni vodenju skozi konfiguracijo v pravilnem vrstnem redu po zaÃ?Â¨etni namestitvi.  Kasneje lahko izbereÃ?Â¹ posamezne korake poljubno.");
+	define('STR_ADMIN_SETUPDESC', "This screen allows you to configure your installation of DCL.  The steps are meant to guide you in the proper order of configuring the system after the initial installation.  Afterwards, you may access the items as needed.");
 	define('STR_ADMIN_PRIORITIES', "Prioritete");
-	define('STR_ADMIN_PRIORITIESDESC', "Priorite opsijujejo, kako nujna je izvedba doloÃ?Â¨ene aktivnosti.");
-	define('STR_ADMIN_PRIORITIESNOTE', "Novo prioriteto moraÃ?Â¹ dodati v zbirko atributov, da postane dosegljiva v DCL.");
+	define('STR_ADMIN_PRIORITIESDESC', "Priorities describe how urgent a particular item is.");
+	define('STR_ADMIN_PRIORITIESNOTE', "You must add any new priorities to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_SEVERITIES', "Severities");
 	define('STR_ADMIN_SEVERITIESDESC', "Severities indicate the type or impact of an item.");
 	define('STR_ADMIN_SEVERITIESNOTE', "You must add any new severities to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_STATUSES', "Statusi");
-	define('STR_ADMIN_STATUSESDESC', "Statusi oznaÃ?Â¨ujejo stanje aktivnosti, ponavadi v obliki (odprt, zaprt ali Ã?Â¨akajoÃ?Â¨). Dodamo lahko veÃ?Â¨ statusov in s tem natanÃ?Â¨neje opiÃ?Â¹emo stanje aktivnosti v delovnem procesu.");
-	define('STR_ADMIN_STATUSESNOTE', "Nov status moraÃ?Â¹ dodati v zbirko atributov, da postane dosegljiva v DCL.");
+	define('STR_ADMIN_STATUSESDESC', "Statuses indicate the state of an item, usually to determine if it is open, closed, or pending.  Several statuses can be added to better describe your work flow.");
+	define('STR_ADMIN_STATUSESNOTE', "You must add any new statuses to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_CONFIG', "Konfiguracija");
-	define('STR_ADMIN_CONFIGDESC', "Konfiguracija doloÃ?Â¨i privzete vrednosti spremenljivk in delovanja v tvoji namestitvi.");
+	define('STR_ADMIN_CONFIGDESC', "Configuration contains default settings and behaviors that can be modified for your installation.");
 	define('STR_ADMIN_CONFIGNOTE', "");
 	define('STR_ADMIN_DEPARTMENTS', "Uporabniki");
-	define('STR_ADMIN_DEPARTMENTSDESC', "Tukaj izdelaÃ?Â¹ uporabniÃ?Â¹ka imena za dostop do DCL.");
+	define('STR_ADMIN_DEPARTMENTSDESC', "Departments are used to associate users with different departments within DCL.  This can be used to mirror an organization chart, or you can enter just one department for all users.");
 	define('STR_ADMIN_DEPARTMENTSNOTE', "");
 	define('STR_ADMIN_ACTIONS', "Akcije");
-	define('STR_ADMIN_ACTIONSDESC', "Akcije so uporabljene v Ã?Â¨asovnih karticah in opisujejo tip opravljenega dela.");
-	define('STR_ADMIN_ACTIONSNOTE', "Novo akcijo moraÃ?Â¹ dodati v zbirko atributov, da postane dosegljiva v DCL.");
+	define('STR_ADMIN_ACTIONSDESC', "Actions are used for time cards to describe the type of work done during the corrective action phase of a work order.");
+	define('STR_ADMIN_ACTIONSNOTE', "You must add any new actions to an attribute set to be accessible in DCL.");
 	define('STR_ADMIN_ATTRIBUTESETS', "Produkti");
-	define('STR_ADMIN_ATTRIBUTESETSDESC', "Produkti so zbirka objektov, katerih obdelavo slediÃ?Â¹ v DCL. Produkt je ponavadi programski paket, lahko pa je uporabljen za katerikoli izdelek ali storitev.");
+	define('STR_ADMIN_ATTRIBUTESETSDESC', "Attribute sets contain actions, priorities, severities, and statuses.  You can create as many attribute sets as needed, and can associate them with a product.  Each product can have a different attribute set, and is further broken down into work order and ticket attributes.");
 	define('STR_ADMIN_ATTRIBUTESETSNOTE', "");
 	define('STR_ADMIN_WORKORDERTYPES', "Work Order Types");
 	define('STR_ADMIN_WORKORDERTYPESDESC', "Work order types represent a high level qualifier to the type of work order.  For example, these could be \"Bug\", \"Enhancement\", or \"Configuration\".");
@@ -59,4 +59,3 @@
 	define('STR_ADMIN_CONTACTTYPES', "Contact Types");
 	define('STR_ADMIN_CONTACTTYPESDESC', "Contact types are used to categorize contacts.  A contact can have more than one type.");
 	define('STR_ADMIN_CONTACTTYPESNOTE', "");
-?>

@@ -106,11 +106,11 @@ class htmlProjectTimeline
 		        
 		        if ($oDB->f(0) == 4)
 		        {
-		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=Project.Detail&id=' . $id) . '">[' . $id . '] ' . htmlspecialchars($oDB->f(5)) . '</a>';
+		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=Project.Detail&id=' . $id) . '">[' . $id . '] ' . htmlspecialchars($oDB->f(5), ENT_QUOTES, 'UTF-8') . '</a>';
 		        }
 		        else
 		        {
-		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $oDB->f(2) . '&seq=' . $oDB->f(3)) . '">[' . $oDB->f(2) . '-' . $oDB->f(3) . '] ' . htmlspecialchars($oDB->f(6)) . '</a>';
+		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $oDB->f(2) . '&seq=' . $oDB->f(3)) . '">[' . $oDB->f(2) . '-' . $oDB->f(3) . '] ' . htmlspecialchars($oDB->f(6), ENT_QUOTES, 'UTF-8') . '</a>';
 		        }
 		        
 		        $aRecord[] = $oDB->f(7);

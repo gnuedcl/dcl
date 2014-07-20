@@ -55,7 +55,7 @@ function render_<?php echo $sArrayName; ?>()
 		document.getElementById("<?php echo $params['id']; ?>Link").innerHTML = '<?php echo STR_CMMN_SELECTONE; ?>';
 }
 </script>
-<a id="<?php echo $params['id']; ?>Link" href="javascript:;" onclick="showSelector(document.getElementById('<?php echo $params['id']; ?>'), <?php echo $sArrayName; ?>, render_<?php echo $sArrayName; ?>, 'htmlProjectSelector', 'false');"><?php echo $params['decoded'] == '' ? STR_CMMN_SELECTONE : htmlspecialchars($params['decoded'], ENT_QUOTES); ?></a>
+<a id="<?php echo $params['id']; ?>Link" href="javascript:;" onclick="showSelector(document.getElementById('<?php echo $params['id']; ?>'), <?php echo $sArrayName; ?>, render_<?php echo $sArrayName; ?>, 'htmlProjectSelector', 'false');"><?php echo $params['decoded'] == '' ? STR_CMMN_SELECTONE : htmlspecialchars($params['decoded'], ENT_QUOTES, 'UTF-8'); ?></a>
 <input type="hidden" id="<?php echo $params['id']; ?>" name="<?php echo $params['name']; ?>" value="<?php echo $params['value']; ?>">
 <?php
 }

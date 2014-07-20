@@ -82,7 +82,7 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		if ($params['browse'] == 'Y')
 		{
 			echo '<span class="dcl-hotlist">';
-			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES) . ($priority == '' ? '' : ' #' . $priority) . '</a>';
+			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES, 'UTF-8') . ($priority == '' ? '' : ' #' . $priority) . '</a>';
 			if (in_array($sHotlist, $aSelected))
 			{
 				if (count($aSelected) == 1)
@@ -111,7 +111,7 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		}
 		else
 		{
-			echo '<a class="dcl-hotlist" href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES) . ($priority == '' ? '' : ' #' . $priority) . '</a>';
+			echo '<a class="dcl-hotlist" href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES, 'UTF-8') . ($priority == '' ? '' : ' #' . $priority) . '</a>';
 		}
 	}
 }

@@ -5,20 +5,19 @@
 	define('STR_TC_ACTION', "Akcija");
 	define('STR_TC_HOURS', "Ur");
 	define('STR_TC_DESCRIPTION', "Opis");
-	define('STR_TC_EDIT', "Popraveg Ã?Â¨asovne kartice");
+	define('STR_TC_EDIT', "Editing Time Card");
 	define('STR_TC_JCN', "ND#");
 	define('STR_TC_SEQ', "Sek");
 	define('STR_TC_DETAILBELOW', "(Podrobnosti spodaj)");
 	define('STR_TC_SUMMARY', "Povzetek");
 	define('STR_TC_DATE', "Datum");
 	define('STR_TC_BY', "Od");
-	define('STR_TC_ETC', "Ã?Â©e_ur");
+	define('STR_TC_ETC', "ETC");
 	define('STR_TC_BTNADD', "Dodaj");
 	define('STR_TC_BTNMOD', "Spremeni");
-	define('STR_TC_BTNCLR', "OÃ?Â¨isti");
+	define('STR_TC_BTNCLR', "Clear");
 	define('STR_TC_HIGHLIGHTEDNOTE', "** Osvetljena polja so obvezna!");
-	define('STR_TC_MODIFYNOTE', "OPOMBA: Ã?Ë?a se pojavi Ã?Â¨asovna kartica pod to, status in \\\"Ã?Â¹e ur\\\" ne bo spremenjen.");
+	define('STR_TC_MODIFYNOTE', "NOTE: If any time cards appear below this one, status and ETC hours will not be changed.");
 	define('STR_TC_MODIFY', "Spremeni");
-	define('STR_TC_DELETE', "ZbriÃ?Â¹i");
+	define('STR_TC_DELETE', "Delete");
 	define('STR_TC_BATCHUPDATE', "Skupinski popravek");
-?>

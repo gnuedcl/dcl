@@ -53,4 +53,3 @@
 	define('STR_PROD_WOBUILDINFO', "Build: %s");
 	define('STR_PROD_ACTIVITYLAST7DAYS', "Activity Last 7 Days");
 	define('STR_PROD_VERSIONED', "Versioned");
-?>

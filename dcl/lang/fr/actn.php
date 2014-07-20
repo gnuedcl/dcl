@@ -1,7 +1,7 @@
 <?php
-	define('STR_ACTN_SELECTONE', "A sÃ?Â©lectionner");
+	define('STR_ACTN_SELECTONE', "Select One");
 	define('STR_ACTN_TABLETITLE', "Actions");
-	define('STR_ACTN_NOACTIONS', "Pas d\'actions trouvÃ?Â©es Ã?Â  afficher !  Vous n\'avez peut-Ã?Âªtre pas encore d\'actions dÃ?Â©finies dans le systÃ?Â¨me!");
+	define('STR_ACTN_NOACTIONS', "Actions could not be found for display!  You may not have any actions in your system yet!");
 	define('STR_ACTN_ID', "ID");
 	define('STR_ACTN_ACTIVEABB', "A");
 	define('STR_ACTN_ACTIVE', "Actif");
@@ -11,5 +11,4 @@
 	define('STR_ACTN_EDIT', "Editer Action");
 	define('STR_ACTN_ADD', "Ajouter Action");
 	define('STR_ACTN_HIGHLIGHTEDNOTE', "** Les champs en surbrillance sont obligatoires!");
-	define('STR_ACTN_ATTRIBUTENOTE', "Cet objet devra Ã?Âªtre associÃ?Â© avec un attribut pour Ã?Âªtre utilisÃ?Â©. Voir le menu Admin..Attributs.");
-?>
+	define('STR_ACTN_ATTRIBUTENOTE', "This item will need to be associated with an attribute set to be used.  See Admin..Attributes menu item.");

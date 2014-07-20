@@ -25,7 +25,7 @@ function smarty_block_dcl_form_control($params, $content, $template, &$repeat)
 	if (is_null($content) && $repeat) {
 		$required = isset($params['required']) && $params['required'] == true;
 	?>	<div class="form-group"<?php if ($required) {?> data-required="required"<?php } ?>>
-			<label for="<?php echo $params['id']; ?>" class="col-sm-2 control-label"><?php echo htmlspecialchars($params['label'], ENT_QUOTES); ?></label>
+			<label for="<?php echo $params['id']; ?>" class="col-sm-2 control-label"><?php echo htmlspecialchars($params['label'], ENT_QUOTES, 'UTF-8'); ?></label>
 			<div class="col-sm-<?php echo $params['controlsize']; ?>"><?php
 
 		return;
@@ -34,7 +34,7 @@ function smarty_block_dcl_form_control($params, $content, $template, &$repeat)
 	{
 		$help = '';
 		if (isset($params['help']))
-			$help = '<div class="col-sm-offset-2 col-sm-10"><span class="help-block">' . htmlspecialchars($params['help'], ENT_QUOTES) . '</span></div>';
+			$help = '<div class="col-sm-offset-2 col-sm-10"><span class="help-block">' . htmlspecialchars($params['help'], ENT_QUOTES, 'UTF-8') . '</span></div>';
 
 		echo $content, '</div>', $help, '</div>';
 	}

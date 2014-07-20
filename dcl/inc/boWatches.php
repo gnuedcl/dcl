@@ -333,7 +333,7 @@ class boWatches
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createby, $bIsPublic))
 			{
 				$oPrefs = new PreferencesModel();
-				if ($oPrefs->Load($obj->createby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
+				if ($oPrefs->Load($obj->createby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || mb_strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
 				{
 					if ($bIsPublic)
 						$arrPublicEmail[$aContact['email']] = 1;
@@ -500,7 +500,7 @@ class boWatches
 			if (IsSet($aContact['email']) && !IsSet($arrEmail[$aContact['email']]) && $obj->CanView($obj, $obj->createdby, $bIsPublic))
 			{
 				$oPrefs = new PreferencesModel();
-				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
+				if ($oPrefs->Load($obj->createdby) == -1 || $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION') == '' || mb_strpos($actions, $oPrefs->Value('DCL_PREF_CREATED_WATCH_OPTION')) !== false)
 				{
 					if ($bIsPublic)
 						$arrPublicEmail[$aContact['email']] = 1;

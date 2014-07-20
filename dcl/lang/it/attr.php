@@ -21,4 +21,3 @@
 	define('STR_ATTR_TYPE', "Type");
 	define('STR_ATTR_NOATTRIBUTESETS', "No Attribute Sets Defined!");
 	define('STR_ATTR_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
-?>

@@ -77,7 +77,7 @@ class ContactEmailModel extends DbProvider
 	
 	function GetContactByEmail($sEmail)
 	{
-	    $sSQL = 'SELECT contact_id FROM dcl_contact_email WHERE ' . $this->GetUpperSQL('email_addr') . ' = ' . strtoupper($this->Quote($sEmail));
+	    $sSQL = 'SELECT contact_id FROM dcl_contact_email WHERE ' . $this->GetUpperSQL('email_addr') . ' = ' . mb_strtoupper($this->Quote($sEmail));
 		if ($this->Query($sSQL) != -1)
         {
         	if ($this->next_record())

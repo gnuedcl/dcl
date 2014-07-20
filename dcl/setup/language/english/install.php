@@ -197,5 +197,5 @@ define("_INSTALL_L153","Could not update %s.");
 define("_INSTALL_L154","%s updated.");
 
 
-define('_INSTALL_CHARSET','ISO-8859-1');
+define('_INSTALL_CHARSET','UTF-8');
 ?>

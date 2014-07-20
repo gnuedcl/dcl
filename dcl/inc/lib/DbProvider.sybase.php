@@ -357,7 +357,7 @@ class DbProvider extends AbstractDbProvider
 			return false;
 
 		$o = sybase_fetch_field($this->res, $vField);
-		return ($o['type'] == 'datetime' && strlen($this->f($vField)) == 10);
+		return ($o['type'] == 'datetime' && mb_strlen($this->f($vField)) == 10);
 	}
 
 	public function IsTimestamp($vField)
@@ -366,7 +366,7 @@ class DbProvider extends AbstractDbProvider
 			return false;
 
 		$o = sybase_fetch_field($this->res, $vField);
-		return ($o['type'] == 'datetime' && strlen($this->f($vField)) > 10);
+		return ($o['type'] == 'datetime' && mb_strlen($this->f($vField)) > 10);
 	}
 
 	public function index_names()

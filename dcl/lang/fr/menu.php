@@ -4,7 +4,7 @@
 	define('DCL_MENU_MYWOS', "Mes OT");
 	define('DCL_MENU_NEW', "Add New");
 	define('DCL_MENU_IMPORT', "Import");
-	define('DCL_MENU_ACTIVITY', "ActivitÃ?Â©");
+	define('DCL_MENU_ACTIVITY', "Activity");
 	define('DCL_MENU_GRAPH', "Graphiques");
 	define('DCL_MENU_STATISTICS', "Statistiques");
 	define('DCL_MENU_SCHEDULE', "Planification");
@@ -18,7 +18,7 @@
 	define('DCL_MENU_ADMIN', "Admin");
 	define('DCL_MENU_MANAGE', "Manage");
 	define('DCL_MENU_CHANGEPASSWORD', "Changer Mot de Passe");
-	define('DCL_MENU_SYSTEMSETUP', "RÃ?Â©glages SystÃ?Â¨me");
+	define('DCL_MENU_SYSTEMSETUP', "System Setup");
 	define('DCL_MENU_NEWACCOUNT', "Nouveau client");
 	define('DCL_MENU_VIEWACCOUNT', "Voir clients");
 	define('DCL_MENU_CHECKLISTS', "Checklists");
@@ -44,4 +44,3 @@
 	define('DCL_MENU_MAINWIKI', "Main Wiki");
 	define('DCL_MENU_SESSIONS', "Sessions");
 	define('DCL_MENU_SEC_AUDITING', "Security Logs");
-?>

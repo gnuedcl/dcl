@@ -89,4 +89,3 @@
 	define('STR_CMMN_TAGSHELP', "Separate multiple tags with commas (example: \"php,write file,xml\").  Maximum 20 characters per tag.");
 	define('STR_CMMN_SHOWVERSION', "Versions");
 	define('STR_CMMN_SHOWFILES', "Files");
-?>

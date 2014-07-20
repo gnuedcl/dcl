@@ -12,4 +12,3 @@
 	define('STR_ACTN_ADD', "Nuova Azione");
 	define('STR_ACTN_HIGHLIGHTEDNOTE', "** I campi evidenziati sono obbligatori!");
 	define('STR_ACTN_ATTRIBUTENOTE', "This item will need to be associated with an attribute set to be used.  See Admin..Attributes menu item.");
-?>

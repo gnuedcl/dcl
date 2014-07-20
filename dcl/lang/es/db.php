@@ -4,8 +4,8 @@
 	define('STR_DB_ACTIONINSERTERR', "No se pudo insertar la nueva accion! Pregunta: %s");
 	define('STR_DB_DEPTINSERTERR', "No se pudo insertar un nuevo departamento! Pregunta: %s");
 	define('STR_DB_USERINSERTERR', "No se pudo insertar un nuevo usuario! Pregunta: %s");
-	define('STR_DB_PWDCHGERR', "No se pudo cambiar la contraseÃ?Â±a! Pregunta: %s");
-	define('STR_DB_PWDCHGSUCCESS', "ContraseÃ?Â±a cambiada!");
+	define('STR_DB_PWDCHGERR', "Could not change password! Query: %s");
+	define('STR_DB_PWDCHGSUCCESS', "Password changed!");
 	define('STR_DB_PRIORITYINSERTERR', "No se pudo insertar una nueva prioridad! Pregunta: %s");
 	define('STR_DB_SEVERITYINSERTERR', "No se pudo insertar una nueva severidad! Pregunte: %s");
 	define('STR_DB_STATUSINSERTERR', "No se pudo insertar un nuevo estado! Pregunta: %s");
@@ -22,7 +22,7 @@
 	define('STR_DB_FAQQUESTIONINSERTERR', "No se pudo crear un pregunta FAQ!  Pregunta: %s");
 	define('STR_DB_FAQTOPICINSERTERR', "No se pudo crear untema FAQ!  Pregunta: %s");
 	define('STR_DB_CONNECTIONFAILED', "Conexion con la  base de datos fallida!");
-	define('STR_DB_WRONGPWD', "ContraseÃ?Â±a erronea, chief!");
+	define('STR_DB_WRONGPWD', "Wrong password, chief!");
 	define('STR_DB_RESOLUTIONINSERTERR', "No se pudo crear una nueva resolucion de Ticket! Pregunta: %s");
 	define('STR_DB_RESOLUTIONBYOIDERR', "No se pudo recuperar la resolucion de del Ticket mediante ID or OID %d!");
 	define('STR_DB_TICKETINSERTERR', "No se pudo crear un nuevo Ticket! Pregunta: %s");
@@ -32,4 +32,3 @@
 	define('STR_DB_CHKLSTOIDERR', "Error retrieving checklist by ID# %d");
 	define('STR_DB_CHKLSTTPLOIDERR', "Error retrieving checklist template by ID# %d");
 	define('STR_DB_CFGINSERTERR', "Could not add config item.  Query: %s");
-?>

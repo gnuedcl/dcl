@@ -10,6 +10,5 @@
 	define('STR_PRIO_WEIGHT', "Weight");
 	define('STR_PRIO_OPTIONS', "Opciones");
 	define('STR_PRIO_EDIT', "Editar Prioridad");
-	define('STR_PRIO_ADD', "AÃ?Â±adir Prioridad");
+	define('STR_PRIO_ADD', "Add Priority");
 	define('STR_PRIO_HIGHLIGHTEDNOTE', "** Los campos sombreados deben estar rellenados!");
-?>

@@ -238,7 +238,7 @@ class Smtp
 	
 	public function GetResponseCode()
 	{
-		return substr($this->oSocket->sResponse, 0, 4);
+		return mb_substr($this->oSocket->sResponse, 0, 4);
 	}
 
 	public function SocketFail()

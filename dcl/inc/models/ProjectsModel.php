@@ -205,7 +205,7 @@ class ProjectsModel extends DbProvider
 	public function Exists($sName)
 	{
 		$obj = new DbProvider;
-		$obj->Query('SELECT count(*) FROM dcl_projects WHERE ' . $this->GetUpperSQL('name') . ' = ' . $this->Quote(strtoupper($sName)));
+		$obj->Query('SELECT count(*) FROM dcl_projects WHERE ' . $this->GetUpperSQL('name') . ' = ' . $this->Quote(mb_strtoupper($sName)));
 		$obj->next_record();
 		return ($obj->f(0) > 0);
 	}

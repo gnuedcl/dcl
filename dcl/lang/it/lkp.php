@@ -10,4 +10,3 @@
 	define('STR_LKP_OPTIONS', "Options");
 	define('STR_LKP_NOITEMS', "No items found for this lookup!");
 	define('STR_LKP_NOTFOUND', "Lookup ID %d does not exist!");
-?>

@@ -52,7 +52,7 @@ class DbProvider extends AbstractDbProvider
 		{
 			if (!defined('DCL_DB_CONN'))
 			{
-				$this->conn = @pg_connect(sprintf('dbname=%s port=%s host=%s user=%s password=%s',
+				$this->conn = @pg_connect(sprintf("dbname='%s' port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
 							$dcl_domain_info[$dcl_domain]['dbName'],
 							$dcl_domain_info[$dcl_domain]['dbPort'],
 							$dcl_domain_info[$dcl_domain]['dbHost'],
@@ -74,7 +74,7 @@ class DbProvider extends AbstractDbProvider
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = @pg_connect(sprintf('dbname=template1 port=%s host=%s user=%s password=%s',
+		$conn = @pg_connect(sprintf("dbname='template1' port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
 					$dcl_domain_info[$dcl_domain]['dbPort'],
 					$dcl_domain_info[$dcl_domain]['dbHost'],
 					$dcl_domain_info[$dcl_domain]['dbUser'],
@@ -90,7 +90,7 @@ class DbProvider extends AbstractDbProvider
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = @pg_connect(sprintf('dbname=%s port=%s host=%s user=%s password=%s',
+		$conn = @pg_connect(sprintf("dbname='%s' port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
 							$dcl_domain_info[$dcl_domain]['dbName'],
 							$dcl_domain_info[$dcl_domain]['dbPort'],
 							$dcl_domain_info[$dcl_domain]['dbHost'],
@@ -111,13 +111,13 @@ class DbProvider extends AbstractDbProvider
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = @pg_connect(sprintf('dbname=template1 port=%s host=%s user=%s password=%s',
+		$conn = @pg_connect(sprintf("dbname='template1' port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
 					$dcl_domain_info[$dcl_domain]['dbPort'],
 					$dcl_domain_info[$dcl_domain]['dbHost'],
 					$dcl_domain_info[$dcl_domain]['dbUser'],
 					$dcl_domain_info[$dcl_domain]['dbPassword']));
 
-		$query = sprintf('CREATE DATABASE %s', $dcl_domain_info[$dcl_domain]['dbName']);
+		$query = sprintf("CREATE DATABASE %s ENCODING 'UTF8'", $dcl_domain_info[$dcl_domain]['dbName']);
 
 		return (pg_exec($conn, $query) > 0);
 	}
@@ -376,8 +376,8 @@ class DbProvider extends AbstractDbProvider
 
 	public function IsTimestamp($vField)
 	{
-		// substr because it could be timestamp or timestamptz
-		return ($this->res > 0 && substr(pg_fieldtype($this->res, $vField), 0, 9) == 'timestamp');
+		// mb_substr because it could be timestamp or timestamptz
+		return ($this->res > 0 && mb_substr(pg_fieldtype($this->res, $vField), 0, 9) == 'timestamp');
 	}
 
 	public function index_names()

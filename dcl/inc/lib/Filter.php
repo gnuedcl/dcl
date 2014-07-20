@@ -41,6 +41,9 @@ abstract class Filter
 
 	public static function ToInt($vValue, $default = null)
 	{
+		if (!is_string($vValue) && !is_int($vValue))
+			return $default;
+
 		if (preg_match('/^[0-9]+$/', $vValue))
 			return (int)$vValue;
 			

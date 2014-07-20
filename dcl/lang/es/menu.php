@@ -13,11 +13,11 @@
 	define('DCL_MENU_PROJECTS', "Proyectos");
 	define('DCL_MENU_MYPROJECTS', "Mis Proyectos");
 	define('DCL_MENU_VIEW', "View");
-	define('DCL_MENU_TICKETS', "Ticket");
+	define('DCL_MENU_TICKETS', "Tickets");
 	define('DCL_MENU_MYTICKETS', "Mis Tickets");
 	define('DCL_MENU_ADMIN', "Admin");
 	define('DCL_MENU_MANAGE', "Manage");
-	define('DCL_MENU_CHANGEPASSWORD', "Cambiar ContraseÃ?Â±a");
+	define('DCL_MENU_CHANGEPASSWORD', "Change Password");
 	define('DCL_MENU_SYSTEMSETUP', "Configurar sistema");
 	define('DCL_MENU_NEWACCOUNT', "Nueva Cuenta");
 	define('DCL_MENU_VIEWACCOUNT', "Ver Cuentas");
@@ -44,4 +44,3 @@
 	define('DCL_MENU_MAINWIKI', "Main Wiki");
 	define('DCL_MENU_SESSIONS', "Sessions");
 	define('DCL_MENU_SEC_AUDITING', "Security Logs");
-?>

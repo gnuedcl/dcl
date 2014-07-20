@@ -12,4 +12,3 @@
 	define('STR_STAT_ADD', "Add Status");
 	define('STR_STAT_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
 	define('STR_STAT_TYPE', "Type");
-?>

@@ -58,8 +58,8 @@ function smarty_function_dcl_get_entity_tags($params, &$smarty)
 			$bFirst = false;
 			
 		if (isset($params['link']) && $params['link'] == 'Y')
-			echo '<a class="dcl-tag" href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sTag) . '">' . htmlspecialchars($sTag, ENT_QUOTES) . '</a>';
+			echo '<a class="dcl-tag" href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sTag) . '">' . htmlspecialchars($sTag, ENT_QUOTES, 'UTF-8') . '</a>';
 		else
-			echo htmlspecialchars($sTag, ENT_QUOTES);
+			echo htmlspecialchars($sTag, ENT_QUOTES, 'UTF-8');
 	}
 }

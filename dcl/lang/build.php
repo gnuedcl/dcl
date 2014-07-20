@@ -35,7 +35,7 @@
 	$oXML= new DOMDocument();
 	$oXML->load('lang.xml');
 	
-	$aLangs = array('de', 'en', 'es', 'fr', 'it', 'ru', 'sl', 'sv');
+	$aLangs = array('de', 'en', 'es', 'fr', 'it', 'sl', 'sv');
 	$aModuleNodes = $oXML->getElementsByTagName('module');
 	foreach ($aModuleNodes as $oModuleNode)
 	{
@@ -83,9 +83,5 @@
 		
 		// close all of the files for each language
 		foreach ($aLangFiles as $hFile)
-		{
-			fwrite($hFile, "?>");
 			fclose($hFile);
-		}
 	}
-?>

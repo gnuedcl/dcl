@@ -63,11 +63,11 @@ class setting_manager {
 
             $filepath = str_replace("\\", "/", $filepath); // "
             $filepath = str_replace("/setup", "", $filepath);
-            if ( substr($filepath, 0, 1) == "/" ) {
-                $filepath = substr($filepath,1);
+            if ( mb_substr($filepath, 0, 1) == "/" ) {
+                $filepath = mb_substr($filepath,1);
             }
-            if ( substr($filepath, -1) == "/" ) {
-                $filepath = substr($filepath, 0, -1);
+            if ( mb_substr($filepath, -1) == "/" ) {
+                $filepath = mb_substr($filepath, 0, -1);
             }
 
 			$this->dcl_www_root = "/" . $filepath . "/";
@@ -145,10 +145,7 @@ class setting_manager {
 
     function editform(){
         $ret =
-            "<table width='100%' class='outer' cellspacing='5'>
-                <tr>
-                    <th colspan='2'></th>
-                </tr>
+            "<table class='table table-striped'>
                 <tr valign='top' align='left'>
                     <td class='head'>
                         <b>"._INSTALL_L51."</b><br />
@@ -212,7 +209,7 @@ class setting_manager {
                         <span style='font-size:85%;'>".$desc."</span>
                     </td>
                     <td class='even'>
-                        <input type='text' name='".$name."' id='".$name."' size='30' maxlength='100' value='".htmlspecialchars($value)."' />
+                        <input type='text' name='".$name."' id='".$name."' size='30' maxlength='100' value='".htmlspecialchars($value, ENT_QUOTES, 'UTF-8')."' />
                     </td>
                 </tr>
                 ";
@@ -221,41 +218,39 @@ class setting_manager {
     function confirmForm(){
         $yesno = empty($this->db_pconnect) ? _INSTALL_L24 : _INSTALL_L23;
         $ret =
-            "<table border='0' cellpadding='0' cellspacing='0' valign='top' width='90%'><tr><td class='bg2'>
-                <table width='100%' border='0' cellpadding='4' cellspacing='1'>
-                    <tr>
-                        <td class='bg3'><b>"._INSTALL_L51."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbType)."</td>
-                    </tr>
-                    <tr>
-                        <td class='bg3'><b>"._INSTALL_L27."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbHost)."</td>
-                    </tr>
-                    <tr>
-                        <td class='bg3'><b>".'Database Port'."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbPort)."</td>
-                    </tr>
-                    <tr>
-                        <td class='bg3'><b>"._INSTALL_L28."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbUser)."</td>
-                    </tr>
-                    <tr>
-                        <td class='bg3'><b>"._INSTALL_L52."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbPassword)."</td>
-                    </tr>
-                    <tr>
-                        <td class='bg3'><b>"._INSTALL_L29."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbName)."</td>
-                    </tr>
-                    <tr>
-                        <td class='bg3'><b>"._INSTALL_L55."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dcl_root)."</td>
-                    </tr>
-                    <tr>
-                        <td class='bg3'><b>"._INSTALL_L56."</b></td>
-                        <td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dcl_www_root)."</td>
-                    </tr>
-                </table></td></tr>
+            "<table class='table table-striped'>
+				<tr>
+					<td class='bg3'><b>"._INSTALL_L51."</b></td>
+					<td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbType)."</td>
+				</tr>
+				<tr>
+					<td class='bg3'><b>"._INSTALL_L27."</b></td>
+					<td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbHost)."</td>
+				</tr>
+				<tr>
+					<td class='bg3'><b>".'Database Port'."</b></td>
+					<td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbPort)."</td>
+				</tr>
+				<tr>
+					<td class='bg3'><b>"._INSTALL_L28."</b></td>
+					<td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbUser)."</td>
+				</tr>
+				<tr>
+					<td class='bg3'><b>"._INSTALL_L52."</b></td>
+					<td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbPassword)."</td>
+				</tr>
+				<tr>
+					<td class='bg3'><b>"._INSTALL_L29."</b></td>
+					<td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dbName)."</td>
+				</tr>
+				<tr>
+					<td class='bg3'><b>"._INSTALL_L55."</b></td>
+					<td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dcl_root)."</td>
+				</tr>
+				<tr>
+					<td class='bg3'><b>"._INSTALL_L56."</b></td>
+					<td class='bg1'>".$this->sanitizer->htmlSpecialChars($this->dcl_www_root)."</td>
+				</tr>
             </table>
             <input type='hidden' name='dbType' value='".$this->sanitizer->htmlSpecialChars($this->dbType)."' />
             <input type='hidden' name='dbHost' value='".$this->sanitizer->htmlSpecialChars($this->dbHost)."' />

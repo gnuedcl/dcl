@@ -30,7 +30,7 @@ function smarty_function_dcl_input_text($params, &$smarty)
 	echo '<input type="text"';
 
 	foreach ($attributes as $k => $v)
-		echo ' ' . htmlspecialchars($k, ENT_QUOTES) . '="' . htmlspecialchars($v, ENT_QUOTES) . '"';
+		echo ' ' . htmlspecialchars($k, ENT_QUOTES, 'UTF-8') . '="' . htmlspecialchars($v, ENT_QUOTES, 'UTF-8') . '"';
 
 	echo '>';
 }

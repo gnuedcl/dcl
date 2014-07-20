@@ -241,7 +241,7 @@ class DbProvider extends AbstractDbProvider
 				$k = OCIColumnName($this->res, $i + 1);
 				$v = $this->Record[$i];
 				unset($this->Record[$k]);
-				$this->Record[strtolower($k)] = $v;
+				$this->Record[mb_strtolower($k)] = $v;
 			}
 		}
 		else
@@ -253,7 +253,7 @@ class DbProvider extends AbstractDbProvider
 	public function GetFieldName($fieldIndex)
 	{
 		if ($this->res)
-			return strtolower(OCIColumnName($this->res, $fieldIndex));
+			return mb_strtolower(OCIColumnName($this->res, $fieldIndex));
 
 		return '';
 	}
@@ -382,8 +382,8 @@ class DbProvider extends AbstractDbProvider
 	public function IsTimestamp($vField)
 	{
 		// FIXME
-		// substr because it could be timestamp or timestamptz
-		return ($this->res > 0 && substr(pg_fieldtype($this->res, $vField), 0, 9) == 'timestamp');
+		// mb_substr because it could be timestamp or timestamptz
+		return ($this->res > 0 && mb_substr(pg_fieldtype($this->res, $vField), 0, 9) == 'timestamp');
 	}
 
 	public function index_names()

@@ -38,7 +38,7 @@ function smarty_function_dcl_menu($params, &$smarty)
 	function renderMenuItem(DclMenuItem $menuItem)
 	{
 		$myRetVal = '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">';
-		$myRetVal .= htmlspecialchars($menuItem->Title) . ' <b class="caret"></b></a>';
+		$myRetVal .= htmlspecialchars($menuItem->Title, ENT_QUOTES, 'UTF-8') . ' <b class="caret"></b></a>';
 
 		if ($menuItem->HasItems())
 		{
@@ -50,12 +50,12 @@ function smarty_function_dcl_menu($params, &$smarty)
 				if ($menuSubItem->Url == '')
 					$myRetVal .= 'javascript:;';
 				else
-					$myRetVal .= htmlspecialchars($menuSubItem->Url);
+					$myRetVal .= htmlspecialchars($menuSubItem->Url, ENT_QUOTES, 'UTF-8');
 
 				$myRetVal .= '"';
 
 				if ($menuSubItem->Target != '')
-					$myRetVal .= ' target="' . htmlspecialchars($menuSubItem->Target) . '"';
+					$myRetVal .= ' target="' . htmlspecialchars($menuSubItem->Target, ENT_QUOTES, 'UTF-8') . '"';
 
 				$myRetVal .= '>';
 				$myRetVal .= htmlspecialchars($menuSubItem->Title);

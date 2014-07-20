@@ -18,11 +18,10 @@
 	define('STR_ACCT_CONTACTPH', "telefono");
 	define('STR_ACCT_FAX', "Fax");
 	define('STR_ACCT_EDITACCOUNT', "Editar cuenta");
-	define('STR_ACCT_ADDNEWACCOUNT', "AÃ?Â±adir nuevo cuenta");
+	define('STR_ACCT_ADDNEWACCOUNT', "Add New Account");
 	define('STR_ACCT_HIGHLIGHTEDNOTE', "** Los campos sombreados son obligatorios!");
 	define('STR_ACCT_NOOBJECTERR', "cuenta object not passed to ShowDetail!");
 	define('STR_ACCT_ACCOUNTSEARCH', "Buscar cuenta");
 	define('STR_ACCT_SEARCHTEXT', "Buscar texto");
 	define('STR_ACCT_WATCHWO', "Watch WO");
 	define('STR_ACCT_WATCHTCK', "Watch Ticket");
-?>

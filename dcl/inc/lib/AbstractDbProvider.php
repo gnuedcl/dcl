@@ -325,7 +325,7 @@ abstract class AbstractDbProvider
 	 */
 	public function FormatDateForDisplay($thisDate)
 	{
-		if ($thisDate != '' || substr($thisDate, 0, 4) == '0000')
+		if ($thisDate != '' || mb_substr($thisDate, 0, 4) == '0000')
 		{
 			$this->objDate->SetFromDB($thisDate);
 			return $this->objDate->ToDisplay();
@@ -341,7 +341,7 @@ abstract class AbstractDbProvider
 	 */
 	public function FormatDateForQuarterDisplay($thisDate)
 	{
-		if ($thisDate != '' || substr($thisDate, 0, 4) == '0000')
+		if ($thisDate != '' || mb_substr($thisDate, 0, 4) == '0000')
 		{
 			$this->objDate->SetFromDB($thisDate);
 			return 'Q' . ceil(date('n', $this->objDate->time) / 3) . ' ' . date('Y', $this->objDate->time);
@@ -357,7 +357,7 @@ abstract class AbstractDbProvider
 	 */
 	public function FormatTimeStampForDisplay($thisStamp)
 	{
-		if ($thisStamp != '' && substr($thisStamp, 0, 4) != '0000')
+		if ($thisStamp != '' && mb_substr($thisStamp, 0, 4) != '0000')
 		{
 			$this->objTimestamp->SetFromDB($thisStamp);
 			return $this->objTimestamp->ToDisplay();
@@ -724,7 +724,7 @@ abstract class AbstractDbProvider
 		if ($sField == '' or $sField === null)
 			return '';
 			
-		if ($sTablePrefix != '' && substr($sTablePrefix, -1, 1) != '.')
+		if ($sTablePrefix != '' && mb_substr($sTablePrefix, -1, 1) != '.')
 			$sTablePrefix .= '.';
 
 		switch ($GLOBALS['phpgw_baseline'][$this->TableName]['fd'][$sField]['type'])

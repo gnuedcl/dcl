@@ -1,8 +1,8 @@
 <?php
-	define('STR_CMMN_ARRAYTABLEERR', "Difficile de trouver une bonne aide ces jours-ci : Pas de tableaux passÃ?Â©s Ã?Â  PrintArrayAsChocoTable.");
-	define('STR_CMMN_ARRAYTABLEERRHELP', "CelÃ?Â  peut signifier que le rapport %s ne contient pas d\'entrÃ?Â©es Ã?Â  visualiser.");
-	define('STR_CMMN_DELETECONFIRM', "Etes vous sÃ?Â»r de vouloir effacer %s: %s ???");
-	define('STR_CMMN_DEACTIVATENOTE', "NOTE: Si une autre table reference cet Ã?Â©lÃ?Â©ement, il sera dÃ?Â©sactivÃ?Â© pour maintenir l\'intÃ?Â©gritÃ?Â© des donnÃ?Â©es.");
+	define('STR_CMMN_ARRAYTABLEERR', "Hard to find good help these days: Non-arrays passed to PrintArrayAsChocoTable.");
+	define('STR_CMMN_ARRAYTABLEERRHELP', "This could mean that the %s report contains no entries to view.");
+	define('STR_CMMN_DELETECONFIRM', "Are you sure you want to delete %s: %s ???");
+	define('STR_CMMN_DEACTIVATENOTE', "NOTE: If any other tables reference this item, it will be deactivated to maintain data integrity.");
 	define('STR_CMMN_ERROR', "Error");
 	define('STR_CMMN_INFORMATION', "Information");
 	define('STR_CMMN_WARNING', "Warning");
@@ -10,14 +10,14 @@
 	define('STR_CMMN_HIGHLIGHTEDNOTE', "** Les champs en surbrillance sont obligatoires!");
 	define('STR_CMMN_YES', "Oui");
 	define('STR_CMMN_NO', "Non");
-	define('STR_CMMN_SELECTONE', "A SÃ?Â©lectionner.");
+	define('STR_CMMN_SELECTONE', "--- SELECT ---");
 	define('STR_CMMN_NOTLOGGEDIN', "Not Logged In");
-	define('STR_CMMN_LOGGEDINAS', "ConnectÃ?Â© en tant que : %s");
-	define('STR_CMMN_ATTRIBUTENOTE', "Cet Ã?Â©lÃ?Â©ment devra ensuite Ã?Âªtre associÃ?Â© Ã?Â  un ensemble d\'attributs pour Ã?Âªtre utilisÃ?Â©. Voir l\'Ã?Â©lÃ?Â©ement de menu Admin..Attributs.");
+	define('STR_CMMN_LOGGEDINAS', "Logged In As: %s");
+	define('STR_CMMN_ATTRIBUTENOTE', "This item will need to be associated with an attribute set to be used.  See Admin..Attributes menu item.");
 	define('STR_CMMN_NOSELECTION', "Pas de Selection");
 	define('STR_CMMN_DELETEITEM', "Effacer %s");
 	define('STR_CMMN_INITGDERR', "Ne peut pas initialiser le flux GD !");
-	define('STR_CMMN_ACCESSDENIED', "AccÃ?Â¨s non autoris");
+	define('STR_CMMN_ACCESSDENIED', "Access Denied");
 	define('STR_CMMN_NEW', "Nouveau");
 	define('STR_CMMN_EDIT', "Editer");
 	define('STR_CMMN_DELETE', "Effacer");
@@ -27,7 +27,7 @@
 	define('STR_CMMN_REFRESH', "Refresh");
 	define('STR_CMMN_SAVE', "Sauver");
 	define('STR_CMMN_CANCEL', "Annuler");
-	define('STR_CMMN_RESET', "RafraÃ?Â®chir");
+	define('STR_CMMN_RESET', "Reset");
 	define('STR_CMMN_SEARCH', "Rechercher");
 	define('STR_CMMN_ALL', "Tous");
 	define('STR_CMMN_SEL', "Sel");
@@ -89,4 +89,3 @@
 	define('STR_CMMN_TAGSHELP', "Separate multiple tags with commas (example: \"php,write file,xml\").  Maximum 20 characters per tag.");
 	define('STR_CMMN_SHOWVERSION', "Versions");
 	define('STR_CMMN_SHOWFILES', "Files");
-?>

@@ -34,7 +34,7 @@ class TagModel extends DbProvider
 	
 	public function getIdByName($sTag)
 	{
-		$sTag = trim(strtolower($sTag));
+		$sTag = trim(mb_strtolower($sTag));
 		$iID = $this->ExecuteScalar('SELECT tag_id FROM dcl_tag WHERE tag_desc = ' . $this->Quote($sTag));
 		if ($iID !== null)
 			return $iID;
@@ -61,7 +61,7 @@ class TagModel extends DbProvider
 		if ($sTags === null || trim($sTags) == '')
 			return '-1';
 			
-		$sTags = trim(strtolower($sTags));
+		$sTags = trim(mb_strtolower($sTags));
 		$aTags = explode(',', $sTags);
 		if (count($aTags) < 1)
 			return '-1';

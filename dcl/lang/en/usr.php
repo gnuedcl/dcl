@@ -33,4 +33,3 @@
 	define('STR_USR_EDIT', "Edit User");
 	define('STR_USR_ADD', "Add User");
 	define('STR_USR_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
-?>

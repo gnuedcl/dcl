@@ -88,9 +88,9 @@ class PersonnelPresenter
 		        $aRecord[] = $oDB->objTimestamp->ToTimeOnly();
 		        
 		        if ($oDB->f(0) == 4)
-		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=Project.Detail&id=' . $oDB->f(4)) . '">[' . $oDB->f(4) . '] ' . htmlspecialchars($oDB->f(5)) . '</a>';
+		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=Project.Detail&id=' . $oDB->f(4)) . '">[' . $oDB->f(4) . '] ' . htmlspecialchars($oDB->f(5), ENT_QUOTES, 'UTF-8') . '</a>';
 		        else
-		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $oDB->f(2) . '&seq=' . $oDB->f(3)) . '">[' . $oDB->f(2) . '-' . $oDB->f(3) . '] ' . htmlspecialchars($oDB->f(6)) . '</a>';
+		            $aRecord[] = '<a href="' . menuLink('', 'menuAction=WorkOrder.Detail&jcn=' . $oDB->f(2) . '&seq=' . $oDB->f(3)) . '">[' . $oDB->f(2) . '-' . $oDB->f(3) . '] ' . htmlspecialchars($oDB->f(6), ENT_QUOTES, 'UTF-8') . '</a>';
 		        
 		        $aRecord[] = $oDB->f(7);
 		        $aRecord[] = $oDB->f(8);

@@ -364,7 +364,7 @@ class ProjectController
 		if (!@Filter::IsValidFileName($_REQUEST['filename']))
 			throw new InvalidDataException();
 
-		$attachPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/prj/' . substr($projectId, -1) . '/' . $projectId . '/';
+		$attachPath = $dcl_info['DCL_FILE_PATH'] . '/attachments/prj/' . mb_substr($projectId, -1) . '/' . $projectId . '/';
 		if (is_file($attachPath . $_REQUEST['filename']) && is_readable($attachPath . $_REQUEST['filename']))
 			unlink($attachPath . $_REQUEST['filename']);
 

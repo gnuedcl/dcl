@@ -5,19 +5,19 @@
 	define('STR_USR_MINLVL', "Min");
 	define('STR_USR_TODOTHIS', "Para hacer esto...");
 	define('STR_USR_ADMIN', "Administrador");
-	define('STR_USR_ADDASSGN', "AÃ?Â±adir y asignar las work orders");
+	define('STR_USR_ADDASSGN', "Add and assign work orders");
 	define('STR_USR_RESPONSIBLE', "Ser responsable para las work orders");
 	define('STR_USR_CANCHGPWD', "Capaz de cambiar una password");
-	define('STR_USR_ADDWO', "Puede aÃ?Â±adir una work order al sistema");
+	define('STR_USR_ADDWO', "Can add work order to system");
 	define('STR_USR_DELWO', "Puede eliminar una work order desde el sistema");
 	define('STR_USR_MODWO', "Puede modificar una work order existente en el sistema");
 	define('STR_USR_EMAIL', "e-Mail");
-	define('STR_USR_CHGPWD', "Cambiar contraseÃ?Â±a");
+	define('STR_USR_CHGPWD', "Change Password");
 	define('STR_USR_CHANGE', "Cambiar");
 	define('STR_USR_CLEAR', "Limpiar");
-	define('STR_USR_NEWPWD', "Nueva ContraseÃ?Â±a");
+	define('STR_USR_NEWPWD', "New Password");
 	define('STR_USR_CURRPWD', "Current Password");
-	define('STR_USR_CONFIRMPWD', "Confirme ContraseÃ?Â±a");
+	define('STR_USR_CONFIRMPWD', "Confirm Password");
 	define('STR_USR_TABLETITLE', "Usuarios - Ordenado por %s");
 	define('STR_USR_NOUSERS', "Los usuarios no  pudieron ser encontrados para mostrar!  No debe tener ningun usuario en el sistema todavia");
 	define('STR_USR_ID', "ID");
@@ -31,6 +31,5 @@
 	define('STR_USR_DEPARTMENT', "Departamento");
 	define('STR_USR_LOGIN', "Login");
 	define('STR_USR_EDIT', "Editar Usuario");
-	define('STR_USR_ADD', "AÃ?Â±adir Usuario");
+	define('STR_USR_ADD', "Add User");
 	define('STR_USR_HIGHLIGHTEDNOTE', "** Los campos sombreados son obligatorios");
-?>

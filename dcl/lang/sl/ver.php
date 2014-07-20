@@ -8,4 +8,3 @@
 	define('STR_VER_YOURVER', "Informacije o tvojem sistemu");
 	define('STR_VER_YOURIP', "Tvoj IP naslov");
 	define('STR_VER_YOURBROWSER', "Tvoj brskalnik");
-?>

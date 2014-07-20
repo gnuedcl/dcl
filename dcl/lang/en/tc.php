@@ -21,4 +21,3 @@
 	define('STR_TC_MODIFY', "Modify");
 	define('STR_TC_DELETE', "Delete");
 	define('STR_TC_BATCHUPDATE', "Batch Update");
-?>

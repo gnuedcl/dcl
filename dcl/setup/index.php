@@ -22,6 +22,10 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
+mb_internal_encoding('UTF-8');
+mb_detect_order('UTF-8');
+mb_regex_encoding('UTF-8');
+
 include_once './passwd.php';
 if(INSTALL_USER != '' || INSTALL_PASSWD != '')
 {
@@ -75,11 +79,8 @@ if ( file_exists("./language/".$language."/install.php") ) {
 }
 setcookie("install_lang", $language);
 
-//include './include/viewerrors.php';
-//include './include/functions.php';
-
-define('_OKIMG',"<img src='img/yes.gif' width='6' height='12' border='0' alt='' /> ");
-define('_NGIMG',"<img src='img/no.gif' width='6' height='12' border='0' alt='' /> ");
+define('_OKIMG', '<span class="glyphicon glyphicon-ok-sign"></span> ');
+define('_NGIMG', '<span class="glyphicon glyphicon-remove-sign"></span> ');
 
 $b_back = '';
 $b_reload = '';
@@ -110,7 +111,7 @@ case "langselect":
     $langarr = getDirList("./language/");
     foreach ($langarr as $lang) {
         $content .= "<option value='".$lang."'";
-        if (strtolower($lang) == $language) {
+        if (mb_strtolower($lang) == $language) {
             $content .= ' selected="selected"';
         }
         $content .= ">".$lang."</option>";
@@ -123,9 +124,7 @@ case "langselect":
 
 case "start":
     $title = _INSTALL_L0;
-    $content = "<table width='80%' align='center'><tr><td align='left'>\n";
     include './language/'.$language.'/welcome.php';
-    $content .= "</td></tr></table>\n";
     $b_next = array('modcheck', _INSTALL_L81 );
     include 'install_tpl.php';
     break;
@@ -133,7 +132,7 @@ case "start":
 case "modcheck":
     $writeok = array("inc/");
     $title = _INSTALL_L82;
-    $content = "<table align='center'><tr><td align='left'>\n";
+    $content = '';
     $error = false;
     foreach ($writeok as $wok) {
         if (!is_dir("../".$wok)) {
@@ -156,16 +155,15 @@ case "modcheck":
             }
         }
     }
-    $content .= "</td></tr></table>\n";
 
     if(! $error)
 	{
-        $content .= "<p>"._INSTALL_L87."</p>";
+        $content .= "<p>"._OKIMG._INSTALL_L87."</p>";
         $b_next = array('dbform', _INSTALL_L89 );
     }
 	else
 	{
-        $content .= "<p>"._INSTALL_L46."</p>";
+        $content .= "<p>"._NGIMG._INSTALL_L46."</p>";
         $b_reload = true;
     }
 
@@ -230,7 +228,7 @@ case "dbsave":
     }
 
     $content = $mm->report();
-    $content .= "<p>"._INSTALL_L62."</p>\n";
+    $content .= "<p>"._OKIMG._INSTALL_L62."</p>\n";
     $b_next = array('mainfile', _INSTALL_L94 );
     include 'install_tpl.php';
     break;
@@ -239,11 +237,11 @@ case "mainfile":
     // checking XOOPS_ROOT_PATH and XOOPS_URL
     include_once "../inc/config.php";
     $title = _INSTALL_L94;
-    $content = "<table align='center'><tr><td align='left'>\n";
+    $content = "<p>\n";
 
     $detected = str_replace("\\", "/", getcwd()); // "
     $detected = str_replace("/setup", "", $detected);
-    if ( substr($detected, -1) != "/" )
+    if ( mb_substr($detected, -1) != "/" )
 		$detected .= '/';
 
     if (empty($detected)){
@@ -259,12 +257,12 @@ case "mainfile":
         $content .= _NGIMG._INSTALL_L99.'<br />';
     }
 
-    $content .= "<br /></td></tr></table>\n";
+    $content .= "</p>\n";
 
-    $content .= "<table align='center'><tr><td align='left'>\n";
+    $content .= "<p>\n";
     $content .= _INSTALL_L11."<b>".DCL_ROOT."</b><br />";
-    $content .= "</td></tr></table>\n";
-    $content .= "<p align='center'>"._INSTALL_L13."</p>\n";
+    $content .= "</p>\n";
+    $content .= "<p>"._INSTALL_L13."</p>\n";
 
     $b_next = array('initial', _INSTALL_L102 );
     $b_back = array('start', _INSTALL_L103 );
@@ -277,17 +275,15 @@ case "mainfile":
 case "initial":
     // confirm database setting
     include_once "../inc/config.php";
-    $content = "<table align=\"center\">\n";
-    $content .= "<tr><td align='center'>";
-    $content .= "<table align=\"center\">\n";
+    $content = "<table class=\"table table-striped\">\n";
     $content .= "<tr><td>"._INSTALL_L27."&nbsp;&nbsp;</td><td><b>".$dcl_domain_info[$dcl_domain]['dbHost']."</b></td></tr>\n";
     $content .= "<tr><td>".'Database Port'."&nbsp;&nbsp;</td><td><b>".$dcl_domain_info[$dcl_domain]['dbPort']."</b></td></tr>\n";
     $content .= "<tr><td>"._INSTALL_L28."&nbsp;&nbsp;</td><td><b>".$dcl_domain_info[$dcl_domain]['dbUser']."</b></td></tr>\n";
     $content .= "<tr><td>"._INSTALL_L29."&nbsp;&nbsp;</td><td><b>".$dcl_domain_info[$dcl_domain]['dbName']."</b></td></tr>\n";
     $content .= "</table><br />\n";
-    $content .= "</td></tr><tr><td align=\"center\">";
-    $content .= _INSTALL_L13."<br /><br />\n";
-    $content .= "</td></tr></table>\n";
+    $content .= "<p>";
+    $content .= _INSTALL_L13."\n";
+    $content .= "</p>\n";
     $b_next = array('checkDB', _INSTALL_L104);
     $b_back = array('start', _INSTALL_L103);
     $b_reload = true;
@@ -299,13 +295,13 @@ case "checkDB":
     include_once "../inc/config.php";
     $oDB = new DbProvider;
     $title = _INSTALL_L104;
-    $content = "<table align='center'><tr><td align='left'>\n";
+    $content = "<p>\n";
 
     if (!$oDB->CanConnectServer())
 	{
         $content .= _NGIMG._INSTALL_L106."<br />";
-        $content .= "<div style='text-align:center'><br />"._INSTALL_L107;
-        $content .= "</div></td></tr></table>\n";
+        $content .= "<br />"._INSTALL_L107;
+        $content .= "</p>\n";
         $b_back = array('start', _INSTALL_L103);
         $b_reload = true;
     }
@@ -315,7 +311,7 @@ case "checkDB":
         if (!$oDB->CanConnectDatabase())
 		{
             $content .= _NGIMG.sprintf(_INSTALL_L109, $dcl_domain_info[$dcl_domain]['dbName'])."<br />";
-            $content .= "</td></tr></table>\n";
+            $content .= "</p>\n";
 
             $content .= "<p>"._INSTALL_L21."<br />"
                         ."<b>".$dcl_domain_info[$dcl_domain]['dbName']."</b></p>"
@@ -333,15 +329,101 @@ case "checkDB":
 			if (!$oDB->TableExists('workorders'))
 			{
             	$content .= _OKIMG.sprintf(_INSTALL_L110, $dcl_domain_info[$dcl_domain]['dbName'])."<br />";
-            	$content .= "</td></tr></table>\n";
+            	$content .= "</p>\n";
             	$content .= "<p>"._INSTALL_L111."</p>";
             	$b_next = array('createTables', _INSTALL_L40);
 			}
 			else
 			{
-            	$content .= _OKIMG.'Table workorders exists, continue with upgrade.<br />';
-            	$content .= "</td></tr></table>\n";
-            	$b_next = array('updateTables', 'Update Tables');
+				// For upgrades, we need to manually update the database to UTF8 for MySQL and PostgreSQL.  This code
+				// will prevent the upgrade from proceeding until this is done since the database and PHP are now geared
+				// towards UTF-8
+				$dbType = $dcl_domain_info[$dcl_domain]['dbType'];
+				$dbName = $dcl_domain_info[$dcl_domain]['dbName'];
+				$needsEncodingUpgrade = false;
+				if ($dbType == 'mysql')
+				{
+					$oDB->Query('SHOW VARIABLES LIKE "character_set_database"');
+					if ($oDB->next_record())
+					{
+						$encoding = $oDB->f(1);
+						if (strtolower($encoding) != 'utf8')
+						{
+							// All of the tables available at the time of upgrade to 0.9.5RC20
+							$tables = array(
+								'actions', 'attributesetsmap', 'attributesets', 'dcl_addr_type', 'dcl_chklst', 'dcl_chklst_tpl', 'dcl_config', 'dcl_contact_addr', 'dcl_contact_email',
+								'dcl_contact_note', 'dcl_contact_phone', 'dcl_contact', 'dcl_contact_license', 'dcl_contact_type', 'dcl_contact_type_xref', 'dcl_contact_url',
+								'dcl_email_type', 'dcl_entity', 'dcl_entity_hotlist', 'dcl_entity_hotlist_audit', 'dcl_entity_perm', 'dcl_entity_source', 'dcl_entity_tag',
+								'dcl_environment', 'dcl_environment_org', 'dcl_environment_product', 'dcl_environment_wo', 'dcl_environment_outage_type', 'dcl_environment_outage',
+								'dcl_environment_outage_wo', 'dcl_error_log', 'dcl_hotlist', 'dcl_note_type', 'dcl_org_addr', 'dcl_org_alias', 'dcl_org_contact', 'dcl_org_email',
+								'dcl_org_note', 'dcl_org_phone', 'dcl_org', 'dcl_org_product_xref', 'dcl_org_type', 'dcl_org_type_xref', 'dcl_org_url', 'dcl_perm', 'dcl_phone_type',
+								'dcl_preferences', 'dcl_product_build', 'dcl_product_build_except', 'dcl_product_build_item', 'dcl_product_build_sccs', 'dcl_product_module',
+								'dcl_product_version', 'dcl_product_version_item', 'dcl_product_version_status', 'dcl_projects', 'dcl_projects_audit', 'dcl_role_perm', 'dcl_role',
+								'dcl_sccs', 'dcl_sccs_xref', 'dcl_sec_audit', 'dcl_session', 'dcl_status_type', 'dcl_tag', 'dcl_url_type', 'dcl_user_role', 'dcl_wiki', 'dcl_wo_account',
+								'dcl_wo_account_audit', 'dcl_wo_id', 'dcl_wo_task', 'dcl_wo_type', 'dcl_workspace_product', 'dcl_workspace_user', 'dcl_workspace', 'departments',
+								'faqanswers', 'faq', 'faqquestions', 'faqtopics', 'personnel', 'priorities', 'products', 'projectmap', 'projectmap_audit', 'severities', 'statuses',
+								'ticketresolutions', 'tickets', 'tickets_audit', 'timecards', 'views', 'watches', 'workorders', 'workorders_audit'
+							);
+
+							$content .= _NGIMG . 'IMPORTANT!  UTF-8 encoding upgrade needed!  If you do not have any need to convert encoding, please follow these instructions (for items marked SQL, execute the SQL query against your DCL database):';
+							$content .= '<ol>';
+							$content .= '<li>Backup your database in case something goes wrong!</li>';
+							$content .= "<li>SQL: ALTER DATABASE `$dbName` CHARACTER SET utf8 COLLATE utf8_unicode_ci</li>";
+
+							foreach ($tables as $table)
+							{
+								$oDB->Query("SHOW TABLES LIKE '$table'");
+								if ($oDB->next_record())
+									$content .= "<li>SQL: ALTER TABLE $table CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci</li>";
+							}
+
+							$content .= '</ol>';
+							$content .= 'Alternatively, you can do the following to convert character encoding (replace latin1 in iconv command with your original charset):';
+							$content .= '<ol>';
+							$content .= '<li>Backup your database in case something goes wrong!</li>';
+							$content .= "<li>SQL: DROP DATABASE `$dbName`</li>";
+							$content .= "<li>SQL: CREATE DATABASE `$dbName` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci</li>";
+							$content .= "<li>iconv --from-code latin1 --to-code utf-8 backup.sql > backup-utf8.sql</li>";
+							$content .= "<li>Import the backup file into the newly created UTF-8 database (make sure you connect as UTF-8)!</li>";
+							$content .= '</ol>';
+
+							$needsEncodingUpgrade = true;
+						}
+					}
+				}
+				else if ($dbType == 'pgsql')
+				{
+					$oDB->Query('show server_encoding');
+					if ($oDB->next_record())
+					{
+						$encoding = $oDB->f(0);
+						if (strtolower($encoding) != 'utf8')
+						{
+							$content .= _NGIMG . 'IMPORTANT!  UTF-8 encoding upgrade needed!  Please follow these instructions (for items marked SQL, execute the SQL query against your DCL database; replace latin1 in iconv command with your original charset):';
+							$content .= '<ol>';
+							$content .= '<li>Backup your database in case something goes wrong!</li>';
+							$content .= "<li>SQL: DROP DATABASE $dbName</li>";
+							$content .= "<li>SQL: CREATE DATABASE $dbName ENCODING 'UTF8'</li>";
+							$content .= "<li>iconv --from-code latin1 --to-code utf-8 backup.sql > backup-utf8.sql</li>";
+							$content .= "<li>Import the backup file into the newly created UTF-8 database (make sure you connect as UTF-8)!</li>";
+							$content .= '</ol>';
+
+							$needsEncodingUpgrade = true;
+						}
+					}
+				}
+
+				if (!$needsEncodingUpgrade)
+				{
+					$content .= _OKIMG.'Table workorders exists, continue with upgrade.<br />';
+					$b_next = array('updateTables', 'Update Tables');
+				}
+				else
+				{
+					$b_reload = true;
+				}
+
+				$content .= "</p>\n";
 			}
         }
     }
@@ -464,10 +546,11 @@ case 'updateTables':
 		$setup_info = array();
 		include_once 'setup.inc.php'; // gets target version
 
-		$content = '<div style="width: 50%; text-align: left; padding-left: 200px;">';
 		$result = true;
 		if ($dclVersion != $setup_info['dcl']['version'] && count($UPGRADE_VERSIONS) > 0)
 		{
+			$content = '<div>';
+
 			// Upgrade required
 			$setup_info['dcl']['currentver'] = $dclVersion;
 			$bDeltaOnly = ($UPGRADE_VERSIONS[0] != $setup_info['dcl']['currentver']);
@@ -488,6 +571,8 @@ case 'updateTables':
 				if (!$bDeltaOnly)
 					$content .= _OKIMG . '&nbsp;Version ' . $setup_info['dcl']['currentver'] . ' Completed.<br/>';
 			}
+
+			$content .= '</div>';
 		}
 		else
 		{
@@ -496,7 +581,6 @@ case 'updateTables':
 			$result = true;
 		}
 
-		$content .= '</div>';
 		$b_back = array();
 		if (!$result) {
 			$content .= "<p>"._INSTALL_L135."</p>\n";
@@ -543,9 +627,8 @@ case "insertData":
 case 'finish':
 
     $title = _INSTALL_L32;
-    $content = "<table width='60%' align='center'><tr><td align='left'>\n";
+    $content = "";
     include './language/'.$language.'/finish.php';
-    $content .= "</td></tr></table>\n";
     include 'install_tpl.php';
     break;
 }
@@ -559,7 +642,7 @@ function getDirList($dirname)
     if (is_dir($dirname) && $handle = opendir($dirname)) {
         while (false !== ($file = readdir($handle))) {
             if ( !preg_match("/^[.]{1,2}$/",$file) ) {
-                if (strtolower($file) != 'cvs' && is_dir($dirname.$file) ) {
+                if (mb_strtolower($file) != 'cvs' && is_dir($dirname.$file) ) {
                     $dirlist[$file]=$file;
                 }
             }

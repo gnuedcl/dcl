@@ -10,7 +10,7 @@
 	define('STR_CFG_TIMESTAMPFORMATHELP', "The format to use for displaying timestamps.");
 	define('STR_CFG_TIMESTAMPFORMATDB', "SQL Server Timestamp Format");
 	define('STR_CFG_TIMESTAMPFORMATDBHELP', "The format the database uses for storing timestamps.");
-	define('STR_CFG_MAXUPLOADFILESIZE', "TamaÃ?Â±o maximo de carga de fichero");
+	define('STR_CFG_MAXUPLOADFILESIZE', "Maximum Upload File Size");
 	define('STR_CFG_MAXUPLOADFILESIZEHELP', "Maximum file size allowed for uploading attachments.  0 disables file uploads.  This value only takes effect up to the limit specified in php.ini.");
 	define('STR_CFG_LANGUAGE', "Default Language");
 	define('STR_CFG_LANGUAGEHELP', "The language that is used by default for users and the login page.");
@@ -152,4 +152,3 @@
 	define('STR_CFG_SECAUDITENABLEDHELP', "Enables security auditing. By default, security auditing tracks logins, logouts, and any time the user hits main.php.  Reports are available in the admin section to view a users history.");
 	define('STR_CFG_SECAUDITLOGINONLY', "Only audit login events");
 	define('STR_CFG_SECAUDITLOGINONLYHELP', "Restricts security auditing to login and logout events only. By default, security auditing tracks logins, logouts, and any time the user hits main.php.");
-?>

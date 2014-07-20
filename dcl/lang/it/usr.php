@@ -33,4 +33,3 @@
 	define('STR_USR_EDIT', "Modifica Utente");
 	define('STR_USR_ADD', "Nuovo Utente");
 	define('STR_USR_HIGHLIGHTEDNOTE', "** I campi Evidenziati sono obbligatori!");
-?>

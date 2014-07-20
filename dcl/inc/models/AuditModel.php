@@ -46,7 +46,7 @@ class AuditModel
 					$aDiff[$iIndex]['changes'] = array();
 					foreach ($aRecord as $sField => $sValue)
 					{
-						if (substr($sField, 0, 6) == 'audit_')
+						if (mb_substr($sField, 0, 6) == 'audit_')
 							continue;
 							
 						if ($aLastRecord[$sField] != $sValue)

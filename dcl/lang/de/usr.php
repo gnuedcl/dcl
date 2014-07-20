@@ -5,19 +5,19 @@
 	define('STR_USR_MINLVL', "Min");
 	define('STR_USR_TODOTHIS', "Berechtigung...");
 	define('STR_USR_ADMIN', "Administrator");
-	define('STR_USR_ADDASSGN', "Anlegen und Zuweisen von ArbeitsauftrÃ?Â¤gen");
-	define('STR_USR_RESPONSIBLE', "Verantwortlich sein fÃ?Â¼r ArbeitsauftrÃ?Â¤ge");
-	define('STR_USR_CANCHGPWD', "berechtigt das eigene Passwort zu Ã?Â¤ndern");
-	define('STR_USR_ADDWO', "Anlegen neuer ArbeitsauftrÃ?Â¤ge");
-	define('STR_USR_DELWO', "LÃ?Â¶schen von ArbeitsauftrÃ?Â¤gen");
-	define('STR_USR_MODWO', "Ã?â??ndern von ArbeitsauftrÃ?Â¤gen");
+	define('STR_USR_ADDASSGN', "Add and assign work orders");
+	define('STR_USR_RESPONSIBLE', "Be responsible for work orders");
+	define('STR_USR_CANCHGPWD', "Able to change own password");
+	define('STR_USR_ADDWO', "Can add work order to system");
+	define('STR_USR_DELWO', "Can delete a work order from the system");
+	define('STR_USR_MODWO', "Can modify an existing work order in the system");
 	define('STR_USR_EMAIL', "E-Mail");
-	define('STR_USR_CHGPWD', "Passwort Ã?Â¤ndern");
-	define('STR_USR_CHANGE', "Ã?â??ndern");
-	define('STR_USR_CLEAR', "LÃ?Â¶schen");
+	define('STR_USR_CHGPWD', "Change Password");
+	define('STR_USR_CHANGE', "Change");
+	define('STR_USR_CLEAR', "Clear");
 	define('STR_USR_NEWPWD', "Neues Password");
 	define('STR_USR_CURRPWD', "Aktuelles Passwort");
-	define('STR_USR_CONFIRMPWD', "Passwort bestÃ?Â¤tigen");
+	define('STR_USR_CONFIRMPWD', "Confirm Password");
 	define('STR_USR_TABLETITLE', "Benutzer - sortiert nach %s");
 	define('STR_USR_NOUSERS', "Keine Benutzer gefunden!");
 	define('STR_USR_ID', "ID");
@@ -32,5 +32,4 @@
 	define('STR_USR_LOGIN', "Login");
 	define('STR_USR_EDIT', "Bearbeite Benutzer");
 	define('STR_USR_ADD', "Neuer User");
-	define('STR_USR_HIGHLIGHTEDNOTE', "** Unterlegte Felder sind mÃ?Â¼ssen gefÃ?Â¼llt werden!");
-?>
+	define('STR_USR_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");

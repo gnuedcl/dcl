@@ -9,16 +9,15 @@
 	define('STR_TC_JCN', "No Appel");
 	define('STR_TC_SEQ', "Seq");
 	define('STR_TC_DETAILBELOW', "(Detail Ci-dessous)");
-	define('STR_TC_SUMMARY', "RÃ?Â©sumÃ?Â©");
+	define('STR_TC_SUMMARY', "Summary");
 	define('STR_TC_DATE', "Date");
 	define('STR_TC_BY', "Par");
 	define('STR_TC_ETC', "RAF");
 	define('STR_TC_BTNADD', "Ajouter");
 	define('STR_TC_BTNMOD', "Modifier");
-	define('STR_TC_BTNCLR', "RafraÃ?Â®chir");
+	define('STR_TC_BTNCLR', "Clear");
 	define('STR_TC_HIGHLIGHTEDNOTE', "** Les champs en surbrillance sont obligatoires!");
-	define('STR_TC_MODIFYNOTE', "NOTE: Si une fiche d\'appel apparait sous celle-ci, le statut et les heures restantes ne seront pas changÃ?Â©s.");
+	define('STR_TC_MODIFYNOTE', "NOTE: If any time cards appear below this one, status and ETC hours will not be changed.");
 	define('STR_TC_MODIFY', "Modifier");
 	define('STR_TC_DELETE', "Effacer");
-	define('STR_TC_BATCHUPDATE', "Mise Ã?Â  jour Batch");
-?>
+	define('STR_TC_BATCHUPDATE', "Batch Update");

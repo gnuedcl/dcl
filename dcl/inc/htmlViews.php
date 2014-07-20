@@ -147,7 +147,7 @@ class htmlViews
 		while (list($key, $val) = each($objView->urlpieces))
 		{
 			if (IsSet($_REQUEST[$val]))
-				$viewUrl .= sprintf('<input type="hidden" name="%s" value="%s">', $val, htmlspecialchars($o->GPCStripSlashes($_REQUEST[$val])));
+				$viewUrl .= sprintf('<input type="hidden" name="%s" value="%s">', $val, htmlspecialchars($o->GPCStripSlashes($_REQUEST[$val]), ENT_QUOTES, 'UTF-8'));
 		}
 
 		$template->assign('VAL_VIEWURL', $viewUrl);

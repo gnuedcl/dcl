@@ -11,4 +11,3 @@
 	define('STR_SEV_OPTIONS', "Opzioni");
 	define('STR_SEV_EDIT', "Modifica Problematica");
 	define('STR_SEV_ADD', "Inserisci Problematica");
-?>

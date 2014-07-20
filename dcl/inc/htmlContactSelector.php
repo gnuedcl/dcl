@@ -127,7 +127,7 @@ class htmlContactSelector
 
 		if ($filterSearch != '')
 		{
-			if (strpos($filterSearch, ',') === false)
+			if (mb_strpos($filterSearch, ',') === false)
 			{
 				$this->oView->AddDef('filterlike', 'last_name', $filterSearch);
 			}

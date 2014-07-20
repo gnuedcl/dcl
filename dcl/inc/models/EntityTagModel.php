@@ -68,9 +68,9 @@ class EntityTagModel extends DbProvider
 			if ($sTag == '')
 				continue;
 			
-			if (strlen($sTag) > $GLOBALS['phpgw_baseline'][$oTag->TableName]['fd']['tag_desc']['precision'])
+			if (mb_strlen($sTag) > $GLOBALS['phpgw_baseline'][$oTag->TableName]['fd']['tag_desc']['precision'])
 			{
-				ShowError(sprintf(STR_DB_TAGLENGTHERR, htmlspecialchars($sTag), $GLOBALS['phpgw_baseline'][$oTag->TableName]['fd']['tag_desc']['precision']));
+				ShowError(sprintf(STR_DB_TAGLENGTHERR, htmlspecialchars($sTag, ENT_QUOTES, 'UTF-8'), $GLOBALS['phpgw_baseline'][$oTag->TableName]['fd']['tag_desc']['precision']));
 				continue;
 			}
 			

@@ -5,23 +5,23 @@
 	define('STR_PROD_ID', "ID");
 	define('STR_PROD_ACTIVEABB', "A");
 	define('STR_PROD_ACTIVE', "Aktiv");
-	define('STR_PROD_SHORT', "KÃ?Â¼rzel");
+	define('STR_PROD_SHORT', "Short");
 	define('STR_PROD_NAME', "Name");
 	define('STR_PROD_REPORTTO', "Berichtet an");
 	define('STR_PROD_TICKETSTO', "Tickets an");
 	define('STR_PROD_OPTIONS', "Optionen");
 	define('STR_PROD_EDIT', "Bearbeite Produkt");
 	define('STR_PROD_ADD', "Neues Produkt");
-	define('STR_PROD_HIGHLIGHTEDNOTE', "** Unterlegte Felder mÃ?Â¼ssen gefÃ?Â¼llt werden!");
+	define('STR_PROD_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
 	define('STR_PROD_MYPROD', "Meine Produkte");
 	define('STR_PROD_NOTLEAD', "Ihnen ist kein Produkt zugeordnet.");
 	define('STR_PROD_WOATTRIBUTESET', "Attributpaket des Arbeitsauftrags");
 	define('STR_PROD_TICKETATTRIBUTESET', "Attributpaket des Tickets");
 	define('STR_PROD_WODETAIL', "Details zum Arbeitsauftrag");
 	define('STR_PROD_TICKETDETAIL', "Details zum Ticket");
-	define('STR_PROD_VIEWWO', "Ansicht der ArbeitsauftrÃ?Â¤ge");
+	define('STR_PROD_VIEWWO', "Work Orders");
 	define('STR_PROD_VIEWTICKETS', "Ansicht der Tickets");
-	define('STR_PROD_NOWORKORDERS', "Keine ArbeitsauftrÃ?Â¤ge im System.");
+	define('STR_PROD_NOWORKORDERS', "No work orders in DCL.");
 	define('STR_PROD_NOTICKETS', "Keine Tickets im System.");
 	define('STR_PROD_PREEXISTING', "Bestehende");
 	define('STR_PROD_CREATED', "Erstellt");
@@ -53,4 +53,3 @@
 	define('STR_PROD_WOBUILDINFO', "Build: %s");
 	define('STR_PROD_ACTIVITYLAST7DAYS', "Activity Last 7 Days");
 	define('STR_PROD_VERSIONED', "Versioned");
-?>

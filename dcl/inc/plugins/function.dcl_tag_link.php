@@ -58,7 +58,7 @@ function smarty_function_dcl_tag_link($params, &$smarty)
 		if ($params['browse'] == 'Y')
 		{
 			echo '<span class="dcl-tag">';
-			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sTag) . '">' . htmlspecialchars($sTag, ENT_QUOTES) . '</a>';
+			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sTag) . '">' . htmlspecialchars($sTag, ENT_QUOTES, 'UTF-8') . '</a>';
 
 			if (in_array($sTag, $aSelected))
 			{
@@ -88,7 +88,7 @@ function smarty_function_dcl_tag_link($params, &$smarty)
 		}
 		else
 		{
-			echo '<a class="dcl-tag" href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sTag) . '">' . htmlspecialchars($sTag, ENT_QUOTES) . '</a>';
+			echo '<a class="dcl-tag" href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sTag) . '">' . htmlspecialchars($sTag, ENT_QUOTES, 'UTF-8') . '</a>';
 		}
 	}
 }

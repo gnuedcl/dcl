@@ -33,13 +33,13 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 {
 	global $dcl_info;
 
-    $bIsLogin = (substr($toHere, 0, 10) == 'logout.php');
+    $bIsLogin = (mb_substr($toHere, 0, 10) == 'logout.php');
 
     if ($bIsLogin)
     {
         $theCookie = '';
         if (IsSet($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '')
-            $toHere .= sprintf('%srefer_to=%s', strpos($toHere, '?') > 0 ? '&' : '?', urlencode($_SERVER['QUERY_STRING']));
+            $toHere .= sprintf('%srefer_to=%s', mb_strpos($toHere, '?') > 0 ? '&' : '?', urlencode($_SERVER['QUERY_STRING']));
     }
     else
         $theCookie = $session_id . '/' . $domain;
@@ -55,8 +55,8 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 		$httpDomain = '.' . $httpDomain;
 	}
 
-	if (($p = strpos($httpDomain, ':')) !== false)
-		$httpDomain = substr($httpDomain, 0, $p);
+	if (($p = mb_strpos($httpDomain, ':')) !== false)
+		$httpDomain = mb_substr($httpDomain, 0, $p);
 
 	setcookie('DCLINFO', $theCookie, 0, '/', $httpDomain, UseHttps() || $dcl_info['DCL_FORCE_SECURE_COOKIE'] == 'Y', true);
 	header("Location: $toHere");
@@ -68,7 +68,7 @@ if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
 {
     $g_oSession = new SessionModel();
     list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
-    if (strlen($dcl_session_id) != 32)
+    if (mb_strlen($dcl_session_id) != 32)
         Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
 
     if (!$g_oSession->conn)

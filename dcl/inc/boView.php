@@ -174,7 +174,7 @@ class boView
 
 	function GetFormElement($var, $val)
 	{
-		return sprintf('<input type="hidden" name="%s" value="%s">', htmlspecialchars($var, ENT_QUOTES), htmlspecialchars($val, ENT_QUOTES)) . phpCrLf;
+		return sprintf('<input type="hidden" name="%s" value="%s">', htmlspecialchars($var, ENT_QUOTES, 'UTF-8'), htmlspecialchars($val, ENT_QUOTES, 'UTF-8')) . phpCrLf;
 	}
 
 	function GetForm()
@@ -201,7 +201,7 @@ class boView
 	function FixName($sName)
 	{
 		$aFix = array('accounts' => 'dcl_org', 'revision' => 'reported_version_id.product_version_text');
-		if (strpos($sName, '.') > -1)
+		if (mb_strpos($sName, '.') > -1)
 		{
 			// Field
 			list($sTable, $sField) = explode('.', $sName);
@@ -372,7 +372,7 @@ class boView
 		{
 			foreach ($value as $qvalue)
 			{
-				if (substr($which, 0, 6) == 'filter')
+				if (mb_substr($which, 0, 6) == 'filter')
 				{
 					if (!isset($aMember[$field]))
 						$aMember[$field] = array();
@@ -385,7 +385,7 @@ class boView
 		}
 		else
 		{
-			if (substr($which, 0, 6) == 'filter')
+			if (mb_substr($which, 0, 6) == 'filter')
 			{
 				if (!isset($aMember[$field]))
 					$aMember[$field] = array();
@@ -407,7 +407,7 @@ class boView
 				$field = 'dcl_product_version.product_version_text';
 		}
 		
-		if (substr($which, 0, 6) == 'filter')
+		if (mb_substr($which, 0, 6) == 'filter')
 		{
 			$aFilter =& $this->$which;
 			unset($aFilter[$field]);
@@ -444,11 +444,11 @@ class boView
 
 					if ($bProcessDates)
 					{
-						$iColonIdx = strpos($field, ':'); 
+						$iColonIdx = mb_strpos($field, ':');
 						if ($iColonIdx > 0)
 						{
-							$func = substr($field, 0, $iColonIdx);
-							$agg = substr($field, $iColonIdx + 1);
+							$func = mb_substr($field, 0, $iColonIdx);
+							$agg = mb_substr($field, $iColonIdx + 1);
 							if (isset($phpgw_baseline[$this->table]) && isset($phpgw_baseline[$this->table]['aggregates']) && isset($phpgw_baseline[$this->table]['aggregates'][$func]) && isset($phpgw_baseline[$this->table]['aggregates'][$func][$agg]))
 							{
 								$retVal .= '(' . $phpgw_baseline[$this->table]['aggregates'][$func][$agg] . ') AS _count_' . $agg . '_';
@@ -456,7 +456,7 @@ class boView
 							
 							continue;
 						}
-						else if (strpos($field, '.') > 0)
+						else if (mb_strpos($field, '.') > 0)
 												{
 							list($sTable, $sField) = explode('.', $field);
 							$sRealTable = $sTable;
@@ -468,7 +468,7 @@ class boView
 							$sField = $field;
 						}
 
-						if (strlen($sTable) == 1)
+						if (mb_strlen($sTable) == 1)
 						{
 							if ($sTable == 'a' || $sTable == 'b' || $sTable == 'c' || $sTable == 'g')
 								$sRealTable = 'personnel';
@@ -489,17 +489,17 @@ class boView
 					}
 					else
 					{
-						$iColonIdx = strpos($field, ':'); 
+						$iColonIdx = mb_strpos($field, ':');
 						if ($iColonIdx > 0)
 						{
-							$func = substr($field, 0, $iColonIdx);
-							$agg = substr($field, $iColonIdx + 1);
+							$func = mb_substr($field, 0, $iColonIdx);
+							$agg = mb_substr($field, $iColonIdx + 1);
 							if (isset($phpgw_baseline[$this->table]) && isset($phpgw_baseline[$this->table]['aggregates']) && isset($phpgw_baseline[$this->table]['aggregates'][$func]) && isset($phpgw_baseline[$this->table]['aggregates'][$func][$agg]))
 							{
 								$retVal .= ($bOrderBy ? '_count_' . $agg . '_ DESC' : '(' . $phpgw_baseline[$this->table]['aggregates'][$func][$agg] . ') AS _count_' . $agg . '_');
 							}
 						}
-						else if (strpos($field, '.') > 0)
+						else if (mb_strpos($field, '.') > 0)
 							$retVal .= $field; // He said they've already got one!
 						else
 							$retVal .= $this->table . '.' . $field;
@@ -513,11 +513,11 @@ class boView
 					if ($retVal != '')
 						$retVal .= ',';
 					
-					$iColonIdx = strpos($field, ':'); 
+					$iColonIdx = mb_strpos($field, ':');
 					if ($iColonIdx > 0)
 					{
-						$func = substr($field, 0, $iColonIdx);
-						$agg = substr($field, $iColonIdx + 1);
+						$func = mb_substr($field, 0, $iColonIdx);
+						$agg = mb_substr($field, $iColonIdx + 1);
 						if (isset($phpgw_baseline[$this->table]) && isset($phpgw_baseline[$this->table]['aggregates']) && isset($phpgw_baseline[$this->table]['aggregates'][$func]) && isset($phpgw_baseline[$this->table]['aggregates'][$func][$agg]))
 						{
 							$retVal .= '(' . $phpgw_baseline[$this->table]['aggregates'][$func][$agg] . ') AS _count_' . $agg . '_';
@@ -570,7 +570,7 @@ class boView
 				if ($bIsValues)
 					$field = $key;
 
-				if (strpos($field, '.') > 0)
+				if (mb_strpos($field, '.') > 0)
 				{
 					list($table, $tablefield) = explode('.', $field);
 					if ($table == $this->table)
@@ -787,14 +787,14 @@ class boView
 				$field = $key;
 
 			// Valid for aliases or order by clause
-			$spaceIndex = strpos($field, ' ');
+			$spaceIndex = mb_strpos($field, ' ');
 			if ($spaceIndex > -1)
 			{
-				$field = trim(substr($field, $spaceIndex));
+				$field = trim(mb_substr($field, $spaceIndex));
 
 				// Make sure there are no others, though
-				$aliasOrSortOrder = trim(substr($field, $spaceIndex + 1));
-				if (strpos($aliasOrSortOrder, ' ') > -1)
+				$aliasOrSortOrder = trim(mb_substr($field, $spaceIndex + 1));
+				if (mb_strpos($aliasOrSortOrder, ' ') > -1)
 					throw new InvalidDataException();
 			}
 
@@ -970,7 +970,7 @@ class boView
 			foreach ($this->filter as $field => $values)
 			{
 				// prepend table name if not specified to avoid ambiguity
-				if (strpos($field, '.') < 1)
+				if (mb_strpos($field, '.') < 1)
 					$field = $this->table . '.' . $field;
 
 				if ($this->table == 'workorders' && preg_match('/^.*\.jcn/i', $field))
@@ -986,7 +986,7 @@ class boView
 					for ($i = 0; $i < $iNumValues; $i++)
 					{
 						$sValue = $values[$i];
-						if (strpos($sValue, '-') > 0)
+						if (mb_strpos($sValue, '-') > 0)
 						{
 							if ($sJCNSEQSQL != '')
 								$sJCNSEQSQL .= ' OR ';
@@ -1296,7 +1296,7 @@ class boView
 			while (list($field, $values) = each($this->filternot))
 			{
 				// prepend table name if not specified to avoid ambiguity
-				if (strpos($field, '.') < 1)
+				if (mb_strpos($field, '.') < 1)
 					$field = $this->table . '.' . $field;
 
 				if ($bFirst == false)
@@ -1326,7 +1326,7 @@ class boView
 			foreach ($this->filterdate as $field => $values)
 			{
 				// prepend table name if not specified to avoid ambiguity
-				if (strpos($field, '.') < 1)
+				if (mb_strpos($field, '.') < 1)
 					$field = $this->table . '.' . $field;
 
 				if ($bFirst == false)
@@ -1358,14 +1358,14 @@ class boView
 			foreach ($this->filterlike as $field => $values)
 			{
 				// prepend table name if not specified to avoid ambiguity
-				if (strpos($field, '.') < 1)
+				if (mb_strpos($field, '.') < 1)
 					$field = $this->table . '.' . $field;
 
 				if ($bFirst == false)
 					$sql .= ' ' . $this->logiclike . ' ';
 
 				$bFirst = false;
-				$sql .= sprintf('(%s like %s)', $objWO->GetUpperSQL($field), strtoupper($objWO->Quote('%' . $values[0] . '%')));
+				$sql .= sprintf('(%s like %s)', $objWO->GetUpperSQL($field), mb_strtoupper($objWO->Quote('%' . $values[0] . '%')));
 			}
 
 			$sql .= ')';
@@ -1385,14 +1385,14 @@ class boView
 			foreach ($this->filterstart as $field => $values)
 			{
 				// prepend table name if not specified to avoid ambiguity
-				if (strpos($field, '.') < 1)
+				if (mb_strpos($field, '.') < 1)
 					$field = $this->table . '.' . $field;
 
 				if ($bFirst == false)
 					$sql .= ' ' . $this->logiclike . ' ';
 
 				$bFirst = false;
-				$sql .= sprintf('(%s like %s)', $objWO->GetUpperSQL($field), $objWO->Quote(strtoupper($values[0]) . '%'));
+				$sql .= sprintf('(%s like %s)', $objWO->GetUpperSQL($field), $objWO->Quote(mb_strtoupper($values[0]) . '%'));
 			}
 
 			$sql .= ')';

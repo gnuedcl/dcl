@@ -18,7 +18,7 @@
 	define('STR_WO_ETC', "ETC");
 	define('STR_WO_ACTHOURS', "Act Hours");
 	define('STR_WO_STATUS', "Estado");
-	define('STR_WO_DEADLINE', "Fecha lÃ?Â­mite");
+	define('STR_WO_DEADLINE', "Deadline");
 	define('STR_WO_HOURSABB', "Hrs");
 	define('STR_WO_PRJHRSABB', "Prj");
 	define('STR_WO_SUMMARY', "Resumen");
@@ -28,9 +28,9 @@
 	define('STR_WO_SEVERITY', "Severidad");
 	define('STR_WO_ACTION', "Accion");
 	define('STR_WO_EDITWO', "Editar WO (%d - %d)");
-	define('STR_WO_ADDWO', "AÃ?Â±adir Nueva WO");
-	define('STR_WO_ADDSEQ', "AÃ?Â±adir Nueva Secuencia");
-	define('STR_WO_ADDSEQJCN', "AÃ?Â±adir Nueva Secuencia para WO#: %d");
+	define('STR_WO_ADDWO', "Add New Work Order");
+	define('STR_WO_ADDSEQ', "Add New Sequence");
+	define('STR_WO_ADDSEQJCN', "Add New Sequence For WO#: %d");
 	define('STR_WO_HIGHLIGHTEDNOTE', "** Los campos sombreados son obligatorios!");
 	define('STR_WO_BADJCNSEQERR', "Se ha pasado mal una WO# o secuencia a %s.  Eso es malo.  Creeme");
 	define('STR_WO_NOTFOUNDERR', "No se pudo encontrar WO# %d Seq %d!!!");
@@ -63,23 +63,23 @@
 	define('STR_WO_NOOPEN', "No tienes ninguna WO abierta.");
 	define('STR_WO_MODIFY', "Modificar WO");
 	define('STR_WO_VIEWWO', "Ver WO");
-	define('STR_WO_ADDTC', "AÃ?Â±adir Timecard");
+	define('STR_WO_ADDTC', "Add Timecard");
 	define('STR_WO_REASSIGN', "Reasignar WO");
 	define('STR_WO_NEWSEQ', "Nueva Secuencia");
-	define('STR_WO_ADDPRJ', "AÃ?Â±adir A O Ver Proyecto");
+	define('STR_WO_ADDPRJ', "Add To Or View Project");
 	define('STR_WO_DELETE', "Eliminar WO");
 	define('STR_WO_UNMAP', "Remove From Project");
 	define('STR_WO_UPLOAD', "Upload File Attachment");
-	define('STR_WO_WATCHES', "AÃ?Â±adir Watch Para EstaWO");
+	define('STR_WO_WATCHES', "Add Watch For This WO");
 	define('STR_WO_DELATTACH', "Eliminar Fichero Adjunto");
-	define('STR_WO_MYSUBMISSIONS', "WOs generadas por mÃ?Â­");
+	define('STR_WO_MYSUBMISSIONS', "My Work Order Submissions");
 	define('STR_WO_NOSUBMISSIONS', "No se encontraron WOs abiertas creadas para usted.");
 	define('STR_WO_WILLBEPARTOFPROJECT', "Esta WO sera parte de un proyecto: %s");
-	define('STR_WO_ADDTOPROJECT', "AÃ?Â±adir esta WO al proyecto:");
-	define('STR_WO_ADDALLSEQ', "AÃ?Â±adir todas las secuencias al proyecto");
+	define('STR_WO_ADDTOPROJECT', "Add this work order to project:");
+	define('STR_WO_ADDALLSEQ', "Add all sequences to project");
 	define('STR_WO_TICKET', "Copiar la WO desde el TCK #%d");
 	define('STR_WO_EMAILSIG', "Un saludo ,\\nDCL");
-	define('STR_WO_EMAILSUBJECT', "AtenciÃ?Â³n a Usuarios/CAU:Saludos desde DCL (%d-%d)");
+	define('STR_WO_EMAILSUBJECT', "Greetings from DCL (%d-%d)");
 	define('STR_WO_REPORTOPTIONS', "Report Opciones");
 	define('STR_WO_PROJECT', "Proyecto");
 	define('STR_WO_CONTACTEMAIL', "Direccion de correo");
@@ -95,4 +95,3 @@
 	define('STR_WO_WORKORDERTYPES', "Work Order Types");
 	define('STR_WO_ADDWORKORDERTYPE', "Add Work Order Type");
 	define('STR_WO_EDITWORKORDERTYPE', "Edit Work Order Type");
-?>

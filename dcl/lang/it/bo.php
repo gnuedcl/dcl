@@ -35,4 +35,3 @@
 	define('STR_BO_PROJECTMAILMSG', "You have been designated as a project lead.");
 	define('STR_BO_LOOKUPNOTFOUND', "Lookup ID %d not found!");
 	define('STR_BO_UPLOADSUCCESS', "");
-?>

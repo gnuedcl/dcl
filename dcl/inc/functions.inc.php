@@ -152,19 +152,19 @@ function DclClassAutoLoader($className)
 
 	foreach ($areas as $suffix => $directory)
 	{
-		if (substr($className, -strlen($suffix)) == $suffix && file_exists(DCL_ROOT . 'inc/' . $directory . '/' . $className . '.php'))
+		if (mb_substr($className, -mb_strlen($suffix)) == $suffix && file_exists(DCL_ROOT . 'inc/' . $directory . '/' . $className . '.php'))
 		{
 			require_once(DCL_ROOT . 'inc/' . $directory . '/' . $className . '.php');
 			return;
 		}
 	}
 
-	if (substr($className, 0, 13) === 'PluginHelper_')
+	if (mb_substr($className, 0, 13) === 'PluginHelper_')
 	{
 		$pluginParts = explode('_', $className, 3);
 		if (count($pluginParts) > 2)
 		{
-			$classPath = GetPluginDir() . strtolower($pluginParts[1]) . '/PluginHelper_' . $pluginParts[1] . '_' . $pluginParts[2] . '.php';
+			$classPath = GetPluginDir() . mb_strtolower($pluginParts[1]) . '/PluginHelper_' . $pluginParts[1] . '_' . $pluginParts[2] . '.php';
 			if (file_exists($classPath))
 			{
 				require_once($classPath);
@@ -204,8 +204,8 @@ function menuLink($target = '', $params = '')
 	if ($target == '')
 		$target = DCL_WWW_ROOT . 'main.php';
 
-	if (substr($target, 0, strlen(DCL_WWW_ROOT)) == DCL_WWW_ROOT)
-		$sRet = substr($target, strlen(DCL_WWW_ROOT));
+	if (mb_substr($target, 0, mb_strlen(DCL_WWW_ROOT)) == DCL_WWW_ROOT)
+		$sRet = mb_substr($target, mb_strlen(DCL_WWW_ROOT));
 	else
 		$sRet = $target;
 
@@ -561,7 +561,7 @@ function commonHeader()
 	if (defined('HTML_HEADER_GENERATED'))
 		return;
 
-	header('Content-Type: text/html; charset=iso-8859-1');
+	header('Content-Type: text/html; charset=utf-8');
 	header('Expires: Fri, 11 Oct 1991 17:01:00 GMT');
 	header('Cache-Control: no-cache, must-revalidate');
 
@@ -729,9 +729,9 @@ function DclErrorLog($level, $message, $file, $line, $backTrace)
             return -1;
 
 		$requestUri = $_SERVER['REQUEST_URI'];
-		$queryStringStart = strpos($requestUri, '?');
+		$queryStringStart = mb_strpos($requestUri, '?');
 		if ($queryStringStart !== false)
-			$requestUri = substr($requestUri, 0, $queryStringStart);
+			$requestUri = mb_substr($requestUri, 0, $queryStringStart);
 
 		$logger = new ErrorLogModel();
 		$logger->server_name = $_SERVER['SERVER_NAME'];
@@ -842,6 +842,8 @@ function DclExceptionHandler(Exception $ex)
 		LogError($ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
 	else
 		ShowError('An error occurred when processing your request due to invalid data.');
+
+	var_dump($ex);
 
 	if (is_object($g_oPage))
 		$g_oPage->EndPage();

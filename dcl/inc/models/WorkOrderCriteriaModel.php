@@ -104,22 +104,22 @@ class WorkOrderCriteriaModel
 		
 		$view = new WorkOrderSqlQueryHelper();
 
-		if (strlen($this->ColumnHdrs) > 0)
+		if (mb_strlen($this->ColumnHdrs) > 0)
 			$this->ColumnHdrs = explode(',', $this->ColumnHdrs);
 		else
 			$this->ColumnHdrs = array();
 
-		if (strlen($this->Columns) > 0)
+		if (mb_strlen($this->Columns) > 0)
 			$this->Columns = explode(',', $this->Columns);
 		else
 			$this->Columns = array();
 
-		if (strlen($this->Groups) > 0)
+		if (mb_strlen($this->Groups) > 0)
 			$this->Groups = explode(',', $this->Groups);
 		else
 			$this->Groups = array();
 
-		if (strlen($this->Order) > 0)
+		if (mb_strlen($this->Order) > 0)
 			$this->Order = explode(',', $this->Order);
 		else
 			$this->Order = array();

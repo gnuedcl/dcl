@@ -104,7 +104,7 @@ class htmlTicketSearches
 			reset($oView->filter);
 			while (list($field, $values) = each($oView->filter))
 			{
-				if (substr($field, 1) == '.department')
+				if (mb_substr($field, 1) == '.department')
 				{
 					if ($field[0] == 'a')
 						$t->assign('CHK_RESPONSIBLE', ' checked');
@@ -118,7 +118,7 @@ class htmlTicketSearches
 				}
 				else if ($field == 'responsible' || $field == 'createdby' || $field == 'closedby')
 				{
-					$t->assign('CHK_' . strtoupper($field), ' checked');
+					$t->assign('CHK_' . mb_strtoupper($field), ' checked');
 					$field = 'personnel';
 					$sPersonnelKey = '';
 				}
@@ -280,7 +280,7 @@ class htmlTicketSearches
 		$aDateChecks = array('createdon', 'closedon', 'statuson', 'lastactionon');
 
 		for ($i = 0; $i < count($aDateChecks); $i++)
-			$t->assign('CHK_' . strtoupper($aDateChecks[$i]), '');
+			$t->assign('CHK_' . mb_strtoupper($aDateChecks[$i]), '');
 
 		if ($bView)
 		{
@@ -293,7 +293,7 @@ class htmlTicketSearches
 				reset($oView->filterdate);
 				while (list($field, $values) = each($oView->filterdate))
 				{
-					$t->assign('CHK_' . strtoupper($field), ' CHECKED');
+					$t->assign('CHK_' . mb_strtoupper($field), ' CHECKED');
 					$fromDate = $values[0];
 					$toDate = $values[1];
 				}

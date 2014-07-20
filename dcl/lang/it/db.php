@@ -32,4 +32,3 @@
 	define('STR_DB_CHKLSTOIDERR', "Error retrieving checklist by ID# %d");
 	define('STR_DB_CHKLSTTPLOIDERR', "Error retrieving checklist template by ID# %d");
 	define('STR_DB_CFGINSERTERR', "Could not add config item.  Query: %s");
-?>

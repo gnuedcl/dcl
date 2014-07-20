@@ -14,8 +14,7 @@
 	define('STR_VW_PUBLIC', "Publico");
 	define('STR_VW_NAME', "Nombre");
 	define('STR_VW_TABLE', "Tabla");
-	define('STR_VW_ADDVIEW', "AÃ?Â±adir Vista");
+	define('STR_VW_ADDVIEW', "Add View");
 	define('STR_VW_NOVIEWS', "No encontrados vistas publicas ni privadas!");
 	define('STR_VW_TITLE', "Vistas ordenadas por %s");
 	define('STR_VW_SETUP', "Setup");
-?>

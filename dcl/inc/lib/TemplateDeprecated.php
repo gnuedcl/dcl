@@ -290,7 +290,7 @@ class TemplateDeprecated {
 	function filename($filename)
 	{
 		$retVal = $filename;
-		if (substr($filename, 0, strlen(DCL_ROOT)) != DCL_ROOT)
+		if (mb_substr($filename, 0, mb_strlen(DCL_ROOT)) != DCL_ROOT)
 		{
 			$retVal = $this->root . '/' . $filename;
 		}

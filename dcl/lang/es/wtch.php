@@ -8,7 +8,7 @@
 	define('STR_WTCH_ACTIONS', "Acciones");
 	define('STR_WTCH_OPTIONS', "Opciones");
 	define('STR_WTCH_EDIT', "Edite %s Vista");
-	define('STR_WTCH_ADD', "AÃ?Â±ada %s Vista");
+	define('STR_WTCH_ADD', "Add %s Watch");
 	define('STR_WTCH_YOUHAVENONE', "No tiene ninguna Vista.");
 	define('STR_WTCH_HIGHLIGHTEDNOTE', "** Los campos sombreados son obligatorios!");
 	define('STR_WTCH_ALLSEQ', "Todas Secuencias");
@@ -26,4 +26,3 @@
 	define('STR_WTCH_ANYTHING', "Alguna cosa");
 	define('STR_WTCH_ACCTWO', "Account Work Order");
 	define('STR_WTCH_ACCTTCK', "Account Ticket");
-?>

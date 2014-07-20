@@ -1,5 +1,5 @@
 <?php
-	define('STR_CFG_TITLE', "DCL Ã?Â«Ã?ï¿½Ã?Å½Ã?â? Ã?â?°Ã?â?¡Ã?â?¢Ã?â??Ã?ï¿½Ã?Æ?Ã?â?°Ã?â??");
+	define('STR_CFG_TITLE', "DCL Configuration");
 	define('STR_CFG_DESC', "This screen will allow you to configure default settings and behaviors in DCL.");
 	define('STR_CFG_SYSTEMTITLE', "System Configuration");
 	define('STR_CFG_DATEFORMAT', "Date Display Format");
@@ -152,4 +152,3 @@
 	define('STR_CFG_SECAUDITENABLEDHELP', "Enables security auditing. By default, security auditing tracks logins, logouts, and any time the user hits main.php.  Reports are available in the admin section to view a users history.");
 	define('STR_CFG_SECAUDITLOGINONLY', "Only audit login events");
 	define('STR_CFG_SECAUDITLOGINONLYHELP', "Restricts security auditing to login and logout events only. By default, security auditing tracks logins, logouts, and any time the user hits main.php.");
-?>

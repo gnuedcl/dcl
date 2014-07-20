@@ -141,7 +141,7 @@ class htmlWorkOrderTask
 		$aSource['seq'] = $seq;
 		foreach ($_REQUEST['task_summary'] as $iKey => $sSummary)
 		{
-			$sSummary = substr(trim($sSummary), 0, 255);
+			$sSummary = mb_substr(trim($sSummary), 0, 255);
 			if ($sSummary != '')
 			{
 				$aSource['task_order'] = ++$iOrder;

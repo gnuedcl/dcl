@@ -11,4 +11,3 @@
 	define('STR_SEV_OPTIONS', "Options");
 	define('STR_SEV_EDIT', "Edit Severity");
 	define('STR_SEV_ADD', "Add Severity");
-?>

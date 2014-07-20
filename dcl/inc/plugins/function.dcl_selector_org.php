@@ -82,7 +82,7 @@ function render_<?php echo $sArrayName; ?>()
 <?php } ?>
 }
 </script>
-<a id="<?php echo $params['id']; ?>Link" href="javascript:;" onclick="showSelector(document.getElementById('<?php echo $params['id']; ?>'), <?php echo $sArrayName; ?>, render_<?php echo $sArrayName; ?>, 'htmlOrganizationSelector', '<?php echo $params['multiple'] == 'Y' ? 'true' : 'false' ?>', '<?php echo $params['window_name']; ?>');"><?php echo $params['multiple'] == 'Y' || $params['decoded'] == '' ? htmlspecialchars($params['text'], ENT_QUOTES) : htmlspecialchars($decoded, ENT_QUOTES); ?></a>
+<a id="<?php echo $params['id']; ?>Link" href="javascript:;" onclick="showSelector(document.getElementById('<?php echo $params['id']; ?>'), <?php echo $sArrayName; ?>, render_<?php echo $sArrayName; ?>, 'htmlOrganizationSelector', '<?php echo $params['multiple'] == 'Y' ? 'true' : 'false' ?>', '<?php echo $params['window_name']; ?>');"><?php echo $params['multiple'] == 'Y' || $params['decoded'] == '' ? htmlspecialchars($params['text'], ENT_QUOTES, 'UTF-8') : htmlspecialchars($decoded, ENT_QUOTES, 'UTF-8'); ?></a>
 <input type="hidden" id="<?php echo $params['id']; ?>" name="<?php echo $params['name']; ?>" value="<?php print(is_array($params['value']) ? join(',', $params['value']) : $params['value']); ?>">
 <?php
 }

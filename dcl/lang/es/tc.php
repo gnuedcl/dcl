@@ -13,7 +13,7 @@
 	define('STR_TC_DATE', "Fecha");
 	define('STR_TC_BY', "Por");
 	define('STR_TC_ETC', "ETC");
-	define('STR_TC_BTNADD', "AÃ?Â±adir");
+	define('STR_TC_BTNADD', "Add");
 	define('STR_TC_BTNMOD', "Modificar");
 	define('STR_TC_BTNCLR', "Limpiar");
 	define('STR_TC_HIGHLIGHTEDNOTE', "** Los campos sombreados son obligatorios!");
@@ -21,4 +21,3 @@
 	define('STR_TC_MODIFY', "Modificado");
 	define('STR_TC_DELETE', "Borrar");
 	define('STR_TC_BATCHUPDATE', "Batch Update");
-?>

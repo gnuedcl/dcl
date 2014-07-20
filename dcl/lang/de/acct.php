@@ -9,7 +9,7 @@
 	define('STR_ACCT_ACTIVE', "Aktiv");
 	define('STR_ACCT_NAME', "Name");
 	define('STR_ACCT_NOTES', "Anmerkungen");
-	define('STR_ACCT_SHORT', "KÃ?Â¼rzel");
+	define('STR_ACCT_SHORT', "Short");
 	define('STR_ACCT_CITY', "Stadt");
 	define('STR_ACCT_STATEABB', "Str");
 	define('STR_ACCT_STATE', "Land");
@@ -19,10 +19,9 @@
 	define('STR_ACCT_FAX', "Fax");
 	define('STR_ACCT_EDITACCOUNT', "Bearbeite Kunde");
 	define('STR_ACCT_ADDNEWACCOUNT', "Neuer Kunde");
-	define('STR_ACCT_HIGHLIGHTEDNOTE', "** Unterlegte Felder mÃ?Â¼ssen gefÃ?Â¼llt werden!");
-	define('STR_ACCT_NOOBJECTERR', "Es wurde kein Kundenobjekt an ShowDetail Ã?Â¼bergeben!");
+	define('STR_ACCT_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
+	define('STR_ACCT_NOOBJECTERR', "Organization object not passed to ShowDetail!");
 	define('STR_ACCT_ACCOUNTSEARCH', "Suche nach Kunden");
 	define('STR_ACCT_SEARCHTEXT', "Textsuche");
 	define('STR_ACCT_WATCHWO', "Watch WO");
 	define('STR_ACCT_WATCHTCK', "Watch Ticket");
-?>

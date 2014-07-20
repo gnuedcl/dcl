@@ -54,9 +54,9 @@ class SmartyHelper extends Smarty
 
 	private function SmartyInit($sTemplateName, $sTemplateSet = '')
 	{
-		if (substr($sTemplateSet, 0, 8) == 'plugins.')
+		if (mb_substr($sTemplateSet, 0, 8) == 'plugins.')
 		{
-			$sPluginPath = substr($sTemplateSet, 8);
+			$sPluginPath = mb_substr($sTemplateSet, 8);
 			$this->setTemplateDir(GetPluginDir() . $sPluginPath . '/templates/');
 			$this->setCompileDir(GetPluginDir() . $sPluginPath . '/templates_c/');
 

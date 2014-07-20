@@ -18,4 +18,3 @@
 	define('STR_VW_NOVIEWS', "No Public Or Private Views Found!");
 	define('STR_VW_TITLE', "Views Ordered By %s");
 	define('STR_VW_SETUP', "Setup");
-?>

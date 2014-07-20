@@ -94,7 +94,7 @@ class htmlPreferences
 
 		foreach ($_REQUEST as $pref => $setting)
 		{
-			if (substr($pref, 0, 9) != 'DCL_PREF_')
+			if (mb_substr($pref, 0, 9) != 'DCL_PREF_')
 				continue;
 				
 			if ($pref == 'DCL_PREF_NOTIFY_DEFAULT')

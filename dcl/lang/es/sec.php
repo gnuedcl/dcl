@@ -12,4 +12,3 @@
 	define('STR_SEC_ALLUSERS', "All Users");
 	define('STR_SEC_RPTERROR', "An error occured while rendering the report.");
 	define('STR_SEC_RPTNODATA', "No data returned.  Please try a broader query.");
-?>

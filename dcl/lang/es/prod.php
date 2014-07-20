@@ -11,7 +11,7 @@
 	define('STR_PROD_TICKETSTO', "Tickets a");
 	define('STR_PROD_OPTIONS', "Opciones");
 	define('STR_PROD_EDIT', "Preparar Producto");
-	define('STR_PROD_ADD', "AÃ?Â±adir Producto");
+	define('STR_PROD_ADD', "Add Product");
 	define('STR_PROD_HIGHLIGHTEDNOTE', "** Los campos sombreados son obligatorios!");
 	define('STR_PROD_MYPROD', "Mis Productos");
 	define('STR_PROD_NOTLEAD', "Usted no tiene the lead of any products.");
@@ -53,4 +53,3 @@
 	define('STR_PROD_WOBUILDINFO', "Build: %s");
 	define('STR_PROD_ACTIVITYLAST7DAYS', "Activity Last 7 Days");
 	define('STR_PROD_VERSIONED', "Versioned");
-?>

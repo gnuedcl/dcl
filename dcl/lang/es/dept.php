@@ -9,6 +9,5 @@
 	define('STR_DEPT_NAME', "Nombre");
 	define('STR_DEPT_OPTIONS', "Opciones");
 	define('STR_DEPT_EDIT', "Editar Departamento");
-	define('STR_DEPT_ADD', "AÃ?Â±adir Departamento");
+	define('STR_DEPT_ADD', "Add Department");
 	define('STR_DEPT_HIGHLIGHTEDNOTE', "** Los campos sombreados deben ser rellenados!");
-?>

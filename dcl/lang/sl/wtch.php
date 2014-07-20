@@ -6,10 +6,10 @@
 	define('STR_WTCH_SUMMARY', "Povzetek");
 	define('STR_WTCH_WHO', "Kdo");
 	define('STR_WTCH_ACTIONS', "Akcije");
-	define('STR_WTCH_OPTIONS', "MoÃ?Â¾nosti");
+	define('STR_WTCH_OPTIONS', "Options");
 	define('STR_WTCH_EDIT', "Spremeni %s opozorilnik");
 	define('STR_WTCH_ADD', "Dodaj %s opozorilnik");
-	define('STR_WTCH_YOUHAVENONE', "NimaÃ?Â¹ opozorilnikov.");
+	define('STR_WTCH_YOUHAVENONE', "You do not have any watches.");
 	define('STR_WTCH_HIGHLIGHTEDNOTE', "** Osvetljena polja so obvezna!");
 	define('STR_WTCH_ALLSEQ', "Vse sekvence");
 	define('STR_WTCH_INVALIDITEM', "Eh? Invalid watch item.");
@@ -26,4 +26,3 @@
 	define('STR_WTCH_ANYTHING', "Karkoli");
 	define('STR_WTCH_ACCTWO', "Account Work Order");
 	define('STR_WTCH_ACCTTCK', "Account Ticket");
-?>

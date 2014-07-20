@@ -15,4 +15,3 @@
 	define('DCL_WIKI_PAGE', "Page");
 	define('DCL_WIKI_LASTMODIFIED', "Last Modified");
 	define('DCL_WIKI_LASTMODIFIEDBY', "By");
-?>

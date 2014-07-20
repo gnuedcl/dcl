@@ -12,4 +12,3 @@
 	define('STR_PRIO_EDIT', "Edit Priority");
 	define('STR_PRIO_ADD', "Add Priority");
 	define('STR_PRIO_HIGHLIGHTEDNOTE', "** Highlighted fields are required!");
-?>

@@ -61,4 +61,3 @@
 	define('STR_PRJ_BATCHASSIGN', "Batch Assign");
 	define('STR_PRJ_BATCHMOVE', "Batch Move");
 	define('STR_PRJ_TEMPLATE', "Template");
-?>

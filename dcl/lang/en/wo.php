@@ -95,4 +95,3 @@
 	define('STR_WO_WORKORDERTYPES', "Work Order Types");
 	define('STR_WO_ADDWORKORDERTYPE', "Add Work Order Type");
 	define('STR_WO_EDITWORKORDERTYPE', "Edit Work Order Type");
-?>
