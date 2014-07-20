@@ -39,6 +39,24 @@ abstract class Filter
         return $parsedValue;
     }
 
+	public static function IsNotNullOrWhitespace($vValue)
+	{
+		if ($vValue === null || !is_string($vValue))
+			return false;
+
+		$trimmedValue = trim($vValue);
+		if (mb_strlen($trimmedValue) < 1)
+			return false;
+
+		return true;
+	}
+
+	public static function RequireNotNullOrWhitespace($vValue)
+	{
+		if (!Filter::IsNotNullOrWhitespace($vValue))
+			throw new InvalidDataException();
+	}
+
 	public static function ToInt($vValue, $default = null)
 	{
 		if (!is_string($vValue) && !is_int($vValue))

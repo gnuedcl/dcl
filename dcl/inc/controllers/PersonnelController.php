@@ -176,6 +176,8 @@ class PersonnelController
 	function UpdatePassword()
 	{
 		global $g_oSec;
+
+		RequirePost();
 		
 		$iID = DCLID;
 		if (isset($_REQUEST['userid']))
@@ -185,7 +187,10 @@ class PersonnelController
 				throw new InvalidDataException();
 			}
 		}
-		
+
+		Filter::RequireNotNullOrWhitespace(@$_POST['new']);
+		Filter::RequireNotNullOrWhitespace(@$_POST['confirm']);
+
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD) || (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD) && DCLID != $iID))
 			throw new PermissionDeniedException();
 
