@@ -214,7 +214,7 @@ class Smtp
 		
 		if ($this->isHtml)
 		{
-			$this->oSocket->Write("MIME-Version: 1.0\r\nContent-Type: text/html\r\n");
+			$this->oSocket->Write("MIME-Version: 1.0\r\nContent-Type: text/html; charset=utf-8\r\n");
 		}
 
 		$this->oSocket->Write(phpCrLf);
