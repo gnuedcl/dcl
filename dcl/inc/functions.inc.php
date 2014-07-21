@@ -843,8 +843,6 @@ function DclExceptionHandler(Exception $ex)
 	else
 		ShowError('An error occurred when processing your request due to invalid data.');
 
-	var_dump($ex);
-
 	if (is_object($g_oPage))
 		$g_oPage->EndPage();
 
