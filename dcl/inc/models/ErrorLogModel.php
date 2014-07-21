@@ -34,7 +34,11 @@ class ErrorLogModel extends DbProvider
 
 	public function Add()
 	{
-		$this->user_id = DCLID;
+		if (defined('DCLID'))
+			$this->user_id = DCLID;
+		else
+			$this->user_id = null;
+
 		$this->error_timestamp = DCL_NOW;
 		return parent::Add();
 	}
