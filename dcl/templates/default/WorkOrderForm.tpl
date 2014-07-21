@@ -44,20 +44,25 @@ function UpdateVersionsCallback(aItems)
 {
 	if (typeof(aItems) != "object" || !aItems.data || !aItems.data.length)
 		return;
-	
+
+	$("#reported_version_id,#targeted_version_id,#fixed_version_id").removeAttr("disabled");
 	var aNames = ["reported_version_id", "targeted_version_id", "fixed_version_id"];
 	for (var i in aNames)
 	{
 		var oSelect = document.getElementById(aNames[i]);
 		if (oSelect)
 		{
-			oSelect.disabled = false;
+			var id = $("#" + aNames[i]).val();
 			oSelect.options.length = 1;
 			for (var i = 0; i < aItems.data.length; i++)
 			{
 				var o = new Option();
 				o.value = aItems.data[i].id;
 				o.text = aItems.data[i].text;
+
+				if (o.value == id)
+					o.selected = true;
+
 				oSelect.options[oSelect.options.length] = o;
 			}
 		}
@@ -83,16 +88,7 @@ function IsProjectRequiredCallback(aItems)
 
 function UpdateOptions()
 {
-	var aNames = ["reported_version_id", "targeted_version_id", "fixed_version_id"];
-	for (var i in aNames)
-	{
-		var oSelect = document.getElementById(aNames[i]);
-		if (oSelect)
-		{
-			oSelect.options.length = 1;
-			oSelect.disabled = true;
-		}
-	}
+	$("#reported_version_id,#targeted_version_id,#fixed_version_id").attr("disabled", "disabled");
 
 	var oProduct = document.getElementById("product");
 	if (oProduct == null || oProduct.selectedIndex == 0)
@@ -127,8 +123,8 @@ function UpdateOptions()
 			{dcl_select_product_version name=reported_version_id active=$ACTIVE_ONLY default=$ViewData->ReportedVersionId product=$ViewData->ProductId}
 		{/dcl_form_control}
 {if $ViewData->IsEdit}
-	{dcl_form_control id=reported_version_id controlsize=4 label="Targeted Version"}
-	{dcl_select_product_version name=reported_version_id active=$ACTIVE_ONLY default=$ViewData->TargetedVersionId product=$ViewData->ProductId}
+	{dcl_form_control id=targeted_version_id controlsize=4 label="Targeted Version"}
+	{dcl_select_product_version name=targeted_version_id active=$ACTIVE_ONLY default=$ViewData->TargetedVersionId product=$ViewData->ProductId}
 	{/dcl_form_control}
 	{dcl_form_control id=fixed_version_id controlsize=4 label="Fixed Version"}
 	{dcl_select_product_version name=fixed_version_id active=$ACTIVE_ONLY default=$ViewData->FixedVersionId product=$ViewData->ProductId}
