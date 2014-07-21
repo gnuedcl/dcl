@@ -29,7 +29,7 @@ include_once(DCL_ROOT . 'inc/functions.inc.php');
 
 $g_oSec = new SecurityHelper();
 
-function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
+function Refresh($toHere = 'logout.php', $session_id = '')
 {
 	global $dcl_info;
 
@@ -42,7 +42,7 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
             $toHere .= sprintf('%srefer_to=%s', mb_strpos($toHere, '?') > 0 ? '&' : '?', urlencode($_SERVER['QUERY_STRING']));
     }
     else
-        $theCookie = $session_id . '/' . $domain;
+        $theCookie = $session_id;
 
 	$httpDomain = '';
 	if (preg_match('/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}(:[0-9]+)*$/', $_SERVER['HTTP_HOST']))
@@ -67,7 +67,12 @@ function Refresh($toHere = 'logout.php', $session_id = '', $domain = 'default')
 if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
 {
     $g_oSession = new SessionModel();
-    list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
+	$slashIdx = mb_strpos($_COOKIE['DCLINFO'], '/');
+	if ($slashIdx > 0)
+		$dcl_session_id = mb_substr($_COOKIE['DCLINFO'], 0, $slashIdx);
+	else
+		$dcl_session_id = $_COOKIE['DCLINFO'];
+
     if (mb_strlen($dcl_session_id) != 32)
         Refresh(DCL_WWW_ROOT . 'logout.php?cd=2');
 
@@ -154,8 +159,7 @@ else
         if ($tpl == '')
             $tpl = $dcl_info['DCL_DEF_TEMPLATE_SET'];
 
-		$domain = 'default';
-        Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id, $domain);
+        Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id);
     }
     else
         Refresh('logout.php?cd=1');
