@@ -590,12 +590,15 @@ class boView
 							break;
 						case 'd':
 							$table = 'dcl_product_version d';
+							$iJoinType = 2;
 							break;
 						case 'e':
 							$table = 'dcl_product_version e';
+							$iJoinType = 2;
 							break;
 						case 'f':
 							$table = 'dcl_product_version f';
+							$iJoinType = 2;
 							break;
 						case 'g':
 							$table = 'personnel g';

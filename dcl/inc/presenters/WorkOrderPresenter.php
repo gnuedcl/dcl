@@ -829,6 +829,12 @@ class WorkOrderPresenter
 					$colName = 'closedby.short';
 				else if ($colName == 'c.short')
 					$colName = 'createby.short';
+				else if ($colName == 'd.product_version_text')
+					$colName = 'reported_version_id.product_version_text';
+				else if ($colName == 'e.product_version_text')
+					$colName = 'targeted_version_id.product_version_text';
+				else if ($colName == 'f.product_version_text')
+					$colName = 'fixed_version_id.product_version_text';
 				else if ($colName == 'g.short')
 					$colName = 'actionby.short';
 					
@@ -843,6 +849,12 @@ class WorkOrderPresenter
 					$colName = 'closedby.short';
 				else if ($colName == 'c.short')
 					$colName = 'createby.short';
+				else if ($colName == 'd.product_version_text')
+					$colName = 'reported_version_id.product_version_text';
+				else if ($colName == 'e.product_version_text')
+					$colName = 'targeted_version_id.product_version_text';
+				else if ($colName == 'f.product_version_text')
+					$colName = 'fixed_version_id.product_version_text';
 				else if ($colName == 'g.short')
 					$colName = 'actionby.short';
 				else if ($colName == 'priorities.weight')
