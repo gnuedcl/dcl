@@ -47,6 +47,7 @@ class boViews
 
 		$objDB = new SavedSearchesModel();
 		$objDB->InitFrom_POST();
+		$objDB->ispublic = Filter::ToYN(@$_POST['ispublic']);
 
 		$objView = new boView();
 		$objView->SetFromURL();
@@ -116,7 +117,7 @@ class boViews
 			
 		if ($obj->whoid == DCLID || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
 		{
-			$obj->Delete();
+			$obj->Delete($iID);
 			print(STR_BO_DELETED);
 		}
 		else
