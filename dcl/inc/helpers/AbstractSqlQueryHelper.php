@@ -787,6 +787,9 @@ abstract class AbstractSqlQueryHelper
 					throw new InvalidDataException();
 			}
 
+			if (mb_substr($field, 0, 9) == 'count(*):' && mb_strlen($field) > 9)
+				$field = mb_substr($field, 9);
+
 			Filter::RequireSqlName($field);
 		}
 	}
