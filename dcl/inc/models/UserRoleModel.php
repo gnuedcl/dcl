@@ -34,6 +34,7 @@ class UserRoleModel extends DbProvider
 
 	public function ListPermissions($personnel_id, $entity_type_id, $entity_id1 = 0, $entity_id2 = 0, $aPermissions = '')
 	{
+		$personnel_id = Filter::RequireInt($personnel_id);
 		$sSQL = "SELECT DISTINCT rp.perm_id FROM dcl_user_role ur, dcl_role_perm rp WHERE ur.role_id = rp.role_id AND personnel_id = $personnel_id AND ((ur.entity_type_id = rp.entity_id AND ur.entity_type_id = $entity_type_id AND ur.entity_id1 = $entity_id1 AND ur.entity_id2 = $entity_id1) OR (rp.entity_id = $entity_type_id AND ur.entity_type_id = 0 AND ur.entity_id1 = 0 AND ur.entity_id2 = 0))";
 		if ($aPermissions != '' && is_array($aPermissions))
 		{
