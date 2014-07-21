@@ -407,12 +407,12 @@ class WorkOrderController
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_DELETE, $id, $seq);
 
 		$model = new WorkOrderModel();
-		if ($model-Load($id, $seq) == -1)
+		if ($model->Load($id, $seq) == -1)
 			throw new InvalidEntityException();
 		
 		PubSub::Publish('WorkOrder.Deleting', $model);
 		
-		$model->Delete();
+		$model->Delete(array('jcn' => $id, 'seq' => $seq));
 
 		PubSub::Publish('WorkOrder.Deleted', $model);
 
