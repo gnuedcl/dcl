@@ -25,10 +25,12 @@ class htmlOrgBrowse
 	var $sPagingMenuAction;
 	var $oView;
 	var $oDB;
+	private $startsWithFilter;
 
 	function htmlOrgBrowse()
 	{
 		$this->sPagingMenuAction = 'htmlOrgBrowse.Page';
+		$this->startsWithFilter = array_merge(array('All'), range('A', 'Z'));
 		
 		$this->oView = null;
 		$this->oDB = new OrganizationModel();
@@ -59,7 +61,7 @@ class htmlOrgBrowse
 		for ($iColumn = 0; $iColumn < count($this->oView->groups); $iColumn++)
 		{
 			$oTable->addGroup($iColumn);
-			$oTable->addColumn('');
+			$oTable->addColumn('', 'string');
 		}
 		
 		foreach ($this->oView->columnhdrs as $sColumn)
@@ -102,7 +104,7 @@ class htmlOrgBrowse
 			$oTable->assign('VAL_PAGE', '0');
 		}
 
-		$oTable->assign('VAL_LETTERS', array_merge(array('All'), range('A', 'Z')));
+		$oTable->assign('VAL_LETTERS', $this->startsWithFilter);
 		$oTable->assign('VAL_FILTERMENUACTION', $this->sPagingMenuAction);
 		$oTable->assign('VAL_FILTERSTARTROW', $this->oView->startrow);
 		$oTable->assign('VAL_FILTERNUMROWS', $this->oView->numrows);
@@ -114,7 +116,10 @@ class htmlOrgBrowse
 
 		$filterStartsWith = '';
 		if (IsSet($_REQUEST['filterStartsWith']))
-			$filterStartsWith = $_REQUEST['filterStartsWith'];
+		{
+			if (in_array($_REQUEST['filterStartsWith'], $this->startsWithFilter))
+				$filterStartsWith = $_REQUEST['filterStartsWith'];
+		}
 
 		$filterSearch = '';
 		if (IsSet($_REQUEST['filterSearch']))
@@ -175,7 +180,10 @@ class htmlOrgBrowse
 
 		$filterStartsWith = isset($_REQUEST['filterStartsWith']) ? $_REQUEST['filterStartsWith'] : '';
 		if ($filterStartsWith != '')
-			$oView->AddDef('filterstart', 'name', $filterStartsWith);
+		{
+			if (in_array($filterStartsWith, $this->startsWithFilter))
+				$oView->AddDef('filterstart', 'name', $filterStartsWith);
+		}
 
 		$this->sColumnTitle = STR_CMMN_OPTIONS;
 		$this->bShowPager = true;
@@ -223,7 +231,10 @@ class htmlOrgBrowse
 
 		$filterStartsWith = isset($_REQUEST['filterStartsWith']) ? $_REQUEST['filterStartsWith'] : '';
 		if ($filterStartsWith != '')
-			$oView->AddDef('filterstart', 'name', $filterStartsWith);
+		{
+			if (in_array($filterStartsWith, $this->startsWithFilter))
+				$oView->AddDef('filterstart', 'name', $filterStartsWith);
+		}
 
 		$this->sColumnTitle = STR_CMMN_OPTIONS;
 		$this->bShowPager = true;
