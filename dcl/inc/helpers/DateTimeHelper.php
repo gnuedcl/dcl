@@ -87,12 +87,12 @@ class TimestampHelper
 	{
 		$sANSI = 'YYYY-MM-DD HH:II:SS';
 		$this->time = mktime(
-			mb_substr($s, mb_strpos($sANSI, 'H'), 2),	// hour
-			mb_substr($s, mb_strpos($sANSI, 'I'), 2),	// minute
-			mb_substr($s, mb_strpos($sANSI, 'S'), 2),	// second
-			mb_substr($s, mb_strpos($sANSI, 'M'), 2),	// month
-			mb_substr($s, mb_strpos($sANSI, 'D'), 2),	// day
-			mb_substr($s, mb_strpos($sANSI, 'Y'), 4));	// year
+			$this->GetDatePart($sANSI, 'H', $s),
+			$this->GetDatePart($sANSI, 'I', $s),
+			$this->GetDatePart($sANSI, 'S', $s),
+			$this->GetDatePart($sANSI, 'M', $s),
+			$this->GetDatePart($sANSI, 'D', $s),
+			$this->GetDatePart($sANSI, 'Y', $s));
 	}
 
 	// Returns the timestamp as UNIX time
@@ -105,12 +105,12 @@ class TimestampHelper
 	public function SetFromDB($s) 
 	{
 		$this->time = mktime(
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'H'), 2),	// hour
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'I'), 2),	// minute
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'S'), 2),	// second
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'M'), 2),	// month
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'D'), 2),	// day
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'Y'), 4));	// year
+			$this->GetDatePart($this->dbFormatEx, 'H', $s),
+			$this->GetDatePart($this->dbFormatEx, 'I', $s),
+			$this->GetDatePart($this->dbFormatEx, 'S', $s),
+			$this->GetDatePart($this->dbFormatEx, 'M', $s),
+			$this->GetDatePart($this->dbFormatEx, 'D', $s),
+			$this->GetDatePart($this->dbFormatEx, 'Y', $s));
 	}
 
 	// sets the timestamp from display/web string
@@ -165,13 +165,25 @@ class TimestampHelper
 			}
 		}
 
-		$this->time = mktime($dateParts[4], $dateParts[5], $dateParts[6], $month, $day, $year);
+		$this->time = mktime(
+			Filter::RequireInt($dateParts[4]),
+			Filter::RequireInt($dateParts[5]),
+			Filter::RequireInt($dateParts[6]),
+			Filter::RequireInt($month),
+			Filter::RequireInt($day),
+			Filter::RequireInt($year));
 	}
 
 	// sets the timestamp from UNIX time
 	public function SetFromInt($timestamp) 
 	{
 		$this->time = $timestamp;
+	}
+
+	protected function GetDatePart($format, $part, $s)
+	{
+		$length = $part == 'Y' ? 4 : 2;
+		return Filter::RequireInt(mb_substr($s, mb_strpos($format, $part), $length));
 	}
 }
 
@@ -217,22 +229,22 @@ class DateHelper extends TimestampHelper
 	{
 		$sANSI = 'YYYY-MM-DD';
 		$this->time = mktime(
-				0,	// hour
-				0,	// minute
-				0,	// second
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'M'), 2),	// month
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'D'), 2),	// day
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'Y'), 4));	// year
+			0,
+			0,
+			0,
+			$this->GetDatePart($sANSI, 'M', $s),
+			$this->GetDatePart($sANSI, 'D', $s),
+			$this->GetDatePart($sANSI, 'Y', $s));
 	}
 
 	public function SetFromDB($s) 
 	{
 		$this->time = mktime(
-				0, 
-				0, 
-				0,
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'M'), 2),
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'D'), 2),
-			mb_substr($s, mb_strpos($this->dbFormatEx, 'Y'), 4));
+			0,
+			0,
+			0,
+			$this->GetDatePart($this->dbFormatEx, 'M', $s),
+			$this->GetDatePart($this->dbFormatEx, 'D', $s),
+			$this->GetDatePart($this->dbFormatEx, 'Y', $s));
 	}
 }
