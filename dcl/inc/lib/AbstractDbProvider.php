@@ -20,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once(DCL_ROOT . 'inc/helpers/DateTimeHelper.php');
+require_once(DCL_ROOT . 'inc/helpers/DateTimeHelper.php');
 
 /**
  * API - All Classes Relating to DCL API

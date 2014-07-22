@@ -350,7 +350,7 @@ function GetPrefLang()
 
 function LoadStringResource($name)
 {
-	include_once(sprintf(DCL_ROOT . 'lang/%s/%s.php', GetPrefLang(), $name));
+	require_once(sprintf(DCL_ROOT . 'lang/%s/%s.php', GetPrefLang(), $name));
 }
 
 function LoadSchema($sTableName)
@@ -358,7 +358,7 @@ function LoadSchema($sTableName)
 	if (!isset($GLOBALS['phpgw_baseline']) || !is_array($GLOBALS['phpgw_baseline']))
 		$GLOBALS['phpgw_baseline'] = array();
 
-	include_once(sprintf(DCL_ROOT . 'schema/schema.%s.php', $sTableName));
+	require_once(sprintf(DCL_ROOT . 'schema/schema.%s.php', $sTableName));
 }
 
 function Invoke($sClassMethod)

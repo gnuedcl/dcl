@@ -60,5 +60,5 @@ mb_regex_encoding('UTF-8');
 if (function_exists('date_default_timezone_set'))
 	@date_default_timezone_set(@date_default_timezone_get());
 
-include_once(sprintf('%sinc/lib/DbProvider.%s.php', DCL_ROOT, $dcl_domain_info[$dcl_domain]['dbType']));
-include_once(sprintf('%sinc/lib/Filter.php', DCL_ROOT));
+require_once(sprintf('%sinc/lib/DbProvider.%s.php', DCL_ROOT, $dcl_domain_info[$dcl_domain]['dbType']));
+require_once(sprintf('%sinc/lib/Filter.php', DCL_ROOT));

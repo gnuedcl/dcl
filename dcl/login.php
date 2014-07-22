@@ -21,11 +21,11 @@
  */
 
 // This should only be called from main.php or such.  Template files need to include config.php to get info before login
-include_once('inc/config.php');
+require_once('inc/config.php');
 
 $bNoHeader = (IsSet($_REQUEST['menuAction']) && ($_REQUEST['menuAction'] == 'htmlTicketDetail.Download' || $_REQUEST['menuAction'] == 'WorkOrder.DownloadAttachment' || $_REQUEST['menuAction'] == 'LineGraphImageHelper.Show'));
 
-include_once(DCL_ROOT . 'inc/functions.inc.php');
+require_once(DCL_ROOT . 'inc/functions.inc.php');
 
 $g_oSec = new SecurityHelper();
 

@@ -20,7 +20,7 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once('login.php');
+require_once('login.php');
 
 $g_oPage = new Page();
 $g_oPage->StartPage();

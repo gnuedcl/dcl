@@ -20,8 +20,8 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-include_once('inc/config.php');
-include_once(DCL_ROOT . 'inc/functions.inc.php');
+require_once('inc/config.php');
+require_once(DCL_ROOT . 'inc/functions.inc.php');
 
 $realm = 'DCL';
 
