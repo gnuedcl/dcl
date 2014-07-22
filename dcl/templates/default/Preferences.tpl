@@ -27,7 +27,7 @@
 	<fieldset>
 		<div class="row">
 			<div class="col-xs-offset-2">
-				<input type="button" class="btn btn-primary" value="{$smarty.const.STR_CMMN_SAVE}">
+				<input type="submit" class="btn btn-primary" value="{$smarty.const.STR_CMMN_SAVE}">
 				<input type="reset" class="btn btn-link" value="{$smarty.const.STR_CMMN_RESET}">
 			</div>
 		</div>
