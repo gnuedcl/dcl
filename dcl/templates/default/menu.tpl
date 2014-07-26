@@ -56,7 +56,14 @@ $(document).ready(function() {
 		}
 		$("#sidebar-search-form").submit();
 	});
-{if $PERM_WORKSPACE}$("#workspace_id").change(function() { location.href = "{$URL_MAIN_PHP}?menuAction=htmlWorkspaceForm.changeWorkspace&workspace_id=" + $(this).val(); });{/if}
+	$("#wo-views,#tck-views").change(function() {
+		location.href = "{$URL_MAIN_PHP}?menuAction=boViews.exec&viewid=" + parseInt($(this).val(), 10);
+	});
+{if $PERM_WORKSPACE}
+	$("#workspace_id").change(function() {
+		location.href = "{$URL_MAIN_PHP}?menuAction=htmlWorkspaceForm.changeWorkspace&workspace_id=" + parseInt($(this).val(), 10);
+	});
+{/if}
 });
 //]]>
 </script>
@@ -83,6 +90,14 @@ $(document).ready(function() {
 						<button class="btn btn-default" type="button" id="sidebar-search-form-btn"><span class="glyphicon glyphicon-search"></span></button>
 					</span>
 				</div>
+				{if $PERM_WORKORDERSEARCH}
+					<h5>Work Order Views</h5>
+					{dcl_select_views name="wo-views" public=false}
+				{/if}
+				{if $PERM_TICKETSEARCH}
+					<h5>Ticket Views</h5>
+					{dcl_select_views name="tck-views" public=false table=tickets}
+				{/if}
 			</form>
 		{/if}
 	</div>

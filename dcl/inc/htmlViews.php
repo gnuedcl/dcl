@@ -42,11 +42,11 @@ class htmlViews
 		$query .= ' ORDER BY name';
 		$objDB->Query($query);
 
-		$retVal = '<select name="' . $cbName;
+		$retVal = '<select class="form-control" name="' . $cbName;
 		if ($size > 1)
 			$retVal .= '[]" multiple size="' . $size;
 
-		$retVal .= '">';
+		$retVal .= '" id="' . $cbName . '">';
 
 		if ($size < 2)
 			$retVal .= '<option value="0">' . STR_CMMN_SELECTONE . '</option>';
