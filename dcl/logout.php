@@ -26,7 +26,7 @@ require_once(DCL_ROOT . 'inc/functions.inc.php');
 if (isset($_COOKIE['DCLINFO']))
 {
 	$g_oSession = new SessionModel();
-	list($dcl_session_id, $DOMAIN) = explode('/', $_COOKIE['DCLINFO']);
+	$dcl_session_id = $_COOKIE['DCLINFO'];
 	if (mb_strlen($dcl_session_id) == 32)
 	{
 		$g_oSession->Connect();
@@ -61,6 +61,15 @@ else
 
 function Refresh($toHere = 'index.php')
 {
+	global $dcl_info;
+
+	if (!isset($dcl_info))
+	{
+		$dcl_info = array();
+		$oConfig = new ConfigurationModel();
+		$oConfig->Load();
+	}
+
 	$httpDomain = '';
 	if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $_SERVER['HTTP_HOST']))
 	{
@@ -75,7 +84,7 @@ function Refresh($toHere = 'index.php')
 	if (($p = mb_strpos($httpDomain, ':')) !== false)
 		$httpDomain = mb_substr($httpDomain, 0, $p);
 
-	setcookie('DCLINFO', null, -1, '/', $httpDomain, UseHttps(), true);
+	setcookie('DCLINFO', null, -1, '/', $httpDomain, UseHttps() || $dcl_info['DCL_FORCE_SECURE_COOKIE'] == 'Y', true);
 
 	if (isset($_REQUEST['refer_to']) && $_REQUEST['refer_to'] != '')
 	{
