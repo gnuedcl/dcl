@@ -40,7 +40,7 @@
 	</fieldset>
 	<fieldset>
 		<div class="row">
-			<div class="col-sm-2-offset">
+			<div class="col-sm-offset-2">
 				<input class="btn btn-primary" type="button" onclick="validateAndSubmitForm(this.form);" value="{$smarty.const.STR_CMMN_SAVE}">
 				<input class="btn btn-link" type="button" onclick="location.href='{$URL_MAIN_PHP}?menuAction=Personnel.Index&filterActive=Y';" value="{$smarty.const.STR_CMMN_CANCEL}">
 			</div>
