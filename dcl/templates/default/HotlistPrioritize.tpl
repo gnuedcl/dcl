@@ -13,7 +13,7 @@ ol { padding: 0px; list-style-type: none; }
 ol li { margin-bottom: 4px; background-color: #efefef; border: solid #999999 1px; padding: 4px; cursor: move; }
 ol li input.item-index { width: 50px; }
 ol li span.item-description { border: solid #cecece 1px; background-color: #ffffff; margin: 0px; padding: 2px; }
-div.scrollable { overflow: auto; height: 400px; }
+div.scrollable { overflow: auto; }
 </style>
 <p>Drag and drop the items to define your priority order.</p>
 <div class="scrollable">
@@ -72,10 +72,16 @@ $(document).ready(function() {
 			url: "{$URL_MAIN_PHP}",
 			data: getData(),
 			success: function() {
-				location.href = "{$URL_MAIN_PHP}?menuAction=htmlHotlistBrowse.show";
+				$.gritter.add({
+					title: "Success",
+					text: "Hotlist saved."
+				});
 			},
 			error: function() {
-				alert("Could not save hotlist priority order.");
+				$.gritter.add({
+					title: "Error",
+					text: "Could not save hotlist."
+				});
 			},
 			dataType: "json"
 		});
