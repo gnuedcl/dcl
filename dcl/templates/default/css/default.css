@@ -616,6 +616,10 @@ div.panel div.panel-heading h3 {
 	margin-bottom: 0px;
 }
 
+.ui-jqgrid table a.btn {
+	color: #ffffff;
+}
+
 @media screen and (max-width: 768px) {
 	.row-offcanvas {
 		position: relative;
