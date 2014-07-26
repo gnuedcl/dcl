@@ -1,7 +1,6 @@
 {strip}
 {section name=child loop=$VAL_CHILDPROJECTS}
 {if $smarty.section.child.first}
-<h4>{$smarty.const.STR_PRJ_CHILDPRJ|escape}</h4>
 <table class="table table-striped">
 	<thead>
 		<tr>

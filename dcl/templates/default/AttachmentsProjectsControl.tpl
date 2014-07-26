@@ -1,5 +1,4 @@
 {strip}
-<h4>Attachments</h4>
 <table class="table table-striped">
 	<thead>
 		{if $PERM_ATTACHFILE}<tr><th colspan="4"><div class="btn-group"><a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Project.Upload&projectid={$VAL_PROJECTID}">{$smarty.const.STR_CMMN_NEW}</a></div></th></tr>{/if}

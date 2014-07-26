@@ -38,7 +38,7 @@ function submitAction(sFormName, sAction) {
 $(function() {
 	var hash = location.hash;
 	if (hash) {
-		var $tabs = $('#tabs a[href="' + hash + '"]');
+		var $tabs = $('#tabs').find('a[href="' + hash + '"]');
 		$tabs.tab('show');
 	}
 });
