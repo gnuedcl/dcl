@@ -13,8 +13,10 @@ ol { padding: 0px; list-style-type: none; }
 ol li { margin-bottom: 4px; background-color: #efefef; border: solid #999999 1px; padding: 4px; cursor: move; }
 ol li input.item-index { width: 50px; }
 ol li span.item-description { border: solid #cecece 1px; background-color: #ffffff; margin: 0px; padding: 2px; }
+div.scrollable { overflow: auto; height: 400px; }
 </style>
 <p>Drag and drop the items to define your priority order.</p>
+<div class="scrollable">
 <ol id="item_list">
 {section loop=$items name=row}
 <li id="item_{$items[row][0]}_{$items[row][1]}{if $items[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}_{$items[row][2]}{/if}">
@@ -26,10 +28,8 @@ ol li span.item-description { border: solid #cecece 1px; background-color: #ffff
 </li>
 {/section}
 </ol>
-<div class="clear"></div>
-<script language="javascript">
-//<![CDATA[
-
+</div>
+<script type="text/javascript">
 $(document).ready(function() {
 	function updateIndexes() {
 		var index = 0;
@@ -53,6 +53,12 @@ $(document).ready(function() {
 
 		return retVal;
 	}
+
+	$(window).on('resize', function() {
+		var $scrollable = $("div.scrollable");
+		var $window = $(window);
+		$scrollable.css({ height: $window.height() - $scrollable.offset().top });
+	}).trigger('resize');
 		
 	$("#item_list").sortable({
 		stop: function(event, ui) {
@@ -91,9 +97,7 @@ $(document).ready(function() {
 	$("input.item-index").on("blur", function() {
 		$(this).val($(this).parents("li:first").index() + 1);
 		$(this).removeClass("bg-warning");
-	});
-
-	$("input.item-index").keydown(function (e) {
+	}).keydown(function (e) {
 		if (e.keyCode == 13) {
 			e.preventDefault();
 			var targetIndex = parseInt($(this).val(), 10) - 1;
@@ -130,6 +134,4 @@ $(document).ready(function() {
 		});
 	});
 });
-
-//]]>
 </script>
