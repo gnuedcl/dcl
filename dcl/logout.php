@@ -63,13 +63,6 @@ function Refresh($toHere = 'index.php')
 {
 	global $dcl_info;
 
-	if (!isset($dcl_info))
-	{
-		$dcl_info = array();
-		$oConfig = new ConfigurationModel();
-		$oConfig->Load();
-	}
-
 	$httpDomain = '';
 	if (preg_match('/^[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}\.[0-9]{2,3}$/', $_SERVER['HTTP_HOST']))
 	{
@@ -81,10 +74,24 @@ function Refresh($toHere = 'index.php')
 		$httpDomain = '.' . $httpDomain;
 	}
 
+	if (isset($dcl_info))
+	{
+		$forceSecureCookie = $dcl_info['DCL_FORCE_SECURE_COOKIE'] == 'Y';
+	}
+	else
+	{
+		$db = new DbProvider();
+		if ($db->Query('SELECT dcl_config_varchar FROM dcl_config WHERE dcl_config_name = ' . $db->Quote('DCL_FORCE_SECURE_COOKIE')) != -1)
+		{
+			if ($db->next_record())
+				$forceSecureCookie = $db->f(0) == 'Y';
+		}
+	}
+
 	if (($p = mb_strpos($httpDomain, ':')) !== false)
 		$httpDomain = mb_substr($httpDomain, 0, $p);
 
-	setcookie('DCLINFO', null, -1, '/', $httpDomain, UseHttps() || $dcl_info['DCL_FORCE_SECURE_COOKIE'] == 'Y', true);
+	setcookie('DCLINFO', null, -1, '/', $httpDomain, UseHttps() || $forceSecureCookie, true);
 
 	if (isset($_REQUEST['refer_to']) && $_REQUEST['refer_to'] != '')
 	{
