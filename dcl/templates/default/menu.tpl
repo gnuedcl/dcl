@@ -64,28 +64,27 @@ $(document).ready(function() {
 <div id="sidebar" class="sidebar-offcanvas">
 	<div class="col-md-12">
 		{if $PERM_WORKSPACE}<h5>Workspace</h5><div class="form-group">{dcl_select_workspace default=$VAL_WORKSPACE class="form-control input-sm"}</div>{/if}
-				{if $PERM_WORKORDERSEARCH || $PERM_TICKETSEARCH || $PERM_PROJECTSEARCH}
-					<h5>Search</h5>
-				<form id="sidebar-search-form" role="search" method="POST" action="main.php">
-					<input type="hidden" name="menuAction" value="htmlSearchBox.submitSearch">
-					<div class="form-group">
-						<select class="form-control input-sm" name="which">
-							{if $PERM_WORKORDERSEARCH}<option value="openworkorders">Open {$TXT_WORKORDERS}</option><option value="workorders">All {$TXT_WORKORDERS}</option>{/if}
-							{if $PERM_PROJECTSEARCH}<option value="opendcl_projects">Open {$TXT_PROJECTS}</option><option value="dcl_projects">All {$TXT_PROJECTS}</option>{/if}
-							{if $PERM_TICKETSEARCH}<option value="opentickets">Open {$TXT_TICKETS}</option><option value="tickets">All {$TXT_TICKETS}</option>{/if}
-							{if $PERM_WORKORDERSEARCH || $PERM_TICKETSEARCH}<option value="tags">Tags</option>{/if}
-							{if $PERM_HOTLISTVIEW}<option value="hotlists">Hotlists</option>{/if}
-						</select>
-					</div>
-					<div class="input-group input-group-sm">
-						<input class="form-control" type="text" name="search_text" id="sidebar-search-text">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" id="sidebar-search-form-btn"><span class="glyphicon glyphicon-search"></span></button>
-						</span>
-					</div>
-				</form>
-			</li>{/if}
-		</ul>
+		{if $PERM_WORKORDERSEARCH || $PERM_TICKETSEARCH || $PERM_PROJECTSEARCH}
+			<h5>Search</h5>
+			<form id="sidebar-search-form" role="search" method="POST" action="main.php">
+				<input type="hidden" name="menuAction" value="htmlSearchBox.submitSearch">
+				<div class="form-group">
+					<select class="form-control input-sm" name="which">
+						{if $PERM_WORKORDERSEARCH}<option value="openworkorders">Open {$TXT_WORKORDERS}</option><option value="workorders">All {$TXT_WORKORDERS}</option>{/if}
+						{if $PERM_PROJECTSEARCH}<option value="opendcl_projects">Open {$TXT_PROJECTS}</option><option value="dcl_projects">All {$TXT_PROJECTS}</option>{/if}
+						{if $PERM_TICKETSEARCH}<option value="opentickets">Open {$TXT_TICKETS}</option><option value="tickets">All {$TXT_TICKETS}</option>{/if}
+						{if $PERM_WORKORDERSEARCH || $PERM_TICKETSEARCH}<option value="tags">Tags</option>{/if}
+						{if $PERM_HOTLISTVIEW}<option value="hotlists">Hotlists</option>{/if}
+					</select>
+				</div>
+				<div class="input-group input-group-sm">
+					<input class="form-control" type="text" name="search_text" id="sidebar-search-text">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" id="sidebar-search-form-btn"><span class="glyphicon glyphicon-search"></span></button>
+					</span>
+				</div>
+			</form>
+		{/if}
 	</div>
 </div>
 <div id="content"><div class="col-md-12">
