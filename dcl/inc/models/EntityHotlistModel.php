@@ -245,7 +245,7 @@ class EntityHotlistModel extends DbProvider
 		$bDoneDidWhere = false;
 		if ($g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
 		{
-			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, P.projectid, P.name AS project, statuses.name, R.short AS responsible, personnel.short, timecards.summary, dcl_entity_hotlist.sort, statuses.dcl_status_type FROM ';
+			$sSQL = 'SELECT ' . DCL_ENTITY_WORKORDER . ' as entity_id, workorders.jcn, workorders.seq, workorders.summary, P.projectid, P.name AS project, statuses.name, R.short AS responsible, workorders.lastactionon, personnel.short, timecards.summary, dcl_entity_hotlist.sort, statuses.dcl_status_type FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
@@ -349,7 +349,7 @@ class EntityHotlistModel extends DbProvider
 			if ($sSQL != '')
 				$sSQL .= ' UNION ALL ';
 				
-			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, NULL, R.short AS responsible, NULL, NULL, NULL, dcl_entity_hotlist.sort, statuses.dcl_status_type FROM ';
+			$sSQL .= 'SELECT ' . DCL_ENTITY_TICKET . ' as entity_id, tickets.ticketid, 0, tickets.summary, NULL, NULL, R.short AS responsible, NULL, tickets.lastactionon, NULL, NULL, dcl_entity_hotlist.sort, statuses.dcl_status_type FROM ';
 			if ($bMultiHotlist)
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
@@ -443,7 +443,7 @@ class EntityHotlistModel extends DbProvider
 			throw new PermissionDeniedException();
 		}
 
-		return $this->Query($sSQL . ' ORDER BY 11, 1, 2, 3');
+		return $this->Query($sSQL . ' ORDER BY 12, 1, 2, 3');
 	}
 	
 	public function GetStatusCount($hotlist_id)

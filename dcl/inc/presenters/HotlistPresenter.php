@@ -58,6 +58,7 @@ class HotlistPresenter
 		$oTable->addColumn(STR_WO_PROJECT, 'string');
 		$oTable->addColumn(STR_WO_STATUS, 'string');
 		$oTable->addColumn(STR_WO_RESPONSIBLE, 'string');
+		$oTable->addColumn(STR_WO_LASTACTION, 'date');
 		$oTable->addColumn('Last Time Card By', 'string');
 		$oTable->addColumn('Last Time Card Summary', 'string');
 		$oTable->addColumn('Priority', 'numeric');
@@ -67,7 +68,8 @@ class HotlistPresenter
 		for ($i = 0; $i < count($allRecs); $i++)
 		{
 			$sHotlists = $oHotlistDB->getTagsWithPriorityForEntity($allRecs[$i][0], $allRecs[$i][1], $allRecs[$i][2]);
-			$allRecs[$i][11] = $sHotlists;
+			$allRecs[$i][8] = $model->FormatTimeStampForDisplay($allRecs[$i][8]);
+			$allRecs[$i][12] = $sHotlists;
 		}
 
 		$oTable->setData($allRecs);
