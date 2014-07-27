@@ -32,8 +32,40 @@
 		</div>
 	</div>
 </div>
+{dcl_modal title=Accounts}
 {include file="HotlistProjectTasksControl.tpl"}
 <script type="text/javascript">
+	$(function() {
+		function htmlEncode(t) {
+			return $("<div/>").text(t).html();
+		}
+
+		$("a.view-orgs").click(function() {
+			var woId = $(this).attr('data-woid');
+			var seq = $(this).attr('data-seq');
+			var $dialog = $("#dialog");
+			$dialog.find("h4.modal-title").text("Accounts for Work Order " + woId + "-" + seq);
+			$.ajax({
+				url: "{$URL_MAIN_PHP}?menuAction=WorkOrderService.ListOrgs&wo_id=" + woId + "&seq=" + seq,
+				dataType: "json",
+				type: "GET",
+				success: function(data) {
+					if (data.count > 0) {
+						var content = '<ul class="list-group">';
+						for (var idx in data.rows) {
+							content += '<li class="list-group-item">' + htmlEncode(data.rows[idx].name) + "</li>";
+						}
+
+						content += "</ul>";
+
+						$dialog.find("div.modal-body > p").html(content);
+					}
+				}
+			});
+
+			$dialog.modal();
+		});
+	});
 
 	function forceSubmit(sAction)
 	{
@@ -82,12 +114,6 @@
 		}
 
 		return bHasChecks;
-	}
-
-	function showAccounts(iWOID, iSeq)
-	{
-		var sURL = 'main.php?menuAction=htmlWindowList.FrameRender&what=dcl_wo_account.wo_id&wo_id=' + iWOID + '&seq=' + iSeq;
-		var newWin = window.open(sURL, '_dcl_selector_', 'width=500,height=255');
 	}
 
 </script>

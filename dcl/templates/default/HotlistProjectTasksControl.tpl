@@ -97,7 +97,7 @@
 			<td class="string">{$VAL_TASKS[row].responsible|escape}</td>
 			<td class="string">{$VAL_TASKS[row].product|escape}</td>
 			<td class="string">{$VAL_TASKS[row].module|escape}</td>
-			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs > 1} <a href="{$URL_MAIN_PHP}?menuAction=htmlWindowList.Main&what=dcl_wo_account.wo_id&wo_id={$VAL_TASKS[row].woid}&seq={$VAL_TASKS[row].seq}" class="dcl-lightbox"><span class="badge">{$VAL_TASKS[row].secorgs}</span></a>{/if}</td>
+			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs > 1} <a href="javascript:;" data-woid="{$VAL_TASKS[row].woid}" data-seq="{$VAL_TASKS[row].seq}" class="view-orgs"><span class="badge">{$VAL_TASKS[row].secorgs}</span></a>{/if}</td>
 			<td class="string">{$VAL_TASKS[row].status|escape}</td>
 			<td class="string">{$VAL_TASKS[row].deadline|escape}</td>
 			<td class="numeric">{$VAL_TASKS[row].hours}</td>
