@@ -1,4 +1,3 @@
-{dcl_selector_init}
 {dcl_validator_init}
 <link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
 <link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
@@ -29,7 +28,7 @@
 			<input type="text" class="form-control" data-input-type="date" maxlength="10" id="projectdeadline" name="projectdeadline" value="{$ViewData->Deadline|escape}">
 		{/dcl_form_control}
 		{dcl_form_control id=parentprojectid controlsize=4 label=$smarty.const.STR_PRJ_PARENTPRJ required=true}
-		{dcl_selector_project name="parentprojectid" value=$ViewData->ParentId decoded=$ViewData->ParentName}
+			{dcl_input_text id=parentprojectid}
 		{/dcl_form_control}
 		{dcl_form_control id=description controlsize=4 label=$smarty.const.STR_PRJ_DESCRIPTION required=true}
 			<textarea name="description" rows="4" cols="70" wrap valign="top">{$ViewData->Description|escape}</textarea>
@@ -50,6 +49,36 @@
 		$("#name").focus();
 		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
 		$("input[data-input-type=date]").datepicker();
+
+		$("#parentprojectid").select2({
+			multiple: false,
+			maximumSelectionSize: 1,
+			minimumInputLength: 2,
+			tags: [],
+			initSelection: function(element, callback) {
+				callback(initialProject);
+			},
+			ajax: {
+				url: "{$URL_MAIN_PHP}?menuAction=ProjectService.Autocomplete",
+				dataType: "json",
+				type: "GET",
+				data: function(term) {
+					return { term: term };
+				},
+				results: function(data) {
+					return {
+						results: $.map(data, function(item) {
+							return { id: item.id, text: item.label };
+						})
+					};
+				}
+			}
+		});
+
+		{if $ViewData->ParentId}
+		var initialProject = { id: {$ViewData->ParentId}, text: "{$ViewData->ParentName|escape:'javascript'}" };
+		$("#parentprojectid").select2('val', initialProject);
+		{/if}
 
 		$("#btn-cancel").click(function() {
 			history.go(-1);

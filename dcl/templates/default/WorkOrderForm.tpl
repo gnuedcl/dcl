@@ -208,7 +208,7 @@ function UpdateOptions()
 	{/dcl_form_control}
 {elseif !$ViewData->HideProject}
 	{dcl_form_control id=projectid controlsize=10 label=$smarty.const.STR_WO_PROJECT}
-	<p class="form-control-static">{dcl_selector_project name="projectid" value=$ViewData->ProjectId decoded=$ViewData->ProjectName}</p>
+		{dcl_input_text id=projectid}
 	{/dcl_form_control}
 	{dcl_form_control id=addall controlsize=1 label=$smarty.const.STR_WO_ADDALLSEQ}
 		<input type="checkbox" class="form-control" id="addall" name="addall" value="1">
@@ -249,6 +249,28 @@ function UpdateOptions()
 
 		$("textarea").BetterGrow();
 		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
+
+		$("#projectid").select2({
+			multiple: false,
+			maximumSelectionSize: 1,
+			minimumInputLength: 2,
+			tags: [],
+			ajax: {
+				url: "{$URL_MAIN_PHP}?menuAction=ProjectService.Autocomplete",
+				dataType: "json",
+				type: "GET",
+				data: function(term) {
+					return { term: term };
+				},
+				results: function(data) {
+					return {
+						results: $.map(data, function(item) {
+							return { id: item.id, text: item.label };
+						})
+					};
+				}
+			}
+		});
 
 		if (typeof render_a_secaccounts == "function") {
 			render_a_secaccounts();

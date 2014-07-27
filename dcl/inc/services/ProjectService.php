@@ -38,7 +38,7 @@ class ProjectService
 		$db = new DbProvider();
 		$sql = 'SELECT projectid, name FROM dcl_projects';
 		if ($term != '')
-			$sql .= ' WHERE name ' . $db->LikeKeyword . " '%" . $term . "%'";
+			$sql .= ' WHERE name ' . $db->LikeKeyword . " " . $db->Quote("%$term%");
 
 		if ($idFilter != '')
 		{

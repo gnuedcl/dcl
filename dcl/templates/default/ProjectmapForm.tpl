@@ -1,4 +1,5 @@
-{dcl_selector_init}
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
 <form class="form-horizontal" method="post" action="{$URL_MAIN_PHP|escape}">
 	<input type="hidden" name="menuAction" value="{$menuAction|escape}">
 	{if $jcn && is_array($jcn)}
@@ -11,8 +12,8 @@
 	{/if}
 	<fieldset>
 		<legend>{$TXT_FUNCTION|escape}</legend>
-		{dcl_form_control controlsize=10 label=$smarty.const.STR_PM_CHOOSEPRJ required=true}
-		{dcl_selector_project name="projectid" value="$VAL_PROJECTS"}
+		{dcl_form_control id=projectid controlsize=4 label=$smarty.const.STR_PM_CHOOSEPRJ required=true}
+			{dcl_input_text id=projectid}
 		{/dcl_form_control}
 		{dcl_form_control id=addall controlsize=10 label=$smarty.const.STR_PM_ADDALLSEQ}
 			<input type="checkbox" id="addall" name="addall" value="1">
@@ -27,3 +28,29 @@
 		</div>
 	</fieldset>
 </form>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#projectid").select2({
+			multiple: false,
+			maximumSelectionSize: 1,
+			minimumInputLength: 2,
+			tags: [],
+			ajax: {
+				url: "{$URL_MAIN_PHP}?menuAction=ProjectService.Autocomplete",
+				dataType: "json",
+				type: "GET",
+				data: function(term) {
+					return { term: term };
+				},
+				results: function(data) {
+					return {
+						results: $.map(data, function(item) {
+							return { id: item.id, text: item.label };
+						})
+					};
+				}
+			}
+		});
+	});
+</script>

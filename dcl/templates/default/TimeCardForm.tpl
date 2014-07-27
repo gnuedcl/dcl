@@ -75,7 +75,7 @@
 	{if !$IS_BATCH}
 		{if $PERM_ADDTASK}
 			{dcl_form_control id=projectid controlsize=10 label=$smarty.const.STR_WO_PROJECT}
-			{dcl_selector_project name="projectid" value="$VAL_PROJECTS" decoded="$VAL_PROJECT"}
+				{dcl_input_text id=projectid}
 			{/dcl_form_control}
 		{/if}
 		{if $PERM_MODIFYWORKORDER && $VAL_MULTIORG && !$PERM_ISPUBLIC}
@@ -114,6 +114,36 @@
 		$("#hours").on("blur", function() {
 			updateEtc($(this).get(0).form);
 		});
+
+		$("#projectid").select2({
+			multiple: false,
+			maximumSelectionSize: 1,
+			minimumInputLength: 2,
+			tags: [],
+			initSelection: function(element, callback) {
+				callback(initialProject);
+			},
+			ajax: {
+				url: "{$URL_MAIN_PHP}?menuAction=ProjectService.Autocomplete",
+				dataType: "json",
+				type: "GET",
+				data: function(term) {
+					return { term: term };
+				},
+				results: function(data) {
+					return {
+						results: $.map(data, function(item) {
+							return { id: item.id, text: item.label };
+						})
+					};
+				}
+			}
+		});
+
+		{if $VAL_PROJECTS}
+			var initialProject = { id: {$VAL_PROJECTS}, text: "{$VAL_PROJECT|escape:'javascript'}" };
+			$("#projectid").select2('val', initialProject);
+		{/if}
 
 		if (typeof render_a_secaccounts == "function") {
 			render_a_secaccounts();
