@@ -54,4 +54,32 @@ class WorkOrderService
 		echo json_encode($retVal);
 		exit;
 	}
+
+	public function ListOrgs()
+	{
+		$model = new WorkOrderOrganizationModel();
+		$retVal = new stdClass();
+		$retVal->rows = array();
+		$retVal->count = 0;
+
+		$woId = Filter::RequireInt(@$_REQUEST['wo_id']);
+		$seq = Filter::RequireInt(@$_REQUEST['seq']);
+
+		if ($model->LoadWithPermissionFilter($woId, $seq) != -1)
+		{
+			while ($model->next_record())
+			{
+				$org = new stdClass();
+				$org->id = $model->f(2);
+				$org->name = $model->f(3);
+
+				$retVal->rows[] = $org;
+				$retVal->count++;
+			}
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($retVal);
+		exit;
+	}
 }

@@ -107,8 +107,73 @@ class WorkOrderOrganizationModel extends DbProvider
 	{
 		$this->Clear();
 
-		// Get all rows since we read with GetRow
-		$sql = sprintf('Select wo_id, seq, account_id, name From dcl_wo_account, dcl_org Where account_id = org_id And wo_id = %d And seq = %d Order By name', $wo_id, $seq);
+		$sql = sprintf('Select woa.wo_id, woa.seq, woa.account_id, o.name From dcl_wo_account woa, dcl_org o Where woa.account_id = o.org_id And woa.wo_id = %d And woa.seq = %d ORDER BY o.name', $wo_id, $seq);
 		return $this->Query($sql);
+	}
+
+	public function LoadWithPermissionFilter($wo_id, $seq)
+	{
+		$this->Clear();
+
+		$productPublicSql = $this->GetProductPublicClause();
+		$workOrderPublicSql = $this->GetWorkOrderPublicClause();
+		$orgSql = $this->GetWorkOrderOrgWhereClause();
+
+		$fromSql = 'dcl_wo_account woa, dcl_org o';
+		if ($productPublicSql != '')
+		{
+			$fromSql .= ', workorders w, products p';
+			$joinSql = 'woa.account_id = o.org_id AND woa.wo_id = w.jcn AND woa.seq = w.seq AND w.product = p.id';
+		}
+		else
+		{
+			$joinSql = 'woa.account_id = o.org_id';
+		}
+
+		$sql = sprintf('Select woa.wo_id, woa.seq, woa.account_id, o.name From %s Where %s And woa.wo_id = %d And woa.seq = %d', $fromSql, $joinSql, $wo_id, $seq);
+		$sql .= $productPublicSql;
+		$sql .= $workOrderPublicSql;
+		$sql .= $orgSql;
+		$sql .= ' ORDER BY o.name';
+
+		return $this->Query($sql);
+	}
+
+	private function GetProductPublicClause()
+	{
+		global $g_oSec;
+
+		if (!$g_oSec->IsPublicUser())
+			return '';
+
+		return " w.product = p.id AND p.is_public = 'Y'";
+	}
+
+	private function GetWorkOrderPublicClause()
+	{
+		global $g_oSec;
+
+		if (!$g_oSec->IsPublicUser())
+			return '';
+
+		return " AND w.is_public = 'Y'";
+	}
+
+	private function GetWorkOrderOrgWhereClause()
+	{
+		global $g_oSec, $g_oSession;
+
+		if (!$g_oSec->IsOrgUser())
+			return '';
+
+		$memberOfOrgs = $g_oSession->Value('member_of_orgs');
+		if ($memberOfOrgs != '')
+			$values = explode(',', $memberOfOrgs);
+		else
+			$values = array('-1');
+
+		$organizationIds = join(',', $values);
+
+		return " AND woa.account_id in (" . $organizationIds . ")";
 	}
 }

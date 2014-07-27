@@ -26,6 +26,7 @@
 			{/if}
 		</div>
 	</div>
+
 	<h4>{$smarty.const.STR_PRJ_TASKLIST}</h4>
 	<table class="table table-striped">
 		<thead>
@@ -99,7 +100,7 @@
 			<td class="string">{$VAL_TASKS[row].responsible|escape}</td>
 			<td class="string">{$VAL_TASKS[row].product|escape}</td>
 			<td class="string">{$VAL_TASKS[row].module|escape}</td>
-			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs > 1} <a href="{$URL_MAIN_PHP}?menuAction=htmlWindowList.Main&what=dcl_wo_account.wo_id&wo_id={$VAL_TASKS[row].woid}&seq={$VAL_TASKS[row].seq}" class="dcl-lightbox"><span class="badge">{$VAL_TASKS[row].secorgs}</span></a>{/if}</td>
+			<td class="string">{$VAL_TASKS[row].org}{if $VAL_TASKS[row].secorgs > 1} <a href="javascript:;" data-woid="{$VAL_TASKS[row].woid}" data-seq="{$VAL_TASKS[row].seq}" class="view-orgs"><span class="badge">{$VAL_TASKS[row].secorgs}</span></a>{/if}</td>
 			<td class="string">{$VAL_TASKS[row].status|escape}</td>
 			<td class="string">{$VAL_TASKS[row].deadline|escape}</td>
 			<td class="numeric">{$VAL_TASKS[row].hours}</td>
@@ -113,3 +114,19 @@
 {/section}
 	</table>
 </form>
+<div id="dialog" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">Accounts</h4>
+			</div>
+			<div class="modal-body">
+				<p></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

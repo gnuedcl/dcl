@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="{$DIR_JS}fancybox/jquery.fancybox-1.3.1.css" type="text/css" media="screen" />
 <div class="panel panel-info">
 	<div class="panel-heading"><h3>[{$VAL_PROJECTID}] {$VAL_NAME|escape}<a id="" class="pull-right" href="javascript:;" data-toggle="collapse" data-target="#project-details"><span class="glyphicon glyphicon-resize-vertical"></span></a></h3></div>
 	<div id="project-details" class="panel-body collapse in">
@@ -69,7 +68,6 @@
 	<input type="hidden" name="name" value="FrontPage">
 </form>
 {include file="ProjectTasksControl.tpl"}
-<script type="text/javascript" src="{$DIR_JS}fancybox/jquery.fancybox-1.3.1.pack.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var hash = location.hash;
@@ -78,9 +76,34 @@
 			$tabs.tab('show');
 		}
 
-		$("a.dcl-lightbox").fancybox({
-			type: "iframe"
+		function htmlEncode(t) {
+			return $("<div/>").text(t).html();
+		}
 
+		$("a.view-orgs").click(function() {
+			var woId = $(this).attr('data-woid');
+			var seq = $(this).attr('data-seq');
+			var $dialog = $("#dialog");
+			$dialog.find("h4.modal-title").text("Accounts for Work Order " + woId + "-" + seq);
+			$.ajax({
+				url: "{$URL_MAIN_PHP}?menuAction=WorkOrderService.ListOrgs&wo_id=" + woId + "&seq=" + seq,
+				dataType: "json",
+				type: "GET",
+				success: function(data) {
+					if (data.count > 0) {
+						var content = '<ul class="list-group">';
+						for (var idx in data.rows) {
+							content += '<li class="list-group-item">' + htmlEncode(data.rows[idx].name) + "</li>";
+						}
+
+						content += "</ul>";
+
+						$dialog.find("div.modal-body > p").html(content);
+					}
+				}
+			});
+
+			$dialog.modal();
 		});
 	});
 
