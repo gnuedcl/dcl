@@ -21,7 +21,7 @@ div.scrollable { overflow: auto; }
 {section loop=$items name=row}
 <li id="item_{$items[row][0]}_{$items[row][1]}{if $items[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}_{$items[row][2]}{/if}">
 	<input type="text" class="item-index" value="{counter}"> <a class="move-top" href="javascript:;" title="Move to Top"><span class="glyphicon glyphicon-chevron-up"></span></a> <a class="remove-item" href="javascript:;" title="Remove"><span class="glyphicon glyphicon-trash"></span></a></h2>
-	<span class="item-description"><span class="status-type-{$items[row][11]}">{if $items[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}<a href="{dcl_url_action controller=WorkOrder action=Detail params="jcn=`$items[row][1]`&seq=`$items[row][2]`"}">{$items[row][1]|escape}-{$items[row][2]|escape}</a>
+	<span class="item-description"><span class="status-type-{$items[row][12]}">{if $items[row][0] == $smarty.const.DCL_ENTITY_WORKORDER}<a href="{dcl_url_action controller=WorkOrder action=Detail params="jcn=`$items[row][1]`&seq=`$items[row][2]`"}">{$items[row][1]|escape}-{$items[row][2]|escape}</a>
 		{elseif $items[row][0] == $smarty.const.DCL_ENTITY_TICKET}{$items[row][1]|escape}
 		{/if} ({$items[row][6]|escape})</span>
 	    {$items[row][3]|escape} <span class="hidden text-danger">{dcl_get_entity_hotlist entity=$items[row][0] key_id=$items[row][1] key_id2=$items[row][2] link=N}</span></span>
@@ -66,12 +66,18 @@ $(document).ready(function() {
 		}
 	});
 
+	function removeItemsAfterSave() {
+		return $("#item_list").find("li.remove-item").fadeOut(500);
+	}
+
 	$("#ItemSave").click(function() {
 		$.ajax({
 			type: 'POST',
 			url: "{$URL_MAIN_PHP}",
 			data: getData(),
 			success: function() {
+				$.when(removeItemsAfterSave()).done(function() { $("#item_list").find("li.remove-item").remove(); updateIndexes(); });
+
 				$.gritter.add({
 					title: "Success",
 					text: "Hotlist saved."
