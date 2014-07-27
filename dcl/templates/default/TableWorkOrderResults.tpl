@@ -1,131 +1,3 @@
-<script language="JavaScript">
-
-function toggle(btnSender)
-{
-	var bChk = btnSender.checked;
-	var bOK = false;
-	var e=btnSender.form.elements;
-	for (var i=0;i<e.length;i++)
-	{
-		if (!bOK && e[i] == btnSender)
-			bOK = true;
-		else if (bOK && (e[i].type != "checkbox" || e[i].name == "group_check"))
-			return;
-		else if (bOK && e[i].type == "checkbox")
-			e[i].checked = bChk;
-	}
-}
-function showAccounts(iWOID, iSeq)
-{
-	var sURL = 'main.php?menuAction=htmlWindowList.FrameRender&what=dcl_wo_account.wo_id&wo_id=' + iWOID + '&seq=' + iSeq;
-	var newWin = window.open(sURL, '_dcl_selector_', 'width=500,height=255');
-}
-
-function submitBatch()
-{
-	var f = document.forms.searchAction;
-	var sAction = f.elements.menuAction.value;
-
-	if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchReassign' || sAction == 'Project.Move' || sAction == 'Project.BatchMove')
-	{
-		var bHasCheck = false;
-		for (var i = 0; i < f.elements.length && !bHasCheck; i++)
-		{
-			bHasCheck = (f.elements[i].type == "checkbox" && f.elements[i].name != "group_check" && f.elements[i].checked);
-		}
-
-		if (!bHasCheck)
-		{
-			alert('You must select one or more items!');
-			return;
-		}
-	}
-	f.submit();
-}
-	
-$(document).ready(function() {
-	/*$("#menuAction").val("WorkOrderService.GetData");
-	$("#results").jqAjaxTable({
-		url: "{$URL_MAIN_PHP}",
-		form: "#searchAction"
-	});*/
-});
-(function($) {
-	$.fn.jqAjaxTable = function(options) {
-		var defaults = {
-			url: "",
-			rows: 25,
-			columns: [],
-			form: ""
-		};
-			
-		var settings = $.extend(defaults, options);
-			
-		var methods = {
-			id: "",
-			pagerId: "",
-			table: $([]),
-			response: { count: 0, records: [], total: 0 },
-			init: function(id) {
-				this.id = id;
-				this.pagerId = id + "Pager";
-				this.table = $("#" + id);
-				this.clearTable();
-			},
-			setPage: function(page) {
-				this.getData(page);
-			},
-			getData: function(page) {
-				$("#" + this.pagerId).text("Loading...");
-				$.ajax({
-					type: "POST",
-					url: settings.url,
-					data: $(settings.form).serialize() + "&page=" + page + "&rows=" + settings.rows,
-					success: function(data) {
-						$("#" + methods.pagerId).remove();
-						if (data.count > 0) {
-							var $div = $("<div/>");
-							var html = "";
-							$.each(data.records, function(ridx, row) {
-								html += "<tr>";
-								html += "<td><input type=\"checkbox\" /></td>";
-								$.each(row, function(fidx, field) {
-									if (field != null && field != "") {
-										html += "<td>" + $div.text(field).html() + "</td>";
-									}
-									else {
-										html += "<td>&nbsp;</td>";
-									}
-								});
-								html += "</tr>";
-							});
-
-							methods.table.find("tbody").append(html);
-
-							if (data.total > (page * settings.rows)) {
-								$("<button class=\"jq-ajax-table-pager\"></button>").attr("id", methods.pagerId).text((data.total - (page * settings.rows)) + " More").appendTo(methods.table.parent()).click(function() {
-									methods.getData(page + 1);
-									return false;
-								});
-							}
-						}
-					}
-				});
-			},
-			clearTable: function() {
-				this.table.find("tbody").empty();
-			}
-		};
-			
-		return this.each(function() {
-			var $this = $(this);
-			methods.init($this.attr("id"));
-			methods.setPage(1);
-		});
-	};
-})(jQuery);
-
-</script>
 {assign var=groupcount value=$groups|@count}
 {assign var=colcount value=$columns|@count}
 {if $rownum}{assign var=colcount value=$colcount+1}{/if}
@@ -199,7 +71,7 @@ $(document).ready(function() {
 			{elseif $smarty.section.item.index == $hotlist_ordinal && $records[row][$num_hotlist_ordinal] > 0}{dcl_get_entity_hotlist entity=$smarty.const.DCL_ENTITY_WORKORDER key_id=$records[row][$wo_id_ordinal] key_id2=$records[row][$seq_ordinal] link=Y}
 			{elseif $smarty.section.item.index == $hotlist_ordinal && $records[row][$num_hotlist_ordinal] == 1}{dcl_hotlist_link value=$records[row][item]}
 			{elseif $columns[$smarty.section.item.index].type == "html"}{$records[row][item]}
-			{else}{$records[row][item]|escape}{if $records[row][$num_accounts_ordinal] > 1 && $smarty.section.item.index == $org_ordinal}<img src="{$DIR_IMG}/jump-to-16.png" style="cursor: hand; cursor: pointer;" onclick="showAccounts({$records[row][$wo_id_ordinal]}, {$records[row][$seq_ordinal]});">{/if}
+			{else}{$records[row][item]|escape}{if $records[row][$num_accounts_ordinal] > 1 && $smarty.section.item.index == $org_ordinal} <a href="javascript:;" data-woid="{$records[row][$wo_id_ordinal]}" data-seq="{$records[row][$seq_ordinal]}" class="view-orgs"><span class="badge">{$records[row][$num_accounts_ordinal]}</span></a>{/if}
 			{/if}
 			</td>
 		{/if}
@@ -210,3 +82,157 @@ $(document).ready(function() {
 {/section}
 </table>
 </form>
+{dcl_modal}
+<script type="text/javascript">
+
+	function toggle(btnSender)
+	{
+		var bChk = btnSender.checked;
+		var bOK = false;
+		var e=btnSender.form.elements;
+		for (var i=0;i<e.length;i++)
+		{
+			if (!bOK && e[i] == btnSender)
+				bOK = true;
+			else if (bOK && (e[i].type != "checkbox" || e[i].name == "group_check"))
+				return;
+			else if (bOK && e[i].type == "checkbox")
+				e[i].checked = bChk;
+		}
+	}
+
+	function submitBatch()
+	{
+		var f = document.forms.searchAction;
+		var sAction = f.elements.menuAction.value;
+
+		if (sAction == 'WorkOrder.BatchDetail' || sAction == 'boTimecards.batchadd' || sAction == 'WorkOrder.BatchReassign' || sAction == 'Project.Move' || sAction == 'Project.BatchMove')
+		{
+			var bHasCheck = false;
+			for (var i = 0; i < f.elements.length && !bHasCheck; i++)
+			{
+				bHasCheck = (f.elements[i].type == "checkbox" && f.elements[i].name != "group_check" && f.elements[i].checked);
+			}
+
+			if (!bHasCheck)
+			{
+				alert('You must select one or more items!');
+				return;
+			}
+		}
+		f.submit();
+	}
+
+	$(document).ready(function() {
+		function htmlEncode(t) {
+			return $("<div/>").text(t).html();
+		}
+
+		$("a.view-orgs").click(function() {
+			var woId = $(this).attr('data-woid');
+			var seq = $(this).attr('data-seq');
+			var $dialog = $("#dialog");
+			$dialog.find("h4.modal-title").text("Accounts for Work Order " + woId + "-" + seq);
+			$.ajax({
+				url: "{$URL_MAIN_PHP}?menuAction=WorkOrderService.ListOrgs&wo_id=" + woId + "&seq=" + seq,
+				dataType: "json",
+				type: "GET",
+				success: function(data) {
+					if (data.count > 0) {
+						var content = '<ul class="list-group">';
+						for (var idx in data.rows) {
+							content += '<li class="list-group-item">' + htmlEncode(data.rows[idx].name) + "</li>";
+						}
+
+						content += "</ul>";
+
+						$dialog.find("div.modal-body > p").html(content);
+					}
+				}
+			});
+
+			$dialog.modal();
+		});
+
+		/*$("#menuAction").val("WorkOrderService.GetData");
+		 $("#results").jqAjaxTable({
+		 url: "{$URL_MAIN_PHP}",
+		 form: "#searchAction"
+		 });*/
+	});
+	(function($) {
+		$.fn.jqAjaxTable = function(options) {
+			var defaults = {
+				url: "",
+				rows: 25,
+				columns: [],
+				form: ""
+			};
+
+			var settings = $.extend(defaults, options);
+
+			var methods = {
+				id: "",
+				pagerId: "",
+				table: $([]),
+				response: { count: 0, records: [], total: 0 },
+				init: function(id) {
+					this.id = id;
+					this.pagerId = id + "Pager";
+					this.table = $("#" + id);
+					this.clearTable();
+				},
+				setPage: function(page) {
+					this.getData(page);
+				},
+				getData: function(page) {
+					$("#" + this.pagerId).text("Loading...");
+					$.ajax({
+						type: "POST",
+						url: settings.url,
+						data: $(settings.form).serialize() + "&page=" + page + "&rows=" + settings.rows,
+						success: function(data) {
+							$("#" + methods.pagerId).remove();
+							if (data.count > 0) {
+								var $div = $("<div/>");
+								var html = "";
+								$.each(data.records, function(ridx, row) {
+									html += "<tr>";
+									html += "<td><input type=\"checkbox\" /></td>";
+									$.each(row, function(fidx, field) {
+										if (field != null && field != "") {
+											html += "<td>" + $div.text(field).html() + "</td>";
+										}
+										else {
+											html += "<td>&nbsp;</td>";
+										}
+									});
+									html += "</tr>";
+								});
+
+								methods.table.find("tbody").append(html);
+
+								if (data.total > (page * settings.rows)) {
+									$("<button class=\"jq-ajax-table-pager\"></button>").attr("id", methods.pagerId).text((data.total - (page * settings.rows)) + " More").appendTo(methods.table.parent()).click(function() {
+										methods.getData(page + 1);
+										return false;
+									});
+								}
+							}
+						}
+					});
+				},
+				clearTable: function() {
+					this.table.find("tbody").empty();
+				}
+			};
+
+			return this.each(function() {
+				var $this = $(this);
+				methods.init($this.attr("id"));
+				methods.setPage(1);
+			});
+		};
+	})(jQuery);
+
+</script>
