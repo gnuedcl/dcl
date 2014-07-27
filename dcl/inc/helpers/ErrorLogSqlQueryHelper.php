@@ -27,4 +27,12 @@ class ErrorLogSqlQueryHelper  extends AbstractSqlQueryHelper
 		parent::__construct();
 		$this->table = 'dcl_error_log';
 	}
+
+	protected function AppendJoin($table, $joinType)
+	{
+		if (!IsSet($this->joins[$table]))
+		{
+			$this->joins[$table] = 2;
+		}
+	}
 }

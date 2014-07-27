@@ -94,4 +94,31 @@ class ErrorLogService
 		echo json_encode($retVal);
 		exit;
 	}
+
+	public function Item()
+	{
+		RequirePermission(DCL_ENTITY_ERRORLOG, DCL_PERM_VIEW);
+		$id = Filter::RequireInt(@$_REQUEST['id']);
+
+		$model = new ErrorLogModel();
+		$model->Load($id);
+
+		$retVal = new stdClass();
+		$retVal->error_log_id = $model->error_log_id;
+		$retVal->error_timestamp = $model->error_timestamp;
+		$retVal->user_id = $model->user_id;
+		$retVal->server_name = $model->server_name;
+		$retVal->script_name = $model->script_name;
+		$retVal->request_uri = $model->request_uri;
+		$retVal->query_string = $model->query_string;
+		$retVal->error_file = $model->error_file;
+		$retVal->error_line = $model->error_line;
+		$retVal->error_description = $model->error_description;
+		$retVal->stack_trace = json_decode($model->stack_trace);
+		$retVal->log_level = $model->log_level;
+
+		header('Content-Type: application/json');
+		echo json_encode($retVal);
+		exit;
+	}
 }
