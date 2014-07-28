@@ -1,5 +1,9 @@
 <div id="error-log">
 	<h4>Error Log <small><span data-bind="text: refreshed"></span> <span class="badge alert-danger" data-bind="text: records"></span></small></h4>
+	<ul id="pager" class="pager">
+		<li class="previous"><a href="javascript:;">&larr; Newer</a></li>
+		<li class="next"><a href="javascript:;">Older &rarr;</a></li>
+	</ul>
 	<table class="table table-striped">
 		<thead>
 			<tr><th>ID</th><th>Time</th><th>Level</th><th>User</th><th>Server</th><th>URI</th><th>File</th><th>Line</th><th>Error</th></tr>
@@ -48,7 +52,7 @@
 								<tbody data-bind="foreach: stackTrace">
 									<tr>
 										<td data-bind="text: $index"></td>
-										<td><!-- ko text: $data['class'] --><!-- /ko --><!-- ko text: $data['type'] --><!-- /ko --><!-- ko text: $data['function'] --><!-- /ko -->(<!-- ko if: $data['object'] || (args && args.length) --><a href="javascript:;" class="stack-view-more" data-bind="attr: { 'data-id': $index }">&hellip;</a><!-- /ko -->)</td>
+										<td><!-- ko text: $data['class'] --><!-- /ko --><!-- ko text: $data['type'] --><!-- /ko --><!-- ko text: $data['function'] --><!-- /ko -->(<!-- ko if: $data['object'] || (args && args.length) --><a href="javascript:;" class="stack-view-more" data-bind="attr: { 'data-id': $index }"> more&hellip; </a><!-- /ko -->)</td>
 										<td data-bind="text: file"></td>
 										<td data-bind="text: line"></td>
 									</tr>
@@ -58,7 +62,7 @@
 					</div>
 				</div>
 				<div id="stack-view" class="collapse">
-					<a class="btn btn-default" href="javascript:;" id="back-to-main-view">Back</a>
+					<a class="btn btn-default" href="javascript:;" id="back-to-main-view"><span class="glyphicon glyphicon-backward"></span> Back</a>
 					<h4>Args</h4>
 					<pre id="stack-view-args"></pre>
 					<h4>Object</h4>
@@ -72,7 +76,6 @@
 	</div>
 </div>
 <script type="text/javascript" src="{$DIR_VENDOR}knockout/knockout-3.1.0.js"></script>
-<script type="text/javascript" src="{$DIR_VENDOR}moment/moment.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var logLevel = [ "Unknown", "Trace", "Debug", "Info", "Warning", "Error", "Fatal" ];
@@ -90,27 +93,55 @@
 
 		var urlMainPhp = "{$URL_MAIN_PHP}";
 
-		function updateErrorLog() {
+		var firstId = 0;
+		var lastId = 0;
+		function updateErrorLog(dir) {
 			$.ajax({
 				type: "POST",
 				url: urlMainPhp,
-				data: { menuAction: "ErrorLogService.GetData", rows: 25 },
+				data: { menuAction: "ErrorLogService.GetData", rows: 25, lastid: lastId, firstid: firstId, dir: dir },
 				dataType: "json"
 			}).done(function(data) {
 				errorViewModel.records(data.records);
 				errorViewModel.page(data.page);
 				errorViewModel.total(data.total);
 				errorViewModel.rows(data.rows);
-				errorViewModel.refreshed(moment().format('HH:mm:ss'));
+
+				if (data.rows.length > 0) {
+					lastId = data.rows[data.rows.length - 1].id;
+					firstId = data.rows[0].id;
+				} else {
+					lastId = 0;
+					firstId = 0;
+				}
+
+				if (data.min > 0 && data.min >= lastId)
+					$("#pager").find("li.next").addClass("disabled");
+				else
+					$("#pager").find("li.next").removeClass("disabled");
+
+				if (data.max > 0 && firstId >= data.max)
+					$("#pager").find("li.previous").addClass("disabled");
+				else
+					$("#pager").find("li.previous").removeClass("disabled");
 			}).error(function() {
 				$.gritter.add({ title: "Error", text: "Could not read error log." });
 				errorViewModel.refreshed("Error");
-			}).always(function() {
-				setTimeout(updateErrorLog, 30000);
 			});
 		}
 
-		updateErrorLog();
+		updateErrorLog("next");
+
+		var $pager = $("#pager");
+		$pager.find("li.previous").click(function() {
+			if (!$(this).hasClass("disabled"))
+				updateErrorLog("previous");
+		});
+
+		$pager.find("li.next").click(function() {
+			if (!$(this).hasClass("disabled"))
+				updateErrorLog("next");
+		});
 
 		function htmlEncode(t) {
 			return $("<div/>").text(t).html();
