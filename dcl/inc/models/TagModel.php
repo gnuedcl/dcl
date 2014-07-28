@@ -78,6 +78,9 @@ class TagModel extends DbProvider
 				
 			$sTagValues .= $this->Quote($sTag);
 		}
+
+		if ($sTagValues == '')
+			return '-1';
 		
 		if ($this->Query("SELECT tag_id FROM dcl_tag WHERE tag_desc IN ($sTagValues)") == -1)
 			return '-1';
