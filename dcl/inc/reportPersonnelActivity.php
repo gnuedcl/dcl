@@ -45,15 +45,15 @@ class reportPersonnelActivity
 		
 		$iDept = $oDBPersonnel->department;
 		if (isset($_REQUEST['department']))
-			$iDept = (int)$_REQUEST['department'];
+			$iDept = Filter::RequireInt($_REQUEST['department']);
 		else if ($g_oSession->IsRegistered('personnel_activity_department'))
-			$iDept = (int)$g_oSession->Value('personnel_activity_department');
+			$iDept = Filter::RequireInt($g_oSession->Value('personnel_activity_department'));
 			
 		$iUser = DCLID;
 		if (isset($_REQUEST['responsible']))
-			$iUser = (int)$_REQUEST['responsible'];
+			$iUser = Filter::RequireInt($_REQUEST['responsible']);
 		else if ($g_oSession->IsRegistered('personnel_activity_responsible'))
-			$iUser = (int)$g_oSession->Value('personnel_activity_responsible');
+			$iUser = Filter::RequireInt($g_oSession->Value('personnel_activity_responsible'));
 		
 		$aStatuses = array();
 		if (isset($_REQUEST['status']))
@@ -68,9 +68,9 @@ class reportPersonnelActivity
 		$oSelect->Id = 'bytype';
 		$oSelect->Options = array(array('1', 'By Responsible'), array('2', 'By Department'));
 		if (isset($_REQUEST['bytype']))
-			$oSelect->DefaultValue = $_REQUEST['bytype'];
+			$oSelect->DefaultValue = Filter::RequireInt($_REQUEST['bytype']);
 		else if ($g_oSession->IsRegistered('personnel_activity_bytype'))
-			$oSelect->DefaultValue = $g_oSession->Value('personnel_activity_bytype');
+			$oSelect->DefaultValue = Filter::RequireInt($g_oSession->Value('personnel_activity_bytype'));
 		
 		$t->assign('CMB_BYTYPE', $oSelect->GetHTML());
 		
@@ -86,9 +86,9 @@ class reportPersonnelActivity
 		$oSelect->OnChange = '';
 		$oSelect->Options = array(array('1', 'Project'), array('2', 'Action'), array('3', 'Date'), array('4', 'Product'), array('5', 'Action By'));
 		if (isset($_REQUEST['groupby']))
-			$oSelect->DefaultValue = $_REQUEST['groupby'];
+			$oSelect->DefaultValue = Filter::RequireInt($_REQUEST['groupby']);
 		else if ($g_oSession->IsRegistered('personnel_activity_groupby'))
-			$oSelect->DefaultValue = $g_oSession->Value('personnel_activity_groupby');
+			$oSelect->DefaultValue = Filter::RequireInt($g_oSession->Value('personnel_activity_groupby'));
 		
 		$t->assign('CMB_GROUPBY', $oSelect->GetHTML());
 
@@ -150,18 +150,24 @@ class reportPersonnelActivity
 			$this->GetParameters(false);
 			return;
 		}
+
+		$bytype = Filter::ToInt($_REQUEST['bytype']);
+		$groupby = Filter::ToInt($_REQUEST['groupby']);
+		$responsible = Filter::ToInt($_REQUEST['responsible']);
+		$department = Filter::ToInt($_REQUEST['department']);
+		$timesheet = Filter::ToYN(@$_REQUEST['timesheet']);
 		
 		$g_oSession->Register('personnel_activity_begindate', $begindate);
 		$g_oSession->Register('personnel_activity_enddate', $enddate);
-		$g_oSession->Register('personnel_activity_bytype', $_REQUEST['bytype']);
-		$g_oSession->Register('personnel_activity_groupby', $_REQUEST['groupby']);
-		$g_oSession->Register('personnel_activity_responsible', $_REQUEST['responsible']);
-		$g_oSession->Register('personnel_activity_department', $_REQUEST['department']);
-		$g_oSession->Register('personnel_activity_timesheet', isset($_REQUEST['timesheet']) ? $_REQUEST['timesheet'] : 'N');
+		$g_oSession->Register('personnel_activity_bytype', $bytype);
+		$g_oSession->Register('personnel_activity_groupby', $groupby);
+		$g_oSession->Register('personnel_activity_responsible', $responsible);
+		$g_oSession->Register('personnel_activity_department', $department);
+		$g_oSession->Register('personnel_activity_timesheet', $timesheet);
 		$g_oSession->Edit();
 		
-		$bTimesheet = isset($_REQUEST['timesheet']) && $_REQUEST['timesheet'] == 'Y';
-		if ($bTimesheet && $_REQUEST['groupby'] != '1' && $_REQUEST['groupby'] != '2' && $_REQUEST['groupby'] != '4' && $_REQUEST['groupby'] != '5')
+		$bTimesheet = $timesheet == 'Y';
+		if ($bTimesheet && $groupby != '1' && $groupby != '2' && $groupby != '4' && $groupby != '5')
 		{
 			if ($bExport)
 				commonHeader();
@@ -171,7 +177,7 @@ class reportPersonnelActivity
 			return;
 		}
 		
-		if ($_REQUEST['groupby'] == '5' && $_REQUEST['bytype'] != '2')
+		if ($groupby == '5' && $groupby != '2')
 		{
 			ShowError('Grouping by Action By must use report by department.');
 			$this->GetParameters(false);
@@ -182,50 +188,38 @@ class reportPersonnelActivity
 
 		$objDB = new DbProvider;
 		
-		$sReportFor = '';
 		$sCols = 'timecards.jcn, timecards.seq, timecards.hours';
-		if ($_REQUEST['bytype'] == '2' || $_REQUEST['groupby'] == '5')
+		if ($bytype == '2' || $groupby == '5')
 		{
 			$sCols .= ', personnel.short';
 			
-			if ($bTimesheet && $_REQUEST['groupby'] == '5')
+			if ($bTimesheet && $groupby == '5')
 				$sCols .= ' AS name';
 		}
 
-		if ($_REQUEST['groupby'] == '1')
+		if ($groupby == '1')
 			$sCols .= ', dcl_projects.name';
-		else if ($_REQUEST['groupby'] == '2')
+		else if ($groupby == '2')
 			$sCols .= ', actions.name';
-		else if ($_REQUEST['groupby'] == '3')
+		else if ($groupby == '3')
 			$sCols .= ', ' . $objDB->ConvertDate('timecards.actionon', 'actionon');
-		else if ($_REQUEST['groupby'] == '4')
+		else if ($groupby == '4')
 			$sCols .= ', products.name';
 			
 		if ($bTimesheet)
 			$sCols .= ', ' . $objDB->ConvertDate('timecards.actionon', 'actionon');
 
-		$iGroupColumn = -1;
 		$query = "select $sCols from timecards ";
-		if ($_REQUEST['groupby'] == '0' || $_REQUEST['groupby'] == '3' || $_REQUEST['groupby'] == '5')
+		if ($groupby == '0' || $groupby == '3' || $groupby == '5')
 		{
 			// None (0) or date (3) or action by (5)
-			if ($_REQUEST['bytype'] == '1')
+			if ($bytype == '1')
 			{
-				if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
 				$query .= ' where actionby=' . $responsible;
 				$query .= ' and actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
 			}
 			else
 			{
-				if (($department = Filter::ToInt($_REQUEST['department'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
 				$query .= 'where personnel.department=' . $department;
 				$query .= ' and actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
@@ -236,36 +230,30 @@ class reportPersonnelActivity
 				$query .= ' and status in (' . join(',', $aStatuses) . ')';
 			}
 
-			if ($_REQUEST['groupby'] == '0')
+			if ($groupby == '0')
 			{
 				$query .= ' order by jcn, seq';
 			}
-			else if ($_REQUEST['groupby'] == '5')
+			else if ($groupby == '5')
 			{
 				$query .= ' order by personnel.short, jcn, seq';
-				$iGroupColumn = 2;
 			}
 			else
 			{
 				$query .= ' order by actionon, jcn, seq';
 				$iGroupColumn = 13;
-				if ($_REQUEST['bytype'] != '1')
+				if ($bytype != '1')
 					$iGroupColumn++;
 					
-				if ($_REQUEST['groupby'] != '1')
+				if ($groupby != '1')
 					$iGroupColumn++;
 			}
 		}
-		else if ($_REQUEST['groupby'] == '1')
+		else if ($groupby == '1')
 		{
 			// projects
-			if ($_REQUEST['bytype'] == '1')
+			if ($bytype == '1')
 			{
-				if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
 				$query .= 'left join projectmap on timecards.jcn = projectmap.jcn and projectmap.seq in (timecards.seq, 0) ';
 				$query .= 'left join dcl_projects on dcl_projects.projectid = projectmap.projectid ';
 				$query .= ' where timecards.actionby=' . $responsible;
@@ -274,11 +262,6 @@ class reportPersonnelActivity
 			}
 			else
 			{
-				if (($department = Filter::ToInt($_REQUEST['department'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
 				$query .= 'left join projectmap on timecards.jcn = projectmap.jcn and projectmap.seq in (timecards.seq, 0) ';
 				$query .= 'left join dcl_projects on dcl_projects.projectid = projectmap.projectid ';
@@ -294,16 +277,11 @@ class reportPersonnelActivity
 
 			$query .= ' order by dcl_projects.name, timecards.jcn, timecards.seq';
 		}
-		else if ($_REQUEST['groupby'] == '2')
+		else if ($groupby == '2')
 		{
 			// actions
-			if ($_REQUEST['bytype'] == '1')
+			if ($bytype == '1')
 			{
-				if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
 				$query .= $objDB->JoinKeyword . ' actions on timecards.action = actions.id ';
 				$query .= ' where timecards.actionby=' . $responsible;
 				$query .= ' and timecards.actionon between ' . $objDB->DisplayToSQL($begindate) . ' and ' . $objDB->DisplayToSQL($enddate);
@@ -311,11 +289,6 @@ class reportPersonnelActivity
 			}
 			else
 			{
-				if (($department = Filter::ToInt($_REQUEST['department'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
 				$query .= $objDB->JoinKeyword . ' actions on timecards.action = actions.id ';
 				$query .= 'where personnel.department=' . $department;
@@ -333,13 +306,8 @@ class reportPersonnelActivity
 		else
 		{
 			// product
-			if ($_REQUEST['bytype'] == '1')
+			if ($bytype == '1')
 			{
-				if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
 				$query .= $objDB->JoinKeyword . ' workorders on timecards.jcn = workorders.jcn and timecards.seq = workorders.seq ';
 				$query .= $objDB->JoinKeyword . ' products on workorders.product = products.id ';
 				$query .= ' where timecards.actionby=' . $responsible;
@@ -348,11 +316,6 @@ class reportPersonnelActivity
 			}
 			else
 			{
-				if (($department = Filter::ToInt($_REQUEST['department'])) === null)
-				{
-					throw new InvalidDataException();
-				}
-				
 				$query .= $objDB->JoinKeyword . ' personnel on actionby = personnel.id ';
 				$query .= $objDB->JoinKeyword . ' workorders on timecards.jcn = workorders.jcn and timecards.seq = workorders.seq ';
 				$query .= $objDB->JoinKeyword . ' products on workorders.product = products.id ';
@@ -369,7 +332,7 @@ class reportPersonnelActivity
 			$query .= ' order by products.name, timecards.jcn, timecards.seq';
 		}
 
-		if (isset($_REQUEST['timesheet']) && $_REQUEST['timesheet'] == 'Y')
+		if ($bTimesheet)
 			$this->ShowTimesheet($query, $iGroupColumn);
 		else
 			$this->ShowReport($query, $iGroupColumn);
@@ -536,30 +499,19 @@ class reportPersonnelActivity
 		$department = 0;
 		if ($_REQUEST['bytype'] == '1')
 		{
-			if (($responsible = Filter::ToInt($_REQUEST['responsible'])) === null)
-			{
-				throw new InvalidDataException();
-			}
-				
+			$responsible = Filter::RequireInt($_REQUEST['responsible']);
 			$sReportFor = $oMeta->GetPersonnel($responsible);
 		}
 		else
 		{
-			if (($department = Filter::ToInt($_REQUEST['department'])) === null)
-			{
-				throw new InvalidDataException();
-			}
-				
+			$department = Filter::RequireInt($_REQUEST['department']);
 			$sReportFor = $oMeta->GetDepartment($department);
 		}
 
-		if (($begindate = Filter::ToDate($_REQUEST['begindate'])) === null ||
-			($enddate = Filter::ToDate($_REQUEST['enddate'])) === null
-			)
-		{
-			throw new InvalidDataException();
-		}
-		
+
+		$begindate = Filter::RequireDate($_REQUEST['begindate']);
+		$enddate = Filter::RequireDate($_REQUEST['enddate']);
+
 		if ($objDB->Query($query) != -1)
 		{
 			if ($objDB->next_record())
@@ -751,7 +703,7 @@ class reportPersonnelActivity
 							
 						if ($_REQUEST['bytype'] == '2')
 							$iOrdinal++;
-							
+
 						$reportArray[$arrayIndex][$iOrdinal] += (double)$objDB->f('hours');
 					}
 
