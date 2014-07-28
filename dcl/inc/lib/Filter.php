@@ -192,6 +192,9 @@ abstract class Filter
 	
 	public static function ToFileName($sFieldName, $iIndex = -1)
 	{
+		if (!isset($_FILES[$sFieldName]))
+			return null;
+
 		if ($iIndex == -1)
 		{
 			if (is_uploaded_file($_FILES[$sFieldName]['tmp_name']))
