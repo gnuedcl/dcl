@@ -915,10 +915,10 @@ class WorkOrderPresenter
 				else if (isset($aCols[$val]))
 					$sText = $aCols[$val];
 
-				array_push($aOrder, array($val => $sText));
+				array_push($aOrder, array('value' => $val, 'text' => $sText));
 			}
 			
-			$smartyHelper->assign('VAL_SORT');
+			$smartyHelper->assign('VAL_SORT', $aOrder);
 		}
 
 		$smartyHelper->Render('WorkOrderSearch.tpl');

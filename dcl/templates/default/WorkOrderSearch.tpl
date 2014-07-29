@@ -143,7 +143,7 @@
 				<input type="hidden" name="order" value="">
 				<select class="form-control no-select2" name="orderList" multiple size="8">
 				{foreach from=$VAL_SORT item=item key=key}
-					<option value="{$key|escape}">{$item|escape}</option>
+					<option value="{$item.value|escape}">{$item.text|escape}</option>
 				{/foreach}
 				</select>
 			</div>
