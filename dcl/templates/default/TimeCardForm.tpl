@@ -128,7 +128,7 @@
 				dataType: "json",
 				type: "GET",
 				data: function(term) {
-					return { term: term };
+					return { term: term, active: "Y" };
 				},
 				results: function(data) {
 					return {

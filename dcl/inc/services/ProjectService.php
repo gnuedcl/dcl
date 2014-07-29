@@ -35,10 +35,53 @@ class ProjectService
 				$idFilter = '';
 		}
 
+		$activeOnly = false;
+		if (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y')
+			$activeOnly = true;
+
 		$db = new DbProvider();
-		$sql = 'SELECT projectid, name FROM dcl_projects';
+		$sql = 'SELECT p.projectid, p.name FROM dcl_projects p';
+		if ($activeOnly)
+			$sql .= ' ' . $db->JoinKeyword . ' statuses s ON s.id = p.status';
+
+		$termSql = '';
 		if ($term != '')
-			$sql .= ' WHERE name ' . $db->LikeKeyword . " " . $db->Quote("%$term%");
+		{
+			$searchTerm = new SearchTerm();
+			$searchTerm->Parse($term);
+
+			foreach ($searchTerm->Include as $value)
+			{
+				if ($termSql == '')
+					$termSql .= '(';
+				else
+					$termSql .= ' OR ';
+
+				$termSql .= 'p.name ' . $db->LikeKeyword . ' ' . $db->Quote("%$value%");
+			}
+
+			if ($termSql != '')
+				$termSql .= ')';
+
+			foreach ($searchTerm->MustHave as $value)
+			{
+				if ($termSql != '')
+					$termSql .= ' AND ';
+
+				$termSql .= 'p.name ' . $db->LikeKeyword . ' ' . $db->Quote("%$value%");
+			}
+
+			foreach ($searchTerm->Exclude as $value)
+			{
+				if ($termSql != '')
+					$termSql .= ' AND ';
+
+				$termSql .= 'p.name NOT ' . $db->LikeKeyword . ' ' . $db->Quote("%$value%");
+			}
+
+			if ($termSql != '')
+				$sql .= ' WHERE (' . $termSql;
+		}
 
 		if ($idFilter != '')
 		{
@@ -47,10 +90,23 @@ class ProjectService
 			else
 				$sql .= ' WHERE ';
 
-			$sql .= 'projectid = ' . $idFilter;
+			$sql .= 'p.projectid = ' . $idFilter;
 		}
 
-		$sql .= ' ORDER BY name';
+		if ($termSql != '')
+			$sql .= ')';
+
+		if ($activeOnly)
+		{
+			if ($term != '')
+				$sql .= ' AND ';
+			else
+				$sql .= ' WHERE ';
+
+			$sql .= 's.dcl_status_type != 2';
+		}
+
+		$sql .= ' ORDER BY p.name';
 
 		if ($db->Query($sql) !== -1)
 		{
