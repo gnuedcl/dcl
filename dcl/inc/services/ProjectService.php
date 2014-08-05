@@ -35,9 +35,9 @@ class ProjectService
 				$idFilter = '';
 		}
 
-		$activeOnly = false;
-		if (isset($_REQUEST['active']) && $_REQUEST['active'] == 'Y')
-			$activeOnly = true;
+		$activeOnly = true;
+		if (isset($_REQUEST['active']) && $_REQUEST['active'] == 'N')
+			$activeOnly = false;
 
 		$db = new DbProvider();
 		$sql = 'SELECT p.projectid, p.name FROM dcl_projects p';
