@@ -209,6 +209,7 @@ class reportPersonnelActivity
 		if ($bTimesheet)
 			$sCols .= ', ' . $objDB->ConvertDate('timecards.actionon', 'actionon');
 
+		$iGroupColumn = -1;
 		$query = "select $sCols from timecards ";
 		if ($groupby == '0' || $groupby == '3' || $groupby == '5')
 		{
@@ -237,6 +238,7 @@ class reportPersonnelActivity
 			else if ($groupby == '5')
 			{
 				$query .= ' order by personnel.short, jcn, seq';
+				$iGroupColumn = 2;
 			}
 			else
 			{
