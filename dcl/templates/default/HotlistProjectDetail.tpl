@@ -69,7 +69,7 @@
 
 	function forceSubmit(sAction)
 	{
-		var f = document.frmProject;
+		var f = document.frmWorkorders;
 		f.elements['menuAction'].value = sAction;
 		processSubmit(f);
 	}
