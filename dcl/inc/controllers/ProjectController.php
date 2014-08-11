@@ -143,6 +143,7 @@ class ProjectController
 			}
 		}
 
+		$model->parentprojectid = $parentProjectId;
 		$model->Edit();
 
 		SetRedirectMessage('Success', 'Project updated.');
