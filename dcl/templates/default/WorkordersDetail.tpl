@@ -41,6 +41,28 @@ $(function() {
 		var $tabs = $('#tabs').find('a[href="' + hash + '"]');
 		$tabs.tab('show');
 	}
+
+	$("body").on("click", "a.remove-from-project", function() {
+		var $link = $(this);
+		var jcn = $link.attr("data-jcn");
+		var seq = $link.attr("data-seq");
+
+		if (!confirm("Are you sure you want to remove this work order from its project?"))
+			return;
+
+		$.ajax({
+			type: "POST",
+			url: "{$URL_MAIN_PHP}?menuAction=Project.RemoveTask",
+			data: { "jcn": jcn, "seq": seq },
+			success: function() {
+				$.gritter.add({ title: "Success", text: "Successfully removed from project." });
+				$("div.panel").find("div.project-item-" + jcn + "-" + seq).hide("slow", function() { $(this).remove(); });
+			},
+			error: function() {
+				$.gritter.add({ title: "Error", text: "Could not remove the work order from its project." });
+			}
+		});
+	});
 });
 </script>
 <div class="panel panel-info">
@@ -91,12 +113,12 @@ $(function() {
 					<div class="col-xs-12">
 						{if $VAL_TAGS}<div><span class="glyphicon glyphicon-tag"></span> {dcl_tag_link value=$VAL_TAGS}</div>{/if}
 						{if $VAL_HOTLIST}<div><span class="glyphicon glyphicon-fire"></span> {dcl_hotlist_link value=$VAL_HOTLIST}</div>{/if}
-						{if $VAL_PROJECTS}
+						{if $VAL_PROJECTS}<div class="project-item-{$VAL_JCN}-{$VAL_SEQ}">
 							<h4>{$smarty.const.STR_WO_PROJECT|escape}</h4>
 							{section name=project loop=$VAL_PROJECTS}
 							<a href="{$VAL_MENULINK}?menuAction=Project.Detail&id={$VAL_PROJECTS[project].project_id}">[{$VAL_PROJECTS[project].project_id}] {$VAL_PROJECTS[project].name|escape}</a>{if !$smarty.section.project.last}&nbsp;/&nbsp;{/if}
 							{/section}
-						{/if}
+						</div>{/if}
 						{if $VAL_CONTACTID}
 							<h4>{$smarty.const.STR_WO_CONTACT|escape}</h4>
 							<div>

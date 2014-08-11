@@ -30,6 +30,33 @@ function validateAndSubmitForm(form)
 <script type="text/javascript">
 	$(function() {
 		$("input[data-input-type=date]").datepicker();
+		var hash = location.hash;
+		if (hash) {
+			var $tabs = $('#tabs').find('a[href="' + hash + '"]');
+			$tabs.tab('show');
+		}
+
+		$("body").on("click", "a.remove-from-project", function() {
+			var $link = $(this);
+			var jcn = $link.attr("data-jcn");
+			var seq = $link.attr("data-seq");
+
+			if (!confirm("Are you sure you want to remove this work order from its project?"))
+				return;
+
+			$.ajax({
+				type: "POST",
+				url: "{$URL_MAIN_PHP}?menuAction=Project.RemoveTask",
+				data: { "jcn": jcn, "seq": seq },
+				success: function() {
+					$.gritter.add({ title: "Success", text: "Successfully removed from project." });
+					$("div.panel").find("div.project-item-" + jcn + "-" + seq).hide("slow", function() { $(this).remove(); });
+				},
+				error: function() {
+					$.gritter.add({ title: "Error", text: "Could not remove the work order from its project." });
+				}
+			});
+		});
 	});
 
 function submitAction(sFormName, sAction)

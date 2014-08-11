@@ -13,7 +13,7 @@
 {/if}
 {if $PERM_ADDTASK}<li><a href="{$URL_MAIN_PHP}?menuAction=Project.AddTask&jcn={$VAL_JCN}&seq={$VAL_SEQ}" tabindex="-1">Project</a></li>{/if}
 {if $PERM_VIEWCHANGELOG}<li><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.ChangeLog&jcn={$VAL_JCN}&seq={$VAL_SEQ}" tabindex="-1">ChangeLog</a></li>{/if}
-{if $PERM_REMOVETASK}<li><a href="{$URL_MAIN_PHP}?menuAction=Project.RemoveTask&jcn={$VAL_JCN}&seq={$VAL_SEQ}" tabindex="-1">Remove from Project</a></li>{/if}
+{if $PERM_REMOVETASK}<li><a href="javascript:;" tabindex="-1" class="remove-from-project" data-jcn="{$VAL_JCN}" data-seq="{$VAL_SEQ}">Remove from Project</a></li>{/if}
 {if $PERM_VIEW}<li><a href="{$URL_MAIN_PHP}?menuAction=boWatches.add&typeid={$VAL_WATCHTYPE}&whatid1={$VAL_JCN}&whatid2={$VAL_SEQ}" tabindex="-1">Watch</a></li>{/if}
 {if $PERM_VIEWWIKI}<li><a href="{$URL_MAIN_PHP}?menuAction=htmlWiki.show&type={$smarty.const.DCL_ENTITY_WORKORDER}&id={$VAL_JCN}&id2={$VAL_SEQ}" tabindex="-1">{$smarty.const.STR_CMMN_WIKI}</a></li>{/if}
 {if $PERM_MODIFY}<li><a href="{$URL_MAIN_PHP}?menuAction=WorkOrder.Edit&jcn={$VAL_JCN}&seq={$VAL_SEQ}" tabindex="-1">{$smarty.const.STR_CMMN_EDIT}</a></li>{/if}

@@ -254,9 +254,6 @@ class ProjectController
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_REMOVETASK, $projectMapModel->projectid);
 
 		ProjectsModel::RemoveTask($jcn, $seq);
-
-		SetRedirectMessage('Success', 'Task removed.');
-		RedirectToAction('Project', 'Detail', 'id=' . $projectMapModel->projectid);
 	}
 
 	public function Download()
