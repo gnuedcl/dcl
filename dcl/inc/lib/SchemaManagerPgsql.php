@@ -392,7 +392,7 @@
 							case 'text':
 							case 'timestamp':
 							case 'varchar':
-								$sSQL .= "'" . $oProc->m_odb->db_addslashes($oProc->m_odb->f($name)) . "'";
+								$sSQL .= "'" . $oProc->m_odb->DBAddSlashes($oProc->m_odb->f($name)) . "'";
 								break;
 							default:
 								$sSQL .= $oProc->m_odb->f($name);
@@ -694,6 +694,10 @@
 				$notnull = !$aColumnDef['nullable'];
 				unset($aColumnDef['nullable']);
 			}
+			else
+			{
+				$notnull = false;
+			}
 			
 			$oProc->_GetFieldSQL($aColumnDef, $sFieldSQL);
 			$query = "ALTER TABLE $sTableName ADD COLUMN $sColumnName $sFieldSQL";
@@ -712,7 +716,7 @@
 					case 'text':
 					case 'timestamp':
 					case 'varchar':
-						$query .= "'" . $oProc->m_odb->db_addslashes($default) . "'";
+						$query .= "'" . $oProc->m_odb->DBAddSlashes($default) . "'";
 						break;
 					default:
 						$query .= $oProc->m_odb->f($default);

@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2011 Free Software Foundation
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,6 +19,8 @@
  *
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
+
+require_once(DCL_ROOT . 'vendor/password_compat/password.php');
 
 class AuthenticateSqlModel
 {
@@ -44,7 +46,7 @@ class AuthenticateSqlModel
 
 	private function SetQuery()
 	{
-		$this->sql = sprintf("SELECT p.id, p.contact_id, p.short, e.email_addr FROM personnel p LEFT JOIN dcl_contact_email e ON p.contact_id = e.contact_id AND e.preferred = 'Y' WHERE p.short=%s AND p.pwd=%s AND p.active='Y'", $this->model->Quote($this->uid), $this->model->Quote(md5($this->pwd)));
+		$this->sql = sprintf("SELECT p.id, p.contact_id, p.short, e.email_addr, p.pwd, p.pwd_change_required, p.is_locked, p.lock_expiration, p.last_pwd_chg_dt FROM personnel p LEFT JOIN dcl_contact_email e ON p.contact_id = e.contact_id AND e.preferred = 'Y' WHERE p.short=%s AND p.active='Y'", $this->model->Quote($this->uid));
 	}
 
 	public function IsValidLogin(&$authInfo)
@@ -57,12 +59,69 @@ class AuthenticateSqlModel
 		{
 			if ($this->model->next_record())
 			{
+				$hashedPwd = $this->model->f(4);
+				$hashOptions = array('cost' => 10);
+
+				if (password_verify($this->pwd, $hashedPwd))
+				{
+					$needsRehash = password_needs_rehash($hashedPwd, PASSWORD_DEFAULT, $hashOptions);
+				}
+				else if (md5($this->pwd) == $hashedPwd)
+				{
+					$needsRehash = true;
+				}
+				else
+				{
+					SecurityAuditModel::AddAudit($this->model->f(0), 'loginfail');
+					PersonnelModel::ProcessAccountAutolock($this->model->f(0));
+					return false;
+				}
+
+				$accountLocked = $this->model->f(6) == 'Y';
+				$needsLockReset = false;
+				if ($accountLocked && $this->model->f(7) != null)
+				{
+					$accountLockExpiration = new DateTime($this->model->f(7), new DateTimeZone('UTC'));
+					$now = new DateTime('now', new DateTimeZone('UTC'));
+
+					if ($now >= $accountLockExpiration)
+					{
+						$accountLocked = false;
+						$needsLockReset = true;
+					}
+				}
+
 				$authInfo = array(
-						'id' => $this->model->f(0),
-						'contact_id' => $this->model->f(1),
-						'short' => $this->model->f(2),
-						'email' => $this->model->f(3)
-					);
+					'id' => $this->model->f(0),
+					'contact_id' => $this->model->f(1),
+					'short' => $this->model->f(2),
+					'email' => $this->model->f(3),
+					'forcepwdchange' => $this->model->f(5) == 'Y',
+					'lastpwdchange' => $this->model->f(8),
+					'locked' => $accountLocked
+				);
+
+				if ($needsRehash || $needsLockReset)
+				{
+					$sql = 'UPDATE personnel SET ';
+					if ($needsRehash)
+					{
+						$hashedPwd = password_hash($this->pwd, PASSWORD_DEFAULT, $hashOptions);
+						$sql .= sprintf('pwd = %s', $this->model->Quote($hashedPwd));
+					}
+
+					if ($needsLockReset)
+					{
+						if ($needsRehash)
+							$sql .= ', ';
+
+						$sql .= "is_locked = 'N', lock_expiration = NULL";
+					}
+
+					$sql .= sprintf(' WHERE id = %d', $this->model->f(0));
+
+					$this->model->Query($sql);
+				}
 
 				return true;
 			}

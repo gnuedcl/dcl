@@ -27,7 +27,7 @@
 			cmTemplate: { title: false },
 			colModel:[
 				{ name: 'id', index: 'id', width: 35, align: "right" },
-				{ name: 'active', index: 'active', width: 35, formatter: formatYN, stype: "select", searchoptions: { value: ":All;Y:{$smarty.const.STR_CMMN_YES};N:{$smarty.const.STR_CMMN_NO}" } },
+				{ name: 'active', index: 'active', width: 35, formatter: formatYN, stype: "select", searchoptions: { value: ":All;Y:{$smarty.const.STR_CMMN_YES};N:{$smarty.const.STR_CMMN_NO};L:Locked" } },
 				{ name: 'short', index: 'short', width: 75 },
 				{ name: 'last_name', index: 'last_name', width: 75 },
 				{ name: 'first_name', index: 'first_name', width: 75 },
@@ -57,6 +57,9 @@
 	});
 
 	function formatYN(value, options, row) {
+		if (row[9] == 'Y')
+			return 'Locked';
+
 		return value == 'Y' ? '{$smarty.const.STR_CMMN_YES}' : '{$smarty.const.STR_CMMN_NO}';
 	}
 

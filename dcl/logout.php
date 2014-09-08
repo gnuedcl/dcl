@@ -54,7 +54,7 @@ if (isset($_COOKIE['DCLINFO']))
 	}
 }
 
-if (isset($_REQUEST['cd']) && ($_REQUEST['cd'] == '1' || $_REQUEST['cd'] == '2' || $_REQUEST['cd'] == '3' || $_REQUEST['cd'] == '4'))
+if (isset($_REQUEST['cd']) && ($_REQUEST['cd'] == '1' || $_REQUEST['cd'] == '2' || $_REQUEST['cd'] == '3' || $_REQUEST['cd'] == '4' || $_REQUEST['cd'] == '5'))
 	Refresh(DCL_WWW_ROOT . 'index.php?cd=' . $_REQUEST['cd']);
 else
 	Refresh(DCL_WWW_ROOT . 'index.php?cd=4');

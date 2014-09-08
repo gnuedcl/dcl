@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2011 Free Software Foundation
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -89,78 +89,52 @@ if (IsSet($_COOKIE['DCLINFO']) && !IsSet($_POST['UID']))
 }
 else
 {
-    $authenticateModel = new AuthenticateSqlModel();
+	$oConfig = new ConfigurationModel();
+	$dcl_info = array();
+	$oConfig->Load();
+
+	$authenticateModel = new AuthenticateSqlModel();
     $authInfo = array();
     if ($authenticateModel->IsValidLogin($authInfo))
     {
-        $oConfig = new ConfigurationModel();
-        $dcl_info = array();
-        $oConfig->Load();
+		if ($authInfo['locked'])
+		{
+			Refresh('logout.php?cd=5');
+		}
+		else
+		{
+			SessionHelper::Start($authInfo['id'], $authInfo['email'], $authInfo['short'], $authInfo['contact_id']);
+			SecurityAuditModel::AddAudit(DCLID, 'login');
+			PersonnelModel::SetLastLoginDate(DCLID);
 
-        $g_oSession = new SessionModel();
-        if (!$g_oSession->conn)
-            Refresh('logout.php?cd=3');
+			$forcePwdChange = $authInfo['forcepwdchange'];
+			if (!$forcePwdChange && $authInfo['lastpwdchange'] != null && $dcl_info['DCL_PASSWORD_MAX_AGE'] > 0)
+			{
+				$nextChgDt = new DateTime($authInfo['lastpwdchange']);
+				$nextChgDt->modify('+' . $dcl_info['DCL_PASSWORD_MAX_AGE'] . ' days');
+				$nowDt = new DateTime();
 
-        $g_oSession->personnel_id = $authInfo['id'];
-        $g_oSession->Add();
+				$forcePwdChange = $nowDt >= $nextChgDt;
+			}
 
-        $oPreferences = new PreferencesModel();
-        $oPreferences->Load($authInfo['id']);
+			if ($forcePwdChange)
+			{
+				$g_oSession->Register('ForcePasswordChange', '1');
+				$g_oSession->Edit();
+			}
 
-        $g_oSession->Register('DCLID', $authInfo['id']);
-        define('DCLID', $authInfo['id']);
+			$menuAction = 'menuAction=htmlMyDCL.show';
+			if ($g_oSec->IsPublicUser())
+				$menuAction = 'menuAction=htmlPublicMyDCL.show';
 
-        $g_oSession->Register('DCLNAME', trim($authInfo['short']));
-        $g_oSession->Register('USEREMAIL', $authInfo['email']);
-        $g_oSession->Register('contact_id', $authInfo['contact_id']);
-        $g_oSession->Register('dcl_info', $dcl_info);
-        $g_oSession->Register('dcl_preferences', $oPreferences->preferences_data);
-		$g_oSession->Register('CSRF_TOKEN', AntiCsrf::GenerateToken());
+			if (IsSet($_POST['refer_to']) && $_POST['refer_to'] != '')
+				$menuAction = urldecode($_POST['refer_to']);
 
-        // If we have org restrictions, cache the affiliated orgs for this contact record
-        if ($authInfo['contact_id'] != null && $authInfo['contact_id'] > 0)
-        {
-            if ($g_oSec->IsOrgUser())
-            {
-                $oContact = new ContactModel();
-                $aOrgs = $oContact->GetOrgArray($authInfo['contact_id']);
-                $g_oSession->Register('member_of_orgs', join(',', $aOrgs));
-
-                // Also grab the filtered product list for the orgs
-                $oOrg = new OrganizationModel();
-                $aProducts = $oOrg->GetProductArray($aOrgs);
-                if (count($aProducts) == 0)
-                    $aProducts = array('-1');
-
-                $g_oSession->Register('org_products', join(',', $aProducts));
-            }
-        }
-
-        $g_oSession->Edit();
-
-        if ($GLOBALS['dcl_info']['DCL_SEC_AUDIT_ENABLED']=='Y')
-        {
-            $oSecAuditDB = new SecurityAuditModel();
-            $oSecAuditDB->id = DCLID;
-            $oSecAuditDB->actionon = DCL_NOW;
-            $oSecAuditDB->actiontxt = 'login';
-            $oSecAuditDB->actionparam = '';
-            $oSecAuditDB->Add();
-        }
-
-        $menuAction = 'menuAction=htmlMyDCL.show';
-        if ($g_oSec->IsPublicUser())
-            $menuAction = 'menuAction=htmlPublicMyDCL.show';
-
-        if (IsSet($_POST['refer_to']) && $_POST['refer_to'] != '')
-            $menuAction = urldecode($_POST['refer_to']);
-
-        $tpl = $oPreferences->Value('DCL_PREF_TEMPLATE_SET');
-        if ($tpl == '')
-            $tpl = $dcl_info['DCL_DEF_TEMPLATE_SET'];
-
-        Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id);
+			Refresh('main.php?' . $menuAction, $g_oSession->dcl_session_id);
+		}
     }
     else
-        Refresh('logout.php?cd=1');
+	{
+		Refresh('logout.php?cd=1');
+	}
 }

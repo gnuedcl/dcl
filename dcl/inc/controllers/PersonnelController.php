@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2011 Free Software Foundation
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -51,10 +51,18 @@ class PersonnelController
 
 		$model = new PersonnelModel();
 		$model->InitFrom_POST();
-		if (isset($_POST['active']))
-			$model->active = 'Y';
-		else
-			$model->active = 'N';
+		$model->active = @Filter::ToYN($_POST['active']);
+		$model->pwd_change_required = @Filter::ToYN($_POST['pwd_change_required']);
+		$model->is_locked = @Filter::ToYN($_POST['is_locked']);
+		$model->lock_expiration = null;
+
+		$validator = PersonnelModel::GetPasswordValidator($_POST['pwd'], $_POST['pwd2'], $model);
+		if (!$validator->validate())
+		{
+			$presenter = new PersonnelPresenter();
+			$presenter->Create($validator->errors());
+			return;
+		}
 
 		$model->Encrypt();
 		$model->Add();
@@ -99,10 +107,11 @@ class PersonnelController
 
 		$model = new PersonnelModel();
 		$model->InitFrom_POST();
-		if (isset($_REQUEST['active']))
-			$model->active = 'Y';
-		else
-			$model->active = 'N';
+		$model->active = @Filter::ToYN($_POST['active']);
+		$model->pwd_change_required = @Filter::ToYN($_POST['pwd_change_required']);
+		$model->is_locked = @Filter::ToYN($_POST['is_locked']);
+		if ($model->is_locked == 'N')
+			$model->lock_expiration = null;
 
 		$model->Edit();
 
@@ -170,7 +179,7 @@ class PersonnelController
 	function EditPassword()
 	{
 		$presenter = new PersonnelPresenter();
-		$presenter->EditPassword();
+		$presenter->EditPassword(DCLID);
 	}
 
 	function UpdatePassword()
@@ -194,11 +203,14 @@ class PersonnelController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD) || (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_PASSWORD) && DCLID != $iID))
 			throw new PermissionDeniedException();
 
-		if ($_POST['confirm'] != $_POST['new'] || $_POST['new'] == '')
+		$model = new PersonnelModel();
+		$model->Load($iID);
+
+		$validator = PersonnelModel::GetPasswordValidator($_POST['new'], $_POST['confirm'], $model);
+		if (!$validator->validate())
 		{
-			ShowError(STR_BO_PASSWORDERR);
 			$presenter = new PersonnelPresenter();
-			$presenter->EditPassword();
+			$presenter->EditPassword($iID, $validator->errors());
 		}
 		else
 		{
@@ -207,7 +219,57 @@ class PersonnelController
 			if (isset($_POST['original']))
 				$sOriginal = $_POST['original'];
 
-			$objDBPersonnel->ChangePassword($iID, $sOriginal, $_POST['new'], $_POST['confirm']);
+			if (!$objDBPersonnel->ChangePassword($iID, $sOriginal, $_POST['new']))
+			{
+				ShowError('Could not change password.');
+				$presenter = new PersonnelPresenter();
+				$presenter->EditPassword($iID);
+				return;
+			}
+			else
+			{
+				ShowInfo(STR_DB_PWDCHGSUCCESS);
+			}
+		}
+	}
+
+	public function ForcePasswordChange()
+	{
+		$presenter = new PersonnelPresenter();
+		$presenter->ForcePasswordChange();
+	}
+
+	public function ForcePasswordChangePost()
+	{
+		global $g_oSec, $g_oSession;
+
+		RequirePost();
+		RequirePermission(DCL_ENTITY_PREFS, DCL_PERM_PASSWORD);
+
+		$model = new PersonnelModel();
+		$model->Load(DCLID);
+
+		$validator = PersonnelModel::GetPasswordValidator($_POST['new'], $_POST['confirm'], $model);
+
+		if (!$validator->validate())
+		{
+			ShowError(STR_BO_PASSWORDERR);
+			$presenter = new PersonnelPresenter();
+			$presenter->ForcePasswordChange();
+		}
+		else
+		{
+			$model->SetUserPassword(DCLID, $_POST['new']);
+
+			$g_oSession->Unregister('ForcePasswordChange');
+			$g_oSession->Edit();
+
+			SetRedirectMessage('Success', 'Password changed successfully.');
+
+			if ($g_oSec->IsPublicUser())
+				RedirectToAction('htmlPublicMyDCL', 'show');
+			else
+				RedirectToAction('htmlMyDCL', 'show');
 		}
 	}
 }

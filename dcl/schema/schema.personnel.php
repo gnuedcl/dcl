@@ -26,9 +26,16 @@ $GLOBALS['phpgw_baseline']['personnel'] = array(
 		'short' => array('type' => 'varchar', 'precision' => 25, 'nullable' => false),
 		'reportto' => array('type' => 'int', 'precision' => 4),
 		'department' => array('type' => 'int', 'precision' => 4),
-		'pwd' => array('type' => 'varchar', 'precision' => 50, 'nullable' => false),
+		'pwd' => array('type' => 'varchar', 'precision' => 255, 'nullable' => false),
 		'active' => array('type' => 'char', 'precision' => 1, 'default' => 'Y', 'nullable' => false),
-		'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
+		'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'last_login_dt' => array('type' => 'timestamp', 'nullable' => true),
+		'last_pwd_chg_dt' => array('type' => 'timestamp', 'nullable' => true),
+		'is_locked' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
+		'lock_expiration' => array('type' => 'timestamp', 'nullable' => true),
+		'pwd_change_required' => array('type' => 'char', 'precision' => 1, 'default' => 'N', 'nullable' => false),
+		'pwd_reset_token' => array('type' => 'varchar', 'precision' => 255, 'nullable' => true),
+		'pwd_reset_token_expiration' => array('type' => 'timestamp', 'nullable' => true)
 	),
 	'pk' => array('id'),
 	'fk' => array(),

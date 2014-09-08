@@ -31,7 +31,7 @@ DCL_PROJECT_BROWSE_PARENTS_ONLY	dcl_config_varchar					N
 DCL_PROJECT_INCLUDE_PARENT_STATS	dcl_config_varchar					N
 DCL_PROJECT_INCLUDE_CHILD_STATS	dcl_config_varchar					Y
 DCL_FILE_PATH	dcl_config_varchar					.
-DCL_HTML_TITLE	dcl_config_varchar					GNUe Double Choco Latte - Copyright (C) 1999-2004 Free Software Foundation
+DCL_HTML_TITLE	dcl_config_varchar					GNUe Double Choco Latte - Copyright (C) 1999-2014 Free Software Foundation
 DCL_DEFAULT_PROJECT_STATUS	dcl_config_int	1
 DCL_DEFAULT_TICKET_STATUS	dcl_config_int	1
 DCL_GATEWAY_TICKET_ENABLED	dcl_config_varchar					N
@@ -73,3 +73,18 @@ DCL_SEC_AUDIT_ENABLED	dcl_config_varchar					N
 DCL_SEC_AUDIT_LOGIN_ONLY	dcl_config_varchar					N
 DCL_FORCE_SECURE_GRAVATAR	dcl_config_varchar					N
 DCL_FORCE_SECURE_COOKIE	dcl_config_varchar					N
+DCL_PASSWORD_RESET_TOKEN_TTL	dcl_config_int	15
+DCL_PASSWORD_MIN_LENGTH	dcl_config_int	1
+DCL_PASSWORD_REQUIRE_UPPERCASE	dcl_config_varchar						N
+DCL_PASSWORD_REQUIRE_LOWERCASE	dcl_config_varchar						N
+DCL_PASSWORD_REQUIRE_NUMERIC	dcl_config_varchar						N
+DCL_PASSWORD_REQUIRE_SYMBOL	dcl_config_varchar						N
+DCL_PASSWORD_REQUIRE_THRESHOLD	dcl_config_int	1
+DCL_PASSWORD_ALLOW_SAME_AS_USERNAME	dcl_config_varchar						N
+DCL_LOCKOUT_DURATION	dcl_config_int	0
+DCL_LOCKOUT_THRESHOLD	dcl_config_int	0
+DCL_LOCKOUT_WINDOW	dcl_config_int	0
+DCL_PASSWORD_DISALLOW_REUSE_THRESHOLD	dcl_config_int	1
+DCL_PASSWORD_DISALLOW_REUSE_DAYS	dcl_config_int	1
+DCL_PASSWORD_MIN_AGE	dcl_config_int	0
+DCL_PASSWORD_MAX_AGE	dcl_config_int	0

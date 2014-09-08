@@ -25,7 +25,11 @@ require_once('login.php');
 $g_oPage = new Page();
 $g_oPage->StartPage();
 
-if (IsSet($_REQUEST['menuAction']) && $_REQUEST['menuAction'] != 'clearScreen')
+if ($g_oSession->Value('ForcePasswordChange') == '1' && (!isset($_REQUEST['menuAction']) || $_REQUEST['menuAction'] != 'Personnel.ForcePasswordChangePost'))
+{
+	Invoke('Personnel.ForcePasswordChange');
+}
+else if (IsSet($_REQUEST['menuAction']))
 {
 	if ($g_oSec->ValidateMenuAction() == true)
 	{

@@ -41,13 +41,16 @@ if (IsSet($_REQUEST['cd']))
 			$t->assign('VAL_ERROR', 'Invalid login or password');
 			break;
 		case 2:
-			$t->assign('VAL_ERROR', 'Could not verify session');
+			$t->assign('VAL_ERROR', 'Session expired');
 			break;
 		case 3:
 			$t->assign('VAL_ERROR', 'Could not connect to database');
 			break;
 		case 4:
 			$t->assign('VAL_ERROR', 'Logout successful');
+			break;
+		case 5:
+			$t->assign('VAL_ERROR', 'Account locked');
 			break;
 		default:
 			$t->assign('VAL_ERROR', 'Unknown error');

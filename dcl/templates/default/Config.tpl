@@ -65,6 +65,54 @@
 		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
+		<legend>Password and Account Settings</legend>
+		{dcl_form_control id=DCL_PASSWORD_RESET_TOKEN_TTL controlsize=2 label="Password Reset Token TTL" required=true help="The number of minutes a password reset token is valid."}
+		{dcl_input_text id=DCL_PASSWORD_RESET_TOKEN_TTL maxlength=5 value=$VAL_PASSWORDRESETTOKENTTL}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_ALLOW_SAME_AS_USERNAME controlsize=10 label="Allow Same as User Name" required=true help="If checked, allow passwords to be the same as the user name."}
+			<input type="checkbox" id="DCL_PASSWORD_ALLOW_SAME_AS_USERNAME" name="DCL_PASSWORD_ALLOW_SAME_AS_USERNAME" value="Y"{if $VAL_PASSWORDALLOWSAMEASUSERNAME == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_MIN_LENGTH controlsize=2 label="Password Minimum Length" required=true help="The minimum length of a valid password."}
+		{dcl_input_text id=DCL_PASSWORD_MIN_LENGTH maxlength=5 value=$VAL_PASSWORDMINLENGTH}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_REQUIRE_THRESHOLD controlsize=2 label="Password Requirement Threshold" required=true help="Of the enabled checkboxes in the next 4 options, how many must be satisfied in order for the password to be considered valid."}
+		{dcl_input_text id=DCL_PASSWORD_REQUIRE_THRESHOLD maxlength=5 value=$VAL_PASSWORDREQUIRETHRESHOLD}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_REQUIRE_UPPERCASE controlsize=10 label="Require Uppercase" required=true help="Password must have at least one uppercase character."}
+			<input type="checkbox" id="DCL_PASSWORD_REQUIRE_UPPERCASE" name="DCL_PASSWORD_REQUIRE_UPPERCASE" value="Y"{if $VAL_PASSWORDREQUIREUPPERCASE == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_REQUIRE_LOWERCASE controlsize=10 label="Require Lowercase" required=true help="Password must have at least one lowercase character."}
+			<input type="checkbox" id="DCL_PASSWORD_REQUIRE_LOWERCASE" name="DCL_PASSWORD_REQUIRE_LOWERCASE" value="Y"{if $VAL_PASSWORDREQUIRELOWERCASE == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_REQUIRE_NUMERIC controlsize=10 label="Require Numeric" required=true help="Password must have at least one numeric character."}
+			<input type="checkbox" id="DCL_PASSWORD_REQUIRE_NUMERIC" name="DCL_PASSWORD_REQUIRE_NUMERIC" value="Y"{if $VAL_PASSWORDREQUIRENUMERIC == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_REQUIRE_SYMBOL controlsize=10 label="Require Symbol" required=true help="Password must have at least one symbol character."}
+			<input type="checkbox" id="DCL_PASSWORD_REQUIRE_SYMBOL" name="DCL_PASSWORD_REQUIRE_SYMBOL" value="Y"{if $VAL_PASSWORDREQUIRESYMBOL == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_LOCKOUT_DURATION controlsize=2 label="Account Lockout Duration" required=true help="The number of minutes an account is locked out after the threshold is reached within the specified window."}
+		{dcl_input_text id=DCL_LOCKOUT_DURATION maxlength=5 value=$VAL_LOCKOUTDURATION}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_LOCKOUT_THRESHOLD controlsize=2 label="Account Lockout Threshold" required=true help="The number of failed attempts allowed within the specified window before an account is locked out."}
+		{dcl_input_text id=DCL_LOCKOUT_THRESHOLD maxlength=5 value=$VAL_LOCKOUTTHRESHOLD}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_LOCKOUT_WINDOW controlsize=2 label="Account Lockout Window" required=true help="The number of minutes to consider failed attempts for the lockout threshold."}
+		{dcl_input_text id=DCL_LOCKOUT_WINDOW maxlength=5 value=$VAL_LOCKOUTWINDOW}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_DISALLOW_REUSE_THRESHOLD controlsize=2 label="Password Reuse Threshold" required=true help="Do not allow the password to be change to one of the last n passwords."}
+		{dcl_input_text id=DCL_PASSWORD_DISALLOW_REUSE_THRESHOLD maxlength=5 value=$VAL_PASSWORDDISALLOWREUSETHRESHOLD}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_DISALLOW_REUSE_DAYS controlsize=2 label="Password Reuse Days" required=true help="The number of days back to look at passwords for the reuse threshold."}
+		{dcl_input_text id=DCL_PASSWORD_DISALLOW_REUSE_DAYS maxlength=5 value=$VAL_PASSWORDDISALLOWREUSEDAYS}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_MIN_AGE controlsize=2 label="Password Minimum Age" required=true help="The number of days a user must keep a password after changing it (0 to disable)."}
+		{dcl_input_text id=DCL_PASSWORD_MIN_AGE maxlength=5 value=$VAL_PASSWORDMINAGE}
+		{/dcl_form_control}
+		{dcl_form_control id=DCL_PASSWORD_MAX_AGE controlsize=2 label="Password Maximum Age" required=true help="The maximum number of days a user can keep a password after changing it (0 to disable)."}
+		{dcl_input_text id=DCL_PASSWORD_MAX_AGE maxlength=5 value=$VAL_PASSWORDMAXAGE}
+		{/dcl_form_control}
+	</fieldset>
+	<fieldset>
 		<legend>{$smarty.const.STR_CFG_EMAILSERVERTITLE}</legend>
 		{dcl_form_control id=DCL_SMTP_ENABLED controlsize=10 label=$smarty.const.STR_CFG_SMTPENABLED required=true help=$smarty.const.STR_CFG_SMTPENABLEDHELP}
 		<input type="checkbox" id="DCL_SMTP_ENABLED" name="DCL_SMTP_ENABLED" value="Y"{if $VAL_SMTPENABLED == "Y"} checked{/if}>

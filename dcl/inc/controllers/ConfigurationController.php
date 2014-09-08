@@ -32,10 +32,9 @@ class ConfigurationController
 
 	public function Update()
 	{
-		global $dcl_info, $g_oSec;
+		global $dcl_info;
 
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY))
-			throw new PermissionDeniedException();
+		RequirePermission(DCL_ENTITY_ADMIN, DCL_PERM_MODIFY);
 
 		$aCheckboxes = array('DCL_AUTO_DATE', 'DCL_PROJECT_XML_TEMPLATES', 'DCL_SMTP_ENABLED',
 							'DCL_GATEWAY_TICKET_ENABLED', 'DCL_GATEWAY_TICKET_AUTORESPOND',
@@ -46,7 +45,10 @@ class ConfigurationController
 							'DCL_GATEWAY_WO_REPLY', 'DCL_WO_SECONDARY_ACCOUNTS_ENABLED',
 							'DCL_WIKI_ENABLED', 'DCL_SCCS_ENABLED', 'DCL_SMTP_AUTH_REQUIRED',
 							'DCL_BUILD_MANAGER_ENABLED', 'DCL_SEC_AUDIT_ENABLED',
-							'DCL_SEC_AUDIT_LOGIN_ONLY', 'DCL_FORCE_SECURE_GRAVATAR'
+							'DCL_SEC_AUDIT_LOGIN_ONLY', 'DCL_FORCE_SECURE_GRAVATAR', 'DCL_FORCE_SECURE_COOKIE',
+							'DCL_PASSWORD_REQUIRE_UPPERCASE', 'DCL_PASSWORD_REQUIRE_LOWERCASE',
+							'DCL_PASSWORD_REQUIRE_NUMERIC', 'DCL_PASSWORD_REQUIRE_SYMBOL',
+							'DCL_PASSWORD_ALLOW_SAME_AS_USERNAME'
 						);
 
 		// get all of the settings except for DCL_VERSION and LAST_CONFIG_UPDATE and update

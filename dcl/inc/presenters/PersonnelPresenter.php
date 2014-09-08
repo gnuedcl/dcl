@@ -117,7 +117,7 @@ class PersonnelPresenter
 		$smarty->Render('PersonnelDetail.tpl');
 	}
 
-	public function Create()
+	public function Create(array $errors = null)
 	{
 		commonHeader();
 		RequirePermission(DCL_ENTITY_PERSONNEL, DCL_PERM_ADD);
@@ -126,9 +126,11 @@ class PersonnelPresenter
 
 		$template->assign('IS_EDIT', false);
 		$template->assign('VAL_ACTIVE', 'Y');
+		$template->assign('VAL_PWDCHANGEREQUIRED', 'Y');
 		$template->assign('VAL_REPORTTO', DCLID);
 		$template->assign('VAL_DEPARTMENT', 0);
 		$template->assign('VAL_SHORT', '');
+		$template->assign('ERRORS', $errors);
 
 		$oUserRole = new UserRoleModel();
 		$template->assign('Roles', $oUserRole->GetGlobalRoles());
@@ -152,6 +154,16 @@ class PersonnelPresenter
 		$template->assign('VAL_SHORT', $model->short);
 		$template->assign('VAL_REPORTTO', $model->reportto);
 		$template->assign('VAL_DEPARTMENT', $model->department);
+		$template->assign('VAL_PWDCHANGEREQUIRED', $model->pwd_change_required);
+
+		$isLocked = $model->IsLocked();
+		$template->assign('VAL_ISLOCKED', $isLocked ? 'Y' : 'N');
+		if ($isLocked && $model->lock_expiration != null)
+		{
+			$lockExpiration = new DateTime($model->lock_expiration, new DateTimeZone('UTC'));
+			$lockExpiration->setTimezone(new DateTimeZone(date_default_timezone_get()));
+			$template->assign('VAL_LOCKEXPIRATION', $lockExpiration->format('m/d/Y H:i:s'));
+		}
 
 		$oUserRole = new UserRoleModel();
 		$template->assign('Roles', $oUserRole->GetGlobalRoles($model->id));
@@ -176,7 +188,7 @@ class PersonnelPresenter
 		ShowDeleteYesNo('User', 'Personnel.Destroy', $model->id, $model->short);
 	}
 
-	public function EditPassword()
+	public function EditPassword($userId, array $errors = null)
 	{
 		global $g_oSec;
 
@@ -187,10 +199,16 @@ class PersonnelPresenter
 		$oSmarty = new SmartyHelper();
 		
 		$oSmarty->assign('PERM_ADMIN', $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN));
-		$oSmarty->assign('VAL_USERID', DCLID);
-		$oSmarty->assign('VAL_USERNAME', $GLOBALS['DCLNAME']);
-		
+		$oSmarty->assign('VAL_USERID', $userId);
+		$oSmarty->assign('ERRORS', $errors);
+
 		$oSmarty->Render('PersonnelPasswdForm.tpl');
+	}
+
+	public function ForcePasswordChange()
+	{
+		$t = new SmartyHelper();
+		$t->Render('ForcePasswordChange.tpl');
 	}
 	
 	private function GetScopeSQL($personnelId)

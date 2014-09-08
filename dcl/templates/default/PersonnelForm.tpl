@@ -2,16 +2,24 @@
 {dcl_validator_init}
 <link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
 <link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+{dcl_validator_errors errors=$ERRORS}
 <form class="form-horizontal" name="userInputForm" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{if $IS_EDIT}Personnel.Update{else}Personnel.Insert{/if}">
 	{if $IS_EDIT}<input type="hidden" name="id" value="{$VAL_PERSONNELID}">{/if}
 	<fieldset>
 		<legend>{if $IS_EDIT}{$smarty.const.STR_USR_EDIT|escape}{else}{$smarty.const.STR_USR_ADD|escape}{/if}</legend>
-		{dcl_form_control id=short controlsize=3 label=$smarty.const.STR_USR_LOGIN required=true}
+		{dcl_form_control id=short controlsize=3 label="Username" required=true}
 		{dcl_input_text id=short maxlength=25 value=$VAL_SHORT}
 		{/dcl_form_control}
 		{dcl_form_control id=active controlsize=10 label=$smarty.const.STR_USR_ACTIVE}
-			<input type="checkbox" name="active" id="active"{if $VAL_ACTIVE == "Y"} checked{/if}>
+			<input type="checkbox" name="active" id="active" value="Y"{if $VAL_ACTIVE == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=pwd_change_required controlsize=10 label="Force Password Change On Next Login"}
+			<input type="checkbox" name="pwd_change_required" id="pwd_change_required" value="Y"{if $VAL_PWDCHANGEREQUIRED == "Y"} checked{/if}>
+		{/dcl_form_control}
+		{dcl_form_control id=is_locked controlsize=10 label="Account Locked"}
+			<input type="checkbox" name="is_locked" id="is_locked" value="Y"{if $VAL_ISLOCKED == "Y"} checked{/if}>
+			{if $VAL_ISLOCKED == "Y" && $VAL_LOCKEXPIRATION}Expires: {$VAL_LOCKEXPIRATION|escape}{/if}
 		{/dcl_form_control}
 		{dcl_form_control id=reportto controlsize=4 label=$smarty.const.STR_USR_REPORTTO required=true}
 		{dcl_select_personnel name=reportto default=$VAL_REPORTTO}
@@ -23,8 +31,8 @@
 		{dcl_selector_contact name=contact_id value=$VAL_CONTACTID decoded=$VAL_CONTACTNAME}
 		{/dcl_form_control}
 {if $IS_EDIT == false}
-	{dcl_form_control id=password controlsize=5 label=$smarty.const.STR_USR_PASSWORD required=true}
-	{dcl_input_text id=password value=""}
+	{dcl_form_control id=pwd controlsize=5 label=$smarty.const.STR_USR_PASSWORD required=true}
+	{dcl_input_text id=pwd value=""}
 	{/dcl_form_control}
 	{dcl_form_control id=pwd2 controlsize=5 label=$smarty.const.STR_USR_CONFIRMPWD required=true}
 	{dcl_input_text id=pwd2 value=""}
@@ -65,7 +73,6 @@
 			new ValidatorSelector(form.elements["contact_id"], "{$smarty.const.STR_CMMN_CONTACT}")
 		];
 
-
 		for (var i in aValidators)
 		{
 			if (!aValidators[i].isValid())
@@ -81,7 +88,7 @@
 		{
 			if (form.elements["pwd"].value != form.elements["pwd2"].value)
 			{
-				alert("Your passwords do not match!  Please enter them again.");
+				alert("The passwords do not match!  Please enter them again.");
 				form.elements["pwd"].value = "";
 				form.elements["pwd2"].value = "";
 				form.elements["pwd"].focus();
@@ -91,5 +98,4 @@
 
 		form.submit();
 	}
-
 </script>

@@ -32,4 +32,19 @@ class SecurityAuditModel extends DbProvider
 		
 		parent::Clear();
 	}
+
+	public static function AddAudit($userId, $action, $params = '')
+	{
+		global $dcl_info;
+
+		if ($dcl_info['DCL_SEC_AUDIT_ENABLED'] == 'Y')
+		{
+			$securityAuditModel = new SecurityAuditModel();
+			$securityAuditModel->id = $userId;
+			$securityAuditModel->actionon = DCL_NOW;
+			$securityAuditModel->actiontxt = $action;
+			$securityAuditModel->actionparam = $params;
+			$securityAuditModel->Add();
+		}
+	}
 }

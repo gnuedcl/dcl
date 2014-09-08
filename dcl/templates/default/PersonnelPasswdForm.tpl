@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
 <link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
+{dcl_validator_errors errors=$ERRORS}
 <form class="form-horizontal" method="post" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="Personnel.UpdatePassword">
 	<fieldset>
@@ -17,18 +18,17 @@
 		{/if}
 		{dcl_form_control id=new controlsize=4 label=$smarty.const.STR_USR_NEWPWD required=true}
 			<input class="form-control" type="password" size="15" name="new" id="new">
-			<span class="help-block">Enter your new password here.</span>
+			<span class="help-block">Enter the new password here.</span>
 		{/dcl_form_control}
 		{dcl_form_control id=confirm controlsize=4 label=$smarty.const.STR_USR_CONFIRMPWD required=true}
 			<input class="form-control" type="password" size="15" name="confirm" id="confirm">
-			<span class="help-block">Confirm your new password.</span>
+			<span class="help-block">Confirm the new password.</span>
 		{/dcl_form_control}
 	</fieldset>
 	<fieldset>
 		<div class="row">
 			<div class="col-xs-offset-2">
 				<input type="submit" class="btn btn-primary" value="{$smarty.const.STR_CMMN_SAVE}">
-				<input type="reset" class="btn btn-link" value="{$smarty.const.STR_CMMN_RESET}">
 			</div>
 		</div>
 	</fieldset>

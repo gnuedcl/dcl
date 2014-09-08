@@ -180,6 +180,12 @@ function DclClassAutoLoader($className)
 		return;
 	}
 
+	if ($className == 'Valitron\Validator')
+	{
+		require_once(DCL_ROOT . 'vendor/valitron/Validator.php');
+		return;
+	}
+
 	if ($className === 'pData')
 	{
 		require_once(DCL_ROOT . 'vendor/pChart/pData.class');
@@ -744,7 +750,12 @@ function DclErrorLog($level, $message, $file, $line, $backTrace)
 		$logger->log_level = $level;
 
 		if ($backTrace != null && $backTrace != '')
+		{
+			if (is_array($backTrace) && isset($backTrace['object']))
+				unset($backTrace['object']);
+
 			$logger->stack_trace = @json_encode($backTrace);
+		}
 
 		$logger->Add();
 
@@ -862,3 +873,6 @@ else
 }
 
 spl_autoload_register('DclClassAutoLoader');
+
+Valitron\Validator::langDir(DCL_ROOT . 'vendor/valitron/lang');
+Valitron\Validator::lang(GetPrefLang());

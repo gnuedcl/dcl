@@ -61,7 +61,6 @@ class PersonnelService
 
 		$idFilter = @Filter::ToInt($_REQUEST['id']);
 		$shortFilter = @$_REQUEST['short'];
-		$activeFilter = isset($_REQUEST['active']) ? @Filter::ToYN($_REQUEST['active']) : null;
 		$lastNameFilter = @$_REQUEST['last_name'];
 		$firstNameFilter = @$_REQUEST['first_name'];
 		$departmentFilter = @Filter::ToInt($_REQUEST['dept']);
@@ -69,9 +68,17 @@ class PersonnelService
 		$emailFilter = @$_REQUEST['email'];
 		$urlFilter = @$_REQUEST['url'];
 
+		if (isset($_REQUEST['active']))
+		{
+			if (in_array($_REQUEST['active'], array('Y', 'N', 'L')))
+			{
+				$activeFilter = $_REQUEST['active'];
+			}
+		}
+
 		$model = new PersonnelModel();
 		$queryHelper = new PersonnelSqlQueryHelper();
-		$aColumns = array('id', 'active', 'short', 'dcl_contact.last_name', 'dcl_contact.first_name', 'departments.name', 'dcl_contact_phone.phone_number', 'dcl_contact_email.email_addr', 'dcl_contact_url.url_addr');
+		$aColumns = array('id', 'active', 'short', 'dcl_contact.last_name', 'dcl_contact.first_name', 'departments.name', 'dcl_contact_phone.phone_number', 'dcl_contact_email.email_addr', 'dcl_contact_url.url_addr', 'is_locked');
 		$queryHelper->AddDef('columns', '', $aColumns);
 
 		if ($idFilter !== null)
@@ -81,7 +88,12 @@ class PersonnelService
 			$queryHelper->AddDef('filterlike', 'short', $shortFilter);
 
 		if (isset($activeFilter))
-			$queryHelper->AddDef('filter', 'active', $model->Quote($activeFilter));
+		{
+			if ($activeFilter == 'L')
+				$queryHelper->AddDef('filter', 'is_locked', $model->Quote('Y'));
+			else
+				$queryHelper->AddDef('filter', 'active', $model->Quote($activeFilter));
+		}
 
 		if ($lastNameFilter != '')
 			$queryHelper->AddDef('filterlike', 'dcl_contact.last_name', $lastNameFilter);
