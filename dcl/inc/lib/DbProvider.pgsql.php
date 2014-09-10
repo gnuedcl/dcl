@@ -74,7 +74,7 @@ class DbProvider extends AbstractDbProvider
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = @pg_connect(sprintf("dbname='template1' port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
+		$conn = @pg_connect(sprintf("port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
 					$dcl_domain_info[$dcl_domain]['dbPort'],
 					$dcl_domain_info[$dcl_domain]['dbHost'],
 					$dcl_domain_info[$dcl_domain]['dbUser'],
