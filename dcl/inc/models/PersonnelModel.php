@@ -329,7 +329,7 @@ class PersonnelModel extends DbProvider
 			$historyParams = array('current' => $model->pwd, 'userId' => $model->id);
 			$v->rule('satisfiesPasswordHistory', 'new', $historyParams)->message(self::GetPasswordHistoryInfo())->label('Password');
 
-			if ($dcl_info['DCL_PASSWORD_MIN_AGE'] > 0 && $model->last_pwd_chg_dt != null && $model->pwd_change_required == 'N')
+			if ($dcl_info['DCL_PASSWORD_MIN_AGE'] > 0 && $model->last_pwd_chg_dt != null && $model->pwd_change_required == 'N' && DCLID == $model->id)
 			{
 				$minDt = new DateTime();
 				$minDt->modify('-' . $dcl_info['DCL_PASSWORD_MIN_AGE'] . ' days');
