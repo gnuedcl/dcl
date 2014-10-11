@@ -167,7 +167,7 @@ class TimeCardsModel extends DbProvider
 		$sql .= $this->ConvertDate('actionon', 'actionon');
 		$sql .= ', ' . $this->ConvertTimestamp('inputon', 'inputon');
 		$sql .= ', actionby, status, action, hours, summary, description, reassign_from_id, reassign_to_id, is_public, s.dcl_status_type';
-		$sql .= " FROM timecards, statuses s WHERE jcn=$jcn and seq=$seq and status = s.id $sPublicSQL ORDER BY id " . $dcl_info['DCL_TIME_CARD_ORDER'];
+		$sql .= " FROM timecards, statuses s WHERE jcn=$jcn and seq=$seq and status = s.id $sPublicSQL ORDER BY timecards.id " . $dcl_info['DCL_TIME_CARD_ORDER'];
 		if (!$this->Query($sql))
 			return -1;
 
