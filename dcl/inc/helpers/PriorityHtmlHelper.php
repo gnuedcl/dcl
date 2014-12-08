@@ -26,7 +26,7 @@ class PriorityHtmlHelper
 {
 	public function Select($default = 0, $cbName = 'priority', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0)
 	{
-		$query = "SELECT a.id,a.$longShort FROM priorities a";
+		$query = "SELECT a.id, a.$longShort, NULL FROM priorities a";
 
 		if ($setid > 0)
 		{

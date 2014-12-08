@@ -20,17 +20,10 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$GLOBALS['phpgw_baseline']['dcl_environment_outage_wo'] = array(
-	'fd' => array(
-		'environment_outage_wo_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
-		'environment_outage_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'wo_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'seq' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'create_dt' => array('type' => 'timestamp', 'nullable' => false),
-		'create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
-	),
-	'pk' => array('environment_outage_wo_id'),
-	'fk' => array(),
-	'ix' => array(),
-	'uc' => array()
-);
+function smarty_function_dcl_bootstrapvalidator($params, &$smarty)
+{
+	?>
+<link rel="stylesheet" src="vendor/bootstrapvalidator/css/bootstrapValidator.min.css" />
+<script type="text/javascript" src="vendor/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+<?php
+}

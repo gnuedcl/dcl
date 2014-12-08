@@ -22,11 +22,16 @@
 
 function smarty_block_dcl_form_control($params, $content, $template, &$repeat)
 {
+	$inputGroup = isset($params['inputGroup']) && $params['inputGroup'] == true;
+
 	if (is_null($content) && $repeat) {
 		$required = isset($params['required']) && $params['required'] == true;
-	?>	<div class="form-group"<?php if ($required) {?> data-required="required"<?php } ?>>
-			<label for="<?php echo $params['id']; ?>" class="col-sm-2 control-label"><?php echo htmlspecialchars($params['label'], ENT_QUOTES, 'UTF-8'); ?></label>
-			<div class="col-sm-<?php echo $params['controlsize']; ?>"><?php
+		$labelUsed = isset($params['label']) && $params['label'] != '';
+		$controlSizeUsed = isset($params['controlsize']) && $params['controlsize'] != '';
+	?>	<div class="form-group<?php if ($required) {?> required<?php } ?>"<?php if ($required) {?> data-required="required"<?php } ?>>
+			<?php if ($labelUsed) {?><label for="<?php echo $params['id']; ?>" class="col-sm-2 control-label"><?php echo htmlspecialchars($params['label'], ENT_QUOTES, 'UTF-8'); ?></label><?php } ?>
+			<div<?php if ($controlSizeUsed || $inputGroup) { ?> class="<?php if ($controlSizeUsed) { ?>col-sm-<?php echo $params['controlsize']; ?><?php } ?><?php if ($inputGroup) { ?> inputGroupContainer<?php } ?>"<?php } ?>>
+			<?php if ($inputGroup) { ?><div class="input-group"><?php }
 
 		return;
 	}
@@ -36,6 +41,8 @@ function smarty_block_dcl_form_control($params, $content, $template, &$repeat)
 		if (isset($params['help']))
 			$help = '<div class="col-sm-offset-2 col-sm-10"><span class="help-block">' . htmlspecialchars($params['help'], ENT_QUOTES, 'UTF-8') . '</span></div>';
 
-		echo $content, '</div>', $help, '</div>';
+		$closeInputGroup = $inputGroup ? '</div>' : '';
+
+		echo $content, '</div>', $closeInputGroup, $help, '</div>';
 	}
 }

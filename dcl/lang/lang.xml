@@ -214,7 +214,6 @@
 			<xlt lang="es">FAQs</xlt>
 			<xlt lang="fr">FAQs</xlt>
 			<xlt lang="it">FAQs</xlt>
-			<xlt lang="ru">FAQs</xlt>
 			<xlt lang="sl">FAQs</xlt>
 			<xlt lang="sv">FAQ</xlt>
 		</phrase>
@@ -230,7 +229,6 @@
 			<xlt lang="es">DCL Pagina Inicio</xlt>
 			<xlt lang="fr">Home-Page DCL</xlt>
 			<xlt lang="it">Home Page DCL</xlt>
-			<xlt lang="ru">DCL Home Page</xlt>
 			<xlt lang="sl">DCL Home Page</xlt>
 			<xlt lang="sv">DCL:s webbplats</xlt>
 		</phrase>
@@ -240,7 +238,6 @@
 			<xlt lang="es">Acerca de licencia</xlt>
 			<xlt lang="fr">Info Licence</xlt>
 			<xlt lang="it">Licenza</xlt>
-			<xlt lang="ru">License Info</xlt>
 			<xlt lang="sl">License Info</xlt>
 			<xlt lang="sv">Licensinfo.</xlt>
 		</phrase>
@@ -250,7 +247,6 @@
 			<xlt lang="es">Acerca de version</xlt>
 			<xlt lang="fr">Info Version</xlt>
 			<xlt lang="it">Versione</xlt>
-			<xlt lang="ru">Version Info</xlt>
 			<xlt lang="sl">Version Info</xlt>
 			<xlt lang="sv">Versionsinfo.</xlt>
 		</phrase>
@@ -350,7 +346,6 @@
 			<xlt lang="es">Main Wiki</xlt>
 			<xlt lang="fr">Main Wiki</xlt>
 			<xlt lang="it">Main Wiki</xlt>
-			<xlt lang="ru">Main Wiki</xlt>
 			<xlt lang="sl">Main Wiki</xlt>
 			<xlt lang="sv">Main Wiki</xlt>
 		</phrase>
@@ -390,7 +385,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -670,7 +664,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -1074,7 +1067,6 @@
 			<xlt lang="es">Ir</xlt>
 			<xlt lang="fr">Go</xlt>
 			<xlt lang="it">Go</xlt>
-			<xlt lang="ru">Go</xlt>
 			<xlt lang="sl">Pojdi</xlt>
 			<xlt lang="sv">Go</xlt>
 		</phrase>
@@ -1084,7 +1076,6 @@
 			<xlt lang="es">OK</xlt>
 			<xlt lang="fr">OK</xlt>
 			<xlt lang="it">OK</xlt>
-			<xlt lang="ru">OK</xlt>
 			<xlt lang="sl">V redu</xlt>
 			<xlt lang="sv">OK</xlt>
 		</phrase>
@@ -1273,7 +1264,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -1349,6 +1339,9 @@
 			<xlt lang="sl">Ime</xlt>
 			<xlt lang="sv">Namn</xlt>
 		</phrase>
+        <phrase name="STR_CMMN_ABBR">
+            <xlt lang="en">Abbreviation</xlt>
+        </phrase>
 		<phrase name="STR_CMMN_FIRSTNAME">
 			<xlt lang="en">First Name</xlt>
 		</phrase>
@@ -1361,7 +1354,6 @@
 			<xlt lang="es">Wiki</xlt>
 			<xlt lang="fr">Wiki</xlt>
 			<xlt lang="it">Wiki</xlt>
-			<xlt lang="ru">Wiki</xlt>
 			<xlt lang="sl">Wiki</xlt>
 			<xlt lang="sv">Wiki</xlt>
 		</phrase>
@@ -1380,7 +1372,6 @@
 			<xlt lang="es">D</xlt>
 			<xlt lang="fr">D</xlt>
 			<xlt lang="it">D</xlt>
-			<xlt lang="ru">D</xlt>
 			<xlt lang="sl">D</xlt>
 			<xlt lang="sv">D</xlt>
 		</phrase>
@@ -1390,7 +1381,6 @@
 			<xlt lang="es">W</xlt>
 			<xlt lang="fr">W</xlt>
 			<xlt lang="it">W</xlt>
-			<xlt lang="ru">W</xlt>
 			<xlt lang="sl">W</xlt>
 			<xlt lang="sv">W</xlt>
 		</phrase>
@@ -1457,7 +1447,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -1467,7 +1456,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>
@@ -1569,7 +1557,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -1636,7 +1623,6 @@
 			<xlt lang="es">FAQs</xlt>
 			<xlt lang="fr">FAQs</xlt>
 			<xlt lang="it">FAQ</xlt>
-			<xlt lang="ru">FAQs</xlt>
 			<xlt lang="sl">FAQi</xlt>
 			<xlt lang="sv">FAQ</xlt>
 		</phrase>
@@ -1661,7 +1647,6 @@
 			<xlt lang="es">FAQ: %s</xlt>
 			<xlt lang="fr">FAQ: %s</xlt>
 			<xlt lang="it">FAQ: %s</xlt>
-			<xlt lang="ru">FAQ: %s</xlt>
 			<xlt lang="sl">FAQ: %s</xlt>
 			<xlt lang="sv">FAQ: %s</xlt>
 		</phrase>
@@ -1711,7 +1696,6 @@
 			<xlt lang="es">FAQ</xlt>
 			<xlt lang="fr">FAQ</xlt>
 			<xlt lang="it">FAQ</xlt>
-			<xlt lang="ru">FAQ</xlt>
 			<xlt lang="sl">FAQ</xlt>
 			<xlt lang="sv">FAQ</xlt>
 		</phrase>
@@ -2362,7 +2346,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -2372,7 +2355,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>
@@ -2467,7 +2449,6 @@
 			<xlt lang="es">Fax</xlt>
 			<xlt lang="fr">Fax</xlt>
 			<xlt lang="it">Fax</xlt>
-			<xlt lang="ru">Fax</xlt>
 			<xlt lang="sl">Fax</xlt>
 			<xlt lang="sv">Fax</xlt>
 		</phrase>
@@ -2542,7 +2523,6 @@
 			<xlt lang="es">Paso %d.</xlt>
 			<xlt lang="fr">Etape %d.</xlt>
 			<xlt lang="it">Step %d.</xlt>
-			<xlt lang="ru">Step %d.</xlt>
 			<xlt lang="sl">Korak %d.</xlt>
 			<xlt lang="sv">Step %d.</xlt>
 		</phrase>
@@ -2551,7 +2531,6 @@
 			<xlt lang="en">DCL System Setup</xlt>
 			<xlt lang="es">Instalacion DCL</xlt>
 			<xlt lang="it">DCL System Setup</xlt>
-			<xlt lang="ru">DCL System Setup</xlt>
 			<xlt lang="sl">DCL Sistemska nastavitev</xlt>
 		</phrase>
 		<phrase name="STR_ADMIN_SETUPDESC">
@@ -2637,7 +2616,6 @@
 			<xlt lang="es"></xlt>
 			<xlt lang="fr"></xlt>
 			<xlt lang="it"></xlt>
-			<xlt lang="ru"></xlt>
 			<xlt lang="sl"></xlt>
 			<xlt lang="sv"></xlt>
 		</phrase>
@@ -2661,7 +2639,6 @@
 			<xlt lang="es"></xlt>
 			<xlt lang="fr"></xlt>
 			<xlt lang="it"></xlt>
-			<xlt lang="ru"></xlt>
 			<xlt lang="sl"></xlt>
 			<xlt lang="sv"></xlt>
 		</phrase>
@@ -2706,7 +2683,6 @@
 			<xlt lang="es"></xlt>
 			<xlt lang="fr"></xlt>
 			<xlt lang="it"></xlt>
-			<xlt lang="ru"></xlt>
 			<xlt lang="sl"></xlt>
 			<xlt lang="sv"></xlt>
 		</phrase>
@@ -3081,7 +3057,6 @@
 			<xlt lang="en">Could not insert new account! Query: %s</xlt>
 			<xlt lang="es">No se pudo insertar la nueva cuenta! Pregunta: %s</xlt>
 			<xlt lang="it">Non posso inserire un nuovo Cliente! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new account! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new account! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_ACTIONINSERTERR">
@@ -3089,7 +3064,6 @@
 			<xlt lang="en">Could not insert new action! Query: %s</xlt>
 			<xlt lang="es">No se pudo insertar la nueva accion! Pregunta: %s</xlt>
 			<xlt lang="it">Non posso inserire una nuova Azione! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new action! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new action! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_DEPTINSERTERR">
@@ -3097,7 +3071,6 @@
 			<xlt lang="en">Could not insert new department! Query: %s</xlt>
 			<xlt lang="es">No se pudo insertar un nuevo departamento! Pregunta: %s</xlt>
 			<xlt lang="it">Non posso inserire una nuova Divisione! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new department! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new department! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_USERINSERTERR">
@@ -3105,26 +3078,22 @@
 			<xlt lang="en">Could not insert new user! Query: %s</xlt>
 			<xlt lang="es">No se pudo insertar un nuevo usuario! Pregunta: %s</xlt>
 			<xlt lang="it">Non posso inserire un nuovo utente! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new user! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new user! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_PWDCHGERR">
 			<xlt lang="en">Could not change password! Query: %s</xlt>
 			<xlt lang="it">Non posso modificare la password! Query: %s</xlt>
-			<xlt lang="ru">Could not change password! Query: %s</xlt>
 			<xlt lang="sl">Could not change password! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_PWDCHGSUCCESS">
 			<xlt lang="en">Password changed!</xlt>
 			<xlt lang="it">Password Modificata!</xlt>
-			<xlt lang="ru">Password changed!</xlt>
 			<xlt lang="sl">Password changed!</xlt>
 		</phrase>
 		<phrase name="STR_DB_PRIORITYINSERTERR">
 			<xlt lang="en">Could not insert new priority! Query: %s</xlt>
 			<xlt lang="es">No se pudo insertar una nueva prioridad! Pregunta: %s</xlt>
 			<xlt lang="it">Non posso inserire una nuova Priorita'! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new priority! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new priority! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_SEVERITYINSERTERR">
@@ -3132,7 +3101,6 @@
 			<xlt lang="en">Could not insert new severity! Query: %s</xlt>
 			<xlt lang="es">No se pudo insertar una nueva severidad! Pregunte: %s</xlt>
 			<xlt lang="it">Non posso inserire una nuova problematica! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new severity! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new severity! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_STATUSINSERTERR">
@@ -3140,7 +3108,6 @@
 			<xlt lang="en">Could not insert new status! Query: %s</xlt>
 			<xlt lang="es">No se pudo insertar un nuevo estado! Pregunta: %s</xlt>
 			<xlt lang="it">Non posso inserire un nuovo status! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new status! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new status! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_PRODUCTINSERTERR">
@@ -3148,14 +3115,12 @@
 			<xlt lang="en">Could not insert new product! Query: %s</xlt>
 			<xlt lang="es">No se pudo insertar un nuevo producto! Pregunta: %s</xlt>
 			<xlt lang="it">Non posso inserire un nuovo prodotto! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new product! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new product! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_PROJECTMAPINSERTERR">
 			<xlt lang="en">Could not insert new project mapping! Query: %s</xlt>
 			<xlt lang="es">Could not insert new project mapping! Query: %s</xlt>
 			<xlt lang="it">Non posso inserire un mapping per il progetto! Query: %s</xlt>
-			<xlt lang="ru">Could not insert new project mapping! Query: %s</xlt>
 			<xlt lang="sl">Could not insert new project mapping! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_PROJECTINSERTERR">
@@ -3163,7 +3128,6 @@
 			<xlt lang="en">Could not create new project! Query: %s</xlt>
 			<xlt lang="es">No se pudo crear un nuevo proyecto! Pregunta: %s</xlt>
 			<xlt lang="it">Non posso inserire un nuovo progetto! Query: %s</xlt>
-			<xlt lang="ru">Could not create new project! Query: %s</xlt>
 			<xlt lang="sl">Could not create new project! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_PROJECTBYOIDERR">
@@ -3171,7 +3135,6 @@
 			<xlt lang="es">No se pudo recuperar el proyecto para ID o OID %d!</xlt>
 			<xlt lang="fr">Ne peut pas retrouver de projet par ID ou OID %d!</xlt>
 			<xlt lang="it">Non posso prelevare l'ID del protetto o l'OID %d!</xlt>
-			<xlt lang="ru">Could not retrieve project by ID or OID %d!</xlt>
 			<xlt lang="sl">Could not retrieve project by ID or OID %d!</xlt>
 		</phrase>
 		<phrase name="STR_DB_PROJECTINSERTSUCCESS">
@@ -3179,7 +3142,6 @@
 			<xlt lang="en">Project %s created.</xlt>
 			<xlt lang="es">Projecto %s creado.</xlt>
 			<xlt lang="it">Progetto %s creato.</xlt>
-			<xlt lang="ru">Project %s created.</xlt>
 			<xlt lang="sl">Project %s created.</xlt>
 			<xlt lang="sv">Projekt %s skapat.</xlt>
 		</phrase>
@@ -3189,7 +3151,6 @@
 			<xlt lang="es">No se pudo cargar la work order %d-%d!</xlt>
 			<xlt lang="fr">Ne peut pas charger l'Ordre de Travail %d-%d!</xlt>
 			<xlt lang="it">Non posso caricare il lavoro %d-%d!</xlt>
-			<xlt lang="ru">Could not load work order %d-%d!</xlt>
 			<xlt lang="sl">Could not load work order %d-%d!</xlt>
 			<xlt lang="sv">Kunde inte ladda arbetsorder %d-%d!</xlt>
 		</phrase>
@@ -3198,7 +3159,6 @@
 			<xlt lang="en">Could not create new work order!  Query: %s</xlt>
 			<xlt lang="es">No se pudo crear una nueva work order!  Query: %s</xlt>
 			<xlt lang="it">Non posso creare un nuovo Lavoro!  Query: %s</xlt>
-			<xlt lang="ru">Could not create new work order!  Query: %s</xlt>
 			<xlt lang="sl">Could not create new work order!  Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_WORKORDERBYOIDERR">
@@ -3206,7 +3166,6 @@
 			<xlt lang="es">No se pudo conseguir la work order para ID o OID %d!</xlt>
 			<xlt lang="fr">Ne peut pas trouver l'Ordre de Travail par ID ou OID %d!</xlt>
 			<xlt lang="it">Non posso recuperare l'ID o l'OID per l'ordine %d!</xlt>
-			<xlt lang="ru">Could not get work order by ID or OID %d!</xlt>
 			<xlt lang="sl">Could not get work order by ID or OID %d!</xlt>
 		</phrase>
 		<phrase name="STR_DB_FAQINSERTERR">
@@ -3214,7 +3173,6 @@
 			<xlt lang="en">Could not create FAQ!  Query: %s</xlt>
 			<xlt lang="es">No se pudo crear una FAQ!  Preguntar: %s</xlt>
 			<xlt lang="it">Could not create FAQ!  Query: %s</xlt>
-			<xlt lang="ru">Could not create FAQ!  Query: %s</xlt>
 			<xlt lang="sl">Could not create FAQ!  Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_FAQANSWERINSERTERR">
@@ -3222,7 +3180,6 @@
 			<xlt lang="en">Could not create FAQ answer!  Query: %s</xlt>
 			<xlt lang="es">No se pudo crear una respuesta FAQ!  Pregunta: %s</xlt>
 			<xlt lang="it">Could not create FAQ answer!  Query: %s</xlt>
-			<xlt lang="ru">Could not create FAQ answer!  Query: %s</xlt>
 			<xlt lang="sl">Could not create FAQ answer!  Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_FAQQUESTIONINSERTERR">
@@ -3230,7 +3187,6 @@
 			<xlt lang="en">Could not create FAQ question!  Query: %s</xlt>
 			<xlt lang="es">No se pudo crear un pregunta FAQ!  Pregunta: %s</xlt>
 			<xlt lang="it">Could not create FAQ question!  Query: %s</xlt>
-			<xlt lang="ru">Could not create FAQ question!  Query: %s</xlt>
 			<xlt lang="sl">Could not create FAQ question!  Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_FAQTOPICINSERTERR">
@@ -3238,7 +3194,6 @@
 			<xlt lang="en">Could not create FAQ topic!  Query: %s</xlt>
 			<xlt lang="es">No se pudo crear untema FAQ!  Pregunta: %s</xlt>
 			<xlt lang="it">Could not create FAQ topic!  Query: %s</xlt>
-			<xlt lang="ru">Could not create FAQ topic!  Query: %s</xlt>
 			<xlt lang="sl">Could not create FAQ topic!  Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_CONNECTIONFAILED">
@@ -3247,7 +3202,6 @@
 			<xlt lang="es">Conexion con la  base de datos fallida!</xlt>
 			<xlt lang="fr">Database connection failed!</xlt>
 			<xlt lang="it">Database connection failed!</xlt>
-			<xlt lang="ru">Database connection failed!</xlt>
 			<xlt lang="sl">Database connection failed!</xlt>
 			<xlt lang="sv">Kontakt med databasen misslyckades!</xlt>
 		</phrase>
@@ -3256,21 +3210,18 @@
 			<xlt lang="en">Wrong password, chief!</xlt>
 			<xlt lang="fr">Mauvais mot de passe, chef!</xlt>
 			<xlt lang="it">Wrong password, chief!</xlt>
-			<xlt lang="ru">Wrong password, chief!</xlt>
 			<xlt lang="sl">Wrong password, chief!</xlt>
 		</phrase>
 		<phrase name="STR_DB_RESOLUTIONINSERTERR">
 			<xlt lang="en">Could not create new ticket resolution! Query: %s</xlt>
 			<xlt lang="es">No se pudo crear una nueva resolucion de Ticket! Pregunta: %s</xlt>
 			<xlt lang="it">Could not create new ticket resolution! Query: %s</xlt>
-			<xlt lang="ru">Could not create new ticket resolution! Query: %s</xlt>
 			<xlt lang="sl">Could not create new ticket resolution! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_RESOLUTIONBYOIDERR">
 			<xlt lang="en">Could not retrieve ticket resolution by ID or OID %d!</xlt>
 			<xlt lang="es">No se pudo recuperar la resolucion de del Ticket mediante ID or OID %d!</xlt>
 			<xlt lang="it">Could not retrieve ticket resolution by ID or OID %d!</xlt>
-			<xlt lang="ru">Could not retrieve ticket resolution by ID or OID %d!</xlt>
 			<xlt lang="sl">Could not retrieve ticket resolution by ID or OID %d!</xlt>
 		</phrase>
 		<phrase name="STR_DB_TICKETINSERTERR">
@@ -3278,7 +3229,6 @@
 			<xlt lang="en">Could not create new ticket! Query: %s</xlt>
 			<xlt lang="es">No se pudo crear un nuevo Ticket! Pregunta: %s</xlt>
 			<xlt lang="it">Could not create new ticket! Query: %s</xlt>
-			<xlt lang="ru">Could not create new ticket! Query: %s</xlt>
 			<xlt lang="sl">Could not create new ticket! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_TICKETBYOIDERR">
@@ -3287,7 +3237,6 @@
 			<xlt lang="es">No se pudo cargar el Ticket para ID o OID %d!</xlt>
 			<xlt lang="fr">Ne peut pas retrouver le ticket par ID ou OID %d!</xlt>
 			<xlt lang="it">Could not retrieve ticket by ID or OID %d!</xlt>
-			<xlt lang="ru">Could not retrieve ticket by ID or OID %d!</xlt>
 			<xlt lang="sl">Could not retrieve ticket by ID or OID %d!</xlt>
 		</phrase>
 		<phrase name="STR_DB_VIEWINSERTERR">
@@ -3295,14 +3244,12 @@
 			<xlt lang="en">Could not create new view! Query: %s</xlt>
 			<xlt lang="es">No se pudo crear una nueva vista! Pregunta: %s</xlt>
 			<xlt lang="it">Could not create new view! Query: %s</xlt>
-			<xlt lang="ru">Could not create new view! Query: %s</xlt>
 			<xlt lang="sl">Could not create new view! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_WATCHINSERTERR">
 			<xlt lang="en">Could not create new watch! Query: %s</xlt>
 			<xlt lang="es">No se pudo crear un nuevo watch! Pregunta: %s</xlt>
 			<xlt lang="it">Could not create new watch! Query: %s</xlt>
-			<xlt lang="ru">Could not create new watch! Query: %s</xlt>
 			<xlt lang="sl">Could not create new watch! Query: %s</xlt>
 		</phrase>
 		<phrase name="STR_DB_CHKLSTOIDERR">
@@ -3311,7 +3258,6 @@
 			<xlt lang="es">Error retrieving checklist by ID# %d</xlt>
 			<xlt lang="fr">Error retrieving checklist by ID# %d</xlt>
 			<xlt lang="it">Error retrieving checklist by ID# %d</xlt>
-			<xlt lang="ru">Error retrieving checklist by ID# %d</xlt>
 			<xlt lang="sl">Error retrieving checklist by ID# %d</xlt>
 			<xlt lang="sv">Error retrieving checklist by ID# %d</xlt>
 		</phrase>
@@ -3321,7 +3267,6 @@
 			<xlt lang="es">Error retrieving checklist template by ID# %d</xlt>
 			<xlt lang="fr">Error retrieving checklist template by ID# %d</xlt>
 			<xlt lang="it">Error retrieving checklist template by ID# %d</xlt>
-			<xlt lang="ru">Error retrieving checklist template by ID# %d</xlt>
 			<xlt lang="sl">Error retrieving checklist template by ID# %d</xlt>
 			<xlt lang="sv">Error retrieving checklist template by ID# %d</xlt>
 		</phrase>
@@ -3331,7 +3276,6 @@
 			<xlt lang="es">Could not add config item.  Query: %s</xlt>
 			<xlt lang="fr">Could not add config item.  Query: %s</xlt>
 			<xlt lang="it">Could not add config item.  Query: %s</xlt>
-			<xlt lang="ru">Could not add config item.  Query: %s</xlt>
 			<xlt lang="sl">Could not add config item.  Query: %s</xlt>
 			<xlt lang="sv">Could not add config item.  Query: %s</xlt>
 		</phrase>
@@ -3754,7 +3698,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -3764,7 +3707,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>
@@ -3878,7 +3820,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -3888,7 +3829,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>
@@ -4233,7 +4173,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -4243,7 +4182,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>
@@ -4398,7 +4336,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -5201,7 +5138,6 @@
 			<xlt lang="es">e-Mail</xlt>
 			<xlt lang="fr">e-Mail</xlt>
 			<xlt lang="it">e-Mail</xlt>
-			<xlt lang="ru">e-Mail</xlt>
 			<xlt lang="sl">e-Mail</xlt>
 			<xlt lang="sv">epost</xlt>
 		</phrase>
@@ -5264,7 +5200,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -5282,7 +5217,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>
@@ -5394,7 +5328,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -5404,7 +5337,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>
@@ -5497,7 +5429,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -5507,7 +5438,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>
@@ -5841,7 +5771,6 @@
 			<xlt lang="en">Default Language</xlt>
 			<xlt lang="es">Default Language</xlt>
 			<xlt lang="it">Default Language</xlt>
-			<xlt lang="ru">Default Language</xlt>
 			<xlt lang="sl">Privzeti jezik</xlt>
 		</phrase>
 		<phrase name="STR_CFG_LANGUAGEHELP">
@@ -6950,7 +6879,6 @@
 			<xlt lang="es">ID</xlt>
 			<xlt lang="fr">ID</xlt>
 			<xlt lang="it">ID</xlt>
-			<xlt lang="ru">ID</xlt>
 			<xlt lang="sl">ID</xlt>
 			<xlt lang="sv">ID</xlt>
 		</phrase>
@@ -6959,7 +6887,6 @@
 			<xlt lang="es">A</xlt>
 			<xlt lang="fr">A</xlt>
 			<xlt lang="it">A</xlt>
-			<xlt lang="ru">A</xlt>
 			<xlt lang="sl">A</xlt>
 			<xlt lang="sv">A</xlt>
 		</phrase>

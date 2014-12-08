@@ -99,7 +99,7 @@
 		{dcl_form_control id=DCL_LOCKOUT_WINDOW controlsize=2 label="Account Lockout Window" required=true help="The number of minutes to consider failed attempts for the lockout threshold."}
 		{dcl_input_text id=DCL_LOCKOUT_WINDOW maxlength=5 value=$VAL_LOCKOUTWINDOW}
 		{/dcl_form_control}
-		{dcl_form_control id=DCL_PASSWORD_DISALLOW_REUSE_THRESHOLD controlsize=2 label="Password Reuse Threshold" required=true help="Do not allow the password to be change to one of the last n passwords."}
+		{dcl_form_control id=DCL_PASSWORD_DISALLOW_REUSE_THRESHOLD controlsize=2 label="Password Reuse Threshold" required=true help="Do not allow the password to be changed to one of the last n passwords."}
 		{dcl_input_text id=DCL_PASSWORD_DISALLOW_REUSE_THRESHOLD maxlength=5 value=$VAL_PASSWORDDISALLOWREUSETHRESHOLD}
 		{/dcl_form_control}
 		{dcl_form_control id=DCL_PASSWORD_DISALLOW_REUSE_DAYS controlsize=2 label="Password Reuse Days" required=true help="The number of days back to look at passwords for the reuse threshold."}

@@ -24,10 +24,10 @@
 		{dcl_form_control id=reportto controlsize=4 label=$smarty.const.STR_PRJ_LEAD required=true}
 		{dcl_select_personnel name=reportto default=$ViewData->ResponsibleId}
 		{/dcl_form_control}
-		{dcl_form_control id=projectdeadline controlsize=2 label=$smarty.const.STR_PRJ_DEADLINE required=true}
+		{dcl_form_control id=projectdeadline controlsize=2 label=$smarty.const.STR_PRJ_DEADLINE}
 			<input type="text" class="form-control" data-input-type="date" maxlength="10" id="projectdeadline" name="projectdeadline" value="{$ViewData->Deadline|escape}">
 		{/dcl_form_control}
-		{dcl_form_control id=parentprojectid controlsize=4 label=$smarty.const.STR_PRJ_PARENTPRJ required=true}
+		{dcl_form_control id=parentprojectid controlsize=4 label=$smarty.const.STR_PRJ_PARENTPRJ}
 			{dcl_input_text id=parentprojectid}
 		{/dcl_form_control}
 		{dcl_form_control id=description controlsize=4 label=$smarty.const.STR_PRJ_DESCRIPTION required=true}

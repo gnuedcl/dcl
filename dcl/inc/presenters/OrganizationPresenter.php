@@ -111,19 +111,7 @@ class OrganizationPresenter
 		if ($g_oSec->IsOrgUser() && !in_array($model->org_id, explode(',', $g_oSession->Value('member_of_orgs'))))
 			throw new PermissionDeniedException();
 
-		$t = new SmartyHelper();
-		$t->registerObject('Org', $model);
-
-		$t->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
-		$t->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE));
-		$t->assign('PERM_VIEW', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW));
-		$t->assign('PERM_WIKI', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEWWIKI));
-
-		$t->assign('PERM_VIEW_CONTACT', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW));
-		$t->assign('PERM_VIEW_WORKORDER', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW));
-		$t->assign('PERM_VIEW_TICKET', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW));
-		$t->assign('PERM_ADD_WORKORDER', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD));
-		$t->assign('PERM_ADD_TICKET', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD));
+		$t = self::GetSmartyHelperWithToolbar($model);
 
 		// Get aliases for this org
 		$oOrgAlias = new OrganizationAliasModel();
@@ -196,6 +184,58 @@ class OrganizationPresenter
 
 		$t->assignByRef('OrgEmail', $aEmails);
 		$oOrgEmail->FreeResult();
+
+		// Get environments
+		$envOrgModel = new EnvironmentOrgModel();
+		$envOrgModel->ListByOrg($model->org_id);
+		$environments = array();
+		while ($envOrgModel->next_record())
+		{
+			$beginDt = new DateTime($envOrgModel->Record['begin_dt']);
+			$envOrgModel->Record['begin_dt'] = $beginDt->format($dcl_info['DCL_DATE_FORMAT'] . ' H:i');
+
+			if ($envOrgModel->Record['end_dt'] != '')
+			{
+				$endDt = new DateTime($envOrgModel->Record['end_dt']);
+				$envOrgModel->Record['end_dt'] = $endDt->format($dcl_info['DCL_DATE_FORMAT'] . ' H:i');
+			}
+
+			$environments[] = $envOrgModel->Record;
+		}
+
+		$t->assignByRef('OrgEnvironment', $environments);
+		$envOrgModel->FreeResult();
+
+		// Get outage SLA
+		$orgOutageModel = new OrganizationOutageSlaModel();
+		if ($orgOutageModel->Load($model->org_id, false) !== -1)
+		{
+			$t->assignByRef('OrgOutage', $orgOutageModel);
+		}
+
+		// Get measurement SLAs
+		$orgMeasureSlaModel = new OrganizationMeasurementSlaModel();
+		if ($orgMeasureSlaModel->ListByOrganization($model->org_id) != -1)
+		{
+			$measureSla = array();
+			while ($orgMeasureSlaModel->next_record())
+			{
+				$measureSla[] = array(
+					'typeId' => $orgMeasureSlaModel->f('measurement_type_id'),
+					'type' => $orgMeasureSlaModel->f('measurement_name'),
+					'min' => $orgMeasureSlaModel->f('min_valid_value'),
+					'max' => $orgMeasureSlaModel->f('max_valid_value'),
+					'sla' => $orgMeasureSlaModel->f('measurement_sla'),
+					'warn' => $orgMeasureSlaModel->f('measurement_sla_warn'),
+					'trimPct' => $orgMeasureSlaModel->f('sla_trim_pct'),
+					'slaIsTrim' => $orgMeasureSlaModel->f('sla_is_trim_based'),
+					'schedule' => $orgMeasureSlaModel->f('schedule_name'),
+					'unit' => $orgMeasureSlaModel->f('unit_abbr')
+				);
+			}
+
+			$t->assignByRef('OrgMeasureSla', $measureSla);
+		}
 
 		// Get URLs
 		$oOrgURL = new OrganizationUrlModel();
@@ -310,5 +350,79 @@ class OrganizationPresenter
 		$oWO->FreeResult();
 
 		$t->Render('OrgDetail.tpl');
+	}
+
+	public function Measurement(OrganizationModel $model)
+	{
+		global $dcl_info;
+
+		commonHeader();
+
+		$t = self::GetSmartyHelperWithToolbar($model);
+
+		$viewData = new stdClass();
+		$endDateTime = new DateTime();
+		$viewData->EndDate = $endDateTime->format($dcl_info['DCL_DATE_FORMAT']);
+
+		$startDateTime = new DateTime($viewData->EndDate);
+		$startDateTime->modify('-30 days');
+		$viewData->BeginDate = $startDateTime->format($dcl_info['DCL_DATE_FORMAT']);
+
+		// Select the most common measurement to start with
+		$measurementModel = new OrganizationMeasurementModel();
+		$sql = sprintf("SELECT measurement_type_id, COUNT(*) FROM dcl_org_measurement WHERE org_id = %d AND measurement_ts BETWEEN %s AND %s GROUP BY measurement_type_id ORDER BY 2 DESC",
+			$model->org_id,
+			$measurementModel->Quote($measurementModel->ArrangeDateForInsert($viewData->BeginDate)),
+			$measurementModel->Quote($measurementModel->ArrangeDateForInsert($viewData->EndDate)));
+
+		if ($measurementModel->LimitQuery($sql, 0, 1) != -1 && $measurementModel->next_record())
+			$viewData->MeasurementType = $measurementModel->f(0);
+
+		$t->registerObject('ViewData', $viewData);
+
+		$t->Render('OrganizationMeasurement.tpl');
+	}
+
+	public function Outage(OrganizationModel $model)
+	{
+		global $dcl_info;
+
+		commonHeader();
+
+		$t = self::GetSmartyHelperWithToolbar($model);
+
+		$viewData = new stdClass();
+		$endDateTime = new DateTime();
+		$viewData->EndDate = $endDateTime->format($dcl_info['DCL_DATE_FORMAT']);
+
+		$startDateTime = new DateTime($viewData->EndDate);
+		$startDateTime->modify('-30 days');
+		$viewData->BeginDate = $startDateTime->format($dcl_info['DCL_DATE_FORMAT']);
+
+		$t->registerObject('ViewData', $viewData);
+
+		$t->Render('OrganizationOutage.tpl');
+	}
+
+	private static function GetSmartyHelperWithToolbar(OrganizationModel $model)
+	{
+		$t = new SmartyHelper();
+		$t->registerObject('Org', $model);
+
+		$t->assign('PERM_MODIFY', HasPermission(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
+		$t->assign('PERM_DELETE', HasPermission(DCL_ENTITY_ORG, DCL_PERM_DELETE));
+		$t->assign('PERM_VIEW', HasPermission(DCL_ENTITY_ORG, DCL_PERM_VIEW));
+		$t->assign('PERM_WIKI', HasPermission(DCL_ENTITY_ORG, DCL_PERM_VIEWWIKI));
+
+		$t->assign('PERM_VIEW_CONTACT', HasPermission(DCL_ENTITY_CONTACT, DCL_PERM_VIEW));
+		$t->assign('PERM_VIEW_WORKORDER', HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW));
+		$t->assign('PERM_VIEW_TICKET', HasPermission(DCL_ENTITY_TICKET, DCL_PERM_VIEW));
+		$t->assign('PERM_ADD_WORKORDER', HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_ADD));
+		$t->assign('PERM_ADD_TICKET', HasPermission(DCL_ENTITY_TICKET, DCL_PERM_ADD));
+
+		$t->assign('PERM_VIEW_MEASUREMENT', HasPermission(DCL_ENTITY_ORGMEASUREMENT, DCL_PERM_VIEW));
+		$t->assign('PERM_VIEW_OUTAGE', HasPermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW));
+
+		return $t;
 	}
 }

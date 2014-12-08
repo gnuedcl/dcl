@@ -1,0 +1,9 @@
+outage_status_id	status_name	is_planned	is_resolved	status_order
+1	Scheduled	Y	N	0
+2	In Progress	Y	N	1
+3	Completed	Y	Y	2
+4	Canceled	Y	Y	3
+5	In Progress	N	N	0
+6	Identified	N	N	1
+7	Monitoring	N	N	2
+8	Resolved	N	Y	3

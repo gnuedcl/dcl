@@ -61,9 +61,7 @@ abstract class AbstractController
 
 	public function Insert(array $aSource)
 	{
-		global $g_oSec;
-		if (!$g_oSec->HasPerm($this->Entity, $this->PermAdd))
-			throw new PermissionDeniedException();
+		RequirePermission($this->Entity, $this->PermAdd);
 
 		$this->model->InitFromArray($aSource);
 
@@ -92,9 +90,7 @@ abstract class AbstractController
 
 	public function Update(array $aSource)
 	{
-		global $g_oSec;
-		if (!$g_oSec->HasPerm($this->Entity, $this->PermModify))
-			throw new PermissionDeniedException();
+		RequirePermission($this->Entity, $this->PermModify);
 
 		$this->model->InitFromArray($aSource);
 		if ($this->sModifiedDateField != '')
@@ -111,9 +107,7 @@ abstract class AbstractController
 
 	public function Destroy(array $aSource)
 	{
-		global $g_oSec;
-		if (!$g_oSec->HasPerm($this->Entity, $this->PermDelete))
-			throw new PermissionDeniedException();
+		RequirePermission($this->Entity, $this->PermDelete);
 
 		if ($this->model->HasFKRef($aSource[$this->sKeyField]))
 			return $this->model->SetActive($aSource, false);

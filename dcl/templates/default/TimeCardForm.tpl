@@ -44,7 +44,7 @@
 		{dcl_form_control id=summary controlsize=10 label=$smarty.const.STR_TC_SUMMARY required=true help="Enter a short summary of the work performed."}
 		{dcl_input_text id=summary maxlength=100 value=$VAL_SUMMARY}
 		{/dcl_form_control}
-		{dcl_form_control id=description controlsize=10 label=$smarty.const.STR_TC_DESCRIPTION required=true}
+		{dcl_form_control id=description controlsize=10 label=$smarty.const.STR_TC_DESCRIPTION}
 			<textarea class="form-control" name="description" rows="4" wrap valign="top">{$VAL_DESCRIPTION|escape}</textarea>
 		{/dcl_form_control}
 	</fieldset>

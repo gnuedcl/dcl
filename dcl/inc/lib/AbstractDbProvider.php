@@ -288,7 +288,10 @@ abstract class AbstractDbProvider
 		$regexStr = str_replace('Y', '([0-9]{4})', $regexStr);
 		if(preg_match('#^' . $regexStr . ' ([0-9]{2}).([0-9]{2}).([0-9]{2})\.{0,1}[0-9]*$#', $thisDate))
 			return "'" . $this->ArrangeTimeStampForInsert($thisDate) . "'";
-		
+
+		if(preg_match('#^' . $regexStr . ' ([0-9]{2}).([0-9]{2})$#', $thisDate))
+			return "'" . $this->ArrangeTimeStampForInsert($thisDate) . "'";
+
 		return "'" . $this->ArrangeDateForInsert($thisDate) . "'";
 	}
 

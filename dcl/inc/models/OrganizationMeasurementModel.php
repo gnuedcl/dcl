@@ -20,20 +20,14 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$GLOBALS['phpgw_baseline']['dcl_environment_outage_type'] = array(
-	'fd' => array(
-		'environment_outage_type_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
-		'outage_name' => array('type' => 'varchar', 'precision' => 64, 'nullable' => false),
-		'is_down' => array('type' => 'char', 'precision' => 1, 'nullable' => false),
-		'is_infrastructure' => array('type' => 'char', 'precision' => 1, 'nullable' => false),
-		'is_planned' => array('type' => 'char', 'precision' => 1, 'nullable' => false),
-		'create_dt' => array('type' => 'timestamp', 'nullable' => false),
-		'create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'update_dt' => array('type' => 'timestamp', 'nullable' => false),
-		'update_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
-	),
-	'pk' => array('environment_outage_type_id'),
-	'fk' => array(),
-	'ix' => array(),
-	'uc' => array()
-);
+LoadStringResource('db');
+class OrganizationMeasurementModel extends DbProvider
+{
+	public function __construct()
+	{
+		parent::__construct();
+		$this->TableName = 'dcl_org_measurement';
+		LoadSchema($this->TableName);
+		parent::Clear();
+	}
+}

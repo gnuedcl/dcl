@@ -7,7 +7,7 @@
 		<legend>{$smarty.const.STR_WO_SEARCHTITLE}</legend>
 	</fieldset>
 	{if !$IS_PUBLIC}
-		{dcl_form_control controlsize=10 label="Personnel Fields" required=true}
+		{dcl_form_control controlsize=10 label="Personnel Fields"}
 			<label><input type="checkbox" id="responsible" name="responsible" value="1"{$CHK_RESPONSIBLE}> {$smarty.const.STR_WO_RESPONSIBLE|escape}</label>
 			<label><input type="checkbox" id="createby" name="createby" value="1"{$CHK_CREATEBY}> {$smarty.const.STR_WO_OPENBY|escape}</label>
 			<label><input type="checkbox" id="closedby" name="closedby" value="1"{$CHK_CLOSEDBY}> {$smarty.const.STR_WO_CLOSEBY|escape}</label>

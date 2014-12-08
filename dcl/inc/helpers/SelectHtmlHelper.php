@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,6 +27,7 @@ class SelectHtmlHelper
 	public $Size;
 	public $OnChange;
 	public $FirstOption;
+	public $FirstOptionValue;
 	public $Options;
 	public $CastToInt;
 	public $IsHidden;
@@ -41,6 +42,7 @@ class SelectHtmlHelper
 		$this->Size = 0;
 		$this->OnChange = '';
 		$this->FirstOption = '';
+		$this->FirstOptionValue = 0;
 		$this->Options = array();
 		$this->CastToInt = false;
 		$this->IsHidden = false;
@@ -48,20 +50,37 @@ class SelectHtmlHelper
 		$this->CssClass = 'form-control';
 	}
 
-	private function GetOption($sValue, $sDisplay)
+	private function GetOption($sValue, $sDisplay, array $extraData = null)
 	{
 		$sValue = trim($sValue);
 		$sDisplay = trim($sDisplay);
 		$sSelected = ((is_array($this->DefaultValue) && in_array($sValue, $this->DefaultValue)) || (!is_array($this->DefaultValue) && $this->DefaultValue == $sValue)) ? ' selected' : '';
-		return sprintf('<option value="%s"%s>%s</option>', $this->CastToInt ? (int)$sValue : htmlspecialchars($sValue, ENT_QUOTES, 'UTF-8'), $sSelected, htmlspecialchars($sDisplay, ENT_QUOTES, 'UTF-8'));
+		$dataAttributes = '';
+		if ($extraData != null)
+		{
+			foreach ($extraData as $k => $v)
+			{
+				if ($dataAttributes != '')
+					$dataAttributes .= ' ';
+
+				$dataAttributes .= $k . '="' . htmlspecialchars($v, ENT_QUOTES, 'UTF-8') . '"';
+			}
+		}
+
+		return sprintf('<option value="%s"%s %s>%s</option>',
+			$this->CastToInt ? (int)$sValue : htmlspecialchars($sValue, ENT_QUOTES, 'UTF-8'),
+			$sSelected,
+			$dataAttributes,
+			htmlspecialchars($sDisplay, ENT_QUOTES, 'UTF-8'));
 	}
 
-	public function AddOption($sValue, $sDisplay)
+	public function AddOption($sValue, $sDisplay, array $extraData = null)
 	{
 		$i = count($this->Options);
 		$this->Options[$i] = array();
 		$this->Options[$i][0] = $this->CastToInt ? (int)$sValue : $sValue;
 		$this->Options[$i][1] = $sDisplay;
+		$this->Options[$i][2] = $extraData;
 	}
 
 	public function GetHTML()
@@ -84,11 +103,10 @@ class SelectHtmlHelper
 		$sHtml .= '>';
 
 		if ($this->Size < 2 && $this->FirstOption != '')
-			$sHtml .= $this->GetOption(0, $this->FirstOption);
+			$sHtml .= $this->GetOption($this->FirstOptionValue, $this->FirstOption);
 
-		// $this->aOptions should be created w/$db->FetchAllRows
 		for ($i = 0; $i < count($this->Options); $i++)
-			$sHtml .= $this->GetOption($this->Options[$i][0], $this->Options[$i][1]);
+			$sHtml .= $this->GetOption($this->Options[$i][0], $this->Options[$i][1], count($this->Options[$i]) > 2 ? $this->Options[$i][2] : null);
 
 		$sHtml .= '</select>';
 
@@ -102,7 +120,7 @@ class SelectHtmlHelper
 
 	public function SetOptionsFromDb($table, $keyField, $valField, $filter = '', $order = '')
 	{
-		$sql = "SELECT $keyField, $valField FROM $table";
+		$sql = "SELECT $keyField, $valField, NULL FROM $table";
 		if ($filter != '')
 			$sql .= ' WHERE ' . $filter;
 		$sql .= ' ORDER BY ';

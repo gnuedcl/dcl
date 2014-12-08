@@ -74,16 +74,19 @@ class DbProvider extends AbstractDbProvider
 	{
 		global $dcl_domain_info, $dcl_domain;
 
-		$conn = @pg_connect(sprintf("port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
+		$conn = pg_connect(sprintf("dbname='postgres' port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
 					$dcl_domain_info[$dcl_domain]['dbPort'],
 					$dcl_domain_info[$dcl_domain]['dbHost'],
 					$dcl_domain_info[$dcl_domain]['dbUser'],
 					$dcl_domain_info[$dcl_domain]['dbPassword']));
 
-		$bConnect = ($conn > 0);
-		pg_close($conn);
+		if ($conn > 0)
+		{
+			pg_close($conn);
+			return true;
+		}
 
-		return $bConnect;
+		return false;
 	}
 
 	public function CanConnectDatabase()

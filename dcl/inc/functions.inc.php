@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2011 Free Software Foundation
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -83,6 +83,12 @@ define('DCL_ENTITY_TEST_CASE', 42);
 define('DCL_ENTITY_FUNCTIONAL_SPEC', 43);
 define('DCL_ENTITY_HOTLIST', 44);
 define('DCL_ENTITY_ERRORLOG', 45);
+define('DCL_ENTITY_ENVIRONMENT', 46);
+define('DCL_ENTITY_OUTAGETYPE', 47);
+define('DCL_ENTITY_OUTAGE', 48);
+define('DCL_ENTITY_MEASUREMENTUNIT', 49);
+define('DCL_ENTITY_MEASUREMENTTYPE', 50);
+define('DCL_ENTITY_ORGMEASUREMENT', 51);
 
 // Permissions
 define('DCL_PERM_ADMIN', 0);
@@ -142,13 +148,16 @@ function DclClassAutoLoader($className)
 		return;
 	}
 
-	$areas = array('Controller' => 'controllers',
-					'Model' => 'models',
-					'ViewData' => 'models',
-					'Presenter' => 'presenters',
-					'Exception' => 'exceptions',
-					'Helper' => 'helpers',
-					'Service' => 'services');
+	$areas = array(
+		'Controller' => 'controllers',
+		'Model' => 'models',
+		'ViewData' => 'models',
+		'Presenter' => 'presenters',
+		'ModelValidator' => 'validators',
+		'Exception' => 'exceptions',
+		'Helper' => 'helpers',
+		'Service' => 'services'
+	);
 
 	foreach ($areas as $suffix => $directory)
 	{

@@ -576,6 +576,10 @@ tt, pre
 		height: auto;
 		overflow: visible;
 	}
+
+	a[href]:after {
+		content: "" !important;
+	}
 }
 
 /* Post-bootstrap changes */
@@ -618,6 +622,15 @@ div.panel div.panel-heading h3 {
 
 .ui-jqgrid table a.btn {
 	color: #ffffff;
+}
+
+.form-group.required .control-label:after {
+	content: "*";
+	color: red;
+}
+
+.form-horizontal .has-feedback .inputGroupContainer .form-control-feedback {
+	right: -15px;
 }
 
 @media screen and (max-width: 768px) {

@@ -34,17 +34,20 @@ class DclManageMenuHelper
 		if (HasPermission(DCL_ENTITY_CONTACT, DCL_PERM_VIEW))
 			$menuItem->Add(new DclMenuItem('Contacts', UrlAction('htmlContactBrowse', 'show', 'filterActive=Y')));
 
+		if (HasPermission(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
+			$menuItem->Add(new DclMenuItem('Hotlists', UrlAction('htmlHotlistBrowse', 'show')));
+
 		if (HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH) || HasPermission(DCL_ENTITY_TICKET, DCL_PERM_SEARCH))
 			$menuItem->Add(new DclMenuItem(STR_CMMN_TAGS, UrlAction('htmlTags', 'browse')));
+
+		if (HasPermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW))
+			$menuItem->Add(new DclMenuItem('Outages', UrlAction('Outage', 'Index')));
 
 		if (HasPermission(DCL_ENTITY_FORMS, DCL_PERM_VIEW))
 			$menuItem->Add(new DclMenuItem(DCL_MENU_CHECKLISTS, UrlAction('boChecklists', 'show')));
 
 		if (HasPermission(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 			$menuItem->Add(new DclMenuItem('Workspaces', UrlAction('htmlWorkspaceBrowse', 'show')));
-
-		if (HasPermission(DCL_ENTITY_HOTLIST, DCL_PERM_VIEW))
-			$menuItem->Add(new DclMenuItem('Hotlists', UrlAction('htmlHotlistBrowse', 'show')));
 
 		if (HasPermission(DCL_ENTITY_PRODUCT, DCL_PERM_VIEW))
 			$menuItem->Add(new DclMenuItem(DCL_MENU_PRODUCTS, UrlAction('Product', 'Index')));

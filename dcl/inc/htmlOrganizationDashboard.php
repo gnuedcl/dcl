@@ -75,11 +75,19 @@ class htmlOrganizationDashboard
 
 		$this->oSmarty->registerObject('Org', $this->oOrg);
 
-		$this->oSmarty->assign('PERM_VIEWWO', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW));
-		$this->oSmarty->assign('PERM_VIEWTCK', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW));
-		$this->oSmarty->assign('PERM_WIKI', $dcl_info['DCL_WIKI_ENABLED'] == 'Y' && $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEWWIKI));
-		$this->oSmarty->assign('PERM_EDIT', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
+		$this->oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_MODIFY));
 		$this->oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_DELETE));
+		$this->oSmarty->assign('PERM_VIEW', $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEW));
+		$this->oSmarty->assign('PERM_WIKI', $dcl_info['DCL_WIKI_ENABLED'] == 'Y' && $g_oSec->HasPerm(DCL_ENTITY_ORG, DCL_PERM_VIEWWIKI));
+
+		$this->oSmarty->assign('PERM_VIEW_CONTACT', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_VIEW));
+		$this->oSmarty->assign('PERM_VIEW_WORKORDER', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW));
+		$this->oSmarty->assign('PERM_VIEW_TICKET', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_VIEW));
+		$this->oSmarty->assign('PERM_ADD_WORKORDER', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ADD));
+		$this->oSmarty->assign('PERM_ADD_TICKET', $g_oSec->HasPerm(DCL_ENTITY_TICKET, DCL_PERM_ADD));
+
+		$this->oSmarty->assign('PERM_VIEW_MEASUREMENT', HasPermission(DCL_ENTITY_ORGMEASUREMENT, DCL_PERM_VIEW));
+		$this->oSmarty->assign('PERM_VIEW_OUTAGE', HasPermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW));
 
 		$this->oSmarty->Render($sPage);
 	}

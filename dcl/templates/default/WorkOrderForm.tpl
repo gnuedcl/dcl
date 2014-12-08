@@ -195,7 +195,7 @@ function UpdateOptions()
 	{dcl_form_control id=notes controlsize=10 label=$smarty.const.STR_WO_NOTES}
 		<textarea class="form-control" name="notes" id="notes" rows="4" wrap valign="top">{$ViewData->Notes|escape}</textarea>
 	{/dcl_form_control}
-	{dcl_form_control id=description controlsize=10 label=$smarty.const.STR_WO_DESCRIPTION}
+	{dcl_form_control id=description controlsize=10 label=$smarty.const.STR_WO_DESCRIPTION required=true}
 		<textarea class="form-control" name="description" id="description" rows="4" wrap valign="top">{$ViewData->Description|escape}</textarea>
 	{/dcl_form_control}
 	{dcl_form_control id=copy_me_on_notification controlsize=1 label="Copy Me on Notification"}

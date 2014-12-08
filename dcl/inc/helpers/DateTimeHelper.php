@@ -125,12 +125,17 @@ class TimestampHelper
 		$regexStr = str_replace('d', '([0-9]{2})', $regexStr);
 		$regexStr = str_replace('Y', '([0-9]{4})', $regexStr);
 		// Check for full timestamp
-		if(preg_match('#^' . $regexStr . ' ([0-9]{2}).([0-9]{2}).([0-9]{2})\.{0,1}[0-9]*$#', $s, $dateParts))
+		if (preg_match('#^' . $regexStr . ' ([0-9]{2}).([0-9]{2}).([0-9]{2})\.{0,1}[0-9]*$#', $s, $dateParts))
 		{
 			// Got full timestamp
 			// Processing will be performed
 		}
-		else if(preg_match('#^' . $regexStr . '$#', $s, $dateParts))
+		else if (preg_match('#^' . $regexStr . ' ([0-9]{2}).([0-9]{2})$#', $s, $dateParts))
+		{
+			// Got timestamp to the minute
+			$dateParts[6] = 0;
+		}
+		else if (preg_match('#^' . $regexStr . '$#', $s, $dateParts))
 		{
 			// Got just a date
 			// Initialize time values to zeroes
@@ -144,7 +149,7 @@ class TimestampHelper
 
 		// Parse input string based on format string
 		$configFmt = $dcl_info['DCL_DATE_FORMAT'];
-		for($i = 0, $j = 1; $i < mb_strlen($configFmt); $i++)
+		for ($i = 0, $j = 1; $i < mb_strlen($configFmt); $i++)
 		{
 			switch($configFmt[$i]) 
 			{
@@ -246,5 +251,47 @@ class DateHelper extends TimestampHelper
 			$this->GetDatePart($this->dbFormatEx, 'M', $s),
 			$this->GetDatePart($this->dbFormatEx, 'D', $s),
 			$this->GetDatePart($this->dbFormatEx, 'Y', $s));
+	}
+}
+
+class DclDateTime
+{
+	public static function ToDisplay($value)
+	{
+		global $dcl_info;
+
+		if ($value == '')
+			return '';
+
+		$dt = new DateTime($value);
+		return $dt->format($dcl_info['DCL_TIMESTAMP_FORMAT']);
+	}
+}
+
+class DclSmallDateTime
+{
+	public static function ToDisplay($value)
+	{
+		global $dcl_info;
+
+		if ($value == '')
+			return '';
+
+		$dt = new DateTime($value);
+		return $dt->format($dcl_info['DCL_DATE_FORMAT'] . ' H:i');
+	}
+}
+
+class DclDate
+{
+	public static function ToDisplay($value)
+	{
+		global $dcl_info;
+
+		if ($value == '')
+			return '';
+
+		$dt = new DateTime($value);
+		return $dt->format($dcl_info['DCL_DATE_FORMAT']);
 	}
 }

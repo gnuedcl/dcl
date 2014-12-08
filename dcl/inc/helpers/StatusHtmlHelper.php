@@ -24,7 +24,7 @@ class StatusHtmlHelper
 {
 	public function Select($default = 0, $cbName = 'status', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0, $zeroOption = '_SELECT_ONE_')
 	{
-		$query = "SELECT a.id,a.$longShort FROM statuses a ";
+		$query = "SELECT a.id, a.$longShort, NULL FROM statuses a ";
 
 		if ($setid > 0)
 		{

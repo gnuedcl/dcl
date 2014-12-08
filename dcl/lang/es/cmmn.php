@@ -72,6 +72,7 @@
 	define('STR_CMMN_MODULE', "Module");
 	define('STR_CMMN_STATUSTYPE', "Status Type");
 	define('STR_CMMN_NAME', "Nombre");
+	define('STR_CMMN_ABBR', "Abbreviation");
 	define('STR_CMMN_FIRSTNAME', "First Name");
 	define('STR_CMMN_LASTNAME', "Last Name");
 	define('STR_CMMN_WIKI', "Wiki");

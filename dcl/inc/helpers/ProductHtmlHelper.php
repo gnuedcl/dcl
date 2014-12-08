@@ -66,7 +66,7 @@ class ProductHtmlHelper
 			$whereClause .= ' id IN (' . join(',', $g_oSession->GetProductFilter()) . ')';
 		}
 
-		$objDBProducts->Query("SELECT id,$longShort FROM products " . $whereClause . " ORDER BY $longShort");
+		$objDBProducts->Query("SELECT id, $longShort, NULL FROM products " . $whereClause . " ORDER BY $longShort");
 
 		$o = new SelectHtmlHelper();
 		$o->DefaultValue = $default;

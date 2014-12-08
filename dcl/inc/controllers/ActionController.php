@@ -39,12 +39,7 @@ class ActionController
 
 	public function Insert()
 	{
-		global $g_oSec;
-		
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ACTION, DCL_PERM_ADD))
-		{
-			throw new Exception(STR_CMMN_PERMISSIONDENIED);
-		}
+		RequirePermission(DCL_ENTITY_ACTION, DCL_PERM_ADD);
 
 		$model = new ActionModel();
 		$model->InitFrom_POST();

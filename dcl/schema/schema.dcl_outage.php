@@ -20,20 +20,23 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$GLOBALS['phpgw_baseline']['dcl_environment_outage'] = array(
+$GLOBALS['phpgw_baseline']['dcl_outage'] = array(
 	'fd' => array(
-		'environment_outage_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
-		'environment_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'outage_start' => array('type' => 'timestamp', 'nullable' => false),
-		'outage_end' => array('type' => 'timestamp', 'nullable' => false),
-		'environment_outage_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'outage_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
+		'outage_start' => array('type' => 'timestamp', 'nullable' => true),
+		'outage_end' => array('type' => 'timestamp', 'nullable' => true),
+		'outage_sched_start' => array('type' => 'timestamp', 'nullable' => true),
+		'outage_sched_end' => array('type' => 'timestamp', 'nullable' => true),
+		'outage_type_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'outage_title' => array('type' => 'varchar', 'precision' => 100, 'nullable' => false),
 		'outage_description' => array('type' => 'text', 'nullable' => false),
 		'create_dt' => array('type' => 'timestamp', 'nullable' => false),
 		'create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'update_dt' => array('type' => 'timestamp', 'nullable' => false),
-		'update_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
+		'update_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'outage_status_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
 	),
-	'pk' => array('environment_outage_id'),
+	'pk' => array('outage_id'),
 	'fk' => array(),
 	'ix' => array(),
 	'uc' => array()

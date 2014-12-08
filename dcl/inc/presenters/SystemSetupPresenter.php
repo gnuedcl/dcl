@@ -25,7 +25,7 @@ class SystemSetupPresenter
 {
 	public function Index()
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
@@ -136,6 +136,24 @@ class SystemSetupPresenter
 				'action' =>  STR_ADMIN_URLTYPES,
 				'description' =>  STR_ADMIN_URLTYPESDESC,
 				'note' =>  STR_ADMIN_URLTYPESNOTE
+			),
+			'Environment.Index' => array(
+				'action' => 'Environments',
+				'description' => 'Add environments for tracking deployments and outages.'
+			),
+			'OutageType.Index' => array(
+				'action' => 'Outage Types',
+				'description' => 'Manage types of outages that can occur in your organization.'
+			),
+			'MeasurementUnit.Index' => array(
+				'action' => 'Measurement Units',
+				'description' => 'Maintain a list of units that are used for measurements.',
+				'note' => 'Used by measurement types.'
+			),
+			'MeasurementType.Index' => array(
+				'action' => 'Measurement Types',
+				'description' => 'Manage types of measurements that can be recorded.',
+				'note' => 'This entity relies on measurement units.'
 			)
 		);
 	}

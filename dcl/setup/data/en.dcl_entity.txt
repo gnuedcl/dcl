@@ -45,3 +45,9 @@ entity_id	entity_desc	active
 43	Functional Spec	Y
 44	Hotlist	Y
 45	Error Log	Y
+46	Environment	Y
+47	Outage Type	Y
+48	Outage	Y
+49	Measurement Unit	Y
+50	Measurement Type	Y
+51	Organization Measurement	Y

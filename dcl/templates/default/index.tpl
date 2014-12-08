@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{$VAL_TITLE}</title>
 	<link rel="stylesheet" type="text/css" href="{$DIR_CSS}default.css" />
-	<script language="JavaScript">
+	<script type="text/javascript">
 		function printer_friendly()
 		{
 			window.print();

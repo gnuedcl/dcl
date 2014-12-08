@@ -27,7 +27,8 @@ $GLOBALS['phpgw_baseline']['dcl_environment'] = array(
 		'create_dt' => array('type' => 'timestamp', 'nullable' => false),
 		'create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'update_dt' => array('type' => 'timestamp', 'nullable' => false),
-		'update_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
+		'update_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'active' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'Y')
 	),
 	'pk' => array('environment_id'),
 	'fk' => array(),

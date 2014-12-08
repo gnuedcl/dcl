@@ -23,7 +23,7 @@
 function smarty_function_dcl_select_module($params, &$smarty)
 {
 	global $g_oSec;
-	
+
 	if (!isset($params['name']))
 		$params['name'] = 'module_id';
 
@@ -50,7 +50,7 @@ function smarty_function_dcl_select_module($params, &$smarty)
 	$sFilter = '';
 	if ($params['active'] == 'Y')
 		$sFilter = "pm.active = 'Y'";
-		
+
 	if ($g_oSec->IsPublicUser())
 	{
 		$sFilter .= ($sFilter == '' ? '' : ' AND ') . "pm.product_id = p.id AND p.is_public = 'Y'";
@@ -68,7 +68,7 @@ function smarty_function_dcl_select_module($params, &$smarty)
 	$oSelect->OnChange = $params['onchange'];
 	$oSelect->FirstOption = STR_CMMN_SELECTONE;
 	$oSelect->CssClass = 'form-control';
-	
+
 	if ($g_oSec->IsPublicUser())
 	{
 		$oSelect->SetOptionsFromDb('dcl_product_module pm, products p', 'product_module_id', 'module_name', $sFilter, 'module_name');

@@ -24,7 +24,7 @@ class SeverityHtmlHelper
 {
 	function Select($default = 0, $cbName = 'severity', $longShort = 'name', $size = 0, $activeOnly = true, $setid = 0)
 	{
-		$query = "SELECT a.id,a.$longShort FROM severities a";
+		$query = "SELECT a.id, a.$longShort, NULL FROM severities a";
 
 		if ($setid > 0)
 		{
