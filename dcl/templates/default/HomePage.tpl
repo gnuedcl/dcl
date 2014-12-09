@@ -1,3 +1,4 @@
+{if $PERM_OUTAGES}
 <div id="currentOutages" data-bind="if: outages().length">
 	<div class="panel" data-bind="attr: { class: outageClass }">
 		<div class="panel-heading"><h3 class="panel-title">Current Outages</h3></div>
@@ -184,3 +185,4 @@
 		updateRecentOutages();
 	});
 </script>
+{/if}

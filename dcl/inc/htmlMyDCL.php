@@ -67,7 +67,7 @@ class htmlMyDCL
 	private function HomePage()
 	{
 		$smartyHelper = new SmartyHelper();
-
+		$smartyHelper->assign('PERM_OUTAGES', HasPermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW));
 		$smartyHelper->Render('HomePage.tpl');
 	}
 	
