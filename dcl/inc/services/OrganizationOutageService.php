@@ -74,10 +74,20 @@ class OrganizationOutageService
 			$outage = new stdClass();
 			$outage->id = (int)$outageModel->f(0);
 			$outage->title = $outageModel->f(1);
-			$outage->start = (new DateTime($outageModel->f(2)))->format("c");
 
-			$outageEndDt = $outageModel->f(3);
-			$outage->end = $outageEndDt == null ? null : (new DateTime($outageEndDt))->format("c");
+			$outageStartDt = new DateTime($outageModel->f(2));
+			$outage->start = $outageStartDt->format("c");
+
+			$outageEndDtValue = $outageModel->f(3);
+			if ($outageEndDtValue == null)
+			{
+				$outage->end = null;
+			}
+			else
+			{
+				$outageEndDt = new DateTime($outageEndDtValue);
+				$outage->end = $outageEndDt->format("c");
+			}
 
 			$outage->typeId = (int)$outageModel->f(4);
 			$outage->typeName = $outageModel->f(5);
