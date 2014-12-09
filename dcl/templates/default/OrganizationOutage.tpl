@@ -112,26 +112,6 @@ function ViewModel() {
 	});
 }
 
-function OutageModel() {
-	var self = this;
-
-	self.id = 0;
-	self.title = "";
-	self.start = "";
-	self.end = "";
-	self.typeId = 0;
-	self.typeName = "";
-	self.isDown = "";
-	self.isPlanned = "";
-}
-
-function DateOutagesModel() {
-	var self = this;
-
-	self.dt = new Date();
-	self.minutes = 0;
-}
-
 function DateUptimeModel(day) {
 	var self = this;
 
@@ -468,24 +448,24 @@ $(function() {
 					}
 				}
 			});
-
-			var totalMinutes = 0, downMinutes = 0;
-			$.each(allOutageData, function(k, v) {
-				v.aggregateOutages();
-				unplannedOutageData.push([v.dt, v.getUptimeUnplannedOnly()]);
-				downtimeOutageData.push([v.dt, v.getUptime()]);
-				unplannedDownMinutes.push([v.dt, v.unplannedDowntimeMinutes]);
-				plannedDownMinutes.push([v.dt, v.plannedDowntimeMinutes]);
-				unplannedUpMinutes.push([v.dt, v.unplannedUptimeMinutes]);
-				plannedUpMinutes.push([v.dt, v.plannedUptimeMinutes]);
-
-				totalMinutes += v.availableMinutes;
-				downMinutes += v.downtimeMinutes;
-			});
-
-			viewModel.totalMinutes(totalMinutes);
-			viewModel.downMinutes(downMinutes);
 		}
+
+		var totalMinutes = 0, downMinutes = 0;
+		$.each(allOutageData, function(k, v) {
+			v.aggregateOutages();
+			unplannedOutageData.push([v.dt, v.getUptimeUnplannedOnly()]);
+			downtimeOutageData.push([v.dt, v.getUptime()]);
+			unplannedDownMinutes.push([v.dt, v.unplannedDowntimeMinutes]);
+			plannedDownMinutes.push([v.dt, v.plannedDowntimeMinutes]);
+			unplannedUpMinutes.push([v.dt, v.unplannedUptimeMinutes]);
+			plannedUpMinutes.push([v.dt, v.plannedUptimeMinutes]);
+
+			totalMinutes += v.availableMinutes;
+			downMinutes += v.downtimeMinutes;
+		});
+
+		viewModel.totalMinutes(totalMinutes);
+		viewModel.downMinutes(downMinutes);
 
 		$.plot("#sla-uptime-unplanned", [{
 			data: unplannedOutageData,
