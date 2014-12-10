@@ -88,6 +88,7 @@
 		</div>
 	</div>
 </div>
+<script src="{$DIR_VENDOR}lodash/lodash.min.js"></script>
 <script src="{$DIR_VENDOR}flot/jquery.flot.min.js"></script>
 <script src="{$DIR_VENDOR}flot/jquery.flot.time.min.js"></script>
 <script src="{$DIR_VENDOR}flot/jquery.flot.categories.min.js"></script>
@@ -120,6 +121,8 @@
 		self.unitText = ko.computed(function() {
 			return self.unitName() + " (" + self.unitAbbr() + ")";
 		});
+
+		self.histogram = ko.observable([]);
 	}
 
 	var viewModel = new ViewModel();
@@ -137,7 +140,7 @@
 		var msSlice = [];
 		var d = [], src = [];
 		var avg = [], med = [], trm = [];
-		var histogram = [ [ "0-999", 0 ], [ "1000-1999", 0 ], [ "2000-2999", 0 ], [ "3000-3999", 0 ], [ "4000-4999", 0 ], [ "5000-5999", 0 ], [ "6000-69999", 0 ], [ "7000+", 0 ] ];
+		var histogram = [];
 		var measureSummary = [];
 		var nonCompliantMeasurements = [], warningMeasurements = [];
 
@@ -181,6 +184,8 @@
 					viewModel.schedule(data.schedule);
 					viewModel.scheduleExceptions(data.scheduleExceptions);
 
+					viewModel.histogram(data.histogram);
+
 					updateMeasurements(data.measurements);
 
 					viewModel.nonCompliantMeasurements(nonCompliantMeasurements);
@@ -196,9 +201,18 @@
 		$content.on("click", "#update", updateView);
 
 		function addToHistogram(value) {
-			var bucket = Math.floor(value / 1000);
-			if (bucket > 6)
-				bucket = 7;
+			var bucket = _.findIndex(viewModel.histogram(), function(v) {
+				if (v.min == null && value <= v.max)
+					return true;
+
+				if (v.max == null && value >= v.min)
+					return true;
+
+				return value >= v.min && value <= v.max;
+			});
+
+			if (bucket == -1)
+				return;
 
 			histogram[bucket][1]++;
 		}
@@ -308,6 +322,14 @@
 			return true;
 		}
 
+		function generateHistogram() {
+			histogram = [];
+			_.forEach(viewModel.histogram(), function(v) {
+				var label = (v.min == null ? "Below " : v.min + (v.max == null ? "" : "-")) + (v.max == null ? "+" : v.max);
+				histogram.push([label, 0]);
+			});
+		}
+
 		function updateMeasurements(src) {
 			lastYear = 0;
 			lastMonth = 0;
@@ -318,7 +340,8 @@
 			med = [];
 			trm = [];
 			measureSummary = [];
-			histogram = [ [ "0-999", 0 ], [ "1000-1999", 0 ], [ "2000-2999", 0 ], [ "3000-3999", 0 ], [ "4000-4999", 0 ], [ "5000-5999", 0 ], [ "6000-69999", 0 ], [ "7000+", 0 ] ];
+
+			generateHistogram();
 
 			if (src.length > 0) {
 				src.forEach(function (measure) {

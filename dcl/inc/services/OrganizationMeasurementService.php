@@ -63,6 +63,17 @@ class OrganizationMeasurementService
 		$retVal->schedule = array();
 		$retVal->scheduleExceptions = array();
 
+		$retVal->histogram = array(
+			array('min' => 0, 'max' => 999),
+			array('min' => 1000, 'max' => 1999),
+			array('min' => 2000, 'max' => 2999),
+			array('min' => 3000, 'max' => 3999),
+			array('min' => 4000, 'max' => 4999),
+			array('min' => 5000, 'max' => 5999),
+			array('min' => 6000, 'max' => 6999),
+			array('min' => 7000, 'max' => null)
+		);
+
 		$orgMeasurementModel = new OrganizationMeasurementSlaModel();
 		if ($orgMeasurementModel->Load(array('org_id' => $organizationId, 'measurement_type_id' => $measureTypeId), false) != -1)
 		{
