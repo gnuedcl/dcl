@@ -145,8 +145,10 @@ class OrganizationMeasurementService
 
 		while ($measureModel->next_record())
 		{
+			$msTimestamp = new DateTime($measureModel->f(0));
+
 			$measurement = new stdClass();
-			$measurement->ts = $measureModel->f(0);
+			$measurement->ts = $msTimestamp->format('c');
 			$measurement->ms = (int)$measureModel->f(1);
 
 			$retVal->measurements[] = $measurement;
