@@ -144,6 +144,12 @@
 		var measureSummary = [];
 		var nonCompliantMeasurements = [], warningMeasurements = [];
 
+		$.blockUI.defaults.css.border = "none";
+		$.blockUI.defaults.css.padding = "15px";
+		$.blockUI.defaults.css.backgroundColor = "#000";
+		$.blockUI.defaults.css.borderRadius = "10px";
+		$.blockUI.defaults.css.color = "#fff";
+
 		function updateView() {
 			var params = {
 				org_id: {Org->org_id},
@@ -157,12 +163,6 @@
 				$.gritter.add({ title: "Error", text: "Please select a measurement type for the report." });
 				return;
 			}
-
-			$.blockUI.defaults.css.border = "none";
-			$.blockUI.defaults.css.padding = "15px";
-			$.blockUI.defaults.css.backgroundColor = "#000";
-			$.blockUI.defaults.css.borderRadius = "10px";
-			$.blockUI.defaults.css.color = "#fff";
 
 			$("#content").block({ message: "<h4>Requesting measurements...</h4>" });
 			$.getJSON("{$URL_MAIN_PHP}?menuAction=OrganizationMeasurementService.GetData",
