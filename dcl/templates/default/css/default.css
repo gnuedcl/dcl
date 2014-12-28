@@ -580,6 +580,15 @@ tt, pre
 	a[href]:after {
 		content: "" !important;
 	}
+
+	.readmore-js-collapsed {
+		overflow: auto;
+		height: auto !important;
+	}
+
+	a.readmore-js-toggle {
+		display: none;
+	}
 }
 
 /* Post-bootstrap changes */

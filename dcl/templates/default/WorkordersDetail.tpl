@@ -25,6 +25,7 @@ function validateAndSubmitForm(form) {
 }
 </script>
 {/if}
+<script type="text/javascript" src="{$DIR_VENDOR}readmore/readmore.min.js"></script>
 <script type="text/javascript">
 function submitAction(sFormName, sAction) {
 	var oForm = document.getElementById(sFormName);
@@ -41,6 +42,11 @@ $(function() {
 		var $tabs = $('#tabs').find('a[href="' + hash + '"]');
 		$tabs.tab('show');
 	}
+
+	$("#notes").readmore({
+		moreLink: '<a href="javascript:;" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-collapse-down"></span> Show More...</a>',
+		lessLink: '<a href="javascript:;" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-collapse-up"></span> Show Less...</a>'
+	});
 
 	$("body").on("click", "a.remove-from-project", function() {
 		var $link = $(this);
@@ -70,7 +76,6 @@ $(function() {
 	<div class="panel-body">
 		<ul id="tabs" class="nav nav-tabs">
 			<li class="active"><a href="#workorder" data-toggle="tab">Work Order</a></li>
-			{if $VAL_NOTES != ""}<li><a href="#notes" data-toggle="tab">{$smarty.const.STR_WO_NOTES|escape}</a></li>{/if}
 			<li><a href="#files" data-toggle="tab">Files <span class="badge{if count($VAL_ATTACHMENTS) > 0} alert-info{/if}">{$VAL_ATTACHMENTS|@count}</span></a></li>
 			<li><a href="#tasks" data-toggle="tab">Tasks <span class="badge{if count($VAL_TASKS) > 0} alert-info{/if}">{$VAL_TASKS|@count}</span></a></li>
 			{include file="WorkOrderOptionsControl.tpl"}
@@ -135,6 +140,10 @@ $(function() {
 								{if !$smarty.section.org.last},&nbsp;{/if}
 							{/section}
 						{/if}
+						{if $VAL_NOTES != ""}
+							<h4>{$smarty.const.STR_WO_NOTES|escape}</h4>
+							<p id="notes">{$VAL_NOTES|escape|dcl_link}</p>
+						{/if}
 						<h4>{$smarty.const.STR_WO_DESCRIPTION|escape}</h4>
 						<p>{$VAL_DESCRIPTION|escape|dcl_link}</p>
 						{dcl_publish topic="WorkOrder.Detail" param=$WorkOrder}
@@ -142,9 +151,6 @@ $(function() {
 				</div>
 				</div>
 			</div>
-			{if $VAL_NOTES != ""}<div class="tab-pane fade" id="notes">
-				<p>{$VAL_NOTES|escape|dcl_link}</p>
-			</div>{/if}
 			<div class="tab-pane fade" id="files">
 				{include file="AttachmentsControl.tpl"}
 			</div>
