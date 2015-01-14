@@ -176,8 +176,8 @@ class OutageController
 		$envOutage = new EnvironmentOutageModel();
 		$originalEnvironments = $envOutage->LoadIdByOutageId($model->outage_id);
 
-		$newEnvironments = array_diff($environments, $originalEnvironments);
-		$removedEnvironments = array_diff($originalEnvironments, $environments);
+		$newEnvironments = array_values(array_diff($environments, $originalEnvironments));
+		$removedEnvironments = array_values(array_diff($originalEnvironments, $environments));
 
 		// Add any new environments
 		if (count($newEnvironments) > 0)
@@ -216,7 +216,7 @@ class OutageController
 			{
 				if ($organizations != null)
 				{
-					$organizations = array_diff($organizations, $removedEnvOrgs);
+					$organizations = array_values(array_diff($organizations, $removedEnvOrgs));
 				}
 			}
 		}
@@ -224,8 +224,8 @@ class OutageController
 		$orgOutage = new OutageOrgModel();
 		$originalOrgs = $orgOutage->LoadIdByOutageId($model->outage_id);
 
-		$newOrgs = array_diff($organizations, $originalOrgs);
-		$removedOrgs = array_diff($originalOrgs, $organizations);
+		$newOrgs = array_values(array_diff($organizations, $originalOrgs));
+		$removedOrgs = array_values(array_diff($originalOrgs, $organizations));
 
 		// Add new organizations
 		if (count($newOrgs) > 0)
