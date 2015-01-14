@@ -49,8 +49,8 @@ class EnvironmentOrgModel extends DbProvider
 			return null;
 
 		$sql = 'SELECT org_id FROM dcl_environment_org WHERE environment_id IN (' . join(',', $environmentIds) . ') AND ';
-		$sql .= ' begin_dt >= ' . $this->FieldValueToSQL('begin_dt', $timestamp);
-		$sql .= ' AND (end_dt IS NULL OR end_dt <= ' . $this->FieldValueToSQL('end_dt', $timestamp) . ')';
+		$sql .= ' begin_dt <= ' . $this->FieldValueToSQL('begin_dt', $timestamp);
+		$sql .= ' AND (end_dt IS NULL OR end_dt >= ' . $this->FieldValueToSQL('end_dt', $timestamp) . ')';
 
 		if ($this->Query($sql) == -1)
 			return null;
