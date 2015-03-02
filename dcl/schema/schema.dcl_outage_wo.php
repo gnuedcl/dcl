@@ -28,7 +28,7 @@ $GLOBALS['phpgw_baseline']['dcl_outage_wo'] = array(
 		'create_dt' => array('type' => 'timestamp', 'nullable' => false),
 		'create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
 	),
-	'pk' => array('outage_wo_id', 'wo_id', 'seq'),
+	'pk' => array('outage_id', 'wo_id', 'seq'),
 	'fk' => array(),
 	'ix' => array(),
 	'uc' => array()
