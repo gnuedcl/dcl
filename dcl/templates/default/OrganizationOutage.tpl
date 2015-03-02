@@ -189,7 +189,6 @@ function DateUptimeModel(day) {
 		if (endDt.seconds() > 29)
 			minutes++;
 
-		console.log({ s: startDt.format(), e: endDt.format(), m: minutes });
 		if (isDown) {
 			if (!isPlanned) {
 				self.unplannedDowntimeMinutes += minutes;

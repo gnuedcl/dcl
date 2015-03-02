@@ -97,7 +97,6 @@ $(function() {
 
 		self.setScore = function(newScore) {
 			self.score(newScore);
-			console.log(newScore);
 		}
 	}
 
