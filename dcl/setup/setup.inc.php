@@ -23,7 +23,7 @@
 $setup_info['dcl'] = array(
     'name' => 'dcl',
     'title' => 'Double Choco Latte',
-    'version' => '0.9.5RC22',
+    'version' => '0.9.5RC23',
     'enable' => 1,
     'app_order' => 1,
     'author' => array(
@@ -78,6 +78,7 @@ $setup_info['dcl'] = array(
 		'dcl_org_measurement',
 		'dcl_org_measurement_sla',
         'dcl_org_note',
+		'dcl_org_outage_sla',
         'dcl_org_phone',
         'dcl_org',
         'dcl_org_product_xref',
