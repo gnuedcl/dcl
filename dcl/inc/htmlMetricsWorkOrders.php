@@ -36,8 +36,6 @@ class htmlMetricsWorkOrders
 
 	function getparameters($needHdr = true)
 	{
-		global $dcl_info;
-
 		if ($needHdr == true)
 			commonHeader();
 
@@ -67,10 +65,7 @@ class htmlMetricsWorkOrders
 				if ($this->oProduct->Load($product_id) == -1)
 				    continue;
 				    
-				if ($productNames != '')
-					$productNames .= '&nbsp;/&nbsp;';
-
-				$productNames .= $this->oProduct->name;
+				$productNames .= '<span class="badge alert-info">' . htmlspecialchars($this->oProduct->name, ENT_QUOTES, 'UTF-8') . '</span> ';
 			}
 		}
 
@@ -102,25 +97,20 @@ class htmlMetricsWorkOrders
 
 			$oProjectMap->Query('SELECT name FROM dcl_projects WHERE projectid IN (' . implode(',', $this->aProjects) . ')');
 			while ($oProjectMap->next_record())
-			{
-				if ($projectNames != '')
-					$projectNames .= '&nbsp;/&nbsp;';
-
-				$projectNames .= $oProjectMap->f(0);
-			}
+				$projectNames .= '<span class="badge alert-info">' . htmlspecialchars($oProjectMap->f(0), ENT_QUOTES, 'UTF-8') . '</span> ';
 		}
 
 		if ($projectNames != '')
-			echo '<h3>Projects: ' . $projectNames . '</h3>';
+			echo '<h4>Projects</h4><div>' . $projectNames . '</div>';
 
 		if ($productNames != '')
-			echo '<h3>Products: ' . $productNames . '</h3>';
+			echo '<h4>Products</h4><div>' . $productNames . '</div>';
 
 		$beginDate = Filter::ToDate($_REQUEST['begindate']);
 		$endDate = Filter::ToDate($_REQUEST['enddate']);
 		if ($beginDate !== null || $endDate !== null)
 		{
-			echo '<h3>Date Range: ';
+			echo '<h5>Date Range: ';
 			if ($beginDate !== null)
 			{
 				echo $beginDate;
@@ -131,7 +121,7 @@ class htmlMetricsWorkOrders
 			if ($endDate !== null)
 				echo $endDate;
 
-			echo '</h3>';
+			echo '</h5>';
 		}
 
 		$this->executeStatus();
@@ -147,8 +137,6 @@ class htmlMetricsWorkOrders
 		if ($oDB->query($sSQL) != -1)
 		{
 			$oTable = new TableHtmlHelper();
-			$oTable->setInline(true);
-			$oTable->setCaption($sCaption);
 			$oTable->addColumn($sAggregateBy, 'html');
 			$oTable->addColumn('Count', 'numeric');
 			
@@ -172,12 +160,22 @@ class htmlMetricsWorkOrders
 					
 				$iTotal += $oDB->f(2);
 			}
+
+			if ($iTotal == 0)
+				return;
 			
 			$oTable->setData($aData);
 			$oTable->addFooter('Total');
 			$oTable->addFooter($iTotal);
-			
+
+			echo '<div class="panel panel-default">';
+			echo '<div class="panel-heading"><h4 class="panel-title">';
+			echo htmlspecialchars($sCaption, ENT_QUOTES, 'UTF-8');
+			echo '</h4></div>';
+
 			$oTable->render();
+
+			echo '</div>';
 		}
 	}
 

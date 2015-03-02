@@ -154,6 +154,10 @@ class SystemSetupPresenter
 				'action' => 'Measurement Types',
 				'description' => 'Manage types of measurements that can be recorded.',
 				'note' => 'This entity relies on measurement units.'
+			),
+			'Rubric.Index' => array(
+				'action' => 'Rubrics',
+				'description' => 'Manage rubrics, which are optionally used to derive a criteria-based score for work orders.  The set of criteria is determined by product and work order type.'
 			)
 		);
 	}

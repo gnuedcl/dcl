@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2011 Free Software Foundation
+ * Copyright (C) 1999-2015 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -76,6 +76,55 @@ class WorkOrderService
 				$retVal->rows[] = $org;
 				$retVal->count++;
 			}
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode($retVal);
+		exit;
+	}
+
+	public function GetRubric()
+	{
+		$woId = Filter::RequireInt(@$_REQUEST['wo_id']);
+		$seq = Filter::RequireInt(@$_REQUEST['seq']);
+
+		$woModel = new WorkOrderModel();
+		$woModel->LoadByIdSeq($woId, $seq);
+
+		$productRubricModel = new ProductRubricModel();
+		$productRubricModel->Load(array('product_id' => $woModel->product, 'wo_type_id' => $woModel->wo_type_id));
+
+		$retVal = new stdClass();
+
+		$model = new RubricModel();
+		$model->Load($productRubricModel->rubric_id);
+
+		$retVal->id = $model->rubric_id;
+		$retVal->name = $model->rubric_name;
+		$retVal->criteria = array();
+
+		$criteriaModel = new RubricCriteriaModel();
+		$criteriaModel->ListCriteriaForRubric($model->rubric_id);
+
+		$woRubricModel = new WoRubricScoreModel();
+		$selectedItems = $woRubricModel->ListByWorkOrder($woModel);
+
+		while ($criteriaModel->next_record())
+		{
+			$record = new stdClass();
+			$record->id = $criteriaModel->f('rubric_criteria_id');
+			$record->name = $criteriaModel->f('criteria_name');
+			$record->level1 = $criteriaModel->f('level1_descriptor');
+			$record->level2 = $criteriaModel->f('level2_descriptor');
+			$record->level3 = $criteriaModel->f('level3_descriptor');
+			$record->level4 = $criteriaModel->f('level4_descriptor');
+
+			if (array_key_exists($record->id, $selectedItems))
+				$record->score = $selectedItems[$record->id];
+			else
+				$record->score = null;
+
+			$retVal->criteria[] = $record;
 		}
 
 		header('Content-Type: application/json');

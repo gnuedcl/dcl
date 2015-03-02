@@ -55,11 +55,11 @@ $GLOBALS['phpgw_baseline']['workorders_audit'] = array(
 		'fixed_version_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
 		'audit_on' => array('type' => 'timestamp', 'nullable' => false),
 		'audit_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'audit_version' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
+		'audit_version' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'rubric_score' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
 	),
 	'pk' => array('jcn', 'seq', 'audit_version'),
 	'fk' => array(),
 	'ix' => array(),
 	'uc' => array()
 );
-?>

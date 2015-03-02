@@ -89,6 +89,7 @@ define('DCL_ENTITY_OUTAGE', 48);
 define('DCL_ENTITY_MEASUREMENTUNIT', 49);
 define('DCL_ENTITY_MEASUREMENTTYPE', 50);
 define('DCL_ENTITY_ORGMEASUREMENT', 51);
+define('DCL_ENTITY_RUBRIC', 52);
 
 // Permissions
 define('DCL_PERM_ADMIN', 0);
@@ -115,7 +116,7 @@ define('DCL_PERM_VIEWWIKI', 20);
 define('DCL_PERM_PUBLICONLY', 21);
 define('DCL_PERM_VIEWFILE', 22);
 define('DCL_PERM_AUDIT', 23);
-define('DCL_PERM_VERSIONCHECK', 24);
+define('DCL_PERM_SCORE', 24);
 
 // Audit events
 define('DCL_EVENT_ADD', 1);
@@ -576,13 +577,20 @@ function commonHeader()
 	if (defined('HTML_HEADER_GENERATED'))
 		return;
 
-	header('Content-Type: text/html; charset=utf-8');
+	define('HTML_HEADER_GENERATED', 1);
 	header('Expires: Fri, 11 Oct 1991 17:01:00 GMT');
 	header('Cache-Control: no-cache, must-revalidate');
 
+	if (IsJsonRequest())
+	{
+		header('Content-Type: application/json; charset=utf-8');
+		return;
+	}
+
+	header('Content-Type: text/html; charset=utf-8');
+
 	global $g_oSession, $dcl_info, $dcl_domain, $dcl_domain_info;
-	define('HTML_HEADER_GENERATED', 1);
-	
+
 	$bHideMenu = (isset($_REQUEST['hideMenu']) && $_REQUEST['hideMenu'] == 'true');
 
 	$title = '[' . $dcl_domain_info[$dcl_domain]['name'] . ' / ' . $GLOBALS['DCLNAME'] . ']';
@@ -712,9 +720,35 @@ function GetYesNoCombo($default = 'Y', $cbName = 'active', $size = 0, $noneOptio
 	return $str;
 }
 
+function IsJsonRequest()
+{
+	return isset($_SERVER['CONTENT_TYPE']) && mb_stripos($_SERVER['CONTENT_TYPE'], '/json') > 0;
+}
+
+function AcceptJsonResponse()
+{
+	return isset($_SERVER['HTTP_ACCEPT']) && mb_stripos($_SERVER['HTTP_ACCEPT'], '/json') > 0;
+}
+
+function GetMessageObject($status, $message)
+{
+	$retVal = new stdClass();
+	$retVal->status = $status;
+	$retVal->message = $message;
+	$retVal->errors = array();
+
+	return $retVal;
+}
+
 function ShowInfo($sMessage)
 {
 	commonHeader();
+
+	if (AcceptJsonResponse())
+	{
+		echo json_encode(GetMessageObject(STR_CMMN_INFORMATION, $sMessage));
+		exit;
+	}
 
 	$o = htmlMessageInfo::GetInstance();
 	$o->SetShow($sMessage);
@@ -724,6 +758,12 @@ function ShowWarning($sMessage)
 {
 	commonHeader();
 
+	if (AcceptJsonResponse())
+	{
+		echo json_encode(GetMessageObject(STR_CMMN_WARNING, $sMessage));
+		exit;
+	}
+
 	$o = htmlMessageWarning::GetInstance();
 	$o->SetShow($sMessage);
 }
@@ -731,6 +771,12 @@ function ShowWarning($sMessage)
 function ShowError($sMessage)
 {
 	commonHeader();
+
+	if (AcceptJsonResponse())
+	{
+		echo json_encode(GetMessageObject(STR_CMMN_ERROR, $sMessage));
+		exit;
+	}
 
 	$o = htmlMessageError::GetInstance();
 	$o->SetShow($sMessage);
@@ -741,7 +787,7 @@ function DclErrorLog($level, $message, $file, $line, $backTrace)
 	try
 	{
         if (empty($message))
-            return -1;
+            return null;
 
 		$requestUri = $_SERVER['REQUEST_URI'];
 		$queryStringStart = mb_strpos($requestUri, '?');
@@ -768,46 +814,46 @@ function DclErrorLog($level, $message, $file, $line, $backTrace)
 
 		$logger->Add();
 
-		return $logger->error_log_id;
+		return $logger;
 	}
 	catch (Exception $ex)
 	{
-		return -1;
+		return null;
 	}
 }
 
 function LogInfo($message, $file, $line, $backTrace)
 {
-	$logId = DclErrorLog(DCL_LOG_INFO, $message, $file, $line, $backTrace);
-	if ($logId != -1)
-		ShowInfo('An info log entry was generated.  Please refer to log ID ' . $logId . '.');
+	$logger = DclErrorLog(DCL_LOG_INFO, $message, $file, $line, $backTrace);
+	if ($logger !== null && $logger->error_log_id > 0)
+		ShowInfo('An info log entry was generated.  Please refer to log ID ' . $logger->error_log_id . '.');
 	else
 		ShowInfo('An info log entry was attempted, but was not able to be recorded.');
 }
 
 function LogWarning($message, $file, $line, $backTrace)
 {
-	$logId = DclErrorLog(DCL_LOG_WARN, $message, $file, $line, $backTrace);
-	if ($logId != -1)
-		ShowWarning('A warning log entry was generated.  Please refer to log ID ' . $logId . '.');
+	$logger = DclErrorLog(DCL_LOG_WARN, $message, $file, $line, $backTrace);
+	if ($logger !== null && $logger->error_log_id > 0)
+		ShowWarning('A warning log entry was generated.  Please refer to log ID ' . $logger->error_log_id . '.');
 	else
 		ShowWarning('A warning log entry was attempted, but was not able to be recorded.');
 }
 
 function LogError($message, $file, $line, $backTrace)
 {
-	$logId = DclErrorLog(DCL_LOG_ERROR, $message, $file, $line, $backTrace);
-	if ($logId != -1)
-		ShowError('An error log entry was generated.  Please refer to log ID ' . $logId . '.');
+	$logger = DclErrorLog(DCL_LOG_ERROR, $message, $file, $line, $backTrace);
+	if ($logger !== null && $logger->error_log_id > 0)
+		ShowError('An error log entry was generated.  Please refer to log ID ' . $logger->error_log_id . '.');
 	else
 		ShowError('An error log entry was attempted, but was not able to be recorded.');
 }
 
 function LogFatal($message, $file, $line, $backTrace)
 {
-	$logId = DclErrorLog(DCL_LOG_FATAL, $message, $file, $line, $backTrace);
-	if ($logId != -1)
-		ShowError('A fatal log entry was generated.  Please refer to log ID ' . $logId . '.');
+	$logger = DclErrorLog(DCL_LOG_FATAL, $message, $file, $line, $backTrace);
+	if ($logger !== null && $logger->error_log_id > 0)
+		ShowError('A fatal log entry was generated.  Please refer to log ID ' . $logger->error_log_id . '.');
 	else
 		ShowError('A fatal log entry was attempted, but was not able to be recorded.');
 }
@@ -869,16 +915,12 @@ function DclExceptionHandler(Exception $ex)
 	exit(255);
 }
 
-if (!defined('DCL_DEBUG'))
-{
-	error_reporting(E_ALL ^ E_STRICT);
+error_reporting(E_ALL ^ E_STRICT);
 
+if (!defined('DCL_DEBUG') && !defined('DCL_INSTALLER_RUNNING'))
+{
 	set_error_handler('DclErrorHandler');
 	set_exception_handler('DclExceptionHandler');
-}
-else
-{
-	error_reporting(E_ALL ^ E_STRICT);
 }
 
 spl_autoload_register('DclClassAutoLoader');

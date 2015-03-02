@@ -20,15 +20,17 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-$versions = array('0.5.1', '0.5.2', '0.5.3', '0.5.4', '0.5.5', '0.5.6', '0.5.7', '0.5.8', '0.5.9', '0.5.10', '0.5.11', '0.5.12',
-						'0.5.13', '0.5.14', '0.5.15', '0.5.16', '0.5.17', '0.5.18', '0.9.0', '0.9.1', '0.9.2', '0.9.3', '0.9.4',
-						'0.9.4.1', '0.9.4.2', '0.9.4.3', '0.9.4.4', '0.9.5RC1', '0.9.5RC2', '0.9.5RC3', '0.9.5RC4', '0.9.5RC5',
-						'0.9.5RC6', '0.9.5RC7', '0.9.5RC8', '0.9.5RC9', '0.9.5RC10', '0.9.5RC11', '0.9.5RC12', '0.9.5RC13',
-						'0.9.5RC14', '0.9.5RC15', '0.9.5RC16', '0.9.5RC17', '0.9.5RC18', '0.9.5RC19', '0.9.5RC20', '0.9.5RC21',
-						'0.9.5RC22');
-
-foreach ($versions as $version)
-{
-	$UPGRADE_VERSIONS[] = $version;
-	require_once(DCL_ROOT . 'setup/update/' . $version . '.php');
-}
+$GLOBALS['phpgw_baseline']['dcl_rubric'] = array(
+	'fd' => array(
+		'rubric_id' => array('type' => 'auto', 'precision' => 4, 'nullable' => false),
+		'rubric_name' => array('type' => 'varchar', 'precision' => 50, 'nullable' => false),
+		'create_dt' => array('type' => 'timestamp', 'nullable' => false),
+		'create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'update_dt' => array('type' => 'timestamp', 'nullable' => false),
+		'update_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
+	),
+	'pk' => array('rubric_id'),
+	'fk' => array(),
+	'ix' => array(),
+	'uc' => array()
+);

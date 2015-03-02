@@ -381,6 +381,81 @@ class WorkOrderController
 		SetRedirectMessage('Success', 'Work order updated.');
 		RedirectToAction('WorkOrder', 'Detail', 'jcn=' . $workOrderModel->jcn . '&seq=' . $workOrderModel->seq);
 	}
+
+	public function UpdateScore()
+	{
+		RequirePost();
+		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_SCORE);
+
+		$json = file_get_contents('php://input');
+		$requestData = json_decode($json);
+
+		$id = Filter::RequireInt($requestData->id);
+		$seq = Filter::RequireInt($requestData->seq);
+		$rubricScore = 0;
+
+		$woModel = new WorkOrderModel();
+		if ($woModel->LoadByIdSeq($id, $seq) == -1)
+			throw new InvalidEntityException();
+
+		$model = new WoRubricScoreModel();
+		$model->DeleteInvalidScores($woModel);
+		$existingScores = $model->ListByWorkOrder($woModel);
+
+		foreach ($requestData->criteria as $criteria)
+		{
+			$criterionId = $criteria->criterionId;
+			$score = $criteria->level;
+
+			if (!array_key_exists($criterionId, $existingScores))
+				continue;
+
+			$rubricScore += $score - 1;
+			$existingScore = $existingScores[$criterionId];
+			$model = new WoRubricScoreModel();
+
+			if ($existingScore == null)
+			{
+				$model->wo_id = $id;
+				$model->seq = $seq;
+				$model->rubric_criteria_id = $criterionId;
+				$model->score = $score;
+				$model->create_by = DCLID;
+				$model->create_dt = DCL_NOW;
+				$model->update_by = DCLID;
+				$model->update_dt = DCL_NOW;
+
+				$model->Add();
+			}
+			else if ($score != $existingScore)
+			{
+				$model->Load(array('wo_id' => $id, 'seq' => $seq, 'rubric_criteria_id' => $criterionId));
+				$model->score = $score;
+				$model->update_by = DCLID;
+				$model->update_dt = DCL_NOW;
+
+				$model->Edit();
+			}
+		}
+
+		$rubricScore = (int)(($rubricScore / (count($existingScores) * 3)) * 100);
+		if ($rubricScore != $woModel->rubric_score)
+		{
+			$woModel->rubric_score = $rubricScore;
+			$woModel->Edit();
+
+			$watch = new boWatches();
+			$watch->sendNotification($woModel, '4');
+		}
+
+		$response = new stdClass();
+		$response->status = "OK";
+		$response->score = $rubricScore;
+
+		header("Content-Type", "application/json");
+		echo json_encode($response);
+		exit;
+	}
 	
 	public function Delete()
 	{

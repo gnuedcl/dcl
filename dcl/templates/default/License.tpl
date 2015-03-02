@@ -1,4 +1,4 @@
-<h2>Double Choco Latte, Copyright (C) 1999-2014 Free Software Foundation</h2>
+<h2>Double Choco Latte, Copyright (C) 1999-2015 Free Software Foundation</h2>
 <TABLE BORDER=0>
 <TR><TD>
 Double Choco Latte comes with ABSOLUTELY NO WARRANTY; for details see below.<BR>

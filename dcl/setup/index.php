@@ -26,6 +26,8 @@ mb_internal_encoding('UTF-8');
 mb_detect_order('UTF-8');
 mb_regex_encoding('UTF-8');
 
+define('DCL_INSTALLER_RUNNING', 1);
+
 include_once './passwd.php';
 if(INSTALL_USER != '' || INSTALL_PASSWD != '')
 {

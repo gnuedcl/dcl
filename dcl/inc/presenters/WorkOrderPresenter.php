@@ -264,6 +264,14 @@ class WorkOrderPresenter
 		$smarty->assign('VAL_PUBLIC', $workOrder->is_public == 'Y' ? STR_CMMN_YES : STR_CMMN_NO);
 		$smarty->assign('VAL_DEADLINEON', $workOrder->deadlineon);
 
+		$productRubricModel = new ProductRubricModel();
+		if ($productRubricModel->Load(array('product_id' => $workOrder->product, 'wo_type_id' => $workOrder->wo_type_id), false) != -1)
+		{
+			$smarty->assign('VAL_CANSCORE', true);
+			$smarty->assign('VAL_RUBRICID', $productRubricModel->rubric_id);
+			$smarty->assign('VAL_SCORE', $workOrder->rubric_score);
+		}
+
 		$smarty->assign('VAL_REPORTED_VERSION', $oMeta->GetProductVersion($workOrder->reported_version_id));
 		$smarty->assign('VAL_TARGETED_VERSION', $oMeta->GetProductVersion($workOrder->targeted_version_id));
 		$smarty->assign('VAL_FIXED_VERSION', $oMeta->GetProductVersion($workOrder->fixed_version_id));
@@ -358,6 +366,7 @@ class WorkOrderPresenter
 		}
 
 		$smarty->assign('PERM_ACTION', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ACTION));
+		$smarty->assign('PERM_SCORE', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_SCORE));
 		$smarty->assign('PERM_ASSIGN', $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_ASSIGN));
 		$smarty->assign('PERM_ADDTASK', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK));
 		$smarty->assign('PERM_REMOVETASK', $g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_REMOVETASK));
@@ -774,6 +783,7 @@ class WorkOrderPresenter
 				'products.name' => STR_WO_PRODUCT,
 				'statuses.name' => STR_WO_STATUS,
 				'summary' => STR_WO_SUMMARY,
+				'rubric_score' => 'Score',
 				'dcl_product_module.module_name' => STR_CMMN_MODULE,
 				'dcl_projects.name' => STR_WO_PROJECT,
 				'dcl_org.name' => STR_WO_ACCOUNT,

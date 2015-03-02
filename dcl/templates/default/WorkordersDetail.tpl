@@ -25,7 +25,12 @@ function validateAndSubmitForm(form) {
 }
 </script>
 {/if}
+<style type="text/css">
+	td.option { cursor: pointer; }
+</style>
 <script type="text/javascript" src="{$DIR_VENDOR}readmore/readmore.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}knockout/knockout-3.2.0.js"></script>
+<script src="{$DIR_VENDOR}blockui/jquery.blockUI.js"></script>
 <script type="text/javascript">
 function submitAction(sFormName, sAction) {
 	var oForm = document.getElementById(sFormName);
@@ -37,6 +42,12 @@ function submitAction(sFormName, sAction) {
 }
 
 $(function() {
+	$.blockUI.defaults.css.border = "none";
+	$.blockUI.defaults.css.padding = "15px";
+	$.blockUI.defaults.css.backgroundColor = "#000";
+	$.blockUI.defaults.css.borderRadius = "10px";
+	$.blockUI.defaults.css.color = "#fff";
+
 	var hash = location.hash;
 	if (hash) {
 		var $tabs = $('#tabs').find('a[href="' + hash + '"]');
@@ -69,6 +80,114 @@ $(function() {
 			}
 		});
 	});
+	{if $PERM_SCORE && $VAL_CANSCORE}
+
+	var $criteria = $("#criteria");
+	var $content = $("#content");
+	function CriterionModel() {
+		var self = this;
+
+		self.id = ko.observable(0);
+		self.name = ko.observable("");
+		self.level1 = ko.observable("");
+		self.level2 = ko.observable("");
+		self.level3 = ko.observable("");
+		self.level4 = ko.observable("");
+		self.score = ko.observable(0);
+
+		self.setScore = function(newScore) {
+			self.score(newScore);
+			console.log(newScore);
+		}
+	}
+
+	var viewModel = {
+		id: ko.observable(0),
+		name: ko.observable(""),
+		criteria: ko.observableArray([new CriterionModel()])
+	};
+
+	viewModel.getScoresForSubmit = ko.computed(function() {
+		var retVal = [];
+		ko.utils.arrayForEach(this.criteria(), function(item) {
+			retVal.push({ criterionId: parseInt(item.id(), 10), level: parseInt(item.score(), 10) });
+		});
+
+		return retVal;
+	}, viewModel);
+
+	ko.applyBindings(viewModel, document.getElementById("rubric-dialog"));
+
+	$content.on("click", "a.rubric-score-update", function() {
+		$content.block({ message: '<h4><img src="{$DIR_IMG}ajax-loader-bar-black.gif"> Loading...</h4>' });
+		$.ajax({
+			type: "GET",
+			url: "{$URL_MAIN_PHP}?menuAction=WorkOrderService.GetRubric",
+			contentType: "application/json",
+			data: { wo_id: {$VAL_JCN}, seq: {$VAL_SEQ} }
+		}).done(function(data) {
+			viewModel.id(data.id);
+			viewModel.name(data.name);
+
+			var criteriaArray = [];
+			$.each(data.criteria, function(idx, item) {
+				var model = new CriterionModel();
+				model.id(item.id);
+				model.name(item.name);
+				model.level1(item.level1);
+				model.level2(item.level2);
+				model.level3(item.level3);
+				model.level4(item.level4);
+				model.score(item.score);
+
+				criteriaArray.push(model);
+			});
+
+			viewModel.criteria(criteriaArray);
+		}).fail(function(jqXHR, textStatus) {
+			$.gritter.add({ title: "Error", text: "Could not load rubric.  " + textStatus });
+		}).always(function() {
+			$content.unblock();
+		});
+
+		$("#rubric-dialog").modal();
+	});
+
+	$content.on("click", "#save-score", function() {
+		var $selected = $criteria.find("td.option-selected");
+		var submitData = {
+			id: {$VAL_JCN},
+			seq: {$VAL_SEQ},
+			criteria: viewModel.getScoresForSubmit()
+		};
+
+		$content.block({ message: '<h4><img src="{$DIR_IMG}ajax-loader-bar-black.gif"> Saving...</h4>' });
+		$.ajax({
+			type: "POST",
+			url: "{$URL_MAIN_PHP}?menuAction=WorkOrder.UpdateScore",
+			contentType: "application/json",
+			data: JSON.stringify(submitData),
+			dataType: "json"
+		}).done(function(data) {
+			if (data.status == "OK") {
+				$.gritter.add({ title: "Success", text: "Score updated." });
+				$("#rubric-score").text(data.score);
+			} else {
+				if (data.status && data.message) {
+					$.gritter.add({ title: data.status, text: data.message });
+				} else {
+					$.gritter.add({ title: "Error", text: "Unrecognized response from server." });
+				}
+			}
+		}).fail(function(jqXHR, textStatus) {
+			$.gritter.add({ title: "Error", text: "Could not save rubric.  " + textStatus });
+		}).always(function() {
+			$content.unblock();
+		});
+
+		$("#rubric-dialog").modal("hide");
+	});
+	{/if}
 });
 </script>
 <div class="panel panel-info">
@@ -116,6 +235,7 @@ $(function() {
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
+						{if $VAL_CANSCORE}<div><span class="glyphicon glyphicon-signal"></span> Score: <span id="rubric-score">{if $VAL_SCORE}{$VAL_SCORE}{else}Not Scored{/if}</span>{if $PERM_SCORE} <a class="btn btn-xs btn-primary rubric-score-update" href="javascript:;" title="Score This Work Order"><span class="glyphicon glyphicon-pencil"></span></a>{/if}</div>{/if}
 						{if $VAL_TAGS}<div><span class="glyphicon glyphicon-tag"></span> {dcl_tag_link value=$VAL_TAGS}</div>{/if}
 						{if $VAL_HOTLIST}<div><span class="glyphicon glyphicon-fire"></span> {dcl_hotlist_link value=$VAL_HOTLIST}</div>{/if}
 						{if $VAL_PROJECTS}<div class="project-item-{$VAL_JCN}-{$VAL_SEQ}">
@@ -161,3 +281,33 @@ $(function() {
 	</div>
 </div>
 {include file="TimeCardsControl.tpl"}
+{if $PERM_SCORE && $VAL_CANSCORE}
+	<div id="rubric-dialog" class="modal fade">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" data-bind="text: name">Rubric</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table">
+						<thead><tr><th>Criterion</th><th>Level 1</th><th>Level 2</th><th>Level 3</th><th>Level 4</th></tr></thead>
+						<tbody id="criteria" data-bind="foreach: criteria">
+						<tr data-bind="attr: { 'data-id': id, 'data-idx': $index }">
+							<td data-bind="text: name"></td>
+							<td class="option" data-level="1" data-bind="{ css: { 'option-selected bg-info': score() == 1, 'text-muted': score() != 1 }, click: setScore.bind($data, 1) }"><span class="glyphicon glyphicon-check"></span> <span data-bind="text: level1"></span></td>
+							<td class="option" data-level="2" data-bind="{ css: { 'option-selected bg-info': score() == 2, 'text-muted': score() != 2 }, click: setScore.bind($data, 2) }"><span class="glyphicon glyphicon-check"></span> <span data-bind="text: level2"></span></td>
+							<td class="option" data-level="3" data-bind="{ css: { 'option-selected bg-info': score() == 3, 'text-muted': score() != 3 }, click: setScore.bind($data, 3) }"><span class="glyphicon glyphicon-check"></span> <span data-bind="text: level3"></span></td>
+							<td class="option" data-level="4" data-bind="{ css: { 'option-selected bg-info': score() == 4, 'text-muted': score() != 4 }, click: setScore.bind($data, 4) }"><span class="glyphicon glyphicon-check"></span> <span data-bind="text: level4"></span></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button id="save-score" type="button" class="btn btn-success">Save</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{/if}

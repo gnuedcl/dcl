@@ -502,10 +502,20 @@ abstract class AbstractSqlQueryHelper
 								$retVal .= ($bOrderBy ? '_count_' . $agg . '_ DESC' : '(' . $phpgw_baseline[$this->table]['aggregates'][$func][$agg] . ') AS _count_' . $agg . '_');
 							}
 						}
-						else if (mb_strpos($field, '.') > 0)
-							$retVal .= $field; // He said they've already got one!
 						else
-							$retVal .= $this->table . '.' . $field;
+						{
+							$isRubricSort = $bOrderBy && mb_substr($field, -12) == 'rubric_score';
+							if ($isRubricSort)
+								$retVal .= 'COALESCE(';
+
+							if (mb_strpos($field, '.') > 0)
+								$retVal .= $field; // He said they've already got one!
+							else
+								$retVal .= $this->table . '.' . $field;
+
+							if ($isRubricSort)
+								$retVal .= ', -1) DESC';
+						}
 					}
 				}
 			}

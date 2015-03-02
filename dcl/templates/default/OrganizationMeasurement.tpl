@@ -93,7 +93,7 @@
 <script src="{$DIR_VENDOR}flot/jquery.flot.time.min.js"></script>
 <script src="{$DIR_VENDOR}flot/jquery.flot.categories.min.js"></script>
 <script src="{$DIR_VENDOR}moment/moment.min.js"></script>
-<script src="{$DIR_VENDOR}knockout/knockout-3.1.0.js"></script>
+<script src="{$DIR_VENDOR}knockout/knockout-3.2.0.js"></script>
 <script src="{$DIR_VENDOR}blockui/jquery.blockUI.js"></script>
 <script type="text/javascript">
 	function ViewModel() {

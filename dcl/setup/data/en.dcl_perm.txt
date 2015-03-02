@@ -23,3 +23,4 @@ perm_id	perm_desc	active
 21	Public Items Only	Y
 22	View File Attachment	Y
 23	Audit	Y
+24	Score	Y

@@ -2,7 +2,7 @@
 /*
  *
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2015 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -37,11 +37,10 @@ class Page
 
 	function EndPage()
 	{
-		if (IsSet($_REQUEST['bNoHeader']))
+		if (IsSet($_REQUEST['bNoHeader']) || IsJsonRequest())
 			return;
 
 		$t = new SmartyHelper();
 		$t->Render('footer.tpl');
 	}
 }
-?>

@@ -51,3 +51,4 @@ entity_id	entity_desc	active
 49	Measurement Unit	Y
 50	Measurement Type	Y
 51	Organization Measurement	Y
+52	Rubric	Y

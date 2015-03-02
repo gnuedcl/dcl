@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of Double Choco Latte.
- * Copyright (C) 1999-2004 Free Software Foundation
+ * Copyright (C) 1999-2014 Free Software Foundation
  *
  * Double Choco Latte is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -52,7 +52,8 @@ $GLOBALS['phpgw_baseline']['workorders'] = array(
 		'is_public' => array('type' => 'char', 'precision' => 1, 'nullable' => false, 'default' => 'N'),
 		'contact_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
 		'targeted_version_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
-		'fixed_version_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
+		'fixed_version_id' => array('type' => 'int', 'precision' => 4, 'nullable' => true),
+		'rubric_score' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
 	),
 	'pk' => array('jcn', 'seq'),
 	'fk' => array(),
