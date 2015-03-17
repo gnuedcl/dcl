@@ -79,8 +79,10 @@ if (!isset($_GET['token']))
 		}
 
 		$userModel = new PersonnelModel();
-		if ($userModel->LoadByLogin($login) != -1 && !$userModel->IsLocked())
+		$loadUserModelResult = $userModel->LoadByLogin($login);
+		if ($loadUserModelResult != -1 && !$userModel->IsLocked())
 		{
+			$userId = $userModel->f('id');
 			$contactId = $userModel->contact_id;
 			$contactEmailModel = new ContactEmailModel();
 			if ($contactEmailModel->ListByContact($contactId) != -1)
@@ -105,7 +107,6 @@ if (!isset($_GET['token']))
 				{
 					// Have the login and it contains the email address, so send a reset
 					$token = sha1(sha1(microtime()) . mt_rand());
-					$userId = $userModel->f('id');
 					$ttl = $dcl_info['DCL_PASSWORD_RESET_TOKEN_TTL'];
 					$expires = new DateTime();
 					$expires->modify('+' . $ttl . ' minutes');
@@ -131,7 +132,25 @@ if (!isset($_GET['token']))
 
 					SecurityAuditModel::AddAudit($userId, 'requestpasswordreset');
 				}
+				else
+				{
+					if (!$hasRequestedEmail)
+						SecurityAuditModel::AddAudit($userId, 'requestpasswordreset failed: incorrect email');
+					else
+						SecurityAuditModel::AddAudit($userId, 'requestpasswordreset failed: minimum password age not met');
+				}
 			}
+			else
+			{
+				SecurityAuditModel::AddAudit($userId, 'requestpasswordreset failed: contact has no email address');
+			}
+		}
+		else
+		{
+			if ($loadUserModelResult == -1)
+				SecurityAuditModel::AddAudit(0, 'requestpasswordreset failed: user not found: ' . $login);
+			else
+				SecurityAuditModel::AddAudit($userModel->f('id'), 'requestpasswordreset failed: user account locked');
 		}
 
 		$t->Render('resetresult.tpl');
