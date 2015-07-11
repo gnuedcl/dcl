@@ -1,7 +1,15 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 
 <project name="dcl" basedir="." default="deploy">
-    <property name="deploydir" value="/Applications/MAMP/htdocs/dcl" />
+    <if>
+        <os family="mac" />
+        <then>
+            <property name="deploydir" value="/Applications/MAMP/htdocs/dcl" />
+        </then>
+        <else>
+            <property name="deploydir" value="/var/www/html/dcl" />
+        </else>
+    </if>
     <property name="builddir" value="." />
     <property name="distdir" value="./dist" />
     <property name="pkgname" value="dcl" />
