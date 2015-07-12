@@ -28,7 +28,7 @@ class SmartyHelper extends Smarty
 
 		$defaultTemplateSet = GetDefaultTemplateSet();
 
-		$this->assign('DIR_JS', DCL_WWW_ROOT . "js/");
+		$this->assign('DIR_JS', DCL_WWW_ROOT . "templates/$defaultTemplateSet/js/");
 		$this->assign('DIR_CSS', DCL_WWW_ROOT . "templates/$defaultTemplateSet/css/");
 		$this->assign('DIR_IMG', DCL_WWW_ROOT . "templates/$defaultTemplateSet/img/");
 		$this->assign('DIR_VENDOR', DCL_WWW_ROOT . "vendor/");

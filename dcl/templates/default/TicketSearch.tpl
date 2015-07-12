@@ -1,5 +1,5 @@
 {dcl_calendar_init}
-<script language="JavaScript" src="js/ticketsearch.js"></script>
+<script language="JavaScript" src="{$DIR_JS}ticketsearch.js"></script>
 <script language="JavaScript">
 
 	var iSection = 0;

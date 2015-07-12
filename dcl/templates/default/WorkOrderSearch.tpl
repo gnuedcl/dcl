@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
 <link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
-<script type="text/javascript" src="js/wosearch.js"></script>
+<script type="text/javascript" src="{$DIR_JS}wosearch.js"></script>
 <form class="form-horizontal" name="mondosearchform" action="{$URL_MAIN_PHP}" method="post">
 	<input type="hidden" name="menuAction" value="WorkOrder.Search">
 	<fieldset>

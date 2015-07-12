@@ -30,8 +30,6 @@ function renderDCLMenu()
 	$t = new SmartyHelper();
 
 	$t->assign('DIR_IMAGES', 'templates/' . $sTemplateSet . '/img');
-	$t->assign('DIR_CSS', 'templates/' . $sTemplateSet . '/css');
-	$t->assign('DIR_JS', 'js');
 	$t->assign('LNK_LOGOFF', menuLink('logout.php'));
 	$t->assign('DCLID', DCLID);
 	$t->assign('DCLNAME', $g_oSession->Value('DCLNAME'));
