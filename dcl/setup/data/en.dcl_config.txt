@@ -30,7 +30,7 @@ DCL_SMTP_TIMEOUT	dcl_config_int	30
 DCL_PROJECT_BROWSE_PARENTS_ONLY	dcl_config_varchar					N
 DCL_PROJECT_INCLUDE_PARENT_STATS	dcl_config_varchar					N
 DCL_PROJECT_INCLUDE_CHILD_STATS	dcl_config_varchar					Y
-DCL_FILE_PATH	dcl_config_varchar					.
+DCL_FILE_PATH	dcl_config_varchar					files
 DCL_HTML_TITLE	dcl_config_varchar					GNUe Double Choco Latte - Copyright (C) 1999-2014 Free Software Foundation
 DCL_DEFAULT_PROJECT_STATUS	dcl_config_int	1
 DCL_DEFAULT_TICKET_STATUS	dcl_config_int	1
