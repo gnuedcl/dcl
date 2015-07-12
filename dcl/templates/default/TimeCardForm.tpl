@@ -104,7 +104,7 @@
 		</div>
 	</fieldset>
 </form>
-<script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}bettergrow/jquery.BetterGrow.min.js"></script>
 <script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {

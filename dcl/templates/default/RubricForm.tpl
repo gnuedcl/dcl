@@ -33,7 +33,7 @@
 		</div>
 	</fieldset>
 </form>
-<script type="text/javascript" src="{$DIR_VENDOR}knockout/knockout-3.2.0.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}knockout/knockout-3.3.0.js"></script>
 <script src="{$DIR_VENDOR}blockui/jquery.blockUI.js"></script>
 <script type="text/javascript">
 	$(function() {

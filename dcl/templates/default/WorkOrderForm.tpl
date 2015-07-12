@@ -199,7 +199,7 @@ function UpdateOptions()
 		<textarea class="form-control" name="description" id="description" rows="4" wrap valign="top">{$ViewData->Description|escape}</textarea>
 	{/dcl_form_control}
 	{dcl_form_control id=copy_me_on_notification controlsize=1 label="Copy Me on Notification"}
-		<input type="checkbox" class="form-control" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
+		<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
 	{/dcl_form_control}
 {if $ViewData->CanAddTask}
 {if $ViewData->ProjectLabel}
@@ -211,7 +211,7 @@ function UpdateOptions()
 		{dcl_input_text id=projectid}
 	{/dcl_form_control}
 	{dcl_form_control id=addall controlsize=1 label=$smarty.const.STR_WO_ADDALLSEQ}
-		<input type="checkbox" class="form-control" id="addall" name="addall" value="1">
+		<input type="checkbox" id="addall" name="addall" value="1">
 	{/dcl_form_control}
 {/if}
 {/if}
@@ -231,7 +231,7 @@ function UpdateOptions()
 		</div>
 	</fieldset>
 </form>
-<script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}bettergrow/jquery.BetterGrow.min.js"></script>
 <script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
 <script type="text/javascript">
 	//<![CDATA[

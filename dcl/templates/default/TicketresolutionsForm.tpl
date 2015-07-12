@@ -4,10 +4,10 @@
 function validateAndSubmitForm(form)
 {
 
-	var aValidators = new Array(
+	var aValidators = [
 			new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_TCK_STATUS}"),
 			new ValidatorString(form.elements["resolution"], "{$smarty.const.STR_TCK_RESOLUTION}")
-		);
+		];
 
 	for (var i in aValidators)
 	{
@@ -82,7 +82,7 @@ function validateAndSubmitForm(form)
 		</div>
 	</fieldset>
 </form>
-<script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}bettergrow/jquery.BetterGrow.min.js"></script>
 <script type="text/javascript">
 	//<![CDATA[
 	$(document).ready(function() {

@@ -47,7 +47,7 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="{$DIR_JS}/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}jquery/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="{$DIR_VENDOR}bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {

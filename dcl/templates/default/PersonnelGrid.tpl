@@ -1,12 +1,12 @@
 <div class="btn-group">
-	{if $PERM_ADD}<a class="positive button" href="{dcl_url_action controller=Personnel action=Create}">{$smarty.const.STR_CMMN_NEW}</a>{/if}
-	{if $PERM_SETUP}<a class="button" href="{dcl_url_action controller=SystemSetup action=Index}">{$smarty.const.DCL_MENU_SYSTEMSETUP}</a>{/if}
+	{if $PERM_ADD}<a class="btn btn-success" href="{dcl_url_action controller=Personnel action=Create}">{$smarty.const.STR_CMMN_NEW}</a>{/if}
+	{if $PERM_SETUP}<a class="btn btn-default" href="{dcl_url_action controller=SystemSetup action=Index}">{$smarty.const.DCL_MENU_SYSTEMSETUP}</a>{/if}
 </div>
 <table id="grid"></table>
 <div id="pager"></div>
-<link rel="stylesheet" type="text/css" href="{$DIR_JS}/jqgrid/css/ui.jqgrid.css" />
-<script type="text/javascript" src="{$DIR_JS}/jqgrid/js/i18n/grid.locale-en.js"></script>
-<script type="text/javascript" src="{$DIR_JS}/jqgrid/js/jquery.jqGrid.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{$DIR_VENDOR}jqgrid/css/ui.jqgrid.css" />
+<script type="text/javascript" src="{$DIR_VENDOR}jqgrid/js/i18n/grid.locale-en.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}jqgrid/js/jquery.jqGrid.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#grid").jqGrid({

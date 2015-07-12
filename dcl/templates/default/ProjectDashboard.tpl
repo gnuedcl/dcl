@@ -1,4 +1,4 @@
-<link type="text/css" rel="stylesheet" href="{$DIR_JS}tagedit/css/jquery.tagedit.css" />
+<link type="text/css" rel="stylesheet" href="{$DIR_VENDOR}tagedit/css/jquery.tagedit.css" />
 <style type="text/css">
 	#autocomplete-form p button, #autocomplete-form p ul { float: left; margin-right: 4px; }
 	#autocomplete-form p { margin: 0px; }
@@ -34,8 +34,8 @@
 		<div class="col-xs-6"><img src="{$URL_MAIN_PHP}?menuAction=ProjectImage.TypeChart&id={$VAL_PROJECTID}{if $VAL_PROJECTCHILDREN}&children={$VAL_PROJECTCHILDREN}{/if}"></div>
 	</div>
 </div>
-<script type="text/javascript" src="{$DIR_JS}tagedit/js/jquery.autoGrowInput.js"></script>
-<script type="text/javascript" src="{$DIR_JS}tagedit/js/jquery.tagedit.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}tagedit/js/jquery.autoGrowInput.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}tagedit/js/jquery.tagedit.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#autocomplete-form").find("input.tag").tagedit({

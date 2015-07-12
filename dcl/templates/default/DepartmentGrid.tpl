@@ -1,12 +1,12 @@
 <p>
-{if $PERM_ADD}<a class="positive button" href="{dcl_url_action controller=Department action=Create}">{$smarty.const.STR_CMMN_NEW}</a>{/if}
-{if $PERM_ADMIN}<a class="button" href="{dcl_url_action controller=SystemSetup action=Index}">{$smarty.const.DCL_MENU_SYSTEMSETUP}</a>{/if}
+{if $PERM_ADD}<a class="btn btn-success" href="{dcl_url_action controller=Department action=Create}">{$smarty.const.STR_CMMN_NEW}</a>{/if}
+{if $PERM_ADMIN}<a class="btn btn-default" href="{dcl_url_action controller=SystemSetup action=Index}">{$smarty.const.DCL_MENU_SYSTEMSETUP}</a>{/if}
 </p>
 <table id="grid"></table>
 <div id="pager"></div>
-<link rel="stylesheet" type="text/css" href="{$DIR_JS}/jqgrid/css/ui.jqgrid.css" />
-<script type="text/javascript" src="{$DIR_JS}/jqgrid/js/i18n/grid.locale-en.js"></script>
-<script type="text/javascript" src="{$DIR_JS}/jqgrid/js/jquery.jqGrid.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{$DIR_VENDOR}jqgrid/css/ui.jqgrid.css" />
+<script type="text/javascript" src="{$DIR_VENDOR}jqgrid/js/i18n/grid.locale-en.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}jqgrid/js/jquery.jqGrid.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
 		$("#grid").jqGrid({
@@ -53,8 +53,8 @@
 	function formatOptions(value, options, row) {
 		var retVal = [];
 
-		{if $PERM_EDIT}retVal.push('<a class="button" href="{dcl_url_action controller=Department action=Edit params="id="}' + row[0] + '">{$smarty.const.STR_CMMN_EDIT}</a>');{/if}
-		{if $PERM_DELETE}retVal.push('<a class="negative button" href="{dcl_url_action controller=Department action=Delete params="id="}' + row[0] + '">{$smarty.const.STR_CMMN_DELETE}</a>');{/if}
+		{if $PERM_EDIT}retVal.push('<a class="btn btn-primary btn-xs" href="{dcl_url_action controller=Department action=Edit params="id="}' + row[0] + '" title="{$smarty.const.STR_CMMN_EDIT}"><span class="glyphicon glyphicon-pencil"></span></a>');{/if}
+		{if $PERM_DELETE}retVal.push('<a class="btn btn-danger btn-xs" href="{dcl_url_action controller=Department action=Delete params="id="}' + row[0] + '" title="{$smarty.const.STR_CMMN_DELETE}"><span class="glyphicon glyphicon-trash"></span></a>');{/if}
 
 		return retVal.join(' ');
 	}

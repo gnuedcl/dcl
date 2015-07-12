@@ -83,7 +83,7 @@
 		</div>
 	</fieldset>
 </form>
-<script type="text/javascript" src="{$DIR_JS}/bettergrow/jquery.BetterGrow.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}bettergrow/jquery.BetterGrow.min.js"></script>
 <script type="text/javascript">
 	function validate(form, status)
 	{
