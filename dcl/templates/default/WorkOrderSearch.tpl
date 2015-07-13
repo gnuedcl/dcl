@@ -5,7 +5,6 @@
 	<input type="hidden" name="menuAction" value="WorkOrder.Search">
 	<fieldset>
 		<legend>{$smarty.const.STR_WO_SEARCHTITLE}</legend>
-	</fieldset>
 	{if !$IS_PUBLIC}
 		{dcl_form_control controlsize=10 label="Personnel Fields"}
 			<label><input type="checkbox" id="responsible" name="responsible" value="1"{$CHK_RESPONSIBLE}> {$smarty.const.STR_WO_RESPONSIBLE|escape}</label>
@@ -88,6 +87,7 @@
 		{dcl_input_text id=hotlist value=$VAL_HOTLISTS}
 		{/dcl_form_control}
 	{/if}
+	</fieldset>
 	<fieldset id="divReport">
 		<legend>{$smarty.const.STR_WO_REPORTOPTIONS}</legend>
 		{dcl_form_control id=title controlsize=10 label=$smarty.const.STR_CMMN_TITLE}
