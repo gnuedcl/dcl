@@ -1,5 +1,7 @@
 {dcl_selector_init}
 {dcl_validator_init}
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2.css">
+<link rel="stylesheet" href="{$DIR_VENDOR}select2/select2-bootstrap.css">
 {if $IS_EDIT}{assign var=ACTIVE_ONLY value=N}{else}{assign var=ACTIVE_ONLY value=Y}{/if}
 <form class="form-horizontal" name="tckform" method="post" action="{$URL_MAIN_PHP}" enctype="multipart/form-data">
 	<input type="hidden" name="menuActionExExExExEx" value="{$VAL_MENUACTION}">
@@ -15,7 +17,7 @@
 	{/dcl_form_control}
 	{if !$PERM_ISPUBLIC}
 		{dcl_form_control id=is_public controlsize=1 label=$smarty.const.STR_CMMN_PUBLIC}
-			<input class="form-control" type="checkbox" name="is_public" id="is_public" value="Y"{if $VAL_ISPUBLIC == "Y"} checked{/if}>
+			<input type="checkbox" name="is_public" id="is_public" value="Y"{if $VAL_ISPUBLIC == "Y"} checked{/if}>
 		{/dcl_form_control}
 	{/if}
 {elseif $PERM_ACTION && !$IS_EDIT}
@@ -60,7 +62,7 @@
 		<textarea class="form-control" name="issue" id="issue" wrap valign="top">{$VAL_ISSUE|escape}</textarea>
 	{/dcl_form_control}
 	{dcl_form_control id=copy_me_on_notification controlsize=1 label="Copy Me on Notification"}
-		<input class="form-control" type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
+		<input type="checkbox" id="copy_me_on_notification" name="copy_me_on_notification" value="Y"{if $VAL_NOTIFYDEFAULT == 'Y'} checked{/if}>
 	{/dcl_form_control}
 {if $PERM_ATTACHFILE && !$IS_EDIT && $VAL_MAXUPLOADFILESIZE > 0}
 		<input type="hidden" name="MAX_FILE_SIZE" value="{$VAL_MAXUPLOADFILESIZE}">
@@ -84,6 +86,7 @@
 	</fieldset>
 </form>
 <script type="text/javascript" src="{$DIR_VENDOR}bettergrow/jquery.BetterGrow.min.js"></script>
+<script type="text/javascript" src="{$DIR_VENDOR}select2/select2.min.js"></script>
 <script type="text/javascript">
 	function validate(form, status)
 	{
@@ -120,6 +123,7 @@
 
 	$(document).ready(function() {
 		$("textarea").BetterGrow();
+		$("#content").find("select").select2();
 
 		function split(val) {
 			return val.split(/,\s*/);

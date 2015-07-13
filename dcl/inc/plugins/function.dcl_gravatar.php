@@ -27,7 +27,7 @@ function smarty_function_dcl_gravatar($params, &$smarty)
 	$userId = -1;
 	if (!isset($params['userId']) || ($userId = Filter::ToInt($params['userId'])) === null)
 	{
-		$smarty->trigger_error('dcl_gravatar: missing or incorrect parameter userId');
+		trigger_error('dcl_gravatar: missing or incorrect parameter userId');
 		return;
 	}
 

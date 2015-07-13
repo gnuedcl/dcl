@@ -26,7 +26,7 @@ function smarty_function_dcl_config($params, &$smarty)
 	
 	if (!isset($params['name']))
 	{
-		$smarty->trigger_error('dcl_config: missing parameter name');
+		trigger_error('dcl_config: missing parameter name');
 		return;
 	}
 	

@@ -26,19 +26,19 @@ function smarty_function_dcl_get_entity_tags($params, &$smarty)
 	
 	if (!isset($params['entity']))
 	{
-		$smarty->trigger_error('dcl_get_entity_tags: missing parameter entity');
+		trigger_error('dcl_get_entity_tags: missing parameter entity');
 		return;
 	}
 
 	if (!isset($params['key_id']))
 	{
-		$smarty->trigger_error('dcl_get_entity_tags: missing parameter key_id');
+		trigger_error('dcl_get_entity_tags: missing parameter key_id');
 		return;
 	}
 	
 	if ($params['entity'] == DCL_ENTITY_WORKORDER && !isset($params['key_id2']))
 	{
-		$smarty->trigger_error('dcl_get_entity_tags: missing parameter key_id2 is required for entity ' . $params['entity']);
+		trigger_error('dcl_get_entity_tags: missing parameter key_id2 is required for entity ' . $params['entity']);
 		return;
 	}
 	

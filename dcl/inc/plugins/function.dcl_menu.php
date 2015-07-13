@@ -24,14 +24,14 @@ function smarty_function_dcl_menu($params, &$smarty)
 {
 	if (!isset($params['menu']))
 	{
-		$smarty->trigger_error('dcl_menu: missing parameter menu');
+		trigger_error('dcl_menu: missing parameter menu');
 		return;
 	}
 
 	$menu = $params['menu'];
 	if (!is_a($menu, 'DclMenu'))
 	{
-		$smarty->trigger_error('dcl_menu: incorrect parameter type menu');
+		trigger_error('dcl_menu: incorrect parameter type menu');
 		return;
 	}
 

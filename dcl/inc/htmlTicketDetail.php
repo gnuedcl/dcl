@@ -36,6 +36,7 @@ class htmlTicketDetail
 
 		$oSmarty = new SmartyHelper();
 
+		$oSmarty->assignByRef('Ticket', $obj);
 		$oSmarty->assign('IS_DELETE', $forDelete);
 		$oSmarty->assign('VAL_EDITRESID', $editResID);
 

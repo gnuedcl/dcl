@@ -26,7 +26,7 @@ function smarty_function_dcl_calendar_init($params, &$smarty)
 	{
 		if (!function_exists('GetJSDateFormat'))
 		{
-			$smarty->trigger_error('dcl_calendar_init: format parameter missing and GetJSDateFormat not defined');
+			trigger_error('dcl_calendar_init: format parameter missing and GetJSDateFormat not defined');
 			return;
 		}
 

@@ -24,7 +24,7 @@ function smarty_function_dcl_publish($params, &$smarty)
 {
 	if (!isset($params['topic']))
 	{
-		$smarty->trigger_error('dcl_publish: missing parameter topic');
+		trigger_error('dcl_publish: missing parameter topic');
 		return;
 	}
 	

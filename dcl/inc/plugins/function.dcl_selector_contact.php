@@ -24,7 +24,7 @@ function smarty_function_dcl_selector_contact($params, &$smarty)
 {
 	if (!isset($params['name']))
 	{
-		$smarty->trigger_error('dcl_selector_contact: missing parameter name');
+		trigger_error('dcl_selector_contact: missing parameter name');
 		return;
 	}
 

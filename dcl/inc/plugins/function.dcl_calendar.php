@@ -24,7 +24,7 @@ function smarty_function_dcl_calendar($params, &$smarty)
 {
 	if (!isset($params['name']))
 	{
-		$smarty->trigger_error('dcl_calendar: missing parameter name');
+		trigger_error('dcl_calendar: missing parameter name');
 		return;
 	}
 

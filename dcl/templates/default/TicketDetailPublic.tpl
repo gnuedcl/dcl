@@ -1,15 +1,11 @@
 {if $PERM_MODIFY_TR && $VAL_EDITRESID}
-{dcl_calendar_init}
 {dcl_validator_init}
 <script language="JavaScript">
-function validateAndSubmitForm(form)
-
-{
-
-	var aValidators = new Array(
+function validateAndSubmitForm(form) {
+	var aValidators = [
 			new ValidatorSelection(form.elements["status"], "{$smarty.const.STR_TCK_STATUS}"),
 			new ValidatorString(form.elements["resolution"], "{$smarty.const.STR_TCK_RESOLUTION}")
-		);
+		];
 
 
 	for (var i in aValidators)
@@ -25,50 +21,86 @@ function validateAndSubmitForm(form)
 
 	form.submit();
 }
-
 </script>
 {/if}
-<script language="JavaScript">
+<div class="panel panel-info">
+	<div class="panel-heading"><h3>[{$VAL_TICKETID}] {$VAL_SUMMARY|escape}</h3></div>
+	<div class="panel-body">
+		<ul id="tabs" class="nav nav-tabs">
+			<li class="active"><a href="#workorder" data-toggle="tab">Ticket</a></li>
+			<li><a href="#files" data-toggle="tab">Files <span class="badge{if count($VAL_ATTACHMENTS) > 0} alert-info{/if}">{$VAL_ATTACHMENTS|@count}</span></a></li>
+			{include file="TicketOptionsControl.tpl"}
+		</ul>
+		<div id="navTabContent" class="tab-content">
+			<div class="tab-pane fade in active" id="workorder">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xs-6">
+							<h4>Details</h4>
+							<ul class="list-unstyled">
+								<li><span class="glyphicon glyphicon-cog"></span> {$VAL_PRODUCT|escape} {$VAL_MODULE|escape}</li>
+								<li><span class="glyphicon glyphicon-user"></span> {dcl_personnel_link text=$VAL_RESPONSIBLE id=$Ticket->responsible}</li>
+								<li><span class="glyphicon glyphicon-stats"></span> <strong class="status-type-{$VAL_STATUS_TYPE}">{$VAL_STATUS|escape}</strong> {$VAL_STATUSON|escape}</li>
+								<li><span class="glyphicon glyphicon-sort-by-order"></span> {$VAL_PRIORITY|escape}</li>
+								<li><span class="glyphicon glyphicon-asterisk"></span> {$VAL_TYPE|escape}</li>
+								{if $VAL_VERSION}<li><span class="glyphicon glyphicon-asterisk"></span> Reported Version {$VAL_VERSION|escape}</li>{/if}
+							</ul>
+						</div>
+						<div class="col-xs-6">
+							<h4>Dates and Times</h4>
+							<ul class="list-unstyled">
+								<li><span class="glyphicon glyphicon-bullhorn"></span> {$smarty.const.STR_TCK_OPENBY} {dcl_personnel_link text=$VAL_CREATEDBY id=$Ticket->createdby} on {$VAL_CREATEDON|escape}</li>
+								{if $VAL_STATUS_TYPE == 2}<li><span class="glyphicon glyphicon-flag"></span> {$smarty.const.STR_TCK_CLOSEBY} {dcl_personnel_link text=$VAL_CLOSEDBY id=$Ticket->closedby} on {$VAL_CLOSEDON|escape}</li>{/if}
+								<li><span class="glyphicon glyphicon-time"></span> {if $VAL_HOURSTEXT != ""}{$VAL_HOURSTEXT|escape}{else}0{/if} Hours</li>
+								<li><span class="glyphicon glyphicon-calendar"></span> {$smarty.const.STR_TCK_LASTACTION} {$VAL_LASTACTIONON|escape}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							{if $VAL_CONTACTID}
+								<h4>{$smarty.const.STR_TCK_CONTACT|escape}</h4>
+								<div>
+									<span class="glyphicon glyphicon-user"></span> {if $PERM_VIEWCONTACT}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$VAL_CONTACTID}">{/if}{$VAL_CONTACT|escape}{if $PERM_VIEWCONTACT}</a>{/if}
+									{if $VAL_CONTACTEMAIL != ""}<span class="glyphicon glyphicon-envelope"></span> {mailto address=$VAL_CONTACTEMAIL}{/if}
+									{if $VAL_CONTACTPHONE != ""}<span class="glyphicon glyphicon-phone"></span> {$VAL_CONTACTPHONE|escape}{/if}
+								</div>
 
-	function submitAction(sAction)
-	{
+							{/if}
+							{if $VAL_ORGID}
+								<h4>{$smarty.const.STR_CMMN_ORGANIZATION}</h4>
+								<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGID}">{$VAL_ACCOUNT|escape}</a>
+							{/if}
+							<h4>{$smarty.const.STR_TCK_ISSUE|escape}</h4>
+							<p id="issue">{$VAL_ISSUE|escape|dcl_link}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="files">
+				{include file="AttachmentsTicketsControl.tpl"}
+			</div>
+		</div>
+	</div>
+</div>
+{include file="TicketResolutionsControl.tpl"}
+<script type="text/javascript" src="{$DIR_VENDOR}readmore/readmore.min.js"></script>
+<script type="text/javascript">
+	function submitAction(sAction) {
 		document.actionForm.menuAction.value = sAction;
 		document.actionForm.submit();
 	}
 
+	$(function() {
+		var hash = location.hash;
+		if (hash) {
+			var $tabs = $('#tabs').find('a[href="' + hash + '"]');
+			$tabs.tab('show');
+		}
+
+		$("#issue").readmore({
+			moreLink: '<a href="javascript:;" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-collapse-down"></span> Show More...</a>',
+			lessLink: '<a href="javascript:;" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-collapse-up"></span> Show Less...</a>'
+		});
+	});
 </script>
-<div class="dcl_detail">
-	<table class="styled" width="100%">
-		<caption>{$smarty.const.STR_TCK_TICKET} [{$VAL_TICKETID}] {$VAL_SUMMARY|escape}</caption>
-		<thead>{include file="TicketOptionsControl.tpl"}</thead>
-		<tbody>
-			<tr><th>{$smarty.const.STR_TCK_RESPONSIBLE}:</th><td>{$VAL_RESPONSIBLE|escape}</td>
-				<th>{$smarty.const.STR_TCK_PRODUCT}:</th><td>{$VAL_PRODUCT|escape}</td>
-			</tr>
-			<tr><th>{$smarty.const.STR_TCK_STATUS}:</th><td>{$VAL_STATUS|escape} ({$VAL_STATUSON|escape})</td>
-				<th>{$smarty.const.STR_CMMN_MODULE}:</th><td>{$VAL_MODULE|escape}</td>
-			</tr>
-			<tr><th>{$smarty.const.STR_TCK_PRIORITY}:</th><td>{$VAL_PRIORITY|escape}</td>
-				<th>{$smarty.const.STR_TCK_VERSION}:</th><td>{$VAL_VERSION|escape}</td>
-			</tr>
-			<tr><th>{$smarty.const.STR_TCK_TYPE}:</th><td>{$VAL_TYPE|escape}</td>
-				<th>{$smarty.const.STR_TCK_ACCOUNT}:</th><td>{if $VAL_ORGID}{if $PERM_VIEWORG}<a href="{$URL_MAIN_PHP}?menuAction=Organization.Detail&org_id={$VAL_ORGID}">{/if}{$VAL_ACCOUNT|escape}{if $PERM_VIEWORG}</a>{/if}{/if}</td>
-			</tr>
-			<tr><th>{$smarty.const.STR_WO_LASTACTION}:</th><td>{$VAL_LASTACTIONON|escape}</td>
-				<th>{$smarty.const.STR_WO_CONTACT}:</th><td>{if $VAL_CONTACTID}{if $PERM_VIEWCONTACT}<a href="{$URL_MAIN_PHP}?menuAction=htmlContactDetail.show&contact_id={$VAL_CONTACTID}">{/if}{$VAL_CONTACT|escape}{if $PERM_VIEWCONTACT}</a>{/if}{/if}</td>
-			</tr>
-			<tr><th>{$smarty.const.STR_WO_OPENBY}:</th><td>{$VAL_CREATEDBY|escape} ({$VAL_CREATEDON|escape})</td>
-				<th>{$smarty.const.STR_WO_CONTACTPHONE}:</th><td>{$VAL_CONTACTPHONE|escape}</td>
-			</tr>
-			<tr><th>{$smarty.const.STR_WO_CLOSEBY}:</th><td>{$VAL_CLOSEDBY|escape} ({$VAL_CLOSEDON|escape})</td>
-				<th>{$smarty.const.STR_WO_CONTACTEMAIL}:</th><td>{if $VAL_CONTACTEMAIL != ""}{mailto address=$VAL_CONTACTEMAIL}{/if}</td>
-			</tr>
-			</tr>
-			<tr><th>{$smarty.const.STR_TCK_APPROXTIME}:</th><td>{$VAL_HOURSTEXT|escape}</td>
-			</tr>
-			<tr><th>{$smarty.const.STR_TCK_ISSUE}:</th><td colspan="3">{$VAL_ISSUE|escape|dcl_link}</td></tr>
-		</tbody>
-	</table>
-{include file="AttachmentsTicketsControl.tpl"}
-</div>
-{include file="TicketResolutionsControl.tpl"}

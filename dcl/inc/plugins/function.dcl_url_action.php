@@ -24,13 +24,13 @@ function smarty_function_dcl_url_action($params, &$smarty)
 {
 	if (!isset($params['controller']))
 	{
-		$smarty->trigger_error('dcl_config: missing parameter controller');
+		trigger_error('dcl_config: missing parameter controller');
 		return;
 	}
 
 	if (!isset($params['action']))
 	{
-		$smarty->trigger_error('dcl_config: missing parameter action');
+		trigger_error('dcl_config: missing parameter action');
 		return;
 	}
 

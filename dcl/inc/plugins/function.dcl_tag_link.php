@@ -26,7 +26,7 @@ function smarty_function_dcl_tag_link($params, &$smarty)
 	
 	if (!isset($params['value']))
 	{
-		$smarty->trigger_error('dcl_tag_link: missing parameter value');
+		trigger_error('dcl_tag_link: missing parameter value');
 		return;
 	}
 	

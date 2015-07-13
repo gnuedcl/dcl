@@ -44,7 +44,7 @@ function smarty_function_dcl_personnel_link($params, &$smarty)
 	
 	if (!isset($params['id']))
 	{
-		$smarty->trigger_error('dcl_personnel_link: missing parameter id');
+		trigger_error('dcl_personnel_link: missing parameter id');
 		return;
 	}
 	

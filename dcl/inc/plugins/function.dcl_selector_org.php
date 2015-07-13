@@ -24,7 +24,7 @@ function smarty_function_dcl_selector_org($params, &$smarty)
 {
 	if (!isset($params['name']))
 	{
-		$smarty->trigger_error('dcl_selector_org: missing parameter name');
+		trigger_error('dcl_selector_org: missing parameter name');
 		return;
 	}
 

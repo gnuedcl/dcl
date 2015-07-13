@@ -26,13 +26,13 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 	
 	if (!isset($params['type']))
 	{
-		$smarty->trigger_error('dcl_metadata_display: missing parameter type');
+		trigger_error('dcl_metadata_display: missing parameter type');
 		return;
 	}
 
 	if (!isset($params['value']))
 	{
-		$smarty->trigger_error('dcl_metadata_display: missing parameter value');
+		trigger_error('dcl_metadata_display: missing parameter value');
 		return;
 	}
 
@@ -64,7 +64,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 		case 'wo_project':
 			if (!isset($params['value2']))
 			{
-				$smarty->trigger_error('dcl_metadata_display: missing parameter value2');
+				trigger_error('dcl_metadata_display: missing parameter value2');
 				return;
 			}
 			
@@ -90,7 +90,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 		case 'workorder':
 			if (!isset($params['value2']))
 			{
-				$smarty->trigger_error('dcl_metadata_display: missing parameter value2');
+				trigger_error('dcl_metadata_display: missing parameter value2');
 				return;
 			}
 			return $g_oMetaData->GetWorkOrder($params['value'], $params['value2']);
@@ -162,7 +162,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 		case 'wo_org':
 			if (!isset($params['value2']))
 			{
-				$smarty->trigger_error('dcl_metadata_display: missing parameter value2');
+				trigger_error('dcl_metadata_display: missing parameter value2');
 				return;
 			}
 

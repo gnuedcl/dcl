@@ -24,7 +24,7 @@ function smarty_function_dcl_session($params, &$smarty)
 {
 	if (!isset($params['value']))
 	{
-		$smarty->trigger_error('dcl_session: missing parameter value');
+		trigger_error('dcl_session: missing parameter value');
 		return;
 	}
 
