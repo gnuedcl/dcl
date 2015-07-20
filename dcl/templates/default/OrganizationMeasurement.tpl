@@ -340,6 +340,8 @@
 			med = [];
 			trm = [];
 			measureSummary = [];
+			nonCompliantMeasurements = [];
+			warningMeasurements = [];
 
 			generateHistogram();
 
