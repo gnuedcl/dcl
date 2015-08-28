@@ -54,10 +54,24 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 		if ($params['showName'] == 'Y')
 			$sSQL .= ', dcl_contact c ';
 			
-		$sSQL .= "WHERE a.jcn = b.jcn AND (b.seq = 0 OR a.seq = b.seq) AND b.projectid = " . $params['project'];
+		$sSQL .= "WHERE (a.jcn = b.jcn AND (b.seq = 0 OR a.seq = b.seq) AND b.projectid = " . $params['project'];
 		$sSQL .= ' AND p.id = a.responsible ';
 		if ($params['showName'] == 'Y')
 			$sSQL .= ' AND p.contact_id = c.contact_id ';
+
+		if (isset($params['active']) && $params['active'] == 'Y')
+		{
+			$sSQL .= " AND p.active = 'Y') ";
+
+			if ($params['default'] != '')
+				$sSQL .= ' OR p.id = ' . $params['default'] . ' ';
+		}
+		else
+		{
+			$sSQL .= ') ';
+		}
+
+		$sSQL .= 'ORDER BY p.short';
 	}
 	else
 	{
@@ -68,12 +82,23 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 			if ($params['showName'] == 'Y')
 				$sSQL .= ' join dcl_contact c ON p.contact_id = c.contact_id';
 
-			$sSQL .= ' where ((entity_id = ';
+			$sSQL .= ' where (((entity_id = ';
 			$sSQL .= $params['entity'] . ' and perm_id = ' . $params['perm'] . ') or (entity_id = ';
 			$sSQL .= DCL_ENTITY_GLOBAL . ' and perm_id = ' . DCL_PERM_ADMIN . '))';
 
 			if (isset($params['active']) && $params['active'] == 'Y')
-				$sSQL .= " AND p.active = 'Y' ";
+			{
+				$sSQL .= " AND p.active = 'Y') ";
+
+				if ($params['default'] != '')
+					$sSQL .= ' OR p.id = ' . $params['default'] . ' ';
+			}
+			else
+			{
+				$sSQL .= ') ';
+			}
+
+			$sSQL .= 'ORDER BY p.short';
 		}
 		else
 		{
@@ -82,11 +107,16 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 				$sSQL .= ' join dcl_contact c ON p.contact_id = c.contact_id ';
 
 			if (isset($params['active']) && $params['active'] == 'Y')
-				$sSQL .= "WHERE p.active = 'Y' ";
+			{
+				$sSQL .= "WHERE (p.active = 'Y') ";
+
+				if ($params['default'] != '')
+					$sSQL .= ' OR p.id = ' . $params['default'] . ' ';
+			}
+
+			$sSQL .= 'ORDER BY p.short';
 		}
 	}
-
-	$sSQL .= 'ORDER BY p.short';
 
 	$oSelect = new SelectHtmlHelper();
 	$oSelect->DefaultValue = $params['default'];
