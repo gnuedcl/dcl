@@ -19,7 +19,6 @@ DCL_CQQ_PERCENT	dcl_config_int	0
 DCL_CQQ_FROM	dcl_config_varchar					Somebody <someone@somewhere.org>
 DCL_CQQ_SUBJECT	dcl_config_varchar					Thank You For Calling
 DCL_CQQ_TEMPLATE	dcl_config_varchar					cqqmail.tpl
-DCL_DEF_TEMPLATE_SET	dcl_config_varchar					default
 DCL_SMTP_SERVER	dcl_config_varchar					localhost
 DCL_SMTP_ENABLED	dcl_config_varchar					Y
 DCL_SMTP_AUTH_REQUIRED	dcl_config_varchar					N

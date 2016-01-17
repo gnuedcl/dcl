@@ -24,11 +24,6 @@
 define('phpCrLf', "\r\n");
 define('phpTab', "\t");
 
-// Modes
-define('DCL_MODE_NEW', 1);
-define('DCL_MODE_EDIT', 2);
-define('DCL_MODE_COPY', 3);
-
 // Log levels
 define('DCL_LOG_TRACE', 1);
 define('DCL_LOG_DEBUG', 2);
@@ -57,7 +52,6 @@ define('DCL_ENTITY_FAQ', 15);
 define('DCL_ENTITY_FAQTOPIC', 16);
 define('DCL_ENTITY_FAQQUESTION', 17);
 define('DCL_ENTITY_FAQANSWER', 18);
-define('DCL_ENTITY_FORMS', 19);
 define('DCL_ENTITY_ADMIN', 20);
 define('DCL_ENTITY_ATTRIBUTESETS', 21);
 define('DCL_ENTITY_FORMTEMPLATES', 22);
@@ -122,18 +116,13 @@ define('DCL_PERM_SCORE', 24);
 define('DCL_EVENT_ADD', 1);
 define('DCL_EVENT_DELETE', 2);
 
-// Form states
-define('DCL_FORM_ADD', 1);
-define('DCL_FORM_MODIFY', 2);
-define('DCL_FORM_DELETE', 3);
-define('DCL_FORM_COPY', 4);
-define('DCL_FORM_COPYFROMTICKET', 5);
-
 // Smarty settings
 define('SMARTY_DIR', DCL_ROOT . 'vendor/Smarty/');
 
 // Others
 define('DCL_NOW', 'now()');
+
+LoadStringResource('menu');
 
 function DclClassAutoLoader($className)
 {
@@ -184,27 +173,16 @@ function DclClassAutoLoader($className)
 		return;
 	}
 
-	if ($className == 'Smarty')
-	{
-		require_once(DCL_ROOT . 'vendor/Smarty/Smarty.class.php');
-		return;
-	}
+	$vendorClasses = array(
+		'Smarty' => DCL_ROOT . 'vendor/Smarty/Smarty.class.php',
+		'Valitron\Validator' => DCL_ROOT . 'vendor/valitron/Validator.php',
+		'pData' => DCL_ROOT . 'vendor/pChart/pData.class',
+		'pChart' => DCL_ROOT . 'vendor/pChart/pChart.class'
+	);
 
-	if ($className == 'Valitron\Validator')
+	if (isset($vendorClasses[$className]))
 	{
-		require_once(DCL_ROOT . 'vendor/valitron/Validator.php');
-		return;
-	}
-
-	if ($className === 'pData')
-	{
-		require_once(DCL_ROOT . 'vendor/pChart/pData.class');
-		return;
-	}
-
-	if ($className === 'pChart')
-	{
-		require_once(DCL_ROOT . 'vendor/pChart/pChart.class');
+		require_once($vendorClasses[$className]);
 		return;
 	}
 
@@ -312,7 +290,7 @@ function UseHttps()
 
 function GPCStripSlashes($thisString)
 {
-	if (get_magic_quotes_gpc() == 0)
+	if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() == 0)
 		return $thisString;
 
 	return stripslashes($thisString);
@@ -320,7 +298,7 @@ function GPCStripSlashes($thisString)
 
 function CleanArray(&$aArray)
 {
-	if (get_magic_quotes_gpc() == 0)
+	if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() == 0)
 		return;
 
 	foreach ($aArray as $k => $v)
@@ -358,7 +336,7 @@ function GetPrefLang()
 			$lang = 'en';
 	}
 
-	if (!in_array($lang, array('en', 'de', 'es', 'fr', 'it', 'ru', 'sl', 'sv')))
+	if (!in_array($lang, array('en', 'de', 'es', 'fr', 'it', 'sl', 'sv')))
 		$lang = 'en';
 
 	return $lang;
@@ -374,7 +352,11 @@ function LoadSchema($sTableName)
 	if (!isset($GLOBALS['phpgw_baseline']) || !is_array($GLOBALS['phpgw_baseline']))
 		$GLOBALS['phpgw_baseline'] = array();
 
-	require_once(sprintf(DCL_ROOT . 'schema/schema.%s.php', $sTableName));
+	$schemaFile = sprintf(DCL_ROOT . 'schema/schema.%s.php', $sTableName);
+	if (!file_exists($schemaFile))
+		throw new InvalidArgumentException("Schema for [$sTableName] not found.");
+
+	require_once($schemaFile);
 }
 
 function Invoke($sClassMethod)
@@ -502,45 +484,6 @@ function GetPluginDir()
 	return $dcl_info['DCL_FILE_PATH'] . '/plugins/';
 }
 
-function IsTemplateValid($sTemplate)
-{
-	if ($sTemplate == null || trim($sTemplate) == '')
-		return false;
-	
-	return file_exists(DCL_ROOT . 'templates/' . $sTemplate);
-}
-
-function GetDefaultTemplateSet()
-{
-	// Session must be initialized before calling this!
-	global $g_oSession, $dcl_info;
-
-	if (isset($g_oSession) || is_object($g_oSession))
-	{
-		$o = new PreferencesModel();
-		$o->preferences_data = $g_oSession->Value('dcl_preferences');
-
-		if (IsTemplateValid($o->Value('DCL_PREF_TEMPLATE_SET')))
-			return $o->Value('DCL_PREF_TEMPLATE_SET');
-	}
-
-	if (IsTemplateValid($dcl_info['DCL_DEF_TEMPLATE_SET']))
-		return $dcl_info['DCL_DEF_TEMPLATE_SET'];
-		
-	return 'default';
-}
-
-function CreateTemplate($arrTemplate)
-{
-	// Create a template object and hook it up to the template in the
-	// configured template set
-	$Template = new TemplateDeprecated();
-	$Template->set_root(DCL_ROOT . 'templates/' . GetDefaultTemplateSet());
-	$Template->set_file($arrTemplate);
-
-	return $Template;
-}
-
 function GetHiddenVar($var, $val)
 {
 	return '<input type="hidden" name="' . $var . '" value="' . $val . '">';
@@ -588,35 +531,6 @@ function commonHeader()
 	}
 
 	header('Content-Type: text/html; charset=utf-8');
-
-	global $g_oSession, $dcl_info, $dcl_domain, $dcl_domain_info;
-
-	$bHideMenu = (isset($_REQUEST['hideMenu']) && $_REQUEST['hideMenu'] == 'true');
-
-	$title = '[' . $dcl_domain_info[$dcl_domain]['name'] . ' / ' . $GLOBALS['DCLNAME'] . ']';
-	if ($dcl_info['DCL_HTML_TITLE'] != '')
-		$title .= '&nbsp;-&nbsp;' . $dcl_info['DCL_HTML_TITLE'];
-
-	$t = new SmartyHelper();
-	$t->assign('VAL_TITLE', $title);
-	$t->Render('index.tpl');
-
-	$sTemplateSet = GetDefaultTemplateSet();
-	if (!$bHideMenu && file_exists(DCL_ROOT . 'templates/' . $sTemplateSet . '/menu.php'))
-	{
-		include(DCL_ROOT . 'templates/' . $sTemplateSet . '/menu.php');
-		renderDCLMenu();
-	}
-
-	if ($g_oSession->IsRegistered('REDIRECT_TEXT'))
-	{
-		$presenter = new RedirectMessagePresenter();
-		$presenter->Render();
-		
-		$g_oSession->Unregister('REDIRECT_TITLE');
-		$g_oSession->Unregister('REDIRECT_TEXT');
-		$g_oSession->Edit();
-	}
 }
 
 function ExportArray(&$aFieldNames, &$aData, $filename = 'dclexport.txt')
@@ -750,8 +664,7 @@ function ShowInfo($sMessage)
 		exit;
 	}
 
-	$o = htmlMessageInfo::GetInstance();
-	$o->SetShow($sMessage);
+	NotificationCollectionModel::GetInstance()->Add(new NotificationModel(DCL_LOG_INFO, $sMessage));
 }
 
 function ShowWarning($sMessage)
@@ -764,8 +677,7 @@ function ShowWarning($sMessage)
 		exit;
 	}
 
-	$o = htmlMessageWarning::GetInstance();
-	$o->SetShow($sMessage);
+	NotificationCollectionModel::GetInstance()->Add(new NotificationModel(DCL_LOG_WARN, $sMessage));
 }
 
 function ShowError($sMessage)
@@ -778,8 +690,7 @@ function ShowError($sMessage)
 		exit;
 	}
 
-	$o = htmlMessageError::GetInstance();
-	$o->SetShow($sMessage);
+	NotificationCollectionModel::GetInstance()->Add(new NotificationModel(DCL_LOG_ERROR, $sMessage));
 }
 
 function DclErrorLog($level, $message, $file, $line, $backTrace)
@@ -860,8 +771,6 @@ function LogFatal($message, $file, $line, $backTrace)
 
 function DclErrorHandler($errorNumber, $message, $file, $line)
 {
-	global $g_oPage;
-	
 	if (!($errorNumber & error_reporting()))
 		return;
 
@@ -890,18 +799,11 @@ function DclErrorHandler($errorNumber, $message, $file, $line)
 	}
 
 	if ($errorNumber == E_COMPILE_ERROR || $errorNumber == E_PARSE)
-	{
-		if (is_object($g_oPage))
-			$g_oPage->EndPage();
-
 		exit(255);
-	}
 }
 
 function DclExceptionHandler(Exception $ex)
 {
-	global $g_oPage;
-
 	// InvalidDataException will not be logged since it can generate too many entries under vulnerability scanning
 	// Normal application use should not encounter this exception (unless there's a bug!)
 	if (!($ex instanceof InvalidDataException))
@@ -909,8 +811,11 @@ function DclExceptionHandler(Exception $ex)
 	else
 		ShowError('An error occurred when processing your request due to invalid data.');
 
-	if (is_object($g_oPage))
-		$g_oPage->EndPage();
+	if (!AcceptJsonResponse())
+	{
+		$smarty = new SmartyHelper();
+		$smarty->Render('_Layout.tpl');
+	}
 
 	exit(255);
 }

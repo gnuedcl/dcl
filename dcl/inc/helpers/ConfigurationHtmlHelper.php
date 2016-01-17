@@ -38,23 +38,6 @@ class ConfigurationHtmlHelper
 		return $this->Select($sName, $aOptions, $sDefault);
 	}
 	
-	public function GetTemplatesCombo($sName, $sDefault)
-	{
-		$aOptions = array();
-		$sPath = './templates/';
-		if (is_dir($sPath) && $hDir = opendir($sPath))
-		{
-			while ($fileName = readdir($hDir))
-				if (is_dir($sPath . $fileName) && $fileName != '.' && $fileName != '..' && $fileName != 'CVS' && $fileName != 'custom')
-					$aOptions[$fileName] = $fileName;
-
-			if ($hDir)
-				closedir($hDir);
-		}
-
-		return $this->Select($sName, $aOptions, $sDefault);
-	}
-
 	private function Select($sName, $aOptions, $sDefault)
 	{
 		$retVal = '<select class="form-control" name="' . $sName . '">';

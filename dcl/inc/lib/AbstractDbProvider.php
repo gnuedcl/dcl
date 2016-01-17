@@ -226,7 +226,7 @@ abstract class AbstractDbProvider
 	 */
 	public function GPCStripSlashes($thisString)
 	{
-		if (get_magic_quotes_gpc() == 0)
+		if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() == 0)
 			return $thisString;
 
 		return stripslashes($thisString);

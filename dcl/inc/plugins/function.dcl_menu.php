@@ -20,62 +20,47 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-function smarty_function_dcl_menu($params, &$smarty)
+function smarty_function_dcl_menu($params, Smarty_Internal_Template $smarty)
 {
-	if (!isset($params['menu']))
-	{
-		trigger_error('dcl_menu: missing parameter menu');
-		return;
-	}
+	$menuList = '<ul class="nav navbar-nav">';
 
-	$menu = $params['menu'];
-	if (!is_a($menu, 'DclMenu'))
+	$menu = DclMainMenuHelper::GetMenu();
+	foreach ($menu->GetItems() as $menuItem)
 	{
-		trigger_error('dcl_menu: incorrect parameter type menu');
-		return;
-	}
-
-	function renderMenuItem(DclMenuItem $menuItem)
-	{
-		$myRetVal = '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">';
-		$myRetVal .= htmlspecialchars($menuItem->Title, ENT_QUOTES, 'UTF-8') . ' <b class="caret"></b></a>';
+		$menuList .= '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">';
+		$menuList .= htmlspecialchars($menuItem->Title, ENT_QUOTES, 'UTF-8') . ' <b class="caret"></b></a>';
 
 		if ($menuItem->HasItems())
 		{
-			$myRetVal .= '<ul class="dropdown-menu">';
+			$menuList .= '<ul class="dropdown-menu">';
 
 			foreach ($menuItem->GetItems() as $menuSubItem)
 			{
-				$myRetVal .= '<li><a href="';
+				$menuList .= '<li><a href="';
 				if ($menuSubItem->Url == '')
-					$myRetVal .= 'javascript:;';
+					$menuList .= 'javascript:;';
 				else
-					$myRetVal .= htmlspecialchars($menuSubItem->Url, ENT_QUOTES, 'UTF-8');
+					$menuList .= htmlspecialchars($menuSubItem->Url, ENT_QUOTES, 'UTF-8');
 
-				$myRetVal .= '"';
+				$menuList .= '"';
 
 				if ($menuSubItem->Target != '')
-					$myRetVal .= ' target="' . htmlspecialchars($menuSubItem->Target, ENT_QUOTES, 'UTF-8') . '"';
+					$menuList .= ' target="' . htmlspecialchars($menuSubItem->Target, ENT_QUOTES, 'UTF-8') . '"';
 
-				$myRetVal .= '>';
-				$myRetVal .= htmlspecialchars($menuSubItem->Title);
-				$myRetVal .= '</a></li>';
+				$menuList .= '>';
+				$menuList .= htmlspecialchars($menuSubItem->Title);
+				$menuList .= '</a></li>';
 			}
 
-			$myRetVal .= '</ul>';
+			$menuList .= '</ul>';
 		}
 
-		$myRetVal .= '</li>';
-
-		return $myRetVal;
+		$menuList .= '</li>';
 	}
 
-	$retVal = '<ul class="nav navbar-nav">';
+	$menuList .= '</ul>';
 
-	foreach ($menu->GetItems() as $menuItem)
-		$retVal .= renderMenuItem($menuItem);
-
-	$retVal .= '</ul>';
-
-	return $retVal;
+	$menuModel = new MenuModel();
+	$smarty->assignByRef('Menu', $menuModel);
+	$smarty->assign('MenuList', $menuList);
 }

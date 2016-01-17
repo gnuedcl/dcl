@@ -25,10 +25,8 @@ class ContactTypePresenter
 {
 	function Index()
 	{
-		global $dcl_info, $g_oSec;
-
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_VIEW))
+		if (!HasPermission(DCL_ENTITY_CONTACTTYPE, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
 		$o = new ContactTypeSqlQueryHelper();
@@ -49,22 +47,22 @@ class ContactTypePresenter
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
 		$oTable->addColumn('Main', 'string');
 
-		if ($g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_ADD))
+		if (HasPermission(DCL_ENTITY_CONTACTTYPE, DCL_PERM_ADD))
 			$oTable->addToolbar(menuLink('', 'menuAction=ContactType.Create'), STR_CMMN_NEW);
 
-		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
+		if (HasPermission(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
 
-		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_CONTACTTYPE => array($g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
+		if (count($allRecs) > 0 && HasAnyPermission(DCL_ENTITY_CONTACTTYPE, array(DCL_PERM_MODIFY, DCL_PERM_DELETE)))
 		{
 			$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
 			for ($i = 0; $i < count($allRecs); $i++)
 			{
 				$options = '';
-				if ($g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_MODIFY))
+				if (HasPermission(DCL_ENTITY_CONTACTTYPE, DCL_PERM_MODIFY))
 					$options = '<a href="' . menuLink('', 'menuAction=ContactType.Edit&contact_type_id=' . $allRecs[$i][0]) . '">' . STR_CMMN_EDIT . '</a>';
 
-				if ($g_oSec->HasPerm(DCL_ENTITY_CONTACTTYPE, DCL_PERM_DELETE))
+				if (HasPermission(DCL_ENTITY_CONTACTTYPE, DCL_PERM_DELETE))
 				{
 					if ($options != '')
 						$options .= '&nbsp;|&nbsp;';
@@ -78,6 +76,7 @@ class ContactTypePresenter
 		
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 

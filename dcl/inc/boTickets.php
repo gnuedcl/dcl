@@ -343,9 +343,6 @@ class boTickets
 		}
 
 		ShowInfo(sprintf(STR_BO_TICKETDELETED, $iID));
-
-		$objMy = new htmlMyDCL();
-		$objMy->showMy();
 	}
 
 	function view()
@@ -370,13 +367,6 @@ class boTickets
 		else
 		{
 			ShowError(sprintf(STR_TCK_COULDNOTFIND, $iID));
-
-			if ($g_oSec->IsPublicUser())
-				$objMy = new htmlPublicMyDCL();
-			else
-				$objMy = new htmlMyDCL();
-
-			$objMy->showMy();
 		}
 	}
 
@@ -481,9 +471,9 @@ class boTickets
 		$objG->num_lines_x = $iDays;
 		$objG->colors = array('red', 'blue');
 
-		print('<center>');
-		echo '<img border="0" src="', menuLink('', 'menuAction=LineGraphImageHelper.Show&' . $objG->ToURL()), '">';
-		print('</center>');
+		$t = new SmartyHelper();
+		$t->assign('GraphUrl', menuLink('', 'menuAction=LineGraphImageHelper.Show&' . $objG->ToURL()));
+		$t->Render('Graph.tpl');
 	}
 
 	function reassign()

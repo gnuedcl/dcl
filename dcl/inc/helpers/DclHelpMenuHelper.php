@@ -29,7 +29,7 @@ class DclHelpMenuHelper
 		if (HasPermission(DCL_ENTITY_FAQ, DCL_PERM_VIEW))
 			$menuItem->Add(new DclMenuItem(DCL_MENU_FAQS, UrlAction('Faq', 'Index')));
 
-		$menuItem->Add(new DclMenuItem(DCL_MENU_DCLHOMEPAGE, 'http://dcl.sourceforge.net/index.php', '_blank'));
+		$menuItem->Add(new DclMenuItem(DCL_MENU_DCLHOMEPAGE, 'https://github.com/gnuedcl/dcl', '_blank'));
 		$menuItem->Add(new DclMenuItem('GNU Enterprise', 'http://www.gnuenterprise.org/index.php', '_blank'));
 		$menuItem->Add(new DclMenuItem(DCL_MENU_LICENSEINFO, UrlAction('License', 'Index')));
 		$menuItem->Add(new DclMenuItem(DCL_MENU_VERSIONINFO, UrlAction('About', 'Detail')));

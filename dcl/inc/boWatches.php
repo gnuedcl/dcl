@@ -99,15 +99,11 @@ class boWatches
 				// He said they've already got one!
 				$obj->GetRow();
 				$objHTML->ShowEntryForm($obj, $this->getWatchDescription($obj));
-				print('<p>');
-				$objHTML->PrintMine();
 				return;
 			}
 		}
 
 		$objHTML->ShowEntryForm();
-		print('<p>');
-		$objHTML->PrintMine();
 	}
 
 	function dbadd()
@@ -268,9 +264,9 @@ class boWatches
 		$t->assign('VAL_TIMECARDS', $oTC->GetTimeCardsArray($obj->jcn, $obj->seq, $bIsPublic));
 		
 		if ($bIsPublic)
-			return $t->ToString($dcl_info['DCL_WO_EMAIL_TEMPLATE_PUBLIC'], 'custom');
+			return $t->ToString($dcl_info['DCL_WO_EMAIL_TEMPLATE_PUBLIC']);
 		
-		return $t->ToString($dcl_info['DCL_WO_EMAIL_TEMPLATE'], 'custom');
+		return $t->ToString($dcl_info['DCL_WO_EMAIL_TEMPLATE']);
 	}
 	
 	// obj is a dbWorkorder object and actions is a comma delimited list of actions to send for
@@ -443,9 +439,9 @@ class boWatches
 		$t->assign('VAL_RESOLUTIONS', $objTR->GetResolutionsArray($obj->ticketid, $bIsPublic));
 		
 		if ($bIsPublic)
-			return $t->ToString($dcl_info['DCL_TCK_EMAIL_TEMPLATE_PUBLIC'], 'custom');
+			return $t->ToString($dcl_info['DCL_TCK_EMAIL_TEMPLATE_PUBLIC']);
 		
-		return $t->ToString($dcl_info['DCL_TCK_EMAIL_TEMPLATE'], 'custom');
+		return $t->ToString($dcl_info['DCL_TCK_EMAIL_TEMPLATE']);
 	}
 	
 	function sendTicketNotification($obj, $actions, $bShowNotifyMsg = true)

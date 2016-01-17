@@ -63,7 +63,7 @@ function smarty_function_dcl_tag_link($params, &$smarty)
 			if (in_array($sTag, $aSelected))
 			{
 				if (count($aSelected) == 1)
-					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse"> [-]</a>';
+					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse"> <span class="glyphicon glyphicon-trash"></a>';
 				else
 				{
 					$sUpTag = '';
@@ -78,11 +78,11 @@ function smarty_function_dcl_tag_link($params, &$smarty)
 						}
 					}
 					
-					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sUpTag) . '"> [-]</a>';
+					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sUpTag) . '"> <span class="glyphicon glyphicon-trash"></a>';
 				}
 			}
 			else
-				echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sSelected . ',' . $sTag) . '"> [+]</a>';
+				echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlTags.browse&tag=' . urlencode($sSelected . ',' . $sTag) . '"> <span class="glyphicon glyphicon-filter"></a>';
 
 			echo '</span>';
 		}

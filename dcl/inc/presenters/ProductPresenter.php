@@ -95,6 +95,7 @@ class ProductPresenter
 
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 

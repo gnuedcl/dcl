@@ -42,9 +42,6 @@ class boTimecards
 		
 		$obj = new htmlTimeCardForm();
 		$obj->Show($id, $seq);
-
-		$workOrderPresenter = new WorkOrderPresenter();
-		$workOrderPresenter->Detail($workOrderModel);
 	}
 	
 	function closeIncompleteTasks($wo_id, $seq)
@@ -231,10 +228,6 @@ class boTimecards
 		{
 			$objTC = new htmlTimeCardForm();
 			$objTC->Show(-1, -1, '', $aSelected);
-
-			$obj = new htmlTimeCards();
-			$_REQUEST['selected'] = $aSelected;
-			$obj->ShowBatchWO();
 
 			return;
 		}

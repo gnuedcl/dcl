@@ -37,9 +37,12 @@ class TableHtmlHelper
 	protected $sWidth;
 	protected $bSpacer;
 	
-	public function __construct()
+	public function __construct(SmartyHelper& $smartyHelper = null)
 	{
-		$this->oSmarty = new SmartyHelper();
+		if ($smartyHelper == null)
+			$this->oSmarty = new SmartyHelper();
+		else
+			$this->oSmarty = $smartyHelper;
 		
 		$this->aData = array();
 		$this->aToolbar = array();
@@ -136,6 +139,11 @@ class TableHtmlHelper
 	{
 		$this->AssignTableValues();
 		return $this->oSmarty->ToString($this->sTemplate);
+	}
+
+	public function embed()
+	{
+		$this->AssignTableValues();
 	}
 
 	private function AssignTableValues()

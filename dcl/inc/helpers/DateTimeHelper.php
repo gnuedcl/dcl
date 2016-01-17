@@ -120,6 +120,9 @@ class TimestampHelper
 	{
 		global $dcl_info;
 
+		if (!is_string($s))
+			return new InvalidDataException();
+
 		// Create regex string for date based on DCL_DATE_FORMAT
 		$regexStr = str_replace('m', '([0-9]{2})', $dcl_info['DCL_DATE_FORMAT']);
 		$regexStr = str_replace('d', '([0-9]{2})', $regexStr);

@@ -306,9 +306,9 @@ class boTicketresolutions
 			
 			$sProductTemplate = DCL_ROOT . 'templates/custom/cqq_' . $oTicket->product . '.tpl';
 			if (file_exists($sProductTemplate))
-				$oMail->body = $t->ToString ($sProductTemplate, 'custom');
+				$oMail->body = $t->ToString ($sProductTemplate);
 			else
-				$oMail->body = $t->ToString($dcl_info['DCL_CQQ_TEMPLATE'], 'custom');
+				$oMail->body = $t->ToString($dcl_info['DCL_CQQ_TEMPLATE']);
 			
 			$oMail->Send();
 		}

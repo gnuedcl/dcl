@@ -123,9 +123,7 @@ else
 				$g_oSession->Edit();
 			}
 
-			$menuAction = 'menuAction=htmlMyDCL.show';
-			if ($g_oSec->IsPublicUser())
-				$menuAction = 'menuAction=htmlPublicMyDCL.show';
+			$menuAction = 'menuAction=HomePage.Index';
 
 			if (IsSet($_POST['refer_to']) && $_POST['refer_to'] != '')
 				$menuAction = urldecode($_POST['refer_to']);

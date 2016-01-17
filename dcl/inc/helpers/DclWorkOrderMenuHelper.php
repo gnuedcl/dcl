@@ -38,7 +38,6 @@ class DclWorkOrderMenuHelper
 		{
 			$menuItem->Add(new DclMenuItem(DCL_MENU_ACTIVITY, UrlAction('reportPersonnelActivity', 'getparameters')));
 			$menuItem->Add(new DclMenuItem(DCL_MENU_GRAPH, UrlAction('WorkOrder', 'GraphCriteria')));
-			$menuItem->Add(new DclMenuItem('Metrics', UrlAction('htmlMetricsWorkOrders', 'getparameters')));
 		}
 
 		if (HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH))
@@ -55,7 +54,10 @@ class DclWorkOrderMenuHelper
 		}
 
 		if (HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW) || HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWSUBMITTED) || HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWACCOUNT))
-			$menuItem->Add(new DclMenuItem(DCL_MENU_BROWSE, UrlAction('WorkOrder', 'Browse')));
+			$menuItem->Add(new DclMenuItem('Browse', UrlAction('WorkOrder', 'Browse')));
+
+		if (HasPermission(DCL_ENTITY_CHANGELOG, DCL_PERM_VIEW))
+			$menuItem->Add(new DclMenuItem('ChangeLog', UrlAction('htmlMetrics', 'show')));
 
 		return $menuItem;
 	}

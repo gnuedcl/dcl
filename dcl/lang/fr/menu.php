@@ -21,7 +21,6 @@
 	define('DCL_MENU_SYSTEMSETUP', "System Setup");
 	define('DCL_MENU_NEWACCOUNT', "Nouveau client");
 	define('DCL_MENU_VIEWACCOUNT', "Voir clients");
-	define('DCL_MENU_CHECKLISTS', "Checklists");
 	define('DCL_MENU_PRODUCTS', "Produits");
 	define('DCL_MENU_VIEWS', "Views");
 	define('DCL_MENU_WATCHES', "Alerteurs");

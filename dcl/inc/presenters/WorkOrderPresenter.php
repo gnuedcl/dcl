@@ -130,10 +130,10 @@ class WorkOrderPresenter
 
 		$model = new WorkOrderModel();
 		$graph = $model->Graph($days, $dateFrom, $product);
-		
-		print('<center>');
-		echo '<img border="0" src="', menuLink('', 'menuAction=LineGraphImageHelper.Show&' . $graph->ToURL()), '">';
-		print('</center>');
+
+		$t = new SmartyHelper();
+		$t->assign('GraphUrl', menuLink('', 'menuAction=LineGraphImageHelper.Show&' . $graph->ToURL()));
+		$t->Render('Graph.tpl');
 	}
 	
 	public function Reassign(WorkOrderModel $workOrder, $returnTo = null, $projectId = null)
@@ -204,7 +204,6 @@ class WorkOrderPresenter
 		if ($returnTo != null)
 		{
 			$smartyHelper->assign('return_to', $returnTo);
-			// FIXME: specific to projects
 			if ($projectId != null)
 				$smartyHelper->assign('project', $projectId);
 		}

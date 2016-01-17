@@ -43,9 +43,6 @@ class DclManageMenuHelper
 		if (HasPermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW))
 			$menuItem->Add(new DclMenuItem('Outages', UrlAction('Outage', 'Index')));
 
-		if (HasPermission(DCL_ENTITY_FORMS, DCL_PERM_VIEW))
-			$menuItem->Add(new DclMenuItem(DCL_MENU_CHECKLISTS, UrlAction('boChecklists', 'show')));
-
 		if (HasPermission(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW))
 			$menuItem->Add(new DclMenuItem('Workspaces', UrlAction('htmlWorkspaceBrowse', 'show')));
 
@@ -58,9 +55,6 @@ class DclManageMenuHelper
 		if (HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEW) || HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWSUBMITTED) || HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWACCOUNT) ||
 			HasPermission(DCL_ENTITY_TICKET, DCL_PERM_VIEW) || HasPermission(DCL_ENTITY_TICKET, DCL_PERM_VIEWSUBMITTED) || HasPermission(DCL_ENTITY_TICKET, DCL_PERM_VIEWACCOUNT))
 			$menuItem->Add(new DclMenuItem(DCL_MENU_WATCHES, UrlAction('boWatches', 'showall')));
-
-		if (HasPermission(DCL_ENTITY_WORKORDER, DCL_PERM_REPORT) || HasPermission(DCL_ENTITY_TICKET, DCL_PERM_REPORT))
-			$menuItem->Add(new DclMenuItem('Metrics', UrlAction('htmlMetrics', 'show')));
 
 		if (HasPermission(DCL_ENTITY_GLOBAL, DCL_PERM_VIEWWIKI) && $dcl_info['DCL_WIKI_ENABLED'] == 'Y')
 			$menuItem->Add(new DclMenuItem(DCL_MENU_MAINWIKI, UrlAction('htmlWiki', 'show', 'name=FrontPage&type=0')));

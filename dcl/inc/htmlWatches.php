@@ -84,8 +84,6 @@ class htmlWatches
 
 	function PrintMine()
 	{
-		global $dcl_info;
-		
 		$obj = new WatchesModel();
 
 		$obj->Query(sprintf('SELECT * FROM watches WHERE whoid=%d ORDER BY typeid,watchid', DCLID));
@@ -128,6 +126,7 @@ class htmlWatches
 		$oTable->addColumn(STR_WTCH_ACTIONS, 'string');
 		$oTable->addColumn(STR_CMMN_OPTIONS, 'html');
 		$oTable->addGroup(0);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 

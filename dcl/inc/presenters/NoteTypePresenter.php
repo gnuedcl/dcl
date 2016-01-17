@@ -27,7 +27,7 @@ class NoteTypePresenter
 {
 	public function Index()
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_NOTETYPE, DCL_PERM_VIEW))
@@ -79,6 +79,7 @@ class NoteTypePresenter
 		
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 

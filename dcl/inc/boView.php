@@ -480,6 +480,9 @@ class boView
 							$this->m_oDB = new DbProvider;
 
 						LoadSchema($sRealTable);
+						if (!isset($phpgw_baseline[$sRealTable]['fd'][$sField]))
+							throw new InvalidArgumentException("Could not find field [$sField] in schema for table [$sRealTable].");
+
 						if ($phpgw_baseline[$sRealTable]['fd'][$sField]['type'] == 'timestamp')
 							$retVal .= $this->m_oDB->ConvertTimestamp($sTable . '.' . $sField, $sField);
 						else if ($phpgw_baseline[$sRealTable]['fd'][$sField]['type'] == 'date')

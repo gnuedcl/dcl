@@ -115,6 +115,7 @@ class htmlChangeLog
 		$oTable->setData($aDisplayRecords);
 		$oTable->setShowRownum(true);
 		$oTable->setCaption('Repository Commits');
+		$oTable->sTemplate = 'TableView.tpl';
 
 		$aToolbarItems = $this->GetNavLinks();
 		foreach ($aToolbarItems as $aToolbarItem)
@@ -161,6 +162,7 @@ class htmlChangeLog
 		$oTable->setData($aDisplayRecords);
 		$oTable->setShowRownum(true);
 		$oTable->setCaption('Project Commits');
+		$oTable->sTemplate = 'TableView.tpl';
 
 		$aToolbarItems = $this->GetNavLinks();
 		foreach ($aToolbarItems as $aToolbarItem)
@@ -209,6 +211,7 @@ class htmlChangeLog
 		$oTable->setData($aDisplayRecords);
 		$oTable->setShowRownum(true);
 		$oTable->setCaption('File Commits');
+		$oTable->sTemplate = 'TableView.tpl';
 
 		$aToolbarItems = $this->GetNavLinks();
 		foreach ($aToolbarItems as $aToolbarItem)
@@ -269,6 +272,7 @@ class htmlChangeLog
 		$oTable->setData($aDisplayRecords);
 		$oTable->setShowRownum(true);
 		$oTable->setCaption('Version Commits');
+		$oTable->sTemplate = 'TableView.tpl';
 
 		$aToolbarItems = $this->GetNavLinks();
 		foreach ($aToolbarItems as $aToolbarItem)

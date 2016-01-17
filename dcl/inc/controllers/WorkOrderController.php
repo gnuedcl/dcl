@@ -492,7 +492,7 @@ class WorkOrderController
 		PubSub::Publish('WorkOrder.Deleted', $model);
 
 		SetRedirectMessage('Success', sprintf(STR_BO_WORKORDERDELETED, $id, $seq));
-		RedirectToAction('htmlMyDCL', 'showMy');
+		RedirectToAction('HomePage', 'Index');
 	}
 	
 	public function Detail()

@@ -1,0 +1,403 @@
+/* The basic elements */
+button.jq-ajax-table-pager
+{
+	margin-top: 12px;
+}
+
+div.dcl-notification
+{
+	display: none;
+}
+
+a.dcl-tag, span.dcl-tag
+{
+	background-color: #bfbf60;
+}
+
+a.dcl-hotlist, span.dcl-hotlist
+{
+	background-color: #bf6060;
+}
+
+span.dcl-hotlist-actions > a:hover > span.glyphicon {
+	color: #ffcbcb;
+}
+
+a.dcl-tag, span.dcl-tag a, a.dcl-hotlist, span.dcl-hotlist a
+{
+	color: #ffffff;
+	text-decoration: none;
+}
+
+a.dcl-tag:hover, span.dcl-tag a:hover, a.dcl-hotlist:hover, span.dcl-hotlist a:hover
+{
+	color: #ffffff;
+}
+
+a.dcl-tag, span.dcl-tag, a.dcl-hotlist, span.dcl-hotlist
+{
+	padding: 2px;
+	margin: 2px;
+	display: inline-block;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 1px 3px 2px;
+}
+
+.status-type-1
+{
+	color: #990000;
+}
+
+.status-type-2
+{
+	color: #009900;
+}
+
+.status-type-3
+{
+	color: #ff7400;
+}
+
+dd.status-type-1, dd.status-type-2, dd.status-type-3
+{
+	border-bottom: none 0px;
+}
+
+#content {
+	height: 100%;
+	overflow: auto;
+}
+
+/* for clearing stuff on the side */
+div.clear {
+	clear: both;
+}
+
+/* filter control style */
+div.dcl_filter {
+	border: solid 1px #3a81c1;
+	background-color: #eeeef9;
+	padding: 4px;
+	text-align: center;
+}
+
+div.dcl_filter span {
+	white-space: nowrap;
+}
+
+div.dcl_filter div {
+	border-top: dotted #aaa 1px;
+	margin-top: 2px;
+	padding-top: 2px;
+}
+
+div.dcl_filter ul {
+	display: inline;
+}
+
+div.dcl_filter ul li {
+	padding-left: 4px;
+	padding-right: 4px;
+	border-left: solid black 1px;
+	list-style: none;
+	display: inline;
+}
+
+div.dcl_filter ul li.first {
+	border-left: none;
+}
+
+div.dcl_filter label {
+	font-weight: bold;
+}
+
+div.dcl_filter_selectstart div {
+	display: inline;
+	font-family: sans-serif;
+	font-size: 11px;
+	width: 8px;
+	text-align: center;
+	cursor: hand;
+	cursor: pointer;
+	padding: 1px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	border-top: none;
+}
+
+div.dcl_filter_selectstart div.dcl_startsWith
+{
+	border-top: solid #ffffff 1px;
+	border-left: solid #ffffff 1px;
+	border-bottom: solid #000000 1px;
+	border-right: solid #000000 1px;
+	background-color: #eeeef9;
+	color: #000065;
+}
+
+div.dcl_filter_selectstart div.dcl_startsWithHover
+{
+	border-top: solid #ffffff 1px;
+	border-left: solid #ffffff 1px;
+	border-bottom: solid #000000 1px;
+	border-right: solid #000000 1px;
+	background-color: #3a81c1;
+	color: #eeeef9;
+}
+
+div.dcl_filter_selectstart div.dcl_startsWithSelected
+{
+	border-top: solid #000000 1px;
+	border-left: solid #000000 1px;
+	border-bottom: solid #ffffff 1px;
+	border-right: solid #ffffff 1px;
+	background-color: #3a81c1;
+	color: #eeeef9;
+}
+
+td.task_complete {
+	color: #666666;
+	text-decoration: line-through;
+}
+
+span.task_audit {
+	font-style: italic;
+	color: #888888;
+}
+
+ul.sortable {
+	list-style-type: none;
+	margin: 0px;
+}
+
+ul.sortable li {
+	width: 500px;
+	border: solid #000065 1px;
+	background-color: #ececec;
+	color: #650000;
+	cursor: move;
+	padding: 2px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+ul.sortable li.task_complete {
+	text-decoration: line-through;
+	color: #666666;
+}
+
+ul.sortable li.task_incomplete {
+}
+
+/******************************************************************************************************************/
+td.formContainer
+{
+	border: solid #3a81c1 2px;
+	background-color: #eeeef9;
+}
+
+th.formTitle
+{
+	text-align: left;
+	font-size: 17px;
+	color: #000065;
+}
+
+th.formLinks
+{
+	text-align: right;
+}
+
+th.reportHeader
+{
+	text-align: left;
+	border-bottom: solid black 2px;
+}
+
+tr.footer td
+{
+	border-top: black solid 2px;
+	font-weight: bold;
+}
+
+span.disabled
+{
+	color: #555555;
+	font-weight: bold;
+}
+
+span.error
+{
+	font-weight: bold;
+	color: #aa0000;
+}
+
+.wikicode
+{
+	margin-top: 8pt;
+	margin-bottom: 8pt;
+	background-color: #FFFFEE;
+	white-space:pre;
+	border-style:solid;
+	border-width:1pt;
+	border-color:#999999;
+	color:#111111;
+	padding-left: 4pt;
+	padding-top: 2pt;
+	padding-bottom: 2pt;
+	width:99%;
+}
+
+.scrollable
+{
+	height: 200px;
+	overflow: auto;
+}
+
+@media print
+{
+	body, html, .row-offcanvas {
+		height: auto;
+	}
+
+	body {
+		padding-top: 0px;
+	}
+
+	.noprint
+	{
+		display: none;
+	}
+
+	a.wiki
+	{
+		color: black;
+		font-weight: normal;
+	}
+
+	#sidebar {
+		display: none;
+	}
+	
+	#content {
+		margin-left: 0px;
+		overflow: visible;
+		height: auto;
+		padding-top: 0px;
+	}
+
+	#content p.visible-xs {
+		display: none;
+	}
+
+	#header
+	{
+		display: none;
+	}
+	
+	#left
+	{
+		display: none;
+	}
+	
+	div.listmenu, div.sf-menu-container
+	{
+		display: none;
+	}
+	
+	.scrollable
+	{
+		height: auto;
+		overflow: visible;
+	}
+
+	a[href]:after {
+		content: "" !important;
+	}
+
+	.readmore-js-collapsed {
+		overflow: auto;
+		height: auto !important;
+	}
+
+	a.readmore-js-toggle {
+		display: none;
+	}
+}
+
+/* Post-bootstrap changes */
+body, html, .row-offcanvas {
+	height: 100%;
+}
+
+body {
+	padding-top: 50px;
+}
+
+#content {
+	padding-top: 8px;
+}
+
+#sidebar {
+	float: left;
+	width: inherit;
+	min-width: 220px;
+	max-width: 220px;
+	background-color: #eceaec;
+	height: 100%;
+	position: relative;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.row.top12 {
+	margin-top: 12px;
+}
+
+div.panel div.panel-heading h3 {
+	margin-top: 1px;
+	margin-bottom: 5px;
+}
+
+#dcl-main-nav-bar.navbar {
+	margin-bottom: 0px;
+}
+
+.ui-jqgrid table a.btn {
+	color: #ffffff;
+}
+
+.form-group.required .control-label:after {
+	content: "*";
+	color: red;
+}
+
+.form-horizontal .has-feedback .inputGroupContainer .form-control-feedback {
+	right: -15px;
+}
+
+@media screen and (max-width: 768px) {
+	.row-offcanvas {
+		position: relative;
+		-webkit-transition: all 0.25s ease-out;
+		-moz-transition: all 0.25s ease-out;
+		transition: all 0.25s ease-out;
+		width: calc(100% + 220px);
+	}
+
+	.row-offcanvas-left
+	{
+		left: -220px;
+	}
+
+	.row-offcanvas-left.active {
+		left: 0;
+	}
+
+	.sidebar-offcanvas {
+		position: absolute;
+		top: 0;
+	}
+}

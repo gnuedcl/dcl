@@ -95,7 +95,7 @@ class htmlWiki
 		if ($type == DCL_ENTITY_GLOBAL)
 			$id = 0;
 		
-		$name = @$_REQUEST['name'];
+		$name = @Filter::RequireWikiName($_REQUEST['name']);
 		$editmode = @$_REQUEST['editmode'];
 		$text = @$_REQUEST['text'];
 		$id2 = @Filter::ToInt($_REQUEST['id2']);
@@ -347,9 +347,6 @@ class htmlWiki
 			// New syntax for wiki pages ((name|desc)) Where desc can be anything
 			$line = preg_replace('/\(\((([A-Z][a-z]+){2,})\|([^\~]+)\)\)/',"<a class=\"wiki\" title='$3' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$3</a>",$line);
 
-			// And just plain ((name))
-			$line = preg_replace('/\(\(([^\)\(\|]+)\)\)/',"<a class=\"wiki\" title='$1' href=\"".menuLink()."?menuAction=htmlWiki.show&name=$1&type=$type\">$1</a>",$line);
-
 			// Replace colors ~~color:text~~
 			$line = preg_replace("/\~\~([^\:]+):([^\~]+)\~\~/","<span style='color:$1;'>$2</span>",$line);
 
@@ -539,7 +536,7 @@ class htmlWiki
 			throw new InvalidDataException();
 		}
 		
-		$name = GPCStripSlashes($_REQUEST['name']);
+		$name = Filter::RequireWikiName(GPCStripSlashes($_REQUEST['name']));
 		$editmode = $_REQUEST['editmode'];
 		$text = GPCStripSlashes($_REQUEST['text']);
 		$id2 = @Filter::ToInt($_REQUEST['id2']);
@@ -571,6 +568,8 @@ class htmlWiki
 		$o->page_name = $name;
 		$o->page_text = sprintf(DCL_WIKI_NEWPAGEFORMAT, $name);
 		$o->page_ip = $g_oSession->Value('DCLNAME') . ' [' . $this->getlongip() . ']';
+
+		Filter::RequireWikiName($o->page_name);
 
 		$o->Add();
 		return $o;

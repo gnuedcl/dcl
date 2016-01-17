@@ -255,6 +255,14 @@ abstract class Filter
 		return preg_match("/^[a-z_][a-z0-9_]+([\.][a-z0-9_]+)?$/i", $sFieldName);
 	}
 
+	public static function RequireWikiName($name)
+	{
+		if (!preg_match('/^([A-Z][a-z]+){2,}$/', $name))
+			throw new InvalidDataException();
+
+		return $name;
+	}
+
 	public static function Coalesce()
 	{
 		foreach (func_get_args() as $arg)

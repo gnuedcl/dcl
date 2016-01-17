@@ -23,7 +23,7 @@
 function smarty_function_dcl_selector_init($params, &$smarty)
 {
 ?>
-<script language="JavaScript">
+<script type="text/javascript">
 var oSelectorWindow = null;
 var oSelectorValue = null;
 var oSecondaryValue = null;
@@ -83,4 +83,3 @@ function renderItems(oDiv, aItems)
 </script>
 <?php
 }
-?>

@@ -26,11 +26,9 @@ class SmartyHelper extends Smarty
 	{
 		parent::__construct();
 
-		$defaultTemplateSet = GetDefaultTemplateSet();
-
-		$this->assign('DIR_JS', DCL_WWW_ROOT . "templates/$defaultTemplateSet/js/");
-		$this->assign('DIR_CSS', DCL_WWW_ROOT . "templates/$defaultTemplateSet/css/");
-		$this->assign('DIR_IMG', DCL_WWW_ROOT . "templates/$defaultTemplateSet/img/");
+		$this->assign('DIR_JS', DCL_WWW_ROOT . "templates/js/");
+		$this->assign('DIR_CSS', DCL_WWW_ROOT . "templates/css/");
+		$this->assign('DIR_IMG', DCL_WWW_ROOT . "templates/img/");
 		$this->assign('DIR_VENDOR', DCL_WWW_ROOT . "vendor/");
 		$this->assign('WWW_ROOT', DCL_WWW_ROOT);
 		$this->assign('URL_MAIN_PHP', menuLink());
@@ -52,36 +50,18 @@ class SmartyHelper extends Smarty
 		return $this->fetch($templateFileName);
 	}
 
-	private function SmartyInit($sTemplateName, $sTemplateSet = '')
+	private function SmartyInit($sTemplateSet = '')
 	{
+		$templateDirs = array();
 		if (mb_substr($sTemplateSet, 0, 8) == 'plugins.')
 		{
 			$sPluginPath = mb_substr($sTemplateSet, 8);
-			$this->setTemplateDir(GetPluginDir() . $sPluginPath . '/templates/');
-			$this->setCompileDir(GetPluginDir() . $sPluginPath . '/templates_c/');
-
-			// Nothing more to do for plugins
-			return;
+			$templateDirs[] = GetPluginDir() . $sPluginPath . '/templates/';
 		}
 
-		if ($sTemplateSet == '')
-			$sDefaultTemplateSet = GetDefaultTemplateSet();
-		else
-			$sDefaultTemplateSet = $sTemplateSet;
+		$templateDirs[] = DCL_ROOT . "templates/";
 
-		$this->setTemplateDir(DCL_ROOT . "templates/$sDefaultTemplateSet/");
-		if (!$this->templateExists($sTemplateName) && $sDefaultTemplateSet != 'default')
-		{
-			$sDefaultTemplateSet = 'default';
-			$this->setTemplateDir(DCL_ROOT . "templates/default/");
-			if (!$this->templateExists($sTemplateName))
-			{
-				ShowError("Invalid view name.");
-				return;
-			}
-		}
-
-		// Have the template
-		$this->setCompileDir(DCL_ROOT . 'templates/' . $sDefaultTemplateSet . '/templates_c');
+		$this->setTemplateDir($templateDirs)
+			->setCompileDir(DCL_ROOT . 'templates/templates_c');
 	}
 }

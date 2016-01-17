@@ -20,7 +20,6 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-LoadStringResource('menu');
 LoadStringResource('usr');
 LoadStringResource('cfg');
 
@@ -41,7 +40,6 @@ class htmlPreferences
 		
 		// Reuse methods from here for lang and template
 		$o = new ConfigurationHtmlHelper();
-		$t->assign('CMB_DEFAULTTEMPLATESET', $o->GetTemplatesCombo('DCL_PREF_TEMPLATE_SET', GetDefaultTemplateSet()));
 
 		$lang = $dcl_info['DCL_DEFAULT_LANGUAGE'];
 		$oPrefs = new PreferencesModel();
@@ -81,7 +79,6 @@ class htmlPreferences
 		if (!$o->Exists(array('personnel_id' => $o->personnel_id)))
 		{
 			$o->preferences_data = array(
-					'DCL_PREF_TEMPLATE_SET' => $dcl_info['DCL_DEF_TEMPLATE_SET'],
 					'DCL_PREF_LANGUAGE' => $dcl_info['DCL_DEFAULT_LANGUAGE'],
 					'DCL_PREF_NOTIFY_DEFAULT' => 'N',
 					'DCL_PREF_CREATED_WATCH_OPTION' => 4

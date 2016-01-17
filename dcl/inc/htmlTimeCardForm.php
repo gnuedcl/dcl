@@ -26,11 +26,6 @@ class htmlTimeCardForm
 {
 	function Show($jcn, $seq, $obj = '', $selected = '')
 	{
-		echo $this->GetForm($jcn, $seq, $obj, $selected);
-	}
-
-	function GetForm($jcn, $seq, $obj = '', $selected = '')
-	{
 		global $dcl_info, $g_oSec, $dcl_preferences;
 
 		$isBatch = is_array($selected) && count($selected) > 0;
@@ -155,6 +150,12 @@ class htmlTimeCardForm
 		if (isset($_REQUEST['project']))
 			$oSmarty->assign('VAL_PROJECT', $_REQUEST['project']);
 
-		return $oSmarty->ToString('TimeCardForm.tpl');
+		if ($isBatch)
+		{
+			$obj = new htmlTimeCards();
+			$obj->ShowBatchWO($selected, $oSmarty);
+		}
+
+		$oSmarty->Render('TimeCardForm.tpl');
 	}
 }

@@ -25,7 +25,7 @@ class ActionPresenter
 {
 	public function Index()
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
 		commonHeader();
 
@@ -72,6 +72,7 @@ class ActionPresenter
 
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 

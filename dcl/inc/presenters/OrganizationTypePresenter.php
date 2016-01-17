@@ -25,10 +25,8 @@ class OrganizationTypePresenter
 {
 	public function Index()
 	{
-		global $dcl_info, $g_oSec;
-
 		commonHeader();
-		if (!$g_oSec->HasPerm(DCL_ENTITY_ORGTYPE, DCL_PERM_VIEW))
+		if (!HasPermission(DCL_ENTITY_ORGTYPE, DCL_PERM_VIEW))
 			throw new PermissionDeniedException();
 
 		$o = new OrganizationTypeSqlQueryHelper();
@@ -48,10 +46,10 @@ class OrganizationTypePresenter
 		$oTable->addColumn(STR_CMMN_ID, 'numeric');
 		$oTable->addColumn(STR_CMMN_NAME, 'string');
 
-		if ($g_oSec->HasPerm(DCL_ENTITY_ORGTYPE, DCL_PERM_ADD))
+		if (HasPermission(DCL_ENTITY_ORGTYPE, DCL_PERM_ADD))
 			$oTable->addToolbar(menuLink('', 'menuAction=OrganizationType.Create'), STR_CMMN_NEW);
 
-		if ($g_oSec->HasPerm(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
+		if (HasPermission(DCL_ENTITY_ADMIN, DCL_PERM_VIEW))
 			$oTable->addToolbar(menuLink('', 'menuAction=SystemSetup.Index'), DCL_MENU_SYSTEMSETUP);
 
 		if (count($allRecs) > 0 && $g_oSec->HasAnyPerm(array(DCL_ENTITY_ORGTYPE => array($g_oSec->PermArray(DCL_PERM_MODIFY), $g_oSec->PermArray(DCL_PERM_DELETE)))))
@@ -77,6 +75,7 @@ class OrganizationTypePresenter
 		
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 

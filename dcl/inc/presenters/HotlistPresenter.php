@@ -42,6 +42,7 @@ class HotlistPresenter
 
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 	
@@ -83,8 +84,11 @@ class HotlistPresenter
 		{
 			$oTable->assign('VAL_INCLUDECLOSED', 'N');
 		}
+
+		$hotlistModel = new HotlistModel();
+		$hotlists = $hotlistModel->ListByName($_REQUEST['tag']);
 		
-		$oTable->assign('VAL_SELECTEDTAGS', $_REQUEST['tag']);
+		$oTable->assign('VAL_SELECTEDTAGS', $hotlists);
 		$oTable->sTemplate = 'TableHotlistBrowse.tpl';
 		$oTable->render();
 	}

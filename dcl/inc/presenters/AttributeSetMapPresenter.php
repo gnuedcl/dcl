@@ -33,20 +33,21 @@ class AttributeSetMapPresenter
 
 		$t = new SmartyHelper();
 		$t->assign('VAL_ATTRIBUTESETNAME', $model->name);
-		$t->Render('Attributesetdetail.tpl');
 
 		$objA = new ActionModel();
 		$theAttributes = array('actions', 'priorities', 'severities', 'statuses');
 		$aTitles = array('actions' => STR_ATTR_ACTIONS, 'priorities' => STR_ATTR_PRIORITIES, 'severities' => STR_ATTR_SEVERITIES, 'statuses' => STR_ATTR_STATUSES);
 
+		$tableHtml = '';
+
 		for ($cnt = 0; $cnt < count($theAttributes); $cnt++)
 		{
-			$typeid = $cnt + 1;
+			$typeId = $cnt + 1;
 			$section = $theAttributes[$cnt];
 
 			$query = 'SELECT a.name FROM ' . $section . ' a, attributesetsmap b WHERE a.id=b.keyid ';
 			$query .= ' AND b.setid=' . $model->id;
-			$query .= ' AND b.typeid=' . $typeid;
+			$query .= ' AND b.typeid=' . $typeId;
 			$query .= ' ORDER BY ';
 			if ($section == 'priorities' || $section == 'severities')
 				$query .= 'b.weight';
@@ -61,13 +62,16 @@ class AttributeSetMapPresenter
 
 				$oTable->addToolbar(menuLink('', 'menuAction=AttributeSet.Index'), STR_ATTR_ATTRIBUTESET);
 				if ($g_oSec->HasPerm(DCL_ENTITY_ATTRIBUTESETS, DCL_PERM_MODIFY))
-					$oTable->addToolbar(menuLink('', 'menuAction=AttributeSetMap.Edit&setid=' . $model->id . '&typeid=' . $typeid), STR_ATTR_MAP);
+					$oTable->addToolbar(menuLink('', 'menuAction=AttributeSetMap.Edit&setid=' . $model->id . '&typeid=' . $typeId), STR_ATTR_MAP);
 
 				$oTable->setData($objA->FetchAllRows());
 				$oTable->addColumn(STR_CMMN_NAME, 'string');
-				$oTable->render();
+				$tableHtml .= $oTable->fetch();
 			}
 		}
+
+		$t->assign('TableHtml', $tableHtml);
+		$t->Render('Attributesetdetail.tpl');
 	}
 
 	public function Edit($setid, $typeid)

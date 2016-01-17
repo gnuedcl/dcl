@@ -83,9 +83,6 @@ class ConfigurationPresenter
 		$t->assign('VAL_SMTPTIMEOUT', $dcl_info['DCL_SMTP_TIMEOUT']);
 		$t->assign('VAL_SMTPDEFAULTEMAIL', $dcl_info['DCL_SMTP_DEFAULT_EMAIL']);
 
-		// Look and feel
-		$t->assign('CMB_DEFTEMPLATESET', $this->GetTemplatesCombo('DCL_DEF_TEMPLATE_SET', $dcl_info['DCL_DEF_TEMPLATE_SET']));
-		
 		// Work Orders
 		$t->assign('CMB_DEFAULTSTATUSASSIGN', $this->GetStatusCombo('DCL_DEF_STATUS_ASSIGN_WO', $dcl_info['DCL_DEF_STATUS_ASSIGN_WO']));
 		$t->assign('CMB_DEFAULTSTATUSUNASSIGN', $this->GetStatusCombo('DCL_DEF_STATUS_UNASSIGN_WO', $dcl_info['DCL_DEF_STATUS_UNASSIGN_WO']));

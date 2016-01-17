@@ -77,6 +77,7 @@ class htmlSecAudit
 		$oTable->setCaption(sprintf(STR_SEC_SECLOGTITLE, $begindate, $enddate, $respname));
 		
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 			
 		return true;

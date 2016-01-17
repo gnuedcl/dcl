@@ -36,6 +36,41 @@ class HotlistModel extends DbProvider
 	{
 		return $this->Query("SELECT hotlist_id, hotlist_tag FROM dcl_hotlist WHERE active = 'Y' ORDER BY hotlist_tag");
 	}
+
+	public function ListByName($sTags)
+	{
+		if ($sTags === null || trim($sTags) == '')
+			return null;
+
+		$sTags = trim(mb_strtolower($sTags));
+		$aTags = explode(',', $sTags);
+		if (count($aTags) < 1)
+			return null;
+
+		$sTagValues = '';
+		foreach($aTags as $sTag)
+		{
+			$sTag = trim($sTag);
+			if ($sTag == '')
+				continue;
+
+			if ($sTagValues != '')
+				$sTagValues .= ',';
+
+			$sTagValues .= $this->Quote($sTag);
+		}
+
+		if ($this->Query("SELECT hotlist_id, hotlist_tag FROM dcl_hotlist WHERE hotlist_tag IN ($sTagValues)") == -1)
+			return null;
+
+		$hotlists = array();
+		while ($this->next_record())
+		{
+			$hotlists[] = array('id' => $this->f(0), 'hotlist' => $this->f(1));
+		}
+
+		return $hotlists;
+	}
 	
 	public function filterList($filter)
 	{

@@ -21,7 +21,6 @@
 	define('DCL_MENU_SYSTEMSETUP', "System Setup");
 	define('DCL_MENU_NEWACCOUNT', "New Organization");
 	define('DCL_MENU_VIEWACCOUNT', "View Organizations");
-	define('DCL_MENU_CHECKLISTS', "Checklists");
 	define('DCL_MENU_PRODUCTS', "Products");
 	define('DCL_MENU_VIEWS', "Views");
 	define('DCL_MENU_WATCHES', "Watches");

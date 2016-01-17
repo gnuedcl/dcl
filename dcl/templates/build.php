@@ -26,7 +26,7 @@ if (php_sapi_name() != 'cli')
 		exit;
 }
 
-define('DCL_ROOT', '/var/www/dcl/');
+define('DCL_ROOT', '/var/www/html/dcl/');
 define('SMARTY_DIR', DCL_ROOT . 'inc/');
 
 require_once(DCL_ROOT . 'inc/config.php');
@@ -37,23 +37,19 @@ $g_oSec = new SecurityHelper();
 $g_oSession = new SessionModel();
 $oSmarty = new Smarty();
 
-$aCompileDir = array('default');
-foreach ($aCompileDir as $sDir)
-{
-		$oSmarty->template_dir = DCL_ROOT . "templates/$sDir/";
-		$oSmarty->compile_dir = $oSmarty->template_dir . 'templates_c';
+$oSmarty->template_dir = DCL_ROOT . "templates/";
+$oSmarty->compile_dir = $oSmarty->template_dir . 'templates_c';
 
-		echo 'Compiling templates in directory ' . $oSmarty->template_dir . "...\n";
-		$hDir = opendir($oSmarty->template_dir);
-		while (($sFile = readdir($hDir)) !== false)
+echo 'Compiling templates in directory ' . $oSmarty->template_dir . "...\n";
+$hDir = opendir($oSmarty->template_dir);
+while (($sFile = readdir($hDir)) !== false)
+{
+		$sFullPath = $oSmarty->template_dir . $sFile;
+		if (is_file($sFullPath) && mb_substr($sFullPath, -3, 3) == 'tpl')
 		{
-				$sFullPath = $oSmarty->template_dir . $sFile;
-				if (is_file($sFullPath) && mb_substr($sFullPath, -3, 3) == 'tpl')
-				{
-						echo "$sFile...";
-						$oSmarty->fetch($sFile);
-						echo "done\n";
-				}
+				echo "$sFile...";
+				$oSmarty->fetch($sFile);
+				echo "done\n";
 		}
 }
 

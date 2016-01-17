@@ -265,11 +265,7 @@ class PersonnelController
 			$g_oSession->Edit();
 
 			SetRedirectMessage('Success', 'Password changed successfully.');
-
-			if ($g_oSec->IsPublicUser())
-				RedirectToAction('htmlPublicMyDCL', 'show');
-			else
-				RedirectToAction('htmlMyDCL', 'show');
+			RedirectToAction('HomePage', 'Index');
 		}
 	}
 }

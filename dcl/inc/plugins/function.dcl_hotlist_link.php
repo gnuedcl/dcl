@@ -52,22 +52,35 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		
 	if (!isset($params['selected']))
 		$params['selected'] = '';
-	
-	$sSelected = trim($params['selected']);
-	$aSelected = explode(',', $sSelected);
-	foreach ($aSelected as $iIndex => $sSelectedHotlist)
-		$aSelected[$iIndex] = trim($sSelectedHotlist);
+
+	if (is_array($params['selected']))
+	{
+		$aSelected = array();
+		foreach ($params['selected'] as $sSelectedHotlist)
+			$aSelected[] = $sSelectedHotlist['hotlist'];
+
+		$sSelected = join(',', $aSelected);
+	}
+	else
+	{
+		$sSelected = trim($params['selected']);
+		$aSelected = explode(',', $sSelected);
+		foreach ($aSelected as $iIndex => $sSelectedHotlist)
+			$aSelected[$iIndex] = trim($sSelectedHotlist);
+	}
 
 	$bFirst = true;
 	foreach ($aHotlists as $item)
 	{
 		$sHotlist = '';
 		$priority = '';
+		$hotlistId = -1;
 
 		if (is_array($item))
 		{
 			$sHotlist = trim($item['hotlist']);
 			$priority = $item['priority'];
+			$hotlistId = $item['id'];
 		}
 		else
 		{
@@ -83,10 +96,13 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		{
 			echo '<span class="dcl-hotlist">';
 			echo '<a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sHotlist) . '">' . htmlspecialchars($sHotlist, ENT_QUOTES, 'UTF-8') . ($priority == '' ? '' : ' #' . $priority) . '</a>';
+			echo '<span class="dcl-hotlist-actions">';
 			if (in_array($sHotlist, $aSelected))
 			{
 				if (count($aSelected) == 1)
-					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse"> [-]</a>';
+				{
+					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse" title="Remove Filter"> <span class="glyphicon glyphicon-trash"></span></a>';
+				}
 				else
 				{
 					$sUpHotlist = '';
@@ -101,13 +117,18 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 						}
 					}
 					
-					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sUpHotlist) . '"> [-]</a>';
+					echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sUpHotlist) . '" title="Remove Filter"> <span class="glyphicon glyphicon-trash"></span></a>';
 				}
 			}
 			else
-				echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sSelected . ',' . $sHotlist) . '"> [+]</a>';
+			{
+				echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Browse&tag=' . urlencode($sSelected . ',' . $sHotlist) . '" title="Add to Filter"> <span class="glyphicon glyphicon-filter"></span></a>';
+			}
 
-			echo '</span>';
+			echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=htmlHotlistProject.View&id=' . $hotlistId . '" title="View as Project"> <span class="glyphicon glyphicon-tasks"></span></a>';
+			echo ' <a href="' . DCL_WWW_ROOT . 'main.php?menuAction=Hotlist.Prioritize&hotlist_id=' . $hotlistId . '" title="Prioritize"> <span class="glyphicon glyphicon-sort-by-attributes"></span></a>';
+
+			echo '</span></span>';
 		}
 		else
 		{
@@ -115,4 +136,3 @@ function smarty_function_dcl_hotlist_link($params, &$smarty)
 		}
 	}
 }
-?>

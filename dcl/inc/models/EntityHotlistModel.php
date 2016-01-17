@@ -148,9 +148,9 @@ class EntityHotlistModel extends DbProvider
 		$entity_key_id2 = (int)$entity_key_id2;
 
 		if ($entity_id == DCL_ENTITY_WORKORDER)
-			$sSQL = 'SELECT T.hotlist_tag, ET.sort FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id AND ET.entity_key_id2 = $entity_key_id2 ORDER BY T.hotlist_tag";
+			$sSQL = 'SELECT T.hotlist_tag, ET.sort, T.hotlist_id FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id AND ET.entity_key_id2 = $entity_key_id2 ORDER BY T.hotlist_tag";
 		else
-			$sSQL = 'SELECT T.hotlist_tag, ET.sort FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id ORDER BY T.hotlist_tag";
+			$sSQL = 'SELECT T.hotlist_tag, ET.sort, T.hotlist_id FROM dcl_hotlist T ' . $this->JoinKeyword . " dcl_entity_hotlist ET ON T.hotlist_id = ET.hotlist_id WHERE ET.entity_id = $entity_id AND ET.entity_key_id = $entity_key_id ORDER BY T.hotlist_tag";
 
 		if ($this->Query($sSQL) == -1)
 			return '';
@@ -158,7 +158,7 @@ class EntityHotlistModel extends DbProvider
 		$aHotlists = array();
 		while ($this->next_record())
 		{
-			$aHotlists[] = array('hotlist' => $this->f(0), 'priority' => $this->f(1));
+			$aHotlists[] = array('hotlist' => $this->f(0), 'priority' => $this->f(1), 'id' => $this->f(2));
 		}
 
 		return $aHotlists;
@@ -250,6 +250,7 @@ class EntityHotlistModel extends DbProvider
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_WORKORDER . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
 				$sSQL .= $this->JoinKeyword . ' workorders ON hotlist_matches.entity_key_id = workorders.jcn AND hotlist_matches.entity_key_id2 = workorders.seq ';
+				$sSQL .= $this->JoinKeyword . ' dcl_entity_hotlist ON dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_WORKORDER . ' AND dcl_entity_hotlist.entity_key_id = workorders.jcn AND dcl_entity_hotlist.entity_key_id2 = workorders.seq AND dcl_entity_hotlist.hotlist_id = ' . $aHotlists[0];
 				$sSQL .= $this->JoinKeyword . ' statuses ON workorders.status = statuses.id ';
 				$sSQL .= $this->JoinKeyword . ' personnel R ON workorders.responsible = R.id ';
 				$sSQL .= 'LEFT JOIN projectmap PM ON workorders.jcn = PM.jcn AND workorders.seq in (0, PM.seq) ';
@@ -354,6 +355,7 @@ class EntityHotlistModel extends DbProvider
 			{
 				$sSQL .= '(SELECT entity_key_id, entity_key_id2 FROM dcl_entity_hotlist WHERE entity_id = ' . DCL_ENTITY_TICKET . " AND hotlist_id IN ($sID) GROUP BY entity_key_id, entity_key_id2 HAVING COUNT(*) = $iHotlistCount) hotlist_matches ";
 				$sSQL .= $this->JoinKeyword . ' tickets ON hotlist_matches.entity_key_id = tickets.ticketid ';
+				$sSQL .= $this->JoinKeyword . ' dcl_entity_hotlist ON dcl_entity_hotlist.entity_id = ' . DCL_ENTITY_TICKET . ' AND dcl_entity_hotlist.entity_key_id = tickets.ticketid AND dcl_entity_hotlist.hotlist_id = ' . $aHotlists[0];
 				$sSQL .= $this->JoinKeyword . ' statuses ON tickets.status = statuses.id ';
 				$sSQL .= $this->JoinKeyword . ' personnel R ON tickets.responsible = R.id ';
 
@@ -443,7 +445,9 @@ class EntityHotlistModel extends DbProvider
 			throw new PermissionDeniedException();
 		}
 
-		return $this->Query($sSQL . ' ORDER BY 12, 1, 2, 3');
+		$sSQL .= ' ORDER BY 12, 1, 2, 3';
+
+		return $this->Query($sSQL);
 	}
 	
 	public function GetStatusCount($hotlist_id)

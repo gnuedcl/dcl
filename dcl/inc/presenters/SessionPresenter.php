@@ -52,6 +52,7 @@ class SessionPresenter
 
 		$tableHelper->setData($allRecs);
 		$tableHelper->setShowRownum(true);
+		$tableHelper->sTemplate = 'TableView.tpl';
 		$tableHelper->render();
 	}
 }

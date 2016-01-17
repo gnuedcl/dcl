@@ -27,7 +27,7 @@ class PhoneTypePresenter
 {
 	public function Index()
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_PHONETYPE, DCL_PERM_VIEW))
@@ -79,6 +79,7 @@ class PhoneTypePresenter
 		
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 

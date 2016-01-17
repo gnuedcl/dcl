@@ -21,7 +21,6 @@
 	define('DCL_MENU_SYSTEMSETUP', "Sistemska konf.");
 	define('DCL_MENU_NEWACCOUNT', "Nova stranka");
 	define('DCL_MENU_VIEWACCOUNT', "Poglej stranke");
-	define('DCL_MENU_CHECKLISTS', "Checklists");
 	define('DCL_MENU_PRODUCTS', "Produkti");
 	define('DCL_MENU_VIEWS', "Views");
 	define('DCL_MENU_WATCHES', "Opozorilniki");

@@ -282,12 +282,11 @@ class ProjectController
 		{
 			$presenter = new ProjectPresenter();
 			$presenter->AddToProject($_REQUEST['selected'], null, 'Project.PostBatchMove', 'Batch Move Work Orders to Another Project');
-
-			$timeCardPresenter = new htmlTimeCards();
-			$timeCardPresenter->ShowBatchWO();
 		}
 		else
-			throw new PermissionDeniedException();
+		{
+			throw new InvalidDataException();
+		}
 	}
 
 	public function PostBatchMove()

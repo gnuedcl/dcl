@@ -22,9 +22,6 @@
 
 require_once('login.php');
 
-$g_oPage = new Page();
-$g_oPage->StartPage();
-
 if ($g_oSession->Value('ForcePasswordChange') == '1' && (!isset($_REQUEST['menuAction']) || $_REQUEST['menuAction'] != 'Personnel.ForcePasswordChangePost'))
 {
 	Invoke('Personnel.ForcePasswordChange');
@@ -45,5 +42,3 @@ else
 {
 	throw new InvalidArgumentException();
 }
-
-$g_oPage->EndPage();

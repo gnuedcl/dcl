@@ -22,21 +22,13 @@
 
 class htmlMetrics
 {
-	var $oDB;
-
-	function htmlMetrics()
-	{
-		$this->oDB = new DbProvider;
-	}
-
 	function show()
 	{
-		global $dcl_info;
-
 		commonHeader();
 
-		$this->oDB->query("select a.id, a.short, count(*) from personnel a join dcl_sccs_xref b on a.id = b.personnel_id group by a.id, a.short order by 3 desc");
-		$aRecords = $this->oDB->FetchAllRows();
+		$db = new DbProvider();
+		$db->query("select a.id, a.short, count(*) from personnel a join dcl_sccs_xref b on a.id = b.personnel_id group by a.id, a.short order by 3 desc");
+		$aRecords = $db->FetchAllRows();
 		
 		$oTable = new TableHtmlHelper();
 		$oTable->setCaption('ChangeLog Entries');
@@ -51,38 +43,7 @@ class htmlMetrics
 
 		$oTable->setData($aRecords);
 		$oTable->setShowRownum(true);
-		$oTable->render();
-
-		$this->oDB->FreeResult();
-
-		$aTables = array(
-			'Personnel' => 'personnel',
-			'Organizations' => 'dcl_org',
-			'Contacts' => 'dcl_contact',
-			'Work Orders' => 'workorders',
-			'Time Cards' => 'timecards',
-			'Tickets' => 'tickets',
-			'Ticket Resolutions' => 'ticketresolutions',
-			'Projects' => 'dcl_projects',
-			'Products' => 'products',
-			'ChangeLog' => 'dcl_sccs_xref'
-		);
-
-		$oTable = new TableHtmlHelper();
-		$oTable->setCaption('Table Record Counts');
-		$oTable->addColumn('Table', 'string');
-		$oTable->addColumn('Records', 'numeric');
-		$oTable->setShowRownum(true);
-
-		foreach ($aTables as $sName => $sTable)
-		{
-			$this->oDB->query("select '$sName', count(*) from $sTable");
-			if ($this->oDB->next_record())
-				$oTable->addRow(array($this->oDB->f(0), $this->oDB->f(1)));
-				
-			$this->oDB->FreeResult();
-		}
-		
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 }

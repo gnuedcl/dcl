@@ -21,7 +21,6 @@
 	define('DCL_MENU_SYSTEMSETUP', "Configurar sistema");
 	define('DCL_MENU_NEWACCOUNT', "Nueva Cuenta");
 	define('DCL_MENU_VIEWACCOUNT', "Ver Cuentas");
-	define('DCL_MENU_CHECKLISTS', "Checklists");
 	define('DCL_MENU_PRODUCTS', "Productos");
 	define('DCL_MENU_VIEWS', "Views");
 	define('DCL_MENU_WATCHES', "Vistas");

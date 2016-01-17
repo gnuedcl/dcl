@@ -26,7 +26,7 @@ class WorkOrderTypePresenter
 {
 	public function Index()
 	{
-		global $dcl_info, $g_oSec;
+		global $g_oSec;
 
 		commonHeader();
 		if (!$g_oSec->HasPerm(DCL_ENTITY_WORKORDERTYPE, DCL_PERM_VIEW))
@@ -79,6 +79,7 @@ class WorkOrderTypePresenter
 		
 		$oTable->setData($allRecs);
 		$oTable->setShowRownum(true);
+		$oTable->sTemplate = 'TableView.tpl';
 		$oTable->render();
 	}
 

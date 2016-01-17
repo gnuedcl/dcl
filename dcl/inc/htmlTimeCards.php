@@ -25,10 +25,8 @@ LoadStringResource('wo');
 
 class htmlTimeCards
 {
-	function ShowBatchWO()
+	function ShowBatchWO(array $aSelected, SmartyHelper $smartyHelper)
 	{
-		global $dcl_info;
-
 		$objWO = new WorkOrderModel();
 		$query = 'select a.jcn, a.seq, b.short, c.name, e.name, a.summary from workorders a ' . $objWO->JoinKeyword . ' personnel b on a.responsible = b.id ';
 		$query .= $objWO->JoinKeyword . ' statuses c on a.status = c.id left join projectmap d on a.jcn = d.jcn and (a.seq = d.seq or d.seq = 0) ';
@@ -36,7 +34,7 @@ class htmlTimeCards
 		$query .= 'where (';
 
 		$bFirst = true;
-		foreach ($_REQUEST['selected'] as $jcnseq)
+		foreach ($aSelected as $jcnseq)
 		{
 			list($jcn, $seq) = explode('.', $jcnseq);
 			if (Filter::ToInt($jcn) === null || Filter::ToInt($seq) === null)
@@ -56,7 +54,7 @@ class htmlTimeCards
 		$query .= ')';
 		if ($objWO->Query($query) != -1)
 		{
-			$oTable = new TableHtmlHelper();
+			$oTable = new TableHtmlHelper($smartyHelper);
 			$oTable->setCaption('Selected Work Orders');
 			$oTable->addColumn(STR_WO_JCN, 'numeric');
 			$oTable->addColumn(STR_WO_SEQ, 'numeric');
@@ -66,72 +64,7 @@ class htmlTimeCards
 			$oTable->addColumn(STR_WO_SUMMARY, 'string');
 			$oTable->setShowRownum(true);
 			$oTable->setData($objWO->FetchAllRows());
-			$oTable->render();
+			$oTable->embed();
 		}
-	}
-
-	function GetTimeCards($jcn, $seq, $editID = 0, $forDelete = false)
-	{
-		return 'NOPE';
-		/*
-		global $dcl_info, $g_oSec;
-
-		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_VIEW, (int)$jcn, (int)$seq))
-			return '';
-
-		$retVal = '';
-
-		$objTimeCard = new TimeCardsModel();
-		if ($objTimeCard->GetTimeCards($jcn, $seq) != -1)
-		{
-			$oMeta = new DisplayHelper();
-
-			$oSmarty = new SmartyHelper();
-			$oSmarty->assignByRef('TimeCard', $objTimeCard);
-			$oSmarty->assign('PERM_MODIFY', $g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_MODIFY));
-			$oSmarty->assign('PERM_DELETE', $g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE));
-			$oSmarty->assign('IS_DELETE', $forDelete);
-
-			while ($objTimeCard->next_record())
-			{
-				$objTimeCard->GetRow();
-				if (!$forDelete && $editID == $objTimeCard->id)
-				{
-					$retVal .= '<tr><th align="left" colspan="2">';
-					$oTCF = new htmlTimeCardForm();
-					$retVal .= $oTCF->GetForm($objTimeCard->jcn, $objTimeCard->seq, $objTimeCard);
-					$retVal .= '</th></tr>';
-				}
-				else
-				{
-					$oSmarty->assign('VAL_ACTIONBY', $oMeta->GetPersonnel($objTimeCard->actionby));
-					$oSmarty->assign('VAL_ACTIONON', $objTimeCard->actionon);
-					$oSmarty->assign('VAL_SUMMARY', $objTimeCard->summary);
-					$oSmarty->assign('VAL_STATUS', $oMeta->GetStatus($objTimeCard->status));
-					$oSmarty->assign('VAL_REVISION', $objTimeCard->revision);
-					$oSmarty->assign('VAL_ACTION', $oMeta->GetAction($objTimeCard->action));
-					$oSmarty->assign('VAL_HOURS', $objTimeCard->hours);
-					$oSmarty->assign('VAL_DESCRIPTION', $objTimeCard->description);
-					$oSmarty->assign('VAL_INPUTON', $objTimeCard->inputon);
-					$oSmarty->assign('VAL_PUBLIC', $objTimeCard->is_public == 'Y' ? STR_CMMN_YES : STR_CMMN_NO);
-					$oSmarty->assign('VAL_TIMECARDID', $objTimeCard->id);
-
-					if ($objTimeCard->reassign_from_id > 0)
-						$oSmarty->assign('VAL_REASSIGNFROM', $oMeta->GetPersonnel($objTimeCard->reassign_from_id));
-					else
-						$oSmarty->assign('VAL_REASSIGNFROM', '');
-
-					if ($objTimeCard->reassign_to_id > 0)
-						$oSmarty->assign('VAL_REASSIGNTO', $oMeta->GetPersonnel($objTimeCard->reassign_to_id));
-					else
-						$oSmarty->assign('VAL_REASSIGNTO', '');
-
-					$retVal .= $oSmarty->ToString('TimeCardDetail.tpl');
-				}
-			}
-		}
-
-		return $retVal;
-		*/
 	}
 }

@@ -224,9 +224,7 @@ class htmlWorkspaceForm
 		
 		$g_oSession->Edit();
 
-		$menuAction = 'menuAction=htmlMyDCL.show';
-		if ($g_oSec->IsPublicUser())
-			$menuAction = 'menuAction=htmlPublicMyDCL.show';
+		$menuAction = 'menuAction=HomePage.Index';
 
 		if (ob_get_length())
 			ob_end_clean();

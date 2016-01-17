@@ -18,7 +18,6 @@ entity_id	entity_desc	active
 16	FAQ Topic	Y
 17	FAQ Question	Y
 18	FAQ Answer	Y
-19	Form	Y
 20	Administration	Y
 21	Attribute Set	Y
 22	Form Template	Y

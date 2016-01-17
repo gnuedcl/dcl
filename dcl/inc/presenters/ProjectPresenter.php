@@ -199,6 +199,12 @@ class ProjectPresenter
 		$smartyHelper->assign('jcn', $jcn);
 		$smartyHelper->assign('seq', $seq);
 
+		if (is_array($jcn))
+		{
+			$timeCardPresenter = new htmlTimeCards();
+			$timeCardPresenter->ShowBatchWO($jcn, $smartyHelper);
+		}
+
 		$smartyHelper->Render('ProjectmapForm.tpl');
 	}
 
