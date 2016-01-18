@@ -61,7 +61,7 @@
                 }
             });
 
-            $(settings.eleOrgIds).val(selectedIds.join(","));
+            $(this.settings.eleOrgIds).val(selectedIds.join(","));
             this.updateSelectedOrgNames();
         },
         updateSelectedOrgs: function() {
@@ -139,7 +139,7 @@
         initGrid: function() {
             var instance = this;
             $(instance.settings.eleGrid).jqGrid({
-                data: instance.orgList,
+                data: instance.settings.orgList,
                 datatype: "local",
                 colNames: [
                     'ID',
@@ -169,11 +169,11 @@
                 caption: "Select Organizations",
                 gridComplete: function() { instance.loadGridSelection(); },
                 onSelectRow: function (rowid, status, e) {
-                    instance.selectedOrgs[rowid] = status;
+                    instance.settings.selectedOrgs[rowid] = status;
                 },
                 onSelectAll: function (aRowids, status) {
                     for (var i = 0; i < aRowids.length; i++)
-                        instance.selectedOrgs[aRowids[i]] = status;
+                        instance.settings.selectedOrgs[aRowids[i]] = status;
                 }
             })
             .jqGrid('navGrid', '#pager', { edit: false, add: false, del: false, search: false })
