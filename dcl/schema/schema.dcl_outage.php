@@ -34,7 +34,8 @@ $GLOBALS['phpgw_baseline']['dcl_outage'] = array(
 		'create_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
 		'update_dt' => array('type' => 'timestamp', 'nullable' => false),
 		'update_by' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
-		'outage_status_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false)
+		'outage_status_id' => array('type' => 'int', 'precision' => 4, 'nullable' => false),
+		'sev_level' => array('type' => 'int', 'precision' => 4, 'nullable' => true)
 	),
 	'pk' => array('outage_id'),
 	'fk' => array(),

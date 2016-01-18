@@ -9,12 +9,13 @@
 	</ul>
 	<table class="table table-striped">
 		<thead>
-		<tr><th>ID</th><th>Type</th><th>Title</th><th>Status</th><th>Start</th><th>End</th><th># Orgs</th><th># Environments</th><th># Work Orders</th></tr>
+		<tr><th>ID</th><th>Type</th><th>Severity</th><th>Title</th><th>Status</th><th>Start</th><th>End</th><th># Orgs</th><th># Environments</th><th># Work Orders</th></tr>
 		</thead>
 		<tbody id="error-list" data-bind="foreach: rows">
 		<tr>
 			<td><a href="javascript:;" data-bind="text: id, attr: { 'data-outage-id': id }"></a></td>
 			<td data-bind="text: type"></td>
+			<td data-bind="text: sev"></td>
 			<td data-bind="text: title"></td>
 			<td data-bind="text: status"></td>
 			<td data-bind="text: start"></td>

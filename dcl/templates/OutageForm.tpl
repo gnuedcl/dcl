@@ -23,6 +23,38 @@
 		{dcl_form_control id=outage_type_id controlsize=4 label="Outage Type" required=true}
 		{dcl_select_outage_type default=$ViewData->OutageType active=$ACTIVE_ONLY}
 		{/dcl_form_control}
+		{dcl_form_control controlsize=10 label="Severity Level" required=false}
+			<div class="radio">
+				<label>
+					<input type="radio" name="sev_level" id="sev_level_1" value="1"{if $ViewData->SeverityLevel == 1} checked{/if}>
+					1 - Complete outage
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="sev_level" id="sev_level_2" value="2"{if $ViewData->SeverityLevel == 2} checked{/if}>
+					2 - Major functionality affected; possible loss of revenue
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="sev_level" id="sev_level_3" value="3"{if $ViewData->SeverityLevel == 3} checked{/if}>
+					3 - Minor issue
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="sev_level" id="sev_level_4" value="4"{if $ViewData->SeverityLevel == 4} checked{/if}>
+					4 - Workaround available
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="sev_level" id="sev_level_5" value="5"{if $ViewData->SeverityLevel == 5} checked{/if}>
+					5 - False report; error in monitoring
+				</label>
+			</div>
+		{/dcl_form_control}
 		{if $IS_EDIT}
 			{dcl_form_control id=outage_status_id controlsize=4 label="Outage Status" required=true}
 			{dcl_select_outage_status default=$ViewData->Status isplanned=$ViewData->IsPlanned}
@@ -118,6 +150,8 @@
 		var $scheduledControls = $("#outage_sched_start,#outage_sched_end");
 		var $scheduledControlsGroups = $scheduledControls.parents("div.form-group");
 		var $startControlGroup = $("#outage_start").parents("div.form-group:first");
+		var $sevLvlControlGroup = $("#sev_level_1").parents("div.form-group:first");
+		var $sevLvlControls = $sevLvlControlGroup.find("input[type='radio']");
 
 		function updateFormForOutageType() {
 			var isScheduled = $("#outage_type_id").find(":selected[data-is-scheduled]").attr("data-is-scheduled");
@@ -125,10 +159,14 @@
 				$scheduledControls.removeAttr("disabled");
 				$scheduledControlsGroups.addClass("required");
 				$startControlGroup.removeClass("required");
+				$sevLvlControlGroup.removeClass("required").addClass("text-muted");
+				$sevLvlControls.attr("disabled", true);
 			} else {
 				$scheduledControls.attr("disabled", true);
 				$scheduledControlsGroups.removeClass("required");
 				$startControlGroup.addClass("required");
+				$sevLvlControlGroup.addClass("required").removeClass("text-muted");
+				$sevLvlControls.removeAttr("disabled");
 			}
 		}
 

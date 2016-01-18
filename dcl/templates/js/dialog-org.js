@@ -32,18 +32,18 @@
         init: function() {
             var instance = this;
 
-            $(settings.eleOrgsLink).on("click", function () {
+            $(instance.settings.eleOrgsLink).on("click", function () {
                 instance.updateSelectedOrgs();
-                $(settings.eleGrid).trigger("reloadGrid");
-                $(settings.eleDialog).modal();
+                $(instance.settings.eleGrid).trigger("reloadGrid");
+                $(instance.settings.eleDialog).modal();
             });
 
-            $(settings.eleSaveOrgs).on("click", function() { instance.saveGridSelection(); });
+            $(instance.settings.eleSaveOrgs).on("click", function() { instance.saveGridSelection(); });
 
             this.initDialog();
         },
         loadGridSelection: function() {
-            var $grid = $(settings.eleGrid);
+            var $grid = $(this.settings.eleGrid);
             var gridIds = $grid.jqGrid("getDataIDs");
             var instance = this;
 
@@ -67,7 +67,7 @@
         updateSelectedOrgs: function() {
             var instance = this;
             this.settings.selectedOrgs = [];
-            var formOrgs = String($(settings.eleOrgIds).val()).split(",");
+            var formOrgs = String($(instance.settings.eleOrgIds).val()).split(",");
             $.each(formOrgs, function (idx, value) {
                 instance.settings.selectedOrgs[value] = { name: "", selected: true };
             });
@@ -105,7 +105,7 @@
         },
         updateSelectedOrgNames: function() {
             var instance = this;
-            var formOrgs = String($(settings.eleOrgIds).val()).split(",");
+            var formOrgs = String($(instance.settings.eleOrgIds).val()).split(",");
             var selectedOrgNames = [];
             $.each(formOrgs, function (idx, value) {
                 selectedOrgNames.push(instance.settings.orgNames[value]);
@@ -118,7 +118,7 @@
                 html += '<span class="badge alert-info">' + instance.htmlEncode(value) + "</span>";
             });
 
-            $(settings.eleOrgNames).html(html);
+            $(instance.settings.eleOrgNames).html(html);
         },
         initDialog: function() {
             var instance = this;
@@ -138,7 +138,7 @@
         },
         initGrid: function() {
             var instance = this;
-            $(settings.eleGrid).jqGrid({
+            $(instance.settings.eleGrid).jqGrid({
                 data: instance.orgList,
                 datatype: "local",
                 colNames: [

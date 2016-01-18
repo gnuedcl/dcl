@@ -85,7 +85,7 @@
 			<li class="list-group-item">
 				<span data-bind="attr: { class: getIcon }"></span>
 				<a href="javascript:;" data-bind="text: title"></a>
-				<!-- ko text: status --><!-- /ko --> <span class="text-muted">(Started <!-- ko text: start --><!-- /ko --><!-- ko if: planned === 'Y' -->, Scheduled for <!-- ko text: schedstart --><!-- /ko --> to <!-- ko text: schedend --><!-- /ko --><!-- /ko -->)</span>
+				<!-- ko text: status --><!-- /ko --> <span class="label label-info" data-bind="text: sev"></span> <span class="text-muted">(Started <!-- ko text: start --><!-- /ko --><!-- ko if: planned === 'Y' -->, Scheduled for <!-- ko text: schedstart --><!-- /ko --> to <!-- ko text: schedend --><!-- /ko --><!-- /ko -->)</span>
 			</li>
 		</ul>
 	</div>
@@ -109,7 +109,7 @@
 			<li class="list-group-item">
 				<span data-bind="attr: { class: getIcon }"></span>
 				<a href="javascript:;" data-bind="text: title"></a>
-				<!-- ko text: status --><!-- /ko --> <span class="text-muted">(<!-- ko text: start --><!-- /ko --> to <!-- ko text: end --><!-- /ko --><!-- ko if: planned === 'Y' -->, Scheduled for <!-- ko text: schedstart --><!-- /ko --> to <!-- ko text: schedend --><!-- /ko --><!-- /ko -->)</span>
+				<!-- ko text: status --><!-- /ko --> <span class="label label-info" data-bind="text: sev"></span> <span class="text-muted">(<!-- ko text: start --><!-- /ko --> to <!-- ko text: end --><!-- /ko --><!-- ko if: planned === 'Y' -->, Scheduled for <!-- ko text: schedstart --><!-- /ko --> to <!-- ko text: schedend --><!-- /ko --><!-- /ko -->)</span>
 			</li>
 		</ul>
 	</div>

@@ -46,6 +46,12 @@ class OutageModelValidator
 			$v->rule('required', array('outage_sched_start', 'outage_sched_end'));
 			$v->rule('dateBefore', 'outage_sched_start', new DateTime($model->outage_sched_end))->message('{field} must be before {field1}.');
 		}
+		else
+		{
+			$v->rule('required', array('sev_level'));
+			$v->rule('min', 'sev_level', 1);
+			$v->rule('max', 'sev_level', 5);
+		}
 
 		if ($outageType->is_planned != 'Y' || $model->outage_end != '')
 			$v->rule('required', array('outage_start'));
@@ -68,7 +74,8 @@ class OutageModelValidator
 			'outage_sched_start' => 'Scheduled Start Time',
 			'outage_sched_end' => 'Scheduled End Time',
 			'outage_start' => 'Start Time',
-			'outage_end' => 'End Time'
+			'outage_end' => 'End Time',
+			'sev_level' => 'Severity Level'
 		));
 
 		$this->validator = $v;

@@ -79,6 +79,7 @@ class OutagePresenter
 			$viewData->End = DclSmallDateTime::ToDisplay($model->outage_end);
 			$viewData->Description = $model->outage_description;
 			$viewData->Status = $model->outage_status_id;
+			$viewData->SeverityLevel = $model->sev_level;
 
 			if ($model->outage_type_id > 0)
 			{

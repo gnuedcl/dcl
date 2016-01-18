@@ -47,7 +47,7 @@ class OutageService
 		$sql .= '(SELECT COUNT(*) FROM dcl_outage_org WHERE outage_id = O.outage_id) AS org_count, ';
 		$sql .= '(SELECT COUNT(*) FROM dcl_outage_environment WHERE outage_id = O.outage_id) AS environment_count, ';
 		$sql .= '(SELECT COUNT(*) FROM dcl_outage_wo WHERE outage_id = O.outage_id) AS wo_count, ';
-		$sql .= 'S.status_name';
+		$sql .= 'S.status_name, O.sev_level';
 		$sql .= ' FROM dcl_outage O ' . $model->JoinKeyword . ' dcl_outage_type T ON O.outage_type_id = T.outage_type_id ';
 		$sql .= $model->JoinKeyword . ' dcl_outage_status S ON O.outage_status_id = S.outage_status_id ';
 
@@ -125,7 +125,8 @@ class OutageService
 					'orgs' => (int)$record[7],
 					'env' => (int)$record[8],
 					'wo' => (int)$record[9],
-					'status' => $record[10]
+					'status' => $record[10],
+					'sev' => $record[11]
 				);
 			}
 		}
@@ -191,7 +192,7 @@ class OutageService
 
 		$model = new OutageModel();
 
-		$sql = 'SELECT O.outage_id, O.outage_start, O.outage_end, O.outage_sched_start, O.outage_sched_end, O.outage_title, T.is_down, T.is_planned, S.status_name FROM dcl_outage O ' . $model->JoinKeyword . ' dcl_outage_type T ON O.outage_type_id = T.outage_type_id ' . $model->JoinKeyword . ' dcl_outage_status S ON O.outage_status_id = S.outage_status_id';
+		$sql = 'SELECT O.outage_id, O.outage_start, O.outage_end, O.outage_sched_start, O.outage_sched_end, O.outage_title, T.is_down, T.is_planned, S.status_name, O.sev_level FROM dcl_outage O ' . $model->JoinKeyword . ' dcl_outage_type T ON O.outage_type_id = T.outage_type_id ' . $model->JoinKeyword . ' dcl_outage_status S ON O.outage_status_id = S.outage_status_id';
 		$sql .= ' WHERE O.outage_start <= ' . $model->GetDateSQL() . " AND O.outage_end IS NULL";
 
 		if (IsOrgUser())
@@ -223,7 +224,8 @@ class OutageService
 					'title' => $record[5],
 					'down' => $record[6],
 					'planned' => $record[7],
-					'status' => $record[8]
+					'status' => $record[8],
+					'sev' => $record[9] != null ? 'SEV' . $record[9] : null
 				);
 			}
 		}
@@ -243,7 +245,7 @@ class OutageService
 		$cutoffDt = new DateTime();
 		$cutoffDt->modify('-7 days');
 
-		$sql = 'SELECT O.outage_id, O.outage_start, O.outage_end, O.outage_sched_start, O.outage_sched_end, O.outage_title, T.is_down, T.is_planned, S.status_name FROM dcl_outage O ' . $model->JoinKeyword . ' dcl_outage_type T ON O.outage_type_id = T.outage_type_id ' . $model->JoinKeyword . ' dcl_outage_status S ON O.outage_status_id = S.outage_status_id';
+		$sql = 'SELECT O.outage_id, O.outage_start, O.outage_end, O.outage_sched_start, O.outage_sched_end, O.outage_title, T.is_down, T.is_planned, S.status_name, O.sev_level FROM dcl_outage O ' . $model->JoinKeyword . ' dcl_outage_type T ON O.outage_type_id = T.outage_type_id ' . $model->JoinKeyword . ' dcl_outage_status S ON O.outage_status_id = S.outage_status_id';
 		$sql .= ' WHERE O.outage_end >= ' . $model->DisplayToSQL($cutoffDt->format($dcl_info['DCL_DATE_FORMAT']));
 
 		if (IsOrgUser())
@@ -275,7 +277,8 @@ class OutageService
 					'title' => $record[5],
 					'down' => $record[6],
 					'planned' => $record[7],
-					'status' => $record[8]
+					'status' => $record[8],
+					'sev' => $record[9] != null ? 'SEV' . $record[9] : null
 				);
 			}
 		}
