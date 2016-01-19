@@ -225,7 +225,7 @@ class OutageService
 					'down' => $record[6],
 					'planned' => $record[7],
 					'status' => $record[8],
-					'sev' => $record[9] != null ? 'SEV' . $record[9] : null
+					'sev' => $record[9] != null ? 'SEV-' . $record[9] : null
 				);
 			}
 		}
@@ -278,7 +278,7 @@ class OutageService
 					'down' => $record[6],
 					'planned' => $record[7],
 					'status' => $record[8],
-					'sev' => $record[9] != null ? 'SEV' . $record[9] : null
+					'sev' => $record[9] != null ? 'SEV-' . $record[9] : null
 				);
 			}
 		}

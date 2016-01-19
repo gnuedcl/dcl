@@ -259,4 +259,28 @@ class OutageController
 	{
 
 	}
+
+	public function Report()
+	{
+		RequirePermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW);
+
+		$presenter = new OutagePresenter();
+		$presenter->Report();
+	}
+
+	public function ReportResults()
+	{
+		RequirePost();
+		RequirePermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW);
+
+		$startDate = @Filter::RequireDate($_REQUEST['unplanned_outage_start']);
+		$endDate = @Filter::RequireDate($_REQUEST['unplanned_outage_end']);
+
+		$organizations = @Filter::ToIntArray($_POST['outage_orgs']);
+		if ($organizations == null)
+			$organizations = array();
+
+		$presenter = new OutagePresenter();
+		$presenter->ReportResults($startDate, $endDate, $organizations);
+	}
 }

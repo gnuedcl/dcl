@@ -131,7 +131,7 @@
                 });
             } else {
                 $.when(instance.getOrgData()).done(function(org) {
-                    instance.updateGridSelection(org[0]);
+                    instance.updateGridSelection(org);
                     instance.initGrid();
                 });
             }

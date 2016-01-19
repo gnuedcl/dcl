@@ -1,4 +1,4 @@
-<?php
+	<?php
 /*
  * This file is part of Double Choco Latte.
  * Copyright (C) 1999-2014 Free Software Foundation

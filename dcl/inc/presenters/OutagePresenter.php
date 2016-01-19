@@ -64,6 +64,56 @@ class OutagePresenter
 		$smartyHelper->Render('OutageForm.tpl');
 	}
 
+	public function Report()
+	{
+		commonHeader();
+
+		$smartyHelper = new SmartyHelper();
+		$smartyHelper->assignByRef('ViewData', $this->GetReportViewModel());
+
+		$smartyHelper->Render('OutageReportForm.tpl');
+	}
+
+	public function ReportResults($startDate, $endDate, array $organizations)
+	{
+		commonHeader();
+
+		$db = new OutageModel();
+		if ($db->ListUnplannedOutages($startDate, $endDate, $organizations) == -1)
+			return;
+
+		$aRecords = $db->FetchAllRows();
+		for ($i = 0; $i < count($aRecords); $i++)
+		{
+			if ($aRecords[$i][2] !== null)
+				$aRecords[$i][2] = 'SEV-' . $aRecords[$i][2];
+
+			$aRecords[$i][3] = DclSmallDateTime::ToDisplay($aRecords[$i][3]);
+			$aRecords[$i][4] = DclSmallDateTime::ToDisplay($aRecords[$i][4]);
+			$aRecords[$i][6] = $aRecords[$i][6] == 'Y' ? STR_CMMN_YES : STR_CMMN_NO;
+			$aRecords[$i][8] = $aRecords[$i][8] == 'Y' ? STR_CMMN_YES : STR_CMMN_NO;
+		}
+
+		$oTable = new TableHtmlHelper();
+		$oTable->addColumn('ID', 'numeric');
+		$oTable->addColumn('Title', 'string');
+		$oTable->addColumn('Severity', 'string');
+		$oTable->addColumn('Start', 'string');
+		$oTable->addColumn('End', 'string');
+		$oTable->addColumn('Type', 'string');
+		$oTable->addColumn('Down?', 'string');
+		$oTable->addColumn('Status', 'string');
+		$oTable->addColumn('Resolved?', 'string');
+		$oTable->addColumn('# Orgs', 'numeric');
+		$oTable->addColumn('Description', 'string');
+		$oTable->setData($aRecords);
+		$oTable->setShowRownum(false);
+		$oTable->setCaption('Unplanned Outages ' . $startDate . ' to ' . $endDate);
+		$oTable->sTemplate = 'TableView.tpl';
+
+		$oTable->render();
+	}
+
 	private function GetViewModel(OutageModel $model = null, array $environments = null, array $organizations = null)
 	{
 		$viewData = new stdClass();
@@ -96,6 +146,24 @@ class OutagePresenter
 
 		if ($organizations != null)
 			$viewData->Orgs = join(',', $organizations);
+
+		return $viewData;
+	}
+
+	private function GetReportViewModel()
+	{
+		global $dcl_info;
+
+		$viewData = new stdClass();
+
+		$endDateTime = new DateTime();
+		$viewData->End = $endDateTime->format($dcl_info['DCL_DATE_FORMAT']);
+
+		$startDateTime = new DateTime($viewData->End);
+		$startDateTime->modify('-30 days');
+		$viewData->Start = $startDateTime->format($dcl_info['DCL_DATE_FORMAT']);
+
+		$viewData->Orgs = '';
 
 		return $viewData;
 	}

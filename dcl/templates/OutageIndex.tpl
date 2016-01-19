@@ -2,7 +2,7 @@
 {block name=title}Outages{/block}
 {block name=content}
 <div id="outage-log">
-	<h4>Outages {if $PERM_ADD}<small><a class="pull-right btn btn-success" href="{dcl_url_action controller=Outage action=Create}">{$smarty.const.STR_CMMN_NEW}</a></small>{/if}</h4>
+	<h4>Outages <div class="btn-group pull-right" role="group">{if $PERM_ADD}<a class="btn btn-success" href="{dcl_url_action controller=Outage action=Create}">{$smarty.const.STR_CMMN_NEW}</a> {/if}<a class="btn btn-default" href="{dcl_url_action controller=Outage action=Report}">Report</a></div></h4>
 	<ul id="pager" class="pager">
 		<li class="previous"><a href="javascript:;">&larr; Newer</a></li>
 		<li class="next"><a href="javascript:;">Older &rarr;</a></li>

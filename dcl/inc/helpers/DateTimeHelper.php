@@ -257,17 +257,30 @@ class DateHelper extends TimestampHelper
 	}
 }
 
+class DclDateFormatHelper
+{
+	public static function ToFormat($value, $format)
+	{
+		if ($value == '')
+			return '';
+
+		$dt = new DateTime($value);
+		return $dt->format($format);
+	}
+}
+
 class DclDateTime
 {
 	public static function ToDisplay($value)
 	{
 		global $dcl_info;
+		return DclDateFormatHelper::ToFormat($value, $dcl_info['DCL_TIMESTAMP_FORMAT']);
+	}
 
-		if ($value == '')
-			return '';
-
-		$dt = new DateTime($value);
-		return $dt->format($dcl_info['DCL_TIMESTAMP_FORMAT']);
+	public static function ToSql($value)
+	{
+		global $dcl_info;
+		return DclDateFormatHelper::ToFormat($value, $dcl_info['DCL_TIMESTAMP_FORMAT_DB']);
 	}
 }
 
@@ -276,12 +289,13 @@ class DclSmallDateTime
 	public static function ToDisplay($value)
 	{
 		global $dcl_info;
+		return DclDateFormatHelper::ToFormat($value, $dcl_info['DCL_DATE_FORMAT'] . ' H:i');
+	}
 
-		if ($value == '')
-			return '';
-
-		$dt = new DateTime($value);
-		return $dt->format($dcl_info['DCL_DATE_FORMAT'] . ' H:i');
+	public static function ToSql($value)
+	{
+		global $dcl_info;
+		return DclDateFormatHelper::ToFormat($value, $dcl_info['DCL_DATE_FORMAT_DB'] . ' H:i');
 	}
 }
 
@@ -290,11 +304,12 @@ class DclDate
 	public static function ToDisplay($value)
 	{
 		global $dcl_info;
+		return DclDateFormatHelper::ToFormat($value, $dcl_info['DCL_DATE_FORMAT']);
+	}
 
-		if ($value == '')
-			return '';
-
-		$dt = new DateTime($value);
-		return $dt->format($dcl_info['DCL_DATE_FORMAT']);
+	public static function ToSql($value)
+	{
+		global $dcl_info;
+		return DclDateFormatHelper::ToFormat($value, $dcl_info['DCL_DATE_FORMAT_DB']);
 	}
 }

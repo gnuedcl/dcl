@@ -31,4 +31,25 @@ class OutageModel extends DbProvider
 
 		parent::Clear();
 	}
+
+	public function ListUnplannedOutages($startDate, $endDate, array $organizations)
+	{
+		$queryEndDate = new DateTime($endDate);
+		$queryEndDate->modify('+1 days');
+
+		$sql = "select O.outage_id, O.outage_title, O.sev_level, O.outage_start, O.outage_end, OT.outage_type_name, OT.is_down, OS.status_name, OS.is_resolved, ";
+		$sql .= "(select count(*) from dcl_outage_org where outage_id = O.outage_id) as AffectedAccounts, O.outage_description from dcl_outage O ";
+		$sql .= "join dcl_outage_type OT on O.outage_type_id = OT.outage_type_id join dcl_outage_status OS on O.outage_status_id = OS.outage_status_id ";
+		$sql .= "where OT.is_planned = 'N' and (O.outage_start < '" . DclDate::ToSql($endDate);
+		$sql .= "' and (O.outage_end is null or O.outage_end >= '" . DclDate::ToSql($startDate) . "')) ";
+
+		if (count($organizations) > 0)
+		{
+			$sql .= "AND O.outage_id IN (SELECT outage_id FROM dcl_outage_org OO WHERE OO.org_id IN (" . join(',', $organizations) . ")) ";
+		}
+
+		$sql .= 'ORDER BY O.outage_start, O.outage_end, O.outage_id';
+
+		return $this->Query($sql);
+	}
 }
