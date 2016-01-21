@@ -44,8 +44,8 @@
 		{dcl_form_control id=DCL_HTML_TITLE controlsize=10 label=$smarty.const.STR_CFG_HTMLTITLE required=true help=$smarty.const.STR_CFG_HTMLTITLEHELP}
 			{dcl_input_text id=DCL_HTML_TITLE maxlength=255 value=$VAL_HTMLTITLE}
 		{/dcl_form_control}
-		{dcl_form_control id=DCL_ROOT controlsize=10 label=$smarty.const.STR_CFG_ROOT required=true help=$smarty.const.STR_CFG_ROOTHELP}
-		{dcl_input_text id=DCL_ROOT maxlength=255 value=$VAL_ROOT}
+		{dcl_form_control id="DCL_ROOT" controlsize=10 label=$smarty.const.STR_CFG_ROOT required=true help=$smarty.const.STR_CFG_ROOTHELP}
+		{dcl_input_text id="DCL_ROOT" maxlength=255 value=$VAL_ROOT}
 		{/dcl_form_control}
 		{dcl_form_control id=DCL_FILE_PATH controlsize=10 label=$smarty.const.STR_CFG_FILEPATH required=true help=$smarty.const.STR_CFG_FILEPATHHELP}
 		{dcl_input_text id=DCL_FILE_PATH maxlength=255 value=$VAL_FILEPATH}

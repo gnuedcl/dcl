@@ -2,7 +2,7 @@ You are receiving this e-mail because you are (1) directly involved, or
 (2) have a watch on this ticket, or (3) have a watch on an account or
 product associated with this ticket.  This is a snapshot of the ticket.
 
-See The Detail At: {dcl_config name=DCL_ROOT}main.php?menuAction=boTickets.view&ticketid={$obj->ticketid}
+See The Detail At: {dcl_config name="DCL_ROOT"}main.php?menuAction=boTickets.view&ticketid={$obj->ticketid}
 
 [{$obj->ticketid}] {$obj->summary}
 

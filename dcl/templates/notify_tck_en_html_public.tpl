@@ -12,7 +12,7 @@
 </head><body>
 <table border="0" width="400px">
 <tr><th colspan="2"><font size="+2">DCL Ticket Notification</font></td></tr>
-<tr><td colspan="2"><i>You are receiving this e-mail because you are (1) directly involved, or (2) have a watch on this ticket, or (3) have a watch on an account or product associated with this ticket.  This is a snapshot of the ticket.  <a href="{dcl_config name=DCL_ROOT}main.php?menuAction=boTickets.view&ticketid={$obj->ticketid}">Click here to view online.</a></i></td></tr>
+<tr><td colspan="2"><i>You are receiving this e-mail because you are (1) directly involved, or (2) have a watch on this ticket, or (3) have a watch on an account or product associated with this ticket.  This is a snapshot of the ticket.  <a href="{dcl_config name="DCL_ROOT"}main.php?menuAction=boTickets.view&ticketid={$obj->ticketid}">Click here to view online.</a></i></td></tr>
 <tr><td class="header" colspan="2" bgcolor="black"><font color="white"><b>[{$obj->ticketid}] {$obj->summary|escape}</b></font></td></tr>
 <tr><td width="50%" valign="top">
 	<table style="border: solid #cecece 2px;" border="0" width="100%">

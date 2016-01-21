@@ -22,7 +22,7 @@
 
 function smarty_function_dcl_config($params, &$smarty)
 {
-	global $g_oMetaData, $g_oSec, $g_oSession, $dcl_info;
+	global $dcl_info;
 	
 	if (!isset($params['name']))
 	{
