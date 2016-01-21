@@ -74,6 +74,18 @@ class htmlTimeCardForm
 			$oSmarty->assign('VAL_ISPUBLIC', $oWO->is_public);
 			$oSmarty->assign('VAL_ENABLEPUBLIC', $oWO->is_public);
 			$oSmarty->assign('VAL_ISVERSIONED', $oProduct->is_versioned == 'Y');
+
+			if (!$isEdit)
+			{
+				$dbPersonnel = new PersonnelModel();
+				if ($dbPersonnel->Load($oWO->createby) !== -1)
+					$createByLogin = $dbPersonnel->short;
+				else
+					$createByLogin = 'Unknown';
+
+				$oSmarty->assign('VAL_WOCREATEBY', $oWO->createby);
+				$oSmarty->assign('VAL_WOCREATEBYNAME', $createByLogin);
+			}
 		}
 
 		$oSmarty->assign('VAL_SETID', $setid);

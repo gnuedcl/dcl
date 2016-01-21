@@ -56,7 +56,8 @@
 	<fieldset>
 		<legend>{$smarty.const.STR_CMMN_OPTIONS}</legend>
 	{if $PERM_REASSIGN}
-		{dcl_form_control id=reassign controlsize=4 label=$smarty.const.STR_CMMN_REASSIGN help="You can reassign this work order to another person by selecting their user name here."}
+		{dcl_form_control id=reassign controlsize=6 label=$smarty.const.STR_CMMN_REASSIGN help="You can reassign this work order to another person by selecting their user name here."}
+		{if !$IS_BATCH}<a id="reassign_originator" href="javascript:;" data-id="{$VAL_WOCREATEBY}">Reassign to Originator ({$VAL_WOCREATEBYNAME|escape})</a>{/if}
 		{$CMB_REASSIGN}
 		{/dcl_form_control}
 	{/if}
@@ -121,6 +122,11 @@
 		$("input[data-input-type=date]").datepicker();
 		$("#hours").on("blur", function() {
 			updateEtc($(this).get(0).form);
+		});
+
+		$("#reassign_originator").on("click", function() {
+			var id = $(this).attr("data-id");
+			$("#reassign_to_id").select2('val', id);
 		});
 
 		$("#projectid").select2({
