@@ -94,17 +94,19 @@ class htmlWiki
 
 		if ($type == DCL_ENTITY_GLOBAL)
 			$id = 0;
-		
-		$name = @Filter::RequireWikiName($_REQUEST['name']);
+
+		if (isset($_REQUEST['name']))
+			$name = @Filter::RequireWikiName($_REQUEST['name']);
+
+		if (!isset($name) || $name == '')
+			$name = 'FrontPage';
+
 		$editmode = @$_REQUEST['editmode'];
 		$text = @$_REQUEST['text'];
 		$id2 = @Filter::ToInt($_REQUEST['id2']);
 
 		if ($dcl_info['DCL_WIKI_ENABLED'] != 'Y' || !$g_oSec->HasPerm($type, DCL_PERM_VIEWWIKI))
 			throw new PermissionDeniedException();
-
-		if (!isset($name) || $name == '')
-			$name = 'FrontPage';
 
 		if (in_array($name, $this->aLockedPages))
 			unset($editmode);
