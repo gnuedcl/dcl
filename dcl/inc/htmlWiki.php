@@ -103,7 +103,13 @@ class htmlWiki
 
 		$editmode = @$_REQUEST['editmode'];
 		$text = @$_REQUEST['text'];
-		$id2 = @Filter::ToInt($_REQUEST['id2']);
+		if (($id2 = @Filter::ToInt($_REQUEST['id2'])) === null)
+		{
+			if ($type == DCL_ENTITY_WORKORDER)
+				throw new InvalidDataException();
+
+			$id2 = 0;
+		}
 
 		if ($dcl_info['DCL_WIKI_ENABLED'] != 'Y' || !$g_oSec->HasPerm($type, DCL_PERM_VIEWWIKI))
 			throw new PermissionDeniedException();
