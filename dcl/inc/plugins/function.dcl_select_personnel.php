@@ -64,7 +64,16 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 			$sSQL .= " AND p.active = 'Y') ";
 
 			if ($params['default'] != '')
-				$sSQL .= ' OR p.id = ' . $params['default'] . ' ';
+			{
+				$defaultIds = Filter::ToIntArray($params['default']);
+				if ($defaultIds != null && is_array($defaultIds) && count($defaultIds) > 0)
+				{
+					if (count($defaultIds) > 1)
+						$sSQL .= ' OR p.id IN (' . join(',', $defaultIds) . ') ';
+					else
+						$sSQL .= ' OR p.id = ' . $defaultIds[0] . ' ';
+				}
+			}
 		}
 		else
 		{
