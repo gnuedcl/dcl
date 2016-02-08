@@ -75,7 +75,7 @@ class LineGraphImageHelper
 		$dataURL = explode('~', $_REQUEST['data']);
 		$this->data = array();
 		foreach ($dataURL as $line)
-			$this->data[] = explode(',', $line);
+			$this->data[] = Filter::ToIntArray($line);
 		
 		$this->colors = explode(',', $_REQUEST['colors']);
 		$this->color_legend = explode(',', $_REQUEST['color_legend']);
