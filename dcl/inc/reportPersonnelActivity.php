@@ -493,7 +493,7 @@ class reportPersonnelActivity
 		
 		$aGroupOptions = array('1' => 'Project', '2' => 'Action', '3' => 'Date', '4' => 'Product', '5' => 'by');
 		$groupBy = $_REQUEST['groupby'];
-		if (!array_key_exists($groupBy, $aGroupOptions))
+		if ((!is_string($groupBy) && !is_int($groupBy)) || !array_key_exists($groupBy, $aGroupOptions))
 			$groupBy = '0';
 		
 		$oMeta = new DisplayHelper();
