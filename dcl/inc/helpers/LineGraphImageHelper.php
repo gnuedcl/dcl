@@ -75,8 +75,14 @@ class LineGraphImageHelper
 		$dataURL = explode('~', $_REQUEST['data']);
 		$this->data = array();
 		foreach ($dataURL as $line)
-			$this->data[] = Filter::ToIntArray($line);
-		
+		{
+			$lineData = Filter::ToIntArray($line);
+			if (count($lineData) != count($this->line_captions_x))
+				throw new InvalidDataException();
+
+			$this->data[] = $lineData;
+		}
+
 		$this->colors = explode(',', $_REQUEST['colors']);
 		$this->color_legend = explode(',', $_REQUEST['color_legend']);
 		$this->graph_width = $_REQUEST['graph_width'];
@@ -85,6 +91,9 @@ class LineGraphImageHelper
 		$this->margin_left = $_REQUEST['margin_left'];
 		$this->margin_bottom = $_REQUEST['margin_bottom'];
 		$this->margin_right = $_REQUEST['margin_right'];
+
+		if (count($this->data) != count($this->colors))
+			throw new InvalidDataException();
 	}
 	
 	public function ToURL()
