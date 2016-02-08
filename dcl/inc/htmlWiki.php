@@ -402,7 +402,9 @@ class htmlWiki
 					$in_li++;
 					$indent_list[$in_li] = $indlen;
 					$indent_type[$in_li] = $indtype;
-					$open .= $this->_list(1, $indtype, $numtype);
+
+					if (is_set($numtype))
+						$open .= $this->_list(1, $indtype, $numtype);
 				}
 				else if ($indent_list[$in_li] > $indlen)
 				{
