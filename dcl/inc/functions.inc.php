@@ -804,12 +804,14 @@ function DclErrorHandler($errorNumber, $message, $file, $line)
 
 function DclExceptionHandler(Exception $ex)
 {
-	// InvalidDataException will not be logged since it can generate too many entries under vulnerability scanning
-	// Normal application use should not encounter this exception (unless there's a bug!)
-	if (!($ex instanceof InvalidDataException))
-		LogError($ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
-	else
+	// InvalidDataException and PermissionDeniedException will not be logged since they can generate too many entries under vulnerability scanning
+	// Normal application use should not encounter these exceptions (unless there's a bug!)
+	if ($ex instanceof InvalidDataException)
 		ShowError('An error occurred when processing your request due to invalid data.');
+	else if ($ex instanceof PermissionDeniedException)
+		ShowError('Permission denied.');
+	else
+		LogError($ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex->getTrace());
 
 	if (!AcceptJsonResponse())
 	{
