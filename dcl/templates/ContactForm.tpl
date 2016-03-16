@@ -7,6 +7,7 @@
 {block name=content}
 <form class="form-horizontal" method="post" name="submitForm" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
+	{dcl_anti_csrf_token}
 	{if $VAL_CONTACTID}<input type="hidden" name="contact_id" value="{$VAL_CONTACTID}">{/if}
 	<fieldset>
 		<legend>{$TXT_FUNCTION|escape}</legend>

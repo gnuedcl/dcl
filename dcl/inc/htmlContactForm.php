@@ -93,6 +93,7 @@ class htmlContactForm
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_ADD))
 			throw new PermissionDeniedException();
 
+		AntiCsrf::ValidateToken();
 		CleanArray($_REQUEST);
 
 		$obj = new boContact();
@@ -217,6 +218,8 @@ class htmlContactForm
 		
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY, $id))
 			throw new PermissionDeniedException();
+
+		AntiCsrf::ValidateToken();
 
 		$obj = new boContact();
 		CleanArray($_REQUEST);

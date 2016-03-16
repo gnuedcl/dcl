@@ -7,7 +7,8 @@
 {block name=content}
 <form class="form-horizontal" method="post" name="submitForm" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
-			{if $VAL_ORGID}<input type="hidden" name="org_id" value="{$VAL_ORGID}">{/if}
+	{dcl_anti_csrf_token}
+	{if $VAL_ORGID}<input type="hidden" name="org_id" value="{$VAL_ORGID}">{/if}
 	<fieldset>
 		<legend>{$TXT_FUNCTION|escape}</legend>
 		{dcl_form_control id=active controlsize=10 label=$smarty.const.STR_CMMN_ACTIVE}

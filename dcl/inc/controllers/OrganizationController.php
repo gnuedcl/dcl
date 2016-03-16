@@ -39,6 +39,7 @@ class OrganizationController
 	{
 		RequirePost();
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_ADD);
+		AntiCsrf::ValidateToken();
 		CleanArray($_POST);
 
 		$viewModel = new OrganizationCreateViewModel();
@@ -68,7 +69,7 @@ class OrganizationController
 	{
 		RequirePost();
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_MODIFY);
-
+		AntiCsrf::ValidateToken();
 		CleanArray($_POST);
 
 		$organizationId = @Filter::RequireInt($_POST['org_id']);

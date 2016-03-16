@@ -65,6 +65,7 @@ class ContactPhoneController extends AbstractController
 		if (!$g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY))
 			throw new PermissionDeniedException();
 
+		AntiCsrf::ValidateToken();
 		CleanArray($_POST);
 
 		parent::Insert(array(
@@ -107,6 +108,7 @@ class ContactPhoneController extends AbstractController
 		if (($contactId = Filter::ToInt($_POST['contact_id'])) === null)
 			throw new InvalidDataException();
 
+		AntiCsrf::ValidateToken();
 		CleanArray($_POST);
 		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
 		parent::Update($_POST);

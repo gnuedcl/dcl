@@ -7,6 +7,7 @@
 {block name=content}
 <form class="form-horizontal" name="submitForm" method="POST" action="{$URL_MAIN_PHP}">
 	<input type="hidden" name="menuAction" value="{$VAL_MENUACTION}">
+	{dcl_anti_csrf_token}
 	{if $org_id}<input type="hidden" name="org_id" value="{$org_id}">{/if}
 	{if $hideMenu}<input type="hidden" name="hideMenu" value="{$hideMenu}">{/if}
 	{if $return_to}<input type="hidden" name="return_to" value="{$return_to|escape}">{/if}
