@@ -125,10 +125,17 @@ class htmlTicketBrowse
 		$oTable->assign('VAL_FILTERMENUACTION', $this->sPagingMenuAction);
 		$oTable->assign('VAL_FILTERSTARTROW', $this->oView->startrow);
 		$oTable->assign('VAL_FILTERNUMROWS', $this->oView->numrows);
-		$oTable->assign('VAL_FILTERSTATUS', isset($_REQUEST['filterStatus']) ? $_REQUEST['filterStatus'] : -1);
-		$oTable->assign('VAL_FILTERTYPE', isset($_REQUEST['filterType']) ? $_REQUEST['filterType'] : -1);
-		$oTable->assign('VAL_FILTERREPORTTO', isset($_REQUEST['filterReportto']) ? $_REQUEST['filterReportto'] : -1);
-		$oTable->assign('VAL_FILTERPRODUCT', isset($_REQUEST['filterProduct']) ? $_REQUEST['filterProduct'] : -1);
+
+		$filterStatus = @Filter::ToInt($_REQUEST['filterStatus'], -1);
+		$filterType = @Filter::ToInt($_REQUEST['filterType'], -1);
+		$filterReportto = @Filter::ToInt($_REQUEST['filterReportto'], -1);
+		$filterProduct = @Filter::ToInt($_REQUEST['filterProduct'], -1);
+
+		$oTable->assign('VAL_FILTERSTATUS', $filterStatus);
+		$oTable->assign('VAL_FILTERTYPE', $filterType);
+		$oTable->assign('VAL_FILTERREPORTTO', $filterReportto);
+		$oTable->assign('VAL_FILTERPRODUCT', $filterProduct);
+
 		$oTable->assign('VAL_VIEWSETTINGS', $this->oView->GetForm());
 		$oTable->assign('VAL_ISPUBLIC', $g_oSec->IsPublicUser());
 
