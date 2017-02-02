@@ -52,7 +52,7 @@ class DbProvider extends AbstractDbProvider
 					$connString .= ':' . $dcl_domain_info[$dcl_domain]['dbPort'];
 
 				$this->conn = mysql_connect($connString, $dcl_domain_info[$dcl_domain]['dbUser'],
-						$dcl_domain_info[$dcl_domain]['dbPassword']) or $this->mysql_die();
+						$dcl_domain_info[$dcl_domain]['dbPassword']);
 
 				mysql_set_charset('utf8mb4', $this->conn);
 
@@ -64,7 +64,7 @@ class DbProvider extends AbstractDbProvider
 		else
 			$this->conn = $conn;
 
-		mysql_select_db($dcl_domain_info[$dcl_domain]['dbName'], $this->conn) or $this->mysql_die();
+		mysql_select_db($dcl_domain_info[$dcl_domain]['dbName'], $this->conn);
 
 		return $this->conn;
 	}

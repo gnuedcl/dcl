@@ -35,4 +35,9 @@ $GLOBALS['phpgw_baseline']['dcl_wiki'] = array(
 	'ix' => array(),
 	'uc' => array()
 );
-?>
+
+if ($GLOBALS['dcl_domain_info'][$GLOBALS['dcl_domain']]['dbType'] == 'mysql')
+{
+	// INNOdb has max of 767 / 4-byte UTF8 - 12 bytes for int columns in key
+	$GLOBALS['phpgw_baseline']['dcl_wiki']['fd']['page_name']['precision'] = (int)(767 / 4 - 12);
+}
