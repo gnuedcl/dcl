@@ -715,10 +715,19 @@ function DclErrorLog($level, $message, $file, $line, $backTrace)
 		$logger->error_description = $message;
 		$logger->log_level = $level;
 
-		if ($backTrace != null && $backTrace != '')
+		if (is_array($backTrace))
 		{
 			if (is_array($backTrace) && isset($backTrace['object']))
 				unset($backTrace['object']);
+
+			foreach ($backTrace as $frameIdx => $frame)
+			{
+				if (array_key_exists('object', $frame))
+					unset($backTrace[$frameIdx]['object']);
+
+				if (array_key_exists('args', $frame))
+					$backTrace[$frameIdx]['args'] = array();
+			}
 
 			$logger->stack_trace = @json_encode($backTrace);
 		}
@@ -774,7 +783,7 @@ function DclErrorHandler($errorNumber, $message, $file, $line)
 	if (!($errorNumber & error_reporting()))
 		return;
 
-	$backTrace = debug_backtrace();
+	$backTrace = debug_backtrace(false);
 
  	switch ($errorNumber)
 	{
