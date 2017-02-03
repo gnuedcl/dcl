@@ -28,7 +28,7 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 	if (!isset($params['id']))
 		$params['id'] = $params['name'];
 
-	if (!isset($params['default']))
+	if (!isset($params['default']) || (is_array($params['default'] && count($params['default']) == 0)))
 		$params['default'] = '';
 
 	$params['active'] = (!isset($params['active']) || $params['active'] == true) ? 'Y' : 'N';
@@ -100,7 +100,16 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 				$sSQL .= " AND p.active = 'Y') ";
 
 				if ($params['default'] != '')
-					$sSQL .= ' OR p.id = ' . $params['default'] . ' ';
+				{
+					$defaultIds = Filter::ToIntArray($params['default']);
+					if ($defaultIds != null && is_array($defaultIds) && count($defaultIds) > 0)
+					{
+						if (count($defaultIds) > 1)
+							$sSQL .= ' OR p.id IN (' . join(',', $defaultIds) . ') ';
+						else
+							$sSQL .= ' OR p.id = ' . $defaultIds[0] . ' ';
+					}
+				}
 			}
 			else
 			{
@@ -120,7 +129,16 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 				$sSQL .= "WHERE (p.active = 'Y') ";
 
 				if ($params['default'] != '')
-					$sSQL .= ' OR p.id = ' . $params['default'] . ' ';
+				{
+					$defaultIds = Filter::ToIntArray($params['default']);
+					if ($defaultIds != null && is_array($defaultIds) && count($defaultIds) > 0)
+					{
+						if (count($defaultIds) > 1)
+							$sSQL .= ' OR p.id IN (' . join(',', $defaultIds) . ') ';
+						else
+							$sSQL .= ' OR p.id = ' . $defaultIds[0] . ' ';
+					}
+				}
 			}
 
 			$sSQL .= 'ORDER BY p.short';
