@@ -37,9 +37,9 @@ class htmlSearchBox
 			case 'workorders':
 			case 'openworkorders':
 		        $this->oView = new WorkOrderSqlQueryHelper();
-			    if (preg_match('/^([0-9]+[-]?[0-9]*)+([,][0-9]+[-]?[0-9]*)+$/', $search_text))
+			    if (preg_match('/^([0-9]+)(([-][0-9]+){0,1})+([,][0-9]+(([-][0-9]+){0,1}))+$/', $search_text))
 					$this->findWorkOrders($search_text);
-				else if (preg_match('/^([0-9]+)[-]?([0-9]*)$/', $search_text, $reg))
+				else if (preg_match('/^([0-9]+)[-]([0-9]+)$/', $search_text, $reg))
 					$this->findWorkOrders($search_text);
 				else if (preg_match('/^([0-9]+)$/', $search_text, $reg))
 					$this->findWorkOrders($search_text);
