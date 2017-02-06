@@ -11,6 +11,7 @@
 	{if $PERM_VIEW_WORKORDER || $PERM_VIEW_TICKET}
 		{if $PERM_VIEW_WORKORDER}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlOrganizationDashboard.Show&id={Org->org_id}">Dashboard</a>{/if}
 		{if $PERM_VIEW_TICKET}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=htmlOrganizationDashboard.ShowTicket&id={Org->org_id}">Ticket Dashboard</a>{/if}
+		{if $PERM_VIEW_MEASUREMENT}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Organization.SlaReport&org_id={Org->org_id}">SLA</a>{/if}
 		{if $PERM_VIEW_MEASUREMENT}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Organization.Measurement&org_id={Org->org_id}">Measurements</a>{/if}
 		{if $PERM_VIEW_OUTAGE}<a class="btn btn-default" href="{$URL_MAIN_PHP}?menuAction=Organization.Outage&org_id={Org->org_id}">Outages</a>{/if}
 	{/if}

@@ -404,6 +404,37 @@ class OrganizationPresenter
 		$t->Render('OrganizationOutage.tpl');
 	}
 
+	public function SlaReport(OrganizationModel $model)
+	{
+		global $dcl_info;
+
+		commonHeader();
+
+		$t = self::GetSmartyHelperWithToolbar($model);
+
+		$viewData = new stdClass();
+		$endDateTime = new DateTime();
+		$viewData->EndDate = $endDateTime->format($dcl_info['DCL_DATE_FORMAT']);
+
+		$startDateTime = new DateTime($viewData->EndDate);
+		$startDateTime->modify('-30 days');
+		$viewData->BeginDate = $startDateTime->format($dcl_info['DCL_DATE_FORMAT']);
+
+		// Select the most common measurement to start with
+		$measurementModel = new OrganizationMeasurementModel();
+		$sql = sprintf("SELECT measurement_type_id, COUNT(*) FROM dcl_org_measurement WHERE org_id = %d AND measurement_ts BETWEEN %s AND %s GROUP BY measurement_type_id ORDER BY 2 DESC",
+			$model->org_id,
+			$measurementModel->Quote($measurementModel->ArrangeDateForInsert($viewData->BeginDate)),
+			$measurementModel->Quote($measurementModel->ArrangeDateForInsert($viewData->EndDate)));
+
+		if ($measurementModel->LimitQuery($sql, 0, 1) != -1 && $measurementModel->next_record())
+			$viewData->MeasurementType = $measurementModel->f(0);
+
+		$t->registerObject('ViewData', $viewData);
+
+		$t->Render('OrganizationSlaReport.tpl');
+	}
+
 	private static function GetSmartyHelperWithToolbar(OrganizationModel $model)
 	{
 		$t = new SmartyHelper();

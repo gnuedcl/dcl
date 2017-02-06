@@ -26,7 +26,7 @@ class OrganizationOutageService
 	{
 		global $g_oSession, $dcl_info;
 
-		RequirePermission(DCL_ENTITY_ORGMEASUREMENT, DCL_PERM_VIEW);
+		RequirePermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW);
 
 		$organizationId = Filter::RequireInt($_REQUEST['org_id']);
 		if (IsOrgUser() && !in_array($organizationId, explode(',', $g_oSession->Value('member_of_orgs'))))

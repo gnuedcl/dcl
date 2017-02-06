@@ -163,7 +163,7 @@ class OrganizationController
 		global $g_oSession;
 
 		$organizationId = @Filter::RequireInt($_REQUEST['org_id']);
-		RequirePermission(DCL_ENTITY_ORGMEASUREMENT, DCL_PERM_VIEW, $organizationId);
+		RequirePermission(DCL_ENTITY_OUTAGE, DCL_PERM_VIEW, $organizationId);
 		if (IsOrgUser() && !in_array($organizationId, explode(',', $g_oSession->Value('member_of_orgs'))))
 			throw new PermissionDeniedException();
 
@@ -173,5 +173,22 @@ class OrganizationController
 
 		$presenter = new OrganizationPresenter();
 		$presenter->Outage($model);
+	}
+
+	public function SlaReport()
+	{
+		global $g_oSession;
+
+		$organizationId = @Filter::RequireInt($_REQUEST['org_id']);
+		RequirePermission(DCL_ENTITY_ORGMEASUREMENT, DCL_PERM_VIEW, $organizationId);
+		if (IsOrgUser() && !in_array($organizationId, explode(',', $g_oSession->Value('member_of_orgs'))))
+			throw new PermissionDeniedException();
+
+		$model = new OrganizationModel();
+		if ($model->Load($organizationId) == -1)
+			throw new InvalidEntityException();
+
+		$presenter = new OrganizationPresenter();
+		$presenter->SlaReport($model);
 	}
 }
