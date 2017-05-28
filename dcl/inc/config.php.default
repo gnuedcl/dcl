@@ -51,7 +51,10 @@ define('DCL_WWW_ROOT', '{VAL_dcl_www_root}');
  * Do NOT edit this section!!!  This sets up the environment for DCL.                          *
  ***********************************************************************************************/
 // Force magic_quotes_runtime to be off - DO NOT CHANGE OR YOUR DATA MAY GET EXTRA \'s IN IT!
-@set_magic_quotes_runtime(0);
+if (function_exists('set_magic_quotes_runtime'))
+{
+	@set_magic_quotes_runtime(0);
+}
 
 mb_internal_encoding('UTF-8');
 mb_detect_order('UTF-8');
