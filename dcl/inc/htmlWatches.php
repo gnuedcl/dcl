@@ -175,7 +175,7 @@ class htmlWatches
 		$t->Render('WatchForm.tpl');
 	}
 
-	function GetMyViewLinkAndDescription($obj)
+	function &GetMyViewLinkAndDescription($obj)
 	{
 		$summary = $this->GetObjectDescription($obj->typeid, $obj->whatid1, $obj->whatid2);
 		$link = '';
@@ -213,6 +213,8 @@ class htmlWatches
 				break;
 		}
 
-		return array($summary => $link);
+		$retVal = array($summary => $link);
+
+		return $retVal;
 	}
 }
