@@ -88,7 +88,7 @@ class ProjectController
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_MODIFY, $id);
 
 		$model = new ProjectsModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('projectid' => $id)) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new ProjectPresenter();
@@ -106,7 +106,7 @@ class ProjectController
 		AntiCsrf::ValidateToken();
 
 		$model = new ProjectsModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('projectid' => $id)) == -1)
 			throw new InvalidEntityException();
 
 		$status = @Filter::RequireInt($_POST['status']);
@@ -157,7 +157,7 @@ class ProjectController
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $id);
 
 		$model = new ProjectsModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('projectid' => $id)) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new ProjectPresenter();
@@ -188,7 +188,7 @@ class ProjectController
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $id);
 
 		$model = new ProjectsModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('projectid' => $id)) == -1)
 			throw new InvalidEntityException();
 
 		$statusFilter = @Filter::ToInt($_REQUEST['wostatus'], 0);

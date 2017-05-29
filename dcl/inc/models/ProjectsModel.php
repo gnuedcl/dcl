@@ -248,7 +248,7 @@ class ProjectsModel extends DbProvider
 		$projectPath = explode(',', $projectModel->GetProjectParents($projectId));
 		foreach ($projectPath as $project_id)
 		{
-			$projectModel->Load($project_id);
+			$projectModel->Load(array('projectid' => $project_id));
 			$projects[] = array('project_id' => $project_id, 'name' => $projectModel->name);
 		}
 
@@ -269,7 +269,7 @@ class ProjectsModel extends DbProvider
 			$projectPath = explode(',', $projectModel->GetProjectParents($projectMapModel->projectid, true));
 			while (list($key, $projectId) = each($projectPath))
 			{
-				$projectModel->Load($projectId);
+				$projectModel->Load(array('projectid' => $projectid));
 				$projects[] = array('project_id' => $projectId, 'name' => $projectModel->name);
 			}
 

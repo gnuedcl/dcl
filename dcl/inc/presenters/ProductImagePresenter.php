@@ -89,8 +89,10 @@ class ProductImagePresenter
 			$this->_imageHelper->Chart->setColorPalette($index++, $rgb[0], $rgb[1], $rgb[2]);
 		
 		$this->_imageHelper->Chart->drawGraphAreaGradient(250, 250, 250, 50, TARGET_BACKGROUND);
-					
-		$this->_imageHelper->Chart->drawPieGraph($this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 150, 110, 110, PIE_PERCENTAGE, true, 50, 20, 5);
+
+		$data = $this->_imageHelper->Data->GetData();
+		$description = $this->_imageHelper->Data->GetDataDescription();
+		$this->_imageHelper->Chart->drawPieGraph($data, $description, 150, 110, 110, PIE_PERCENTAGE, true, 50, 20, 5);
 		$this->_imageHelper->Chart->drawPieLegend(310, 30, $this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 250, 250, 250);
 		$this->_imageHelper->Chart->drawTextBox(0, 0, 540, 20, $chartTitle, 0, 255, 255, 255, ALIGN_CENTER, true, 0, 0, 0, 40);
 		$this->_imageHelper->Chart->addBorder(2);

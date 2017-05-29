@@ -47,7 +47,7 @@ class ProjectDetailPresenter
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 
 		$this->project = new ProjectsModel();
-		if ($this->project->Load($projectId) == -1)
+		if ($this->project->Load(array('projectid' => $projectid)) == -1)
 			throw new InvalidEntityException();
 
 		$displayHelper = new DisplayHelper();
@@ -219,7 +219,7 @@ class ProjectDetailPresenter
 			$aProjects = array();
 			do
 			{
-				if ($oProject->Load($oDB->f(0)) != -1)
+				if ($oProject->Load(array('projectid' => $oDB->f(0))) != -1)
 				{
 					$aStat = $oProject->GetProjectStatistics($oProject->projectid);
 					$aProjects[] = array(

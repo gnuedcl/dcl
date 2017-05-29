@@ -132,7 +132,7 @@ class htmlTimeCardForm
 				$objDBPrj = new ProjectsModel();
 	
 				if ($objPM->projectid > 0)
-					$objDBPrj->Load($objPM->projectid);
+					$objDBPrj->Load(array('projectid' => $objPM->projectid));
 	
 				$oSmarty->assign('VAL_PROJECT', $objDBPrj->name);
 				$oSmarty->assign('VAL_PROJECTS', $objPM->projectid);

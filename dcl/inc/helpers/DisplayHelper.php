@@ -181,7 +181,7 @@ class DisplayHelper
 		if ($this->oProject == null)
 			$this->oProject = new ProjectsModel();
 
-		if ($this->oProject->Load($id, false) == -1)
+		if ($this->oProject->Load(array('projectid' => $id), false) == -1)
 			return $this->ShowError("Could not find project ID $id");
 
 		return $this->oProject->name;

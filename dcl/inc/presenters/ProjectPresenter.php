@@ -75,7 +75,7 @@ class ProjectPresenter
 		commonHeader();
 
 		$model = new ProjectsModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('projectid' => $id)) == -1)
 			throw new InvalidEntityException('Could not find a project with an id of ' . $id);
 
 		$smarty = new SmartyHelper();

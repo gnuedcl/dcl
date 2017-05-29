@@ -976,7 +976,7 @@ class WorkOrderPresenter
 		if ($g_oSec->HasPerm(DCL_ENTITY_PROJECT, DCL_PERM_ADDTASK) && $viewData->ProjectId > 0)
 		{
 			$projectModel = new ProjectsModel();
-			$projectModel->Load($viewData->ProjectId);
+			$projectModel->Load(array('projectid' => $viewData->ProjectId));
 
 			$viewData->ProjectName = $projectModel->name;
 			$viewData->ProjectLabel = sprintf(STR_WO_WILLBEPARTOFPROJECT, $projectModel->name);
