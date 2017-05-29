@@ -34,16 +34,11 @@ class AttributeSetMapModel extends DbProvider
 		parent::Clear();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		// Do nothing
 	}
 
-	public function Delete()
-	{
-		return parent::Delete(array('setid' => $this->setid, 'typeid' => $this->typeid, 'keyid' => $this->keyid));
-	}
-	
 	public function DeleteBySetType($iSetID, $iTypeID)
 	{
 		if (($iSetID = Filter::ToInt($iSetID)) == NULL ||
