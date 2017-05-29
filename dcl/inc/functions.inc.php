@@ -811,7 +811,7 @@ function DclErrorHandler($errorNumber, $message, $file, $line)
 		exit(255);
 }
 
-function DclExceptionHandler(Exception $ex)
+function DclExceptionHandler($ex)
 {
 	// InvalidDataException and PermissionDeniedException will not be logged since they can generate too many entries under vulnerability scanning
 	// Normal application use should not encounter these exceptions (unless there's a bug!)
