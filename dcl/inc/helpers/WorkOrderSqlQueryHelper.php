@@ -203,7 +203,7 @@ class WorkOrderSqlQueryHelper extends AbstractSqlQueryHelper
 		return '';
 	}
 
-	protected function GetWhereSqlForOrgWorkspace($bOrgFilter, $bProductFilter, $bDoneDidWhere)
+	protected function GetWhereSqlForOrgWorkspace($hasOrgFilter, $bProductFilter, $bDoneDidWhere)
 	{
 		global $g_oSec, $g_oSession;
 		
@@ -212,7 +212,7 @@ class WorkOrderSqlQueryHelper extends AbstractSqlQueryHelper
 
 		if ($g_oSec->IsOrgUser())
 		{
-			if (!$bOrgFilter)
+			if (!$hasOrgFilter)
 			{
 				$sOrgs = $g_oSession->Value('member_of_orgs');
 				if ($sOrgs != '')

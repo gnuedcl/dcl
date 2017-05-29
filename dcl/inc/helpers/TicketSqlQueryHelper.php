@@ -127,7 +127,7 @@ class TicketSqlQueryHelper extends AbstractSqlQueryHelper
 		return '';
 	}
 
-	protected function GetWhereSqlForOrgWorkspace($bOrgFilter, $bProductFilter, $bDoneDidWhere)
+	protected function GetWhereSqlForOrgWorkspace($hasOrgFilter, $bProductFilter, $bDoneDidWhere)
 	{
 		global $g_oSec, $g_oSession;
 
@@ -136,7 +136,7 @@ class TicketSqlQueryHelper extends AbstractSqlQueryHelper
 		
 		if ($g_oSec->IsOrgUser())
 		{
-			if (!$bOrgFilter)
+			if (!$hasOrgFilter)
 				$sAccountSQL = 'account IN (' . $g_oSession->Value('member_of_orgs') . ')';
 		}
 

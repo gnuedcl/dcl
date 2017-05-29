@@ -73,9 +73,9 @@ class PersonnelModel extends DbProvider
 		return parent::Delete(array('id' => $this->id));
 	}
 
-	public function Load($id)
+	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
-		return parent::Load(array('id' => $id));
+		return parent::Load(array('id' => $id), $bTriggerErrorIfNotFound);
 	}
 	
 	public function LoadByLogin($sLogin)

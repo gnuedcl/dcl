@@ -764,7 +764,7 @@ abstract class AbstractSqlQueryHelper
 		return '';
 	}
 
-	protected function GetWhereSqlForOrgWorkspace($hasOrgFilter, $bProductFilter, &$bDoneDidWhere)
+	protected function GetWhereSqlForOrgWorkspace($hasOrgFilter, $bProductFilter, $bDoneDidWhere)
 	{
 		return '';
 	}
