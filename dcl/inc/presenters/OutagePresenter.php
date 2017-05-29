@@ -114,7 +114,7 @@ class OutagePresenter
 		$oTable->render();
 	}
 
-	private function GetViewModel(OutageModel $model = null, array $environments = null, array $organizations = null)
+	private function &GetViewModel(OutageModel $model = null, array $environments = null, array $organizations = null)
 	{
 		$viewData = new stdClass();
 
