@@ -31,10 +31,10 @@ class SessionModel extends DbProvider
 		$this->TableName = 'dcl_session';
 		LoadSchema($this->TableName);
 
-		$this->session_data = array();
 		$this->m_IsValidSession = false;
 
 		parent::Clear();
+		$this->session_data = array();
 	}
 
 	public function Add()
@@ -71,7 +71,7 @@ class SessionModel extends DbProvider
 
 	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
-		global $dcl_info, $dcl_domain, $dcl_domain_info;
+		global $dcl_info;
 
 		$this->Clear();
 
@@ -108,7 +108,6 @@ class SessionModel extends DbProvider
 			return false;
 
 		// Check for config refresh
-		global $dcl_info;
 		$o = new ConfigurationModel();
 		if (!isset($dcl_info) || !is_array($dcl_info) || !isset($dcl_info['LAST_CONFIG_UPDATE']) || $o->Value('LAST_CONFIG_UPDATE') != $dcl_info['LAST_CONFIG_UPDATE'])
 		{
