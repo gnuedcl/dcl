@@ -42,10 +42,10 @@ class PriorityModel extends DbProvider
 		return parent::Add();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		$this->AdjustWeights($this->weight, $this->id);
-		return parent::Edit();
+		return parent::Edit($aIgnoreFields);
 	}
 
 	private function AdjustWeights($fromThisWeight, $editID = 0)
@@ -69,10 +69,5 @@ class PriorityModel extends DbProvider
 			$query = "UPDATE priorities SET weight=weight+1 WHERE id=$thisID";
 			$this->Execute($query);
 		}
-	}
-
-	public function Delete(array $aSource)
-	{
-		return parent::Delete($aSource);
 	}
 }
