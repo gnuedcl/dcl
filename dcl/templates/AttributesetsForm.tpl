@@ -12,7 +12,7 @@
 		{dcl_form_control id=active controlsize=3 label=$smarty.const.STR_ATTR_SHORT required=true}
 			<input type="text" class="form-control" maxlength="10" id="short" name="short" value="{$VAL_SHORT|escape|trim}">
 		{/dcl_form_control}
-		{dcl_form_control id=name controlsize=4 label=$smarty.const.STR_ATTR_SHORT required=true}
+		{dcl_form_control id=name controlsize=4 label=$smarty.const.STR_CMMN_NAME required=true}
 			<input type="text" class="form-control" maxlength="20" id="name" name="name" value="{$VAL_NAME|escape}">
 		{/dcl_form_control}
 	</fieldset>

@@ -38,14 +38,4 @@ class AttributeSetModel extends DbProvider
 		
 		parent::Clear();
 	}
-
-	function Delete()
-	{
-		return parent::Delete(array('id' => $this->id));
-	}
-
-	function Load($id)
-	{
-		return parent::Load(array('id' => $id));
-	}
 }

@@ -114,7 +114,7 @@ class AttributeSetMapPresenter
 		}
 
 		$attrSetModel = new AttributeSetModel();
-		if ($attrSetModel->Load($setid) == -1)
+		if ($attrSetModel->Load(array('id' => $setid)) == -1)
 			throw new InvalidEntityException();
 
 		$model->Query("SELECT id,name FROM $table ORDER BY name");

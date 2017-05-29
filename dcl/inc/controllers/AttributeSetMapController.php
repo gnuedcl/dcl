@@ -30,7 +30,7 @@ class AttributeSetMapController
 			throw new InvalidDataException();
 
 		$model = new AttributeSetModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('id' => $id)) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new AttributeSetMapPresenter();
