@@ -47,7 +47,7 @@ class NoteTypeController extends AbstractController
 
 	public function Insert()
 	{
-		parent::Insert($_POST);
+		parent::InsertFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Note type added successfully.');
 		RedirectToAction('NoteType', 'Index');
@@ -67,7 +67,7 @@ class NoteTypeController extends AbstractController
 
 	public function Update()
 	{
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Note type updated successfully.');
 		RedirectToAction('NoteType', 'Index');
@@ -90,7 +90,7 @@ class NoteTypeController extends AbstractController
 		if (($noteTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
-		parent::Destroy(array('note_type_id' => $noteTypeId));
+		parent::DestroyFromArray(array('note_type_id' => $noteTypeId));
 
 		SetRedirectMessage('Success', 'Note type deleted successfully.');
 		RedirectToAction('NoteType', 'Index');

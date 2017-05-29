@@ -47,7 +47,7 @@ class EmailTypeController extends AbstractController
 
 	public function Insert()
 	{
-		parent::Insert($_POST);
+		parent::InsertFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Email type added successfully.');
 		RedirectToAction('EmailType', 'Index');
@@ -67,7 +67,7 @@ class EmailTypeController extends AbstractController
 
 	public function Update()
 	{
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Email type updated successfully.');
 		RedirectToAction('EmailType', 'Index');
@@ -90,7 +90,7 @@ class EmailTypeController extends AbstractController
 		if (($emailTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
-		parent::Destroy(array('email_type_id' => $emailTypeId));
+		parent::DestroyFromArray(array('email_type_id' => $emailTypeId));
 
 		SetRedirectMessage('Success', 'Email type deleted successfully.');
 		RedirectToAction('EmailType', 'Index');

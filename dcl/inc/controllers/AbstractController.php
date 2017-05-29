@@ -59,7 +59,7 @@ abstract class AbstractController
 		$this->aIgnoreFIeldsOnUpdate = array();
 	}
 
-	public function Insert(array $aSource)
+	protected function InsertFromArray(array $aSource)
 	{
 		RequirePermission($this->Entity, $this->PermAdd);
 
@@ -88,7 +88,7 @@ abstract class AbstractController
 		return 1;
 	}
 
-	public function Update(array $aSource)
+	protected function UpdateFromArray(array $aSource)
 	{
 		RequirePermission($this->Entity, $this->PermModify);
 
@@ -105,7 +105,7 @@ abstract class AbstractController
 		}
 	}
 
-	public function Destroy(array $aSource)
+	protected function DestroyFromArray(array $aSource)
 	{
 		RequirePermission($this->Entity, $this->PermDelete);
 

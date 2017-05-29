@@ -47,7 +47,7 @@ class OrganizationTypeController extends AbstractController
 
 	public function Insert()
 	{
-		parent::Insert($_POST);
+		parent::InsertFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Organization type added successfully.');
 		RedirectToAction('OrganizationType', 'Index');
@@ -68,7 +68,7 @@ class OrganizationTypeController extends AbstractController
 
 	public function Update()
 	{
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Organization type updated successfully.');
 		RedirectToAction('OrganizationType', 'Index');
@@ -92,7 +92,7 @@ class OrganizationTypeController extends AbstractController
 		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
-		parent::Destroy(array('org_type_id' => $id));
+		parent::DestroyFromArray(array('org_type_id' => $id));
 
 		SetRedirectMessage('Success', 'Organization type was deleted successfully.');
 		RedirectToAction('OrganizationType', 'Index');

@@ -47,7 +47,7 @@ class EntitySourceController extends AbstractController
 
 	public function Insert()
 	{
-		parent::Insert($_POST);
+		parent::InsertFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Entity source added successfully.');
 		RedirectToAction('EntitySource', 'Index');
@@ -67,7 +67,7 @@ class EntitySourceController extends AbstractController
 
 	public function Update()
 	{
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Entity source updated successfully.');
 		RedirectToAction('EntitySource', 'Index');
@@ -90,7 +90,7 @@ class EntitySourceController extends AbstractController
 		if (($entitySourceId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
-		parent::Destroy(array('entity_source_id' => $entitySourceId));
+		parent::DestroyFromArray(array('entity_source_id' => $entitySourceId));
 
 		SetRedirectMessage('Success', 'Entity source deleted successfully.');
 		RedirectToAction('EntitySource', 'Index');

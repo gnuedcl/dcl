@@ -67,7 +67,7 @@ class ContactUrlController extends AbstractController
 
 		CleanArray($_POST);
 
-		parent::Insert(array(
+		parent::InsertFromArray(array(
 						'contact_id' => $id,
 						'url_type_id' => $urlTypeId,
 						'url_addr' => $_POST['url_addr'],
@@ -109,7 +109,7 @@ class ContactUrlController extends AbstractController
 
 		CleanArray($_POST);
 		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'URL updated successfully.');
 		RedirectToAction('htmlContactDetail', 'show', 'contact_id=' . $contactId);
@@ -129,6 +129,6 @@ class ContactUrlController extends AbstractController
 			throw new InvalidDataException();
 
 		$aKey = array('contact_url_id' => $id);
-		parent::Destroy($aKey);
+		parent::DestroyFromArray($aKey);
 	}
 }

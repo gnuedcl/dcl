@@ -47,7 +47,7 @@ class WorkOrderTypeController extends AbstractController
 
 	public function Insert()
 	{
-		parent::Insert($_POST);
+		parent::InsertFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Work order type added successfully.');
 		RedirectToAction('WorkOrderType', 'Index');
@@ -67,7 +67,7 @@ class WorkOrderTypeController extends AbstractController
 
 	public function Update()
 	{
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Work order type updated successfully.');
 		RedirectToAction('WorkOrderType', 'Index');
@@ -90,7 +90,7 @@ class WorkOrderTypeController extends AbstractController
 		if (($woTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
-		parent::Destroy(array('wo_type_id' => $woTypeId));
+		parent::DestroyFromArray(array('wo_type_id' => $woTypeId));
 
 		SetRedirectMessage('Success', 'Work order type deleted successfully.');
 		RedirectToAction('WorkOrderType', 'Index');

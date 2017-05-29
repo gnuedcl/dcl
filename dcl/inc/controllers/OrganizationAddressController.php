@@ -67,7 +67,7 @@ class OrganizationAddressController extends AbstractController
 
 		CleanArray($_POST);
 
-		parent::Insert(array(
+		parent::InsertFromArray(array(
 						'org_id' => $id,
 						'addr_type_id' => $addr_type_id,
 						'add1' => $_POST['add1'],
@@ -117,7 +117,7 @@ class OrganizationAddressController extends AbstractController
 
 		CleanArray($_POST);
 		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Address updated successfully.');
 		RedirectToAction('Organization', 'Detail', 'org_id=' . $orgId);
@@ -137,6 +137,6 @@ class OrganizationAddressController extends AbstractController
 			throw new InvalidDataException();
 
 		$aKey = array('org_addr_id' => $id);
-		parent::Destroy($aKey);
+		parent::DestroyFromArray($aKey);
 	}
 }

@@ -68,7 +68,7 @@ class ContactEmailController extends AbstractController
 		AntiCsrf::ValidateToken();
 		CleanArray($_POST);
 
-		parent::Insert(array(
+		parent::InsertFromArray(array(
 						'contact_id' => $id,
 						'email_type_id' => $email_type_id,
 						'email_addr' => $_POST['email_addr'],
@@ -111,7 +111,7 @@ class ContactEmailController extends AbstractController
 		AntiCsrf::ValidateToken();
 		CleanArray($_POST);
 		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Email updated successfully.');
 		RedirectToAction('htmlContactDetail', 'show', 'contact_id=' . $contactId);
@@ -131,6 +131,6 @@ class ContactEmailController extends AbstractController
 			throw new InvalidDataException();
 
 		$aKey = array('contact_email_id' => $id);
-		parent::Destroy($aKey);
+		parent::DestroyFromArray($aKey);
 	}
 }

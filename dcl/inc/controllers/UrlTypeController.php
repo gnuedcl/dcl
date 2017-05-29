@@ -47,7 +47,7 @@ class UrlTypeController extends AbstractController
 
 	public function Insert()
 	{
-		parent::Insert($_POST);
+		parent::InsertFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Url type added successfully.');
 		RedirectToAction('UrlType', 'Index');
@@ -67,7 +67,7 @@ class UrlTypeController extends AbstractController
 
 	public function Update()
 	{
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Url type updated successfully.');
 		RedirectToAction('UrlType', 'Index');
@@ -90,7 +90,7 @@ class UrlTypeController extends AbstractController
 		if (($urlTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
-		parent::Destroy(array('url_type_id' => $urlTypeId));
+		parent::DestroyFromArray(array('url_type_id' => $urlTypeId));
 
 		SetRedirectMessage('Success', 'Url type deleted successfully.');
 		RedirectToAction('UrlType', 'Index');

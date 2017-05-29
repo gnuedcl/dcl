@@ -47,7 +47,7 @@ class AddressTypeController extends AbstractController
 
 	public function Insert()
 	{
-		parent::Insert($_POST);
+		parent::InsertFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Address type added successfully.');
 		RedirectToAction('AddressType', 'Index');
@@ -72,7 +72,7 @@ class AddressTypeController extends AbstractController
 
 	public function Update()
 	{
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Address type updated successfully.');
 		RedirectToAction('AddressType', 'Index');
@@ -102,7 +102,7 @@ class AddressTypeController extends AbstractController
 			throw new InvalidDataException();
 		}
 
-		parent::Destroy(array('addr_type_id' => $id));
+		parent::DestroyFromArray(array('addr_type_id' => $id));
 
 		SetRedirectMessage('Success', 'Address type was deleted successfully.');
 		RedirectToAction('AddressType', 'Index');

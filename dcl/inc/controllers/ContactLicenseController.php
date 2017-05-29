@@ -69,7 +69,7 @@ class ContactLicenseController extends AbstractController
 
 		CleanArray($_POST);
 
-		parent::Insert(array(
+		parent::InsertFromArray(array(
 						'contact_id' => $contactId,
 						'product_id' => $productId,
 						'product_version' => $_REQUEST['product_version'],
@@ -120,7 +120,7 @@ class ContactLicenseController extends AbstractController
 		}
 
 		CleanArray($_POST);
-		parent::Update(array(
+		parent::UpdateFromArray(array(
 		                'contact_license_id' => $contactLicenseId,
 						'contact_id' => $contactId,
 						'product_id' => $productId,
@@ -151,6 +151,6 @@ class ContactLicenseController extends AbstractController
 			throw new InvalidDataException();
 
 		$aKey = array('contact_license_id' => $id);
-		parent::Destroy($aKey);
+		parent::DestroyFromArray($aKey);
 	}
 }

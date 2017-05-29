@@ -68,7 +68,7 @@ class ContactPhoneController extends AbstractController
 		AntiCsrf::ValidateToken();
 		CleanArray($_POST);
 
-		parent::Insert(array(
+		parent::InsertFromArray(array(
 						'contact_id' => $id,
 						'phone_type_id' => $phoneTypeId,
 						'phone_number' => $_POST['phone_number'],
@@ -111,7 +111,7 @@ class ContactPhoneController extends AbstractController
 		AntiCsrf::ValidateToken();
 		CleanArray($_POST);
 		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Phone updated successfully.');
 		RedirectToAction('htmlContactDetail', 'show', 'contact_id=' . $contactId);
@@ -131,6 +131,6 @@ class ContactPhoneController extends AbstractController
 			throw new InvalidDataException();
 
 		$aKey = array('contact_phone_id' => $id);
-		parent::Destroy($aKey);
+		parent::DestroyFromArray($aKey);
 	}
 }

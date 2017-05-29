@@ -63,7 +63,7 @@ class OrganizationAliasController extends AbstractController
 
 		CleanArray($_POST);
 
-		parent::Insert(array(
+		parent::InsertFromArray(array(
 						'org_id' => $id,
 						'alias' => $_POST['alias'],
 						'created_on' => DCL_NOW,
@@ -105,7 +105,7 @@ class OrganizationAliasController extends AbstractController
 			throw new PermissionDeniedException();
 
 		CleanArray($_POST);
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Alias updated successfully.');
 		RedirectToAction('Organization', 'Detail', 'org_id=' . $orgId);
@@ -125,6 +125,6 @@ class OrganizationAliasController extends AbstractController
 			throw new InvalidDataException();
 
 		$aKey = array('org_alias_id' => $id);
-		parent::Destroy($aKey);
+		parent::DestroyFromArray($aKey);
 	}
 }

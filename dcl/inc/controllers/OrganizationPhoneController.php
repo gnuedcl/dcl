@@ -67,7 +67,7 @@ class OrganizationPhoneController extends AbstractController
 
 		CleanArray($_POST);
 
-		parent::Insert(array(
+		parent::InsertFromArray(array(
 						'org_id' => $id,
 						'phone_type_id' => $phone_type_id,
 						'phone_number' => $_POST['phone_number'],
@@ -112,7 +112,7 @@ class OrganizationPhoneController extends AbstractController
 
 		CleanArray($_POST);
 		$_POST['preferred'] = @Filter::ToYN($_POST['preferred']);
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Phone number updated successfully.');
 		RedirectToAction('Organization', 'Detail', 'org_id=' . $orgId);
@@ -132,6 +132,6 @@ class OrganizationPhoneController extends AbstractController
 			throw new InvalidDataException();
 
 		$aKey = array('org_phone_id' => $id);
-		parent::Destroy($aKey);
+		parent::DestroyFromArray($aKey);
 	}
 }

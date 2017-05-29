@@ -64,7 +64,7 @@ class RoleController extends AbstractController
 		RequirePost();
 		RequirePermission(DCL_ENTITY_ROLE, DCL_PERM_ADD);
 
-		$roleId = parent::Insert($_POST);
+		$roleId = parent::InsertFromArray($_POST);
 		if (isset($_POST['rolePerms']) && is_array($_POST['rolePerms']))
 		{
 			$rolePermissionModel = new RolePermissionModel();
@@ -110,7 +110,7 @@ class RoleController extends AbstractController
 		if (($roleId = @Filter::ToInt($_REQUEST['role_id'])) === null)
 			throw new InvalidDataException();
 
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 		$rolePermissionModel = new RolePermissionModel();
 		$rolePermissionModel->DeleteRole($roleId);
 
@@ -153,7 +153,7 @@ class RoleController extends AbstractController
 		$rolePermissionModel = new RolePermissionModel();
 		$rolePermissionModel->DeleteRole($roleId);
 
-		parent::Destroy(array('role_id' => $roleId));
+		parent::DestroyFromArray(array('role_id' => $roleId));
 
 		SetRedirectMessage('Success', 'Role deleted successfully.');
 		RedirectToAction('Role', 'Index');

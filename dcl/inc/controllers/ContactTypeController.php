@@ -49,7 +49,7 @@ class ContactTypeController extends AbstractController
 	{
 		$aSource = $_POST;
 		$aSource['contact_type_is_main'] = @Filter::ToYN($aSource['contact_type_is_main']);
-		parent::Insert($aSource);
+		parent::InsertFromArray($aSource);
 
 		SetRedirectMessage('Success', 'Contact type added successfully.');
 		RedirectToAction('ContactType', 'Index');
@@ -77,7 +77,7 @@ class ContactTypeController extends AbstractController
 	{
 		$aSource = $_POST;
 		$aSource['contact_type_is_main'] = @Filter::ToYN($aSource['contact_type_is_main']);
-		parent::Update($aSource);
+		parent::UpdateFromArray($aSource);
 
 		SetRedirectMessage('Success', 'Contact type updated successfully.');
 		RedirectToAction('ContactType', 'Index');
@@ -101,7 +101,7 @@ class ContactTypeController extends AbstractController
 		if (($id = Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 
-		parent::Destroy(array('contact_type_id' => $id));
+		parent::DestroyFromArray(array('contact_type_id' => $id));
 
 		SetRedirectMessage('Success', 'Contact type was deleted successfully.');
 		RedirectToAction('ContactType', 'Index');

@@ -47,7 +47,7 @@ class PhoneTypeController extends AbstractController
 
 	public function Insert()
 	{
-		parent::Insert($_POST);
+		parent::InsertFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Phone type added successfully.');
 		RedirectToAction('PhoneType', 'Index');
@@ -67,7 +67,7 @@ class PhoneTypeController extends AbstractController
 
 	public function Update()
 	{
-		parent::Update($_POST);
+		parent::UpdateFromArray($_POST);
 
 		SetRedirectMessage('Success', 'Phone type updated successfully.');
 		RedirectToAction('PhoneType', 'Index');
@@ -90,7 +90,7 @@ class PhoneTypeController extends AbstractController
 		if (($phoneTypeId = @Filter::ToInt($_REQUEST['id'])) == -1)
 			throw new InvalidDataException();
 
-		parent::Destroy(array('phone_type_id' => $phoneTypeId));
+		parent::DestroyFromArray(array('phone_type_id' => $phoneTypeId));
 
 		SetRedirectMessage('Success', 'Phone type deleted successfully.');
 		RedirectToAction('PhoneType', 'Index');
