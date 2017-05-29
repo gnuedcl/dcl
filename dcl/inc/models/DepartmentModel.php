@@ -35,14 +35,4 @@ class DepartmentModel extends DbProvider
 		
 		parent::Clear();
 	}
-
-	public function Delete()
-	{
-		return parent::Delete(array('id' => $this->id));
-	}
-
-	public function Load($id)
-	{
-		return parent::Load(array('id' => $id));
-	}
 }

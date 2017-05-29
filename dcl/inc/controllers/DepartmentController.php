@@ -59,7 +59,7 @@ class DepartmentController
 		}
 		
 		$model = new DepartmentModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('id' => $id)) == -1)
 		{
 			throw new InvalidEntityException();
 		}
@@ -91,7 +91,7 @@ class DepartmentController
 		}
 		
 		$model = new DepartmentModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('id' => $id)) == -1)
 		{
 			throw new InvalidEntityException();
 		}
@@ -113,14 +113,14 @@ class DepartmentController
 		}
 		
 		$model = new DepartmentModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('id' => $id)) == -1)
 		{
 			throw new InvalidEntityException();
 		}
 
 		if (!$model->HasFKRef($id))
 		{
-			$model->Delete();
+			$model->Delete(array('id' => $id));
 			SetRedirectMessage('Success', 'Department was deleted successfully.');
 		}
 		else

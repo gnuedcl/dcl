@@ -404,7 +404,7 @@ class DisplayHelper
 		if ($this->oDepartment == null)
 			$this->oDepartment = new DepartmentModel();
 
-		if ($this->oDepartment->Load($id) == -1)
+		if ($this->oDepartment->Load(array('id' => $id)) == -1)
 			return $this->ShowError("Could not find department ID $id");
 
 		return $this->oDepartment->name;
