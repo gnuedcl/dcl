@@ -331,7 +331,7 @@ class boViews
 						$fieldValue = '';
 						if ($obj->f('_num_accounts_') > 0)
 						{
-							if ($workOrderOrg->Load($obj->f('jcn'), $obj->f('seq')) != -1)
+							if ($workOrderOrg->LoadByWorkOrder($obj->f('jcn'), $obj->f('seq')) != -1)
 							{
 								while ($workOrderOrg->next_record())
 								{

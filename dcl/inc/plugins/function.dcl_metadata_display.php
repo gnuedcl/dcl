@@ -168,7 +168,7 @@ function smarty_function_dcl_metadata_display($params, &$smarty)
 
 			$oAcct = new WorkOrderOrganizationModel();
 			$aOrgs = array();
-			if ($oAcct->Load($params['value'], $params['value2']) != -1)
+			if ($oAcct->LoadByWorkOrder($params['value'], $params['value2']) != -1)
 			{
 				$bHasPerm = $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWACCOUNT) || $g_oSec->IsOrgUser();
 				$bViewAll = !$g_oSec->IsOrgUser();

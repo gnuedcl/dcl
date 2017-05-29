@@ -54,14 +54,9 @@ class WorkOrderOrganizationModel extends DbProvider
 		}
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		// Do nothing
-	}
-
-	public function Delete($wo_id, $seq, $account_id)
-	{
-		parent::Delete(array('wo_id' => $wo_id, 'seq' => $seq, 'account_id' => $account_id));
 	}
 
 	public function AuditWorkOrderList($jcn, $seq)
@@ -103,7 +98,7 @@ class WorkOrderOrganizationModel extends DbProvider
 		$this->account_name = $this->f('name');
 	}
 
-	public function Load($wo_id, $seq)
+	public function LoadByWorkOrder($wo_id, $seq)
 	{
 		$this->Clear();
 

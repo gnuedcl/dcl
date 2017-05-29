@@ -341,7 +341,7 @@ class WorkOrderPresenter
 		}
 
 		$oAcct = new WorkOrderOrganizationModel();
-		if ($oAcct->Load($workOrder->jcn, $workOrder->seq) != -1)
+		if ($oAcct->LoadByWorkOrder($workOrder->jcn, $workOrder->seq) != -1)
 		{
 			$aOrgs = array();
 			$bHasPerm = $g_oSec->HasPerm(DCL_ENTITY_WORKORDER, DCL_PERM_VIEWACCOUNT) || $g_oSec->IsOrgUser();

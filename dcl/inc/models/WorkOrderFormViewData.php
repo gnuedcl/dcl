@@ -156,7 +156,7 @@ class WorkOrderFormViewData
 		$organizationIds = array();
 		$organizationNames = array();
 		$workOrderOrgsModel = new WorkOrderOrganizationModel();
-		if ($workOrderOrgsModel->Load($model->WorkOrderId, $model->Sequence) != -1)
+		if ($workOrderOrgsModel->LoadByWorkOrder($model->WorkOrderId, $model->Sequence) != -1)
 		{
 			while ($workOrderOrgsModel->next_record())
 			{

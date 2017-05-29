@@ -269,7 +269,7 @@ class WorkOrderModel extends DbProvider
 				if ($obj->jcn != $this->iWoid || $obj->seq != $this->iSeq)
 				{
 					$oWOA = new WorkOrderOrganizationModel();
-					if ($oWOA->Load($obj->jcn, $obj->seq) != -1)
+					if ($oWOA->LoadByWorkOrder($obj->jcn, $obj->seq) != -1)
 					{
 						$this->iWoid = $obj->jcn;
 						$this->iSeq = $obj->seq;

@@ -1356,7 +1356,10 @@ abstract class AbstractSqlQueryHelper
 		{
 			$sql .= ' ORDER BY ';
 			if (count($this->order) > 0 && count($this->groups) > 0)
-				$sql .= $this->GetCSLFromArray(array_merge($this->groups, $this->order), true, false, true);
+			{
+				$groupsAndOrder = array_merge($this->groups, $this->order);
+				$sql .= $this->GetCSLFromArray($groupsAndOrder, true, false, true);
+			}
 			else if (count($this->groups) > 0)
 				$sql .= $this->GetCSLFromArray($this->groups, true, false, true);
 			else
