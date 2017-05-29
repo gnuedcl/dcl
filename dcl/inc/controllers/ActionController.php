@@ -57,7 +57,7 @@ class ActionController
 		}
 
 		$model = new ActionModel();
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('id' => $id)) == -1)
 		{
 			throw new InvalidEntityException();
 		}
@@ -91,7 +91,7 @@ class ActionController
 			throw new InvalidDataException();
 		}
 		
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('id' => $id)) == -1)
 		{
 			throw new InvalidEntityException();
 		}
@@ -115,19 +115,19 @@ class ActionController
 			throw new InvalidDataException();
 		}
 		
-		if ($model->Load($id) == -1)
+		if ($model->Load(array('id' => $id)) == -1)
 		{
 			throw new InvalidEntityException();
 		}
 
 		if (!$model->HasFKRef($id))
 		{
-			$model->Delete();
+			$model->Delete(array('id' => $id));
 			SetRedirectMessage('Success', 'Action was deleted successfully.');
 		}
 		else
 		{
-			$model->SetActive($id, false);
+			$model->SetActive(array('id' => $id), false);
 			SetRedirectMessage('Success', 'Action was deactivated because other items reference it.');
 		}
 

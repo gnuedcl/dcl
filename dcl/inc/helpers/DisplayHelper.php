@@ -362,7 +362,7 @@ class DisplayHelper
 		if ($this->oAction == null)
 			$this->oAction = new ActionModel();
 
-		if ($this->oAction->Load($id) == -1)
+		if ($this->oAction->Load(array('id' => $id)) == -1)
 			return $this->ShowError("Could not find action ID $id");
 
 		return $this->oAction->name;

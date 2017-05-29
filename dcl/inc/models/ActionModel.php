@@ -35,19 +35,4 @@ class ActionModel extends DbProvider
 		
 		parent::Clear();
 	}
-
-	function Delete()
-	{
-		return parent::Delete(array('id' => $this->id));
-	}
-
-	function Load($id)
-	{
-		return parent::Load(array('id' => $id));
-	}
-
-	public function SetActive($id, $active)
-	{
-		return parent::SetActive(array('id' => $id), $active);
-	}
 }
