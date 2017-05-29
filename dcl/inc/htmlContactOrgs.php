@@ -24,7 +24,7 @@ class htmlContactOrgs
 {
 	var $public;
 
-	function htmlContactOrgs()
+	function __construct()
 	{
 		$this->public = array('modify', 'submitModify');
 	}

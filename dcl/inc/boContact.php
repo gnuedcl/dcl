@@ -24,9 +24,9 @@ LoadStringResource('bo');
 
 class boContact extends boAdminObject
 {
-	function boContact()
+	function __construct()
 	{
-		parent::boAdminObject();
+		parent::__construct();
 		
 		$this->oDB = new ContactModel();
 		$this->sKeyField = 'contact_id';

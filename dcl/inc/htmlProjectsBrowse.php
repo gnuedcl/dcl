@@ -28,7 +28,7 @@ class htmlProjectsBrowse
 	var $oView;
 	var $oDB;
 	
-	function htmlProjectsBrowse()
+	function __construct()
 	{
 		$this->sPagingMenuAction = 'htmlProjectsBrowse.Page';
 		

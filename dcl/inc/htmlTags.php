@@ -22,7 +22,7 @@
 
 class htmlTags
 {
-	function htmlTags()
+	function __construct()
 	{
 		
 	}

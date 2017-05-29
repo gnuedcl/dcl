@@ -24,9 +24,9 @@ LoadStringResource('bo');
 
 class boWorkspaceProduct extends boAdminObject
 {
-	function boWorkspaceProduct()
+	function __construct()
 	{
-		parent::boAdminObject();
+		parent::__construct();
 		
 		$this->oDB = new WorkspaceProductModel();
 		$this->Entity = DCL_ENTITY_WORKSPACE;

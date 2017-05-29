@@ -31,7 +31,7 @@ class htmlWiki
 	var $t;
 	var $aLockedPages;
 
-	function htmlWiki()
+	function __construct()
 	{
 		$this->t = new SmartyHelper();
 

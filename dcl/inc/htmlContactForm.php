@@ -27,7 +27,7 @@ class htmlContactForm
 {
 	var $public;
 
-	function htmlContactForm()
+	function __construct()
 	{
 		$this->public = array('add', 'modify', 'delete', 'submitAdd', 'submitModify', 'submitDelete');
 	}

@@ -24,9 +24,9 @@ LoadStringResource('bo');
 
 class boWorkOrderTask extends boAdminObject
 {
-	function boWorkOrderTask()
+	function __construct()
 	{
-		parent::boAdminObject();
+		parent::__construct();
 
 		$this->oDB = new WorkOrderTaskModel();
 		$this->sKeyField = 'wo_task_id';

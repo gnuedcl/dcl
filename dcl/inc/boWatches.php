@@ -33,7 +33,7 @@ class boWatches
 	var $aOrgs;
 	var $aContactOrgs;
 	
-	function boWatches()
+	function __construct()
 	{
 		$this->oMeta = null;
 		$this->iWoid = 0;

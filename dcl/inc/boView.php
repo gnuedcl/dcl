@@ -42,7 +42,7 @@ class boView
 	var $numrows;
 	var $m_oDB;
 
-	function boView()
+	function __construct()
 	{
 		$this->Clear();
 		$this->startrow = 0;

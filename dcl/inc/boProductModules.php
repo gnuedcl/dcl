@@ -25,7 +25,7 @@ class boProductModules extends boAdminObject
 {
 	var $oDB;
 
-	function boProductModules()
+	function __construct()
 	{
 		$this->oDB = new ProductModulesModel();
 		$this->sKeyField = 'product_module_id';

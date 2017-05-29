@@ -28,7 +28,7 @@ class htmlAudit
 	var $aAuditWorkOrder;
 	var $oMeta;
 
-	function htmlAudit()
+	function __construct()
 	{
 		$this->aAudit = array();
 		$this->aAuditAccount = array();

@@ -26,7 +26,7 @@ class htmlWorkspaceBrowse
 	var $oView;
 	var $oDB;
 
-	function htmlWorkspaceBrowse()
+	function __construct()
 	{
 		$this->sPagingMenuAction = 'htmlWorkspaceBrowse.Page';
 		

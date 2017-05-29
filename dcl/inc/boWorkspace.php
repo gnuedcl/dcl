@@ -24,9 +24,9 @@ LoadStringResource('bo');
 
 class boWorkspace extends boAdminObject
 {
-	function boWorkspace()
+	function __construct()
 	{
-		parent::boAdminObject();
+		parent::__construct();
 
 		$this->oDB = new WorkspaceModel();
 		$this->sKeyField = 'workspace_id';

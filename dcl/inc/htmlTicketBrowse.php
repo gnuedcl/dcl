@@ -28,7 +28,7 @@ class htmlTicketBrowse
 	var $oView;
 	var $oDB;
 	
-	function htmlTicketBrowse()
+	function __construct()
 	{
 		$this->sPagingMenuAction = 'htmlTicketBrowse.Page';
 		

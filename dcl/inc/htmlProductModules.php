@@ -26,7 +26,7 @@ class htmlProductModules
 {
 	var $public;
 
-	function htmlProductModules()
+	function __construct()
 	{
 		$this->public = array('add', 'modify', 'delete', 'submitAdd', 'submitModify', 'submitDelete', 'PrintAll');
 	}

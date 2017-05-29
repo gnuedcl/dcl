@@ -25,7 +25,7 @@ class htmlChangeLog
 	var $oDB;
 	var $oPersonnel;
 
-	function htmlChangeLog()
+	function __construct()
 	{
 		if (($id = Filter::ToInt($_REQUEST['personnel_id'])) === null)
 		{

@@ -26,7 +26,7 @@ class boTicketresolutions
 {
 	var $oDB;
 	
-	function boTicketresolutions()
+	function __construct()
 	{
 		$this->oDB = new TicketResolutionsModel();
 	}

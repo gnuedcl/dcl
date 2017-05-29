@@ -26,7 +26,7 @@ class htmlWorkOrderTask
 {
 	var $public;
 
-	function htmlWorkOrderTask()
+	function __construct()
 	{
 		$this->public = array('add', 'modify', 'delete', 'submitAdd', 'submitModify', 'submitDelete');
 	}

@@ -26,7 +26,7 @@ class htmlContactDetail
 {
 	var $public;
 
-	function htmlContactDetail()
+	function __construct()
 	{
 		$this->public = array('show');
 	}

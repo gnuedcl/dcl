@@ -28,7 +28,7 @@ class htmlHotlistProjectDashboard
 	var $oSmarty;
 	var $hotlist;
 
-	function htmlHotlistProjectDashboard()
+	function __construct()
 	{
 		$this->oSmarty = new SmartyHelper();
 		$this->hotlist = null;

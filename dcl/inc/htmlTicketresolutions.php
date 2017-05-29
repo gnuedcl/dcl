@@ -26,7 +26,7 @@ class htmlTicketresolutions
 {
 	var $public;
 
-	function htmlTicketresolutions()
+	function __construct()
 	{
 		$this->public = array('modify', 'delete', 'submitModify', 'submitDelete');
 	}

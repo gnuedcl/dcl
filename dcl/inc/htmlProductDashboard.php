@@ -29,7 +29,7 @@ class htmlProductDashboard
 	var $oSmarty;
 	var $oProduct;
 
-	function htmlProductDashboard()
+	function __construct()
 	{
 		$this->oSmarty = new SmartyHelper();
 		$this->oProduct = null;

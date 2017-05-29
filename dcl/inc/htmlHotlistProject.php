@@ -29,7 +29,7 @@ class htmlHotlistProject
 	var $entityHotlist;
 	var $oSmarty;
 
-	function htmlHotlistProject()
+	function __construct()
 	{
 		$this->hotlist = new HotlistModel();
 		$this->entityHotlist = new EntityHotlistModel();

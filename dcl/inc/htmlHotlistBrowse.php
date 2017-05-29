@@ -26,7 +26,7 @@ class htmlHotlistBrowse
 	var $oView;
 	var $oDB;
 
-	function htmlHotlistBrowse()
+	function __construct()
 	{
 		$this->sPagingMenuAction = 'htmlHotlistBrowse.Page';
 		

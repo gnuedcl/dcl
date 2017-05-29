@@ -25,7 +25,7 @@ class boSecAudit
 {
 	var $objDB;
 	
-	function boSecAudit()
+	function __construct()
 	{
 	}
 	

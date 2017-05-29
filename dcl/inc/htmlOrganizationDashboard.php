@@ -29,7 +29,7 @@ class htmlOrganizationDashboard
 	var $oSmarty;
 	var $oOrg;
 
-	function htmlOrganizationDashboard()
+	function __construct()
 	{
 		$this->oSmarty = new SmartyHelper();
 		$this->oOrg = null;

@@ -23,7 +23,7 @@
 LoadStringResource('vw');
 class htmlTicketResults
 {
-	function htmlTicketResults()
+	function __construct()
 	{
 	}
 

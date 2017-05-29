@@ -39,7 +39,7 @@ class boAdminObject
 	var $sModifiedByField;
 	var $aIgnoreFieldsOnUpdate;
 
-	function boAdminObject()
+	function __construct()
 	{
 		// Should construct $this->oDB in derived class and set $this->sKeyField and $this->Entity for security
 		$this->Entity = DCL_ENTITY_ADMIN;

@@ -22,7 +22,7 @@
 
 class htmlHotlistProjectTimeline
 {
-    function htmlHotlistProjectTimeline()
+    function __construct()
     {
         
     }

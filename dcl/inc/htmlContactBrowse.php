@@ -26,7 +26,7 @@ class htmlContactBrowse
 	var $oView;
 	var $oDB;
 
-	function htmlContactBrowse()
+	function __construct()
 	{
 		$this->sPagingMenuAction = 'htmlContactBrowse.Page';
 		

@@ -24,7 +24,7 @@ class htmlWorkspaceForm
 {
 	var $public;
 
-	function htmlWorkspaceForm()
+	function __construct()
 	{
 		$this->public = array('add', 'modify', 'delete', 'submitAdd', 'submitModify', 'submitDelete');
 	}

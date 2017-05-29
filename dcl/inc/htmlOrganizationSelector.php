@@ -27,7 +27,7 @@ class htmlOrganizationSelector
 	var $oView;
 	var $oDB;
 
-	function htmlOrganizationSelector()
+	function __construct()
 	{
 		$this->bMultiSelect = false;
 		$this->oSmarty = new SmartyHelper();

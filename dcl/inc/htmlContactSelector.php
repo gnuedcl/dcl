@@ -27,7 +27,7 @@ class htmlContactSelector
 	var $oView;
 	var $oDB;
 
-	function htmlContactSelector()
+	function __construct()
 	{
 		$this->bMultiSelect = false;
 		$this->oSmarty = new SmartyHelper();

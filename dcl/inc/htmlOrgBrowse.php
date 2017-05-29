@@ -27,7 +27,7 @@ class htmlOrgBrowse
 	var $oDB;
 	private $startsWithFilter;
 
-	function htmlOrgBrowse()
+	function __construct()
 	{
 		$this->sPagingMenuAction = 'htmlOrgBrowse.Page';
 		$this->startsWithFilter = array_merge(array('All'), range('A', 'Z'));

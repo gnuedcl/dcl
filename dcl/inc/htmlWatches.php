@@ -28,7 +28,7 @@ class htmlWatches
 	var $objT;
 	var $oMeta;
 
-	function htmlWatches()
+	function __construct()
 	{
 		$this->oMeta = new DisplayHelper();
 		$this->objW = new WorkOrderModel();
