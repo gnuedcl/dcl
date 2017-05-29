@@ -125,7 +125,7 @@ class DisplayHelper
 		if ($this->oSeverity == null)
 			$this->oSeverity = new SeverityModel();
 
-		if ($this->oSeverity->Load($id, false) == -1)
+		if ($this->oSeverity->Load(array('id' => $id), false) == -1)
 			return $this->ShowError("Could not find severity ID $id");
 
 		return $this->oSeverity->name;

@@ -622,7 +622,7 @@ class reportPersonnelActivity
 						$objW->LoadByIdSeq($thisJCN, $thisSeq);
 						$objS->Load($objW->status);
 						$objPr->Load($objW->priority);
-						$objSe->Load($objW->severity);
+						$objSe->Load(array('id' => $objW->severity));
 
 						if ($bExport)
 							$reportArray[$arrayIndex][0] = '[' . $thisJCN . '-' . $thisSeq . '] ' . $objW->summary;

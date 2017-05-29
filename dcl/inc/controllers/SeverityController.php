@@ -62,7 +62,7 @@ class SeverityController extends AbstractController
 		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
-		if ($this->model->Load($id) == -1)
+		if ($this->model->Load(array('id' => $id)) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new SeverityPresenter();
@@ -88,7 +88,7 @@ class SeverityController extends AbstractController
 		if (($id = @Filter::ToInt($_REQUEST['id'])) === null)
 			throw new InvalidDataException();
 		
-		if ($this->model->Load($id) == -1)
+		if ($this->model->Load(array('id' => $id)) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new SeverityPresenter();

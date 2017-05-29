@@ -42,10 +42,10 @@ class SeverityModel extends DbProvider
 		return parent::Add();
 	}
 
-	function Edit()
+	function Edit($aIgnoreFields = '')
 	{
 		$this->AdjustWeights($this->weight, $this->id);
-		return parent::Edit();
+		return parent::Edit($aIgnoreFields);
 	}
 
 	function AdjustWeights($fromThisWeight, $editID = 0)
@@ -65,10 +65,5 @@ class SeverityModel extends DbProvider
 			$query = "UPDATE severities SET weight=weight+1 WHERE id=$thisID";
 			$this->Execute($query);
 		}
-	}
-
-	function Load($id)
-	{
-		return parent::Load(array('id' => $id));
 	}
 }
