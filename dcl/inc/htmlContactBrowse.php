@@ -123,7 +123,7 @@ class htmlContactBrowse
 		$oTable->assign('VAL_FILTERNUMROWS', $this->oView->numrows);
 		$oTable->assign('VAL_VIEWSETTINGS', $this->oView->GetForm());
 
-		$filterActive = Filter::ToYN($_REQUEST['filterActive']);
+		$filterActive = @Filter::ToYN($_REQUEST['filterActive']);
 
 		$filterStartsWith = '';
 		if (IsSet($_REQUEST['filterStartsWith']))
@@ -280,7 +280,7 @@ class htmlContactBrowse
 		
 		$oView->numrows = 25;
 
-		$filterActive = Filter::ToYN($_REQUEST['filterActive']);
+		$filterActive = @Filter::ToYN($_REQUEST['filterActive']);
 		if ($filterActive == 'Y' || $filterActive == 'N')
 			$oView->AddDef('filter', 'active', "'$filterActive'");
 
