@@ -52,19 +52,23 @@ class ProjectMapModel extends DbProvider
 		}
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		// Do nothing
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
-		$sSQL = 'INSERT INTO projectmap_audit VALUES (' . $this->projectid . ', ' . $this->jcn . ', ' . $this->seq . ', ' . $this->GetDateSQL() . ', ' . DCLID . ', ' . DCL_EVENT_DELETE . ')';
+		$projectId = $aID['projectid'];
+		$jcn = $aID['jcn'];
+		$seq = $aID['seq'];
+
+		$sSQL = 'INSERT INTO projectmap_audit VALUES (' . $projectId . ', ' . $jcn . ', ' . $seq . ', ' . $this->GetDateSQL() . ', ' . DCLID . ', ' . DCL_EVENT_DELETE . ')';
 		$this->Execute($sSQL);
 
-		$query = 'DELETE FROM projectmap WHERE projectid=' . $this->projectid . ' AND jcn=' . $this->jcn;
-		if ($this->seq > 0)
-			$query .= ' AND seq=' . $this->seq;
+		$query = 'DELETE FROM projectmap WHERE projectid=' . $projectId . ' AND jcn=' . $jcn;
+		if ($seq > 0)
+			$query .= ' AND seq=' . $seq;
 
 		$this->Execute($query);
 	}
@@ -101,22 +105,6 @@ class ProjectMapModel extends DbProvider
 		}
 
 		return $aRetVal;
-	}
-
-	public function Load($projectid)
-	{
-		$this->Clear();
-
-		$sql = 'SELECT b.projectid,a.jcn,a.seq FROM workorders a, projectmap b WHERE ';
-		$sql .= "a.jcn=b.jcn AND (b.seq=0 OR a.seq=b.seq) AND b.projectid=$projectid ";
-		$sql .= 'ORDER BY a.jcn,a.seq';
-		if (!$this->Query($sql))
-			return -1;
-
-		if (!$this->next_record())
-			return -1;
-
-		return $this->GetRow();
 	}
 
 	private function GetProjectClause($projectId, $children)

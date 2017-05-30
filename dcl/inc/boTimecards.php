@@ -358,7 +358,7 @@ class boTimecards
 		$id = Filter::RequireInt($_REQUEST['id']);
 		
 		$objTC = new TimeCardsModel();
-		if ($objTC->Load($id) == -1)
+		if ($objTC->Load(array('id' => $id)) == -1)
 			throw new InvalidEntityException();
 		
 		$workOrderModel = new WorkOrderModel();
@@ -388,7 +388,7 @@ class boTimecards
 		else
 			$objTC->is_public = @Filter::ToYN($_REQUEST['is_public']);
 
-		if ($objOldTC->Load($objTC->id) == -1)
+		if ($objOldTC->Load(array('id' => $objTC->id)) == -1)
 			return;
 
 		if ($g_oSec->IsPublicUser() && $objOldTC->is_public == 'N')
@@ -477,7 +477,7 @@ class boTimecards
 		$id = Filter::RequireInt($_REQUEST['id']);
 		
 		$objTC = new TimeCardsModel();
-		if ($objTC->Load($id) == -1)
+		if ($objTC->Load(array('id' => $id)) == -1)
 			throw new InvalidEntityException();
 		
 		$workOrderModel = new WorkOrderModel();
@@ -500,7 +500,7 @@ class boTimecards
 		}
 		
 		$objTC = new TimeCardsModel();
-		if ($objTC->Load($iID) == -1)
+		if ($objTC->Load(array('id' => $iID)) == -1)
 			return;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_TIMECARD, DCL_PERM_DELETE))
@@ -521,7 +521,7 @@ class boTimecards
 			// try to revert to the previous time card status.  Otherwise, open it.
 			if (($iPrevID = $objQueryTC->GetPrevTimeCardID($objTC->id, $objTC->jcn, $objTC->seq)) !== null)
 			{
-				$objQueryTC->Load($iPrevID);
+				$objQueryTC->Load(array('id' => $iPrevID));
 				if ($objQueryTC->status != $objWO->status)
 				{
 					$objWO->statuson = date($dcl_info['DCL_TIMESTAMP_FORMAT']);
@@ -557,7 +557,7 @@ class boTimecards
 		}
 		else
 		{
-			$objQueryTC->Load($iNextID);
+			$objQueryTC->Load(array('id' => $iNextID));
 			$objWO->starton = $objQueryTC->actionon;
 		}
 
@@ -567,7 +567,7 @@ class boTimecards
 		
 		try
 		{
-			$objTC->Delete();
+			$objTC->Delete(array('id' => $objTC->id));
 			$objWO->Edit();
 			$objTC->EndTransaction();
 		}

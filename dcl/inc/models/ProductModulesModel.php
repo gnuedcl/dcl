@@ -36,9 +36,4 @@ class ProductModulesModel extends DbProvider
 		
 		parent::Clear();
 	}
-
-	function Delete()
-	{
-		return parent::Delete(array('product_module_id' => $this->product_module_id));
-	}
 }

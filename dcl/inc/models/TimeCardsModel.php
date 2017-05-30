@@ -121,7 +121,7 @@ class TimeCardsModel extends DbProvider
 		$this->EndTransaction();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		// Does not update reassign information - that's historical!
 		$query = 'UPDATE timecards SET actionon=' . $this->DisplayToSQL($this->actionon);
@@ -133,22 +133,12 @@ class TimeCardsModel extends DbProvider
 		$this->Execute($query);
 	}
 
-	public function Delete()
-	{
-		return parent::Delete(array('id' => $this->id));
-	}
-
-	public function Load($id)
-	{
-		return parent::Load(array('id' => $id));
-	}
-	
 	public function LoadLast($jcn, $seq, $bIsPublic)
 	{
 		$id = $this->ExecuteScalar("select max(id) from timecards where jcn = $jcn and seq = $seq" . ($bIsPublic ? " and is_public = 'Y'" : ''));
 		
 		if ($id > 0)
-			return $this->Load($id);
+			return $this->Load(array('id' => $id));
 			
 		return -1;
 	}

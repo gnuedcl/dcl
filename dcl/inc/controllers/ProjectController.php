@@ -171,8 +171,7 @@ class ProjectController
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_DELETE, $id);
 
 		$model = new ProjectsModel();
-		$model->projectid = $id;
-		$model->Delete();
+		$model->Delete(array('projectid' => $id));
 
 		$watchesModel = new WatchesModel();
 		$watchesModel->DeleteByObjectID(2, $id);
@@ -232,7 +231,7 @@ class ProjectController
 		{
 			$objPM->seq = 0;
 			// Be sure all other entries for this JCN are deleted so they move to this project
-			$objPM->Delete();
+			$objPM->Delete(array('projectid' => $objPM->projectid, 'jcn' => $objPM->jcn, 'seq' => $objPM->seq));
 		}
 
 		$objPM->Add();

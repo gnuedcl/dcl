@@ -42,13 +42,13 @@ class ProjectsModel extends DbProvider
 		return parent::Add();
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
-		$query = 'DELETE FROM projectmap WHERE projectid=' . $this->projectid;
+		$query = 'DELETE FROM projectmap WHERE projectid=' . $aID['projectid'];
 		$this->Execute($query);
 
-		$this->Audit(array('projectid' => $this->projectid));
-		$query = 'DELETE FROM dcl_projects WHERE projectid=' . $this->projectid;
+		$this->Audit($aID);
+		$query = 'DELETE FROM dcl_projects WHERE projectid=' . $aID['projectid'];
 
 		return $this->Execute($query);
 	}
@@ -197,11 +197,6 @@ class ProjectsModel extends DbProvider
 		return $retval;
 	}
 
-	public function Load($projectid)
-	{
-		return parent::Load(array('projectid' => $projectid));
-	}
-
 	public function Exists($sName)
 	{
 		$obj = new DbProvider;
@@ -269,7 +264,7 @@ class ProjectsModel extends DbProvider
 			$projectPath = explode(',', $projectModel->GetProjectParents($projectMapModel->projectid, true));
 			while (list($key, $projectId) = each($projectPath))
 			{
-				$projectModel->Load(array('projectid' => $projectid));
+				$projectModel->Load(array('projectid' => $projectId));
 				$projects[] = array('project_id' => $projectId, 'name' => $projectModel->name);
 			}
 
@@ -293,7 +288,7 @@ class ProjectsModel extends DbProvider
 				do
 				{
 					$projectMapModel->GetRow();
-					$projectMapModel->Delete();
+					$projectMapModel->Delete(array('projectid' => $projectMapModel->projectid, 'jcn' => $projectMapModel->jcn, 'seq' => $projectMapModel->seq));
 				}
 				while ($projectMapModel->next_record());
 			}
@@ -302,7 +297,7 @@ class ProjectsModel extends DbProvider
 				$projectMapModel->GetRow();
 
 				// Remove the mapping here
-				$projectMapModel->Delete();
+				$projectMapModel->Delete(array('projectid' => $projectMapModel->projectid, 'jcn' => $projectMapModel->jcn, 'seq' => $projectMapModel->seq));
 				if ($projectMapModel->seq == 0)
 				{
 					// It was implicitly mapped - explicitly relink all but this seq
