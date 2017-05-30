@@ -118,7 +118,7 @@ class htmlWiki
 			unset($editmode);
 
 		$obj = new WikiModel();
-		if ((!$obj->Exists($type, $id, $id2, $name) || $obj->Load($type, $id, $id2, $name) == -1) && $name != 'RecentChanges')
+		if ((!$obj->PageExists($type, $id, $id2, $name) || $obj->LoadPage($type, $id, $id2, $name) == -1) && $name != 'RecentChanges')
 			$obj = $this->quickwiki($type, $id, $id2, $name);
 
 		$extraParams = "type=$type";
@@ -554,7 +554,7 @@ class htmlWiki
 			$id2 = 0;
 		
 		$o = new WikiModel();
-		if ($o->Load($type, $id, $id2, $name) != -1)
+		if ($o->LoadPage($type, $id, $id2, $name) != -1)
 		{
 			$ddate = date("d M Y - H:i"); // Replace <d> tag with current date
 			$o->page_text = str_replace("<d>", $ddate, $text);

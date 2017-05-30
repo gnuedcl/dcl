@@ -50,7 +50,7 @@ class WikiModel extends DbProvider
 		return parent::Add();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		if ($this->dcl_entity_type_id == DCL_ENTITY_GLOBAL)
 		{
@@ -64,28 +64,10 @@ class WikiModel extends DbProvider
 		
 		$this->page_date = DCL_NOW;
 
-		return parent::Edit();
+		return parent::Edit($aIgnoreFields);
 	}
 
-	public function Delete()
-	{
-		$query = 'delete from ' . $this->TableName . " where page_name='";
-		$query .= $this->DBAddSlashes($this->page_name);
-		$query .= "' And dcl_entity_type_id = " . $this->dcl_entity_type_id;
-		if ($this->dcl_entity_type_id != DCL_ENTITY_GLOBAL)
-		{
-			// Is specific to an entity, not global
-			$query .= " And dcl_entity_id = " . $this->dcl_entity_id;
-
-			// Work orders will have another ID
-			if ($this->dcl_entity_type_id == DCL_ENTITY_WORKORDER)
-				$query .= " And dcl_entity_id2 = " . $this->dcl_entity_id2;
-		}
-
-		$this->Execute($query);
-	}
-
-	public function Load($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0, $sName = 'FrontPage')
+	public function LoadPage($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0, $sName = 'FrontPage')
 	{
 		if ($iType != DCL_ENTITY_WORKORDER)
 			$iID2 = 0;
@@ -93,7 +75,7 @@ class WikiModel extends DbProvider
 		return parent::Load(array('dcl_entity_type_id' => $iType, 'dcl_entity_id' => $iID, 'dcl_entity_id2' => $iID2, 'page_name' => $sName));
 	}
 
-	public function Exists($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0, $sName = 'FrontPage')
+	public function PageExists($iType = DCL_ENTITY_GLOBAL, $iID = 0, $iID2 = 0, $sName = 'FrontPage')
 	{
 		if ($iType != DCL_ENTITY_WORKORDER)
 			$iID2 = 0;
