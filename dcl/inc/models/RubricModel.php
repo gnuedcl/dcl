@@ -30,7 +30,7 @@ class RubricModel extends DbProvider
 		parent::Clear();
 	}
 
-	public function Delete(array $aId)
+	public function Delete($aId)
 	{
 		if (!isset($aId['rubric_id']))
 			return;
