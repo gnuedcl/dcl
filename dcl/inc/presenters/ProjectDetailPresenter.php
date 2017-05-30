@@ -47,7 +47,7 @@ class ProjectDetailPresenter
 		RequirePermission(DCL_ENTITY_PROJECT, DCL_PERM_VIEW, $projectId);
 
 		$this->project = new ProjectsModel();
-		if ($this->project->Load(array('projectid' => $projectid)) == -1)
+		if ($this->project->Load(array('projectid' => $projectId)) == -1)
 			throw new InvalidEntityException();
 
 		$displayHelper = new DisplayHelper();
