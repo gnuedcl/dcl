@@ -153,7 +153,7 @@ class boTicketresolutions
 		
 		commonHeader();
 		
-		if ($this->oDB->Load($aSource['resid']) == -1)
+		if ($this->oDB->Load(array('resid' => $aSource['resid'])) == -1)
 			return;
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_RESOLUTION, DCL_PERM_MODIFY, $this->oDB->ticketid))
@@ -222,7 +222,7 @@ class boTicketresolutions
 		// that this resolution was the last one entered and affected the ticket
 		// status when input.
 		$oQueryTR = new TicketResolutionsModel();
-		if ($oQueryTR->Load($aSource['resid']) == -1)
+		if ($oQueryTR->Load(array('resid' => $aSource['resid'])) == -1)
 			return;
 			
 		if (($iNextID = $oQueryTR->GetNextResolutionID($oQueryTR->resid, $oQueryTR->ticketid)) === null)
@@ -232,7 +232,7 @@ class boTicketresolutions
 			// try to revert to the previous resolution status.  Otherwise, open it.
 			if (($iPrevID = $oQueryTR->GetPrevResolutionID($oQueryTR->resid, $oQueryTR->ticketid)) !== null)
 			{
-				$oQueryTR->Load($iPrevID);
+				$oQueryTR->Load(array('resid' => $iPrevID));
 				if ($oQueryTR->status != $oTicket->status)
 				{
 					$oTicket->statuson = DCL_NOW;
@@ -262,12 +262,12 @@ class boTicketresolutions
 		}
 		else
 		{
-			if ($oQueryTR->Load($iNextID) != -1)
+			if ($oQueryTR->Load(array('resid' => $iNextID)) != -1)
 				$oTicket->starton = $oQueryTR->loggedon;
 		}
 
 		$this->oDB->BeginTransaction();
-		if ($this->oDB->Delete() != -1)
+		if ($this->oDB->Delete(array('resid' => $this->oDB->resid)) != -1)
 			$oTicket->Edit();
 			
 		$this->oDB->EndTransaction();

@@ -45,7 +45,7 @@ class htmlTicketresolutions
 			throw new PermissionDeniedException();
 
 		$oResolution = new TicketResolutionsModel();
-		if ($oResolution->Load($id) == -1)
+		if ($oResolution->Load(array('resid' => $id)) == -1)
 			return;
 			
 		$oTicket = new TicketsModel();
@@ -91,7 +91,7 @@ class htmlTicketresolutions
 			throw new PermissionDeniedException();
 
 		$oResolution = new TicketResolutionsModel();
-		if ($oResolution->Load($id) == -1)
+		if ($oResolution->Load(array('resid' => $id)) == -1)
 			return;
 			
 		$oTicket = new TicketsModel();
@@ -118,7 +118,7 @@ class htmlTicketresolutions
 		}
 		
 		$oResolution = new TicketResolutionsModel();
-		if ($oResolution->Load($id) == -1)
+		if ($oResolution->Load(array('resid' => $id)) == -1)
 			return;
 			
 		$iTicketID = $oResolution->ticketid;

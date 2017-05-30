@@ -155,16 +155,17 @@ class LineGraphImageHelper
 
 		if (!$hasValues)
 			$oChart->Chart->setFixedScale(0, 100);
-		
-		$oChart->Chart->drawScale($data, $oChart->Data->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, true, 0, 2);
+
+		$description = $oChart->Data->GetDataDescription();
+		$oChart->Chart->drawScale($data, $description, SCALE_NORMAL, 150, 150, 150, true, 0, 2);
 		$oChart->Chart->drawGrid(4, true, 230, 230, 230, 50);
 		
 		$oChart->Data->removeSerie('Serie3');
 
-		$oChart->Chart->drawLineGraph($data, $oChart->Data->GetDataDescription());
-		$oChart->Chart->drawPlotGraph($data, $oChart->Data->GetDataDescription(), 3, 2, 255, 255, 255);
+		$oChart->Chart->drawLineGraph($data, $description);
+		$oChart->Chart->drawPlotGraph($data, $description, 3, 2, 255, 255, 255);
 		
-		$oChart->Chart->drawLegend(5, 35, $oChart->Data->GetDataDescription(), 255, 255, 255);
+		$oChart->Chart->drawLegend(5, 35, $description, 255, 255, 255);
 		$oChart->Chart->drawTitle($this->margin_left, $this->margin_top - 4, $this->title, 50, 50, 50, $this->graph_width - $this->margin_right);
 		$oChart->Chart->Stroke();
 		exit;

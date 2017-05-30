@@ -33,11 +33,6 @@ class TicketResolutionsModel extends DbProvider
 		parent::Clear();
 	}
 
-	public function Delete()
-	{
-		return parent::Delete(array('resid' => $this->resid));
-	}
-
 	public function GetHoursText($oStartedOn = null, $oLoggedOn = null)
 	{
 		$start = new TimestampHelper;
@@ -60,11 +55,6 @@ class TicketResolutionsModel extends DbProvider
 		$ss = intval($tempHours);
 
 		return sprintf('%02d:%02d:%02d', $hh, $mm, $ss);
-	}
-
-	public function Load($resid)
-	{
-		return parent::Load(array('resid' => $resid));
 	}
 
 	public function GetResolutions($ticketid)
