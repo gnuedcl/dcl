@@ -58,6 +58,12 @@ class SessionHelper
 		$g_oSession->Register('dcl_preferences', $oPreferences->preferences_data);
 		$g_oSession->Register('CSRF_TOKEN', AntiCsrf::GenerateToken());
 
+		if (is_array($oPreferences->preferences_data) && isset($oPreferences->preferences_data['DCL_PREF_DEFAULT_WORKSPACE']))
+		{
+			$workspaceModel = new WorkspaceModel();
+			$workspaceModel->SetCurrentWorkspace($oPreferences->preferences_data['DCL_PREF_DEFAULT_WORKSPACE'], false);
+		}
+
 		// If we have org restrictions, cache the affiliated orgs for this contact record
 		if ($contactId != null && $contactId > 0)
 		{

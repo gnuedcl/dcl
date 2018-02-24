@@ -190,40 +190,10 @@ class htmlWorkspaceForm
 			ob_end_flush();
 			throw new InvalidDataException();
 		}
-		
-		if ($id > 0)
-		{
-			$oWS = new WorkspaceModel();
-			$aProducts = $oWS->GetProducts($id);
-			
-			if (count($aProducts) == 0)
-			{
-				$g_oSession->Unregister('workspace');
-				$g_oSession->Unregister('workspace_products');
-			}
-			else
-			{
-				$sProducts = '';
-				foreach ($aProducts as $row)
-				{
-					if ($sProducts != '')
-						$sProducts .= ',';
-						
-					$sProducts .= $row[0];
-				}
-				
-				$g_oSession->Register('workspace', $id);
-				$g_oSession->Register('workspace_products', $sProducts);
-			}
-		}
-		else
-		{
-			$g_oSession->Unregister('workspace');
-			$g_oSession->Unregister('workspace_products');
-		}
-		
-		$g_oSession->Edit();
 
+		$workspaceModel = new WorkspaceModel();
+		$workspaceModel->SetCurrentWorkspace($id);
+		
 		$menuAction = 'menuAction=HomePage.Index';
 
 		if (ob_get_length())

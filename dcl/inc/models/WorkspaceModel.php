@@ -56,4 +56,42 @@ class WorkspaceModel extends DbProvider
 		
 		return array();
 	}
+
+	public function SetCurrentWorkspace($workspace_id, $updateSession = true)
+	{
+		global $g_oSession;
+
+		if ($workspace_id > 0)
+		{
+			$aProducts = $this->GetProducts($workspace_id);
+
+			if (count($aProducts) == 0)
+			{
+				$g_oSession->Unregister('workspace');
+				$g_oSession->Unregister('workspace_products');
+			}
+			else
+			{
+				$sProducts = '';
+				foreach ($aProducts as $row)
+				{
+					if ($sProducts != '')
+						$sProducts .= ',';
+
+					$sProducts .= $row[0];
+				}
+
+				$g_oSession->Register('workspace', $workspace_id);
+				$g_oSession->Register('workspace_products', $sProducts);
+			}
+		}
+		else
+		{
+			$g_oSession->Unregister('workspace');
+			$g_oSession->Unregister('workspace_products');
+		}
+
+		if ($updateSession)
+			$g_oSession->Edit();
+	}
 }

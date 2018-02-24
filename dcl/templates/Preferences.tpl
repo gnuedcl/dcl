@@ -22,6 +22,12 @@
 	{dcl_form_control id=DCL_PREF_CREATED_WATCH_OPTION controlsize=4 label="Watch Activity for Items I Create"}
 	{dcl_select_watch_action name=DCL_PREF_CREATED_WATCH_OPTION default=$VAL_CREATEDWATCHOPTION}
 	{/dcl_form_control}
+{if $PERM_VIEWWORKSPACE}
+	{dcl_form_control id=DCL_PREF_DEFAULT_WORKSPACE controlsize=4 label="Default Workspace"}
+	{dcl_select_workspace name=DCL_PREF_DEFAULT_WORKSPACE default=$DCL_PREF_DEFAULT_WORKSPACE class="form-control input-sm"}
+		<span class="help-block">Select your default workspace to use when you log in.</span>
+	{/dcl_form_control}
+{/if}
 	</fieldset>
 	<fieldset>
 		<div class="row">

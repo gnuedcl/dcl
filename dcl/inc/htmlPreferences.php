@@ -36,6 +36,7 @@ class htmlPreferences
 		$t = new SmartyHelper();
 		
 		$t->assign('PERM_MODIFYCONTACT', $g_oSec->HasPerm(DCL_ENTITY_CONTACT, DCL_PERM_MODIFY) || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN));
+		$t->assign('PERM_VIEWWORKSPACE', HasPermission(DCL_ENTITY_WORKSPACE, DCL_PERM_VIEW));
 		$t->assign('VAL_CONTACTID', $g_oSession->Value('contact_id'));
 		
 		// Reuse methods from here for lang and template
@@ -56,6 +57,7 @@ class htmlPreferences
 				$iOption = 4;
 				
 			$t->assign('VAL_CREATEDWATCHOPTION', $iOption);
+			$t->assign('DCL_PREF_DEFAULT_WORKSPACE', $oPrefs->Value('DCL_PREF_DEFAULT_WORKSPACE'));
 		}
 
 		$t->assign('CMB_DEFAULTLANGUAGE', $o->GetLangCombo('DCL_PREF_LANGUAGE', $lang));
@@ -81,7 +83,8 @@ class htmlPreferences
 			$o->preferences_data = array(
 					'DCL_PREF_LANGUAGE' => $dcl_info['DCL_DEFAULT_LANGUAGE'],
 					'DCL_PREF_NOTIFY_DEFAULT' => 'N',
-					'DCL_PREF_CREATED_WATCH_OPTION' => 4
+					'DCL_PREF_CREATED_WATCH_OPTION' => 4,
+					'DCL_PREF_DEFAULT_WORKSPACE' => 0
 				);
 
 			$o->Add();
