@@ -54,11 +54,6 @@ class PreferencesModel extends DbProvider
 		return $iRetVal;
 	}
 
-	public function Delete($aID)
-	{
-		return parent::Delete(array('personnel_id' => $this->personnel_id));
-	}
-
 	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		$iRetVal = parent::Load(array('personnel_id' => $id), false);

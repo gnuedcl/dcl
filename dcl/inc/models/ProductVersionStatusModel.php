@@ -31,9 +31,4 @@ class ProductVersionStatusModel extends DbProvider
 		
 		parent::Clear();
 	}
-	
-	public function Load($jcn, $seq)
-	{
-		return parent::Load(array('entity_id' => $jcn, 'entity_id2' => $seq));
-	}
 }

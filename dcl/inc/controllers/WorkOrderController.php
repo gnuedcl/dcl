@@ -854,7 +854,7 @@ class WorkOrderController
 		RequirePermission(DCL_ENTITY_WORKORDER, DCL_PERM_SEARCH);
 
 		$savedSearchesModel = new SavedSearchesModel();
-		if ($savedSearchesModel->Load($id) == -1)
+		if ($savedSearchesModel->Load(array('viewid' => $id)) == -1)
 			throw new InvalidEntityException();
 
 		$sqlQueryHelper = new WorkOrderSqlQueryHelper();

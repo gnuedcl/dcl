@@ -48,7 +48,7 @@ if (isset($_COOKIE['DCLINFO']))
 				$oSecAuditDB->Add();
 			}
 
-			$g_oSession->Delete($g_oSession->dcl_session_id);
+			$g_oSession->Delete(array('dcl_session_id' => $g_oSession->dcl_session_id));
 			$g_oSession->Clear();
 		}
 	}

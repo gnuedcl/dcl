@@ -86,11 +86,11 @@ class FaqQuestionPresenter
 			throw new InvalidArgumentException();
 
 		$faqTopicsModel = new FaqTopicsModel();
-		if ($faqTopicsModel->Load($model->topicid) == -1)
+		if ($faqTopicsModel->Load(array('topicid' => $model->topicid)) == -1)
 		    return;
 
 		$faqModel = new FaqModel();
-		if ($faqModel->Load($faqTopicsModel->faqid) == -1)
+		if ($faqModel->Load(array('faqid' => $faqTopicsModel->faqid)) == -1)
 		    return;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_FAQ, DCL_PERM_VIEW, $faqModel->faqid))
@@ -113,7 +113,7 @@ class FaqQuestionPresenter
 		{
 		    return;
 		}
-		
+
 		$aRecords = array();
 		while ($faqAnswersModel->next_record())
 		{
@@ -121,7 +121,7 @@ class FaqQuestionPresenter
 		}
 		
 		$smartyHelper->assign('VAL_ANSWERS', $aRecords);
-		
+
 		$smartyHelper->Render('FaqquestionsDetail.tpl');
 	}
 }

@@ -47,4 +47,3 @@ class StatusModel extends DbProvider
 		return $db->ExecuteScalar("select dcl_status_type from statuses where id=$id");
 	}
 }
-?>

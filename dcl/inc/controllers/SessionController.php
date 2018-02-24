@@ -33,7 +33,7 @@ class SessionController
 
 		$model = new SessionModel();
 		$model->dcl_session_id = $_REQUEST['session_id'];
-		$model->Delete();
+		$model->Delete(array('dcl_session_id' => $model->dcl_session_id));
 
 		SetRedirectMessage('Success', 'Session deleted.');
 		RedirectToAction('Session', 'Index');

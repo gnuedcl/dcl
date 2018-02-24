@@ -33,16 +33,6 @@ class SavedSearchesModel extends DbProvider
 		parent::Clear();
 	}
 
-	public function Delete($aID)
-	{
-		return parent::Delete(array('viewid' => $this->viewid));
-	}
-
-	public function Load($id, $bTriggerErrorIfNotFound = true)
-	{
-		return parent::Load(array('viewid' => $id));
-	}
-	
 	public function ListByUser($user_id, $entity_id)
 	{
 		$sTable = 'workorders';

@@ -51,9 +51,4 @@ class WorkOrderTimesheetModel extends DbProvider
 	{
 		// nothing to do here - the whole thing is the key!
 	}
-
-	public function Delete($personnel_id, $wo_id, $seq)
-	{
-		parent::Delete(array('personnel_id' => $personnel_id, 'wo_id' => $wo_id, 'seq' => $seq));
-	}
 }

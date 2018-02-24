@@ -35,7 +35,7 @@ class htmlTicketSearches
 		}
 		
 		$oDB = new SavedSearchesModel();
-		if ($oDB->Load($id) != -1)
+		if ($oDB->Load(array('viewid' => $id)) != -1)
 		{
 			$oView = new boView();
 			$oView->SetFromURLString($oDB->viewurl);

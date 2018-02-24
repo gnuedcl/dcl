@@ -164,7 +164,7 @@ class PersonnelController
 
 		if (!$model->HasFKRef($id))
 		{
-			$model->Delete();
+			$model->Delete(array('id' => $id));
 			SetRedirectMessage('Success', 'The user was deleted successfully.');
 		}
 		else

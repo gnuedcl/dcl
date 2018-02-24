@@ -32,7 +32,7 @@ class OrganizationTypeXrefModel extends DbProvider
 		parent::Clear();
 	}
 	
-	public function Edit($organizationId, array $orgTypes)
+	public function Delsert($organizationId, array $orgTypes)
 	{
 		$organizationId = @Filter::RequireInt($organizationId);
 		$orgTypes = @Filter::RequireIntArray($orgTypes);

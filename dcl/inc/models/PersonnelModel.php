@@ -68,11 +68,6 @@ class PersonnelModel extends DbProvider
 		return $this->Execute($query);
 	}
 
-	public function Delete($aID)
-	{
-		return parent::Delete(array('id' => $this->id));
-	}
-
 	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		return parent::Load(array('id' => $id), $bTriggerErrorIfNotFound);

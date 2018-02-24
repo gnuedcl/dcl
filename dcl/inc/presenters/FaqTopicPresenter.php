@@ -92,7 +92,7 @@ class FaqTopicPresenter
 			throw new PermissionDeniedException();
 
 		$faqModel = new FaqModel();
-		if ($faqModel->Load($obj->faqid) == -1)
+		if ($faqModel->Load(array('faqid' => $obj->faqid)) == -1)
 		{
 		    return;
 		}

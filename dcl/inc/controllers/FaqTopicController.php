@@ -30,7 +30,7 @@ class FaqTopicController extends AbstractController
 
 		$faqId = @Filter::RequireInt($_REQUEST['faqid']);
 		$faqModel = new FaqModel();
-		if ($faqModel->Load($faqId) == -1)
+		if ($faqModel->Load(array('faqid' => $faqId)) == -1)
 		{
 			printf(STR_BO_CANNOTLOADFAQ, $faqId);
 			return;
@@ -46,7 +46,7 @@ class FaqTopicController extends AbstractController
 
 		$faqId = @Filter::RequireInt($_REQUEST['faqid']);
 		$faqModel = new FaqModel();
-		if ($faqModel->Load($faqId) == -1)
+		if ($faqModel->Load(array('faqid' => $faqId)) == -1)
 		{
 			printf(STR_BO_CANNOTLOADFAQ, $faqId);
 			return;
@@ -69,7 +69,7 @@ class FaqTopicController extends AbstractController
 
 		$topicId = @Filter::RequireInt($_REQUEST['topicid']);
 		$faqTopicsModel = new FaqTopicsModel();
-		if ($faqTopicsModel->Load($topicId) == -1)
+		if ($faqTopicsModel->Load(array('topicid' => $topicId)) == -1)
 			return;
 			
 		$presenter = new FaqTopicPresenter();
@@ -82,7 +82,7 @@ class FaqTopicController extends AbstractController
 
 		$faqId = @Filter::RequireInt($_POST['faqid']);
 		$faqModel = new FaqModel();
-		if ($faqModel->Load($faqId) == -1)
+		if ($faqModel->Load(array('faqid' => $faqId)) == -1)
 		{
 			printf(STR_BO_CANNOTLOADFAQ, $faqId);
 			return;
@@ -106,7 +106,7 @@ class FaqTopicController extends AbstractController
 		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId);
 		
 		$faqTopicsModel = new FaqTopicsModel();
-		if ($faqTopicsModel->Load($topicId) == -1)
+		if ($faqTopicsModel->Load(array('topicid' => $topicId)) == -1)
 			return;
 		
 		$presenter = new FaqTopicPresenter();
@@ -120,11 +120,11 @@ class FaqTopicController extends AbstractController
 		RequirePermission(DCL_ENTITY_FAQTOPIC, DCL_PERM_DELETE, $topicId);
 
 		$faqTopicsModel = new FaqTopicsModel();
-		if ($faqTopicsModel->Load($topicId) == -1)
+		if ($faqTopicsModel->Load(array('topicid' => $topicId)) == -1)
 			return;
 			
 		$faqId = $faqTopicsModel->faqid;
-		$faqTopicsModel->Delete($topicId);
+		$faqTopicsModel->Delete(array('topicid' => $topicId));
 		
 		SetRedirectMessage('Success', 'Topic deleted successfully.');
 		RedirectToAction('Faq', 'Detail', 'faqid=' . $faqId);
@@ -141,7 +141,7 @@ class FaqTopicController extends AbstractController
 
 		$topicId = @Filter::RequireInt($_REQUEST['topicid']);
 		$faqTopicsModel = new FaqTopicsModel();
-		if ($faqTopicsModel->Load($topicId) == -1)
+		if ($faqTopicsModel->Load(array('topicid' => $topicId)) == -1)
 			return;
 
 		$presenter = new FaqTopicPresenter();

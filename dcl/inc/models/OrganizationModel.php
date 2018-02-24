@@ -41,16 +41,16 @@ class OrganizationModel extends DbProvider
 		
 		parent::Edit(array('created_on', 'created_by'));
 	}
-	
-	public function Delete($id)
+
+	public function Delete($aID)
 	{
 		RequirePermission(DCL_ENTITY_ORG, DCL_PERM_DELETE);
-		$id = @Filter::RequireInt($id);
 
 		$this->BeginTransaction();
 		
 		try
 		{
+			$id = $aID['org_id'];
 			if (!$this->HasFKRef($id))
 			{
 				$this->Execute("DELETE FROM dcl_org_addr WHERE org_id = $id");
@@ -62,7 +62,7 @@ class OrganizationModel extends DbProvider
 				$this->Execute("DELETE FROM dcl_org_type_xref WHERE org_id = $id");
 			}
 
-			parent::Delete(array('org_id' => $id));
+			parent::Delete($aID);
 			
 			$this->EndTransaction();
 		}

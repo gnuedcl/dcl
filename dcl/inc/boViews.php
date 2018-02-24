@@ -78,7 +78,7 @@ class boViews
 		}
 		
 		$obj = new SavedSearchesModel();
-		if ($obj->Load($iID) == -1)
+		if ($obj->Load(array('viewid' => $iID)) == -1)
 			return;
 			
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_DELETE, $iID))
@@ -105,7 +105,7 @@ class boViews
 		}
 		
 		$obj = new SavedSearchesModel();
-		if ($obj->Load($iID) == -1)
+		if ($obj->Load(array('viewid' => $iID)) == -1)
 			return;
 
 		if (!$g_oSec->HasPerm(DCL_ENTITY_SAVEDSEARCH, DCL_PERM_DELETE, $iID))
@@ -117,7 +117,7 @@ class boViews
 			
 		if ($obj->whoid == DCLID || $g_oSec->HasPerm(DCL_ENTITY_GLOBAL, DCL_PERM_ADMIN))
 		{
-			$obj->Delete($iID);
+			$obj->Delete(array('viewid' => $iID));
 			print(STR_BO_DELETED);
 		}
 		else
@@ -136,7 +136,7 @@ class boViews
 		}
 		
 		$objDB = new SavedSearchesModel();
-		if ($objDB->Load($iID) == -1)
+		if ($objDB->Load(array('viewid' => $iID)) == -1)
 			return;
 
 		if ($objDB->ispublic == 'N' && $objDB->whoid != DCLID)

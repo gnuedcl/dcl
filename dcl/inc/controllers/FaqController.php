@@ -61,7 +61,7 @@ class FaqController extends AbstractController
 			throw new InvalidDataException();
 		
 		$model = new FaqModel();
-		if ($model->Load($faqId) == -1)
+		if ($model->Load(array('faqid' => $faqId)) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new FaqPresenter();
@@ -90,13 +90,11 @@ class FaqController extends AbstractController
 
 	public function Delete()
 	{
-		global $g_oSec;
-		
 		if (($iID = @Filter::ToInt($_REQUEST['faqid'])) === null)
 			throw new InvalidDataException();
 		
 		$model = new FaqModel();
-		if ($model->Load($iID) == -1)
+		if ($model->Load(array('faqid' => $iID)) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new FaqPresenter();
@@ -114,10 +112,10 @@ class FaqController extends AbstractController
 			throw new PermissionDeniedException();
 
 		$model = new FaqModel();
-		if ($model->Load($faqId) == -1)
+		if ($model->Load(array('faqid' => $faqId)) == -1)
 			throw new InvalidEntityException();
 
-		$model->Delete($faqId);
+		$model->Delete(array('faqid' => $faqId));
 
 		SetRedirectMessage('Success', 'FAQ deleted successfully.');
 		RedirectToAction('Faq', 'Index');
@@ -129,7 +127,7 @@ class FaqController extends AbstractController
 			throw new InvalidDataException();
 		
 		$model = new FaqModel();
-		if ($model->Load($faqId) == -1)
+		if ($model->Load(array('faqid' => $faqId)) == -1)
 			throw new InvalidEntityException();
 
 		$presenter = new FaqPresenter();

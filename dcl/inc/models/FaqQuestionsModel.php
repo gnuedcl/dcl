@@ -70,7 +70,7 @@ class FaqQuestionsModel extends DbProvider
 		}
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		if ($this->AdjustSeq($this->seq, $this->questionid) == -1)
 		{
@@ -82,20 +82,15 @@ class FaqQuestionsModel extends DbProvider
 		return parent::Edit(array('createby', 'createon'));
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		$o = new FaqAnswersModel();
-		if ($o->DeleteByQuestion($this->questionid) == -1)
+		if ($o->DeleteByQuestion($aID['questionid']) == -1)
 		{
 			return -1;
 		}
 		
-		return parent::Delete(array('questionid' => $this->questionid));
-	}
-
-	public function Load($id)
-	{
-		return parent::Load(array('questionid' => $id));
+		return parent::Delete($aID);
 	}
 
 	public function LoadByFaqTopicID($id, $orderby = 'seq')
@@ -136,8 +131,7 @@ class FaqQuestionsModel extends DbProvider
 		
 		while ($oDB->next_record())
 		{
-			$this->questionid = $this->f(0);
-			if ($this->Delete() == -1)
+			if ($this->Delete(array('questionid' => $this->f(0))) == -1)
 			{
 				return -1;
 			}

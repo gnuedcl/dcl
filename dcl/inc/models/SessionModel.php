@@ -64,11 +64,6 @@ class SessionModel extends DbProvider
 		$this->session_data = $aSessionDataCopy;
 	}
 
-	public function Delete($aID)
-	{
-		parent::Delete(array('dcl_session_id' => $this->dcl_session_id));
-	}
-
 	public function Load($id, $bTriggerErrorIfNotFound = true)
 	{
 		global $dcl_info;

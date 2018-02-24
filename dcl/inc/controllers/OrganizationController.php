@@ -91,7 +91,7 @@ class OrganizationController
 		$orgTypes = @Filter::ToIntArray($_POST['org_type_id']);
 		
 		$organizationTypeXrefModel = new OrganizationTypeXrefModel();
-		$organizationTypeXrefModel->Edit($organizationId, $orgTypes);
+		$organizationTypeXrefModel->Delsert($organizationId, $orgTypes);
 						
 		SetRedirectMessage('Success', 'Organization updated successfully.');
 		RedirectToAction('Organization', 'Detail', 'org_id=' . $organizationId);
@@ -118,7 +118,7 @@ class OrganizationController
 		$organizationId = @Filter::RequireInt($_POST['id']);
 		
 		$organizationModel = new OrganizationModel();
-		$organizationModel->Delete($organizationId);
+		$organizationModel->Delete(array('org_id' => $organizationId));
 
 		SetRedirectMessage('Success', 'Organization deleted successfully.');
 		RedirectToAction('htmlOrgBrowse', 'show', 'filterActive=Y');

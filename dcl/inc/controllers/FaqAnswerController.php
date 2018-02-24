@@ -37,7 +37,7 @@ class FaqAnswerController extends AbstractController
 		}
 		
 		$faqQuestionsModel = new FaqQuestionsModel();
-		if ($faqQuestionsModel->Load($questionId) == -1)
+		if ($faqQuestionsModel->Load(array('questionid' => $questionId)) == -1)
 		{
 			printf(STR_BO_CANNOTLOADQUESTION, $questionId);
 			return;
@@ -60,7 +60,7 @@ class FaqAnswerController extends AbstractController
 		}
 		
 		$faqQuestionsModel = new FaqQuestionsModel();
-		if ($faqQuestionsModel->Load($questionId) == -1)
+		if ($faqQuestionsModel->Load(array('questionid' => $questionId)) == -1)
 		{
 			printf(STR_BO_CANNOTLOADQUESTION, $questionId);
 			return;
@@ -90,7 +90,7 @@ class FaqAnswerController extends AbstractController
 		}
 		
 		$model = new FaqAnswersModel();
-		if ($model->Load($answerId) == -1)
+		if ($model->Load(array('answerid' => $answerId)) == -1)
 			return;
 			
 		$presenter = new FaqAnswerPresenter();
@@ -110,7 +110,7 @@ class FaqAnswerController extends AbstractController
 		}
 		
 		$faqQuestionsModel = new FaqQuestionsModel();
-		if ($faqQuestionsModel->Load($questionId) == -1)
+		if ($faqQuestionsModel->Load(array('questionid' => $questionId)) == -1)
 		{
 			return;
 		}
@@ -139,7 +139,7 @@ class FaqAnswerController extends AbstractController
 			throw new PermissionDeniedException();
 
 		$faqAnswersModel = new FaqAnswersModel();
-		if ($faqAnswersModel->Load($answerId) == -1)
+		if ($faqAnswersModel->Load(array('answerid' => $answerId)) == -1)
 			return;
 			
 		$presenter = new FaqAnswerPresenter();
@@ -159,14 +159,14 @@ class FaqAnswerController extends AbstractController
 			throw new PermissionDeniedException();
 
 		$faqAnswersModel = new FaqAnswersModel();
-		if ($faqAnswersModel->Load($answerId) == -1)
+		if ($faqAnswersModel->Load(array('answerid' => $answerId)) == -1)
 			return;
 			
 		$questionId = $faqAnswersModel->questionid;
-		$faqAnswersModel->Delete($answerId);
+		$faqAnswersModel->Delete(array('answerid' => $this->answerId));
 		
 		$faqQuestionsModel = new FaqQuestionsModel();
-		if ($faqQuestionsModel->Load($questionId) == -1)
+		if ($faqQuestionsModel->Load(array('questionid' => $questionId)) == -1)
 		{
 			return -1;
 		}

@@ -38,21 +38,11 @@ class FaqAnswersModel extends DbProvider
 		return parent::Add();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		$this->modifyby = DCLID;
 		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
-	}
-
-	public function Delete()
-	{
-		return parent::Delete(array('answerid' => $this->answerid));
-	}
-
-	public function Load($id)
-	{
-		return parent::Load(array('answerid' => $id));
 	}
 
 	public function LoadByQuestionID($id, $orderby = 'createon desc')
@@ -93,11 +83,8 @@ class FaqAnswersModel extends DbProvider
 		
 		while ($oDB->next_record())
 		{
-			$this->answerid = $this->f(0);
-			if ($this->Delete() == -1)
-			{
+			if ($this->Delete(array('answerid' => $this->f(0))) == -1)
 				return -1;
-			}
 		}
 		
 		return 1;

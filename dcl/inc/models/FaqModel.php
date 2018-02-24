@@ -42,23 +42,18 @@ class FaqModel extends DbProvider
 		return parent::Add();
 	}
 
-	public function Edit()
+	public function Edit($aIgnoreFields = '')
 	{
 		$this->modifyby = DCLID;
 		$this->modifyon = DCL_NOW;
 		return parent::Edit(array('createby', 'createon'));
 	}
 
-	public function Delete()
+	public function Delete($aID)
 	{
 		$oDB = new FaqTopicsModel();
-		$oDB->DeleteByFaq($this->faqid);
+		$oDB->DeleteByFaq($aID['faqid']);
 		
-		return parent::Delete(array('faqid' => $this->faqid));
-	}
-
-	public function Load($id)
-	{
-		return parent::Load(array('faqid' => $id));
+		return parent::Delete($aID);
 	}
 }
