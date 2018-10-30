@@ -276,7 +276,7 @@ class WorkOrderCriteriaModel
 		if (count($this->DclStatusType) > 0)
 			$view->AddDef('filter', 'statuses.dcl_status_type', $this->DclStatusType);
 
-		if (count($this->Project) > 0)
+		if (@count($this->Project) > 0)
 			$view->AddDef('filter', 'dcl_projects.projectid', $this->Project);
 
 		if ($this->DateFrom != '' || $this->DateTo != '')
