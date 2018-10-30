@@ -22,7 +22,18 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-@set_magic_quotes_runtime(0);
+if (function_exists('set_magic_quotes_runtime'))
+{
+	@set_magic_quotes_runtime(0);
+}
+if(!function_exists('get_magic_quotes_gpc')) {
+	function get_magic_quotes_gpc() {
+		return false;
+	}
+	function get_magic_quotes_runtime() {
+		return false;
+	}
+}
 
 class TextSanitizer
 {
