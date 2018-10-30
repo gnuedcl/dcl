@@ -50,7 +50,6 @@ class DbProvider extends AbstractDbProvider
 
 		if ($conn == '')
 		{
-			//if (!defined('DCL_DB_CONN'))
 			if(@!defined($GLOBALS['DCL_DB_CONN']))
 			{
 				$this->conn = @pg_connect(sprintf("dbname='%s' port='%s' host='%s' user='%s' password='%s' options='--client_encoding=UTF8'",
@@ -60,12 +59,9 @@ class DbProvider extends AbstractDbProvider
 							$dcl_domain_info[$dcl_domain]['dbUser'],
 							$dcl_domain_info[$dcl_domain]['dbPassword']));
 				@$GLOBALS['DCL_DB_CONN'] = $this->conn; // DAV
-
-				//define('DCL_DB_CONN', $this->conn);
 			}
 			else
 				@$this->conn = $GLOBALS['DCL_DB_CONN'];
-				//$this->conn = DCL_DB_CONN; // DAV
 		}
 		//else
 			//$this->conn = $conn;
