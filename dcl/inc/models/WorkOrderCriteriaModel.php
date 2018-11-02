@@ -123,6 +123,10 @@ class WorkOrderCriteriaModel
 			$this->Order = explode(',', $this->Order);
 		else
 			$this->Order = array();
+		
+		//TODO DAV - As of PHP7 warning are given parameters that aren't arrays or don't implement Countable
+		// This needs to be fixed properly, this is just a hack to suppres the warning for now. DAV 02NOV18
+		error_reporting(E_ALL ^ E_WARNING); 
 
 		if (count($this->Personnel) > 0 || count($this->Department) > 0)
 		{
@@ -276,7 +280,7 @@ class WorkOrderCriteriaModel
 		if (count($this->DclStatusType) > 0)
 			$view->AddDef('filter', 'statuses.dcl_status_type', $this->DclStatusType);
 
-		if (@count($this->Project) > 0)
+		if (count($this->Project) > 0)
 			$view->AddDef('filter', 'dcl_projects.projectid', $this->Project);
 
 		if ($this->DateFrom != '' || $this->DateTo != '')
