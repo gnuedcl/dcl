@@ -273,7 +273,10 @@ class setting_manager {
 			$retVal[] = 'mysql';
 
 		if (function_exists('mssql_connect'))
-			$retVal[] = 'mssql';
+            $retVal[] = 'mssql';
+
+        if (function_exists('sqlsrv_connect'))
+			$retVal[] = 'sqlsrv';    
 
 		if (function_exists('sybase_connect'))
 			$retVal[] = 'sybase';
