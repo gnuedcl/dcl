@@ -55,7 +55,9 @@ class DbProvider extends AbstractDbProvider
 				$connInfo = array(
 					"UID" => $dcl_domain_info[$dcl_domain]['dbUser'],
 					"PWD" => $dcl_domain_info[$dcl_domain]['dbPassword'],
-					"Database" => $dcl_domain_info[$dcl_domain]['dbName']);
+					"Database" => $dcl_domain_info[$dcl_domain]['dbName'],
+					"ReturnDatesAsStrings" =>true
+				);
 
 				$this->conn = sqlsrv_connect($dcl_domain_info[$dcl_domain]['dbHost'], $connInfo);
 
@@ -163,13 +165,16 @@ class DbProvider extends AbstractDbProvider
 
 		if ($this->conn)
 		{
-			@$this->res = sqlsrv_query($this->conn, $query);
+			$params = array();
+			$options = array("Scrollable" => SQLSRV_CURSOR_CLIENT_BUFFERED);
+
+			@$this->res = sqlsrv_query($this->conn, $query,$params,$options);
 			if ($this->res)
 			{
 				$this->cur = $offset;
 				// Push cursor to appropriate row in case next_record() is used
 				if ($offset > 0)
-					@sqlsrv_fetch($this->res,SQLSRV_SCROLL_RELATIVE,$offset);
+					@sqlsrv_fetch($this->res,SQLSRV_SCROLL_ABSOLUTE,$offset);
 					//@sqlsrv_data_seek($this->res, $offset);
 
 				$this->vcur = $offset + $rows - 1;
@@ -326,7 +331,7 @@ class DbProvider extends AbstractDbProvider
 		if ($this->cur == -1)
 			$this->cur = 0;
 
-		while ($a = @sqlsrv_fetch($this->res))
+		while ($a = @sqlsrv_fetch_array($this->res))
 		{
 			$this->cur++;
 			$retVal[$i++] = $a;
