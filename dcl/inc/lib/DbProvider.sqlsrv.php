@@ -183,6 +183,19 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
+				// DAV
+				function sqlsrv_get_last_message(): string
+				{    
+					if( ($errors = sqlsrv_errors() ) != null) {
+						foreach( $errors as $error ) {
+							return $error['message'];
+			//				echo "SQLSTATE: ".$error[ 'SQLSTATE']."<br />";
+			//				echo "code: ".$error[ 'code']."<br />";
+			//				echo "message: ".$error[ 'message']."<br />";
+						}
+					}
+					return "No Message";
+				}
 				LogError('Server Returned: [' . sqlsrv_get_last_message() . '] for query: ' . $query, __FILE__, __LINE__, debug_backtrace());
 				return -1;
 			}
@@ -301,7 +314,8 @@ class DbProvider extends AbstractDbProvider
 			$this->cur = 0;
 
 		if ($this->vcur == -1 || ($this->cur++ <= $this->vcur))
-			$this->Record = @sqlsrv_fetch_array($this->res);
+		$this->Record = @sqlsrv_fetch_array($this->res);	
+		//$this->Record = @sqlsrv_fetch_array($this->res,SQLSRV_FETCH_NUMERIC);//DAV
 		else
 			$this->Record = NULL;
 
@@ -331,7 +345,7 @@ class DbProvider extends AbstractDbProvider
 		if ($this->cur == -1)
 			$this->cur = 0;
 
-		while ($a = @sqlsrv_fetch_array($this->res))
+		while ($a = @sqlsrv_fetch_array($this->res,SQLSRV_FETCH_NUMERIC))
 		{
 			$this->cur++;
 			$retVal[$i++] = $a;
@@ -355,7 +369,8 @@ class DbProvider extends AbstractDbProvider
 		$res = sqlsrv_query($this->conn,'SELECT @@identity');
 		if ($res)
 		{
-			$Record = @sqlsrv_fetch_array($res);
+			//$Record = @sqlsrv_fetch_array($res);
+			$Record = @sqlsrv_fetch_array($res,SQLSRV_FETCH_NUMERIC); //DAV
 			sqlsrv_free_stmt($res);
 			return $Record[0];
 		}
