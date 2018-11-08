@@ -831,7 +831,8 @@ function DclExceptionHandler($ex)
 	exit(255);
 }
 
-error_reporting(E_ALL ^ E_STRICT);
+//error_reporting(E_ALL ^ E_STRICT);
+error_reporting(E_ALL ^ E_WARNING); // DAV - Too many warnings logged in PHP7, fix later...
 
 if (!defined('DCL_DEBUG') && !defined('DCL_INSTALLER_RUNNING'))
 {

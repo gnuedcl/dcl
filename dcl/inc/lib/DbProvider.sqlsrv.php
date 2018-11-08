@@ -139,6 +139,8 @@ class DbProvider extends AbstractDbProvider
 
 		if ($this->conn)
 		{
+			if(strpos($query,"||") !== false)
+				$query = str_replace("||","+",$query); //DAV - Probably not called (one below in LimitQuery is though)
 			$this->res = sqlsrv_query($this->conn, $query);
 			if ($this->res)
 			{
@@ -167,7 +169,8 @@ class DbProvider extends AbstractDbProvider
 		{
 			$params = array();
 			$options = array("Scrollable" => SQLSRV_CURSOR_CLIENT_BUFFERED);
-
+			if(strpos($query,"||") !== false)
+				$query = str_replace("||","+",$query); //DAV - Required as SqlServer uses + for string concatenation.
 			@$this->res = sqlsrv_query($this->conn, $query,$params,$options);
 			if ($this->res)
 			{
@@ -183,7 +186,7 @@ class DbProvider extends AbstractDbProvider
 			}
 			else
 			{
-				// DAV
+				// DAV - Limited simulation of the mssql_get_last_message() call
 				function sqlsrv_get_last_message(): string
 				{    
 					if( ($errors = sqlsrv_errors() ) != null) {
