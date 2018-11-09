@@ -333,7 +333,7 @@ class DbProvider extends AbstractDbProvider
 	{
 		if ($this->res)
 			if($md = sqlsrv_field_metadata($this->res))
-				return $md[0]["Name"];
+				return $md[$fieldIndex]["Name"];
 
 			//return sqlsrv_field_name($this->res, $fieldIndex);
 
