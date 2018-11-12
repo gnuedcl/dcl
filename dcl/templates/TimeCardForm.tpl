@@ -119,7 +119,7 @@
 	$(document).ready(function() {
 		$("textarea").BetterGrow();
 		$("#content").find("select").select2({ minimumResultsForSearch: 10 });
-		$("input[data-input-type=date]").datepicker();
+		$("input[data-input-type=date]").datepicker({ dateFormat: "{$VAL_JSDATEFORMAT}"});
 		$("#hours").on("blur", function() {
 			updateEtc($(this).get(0).form);
 		});
