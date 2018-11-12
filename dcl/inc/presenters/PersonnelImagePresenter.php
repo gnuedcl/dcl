@@ -90,8 +90,14 @@ class PersonnelImagePresenter
 				
 		$this->_imageHelper->Chart->drawGraphAreaGradient(250, 250, 250, 50, TARGET_BACKGROUND);
 
-		$this->_imageHelper->Chart->drawPieGraph($this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 150, 110, 110, PIE_PERCENTAGE, true, 50, 20, 5);
-		$this->_imageHelper->Chart->drawPieLegend(310, 30, $this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 250, 250, 250);
+		// Try to avoid 'Only variables should be passed by reference' error
+		$GD = $this->_imageHelper->Data->GetData();
+		$GDD = $this->_imageHelper->Data->GetDataDescription();
+		$this->_imageHelper->Chart->drawPieGraph($GD, $GDD, 150, 110, 110, PIE_PERCENTAGE, true, 50, 20, 5);
+		$this->_imageHelper->Chart->drawPieLegend(310, 30, $GD, $GDD, 250, 250, 250);
+
+//		$this->_imageHelper->Chart->drawPieGraph($this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 150, 110, 110, PIE_PERCENTAGE, true, 50, 20, 5);
+//		$this->_imageHelper->Chart->drawPieLegend(310, 30, $this->_imageHelper->Data->GetData(), $this->_imageHelper->Data->GetDataDescription(), 250, 250, 250);
 		$this->_imageHelper->Chart->drawTextBox(0, 0, 540, 20, $sTitle, 0, 255, 255, 255, ALIGN_CENTER, true, 0, 0, 0, 40);
 		$this->_imageHelper->Chart->addBorder(2);
 		
