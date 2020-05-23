@@ -93,6 +93,11 @@ class WorkOrderCriteriaModel
 		$this->SearchEstEndOn = false;
 		$this->SearchStartOn = false;
 	}
+
+	private static function ArrayHasContent($subject)
+    {
+	    return is_array($subject) && count($subject) > 0;
+    }
 	
 	/**
 	 *
@@ -124,7 +129,7 @@ class WorkOrderCriteriaModel
 		else
 			$this->Order = array();
 
-		if (count($this->Personnel) > 0 || count($this->Department) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Personnel) || WorkOrderCriteriaModel::ArrayHasContent($this->Department))
 		{
 			$fieldList = array('responsible', 'createby', 'closedby');
 			$bStrippedDepartments = false;
@@ -172,30 +177,30 @@ class WorkOrderCriteriaModel
 						$view->AddDef('filter', $field, $pers_sel);
 				}
 
-				if (count($this->Department) > 0)
+				if (WorkOrderCriteriaModel::ArrayHasContent($this->Department))
 					$view->AddDef('filter', $field . '.department', $this->Department);
 			}
 		}
 		
-		if (count($this->Priority) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Priority))
 			$view->AddDef('filter', 'priority', $this->Priority);
 
-		if (count($this->Severity) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Severity))
 			$view->AddDef('filter', 'severity', $this->Severity);
 
-		if (count($this->WoTypeId) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->WoTypeId))
 			$view->AddDef('filter', 'wo_type_id', $this->WoTypeId);
 
-		if (count($this->EntitySourceId) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->EntitySourceId))
 			$view->AddDef('filter', 'entity_source_id', $this->EntitySourceId);
 
-		if (count($this->Tags) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Tags))
 			$view->AddDef('filter', 'dcl_tag.tag_desc', $this->Tags);
 
-		if (count($this->Hotlist) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Hotlist))
 			$view->AddDef('filter', 'dcl_hotlist.hotlist_tag', $this->Hotlist);
 
-		if (count($this->IsPublic) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->IsPublic))
 		{
 			foreach ($this->IsPublic as $publicValue)
 			{
@@ -204,7 +209,7 @@ class WorkOrderCriteriaModel
 			}
 		}
 
-		if (count($this->ModuleId) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->ModuleId))
 		{
 			// Have modules?  If so, only set module IDs for their associated products instead of the product ID
 			// then unset the product id from the array
@@ -213,7 +218,7 @@ class WorkOrderCriteriaModel
 			{
 				list($mod_prod_id, $mod_id) = explode(',', $encoded_mod);
 				$module[count($module)] = $mod_id;
-				if (count($this->Product) > 0 && in_array($mod_prod_id, $this->Product))
+				if (WorkOrderCriteriaModel::ArrayHasContent($this->Product) && in_array($mod_prod_id, $this->Product))
 				{
 					foreach ($this->Product as $key => $product_id)
 					{
@@ -230,7 +235,7 @@ class WorkOrderCriteriaModel
 		}
 
 		$g_oSession->Unregister('showBM');
-		if (count($this->Product) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Product))
 		{
 			$view->AddDef('filter', 'product', $this->Product);
 		}
@@ -240,7 +245,7 @@ class WorkOrderCriteriaModel
 		if (($this->DclStatusType = Filter::ToIntArray($this->DclStatusType)) === null)
 			$this->DclStatusType = array();
 			
-		if (count($this->Status) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Status))
 		{
 			// Have statuses?  If so, only set status IDs for their associated types instead of the status type ID
 			// then unset the status type id from the array
@@ -252,7 +257,7 @@ class WorkOrderCriteriaModel
 				if (($type_id = Filter::ToInt($type_id)) !== null && ($status_id = Filter::ToInt($status_id)) !== null)
 				{
 					$statuses[count($statuses)] = $status_id;
-					if (count($this->DclStatusType) > 0 && in_array($type_id, $this->DclStatusType))
+					if (WorkOrderCriteriaModel::ArrayHasContent($this->DclStatusType) && in_array($type_id, $this->DclStatusType))
 					{
 						foreach ($this->DclStatusType as $key => $status_type_id)
 						{
@@ -269,14 +274,14 @@ class WorkOrderCriteriaModel
 			$view->AddDef('filter', 'status', $statuses);
 		}
 
-		if (count($this->Account) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Account))
 			$view->AddDef('filter', 'dcl_wo_account.account_id', $this->Account);
 
 		// already sanitized this one above
-		if (count($this->DclStatusType) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->DclStatusType))
 			$view->AddDef('filter', 'statuses.dcl_status_type', $this->DclStatusType);
 
-		if (count($this->Project) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Project))
 			$view->AddDef('filter', 'dcl_projects.projectid', $this->Project);
 
 		if ($this->DateFrom != '' || $this->DateTo != '')
@@ -318,10 +323,10 @@ class WorkOrderCriteriaModel
 				$view->AddDef('filterlike', 'description', $this->SearchText);
 		}
 
-		if (count($this->Columns) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Columns))
 			$view->AddDef('columns', '', $this->Columns);
 
-		if (count($this->Groups) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Groups))
 		{
 			$groupOrder = array();
 			foreach ($this->Groups as $groupField)
@@ -342,10 +347,10 @@ class WorkOrderCriteriaModel
 			$view->AddDef('groups', '', $groupOrder);
 		}
 
-		if (count($this->ColumnHdrs) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->ColumnHdrs))
 			$view->AddDef('columnhdrs', '', $this->ColumnHdrs);
 
-		if (count($this->Order) > 0)
+		if (WorkOrderCriteriaModel::ArrayHasContent($this->Order))
 		{
 			$orderOrder = array();
 			foreach ($this->Order as $orderField)

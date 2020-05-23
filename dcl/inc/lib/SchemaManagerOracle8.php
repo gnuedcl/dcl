@@ -374,7 +374,7 @@ class SchemaManagerOracle8
 			$sSQL .= ') VALUES (';
 
 			$i = 0;
-			foreach($aTables[$sDest]['fd'] as $name => $arraydef)
+			foreach ($aTables[$sDest]['fd'] as $name => $arraydef)
 			{
 				if ($i++ > 0)
 				{
@@ -613,7 +613,7 @@ class SchemaManagerOracle8
 		}
 
 		$indexnames = $oProc->m_odb->index_names();
-		while(list($key,$val) = @each($indexnames))
+		foreach ($indexnames as $key => $val)
 		{
 			$indexes[] = $val['index_name'];
 		}

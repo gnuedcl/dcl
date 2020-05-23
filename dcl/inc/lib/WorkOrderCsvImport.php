@@ -46,7 +46,7 @@ class WorkOrderCsvImport
 			$moduleId = -1;
 			$workOrderModel->Clear();
 
-			while (list($i, $val) = each($data))
+			foreach ($data as $i => $val)
 			{
 				if (!is_numeric($val))
 				{

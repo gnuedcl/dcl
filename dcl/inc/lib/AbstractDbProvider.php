@@ -162,6 +162,8 @@ abstract class AbstractDbProvider
 		return $this->Record[$sName];
 	}
 
+	public abstract function GetField($thisField);
+
 	/**
 	 * Tests if a field value is NULL
 	 * @param string|integer The field to test for the presence of NULL
@@ -226,10 +228,7 @@ abstract class AbstractDbProvider
 	 */
 	public function GPCStripSlashes($thisString)
 	{
-		if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() == 0)
-			return $thisString;
-
-		return stripslashes($thisString);
+    	return $thisString;
 	}
 
 	/**
@@ -398,16 +397,17 @@ abstract class AbstractDbProvider
 	{
 		$bHasRef = false;
 		$oKey = new DbProvider;
-		reset($this->foreignKeys);
-		while ((list($sTable, $sField) = each($this->foreignKeys)) && !$bHasRef)
+		foreach ($this->foreignKeys as $sTable => $sField)
 		{
 			if (is_array($sField)) // More than one field in here references this key
 			{
-				reset($sField);
-				while ((list($sDummyKey, $sOneField) = each($sField)) && !$bHasRef)
+			    foreach ($sField as $sDummyKey => $sOneField)
 				{
 					if ($oKey->ExecuteScalar("SELECT COUNT(*) FROM $sTable WHERE $sOneField=$id") > 0)
-						$bHasRef = true;
+                    {
+                        $bHasRef = true;
+                        break;
+                    }
 				}
 			}
 			else
@@ -415,6 +415,9 @@ abstract class AbstractDbProvider
 				if ($oKey->ExecuteScalar("SELECT COUNT(*) FROM $sTable WHERE $sField=$id") > 0)
 					$bHasRef = true;
 			}
+
+            if ($bHasRef)
+                break;
 		}
 
 		return $bHasRef;
@@ -986,14 +989,14 @@ abstract class AbstractDbProvider
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	public function Connect($conn = ''){}
+	public abstract function Connect($conn = '');
 	/**
 	 * Execute a row-returning query against the database
 	 * @param string a valid SQL query to execute
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	public function Query($query){}
+	public abstract function Query($query);
 	/**
 	 * Execute a row-returning query against the database and return a partial result based on offset and rows
 	 * @param string a valid SQL query to execute
@@ -1002,96 +1005,96 @@ abstract class AbstractDbProvider
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	public function LimitQuery($query, $offset, $rows){}
+	public abstract function LimitQuery($query, $offset, $rows);
 	/**
 	 * Execute a no row-returning query against the database
 	 * @param string a valid SQL query to execute
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	public function Execute($query){}
+	public abstract function Execute($query);
 	/**
 	 * Execute a row-returning query against the database and return the value of the first field of the first row
 	 * @param string a valid SQL query to execute
 	 * @return mixed value of the first field of the first row
 	 * @abstract
 	 */
-	public function ExecuteScalar($sql){}
+	public abstract function ExecuteScalar($sql);
 	/**
 	 * Execute an insert query against the database
 	 * @param string a valid SQL query to execute to insert a record
 	 * @return integer -1 on error, 0 on success, > 0 for sequence/identity/autonumber fields
 	 * @abstract
 	 */
-	public function Insert($query){}
+	public abstract function Insert($query);
 	/**
 	 * Free the result resource held by {@link $res}
 	 * @abstract
 	 */
-	public function FreeResult(){}
+	public abstract function FreeResult();
 	/**
 	 * Start a SQL transaction
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	public function BeginTransaction(){}
+	public abstract function BeginTransaction();
 	/**
 	 * Commit a SQL transaction
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	public function EndTransaction(){}
+	public abstract function EndTransaction();
 	/**
 	 * Rollback a SQL transaction
 	 * @return integer -1 on error, 0 on success
 	 * @abstract
 	 */
-	public function RollbackTransaction(){}
+	public abstract function RollbackTransaction();
 	/**
 	 * Returns the number of fields in the current result set
 	 * @return integer number of fields in the result set
 	 * @abstract
 	 */
-	public function NumFields(){}
+	public abstract function NumFields();
 	/**
 	 * Retrieves the next record from the result set
 	 * @return boolean true if a record was retrieved, otherwise false
 	 * @abstract
 	 */
-	public function next_record(){}
+	public abstract function next_record();
 	/**
 	 * Gets the name of the field at the specified index
 	 * @param integer ordinal of the field to retrieve the field name for
 	 * @return string the name of the field
 	 * @abstract
 	 */
-	public function GetFieldName($fieldIndex){}
+	public abstract function GetFieldName($fieldIndex);
 	/**
 	 * Returns an array containing all fields and all rows of the current result set
 	 * @return array A two dimensional array of all rows and columns.  Format: array[row][column]
 	 * @abstract
 	 */
-	public function FetchAllRows(){}
+	public abstract function FetchAllRows();
 	/**
 	 * Returns SQL for retrieving the next ID of a table
 	 * @param string the name of the table to retrieve the SQL for
 	 * @return string empty string for no special SQL, or nonempty string for special ID SQL
 	 * @abstract
 	 */
-	public function GetNewIDSQLForTable($tableName){}
+	public abstract function GetNewIDSQLForTable($tableName);
 	/**
 	 * Returns a SQL command to get the current date/time
 	 * @return string SQL command to get the current date/time
 	 * @abstract
 	 */
-	public function GetDateSQL(){}
+	public abstract function GetDateSQL();
 	/**
 	 * Returns the last ID inserted into a table by this connection
 	 * @param string the name of the table to get the last inserted ID for
 	 * @return integer the last inserted ID for this table and connection
 	 * @abstract
 	 */
-	public function GetLastInsertID($sTable){}
+	public abstract function GetLastInsertID($sTable);
 	/**
 	 * Convert the date to a predictable format
 	 * @param string expression to use for conversion
@@ -1099,7 +1102,7 @@ abstract class AbstractDbProvider
 	 * @return string SQL fragment to convert the desired expression
 	 * @abstract
 	 */
-	public function ConvertDate($sExpression, $sField){}
+	public abstract function ConvertDate($sExpression, $sField);
 	/**
 	 * Convert the timestamp to a predictable format
 	 * @param string expression to use for conversion
@@ -1107,21 +1110,21 @@ abstract class AbstractDbProvider
 	 * @return string SQL fragment to convert the desired expression
 	 * @abstract
 	 */
-	public function ConvertTimestamp($sExpression, $sField){}
+	public abstract function ConvertTimestamp($sExpression, $sField);
 	/**
 	 * Is this a date field?
 	 * @param string the field to check
 	 * @return boolean true if this is a date field, otherwise false
 	 * @abstract
 	 */
-	public function IsDate($vField){}
+	public abstract function IsDate($vField);
 	/**
 	 * Is this a timestamp field?
 	 * @param string the field to check
 	 * @return boolean true if this is a timestamp field, otherwise false
 	 * @abstract
 	 */
-	public function IsTimestamp($vField){}
+	public abstract function IsTimestamp($vField);
 	/**
 	 * Get the minutes elapsed between two timestamp espressions
 	 * @param string expression to use for beginning date/time
@@ -1130,7 +1133,7 @@ abstract class AbstractDbProvider
 	 * @return string SQL fragment to calculate the time elapsed
 	 * @abstract
 	 */
-	public function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField){}
+	public abstract function GetMinutesElapsedSQL($sBeginDateSQL, $sEndDateSQL, $sAsField);
 
 	// FIXME: Move these to SchemaManager
 	/**
@@ -1138,32 +1141,32 @@ abstract class AbstractDbProvider
 	 * @return boolean true if the server is available, otherwise false
 	 * @abstract
 	 */
-	public function CanConnectServer(){}
+	public abstract function CanConnectServer();
 	/**
 	 * Determine if a database is available
 	 * @return boolean true if the database is available, otherwise false
 	 * @abstract
 	 */
-	public function CanConnectDatabase(){}
+	public abstract function CanConnectDatabase();
 	/**
 	 * Create a new database
 	 * @return ?
 	 * @abstract
 	 */
-	public function CreateDatabase(){}
+	public abstract function CreateDatabase();
 	/**
 	 * Determine if a table exists in the database
 	 * @param string the name of the table to check
 	 * @return boolean true if the table exists, otherwise false
 	 * @abstract
 	 */
-	public function TableExists($sTableName){}
+	public abstract function TableExists($sTableName);
 	/**
 	 * Retrieve a list of index names
 	 * @return array an array of index names
 	 * @abstract
 	 */
-	public function index_names(){}
+	public abstract function index_names();
 	/**
 	 * Determine if a field exists in a table
 	 * @param string the name of the table to check
@@ -1171,5 +1174,5 @@ abstract class AbstractDbProvider
 	 * @return boolean true if the field exists, otherwise false
 	 * @abstract
 	 */
-	public function FieldExists($sTable, $sField){}
+	public abstract function FieldExists($sTable, $sField);
 }

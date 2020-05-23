@@ -7288,7 +7288,7 @@
 				var bDiv = grid.bDiv;
 				// trick to process keydown on non input elements
 				p.knv = p.id + "_kn";
-				var selection = $("<div style='position:fixed;top:0px;width:1px;height:1px;' tabindex='0'><div tabindex='-1' style='width:1px;height:1px;' id='" + p.knv + "'></div></div>");
+				var selection = $("<div style='position:fixed;top:0;width:1px;height:1px;' tabindex='0'><div tabindex='-1' style='width:1px;height:1px;' id='" + p.knv + "'></div></div>");
 				function scrollGrid(iR, iC, tp) {
 					var tr = $t.rows[iR];
 					if (tp.substr(0, 1) === "v") {
@@ -7722,7 +7722,7 @@
 			var dh = isNaN(mopt.dataheight) ? mopt.dataheight : mopt.dataheight + "px",
 				cn = "text-align:" + mopt.align + ";",
 				cnt = "<div id='info_id'>";
-			cnt += "<div id='infocnt' style='margin:0px;padding-bottom:1em;width:100%;overflow:auto;position:relative;height:" + dh + ";" + cn + "'>" + content + "</div>";
+			cnt += "<div id='infocnt' style='margin:0;padding-bottom:1em;width:100%;overflow:auto;position:relative;height:" + dh + ";" + cn + "'>" + content + "</div>";
 			if (closeButtonText || buttstr !== "") {
 				cnt += "<hr class='" + getGuiStyles.call($t, "dialog.hr") + "' style='margin:1px'/><div style='text-align:" + mopt.buttonalign +
 					";padding:.8em 0 .5em 0;background-image:none;border-width: 1px 0 0 0;'>" +
@@ -9739,7 +9739,7 @@
 			}
 			if (p.showQuery) {
 				$(this).append("<table class='queryresult " + dialogContentClass +
-				"' style='display:block;max-width:440px;border:0px none;' dir='" + p.direction + "'><tbody><tr><td class='query'></td></tr></tbody></table>");
+				"' style='display:block;max-width:440px;border:0 none;' dir='" + p.direction + "'><tbody><tr><td class='query'></td></tr></tbody></table>");
 			}
 			/*
 			 *Perform checking.
@@ -9791,7 +9791,7 @@
 			this.createTableForGroup = function (group, parentgroup) {
 				var that = this, i;
 				// this table will hold all the group (tables) and rules (rows)
-				var table = $("<table class='group " + dialogContentClass + "' style='border:0px none;'><tbody></tbody></table>"), align = "left";
+				var table = $("<table class='group " + dialogContentClass + "' style='border:0 none;'><tbody></tbody></table>"), align = "left";
 				// create error message row
 				if (p.direction === "rtl") {
 					align = "right";
@@ -10910,7 +10910,7 @@
 						tmpl += "</select>";
 					}
 
-					bt = "<table class='EditTable' style='border:0px none;margin-top:5px' id='" + fid + "_2'><tbody><tr><td colspan='2'><hr class='" +
+					bt = "<table class='EditTable' style='border:0 none;margin-top:5px' id='" + fid + "_2'><tbody><tr><td colspan='2'><hr class='" +
 						getGuiStyles.call($t, "dialog.hr") + "' style='margin:1px'/></td></tr><tr><td class='EditButton EditButton-" + p.direction + "'  style='float:" + (p.direction === "rtl" ? "right" : "left") + ";'>" + bC + tmpl + "</td><td class='EditButton EditButton-" + p.direction + "'>" + bQ + bS + "</td></tr></tbody></table>";
 					fid = jqID(fid);
 					o.gbox = "#gbox_" + fid;

@@ -204,8 +204,7 @@ class AttributeSetJsHelper
 
 		print("\nvar m$typeid=new Array();\n");
 
-		reset($this->arrSets);
-		while (list($setid, $junk) = each($this->arrSets))
+		foreach ($this->arrSets as $setid => $junk)
 		{
 			$query = "SELECT a.keyid FROM attributesetsmap a, $table b WHERE ";
 			$query .= "a.setid=$setid AND a.typeid=$typeid AND b.id=a.keyid ORDER BY $order";

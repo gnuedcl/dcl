@@ -766,7 +766,7 @@ class boTickets
 		}
 
 		$fieldList = array('priority', 'type', 'account', 'entity_source_id');
-		while (list($key, $field) = each($fieldList))
+		foreach ($fieldList as $key => $field)
 		{
 			$$field = Filter::ToIntArray($$field);
 			if (count($$field) > 0)

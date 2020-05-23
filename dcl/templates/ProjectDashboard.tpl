@@ -4,7 +4,7 @@
 <link type="text/css" rel="stylesheet" href="{$DIR_VENDOR}tagedit/css/jquery.tagedit.css" />
 <style type="text/css">
 	#autocomplete-form p button, #autocomplete-form p ul { float: left; margin-right: 4px; }
-	#autocomplete-form p { margin: 0px; }
+	#autocomplete-form p { margin: 0; }
 	#autocomplete-form p ul { margin-top: 2px; }
 </style>
 {/block}

@@ -205,7 +205,8 @@ abstract class AbstractSqlQueryHelper
 
 		$arrItems = array('vc' => 'columns', 'vch' => 'columnhdrs', 'vg' => 'groups', 'vo' => 'order',
 				'vf' => 'filter', 'vfn' => 'filternot', 'vfd' => 'filterdate', 'vfl' => 'filterlike', 'vfs' => 'filterstart');
-		while (list($attr, $arr) = each($arrItems))
+
+		foreach ($arrItems as $attr => $arr)
 		{
 			if (count($this->$arr) > 0)
 			{
@@ -301,16 +302,22 @@ abstract class AbstractSqlQueryHelper
 				$allFilters = explode(',', $_REQUEST[$urlName]);
 
 				// Get the field
-				while (list($key, $field) = each($allFilters))
+                foreach ($allFilters as $key => $field)
 				{
 					$field = $this->FixName($field);
 
 					// Get how many are in there
-					list($key, $numValues) = each($allFilters);
+                    $key = key($allFilters);
+                    $numValues = current($allFilters);
+                    next($allFilters);
+
 					for ($i = 0; $i < $numValues; $i++)
 					{
 						// Get that many values and store for that field
-						list($key, $value) = each($allFilters);
+                        $key = key($allFilters);
+                        $value = current($allFilters);
+                        next($allFilters);
+
 						$this->AddDef($filterName, $field, $value);
 					}
 				}
@@ -359,16 +366,22 @@ abstract class AbstractSqlQueryHelper
 				$allFilters = explode(',', $$urlName);
 
 				// Get the field
-				while (list($key, $field) = each($allFilters))
+                foreach ($allFilters as $key => $field)
 				{
 					$field = $this->FixName($field);
 
 					// Get how many are in there
-					list($key, $numValues) = each($allFilters);
+                    $key = key($allFilters);
+                    $numValues = current($allFilters);
+                    next($allFilters);
+
 					for ($i = 0; $i < $numValues; $i++)
 					{
 						// Get that many values and store for that field
-						list($key, $value) = each($allFilters);
+                        $key = key($allFilters);
+                        $value = current($allFilters);
+                        next($allFilters);
+
 						$this->AddDef($filterName, $field, $value);
 					}
 				}
@@ -440,7 +453,7 @@ abstract class AbstractSqlQueryHelper
 		{
 			if ($appendTableForJoin == true && count($this->joins) > 0)
 			{
-				while (list($key, $field) = each($arr))
+			    foreach ($arr as $key => $field)
 				{
 					if ($retVal != '')
 						$retVal .= ',';
@@ -1241,8 +1254,7 @@ abstract class AbstractSqlQueryHelper
 				$sql .= ' AND ';
 
 			$bFirst = true;
-			reset($this->filternot);
-			while (list($field, $values) = each($this->filternot))
+			foreach ($this->filternot as $field => $values)
 			{
 				// prepend table name if not specified to avoid ambiguity
 				if (mb_strpos($field, '.') < 1)

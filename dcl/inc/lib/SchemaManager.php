@@ -38,9 +38,8 @@
 
 			$this->m_aTables = $aTables;
 
-			reset($this->m_aTables);
 			$sAllTableSQL = '';
-			while (list($sTableName, $aTableDef) = each($this->m_aTables))
+			foreach ($this->m_aTables as $sTableName => $aTableDef)
 			{
 				$sSequenceSQL = '';
 				if($this->_GetTableSQL($sTableName, $aTableDef, $sTableSQL, $sSequenceSQL))
@@ -84,7 +83,7 @@
 			reset($aTables);
 			$this->m_aTables = $aTables;
 
-			while(list($sTableName, $aTableDef) = each($aTables))
+			foreach ($aTables as $sTableName => $aTableDef)
 			{
 				if($this->CreateTable($sTableName, $aTableDef))
 				{
@@ -116,8 +115,7 @@
 
 			$this->m_aTables = $aTables;
 
-			reset($this->m_aTables);
-			while(list($sTableName, $aTableDef) = each($this->m_aTables))
+			foreach ($this->m_aTables as $sTableName => $aTableDef)
 			{
 				if($this->DropTable($sTableName))
 				{
@@ -330,8 +328,7 @@
 			}
 
 			$sTableSQL = '';
-			reset($aTableDef['fd']);
-			while(list($sFieldName, $aFieldAttr) = each($aTableDef['fd']))
+			foreach ($aTableDef['fd'] as $sFieldName => $aFieldAttr)
 			{
 				$sFieldSQL = '';
 				if($this->_GetFieldSQL($aFieldAttr, $sFieldSQL))
@@ -380,8 +377,7 @@
 				if (!isset($aTableDef['uc'][0]))
 				{
 					// allow array of unique constraints
-					reset($aTableDef['uc']);
-					while (list($ucName, $ucFieldSpec) = each($aTableDef['uc']))
+                    foreach ($aTableDef['uc'] as $ucName => $ucFieldSpec)
 					{
 						if ($sUCSQL != '')
 							$sUCSQL .= ",\n";
@@ -437,8 +433,7 @@
 			$sDefault = '';
 			$bNullable = true;
 
-			reset($aField);
-			while(list($sAttr, $vAttrVal) = each($aField))
+			foreach ($aField as $sAttr => $vAttrVal)
 			{
 				switch ($sAttr)
 				{
@@ -498,8 +493,7 @@
 			}
 
 			$sFields = '';
-			reset($aFields);
-			while(list($key, $sField) = each($aFields))
+			foreach ($aFields as $key => $sField)
 			{
 				if($sFields != '')
 				{
@@ -522,8 +516,7 @@
 			}
 
 			$sFields = '';
-			reset($aFields);
-			while(list($key,$sField) = each($aFields))
+			foreach ($aFields as $key => $sField)
 			{
 				if($sFields != '')
 				{

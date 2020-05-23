@@ -22,8 +22,6 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
-@set_magic_quotes_runtime(0);
-
 class TextSanitizer
 {
 
@@ -61,23 +59,12 @@ class TextSanitizer
 
 	function &addSlashes($text, $force=false)
 	{
-		if ($force) {
-			return addslashes($text);
-		}
-		if (!get_magic_quotes_gpc()) {
-			$text =& addslashes($text);
-		}
+		$text =& addslashes($text);
 		return $text;
 	}
 
-	/*
-	* if magic_quotes_gpc is on, stirip back slashes
-	*/
 	function &stripSlashesGPC($text)
 	{
-		if (get_magic_quotes_gpc()) {
-			$text =& stripslashes($text);
-		}
 		return $text;
 	}
 
@@ -213,7 +200,6 @@ class TextSanitizer
 
 	function makeTareaData4PreviewInForm($text)
 	{
-		//if magic_quotes_gpc is on, do stipslashes
 		$text = $this->stripSlashesGPC($text);
 		return htmlSpecialChars($text, ENT_QUOTES, 'UTF-8');
 	}
@@ -230,9 +216,6 @@ class TextSanitizer
 
 	function &oopsStripSlashesRT($text)
 	{
-		if (get_magic_quotes_runtime()) {
-			$text =& stripslashes($text);
-		}
 		return $text;
 	}
 

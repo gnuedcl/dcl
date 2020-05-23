@@ -20,6 +20,13 @@
  * Select License Info from the Help menu to view the terms and conditions of this license.
  */
 
+$dcl_info = [
+    'DCL_TIMESTAMP_FORMAT_DB' => 'Y-m-d H:i:s',
+    'DCL_TIMESTAMP_FORMAT' => 'Y-m-d H:i:s',
+    'DCL_DATE_FORMAT_DB' => 'Y-m-d',
+    'DCL_DATE_FORMAT' => 'Y-m-d'
+];
+
 require_once('login.php');
 
 if ($g_oSession->Value('ForcePasswordChange') == '1' && (!isset($_REQUEST['menuAction']) || $_REQUEST['menuAction'] != 'Personnel.ForcePasswordChangePost'))

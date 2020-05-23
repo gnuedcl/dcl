@@ -62,7 +62,7 @@ a.dcl-tag, span.dcl-tag, a.dcl-hotlist, span.dcl-hotlist
 
 dd.status-type-1, dd.status-type-2, dd.status-type-3
 {
-	border-bottom: none 0px;
+	border-bottom: none 0;
 }
 
 #content {
@@ -169,7 +169,7 @@ span.task_audit {
 
 ul.sortable {
 	list-style-type: none;
-	margin: 0px;
+	margin: 0;
 }
 
 ul.sortable li {
@@ -263,7 +263,7 @@ span.error
 	}
 
 	body {
-		padding-top: 0px;
+		padding-top: 0;
 	}
 
 	.noprint
@@ -282,10 +282,10 @@ span.error
 	}
 	
 	#content {
-		margin-left: 0px;
+		margin-left: 0;
 		overflow: visible;
 		height: auto;
-		padding-top: 0px;
+		padding-top: 0;
 	}
 
 	#content p.visible-xs {
@@ -362,7 +362,7 @@ div.panel div.panel-heading h3 {
 }
 
 #dcl-main-nav-bar.navbar {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 .ui-jqgrid table a.btn {

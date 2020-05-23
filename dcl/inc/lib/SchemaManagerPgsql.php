@@ -375,7 +375,7 @@
 				$sSQL .= ') VALUES (';
 
 				$i = 0;
-				foreach($aTables[$sDest]['fd'] as $name => $arraydef)
+				foreach ($aTables[$sDest]['fd'] as $name => $arraydef)
 				{
 					if ($i++ > 0)
 					{
@@ -615,7 +615,7 @@
 			}
 
 			$indexnames = $oProc->m_odb->index_names();
-			while(list($key,$val) = @each($indexnames))
+			foreach ($indexnames as $key => $val)
 			{
 				$indexes[] = $val['index_name'];
 			}
@@ -811,7 +811,7 @@
 		
 		public function CreateIndex($oProc, $aTables, $sTableName, $sIndexName, $aColumns)
 		{
-			$sColumns = join($aColumns, ',');
+			$sColumns = join(',', $aColumns);
 			$sSQL = "CREATE INDEX $sIndexName ON $sTableName ($sColumns)";
 			
 			return ($oProc->m_odb->Query($sSQL) != -1);

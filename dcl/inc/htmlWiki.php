@@ -262,7 +262,7 @@ class htmlWiki
 		$indent_list[0] = 0;
 		$indent_type[0] = "";
 
-		while (list(, $line) = each($aText))
+		foreach ($aText as $line)
 		{
 			// {{{ and }}} start and end code blocks (preformatted text) ala MoinMoin
 			$line = chop($line);

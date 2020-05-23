@@ -290,28 +290,11 @@ function UseHttps()
 
 function GPCStripSlashes($thisString)
 {
-	if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() == 0)
-		return $thisString;
-
-	return stripslashes($thisString);
+	return $thisString;
 }
 
 function CleanArray(&$aArray)
 {
-	if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() == 0)
-		return;
-
-	foreach ($aArray as $k => $v)
-	{
-		if (!is_array($aArray[$k]))
-		{
-			$aArray[$k] = GPCStripSlashes($aArray[$k]);
-		}
-		else
-		{
-		    CleanArray($aArray[$k]);
-		}
-	}
 }
 
 function GetPrefLang()

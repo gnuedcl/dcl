@@ -101,8 +101,7 @@ class htmlTicketSearches
 
 		if ($bView)
 		{
-			reset($oView->filter);
-			while (list($field, $values) = each($oView->filter))
+			foreach ($oView->filter as $field => $values)
 			{
 				if (mb_substr($field, 1) == '.department')
 				{
@@ -290,8 +289,7 @@ class htmlTicketSearches
 			{
 				$fromDate = '';
 				$toDate = '';
-				reset($oView->filterdate);
-				while (list($field, $values) = each($oView->filterdate))
+				foreach ($oView->filterdate as $field => $values)
 				{
 					$t->assign('CHK_' . mb_strtoupper($field), ' CHECKED');
 					$fromDate = $values[0];

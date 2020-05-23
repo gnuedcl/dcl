@@ -48,7 +48,7 @@ class HotlistModel extends DbProvider
 			return null;
 
 		$sTagValues = '';
-		foreach($aTags as $sTag)
+		foreach ($aTags as $sTag)
 		{
 			$sTag = trim($sTag);
 			if ($sTag == '')
@@ -112,7 +112,7 @@ class HotlistModel extends DbProvider
 			return '-1';
 			
 		$sTagValues = '';
-		foreach($aTags as $sTag)
+		foreach ($aTags as $sTag)
 		{
 			$sTag = trim($sTag);
 			if ($sTag == '')

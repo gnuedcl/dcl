@@ -46,7 +46,7 @@
 		public function _GetColumns($oProc, &$aTables, $sTableName, &$sColumns, $sDropColumn='')
 		{
 			$sColumns = '';
-			while(list($sName, $aJunk) = each($aTables[$sTableName]['fd']))
+			foreach ($aTables[$sTableName]['fd'] as $sName => $aJunk)
 			{
 				if($sColumns != '')
 				{
@@ -110,7 +110,7 @@
 		public function RenameTable($oProc, &$aTables, $sOldTableName, $sNewTableName)
 		{
 			$aNewTables = array();
-			while(list($sTableName, $aTableDef) = each($aTables))
+			foreach ($aTables as $sTableName => $aTableDef)
 			{
 				if($sTableName == $sOldTableName)
 				{
@@ -132,8 +132,7 @@
 			if (isset($aTables[$sTableName]))
 			{
 				$aNewTableDef = array();
-				reset($aTables[$sTableName]['fd']);
-				while(list($sColumnName, $aColumnDef) = each($aTables[$sTableName]['fd']))
+				foreach ($aTables[$sTableName]['fd'] as $sColumnName => $aColumnDef)
 				{
 					if($sColumnName == $sOldColumnName)
 					{
@@ -147,8 +146,7 @@
 
 				$aTables[$sTableName]['fd'] = $aNewTableDef;
 
-				reset($aTables[$sTableName]['pk']);
-				while(list($key, $sColumnName) = each($aTables[$sTableName]['pk']))
+				foreach ($aTables[$sTableName]['pk'] as $key => $sColumnName)
 				{
 					if($sColumnName == $sOldColumnName)
 					{
@@ -156,8 +154,7 @@
 					}
 				}
 
-				reset($aTables[$sTableName]['uc']);
-				while(list($key, $sColumnName) = each($aTables[$sTableName]['uc']))
+				foreach ($aTables[$sTableName]['uc'] as $key => $sColumnName)
 				{
 					if($sColumnName == $sOldColumnName)
 					{

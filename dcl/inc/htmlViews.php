@@ -145,7 +145,7 @@ class htmlViews
 		$viewUrl = '';
 		$objView = new boView();
 		$o = new PersonnelModel();
-		while (list($key, $val) = each($objView->urlpieces))
+		foreach ($objView->urlpieces as $key => $val)
 		{
 			if (IsSet($_REQUEST[$val]))
 				$viewUrl .= sprintf('<input type="hidden" name="%s" value="%s">', $val, htmlspecialchars($o->GPCStripSlashes($_REQUEST[$val]), ENT_QUOTES, 'UTF-8'));

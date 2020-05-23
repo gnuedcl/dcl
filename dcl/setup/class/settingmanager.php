@@ -152,7 +152,7 @@ class setting_manager {
                     <td class='even'>
                         <select  size='1' name='dbType' id='dbType'>";
         $dblist = $this->getDBList();
-        foreach($dblist as $val){
+        foreach ($dblist as $val){
             $ret .= "<option value='$val'";
             if($val == $this->dbType) $ret .= " selected='selected'";
             $ret .= "'>$val</option>";

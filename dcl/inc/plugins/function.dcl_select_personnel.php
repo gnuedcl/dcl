@@ -28,7 +28,7 @@ function smarty_function_dcl_select_personnel($params, &$smarty)
 	if (!isset($params['id']))
 		$params['id'] = $params['name'];
 
-	if (!isset($params['default']) || (is_array($params['default'] && count($params['default']) == 0)))
+	if (!isset($params['default']) || (is_array($params['default']) && count($params['default']) == 0))
 		$params['default'] = '';
 
 	$params['active'] = (!isset($params['active']) || $params['active'] == true) ? 'Y' : 'N';

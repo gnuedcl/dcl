@@ -40,7 +40,7 @@ class htmlWatches
 		$obj = new WatchesModel();
 
 		$retVal = "<select class=\"form-control\" id=\"$id\" name=\"$id\">";
-		while (list($key, $val) = each($obj->arrActions))
+		foreach ($obj->arrActions as $key => $val)
 		{
 			$retVal .= "<option value=\"$key\"";
 			if ($key == $default)
@@ -101,7 +101,10 @@ class htmlWatches
 			$obj->GetRow();
 			array_push($aRecord, $obj->arrTypeid[$obj->typeid]);
 
-			list($summary, $link) = each($this->GetMyViewLinkAndDescription($obj));
+			$viewInfo = $this->GetMyViewLinkAndDescription($obj);
+			$summary = key($viewInfo);
+			$link = current($viewInfo);
+			next($viewInfo);
 			
 			array_push($aRecord, $summary);
 			array_push($aRecord, $obj->arrActions[$obj->actions]);

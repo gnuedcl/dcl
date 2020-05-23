@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="{$DIR_CSS}default.css" />
-		<style>body{ padding-top:0px; }</style>
+		<style>body{ padding-top:0; }</style>
 		<script language="JavaScript">
 			var oLastButton = null;
 			var sStartsWith = '';

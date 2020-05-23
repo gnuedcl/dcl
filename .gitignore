@@ -2,3 +2,5 @@
 *.DS_Store
 config.php
 phing-latest.phar
+dcl/templates/templates_c/*.php
+postgresql-data

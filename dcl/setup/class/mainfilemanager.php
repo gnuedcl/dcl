@@ -72,7 +72,7 @@ class mainfile_manager
         $content = fread($file, filesize($this->distfile));
         fclose($file);
 
-        foreach($this->rewrite as $key => $val)
+        foreach ($this->rewrite as $key => $val)
 		{
 			if (preg_match('/{VAL_' . $key . '}/', $content))
 			{

@@ -31,7 +31,17 @@ class TimestampHelper
 		global $dcl_info;
 
 		$this->time = 0;
-		$this->SetDBFormat($dcl_info['DCL_TIMESTAMP_FORMAT_DB']);
+        if (!is_array($dcl_info))
+        {
+            $dcl_info = [];
+        }
+
+		if (!array_key_exists('DCL_TIMESTAMP_FORMAT_DB', $dcl_info) || !isset($dcl_info['DCL_TIMESTAMP_FORMAT_DB']))
+        {
+            $dcl_info['DCL_TIMESTAMP_FORMAT_DB'] = 'Y-m-d H:i:s';
+        }
+
+        $this->SetDBFormat($dcl_info['DCL_TIMESTAMP_FORMAT_DB']);
 	}
 
 	public function SetDBFormat($fmtString)
@@ -202,6 +212,16 @@ class DateHelper extends TimestampHelper
 		global $dcl_info;
 
 		$this->time = 0;
+		if (!is_array($dcl_info))
+        {
+            $dcl_info = [];
+        }
+
+        if (!array_key_exists('DCL_DATE_FORMAT_DB', $dcl_info) || !isset($dcl_info['DCL_DATE_FORMAT_DB']))
+        {
+            $dcl_info['DCL_DATE_FORMAT_DB'] = 'Y-m-d';
+        }
+
 		$this->SetDBFormat($dcl_info['DCL_DATE_FORMAT_DB']);
 	}
 

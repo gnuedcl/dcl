@@ -67,7 +67,7 @@ class TagModel extends DbProvider
 			return '-1';
 			
 		$sTagValues = '';
-		foreach($aTags as $sTag)
+		foreach ($aTags as $sTag)
 		{
 			$sTag = trim($sTag);
 			if ($sTag == '')

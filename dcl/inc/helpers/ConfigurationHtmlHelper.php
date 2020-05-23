@@ -44,8 +44,7 @@ class ConfigurationHtmlHelper
 
 		if (is_array($aOptions))
 		{
-			reset($aOptions);
-			while (list($key, $val) = each($aOptions))
+		    foreach ($aOptions as $key => $val)
 			{
 				$retVal .= '<option value="' . $key . '"';
 				if ($key == $sDefault)

@@ -25,7 +25,7 @@ class DCLDataImport
 	var $oDB;
 	var $hFile;
 
-	function DCLDataImport()
+	function __construct()
 	{
 		$this->hFile = null;
 
@@ -56,8 +56,7 @@ class DCLDataImport
 				$aFields = $aRow;
 				$sCols = '';
 
-				reset($aRow);
-				while (list(, $sField) = each($aRow))
+				foreach ($aRow as $key => $sField)
 				{
 					if ($sCols != '')
 						$sCols .= ', ';

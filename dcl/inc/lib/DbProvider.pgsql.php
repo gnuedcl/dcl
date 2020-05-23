@@ -202,13 +202,16 @@ class DbProvider extends AbstractDbProvider
 	{
 		$retVal = null;
 
-		$res = pg_Exec($this->conn, $sql);
-		if ($res)
-		{
-			$Record = @pg_fetch_array($res, 0);
-			$retVal = $Record[0];
-			pg_freeresult($res);
-		}
+		if ($this->conn)
+        {
+            $res = pg_Exec($this->conn, $sql);
+            if ($res)
+            {
+                $Record = @pg_fetch_array($res, 0);
+                $retVal = $Record[0];
+                pg_freeresult($res);
+            }
+        }
 
 		return $retVal;
 	}

@@ -2,10 +2,10 @@
 {block name=title}Prioritize Hotlist [{$VAL_HOTLIST_NAME|escape}]{/block}
 {block name=css}
 	<style type="text/css">
-		ol { padding: 0px; list-style-type: none; }
+		ol { padding: 0; list-style-type: none; }
 		ol li { margin-bottom: 4px; background-color: #efefef; border: solid #999999 1px; padding: 4px; cursor: move; }
 		ol li input.item-index { width: 50px; }
-		ol li span.item-description { border: solid #cecece 1px; background-color: #ffffff; margin: 0px; padding: 2px; }
+		ol li span.item-description { border: solid #cecece 1px; background-color: #ffffff; margin: 0; padding: 2px; }
 		div.scrollable { overflow: auto; }
 	</style>
 {/block}

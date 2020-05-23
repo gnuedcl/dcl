@@ -262,7 +262,7 @@ class ProjectsModel extends DbProvider
 		{
 			$projectModel = new ProjectsModel();
 			$projectPath = explode(',', $projectModel->GetProjectParents($projectMapModel->projectid, true));
-			while (list($key, $projectId) = each($projectPath))
+			foreach ($projectPath as $key => $projectId)
 			{
 				$projectModel->Load(array('projectid' => $projectId));
 				$projects[] = array('project_id' => $projectId, 'name' => $projectModel->name);

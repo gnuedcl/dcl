@@ -107,7 +107,7 @@ class boView
 					if (count($value) > 0)
 					{
 						$retVal .= $key . ',' . count($value);
-						foreach ($value as $key => $realVal)
+						foreach ($value as $realKey => $realVal)
 						{
 							if ($encode)
 								$retVal .= ',' . rawurlencode($realVal);
@@ -186,7 +186,7 @@ class boView
 
 		$arrItems = array('vc' => 'columns', 'vch' => 'columnhdrs', 'vg' => 'groups', 'vo' => 'order',
 				'vf' => 'filter', 'vfn' => 'filternot', 'vfd' => 'filterdate', 'vfl' => 'filterlike', 'vfs' => 'filterstart');
-		while (list($attr, $arr) = each($arrItems))
+		foreach ($arrItems as $attr => $arr)
 		{
 			if (count($this->$arr) > 0)
 			{
@@ -282,16 +282,20 @@ class boView
 				$allFilters = explode(',', $_REQUEST[$urlName]);
 
 				// Get the field
-				while (list($key, $field) = each($allFilters))
+                foreach ($allFilters as $key => $field)
 				{
 					$field = $this->FixName($field);
 					
 					// Get how many are in there
-					list($key, $numValues) = each($allFilters);
+                    $numValues = current($allFilters);
+                    next($allFilters);
+
 					for ($i = 0; $i < $numValues; $i++)
 					{
 						// Get that many values and store for that field
-						list($key, $value) = each($allFilters);
+                        $value = current($allFilters);
+                        next($allFilters);
+
 						$this->AddDef($filterName, $field, $value);
 					}
 				}
@@ -340,18 +344,22 @@ class boView
 				$allFilters = explode(',', $$urlName);
 
 				// Get the field
-				while (list($key, $field) = each($allFilters))
+                foreach ($allFilters as $key => $field)
 				{
 					$field = $this->FixName($field);
 
-					// Get how many are in there
-					list($key, $numValues) = each($allFilters);
-					for ($i = 0; $i < $numValues; $i++)
-					{
-						// Get that many values and store for that field
-						list($key, $value) = each($allFilters);
-						$this->AddDef($filterName, $field, $value);
-					}
+                    // Get how many are in there
+                    $numValues = current($allFilters);
+                    next($allFilters);
+
+                    for ($i = 0; $i < $numValues; $i++)
+                    {
+                        // Get that many values and store for that field
+                        $value = current($allFilters);
+                        next($allFilters);
+
+                        $this->AddDef($filterName, $field, $value);
+                    }
 				}
 			}
 		}
@@ -437,7 +445,7 @@ class boView
 		{
 			if ($appendTableForJoin == true && count($this->joins) > 0)
 			{
-				while (list($key, $field) = each($arr))
+			    foreach ($arr as $key => $field)
 				{
 					if ($retVal != '')
 						$retVal .= ',';
@@ -564,7 +572,6 @@ class boView
 
 		if (count($arr) > 0)
 		{
-			$joinon = '';
 			$i = 0;
 			foreach ($arr as $key => $field)
 			{
@@ -575,7 +582,7 @@ class boView
 
 				if (mb_strpos($field, '.') > 0)
 				{
-					list($table, $tablefield) = explode('.', $field);
+					list($table, ) = explode('.', $field);
 					if ($table == $this->table)
 						continue;
 
@@ -1301,8 +1308,7 @@ class boView
 				$sql .= ' AND ';
 
 			$bFirst = true;
-			reset($this->filternot);
-			while (list($field, $values) = each($this->filternot))
+			foreach ($this->filternot as $field => $values)
 			{
 				// prepend table name if not specified to avoid ambiguity
 				if (mb_strpos($field, '.') < 1)
@@ -1490,7 +1496,8 @@ class boView
 				case 'workorders':
 				case 'tickets':
 					$sql .= " AND products.is_public = 'Y'";
-					// fall through to add public filter to table
+                    $sql .= ' AND ' . $this->table . ".is_public = 'Y'";
+                    break;
 				case 'products':
 				case 'timecards':
 				case 'ticketresolutions':
@@ -1617,7 +1624,10 @@ class boView
 		{
 			$sql .= ' ORDER BY ';
 			if (count($this->order) > 0 && count($this->groups) > 0)
-				$sql .= $this->GetCSLFromArray(array_merge($this->groups, $this->order), true, false, true);
+            {
+                $groupsAndOrder = array_merge($this->groups, $this->order);
+                $sql .= $this->GetCSLFromArray($groupsAndOrder, true, false, true);
+            }
 			else if (count($this->groups) > 0)
 				$sql .= $this->GetCSLFromArray($this->groups, true, false, true);
 			else
