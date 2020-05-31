@@ -162,8 +162,6 @@ abstract class AbstractDbProvider
 		return $this->Record[$sName];
 	}
 
-	public abstract function GetField($thisField);
-
 	/**
 	 * Tests if a field value is NULL
 	 * @param string|integer The field to test for the presence of NULL
